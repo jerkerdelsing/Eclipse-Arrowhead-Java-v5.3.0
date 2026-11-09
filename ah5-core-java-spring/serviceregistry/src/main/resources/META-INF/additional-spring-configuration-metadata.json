@@ -1,0 +1,122 @@
+{"properties": [
+  {
+    "name": "domain.name",
+    "type": "java.lang.String",
+    "description": "A description for 'domain.name'"
+  },
+  {
+    "name": "log.all.request.and.response",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'log.all.request.and.response'"
+  },
+  {
+    "name": "authentication.policy",
+    "type": "eu.arrowhead.common.http.filter.authentication.AuthenticationPolicy",
+    "description": "A description for 'authentication.policy'"
+  },
+  {
+    "name": "authenticator.secret.keys",
+    "type": "java.lang.String",
+    "description": "A description for 'authenticator.secret.keys'"
+  },
+  {
+    "name": "enable.management.filter",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.management.filter'"
+  },
+  {
+    "name": "management.policy",
+    "type": "eu.arrowhead.common.http.filter.authorization.ManagementPolicy",
+    "description": "A description for 'management.policy'"
+  },
+  {
+    "name": "management.whitelist",
+    "type": "java.util.List",
+    "description": "A description for 'management.whitelist'"
+  },
+  {
+    "name": "enable.blacklist.filter",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.blacklist.filter'"
+  },
+  {
+    "name": "service.discovery.policy",
+    "type": "eu.arrowhead.serviceregistry.service.ServiceDiscoveryPolicy",
+    "description": "A description for 'service.discovery.policy'"
+  },
+  {
+    "name": "service.discovery.direct.access",
+    "type": "java.util.List",
+    "description": "A description for 'service.discovery.direct.access'"
+  },
+  {
+    "name": "service.discovery.interface.policy",
+    "type": "eu.arrowhead.serviceregistry.service.ServiceDiscoveryInterfacePolicy",
+    "description": "A description for 'service.discovery.interface.policy'"
+  },
+  {
+    "name": "allow.self.addressing",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'allow.self.addressing'"
+  },
+  {
+    "name": "allow.non.routable.addressing",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'allow.non.routable.addressing'"
+  },
+  {
+    "name": "discovery.verbose",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'discovery.verbose'"
+  },
+  {
+    "name": "mqtt.api.enabled",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'mqtt.api.enabled'"
+  },
+  {
+    "name": "mqtt.broker.address",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.broker.address'"
+  },
+  {
+    "name": "mqtt.broker.port",
+    "type": "java.lang.Integer",
+    "description": "A description for 'mqtt.broker.port'"
+  },
+  {
+    "name": "mqtt.client.password",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.client.password'"
+  },
+  {
+    "name": "disable.hostname.verifier",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'disable.hostname.verifier'"
+  },
+  {
+    "name": "force.blacklist.filter",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'force.blacklist.filter'"
+  },
+  {
+    "name": "authenticator.credentials",
+    "type": "java.lang.String",
+    "description": "A description for 'authenticator.credentials'"
+  },
+  {
+    "name": "service.address.alias",
+    "type": "java.util.List",
+    "description": "A description for 'service.address.alias'"
+  },
+  {
+    "name": "normalization.mode",
+    "type": "eu.arrowhead.common.service.normalization.NormalizationMode",
+    "description": "A description for 'normalization.mode'"
+  },
+  {
+    "name": "blacklist.check.exclude.list",
+    "type": "java.util.List",
+    "description": "A description for 'blacklist.check.exclude.list'"
+  }
+]}

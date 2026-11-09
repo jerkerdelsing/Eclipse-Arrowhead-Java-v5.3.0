@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS `qos_eval_result` (
   CONSTRAINT `fk_job_qos_id` FOREIGN KEY (`orchestration_job_id`) REFERENCES `orchestration_job` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-GRANT ALL PRIVILEGES ON `ah_serviceorchestration_dynamic`.`qos_eval_result` TO 'serviceorchestration-dynamic'@'localhost';
-GRANT ALL PRIVILEGES ON `ah_serviceorchestration_dynamic`.`qos_eval_result` TO 'serviceorchestration-dynamic'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `ah_serviceorchestration_dynamic`.`qos_eval_result` TO 'serviceorchestration-dynamic'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `ah_serviceorchestration_dynamic`.`qos_eval_result` TO 'serviceorchestration-dynamic'@'%';

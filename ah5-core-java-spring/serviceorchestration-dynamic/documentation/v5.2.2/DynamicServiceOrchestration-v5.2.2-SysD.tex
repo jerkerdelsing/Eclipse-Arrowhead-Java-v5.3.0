@@ -1,0 +1,258 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{DynamicServiceOrchestration}
+\ArrowheadType{System Description}
+\ArrowheadTypeShort{SysD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-11-07}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the DynamicServiceOrchestration core system of the Eclipse Arrowhead 5.2.2 framework, as implemented in Java Spring in \texttt{ah5-core-java-spring/serviceorchestration-dynamic}, including the local extensions of this workspace.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the DynamicServiceOrchestration system. Dynamic\allowbreak{}Service\allowbreak{}Orchestration finds, at request time, the providers a consumer shall use. It discovers candidates in the ServiceRegistry, keeps only the authorized, not blacklisted and not locked ones with matching interfaces, applies preferences, QoS requirements, matchmaking and exclusivity, obtains the authorization tokens the providers require, and returns the result; it also pushes results to subscribers. In this workspace it extends orchestration to neighbour clouds through the Gatekeeper, and enforces the active-plant consumer/service scopes submitted by Plant\allowbreak{}Description\allowbreak{}Engine.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small, >=Stealth]
+    \node[draw=ArrowheadBlue, very thick, minimum width=4.2cm, minimum height=2.2cm, align=center, fill=ArrowheadBlue!10] (s)
+      {\guillemotleft{}System\guillemotright{}\\\textbf{DynamicServiceOrchestration}};
+    \node[draw=ArrowheadTeal, rectangle, align=left, left=1.3cm of s, text width=4.6cm, inner sep=5pt] (p)
+      {\textbf{Produced services}\\ \texttt{service\allowbreak{}Orchestration}\\ \texttt{service\allowbreak{}Orchestration\allowbreak{}Push\allowbreak{}Management}\\ \texttt{service\allowbreak{}Orchestration\allowbreak{}Lock\allowbreak{}Management}\\ \texttt{service\allowbreak{}Orchestration\allowbreak{}History\allowbreak{}Management}\\ \texttt{service\allowbreak{}Orchestration\allowbreak{}Plant\allowbreak{}Management}\\ \texttt{generalManagement}\\ \texttt{sysMonitor}};
+    \node[draw=ArrowheadOrange, rectangle, align=left, right=1.3cm of s, text width=4.6cm, inner sep=5pt] (c)
+      {\textbf{Consumed}\\ AMQP broker (SysMonitor)\\ Authentication\\ Blacklist\\ ConsumerAuthorization\\ DeviceQoSEvaluator\\ Gatekeeper\\ ServiceRegistry\\ Subscribers\\ TranslationManager};
+    \draw[->, thick, ArrowheadTeal] (s) -- (p);
+    \draw[->, thick, ArrowheadOrange] (s) -- (c);
+  \end{tikzpicture}
+  \caption{SysML-style block view of DynamicServiceOrchestration with its produced and consumed services.}
+  \label{fig:system}
+\end{figure}
+
+The rest of this document is organized as follows.
+In Section \ref{sec:prior_art}, we reference major prior art capabilities of the system.
+In Section \ref{sec:use}, we describe the intended usage of the system.
+In Section \ref{sec:properties}, we describe fundamental properties provided by the system.
+In Section \ref{sec:delimitations}, we describe delimitations of capabilities of the system.
+In Section \ref{sec:services}, we describe the abstract service functions consumed or produced by the system.
+In Section \ref{sec:security}, we describe the security capabilities of the system.
+
+\newpage
+
+\subsection{Significant Prior Art}
+\label{sec:prior_art}
+
+Successor of the dynamic orchestration of the Arrowhead 4.x Orchestrator. Arrowhead 5 adds operation-level requirements, metadata and interface property requirements, exclusivity with locks, QoS through Device\allowbreak{}Qo\allowbreak{}SEvaluator, interface translation through Translation\allowbreak{}Manager, and push orchestration with subscriptions.
+
+\subsection{How This System Is Meant to Be Used}
+\label{sec:use}
+
+A consumer calls \texttt{service\allowbreak{}Orchestration.\allowbreak{}pull} with the service definition and, optionally, operations, versions, interface templates, metadata requirements, preferred providers, flags, QoS requirements and an exclusivity duration. It uses the returned interface (and token) to call the provider. Support systems manage push subscriptions, locks and history with the management services. All Java systems of this workspace reach non-bootstrap services by pulling from Dynamic\allowbreak{}Service\allowbreak{}Orchestration (\texttt{http.\allowbreak{}collector.\allowbreak{}mode=\allowbreak{}ORCHESTRATION}).
+
+\subsection{System functionalities and properties}
+\label{sec:properties}
+
+\subsubsection{Functional properties of the system}
+
+\begin{itemize}
+  \item Pull orchestration with the flags \texttt{MATCHMAKING}, \texttt{ONLY\_\allowbreak{}PREFERRED}, \texttt{ONLY\_\allowbreak{}EXCLUSIVE}, \texttt{ALLOW\_\allowbreak{}TRANSLATION}, \texttt{ALLOW\_\allowbreak{}INTERCLOUD}, \texttt{ONLY\_\allowbreak{}INTERCLOUD}.
+  \item Authorization cross-check (\texttt{authorization\allowbreak{}Management.\allowbreak{}check-\allowbreak{}policies}) and token generation (\texttt{authorization\allowbreak{}Token\allowbreak{}Management.\allowbreak{}generate-\allowbreak{}tokens}).
+  \item Blacklist cross-check, QoS evaluation (Device\allowbreak{}Qo\allowbreak{}SEvaluator), interface translation (Translation\allowbreak{}Manager), each optional.
+  \item Exclusive reservation of providers with orchestration locks.
+  \item Push orchestration: subscriptions, triggers, worker threads sending results to HTTP(S) or MQTT(S) notify interfaces.
+  \item Orchestration history of every pull and push job; in this workspace with the selected providers in the job message.
+  \item Inter-cloud orchestration through the local Gatekeeper (\texttt{global\allowbreak{}Service\allowbreak{}Discovery.\allowbreak{}query}, \texttt{inter\allowbreak{}Cloud\allowbreak{}Negotiation.\allowbreak{}negotiate}; local extension).
+\end{itemize}
+
+\subsubsection{Configuration of system properties}
+
+The system is configured with Spring properties (\texttt{application.properties}, overridden by environment variables in the container deployment). The properties that shape its behaviour are:
+
+\noindent\begin{longtable}{| p{5.4cm} | p{3.4cm} | p{6.4cm} |} \hline
+\rowcolor{gray!33} Property & Default & Meaning \\ \hline \endhead
+\texttt{server.\allowbreak{}port} & 8441 & HTTPS port. \\ \hline
+\texttt{authentication.\allowbreak{}policy} & declared & Test cloud: \texttt{outsourced}. \\ \hline
+\texttt{arrowhead.\allowbreak{}security.\allowbreak{}profile} & secure & \texttt{development} selects the isolated development exception; never set in a deployment. \\ \hline
+\texttt{management.\allowbreak{}policy} / \texttt{management.\allowbreak{}whitelist} & authorization & Access to the management services. \\ \hline
+\texttt{enable.\allowbreak{}authorization} & true & Authorization cross-check and token generation. \\ \hline
+\texttt{enable.\allowbreak{}blacklist.\allowbreak{}filter} / \texttt{force.\allowbreak{}blacklist.\allowbreak{}filter} & false / true & Blacklist filter and cross-check (test cloud: true). \\ \hline
+\texttt{enable.\allowbreak{}qos} & false & QoS evaluation with Device\allowbreak{}Qo\allowbreak{}SEvaluator. \\ \hline
+\texttt{enable.\allowbreak{}translation} & false & Interface translation with Translation\allowbreak{}Manager. \\ \hline
+\texttt{enable.\allowbreak{}intercloud} & false & Inter-cloud orchestration through the Gatekeeper (test cloud: true). \\ \hline
+\texttt{http.\allowbreak{}collector.\allowbreak{}bootstrap.\allowbreak{}services} & SR services, identity, service\allowbreak{}Orchestration, authorization*, blacklist* & Services looked up in the ServiceRegistry instead of orchestrated (local). \\ \hline
+\texttt{orchestration.\allowbreak{}history.\allowbreak{}max.\allowbreak{}age} & 15 & Days the history is kept. \\ \hline
+\texttt{cleaner.\allowbreak{}job.\allowbreak{}interval} & 30000 & Cleaner interval in ms (subscriptions, history, locks). \\ \hline
+\texttt{push.\allowbreak{}orchestration.\allowbreak{}max.\allowbreak{}thread} & 5 & Push worker threads. \\ \hline
+\texttt{normalization.\allowbreak{}mode} & extended & Name normalization. \\ \hline
+\texttt{mqtt.\allowbreak{}api.\allowbreak{}enabled} & false & Offer the MQTT interfaces. \\ \hline
+\texttt{sysmonitor.\allowbreak{}enabled} & false & Publish native sysMonitor observations (test cloud: true). \\ \hline
+\texttt{arrowhead.\allowbreak{}ssl.\allowbreak{}crl-\allowbreak{}file} & (unset) & CRL checked for every client certificate (local). \\ \hline
+\end{longtable}
+
+Secrets (database, keystore and identity passwords, secret keys) have no usable defaults; in the test clouds they are per-cloud secrets mounted as files.
+
+\subsubsection{Data stored by the system}
+
+An atomic active-plant rule snapshot (orchestration\_plant\_rules), orchestration jobs (history), push subscriptions, orchestration locks, QoS evaluation results, and log entries (database \texttt{ah\_\allowbreak{}serviceorchestration\_\allowbreak{}dynamic}).
+
+\subsubsection{Non functional properties}
+
+A pull makes several synchronous calls (ServiceRegistry lookup, authorization check, optionally Blacklist, Device\allowbreak{}Qo\allowbreak{}SEvaluator, Translation\allowbreak{}Manager, Gatekeeper, token generation); its latency is the sum of these. Push orchestration runs in a bounded thread pool.
+
+\subsubsection{Stateful or stateless}
+
+Stateful: history, subscriptions and locks are persistent; an orchestration itself is computed from the current state of the other systems.
+
+\subsection{Important Delimitations}
+\label{sec:delimitations}
+
+Dynamic\allowbreak{}Service\allowbreak{}Orchestration selects providers but does not mediate the consumption, except through a translation bridge or an inter-cloud GateTunnel session. It cannot orchestrate the services its own orchestration depends on (ServiceRegistry, Consumer\allowbreak{}Authorization, Blacklist); those are bootstrap services. A missing authorization grant silently yields no result. Managed plant scopes constrain the provider instance set before normal checks; lower priority selects the best surviving provider. Empty scopes and ONLY\_INTERCLOUD cannot escape to another cloud. This local extension needs database\_patch\_pde\_dso.sql before startup on an existing database.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+This section describes the produced and consumed services. Each produced service is specified by an SD document and one IDD document per interface.
+
+\subsection{Produced services}
+
+\noindent\begin{longtable}{| p{5.3cm} | p{1.3cm} | p{2.6cm} | p{1.6cm} | p{3.6cm} |} \hline
+\rowcolor{gray!33} Service & Version & Interfaces & SD & IDD \\ \hline \endhead
+\texttt{service\allowbreak{}Orchestration} & 1.0.0 & HTTP(S), MQTT(S) & \cite{dso-serviceOrchestration-sd} & \cite{dso-serviceOrchestration-http-idd}, \cite{dso-serviceOrchestration-mqtt-idd} \\ \hline
+\texttt{service\allowbreak{}Orchestration\allowbreak{}Push\allowbreak{}Management} & 1.0.0 & HTTP(S), MQTT(S) & \cite{dso-serviceOrchestrationPushManagement-sd} & \cite{dso-serviceOrchestrationPushManagement-http-idd}, \cite{dso-serviceOrchestrationPushManagement-mqtt-idd} \\ \hline
+\texttt{service\allowbreak{}Orchestration\allowbreak{}Lock\allowbreak{}Management} & 1.0.0 & HTTP(S), MQTT(S) & \cite{dso-serviceOrchestrationLockManagement-sd} & \cite{dso-serviceOrchestrationLockManagement-http-idd}, \cite{dso-serviceOrchestrationLockManagement-mqtt-idd} \\ \hline
+\texttt{service\allowbreak{}Orchestration\allowbreak{}History\allowbreak{}Management} & 1.0.0 & HTTP(S), MQTT(S) & \cite{dso-serviceOrchestrationHistoryManagement-sd} & \cite{dso-serviceOrchestrationHistoryManagement-http-idd}, \cite{dso-serviceOrchestrationHistoryManagement-mqtt-idd} \\ \hline
+\texttt{service\allowbreak{}Orchestration\allowbreak{}Plant\allowbreak{}Management} & 1.0.0 & HTTP(S) & \cite{dso-serviceOrchestrationPlantManagement-sd} & \cite{dso-serviceOrchestrationPlantManagement-http-idd} \\ \hline
+\texttt{generalManagement} & 1.0.0 & HTTP(S), MQTT(S) & \cite{dso-generalManagement-sd} & \cite{dso-generalManagement-http-idd}, \cite{dso-generalManagement-mqtt-idd} \\ \hline
+\texttt{sysMonitor} & 1.0.0 & AMQP(S) & \cite{dso-sysMonitor-sd} & \cite{dso-sysMonitor-amqp-idd} \\ \hline
+\end{longtable}
+
+The HTTP interfaces are always offered, the MQTT interfaces with \texttt{mqtt.api.enabled=true} and the AMQP \texttt{sysMonitor} interface with \texttt{sysmonitor.enabled=true}. Upstream 5.2.2 also answers \texttt{GET <base>/monitor/echo} on some systems; this endpoint is not registered as a service.
+
+\subsection{Consumed services}
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{2.9cm} | >{\raggedright\arraybackslash}p{3.1cm} | >{\raggedright\arraybackslash}p{2.5cm} | p{3.6cm} | >{\raggedright\arraybackslash}p{2.9cm} |} \hline
+\rowcolor{gray!33} Provider & Service & Operations & Use & Condition \\ \hline \endhead
+ServiceRegistry & serviceDiscovery & register, revoke, lookup & Registration; discovery of candidates (direct access). & always \\ \hline
+Authentication & identity & identity-login, identity-verify & Own token; verification of requester tokens. & \texttt{authentication.\allowbreak{}policy=\allowbreak{}outsourced} \\ \hline
+Consumer\allowbreak{}Authorization & authorization; authorization\allowbreak{}Management & verify; check-policies & Management filter; authorization cross-check of candidates. & \texttt{enable.\allowbreak{}authorization=\allowbreak{}true} \\ \hline
+Consumer\allowbreak{}Authorization & authorization\allowbreak{}Token\allowbreak{}Management & generate-tokens & Tokens for provider interfaces with token policies. & \texttt{enable.\allowbreak{}authorization=\allowbreak{}true} \\ \hline
+Blacklist & blacklist\allowbreak{}Discovery; blacklist\allowbreak{}Management & check; query & Blacklist filter; cross-check of candidates. & \texttt{enable.\allowbreak{}blacklist.\allowbreak{}filter=\allowbreak{}true} \\ \hline
+Device\allowbreak{}Qo\allowbreak{}SEvaluator & qualityEvaluation & filter, sort & QoS requirements. & \texttt{enable.\allowbreak{}qos=\allowbreak{}true} \\ \hline
+Translation\allowbreak{}Manager & translation\allowbreak{}Bridge\allowbreak{}Management & discovery, negotiation & Interface translation. & \texttt{enable.\allowbreak{}translation=\allowbreak{}true} \\ \hline
+Gatekeeper & global\allowbreak{}Service\allowbreak{}Discovery; inter\allowbreak{}Cloud\allowbreak{}Negotiation & query; negotiate & Inter-cloud orchestration (local extension). & \texttt{enable.\allowbreak{}intercloud=\allowbreak{}true} \\ \hline
+Subscribers & notify interface & HTTP(S) request or MQTT(S) publish & Push orchestration results. & subscriptions \\ \hline
+AMQP broker (SysMonitor) & sysMonitor (publisher) & echo, power, status & Own observations. & \texttt{sysmonitor.\allowbreak{}enabled=\allowbreak{}true} \\ \hline
+\end{longtable}
+
+Except for the bootstrap services (\texttt{http.collector.bootstrap.services}), which are looked up in the ServiceRegistry, the system reaches other systems' services through DynamicServiceOrchestration (\texttt{http.collector.mode=ORCHESTRATION}, results cached for \texttt{http.collector.orchestration.ttl} = 300 s); every such call needs a ConsumerAuthorization grant.
+
+\newpage
+
+\section{Security}
+\label{sec:security}
+
+The default is the Arrowhead secure mode with HTTPS and X.509 certificates following the Arrowhead certificate profile (\texttt{<System>.<Cloud>.<Organization>.arrowhead.eu}). Certificates not issued under the cloud CA are refused by the TLS handshake. The Arrowhead-test-cloud-java deployment runs the secure mode.
+
+The packaged \texttt{application.properties} is a development sample that disables TLS and declares identities. The system refuses to start with it, or with any other effective configuration that sets \texttt{server.ssl.enabled=false}, \texttt{authentication.policy=declared}, \texttt{service.authorization.enabled=false} or, while monitoring is on, \texttt{sysmonitor.ssl.enabled=false}. The check runs before the system accepts a connection. Only an explicit \texttt{arrowhead.security.profile=development} lets such a system start, for an isolated test, and it then logs a non-conformance warning.
+
+\subsection{Security model}
+
+\begin{itemize}
+  \item \textbf{Protocols:} HTTPS (TLS 1.3 and 1.2) with mandatory client certificates (\texttt{server.ssl.client-auth=need}); MQTT over TLS; AMQP over TLS for \texttt{sysMonitor}.
+  \item \textbf{Data protection:} transport encryption by TLS; the database connection uses TLS with server verification in the test cloud. Secrets are kept out of the container environment (Compose file secrets).
+  \item \textbf{System authentication:} by the authentication policy: \texttt{certificate} (client certificate CN), \texttt{outsourced} (identity token verified with Authentication), \texttt{internal} (Authentication only) or \texttt{declared} (insecure). In this workspace an identity token is accepted only together with the client certificate of the system it was issued to (token-to-certificate binding), and every client certificate is checked against the cloud CA's CRL when \texttt{arrowhead.ssl.crl-file} is set (fail closed).
+  \item \textbf{Authorization of produced services:} management services are protected by the management filter (\texttt{management.policy}: \texttt{SYSOP\_ONLY}, \texttt{WHITELIST} or \texttt{AUTHORIZATION} via ConsumerAuthorization); an optional blacklist filter refuses blacklisted requesters. Sysop identities bypass the management filter.
+  \item The orchestrator only returns providers the consumer is authorized for, and generates the tokens of token-protected interfaces on the consumer's behalf (it is in \texttt{unbounded.\allowbreak{}token.\allowbreak{}generation.\allowbreak{}whitelist} of Consumer\allowbreak{}Authorization). Its access to the ServiceRegistry relies on \texttt{service.\allowbreak{}discovery.\allowbreak{}direct.\allowbreak{}access} and the management whitelist.
+\end{itemize}
+
+For the Arrowhead certificate profile see github.com/eclipse-arrowhead/documentation.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-11-07 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

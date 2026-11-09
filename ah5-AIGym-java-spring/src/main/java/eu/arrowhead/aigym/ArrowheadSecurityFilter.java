@@ -31,7 +31,8 @@ public class ArrowheadSecurityFilter extends OncePerRequestFilter {
             String expected = "CN=" + consumer + "." + arrowhead.cloud + ".Company.arrowhead.eu";
             if (!certificates[0].getSubjectX500Principal().getName().contains(expected)) throw new SecurityException("Certificate and identity-token subjects differ");
             String scope = scope(request);
-            if (!arrowhead.verifyAuthorization(consumer, scope)) {
+            boolean management = request.getRequestURI().startsWith("/aigym/mgmt/");
+            if (management ? !consumer.equals("Sysop") : !arrowhead.verifyAuthorization(consumer, scope)) {
                 response.setStatus(403); write(response, Map.of("error", "ConsumerAuthorization denied", "consumer", consumer, "scope", scope)); return;
             }
             request.setAttribute("arrowhead.consumer", consumer);

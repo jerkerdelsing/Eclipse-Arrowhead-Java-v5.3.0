@@ -1,14 +1,220 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="10.17.0">
-<file name="/workspace/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/Device.java">
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/init/ServiceRegistryApplicationInitListener.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/swagger/SwaggerConfig.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/collector/DatabaseCollectorDriver.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/ServiceInterfaceTemplatePropertyRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/ServiceInstanceInterfaceRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/ServiceDefinitionRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/DeviceRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/ServiceInstanceRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/DeviceAddressRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/LogsRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/SystemRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/SystemAddressRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/ServiceInterfaceTemplateRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/repository/DeviceSystemConnectorRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/System.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/ServiceInterfaceTemplateProperty.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/SystemAddress.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/ServiceInstance.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/ServiceInstanceInterface.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/ServiceDefinition.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/DeviceSystemConnector.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/Device.java">
 <error line="52" severity="warning" message="Line has trailing spaces." source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineCheck"/>
 </file>
-<file name="/workspace/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/init/ServiceRegistryExtraInterfacesTest.java">
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/Logs.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/DeviceAddress.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/ServiceInterfaceTemplate.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/service/DeviceDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/service/ServiceInterfaceTemplateDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/service/ServiceDefinitionDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/service/SystemDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/service/ServiceInstanceDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/BeanConfig.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/ServiceRegistryMain.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/ServiceRegistryDefaults.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/http/GeneralManagementAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/http/ServiceDiscoveryAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/http/DeviceDiscoveryAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/http/utils/ServiceLookupPreprocessor.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/http/utils/SystemNamePreprocessor.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/http/ManagementAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/http/SystemDiscoveryAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/http/filter/ServiceLookupFilter.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/http/MonitorAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/mqtt/DeviceDiscoveryMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/mqtt/SystemDiscoveryMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/mqtt/ManagementMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/mqtt/MonitorMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/mqtt/GeneralManagementMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/mqtt/ServiceDiscoveryMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/api/mqtt/filter/ServiceLookupMqttFilter.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/dto/NormalizedDeviceRequestDTO.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/dto/DTOConverter.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/dto/NormalizedSystemRequestDTO.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/matching/AddressMatching.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/ServiceDiscoveryPolicy.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/normalization/ServiceDiscoveryNormalization.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/normalization/DeviceDiscoveryNormalization.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/normalization/ManagementNormalization.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/normalization/SystemDiscoveryNormalization.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/ManagementService.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/model/ServiceLookupFilterModel.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/SystemDiscoveryService.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/ReservedServiceDefinitions.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/ServiceDiscoveryInterfacePolicy.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/DeviceDiscoveryService.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/ServiceDiscoveryService.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/validation/DeviceDiscoveryValidation.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/validation/ManagementValidation.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/validation/SystemDiscoveryValidation.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/validation/ServiceDiscoveryValidation.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/validation/interf/InterfaceNormalizer.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/service/validation/interf/InterfaceValidator.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/ServiceRegistryConstants.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/ServiceRegistrySystemInfo.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/init/ServiceRegistryApplicationInitListenerTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/init/ServiceRegistryExtraInterfacesTest.java">
 <error line="31" column="117" severity="warning" message="&apos;8443&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 <error line="61" column="30" severity="warning" message="&apos;8443&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 <error line="75" column="30" severity="warning" message="&apos;8501&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="/workspace/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/validation/ManagementValidationTest.java">
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/collector/DatabaseCollectorDriverTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/jpa/service/DeviceDbServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/jpa/service/ServiceInterfaceTemplateDbServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/jpa/service/SystemDbServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/jpa/service/ServiceDefinitionDbServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/jpa/service/ServiceInstanceDbServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/api/http/utils/ServiceLookupPreprocessorTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/api/http/utils/SystemNamePreprocessorTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/api/http/filter/ServiceLookupFilterTestHelper.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/api/http/filter/ServiceLookupFilterTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/api/mqtt/filter/ServiceLookupMqttFilterTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/dto/DTOConverterTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/SystemDiscoveryServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/matching/AddressMatchingTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/ManagementServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/normalization/DeviceDiscoveryNormalizationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/normalization/ServiceDiscoveryNormalizationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/normalization/SystemDiscoveryNormalizationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/normalization/ManagementNormalizationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/DeviceDiscoveryServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/model/ServiceLookupFilterModelTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/ReservedServiceDefinitionsTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/ServiceDiscoveryServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/validation/SystemDiscoveryValidationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/validation/ManagementValidationTest.java">
 <error line="1" severity="warning" message="File length is 3,299 lines (max allowed is 2,000)." source="com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck"/>
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/validation/DeviceDiscoveryValidationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/validation/ServiceDiscoveryValidationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/validation/interf/InterfaceValidatorTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/validation/interf/InterfaceNormalizerTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/ServiceRegistrySystemInfoTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/serviceregistry/src/main/resources/application.properties">
 </file>
 </checkstyle>

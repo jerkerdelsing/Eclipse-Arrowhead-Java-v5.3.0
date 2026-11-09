@@ -1,0 +1,199 @@
+2026-11-08 14:45:28.385 ERROR a2494b6faed9 --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Config data resource 'config tree [/run/secrets]' via location 'configtree:/run/secrets/' does not exist
+
+Action:
+
+Check that the value 'configtree:/run/secrets/' at URL [file:config/application.properties] - 1:22 is correct, or prefix it with 'optional:'
+
+2026-11-08 14:45:28.403  WARN a2494b6faed9 --- [           main] o.s.t.c.TestContextManager               : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] to prepare test instance [eu.arrowhead.certificateauthority.it.MySqlEndToEndTest@2776015d]
+java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@2ff15f8c testClass = eu.arrowhead.certificateauthority.it.MySqlEndToEndTest, locations = [], classes = [eu.arrowhead.certificateauthority.CertificateAuthorityMain, eu.arrowhead.certificateauthority.it.MySqlEndToEndTest.Standalone], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [[ImportsContextCustomizer@7ea899a9 key = [org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration, org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.reactive.WebTestClientAutoConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@299266e2, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@66971f6b, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@1b0a7baf, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@53499d85, org.springframework.boot.test.web.reactor.netty.DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory$DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer@48c40605, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@476aac9, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@4b3fa0b3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@e6516e, org.springframework.test.context.support.DynamicPropertiesContextCustomizer@d5312fa6, org.springframework.boot.test.context.SpringBootTestAnnotation@a7e206f], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:180)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:200)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:139)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:159)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$12(ClassBasedTestDescriptor.java:378)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234)
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$7(ClassBasedTestDescriptor.java:290)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:279)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$6(ClassBasedTestDescriptor.java:278)
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$1(TestMethodTestDescriptor.java:105)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:104)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:128)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:128)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:194)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:150)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:124)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: org.springframework.boot.context.config.ConfigDataResourceNotFoundException: Config data resource 'config tree [/run/secrets]' via location 'configtree:/run/secrets/' cannot be found
+	at org.springframework.boot.context.config.ConfigDataResourceNotFoundException.withLocation(ConfigDataResourceNotFoundException.java:97)
+	at org.springframework.boot.context.config.ConfigDataImporter.handle(ConfigDataImporter.java:150)
+	at org.springframework.boot.context.config.ConfigDataImporter.load(ConfigDataImporter.java:141)
+	at org.springframework.boot.context.config.ConfigDataImporter.resolveAndLoad(ConfigDataImporter.java:87)
+	at org.springframework.boot.context.config.ConfigDataEnvironmentContributors.withProcessedImports(ConfigDataEnvironmentContributors.java:121)
+	at org.springframework.boot.context.config.ConfigDataEnvironment.processInitial(ConfigDataEnvironment.java:245)
+	at org.springframework.boot.context.config.ConfigDataEnvironment.processAndApply(ConfigDataEnvironment.java:232)
+	at org.springframework.boot.context.config.ConfigDataEnvironmentPostProcessor.postProcessEnvironment(ConfigDataEnvironmentPostProcessor.java:96)
+	at org.springframework.boot.context.config.ConfigDataEnvironmentPostProcessor.postProcessEnvironment(ConfigDataEnvironmentPostProcessor.java:89)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEnvironmentPreparedEvent(EnvironmentPostProcessorApplicationListener.java:132)
+	at org.springframework.boot.env.EnvironmentPostProcessorApplicationListener.onApplicationEvent(EnvironmentPostProcessorApplicationListener.java:115)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:185)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:178)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:156)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:138)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:353)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:313)
+	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:144)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
+	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1461)
+	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:563)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:144)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:110)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152)
+	... 75 more
+2026-11-08 14:45:51.573  INFO 5878683a6352 --- [           main] e.a.c.i.MySqlEndToEndTest                : Starting MySqlEndToEndTest using Java 21.0.12.1 with PID 98 (started by root in /src)
+2026-11-08 14:45:51.581  INFO 5878683a6352 --- [           main] e.a.c.i.MySqlEndToEndTest                : No active profile set, falling back to 1 default profile: "default"
+2026-11-08 14:45:53.455  WARN 5878683a6352 --- [           main] e.a.c.i.SecurityProfileGuard             : NON-CONFORMING development exception selected for an isolated test; do not expose this system: server.ssl.enabled=false; authentication.policy=declared
+2026-11-08 14:45:54.454  WARN 5878683a6352 --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+2026-11-08 14:45:56.366  INFO 5878683a6352 --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+2026-11-08 14:45:56.376  INFO 5878683a6352 --- [           main] e.a.c.s.CallerProfileFilter              : CallerProfileFilter is active
+2026-11-08 14:45:56.410  INFO 5878683a6352 --- [           main] e.a.c.h.f.a.SelfDeclaredFilter           : SelfDeclaredFilter is active
+2026-11-08 14:45:56.412  INFO 5878683a6352 --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+2026-11-08 14:45:56.544  WARN 5878683a6352 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-08 14:45:56.595  WARN 5878683a6352 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 3b9fc8ee-be36-455b-b60b-27e12446efb9
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-11-08 14:45:57.910  INFO 5878683a6352 --- [           main] e.a.c.i.MySqlEndToEndTest$Standalone$1   : STANDALONE mode is set...
+2026-11-08 14:45:57.911  INFO 5878683a6352 --- [           main] tificateAuthorityApplicationInitListener : System name: CertificateAuthority
+2026-11-08 14:45:57.911  INFO 5878683a6352 --- [           main] tificateAuthorityApplicationInitListener : System port: 8448
+2026-11-08 14:45:57.912  INFO 5878683a6352 --- [           main] tificateAuthorityApplicationInitListener : SSL mode: DISABLED
+2026-11-08 14:45:57.912  INFO 5878683a6352 --- [           main] tificateAuthorityApplicationInitListener : Authentication policy: DECLARED
+2026-11-08 14:45:58.077  INFO 5878683a6352 --- [           main] e.a.c.i.MySqlEndToEndTest                : Started MySqlEndToEndTest in 7.262 seconds (process running for 8.902)
+2026-11-08 14:45:58.766  WARN 5878683a6352 --- [           main] o.m.j.m.s.ErrorPacket                    : Error: 1062-23000: Duplicate entry 'be2c2ffe1b197138fdf282383495a0296019f562c42acaab49bdc000724859c4' for key 'trusted_key.uk_trusted_key_hash'
+2026-11-08 14:45:58.767  WARN 5878683a6352 --- [           main] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1062, SQLState: 23000
+2026-11-08 14:45:58.767 ERROR 5878683a6352 --- [           main] o.h.e.j.s.SqlExceptionHelper             : (conn=30) Duplicate entry 'be2c2ffe1b197138fdf282383495a0296019f562c42acaab49bdc000724859c4' for key 'trusted_key.uk_trusted_key_hash'
+2026-11-08 14:48:10.199  INFO 3169fc37346f --- [           main] e.a.c.i.MySqlEndToEndTest                : Starting MySqlEndToEndTest using Java 21.0.12.1 with PID 100 (started by root in /src)
+2026-11-08 14:48:10.220  INFO 3169fc37346f --- [           main] e.a.c.i.MySqlEndToEndTest                : No active profile set, falling back to 1 default profile: "default"
+2026-11-08 14:48:12.152  WARN 3169fc37346f --- [           main] e.a.c.i.SecurityProfileGuard             : NON-CONFORMING development exception selected for an isolated test; do not expose this system: server.ssl.enabled=false; authentication.policy=declared
+2026-11-08 14:48:12.964  WARN 3169fc37346f --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+2026-11-08 14:48:14.837  INFO 3169fc37346f --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+2026-11-08 14:48:14.848  INFO 3169fc37346f --- [           main] e.a.c.s.CallerProfileFilter              : CallerProfileFilter is active
+2026-11-08 14:48:14.882  INFO 3169fc37346f --- [           main] e.a.c.h.f.a.SelfDeclaredFilter           : SelfDeclaredFilter is active
+2026-11-08 14:48:14.885  INFO 3169fc37346f --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+2026-11-08 14:48:14.984  WARN 3169fc37346f --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-08 14:48:15.026  WARN 3169fc37346f --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 4275b12c-3e83-4f54-9ea1-5e0ed1ee9363
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-11-08 14:48:15.954  INFO 3169fc37346f --- [           main] e.a.c.i.MySqlEndToEndTest$Standalone$1   : STANDALONE mode is set...
+2026-11-08 14:48:15.954  INFO 3169fc37346f --- [           main] tificateAuthorityApplicationInitListener : System name: CertificateAuthority
+2026-11-08 14:48:15.954  INFO 3169fc37346f --- [           main] tificateAuthorityApplicationInitListener : System port: 8448
+2026-11-08 14:48:15.955  INFO 3169fc37346f --- [           main] tificateAuthorityApplicationInitListener : SSL mode: DISABLED
+2026-11-08 14:48:15.956  INFO 3169fc37346f --- [           main] tificateAuthorityApplicationInitListener : Authentication policy: DECLARED
+2026-11-08 14:48:16.134  INFO 3169fc37346f --- [           main] e.a.c.i.MySqlEndToEndTest                : Started MySqlEndToEndTest in 6.964 seconds (process running for 8.617)
+2026-11-08 14:48:17.134  WARN 3169fc37346f --- [           main] o.m.j.m.s.ErrorPacket                    : Error: 1062-23000: Duplicate entry '94368e6ab975bd14516d556f6180b5bd9c77433ee6067a1badc5d63d38c7f9df' for key 'trusted_key.uk_trusted_key_hash'
+2026-11-08 14:48:17.137  WARN 3169fc37346f --- [           main] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1062, SQLState: 23000
+2026-11-08 14:48:17.138 ERROR 3169fc37346f --- [           main] o.h.e.j.s.SqlExceptionHelper             : (conn=50) Duplicate entry '94368e6ab975bd14516d556f6180b5bd9c77433ee6067a1badc5d63d38c7f9df' for key 'trusted_key.uk_trusted_key_hash'
+2026-11-08 14:48:39.848  INFO 2461dc2abd12 --- [           main] e.a.c.i.MySqlEndToEndTest                : Starting MySqlEndToEndTest using Java 21.0.12.1 with PID 97 (started by root in /src)
+2026-11-08 14:48:39.866  INFO 2461dc2abd12 --- [           main] e.a.c.i.MySqlEndToEndTest                : No active profile set, falling back to 1 default profile: "default"
+2026-11-08 14:48:41.777  WARN 2461dc2abd12 --- [           main] e.a.c.i.SecurityProfileGuard             : NON-CONFORMING development exception selected for an isolated test; do not expose this system: server.ssl.enabled=false; authentication.policy=declared
+2026-11-08 14:48:42.400  WARN 2461dc2abd12 --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+2026-11-08 14:48:43.933  INFO 2461dc2abd12 --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+2026-11-08 14:48:43.953  INFO 2461dc2abd12 --- [           main] e.a.c.s.CallerProfileFilter              : CallerProfileFilter is active
+2026-11-08 14:48:44.005  INFO 2461dc2abd12 --- [           main] e.a.c.h.f.a.SelfDeclaredFilter           : SelfDeclaredFilter is active
+2026-11-08 14:48:44.014  INFO 2461dc2abd12 --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+2026-11-08 14:48:44.160  WARN 2461dc2abd12 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-08 14:48:44.196  WARN 2461dc2abd12 --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: a083e32f-5b31-43b8-9b88-74ec114a8124
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-11-08 14:48:45.062  INFO 2461dc2abd12 --- [           main] e.a.c.i.MySqlEndToEndTest$Standalone$1   : STANDALONE mode is set...
+2026-11-08 14:48:45.062  INFO 2461dc2abd12 --- [           main] tificateAuthorityApplicationInitListener : System name: CertificateAuthority
+2026-11-08 14:48:45.063  INFO 2461dc2abd12 --- [           main] tificateAuthorityApplicationInitListener : System port: 8448
+2026-11-08 14:48:45.063  INFO 2461dc2abd12 --- [           main] tificateAuthorityApplicationInitListener : SSL mode: DISABLED
+2026-11-08 14:48:45.063  INFO 2461dc2abd12 --- [           main] tificateAuthorityApplicationInitListener : Authentication policy: DECLARED
+2026-11-08 14:48:45.302  INFO 2461dc2abd12 --- [           main] e.a.c.i.MySqlEndToEndTest                : Started MySqlEndToEndTest in 6.536 seconds (process running for 7.885)
+2026-11-08 14:48:46.084  WARN 2461dc2abd12 --- [           main] o.m.j.m.s.ErrorPacket                    : Error: 1062-23000: Duplicate entry 'fb4ca701c7d85e64eb19d0f8aa26b8639d7cfe7d41fbc25a0a23ae8c568655c0' for key 'trusted_key.uk_trusted_key_hash'
+2026-11-08 14:48:46.085  WARN 2461dc2abd12 --- [           main] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1062, SQLState: 23000
+2026-11-08 14:48:46.085 ERROR 2461dc2abd12 --- [           main] o.h.e.j.s.SqlExceptionHelper             : (conn=70) Duplicate entry 'fb4ca701c7d85e64eb19d0f8aa26b8639d7cfe7d41fbc25a0a23ae8c568655c0' for key 'trusted_key.uk_trusted_key_hash'

@@ -2,7 +2,7 @@
 
 LocalCloudConfigurator designs and fills one existing, provisioned Java Arrowhead local cloud. It ports the primary Go LocalCloudConfigurator approach: a trusted component catalog, dependency planner, operator API, signed ColonyOS workflows and a host executor that independently validates every step.
 
-The integrated graphical editor is in **Java LocalCloudManager → LC / Local cloud configuration** at http://testcloud.localhost:8490/ . Existing manager credentials apply. The private operator API is at http://127.0.0.1:8097/ and requires its own bearer credential; it is not a separate public UI or an Arrowhead service. No ServiceRegistry identity, AMQP ACL or Arrowhead management grant is added for this operations tool.
+The integrated graphical editor is in **Java LocalCloudManager → LC / Local cloud configuration** at http://testcloud.localhost:8490/ . Existing manager credentials apply. LocalCloudManager consumes LocalCloudConfigurator's `localCloudConfiguration` Arrowhead service (port 8492, mutual TLS) through orchestration with its own certificate and identity token; there is no private operator token any more.
 
 ## Default cloud
 
@@ -19,7 +19,7 @@ SimpleOrchestration is optional and is not selected by default. Each database is
 
 Open **LC**, choose a component from the library, inspect it and **Add to design**. Dependencies appear automatically. Select components on the canvas and drag them to arrange the cloud. The inspector distinguishes explicit selections, automatic dependencies, live state and protected components. Microsystem category colors match Arrowhead; infrastructure is lavender. Undo/redo, automatic layout, JSON import/export, saved copies and named saved designs are available.
 
-**Save design** persists selections and graphical positions in the configurator's Docker volume. It does not change the runtime. Versioned writes reject stale edits. Deleting a saved design also leaves services unchanged. Imported designs clear stop/reapply actions and require fresh review before deployment.
+**Save design** persists selections and graphical positions in the configurator's private MySQL schema. It does not change the runtime. Versioned writes reject stale edits. Deleting a saved design also leaves services unchanged. Imported designs clear stop/reapply actions and require fresh review before deployment.
 
 **Review deployment plan** asks the real cloud executor for running service names and derives provision → up → policy → explicit stop → verification actions in dependency order. Apply requires that reviewed plan's hash to still match the current plan. A confirmation names the runtime effect. Existing selected services are not recreated; explicit reapply can rerun catalogued setup scripts. No unselected component is implicitly stopped. The API serializes deployments, with its active-workflow marker surviving restart. The UI displays the real ColonyOS workflow and redacted step results. Failure can leave earlier successful steps applied; there is no transactional rollback of arbitrary deployment scripts.
 
@@ -29,7 +29,7 @@ The shipped catalog describes 27 components of the existing Java test-cloud Comp
 
 The four default core systems, their required infrastructure and manager access are protected from stops. Remaining running dependents prevent a stop. The executor checks claimed component ownership, step kind, exact target/script, catalog hash and current runtime again. It runs argument lists, not interpolated shell commands. Output capture is bounded, credential-like values and private-key blocks are redacted. The catalog/scripts themselves remain trusted host-admin inputs.
 
-The API uses a private operator credential. LocalCloudManager keeps that credential on its backend and retains its own session, host/origin and action-confirmation protections. The API and manager backend share an isolated console network; other cloud systems are not attached to it. ColonyOS uses a separate `arrowhead-java-localcloud` colony with its own keys. Only the initial registration command reads the existing Colonies server-owner key; API and executor containers/processes do not receive that key or the colony-owner key. API identity heartbeats preserve normal ColonyOS stale-member checks.
+LocalCloudManager reaches LocalCloudConfigurator through orchestration as the Arrowhead system LocalCloudManager (certificate and identity token; a ConsumerAuthorization grant of the `localCloudConfiguration` operations) and keeps its own console session, host/origin and action-confirmation protections. The configurator reaches its host worker over mutual TLS; no ColonyOS server, membership or keys are required.
 
 ## Build and operate
 
@@ -42,7 +42,7 @@ make image
 make deploy
 ```
 
-The module is independent: Java 21+, Maven (the Makefile defaults to the existing Maven Docker image), Docker Compose, and the already deployed ColonyOS v1.9.10 server. `make deploy` targets the supplied Java cloud and primary Java manager sources. Private deployment state is outside this repository at `~/.local/share/JavaLocalCloudConfigurator/`; saved designs and workflow markers are in the `java-lcc-designs` named volume.
+LocalCloudConfigurator is a Java-Spring support system with a host worker on loopback 8493 (mutual TLS); see `../ah5-LocalCloudConfigurator-java/DEPLOYMENT.md`.
 
 Detailed API/system documentation is in `../ah5-LocalCloudConfigurator-java/documentation/`.
 

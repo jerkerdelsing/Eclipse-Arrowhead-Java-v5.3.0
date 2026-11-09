@@ -77,44 +77,50 @@ In Section \ref{Implementation}, we describe implementation details of the syste
 \section{Implementation}
 \label{Implementation}
 
-This implementation realizes the SysMonitor SysD in \texttt{ah5-\allowbreak{}SysMonitor-\allowbreak{}java-\allowbreak{}spring}. The Java sources, dependencies, tests, image and deployment definition are owned by this folder. The previous implementation is preserved in \texttt{legacy/\allowbreak{}} and is excluded from the build.
+This implementation realizes the SysMonitor SysD in \texttt{ah5-\allowbreak{}SysMonitor-\allowbreak{}java-\allowbreak{}spring} on the Arrowhead Java Spring pattern (as Blacklist and EventHandler). The Java sources, the private copy of the Arrowhead common library (\texttt{vendor/}), the tests, the image and the deployment definition are owned by this folder. The previous implementations are preserved in \texttt{legacy/\allowbreak{}} and are excluded from the build.
 
 \subsection{Implementation language and tools}
 \begin{itemize}
-\item Java 21 without a framework (JDK \texttt{HttpsServer}), Bouncy Castle, SQLite JDBC and RabbitMQ AMQP client; Eclipse Paho MQTT v5 output client. Maven produces only \texttt{arrowhead-\allowbreak{}sysmonitor-\allowbreak{}5.2.2.jar}; the fixed \texttt{Main} entry point starts SysMonitor. No environment variable selects another system.
-\item Storage: SQLite /data/sysmonitor.db (SQLite with WAL on a data volume). Requests are handled on virtual threads with bounded parallelism.
+\item Java 21, Spring Boot 3.4 (web, security, data JPA, scheduling) with the vendored Arrowhead common library (\texttt{common-\allowbreak{}utils}, \texttt{data-\allowbreak{}transfer-\allowbreak{}objects}); RabbitMQ AMQP client for the intake and Eclipse Paho MQTT v5 for the output. Maven produces the Spring Boot JAR \texttt{arrowhead-\allowbreak{}sysmonitor-\allowbreak{}5.2.2.jar} with the entry point \texttt{eu.\allowbreak{}arrowhead.\allowbreak{}sysmonitor.\allowbreak{}SysMonitorMain}.
+\item Storage: the private MySQL schema \texttt{ah\_\allowbreak{}sysmonitor} through JPA (\texttt{ddl-\allowbreak{}auto=validate}), reached with the MariaDB driver and \texttt{sslMode=\allowbreak{}verify-\allowbreak{}full}. The application account has data-manipulation privileges only.
 \end{itemize}
 
 \subsection{Functional properties implementation}
 
-The following components implement the system:
+The following components (package \texttt{eu.\allowbreak{}arrowhead.\allowbreak{}sysmonitor}) implement the system:
 
 \noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
 \rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
-\texttt{SysMonitor.\allowbreak{}java} & Intake, subscriptions, history and management. \\ \hline
-\texttt{MonitorStore.\allowbreak{}java} & SQLite store and outbox. \\ \hline
-\texttt{Messaging.\allowbreak{}java} & AMQP and MQTT. \\ \hline
+\texttt{SysMonitorSystemInfo} & System and service models registered by the common \texttt{ApplicationInitListener}: \texttt{sysMonitorManagement}, \texttt{sysMonitorHistory}, \texttt{sysMonitorData} (\texttt{generic\_\allowbreak{}mqtts}) and \texttt{generalManagement}. The common \texttt{SysMonitorPublisher} registers and publishes the system's own \texttt{sysMonitor} observations. \\ \hline
+\texttt{api.\allowbreak{}http.\allowbreak{}HistoryAPI}, \texttt{ManagementAPI}, \texttt{GeneralManagementAPI}, \texttt{HealthAPI} & The HTTP paths of the native 5.2.2 implementation: \texttt{/sysmonitor/\allowbreak{}history/\allowbreak{}*}, \texttt{/sysmonitor/\allowbreak{}management/\allowbreak{}*}, \texttt{/sysmonitor/\allowbreak{}mgmt/\allowbreak{}general/\allowbreak{}status} (plus \texttt{get-\allowbreak{}log} and \texttt{get-\allowbreak{}config}) and \texttt{/health}, port 8475. \\ \hline
+\texttt{service.\allowbreak{}AmqpIntake} & Durable queue \texttt{SysMonitor.\allowbreak{}observations} on the \texttt{arrowhead} topic exchange; validates each observation against its routing key, stores it, then acknowledges (rejects invalid ones, requeues on storage failure). \\ \hline
+\texttt{service.\allowbreak{}ObservationFormat} & Normalised observation envelope and derived observation identifier (SHA-256 of routing key and canonical JSON), unchanged from the native implementation. \\ \hline
+\texttt{service.\allowbreak{}MonitoringService} & Orchestrates the authorized \texttt{sysMonitor} providers (\texttt{generic\_\allowbreak{}amqps}, \texttt{CERT\_\allowbreak{}AUTH}) and applies the bindings derived from the subscriptions or the default subscription. \\ \hline
+\texttt{service.\allowbreak{}MqttOutput} & MQTT v5 output \texttt{arrowhead/\allowbreak{}<cloud>/\allowbreak{}sysmonitor/\allowbreak{}data/\allowbreak{}<type>/\allowbreak{}<provider>}, QoS 1, from the outbox. \\ \hline
+\texttt{service.\allowbreak{}SysMonitorJobs} & Scheduled broker (re)connection, orchestration (\texttt{ORCHESTRATION\_\allowbreak{}INTERVAL\_\allowbreak{}SECONDS}), outbox (1 s) and retention prune (\texttt{SYSMONITOR\_\allowbreak{}PRUNE\_\allowbreak{}INTERVAL\_\allowbreak{}SECONDS}). \\ \hline
+\texttt{jpa.\allowbreak{}service.\allowbreak{}MonitorDbService} & Store of subscriptions (revisions, \texttt{If-\allowbreak{}Match}), bindings, outbox, history and audit. \\ \hline
 \end{longtable}
 
-Every request passes \texttt{Service.\allowbreak{}handle}: request-count limit, \texttt{caller} (mutual TLS, certificate profile \texttt{sy} or \texttt{op}, identity token verified with Authentication and matched to the certificate), then the role's \texttt{route} with its caller lists.
+Every request passes the Spring filter chain: the common \texttt{OutsourcedFilter} (identity token verified with Authentication and bound to the client certificate), \texttt{CallerProfileFilter} (certificate profile \texttt{sy} or \texttt{op}), \texttt{SysMonitorAccessFilter} (\texttt{sysMonitorHistory} operations decided by ConsumerAuthorization, cached 30 s when granted; every other \texttt{/sysmonitor} path only for LocalCloudManager or Sysop) and the common management filter for \texttt{/sysmonitor/\allowbreak{}mgmt/} (Sysop and the whitelist LocalCloudManager). Errors use the Arrowhead error body (\texttt{errorMessage}, \texttt{errorCode}, \texttt{exceptionType}, \texttt{origin}) with the status codes of the native implementation.
 
 \subsubsection{Data handled and stored}
 
-Storage \texttt{SQLite /\allowbreak{}data/\allowbreak{}sysmonitor.\allowbreak{}db}:
+Private MySQL schema \texttt{ah\_\allowbreak{}sysmonitor} (\texttt{deployment/\allowbreak{}database/\allowbreak{}init.sql}, \texttt{src/\allowbreak{}main/\allowbreak{}resources/\allowbreak{}database}):
 
 \noindent\begin{longtable}{| p{6.4cm} | p{8.8cm} |} \hline
 \rowcolor{gray!33} Tables & Content \\ \hline \endhead
-\texttt{observations,\allowbreak{} outbox} & History and output queue. \\ \hline
-\texttt{subscriptions,\allowbreak{} amqp\_\allowbreak{}bindings,\allowbreak{} audit} & Subscriptions, broker bindings and audit log. \\ \hline
+\texttt{observation,\allowbreak{} outbox} & History (retention-bounded, \texttt{SYSMONITOR\_\allowbreak{}RETENTION\_\allowbreak{}DAYS}) and MQTT output queue. \\ \hline
+\texttt{subscription,\allowbreak{} amqp\_\allowbreak{}binding,\allowbreak{} audit} & Subscriptions, broker bindings and audit log. \\ \hline
+\texttt{logs} & Log4j2 JDBC log of the common library (\texttt{get-\allowbreak{}log}). \\ \hline
 \end{longtable}
 
-The interfaces exchange JSON objects built at run time; their structure is specified in the IDD documents.
+The interfaces exchange JSON objects built at run time; their structure is specified in the IDD documents. The history of the former SQLite store is not migrated; it is retention-bounded.
 
 \subsection{Non functional properties implementation}
 
 \subsubsection{Security}
 
-\texttt{Tls} builds the TLS contexts from PEM files (\texttt{TLS\_\allowbreak{}*}), with mandatory client certificates and CRL checking (\texttt{CRL\_\allowbreak{}FILE}); \texttt{Service.\allowbreak{}caller} binds the identity token to the certificate; the Authentication client pins Authentication's certificate identity before sending credentials.
+The HTTPS API requires mutual TLS 1.2/1.3 with the PKCS12 identity and trust stores (\texttt{client-\allowbreak{}auth=need}); client certificates are checked against the CRL of the cloud CA (\texttt{arrowhead.\allowbreak{}ssl.\allowbreak{}crl-\allowbreak{}file}). The AMQP intake and the MQTT output use the same system certificate (AMQP SASL EXTERNAL), verify the broker host name and check the broker certificate against the same CRL. The common \texttt{SecurityProfileGuard} refuses to start with TLS off, declared authentication, \texttt{service.\allowbreak{}authorization.\allowbreak{}enabled=false} or plain broker connections, unless \texttt{arrowhead.\allowbreak{}security.\allowbreak{}profile=\allowbreak{}development} is selected for an isolated test.
 
 \subsubsection{Power management}
 
@@ -122,24 +128,22 @@ None; the system is a server process without power states. The \texttt{sysMonito
 
 \subsubsection{Internal monitoring}
 
-Logs go to stdout. The system publishes its \texttt{sysMonitor} observations every 30 s (see the sysMonitor IDD).
+Logs go to stdout, a file under \texttt{/app/logs} and the \texttt{logs} table. The common \texttt{SysMonitorPublisher} publishes the system's own \texttt{sysMonitor} observations every 30 s; its health is \texttt{alive} only with both broker connections.
 
 \subsubsection{Configuration}
 
-Configuration is read from environment variables (listed in the SysD); secrets are read from files (\texttt{*\_\allowbreak{}FILE} variables or mounted credential bundles).
+\texttt{config/\allowbreak{}application.\allowbreak{}properties} holds the deployment settings; the environment names \texttt{LOCAL\_\allowbreak{}CLOUD}, \texttt{ORGANIZATION}, \texttt{AMQP\_\allowbreak{}HOST/\allowbreak{}PORT}, \texttt{MQTT\_\allowbreak{}HOST/\allowbreak{}PORT}, \texttt{SYSMONITOR\_\allowbreak{}*}, \texttt{ORCHESTRATION\_\allowbreak{}INTERVAL\_\allowbreak{}SECONDS} and \texttt{CRL\_\allowbreak{}FILE} remain placeholders with defaults. Secrets (store, identity and database passwords) are read from \texttt{/run/secrets} (Spring config tree).
 
 \subsection{Deployment}
 
-The local \texttt{Dockerfile} builds only this folder and runs \texttt{arrowhead-\allowbreak{}sysmonitor-\allowbreak{}standalone:5.2.2}. The local \texttt{compose.yaml} joins an operator-selected existing cloud network; it has no sibling build context, shared runtime image or dependency on another support process for startup. The HTTPS API uses port 8475; health uses internal port 8482. The process runs as UID 10001 with a read-only root filesystem and writable private \texttt{/\allowbreak{}data} and \texttt{/\allowbreak{}tmp} paths. The image preinstalls the platform SQLite native library in \texttt{/app/lib}; temporary storage remains non-executable. Certificates and credentials are mounted individually. This packaging is supplied for operator deployment; existing test-cloud deployments are separate deployment consumers and are not changed by it.
+The local \texttt{Dockerfile} builds only this folder and runs \texttt{arrowhead-\allowbreak{}sysmonitor-\allowbreak{}standalone:5.2.2}. The local \texttt{compose.yaml} joins an operator-selected existing cloud network and adds the private \texttt{sysmonitor-\allowbreak{}db} (MySQL 8.4.11 with mandatory TLS on an internal network, schema and data-manipulation-only account created by \texttt{deployment/\allowbreak{}database}). The HTTPS API uses port 8475. The process runs as UID 10001 with a read-only root filesystem; only \texttt{/tmp} and \texttt{/app/logs} are writable tmpfs. Key and trust stores, the database CA and the CRL are mounted individually and read-only. This packaging is supplied for operator deployment; existing test-cloud deployments are separate deployment consumers and are not changed by it.
 
-To select this system, copy \texttt{.env.example} to \texttt{.env}, provision its identity/password, system certificate/key, trusted CA and CRL, configure network and registry, then run \texttt{docker compose up -\allowbreak{}d -\allowbreak{}-\allowbreak{}build} from this folder. The private project-scoped SQLite volume must never be shared with another system or concurrently mounted by a second instance. Stopping this Compose project preserves its volume and does not stop other systems.
+To select this system, copy \texttt{.env.example} to \texttt{.env}, provision its identity/password, PKCS12 key and trust stores, CRL, database TLS material and passwords, configure network and registry, then run \texttt{docker compose up -\allowbreak{}d -\allowbreak{}-\allowbreak{}build} from this folder. The database volume must never be shared with another system. Stopping this Compose project preserves its volume and does not stop other systems.
 
-ServiceRegistry is the bootstrap endpoint. Authentication and DynamicServiceOrchestration are looked up there; other consumed services are orchestrated through DSO and require the cloud's authorization rules. AMQPS monitoring remains a network dependency. The MQTT v5 output broker, observation intake and authorized orchestration must be available for operational readiness. SysMonitor reports degraded HTTP 503 when AMQP intake or MQTT output is disconnected. The other native systems return process liveness. Inspect registration, broker and orchestration status for operational readiness.
+ServiceRegistry is the bootstrap endpoint. Authentication and DynamicServiceOrchestration are looked up there; ConsumerAuthorization and the monitored \texttt{sysMonitor} providers are orchestrated through DSO and require the cloud's authorization rules. The AMQP broker and the MQTT v5 output broker must be available for operational readiness: SysMonitor reports degraded (HTTP 503 on \texttt{/health} and \texttt{generalManagement} status) when AMQP intake or MQTT output is disconnected.
 
 \subsubsection{Ownership and build boundary}
-The helpers \texttt{Service}, \texttt{Tls}, \texttt{Json}, \texttt{Database} and \texttt{Messaging} are private source copies inside this project. The JAR contains no implementation of the other three former runtime systems. There is no shared runtime process, data directory or Maven parent. Maven dependencies remain external libraries. Security fixes to duplicated helpers must be propagated and verified in every affected project.
-
-Build with Java 21 and \texttt{mvn -\allowbreak{}B clean verify}, or use the local Docker build. The packaged SQLite smoke check is \texttt{java -\allowbreak{}jar target/\allowbreak{}arrowhead-\allowbreak{}sysmonitor-\allowbreak{}5.2.2.jar storage-\allowbreak{}selftest}. The build requires no sibling support folder.
+The common library is a private vendored source copy (\texttt{vendor/\allowbreak{}PROVENANCE.json}); there is no shared runtime process, data directory or Maven parent other than Spring Boot. Security fixes to the common library must be propagated to every vendored copy. Build with Java 21 and \texttt{mvn -\allowbreak{}B clean verify} (\texttt{scripts/\allowbreak{}verify.sh} also checks the artifact contents), or use the local Docker build; \texttt{scripts/\allowbreak{}verify-\allowbreak{}image.sh} checks that the image runs read-only and refuses insecure settings.
 
 \subsection{Local modifications}
 \label{sec:local}
@@ -147,11 +151,12 @@ Build with Java 21 and \texttt{mvn -\allowbreak{}B clean verify}, or use the loc
 Notes on this implementation in the workspace:
 \begin{itemize}
   \item Native Java port (2026-10-16); bindings re-applied on every refresh (2026-10-19).
+  \item Converted to the Arrowhead Java Spring pattern with a private MySQL schema (2026-11-08). HTTP paths, status codes, AMQP routing keys, the observation format and the MQTT topics and payloads are unchanged; error bodies now use the Arrowhead error format, \texttt{/health} requires the identity token like every other path, and \texttt{generalManagement} also offers \texttt{get-\allowbreak{}log} and \texttt{get-\allowbreak{}config}.
 \end{itemize}
 
 \subsection{Verification}
 
-The project owns its JUnit security tests and system-specific tests. Verification covers mandatory mutual TLS, certificate/token binding, pinned Authentication identity, DSO discovery, concurrent token renewal and startup of this actual system with isolated generated credentials and its own temporary database. Federation and monitoring projects retain their relevant peer, session or persistence tests. The distribution verification report records independent build, packaging, image and configuration results; it does not claim a live-cloud rollout.
+The project's JUnit tests cover the observation format and identity binding, the store (deduplication, outbox, revisions, filters, prune), orchestration and binding selection, the intake acknowledgement rules, the ConsumerAuthorization cache, the secure-profile refusal and a route contract test of every previously served path and method behind the deployed filter chain (unauthenticated, wrong certificate and authorised). Opt-in tests run the whole application against a fresh MySQL container built from \texttt{deployment/\allowbreak{}database} (schema validation, data-manipulation-only grants) and an AMQP to store to MQTT round trip against local RabbitMQ and Mosquitto with mutual TLS. A live Go/Rust federation run is not part of this verification.
 
 \newpage
 
@@ -191,6 +196,7 @@ sysMonitorData & MQTT broker & -- & -- \\ \hline
 1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
 2 & 2026-10-25 & \arrowversion & Independent Java build, private helpers and state, per-system deployment and configuration. & Codex (draft) \\ \hline
 3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+4 & 2026-11-08 & \arrowversion & Implementation converted to the Arrowhead Java Spring pattern with a private MySQL schema; implementation, security, deployment and verification sections updated. & Claude Opus 5.5 (draft) \\ \hline
 \end{tabularx}
 
 \subsection{Quality Assurance}

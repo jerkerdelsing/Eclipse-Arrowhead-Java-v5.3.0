@@ -1,3 +1,4 @@
+eu/arrowhead/datamanager/api/http/GeneralManagementAPITest.class
 eu/arrowhead/datamanager/service/DataManagerHealthIndicatorTest.class
 eu/arrowhead/datamanager/security/DataManagerAuthorizationTest.class
 eu/arrowhead/datamanager/service/HistorianServiceTest.class

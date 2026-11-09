@@ -11,3 +11,6 @@ documentation/**/*.bbl
 documentation/**/*.blg
 documentation/**/*.fls
 documentation/**/*.fdb_latexmk
+vendor/**/target/
+*.log
+!documentation/**

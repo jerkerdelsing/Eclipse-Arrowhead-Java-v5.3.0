@@ -1088,3 +1088,283 @@
 2026-10-23 09:51:19.374  INFO fe5b806567f9 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
 2026-10-23 09:51:19.376  INFO fe5b806567f9 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
 2026-10-23 09:51:20.667  INFO fe5b806567f9 --- [           main] e.a.s.s.v.i.InterfaceValidator           : The validator belonging to the interface template property is not implemented: PORT
+2026-11-07 14:51:44.369  INFO 447b66aa71b8 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 14:51:44.384 ERROR 447b66aa71b8 --- [           main] i.ServiceRegistryApplicationInitListener : null
+2026-11-07 14:51:44.390  INFO 447b66aa71b8 --- [           main] i.ServiceRegistryApplicationInitListener : Core system sysInfo revoked 1 service(s)
+2026-11-07 14:51:44.399  INFO 447b66aa71b8 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 0 service(s)
+2026-11-07 14:51:44.412  INFO 447b66aa71b8 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 14:51:44.729 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 14:51:44.731 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 14:51:44.747 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 14:51:44.978 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 14:51:44.979 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : Database operation error
+2026-11-07 14:51:44.982 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 14:51:45.020 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 14:51:45.067 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 14:51:45.089 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 14:51:45.276 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:51:45.305 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:51:45.327 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:51:45.346 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:51:45.360 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:51:45.366 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:51:45.451 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:51:45.460 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:51:45.464 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:51:45.499 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:51:45.521 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:51:45.535 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:51:45.543 ERROR 447b66aa71b8 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:51:45.558 ERROR 447b66aa71b8 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 14:51:45.568 ERROR 447b66aa71b8 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 14:51:45.580 ERROR 447b66aa71b8 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 14:51:45.588 ERROR 447b66aa71b8 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 14:51:45.595 ERROR 447b66aa71b8 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 14:51:45.707  INFO 447b66aa71b8 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:51:45.730  INFO 447b66aa71b8 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:51:45.732  INFO 447b66aa71b8 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:51:45.733  INFO 447b66aa71b8 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:51:45.735  INFO 447b66aa71b8 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:51:45.736  INFO 447b66aa71b8 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:51:45.737  INFO 447b66aa71b8 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:51:46.929  INFO 447b66aa71b8 --- [           main] e.a.s.s.v.i.InterfaceValidator           : The validator belonging to the interface template property is not implemented: PORT
+2026-11-07 14:52:38.555  INFO 30fbec9ecea5 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 14:52:38.568 ERROR 30fbec9ecea5 --- [           main] i.ServiceRegistryApplicationInitListener : null
+2026-11-07 14:52:38.573  INFO 30fbec9ecea5 --- [           main] i.ServiceRegistryApplicationInitListener : Core system sysInfo revoked 1 service(s)
+2026-11-07 14:52:38.583  INFO 30fbec9ecea5 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 0 service(s)
+2026-11-07 14:52:38.591  INFO 30fbec9ecea5 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 14:52:39.097 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 14:52:39.100 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 14:52:39.113 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 14:52:39.450 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 14:52:39.455 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : Database operation error
+2026-11-07 14:52:39.466 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 14:52:39.520 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 14:52:39.595 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 14:52:39.657 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 14:52:39.840 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:52:39.869 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:52:39.904 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:52:39.929 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:52:39.948 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:52:39.972 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 14:52:40.067 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:52:40.072 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:52:40.075 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:52:40.105 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:52:40.122 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:52:40.139 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:52:40.158 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 14:52:40.174 ERROR 30fbec9ecea5 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 14:52:40.183 ERROR 30fbec9ecea5 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 14:52:40.196 ERROR 30fbec9ecea5 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 14:52:40.207 ERROR 30fbec9ecea5 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 14:52:40.208 ERROR 30fbec9ecea5 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 14:52:40.286  INFO 30fbec9ecea5 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:52:40.313  INFO 30fbec9ecea5 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:52:40.315  INFO 30fbec9ecea5 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:52:40.318  INFO 30fbec9ecea5 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:52:40.319  INFO 30fbec9ecea5 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:52:40.321  INFO 30fbec9ecea5 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:52:40.322  INFO 30fbec9ecea5 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 14:52:41.928  INFO 30fbec9ecea5 --- [           main] e.a.s.s.v.i.InterfaceValidator           : The validator belonging to the interface template property is not implemented: PORT
+2026-11-07 15:11:17.793  INFO 2932b9401a12 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 15:11:17.809 ERROR 2932b9401a12 --- [           main] i.ServiceRegistryApplicationInitListener : null
+2026-11-07 15:11:17.825  INFO 2932b9401a12 --- [           main] i.ServiceRegistryApplicationInitListener : Core system sysInfo revoked 1 service(s)
+2026-11-07 15:11:17.841  INFO 2932b9401a12 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 0 service(s)
+2026-11-07 15:11:17.852  INFO 2932b9401a12 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 15:11:18.293 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 15:11:18.308 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 15:11:18.333 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 15:11:18.594 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 15:11:18.598 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : Database operation error
+2026-11-07 15:11:18.603 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 15:11:18.673 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 15:11:18.770 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 15:11:18.817 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 15:11:19.071 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:11:19.099 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:11:19.125 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:11:19.148 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:11:19.168 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:11:19.179 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:11:19.257 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:11:19.264 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:11:19.267 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:11:19.294 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:11:19.314 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:11:19.322 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:11:19.332 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:11:19.350 ERROR 2932b9401a12 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 15:11:19.360 ERROR 2932b9401a12 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 15:11:19.369 ERROR 2932b9401a12 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 15:11:19.375 ERROR 2932b9401a12 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 15:11:19.376 ERROR 2932b9401a12 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 15:11:19.451  INFO 2932b9401a12 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:11:19.475  INFO 2932b9401a12 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:11:19.477  INFO 2932b9401a12 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:11:19.478  INFO 2932b9401a12 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:11:19.480  INFO 2932b9401a12 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:11:19.481  INFO 2932b9401a12 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:11:19.483  INFO 2932b9401a12 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:11:20.888  INFO 2932b9401a12 --- [           main] e.a.s.s.v.i.InterfaceValidator           : The validator belonging to the interface template property is not implemented: PORT
+2026-11-07 15:22:16.710  INFO 284a34be337f --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 15:22:16.735 ERROR 284a34be337f --- [           main] i.ServiceRegistryApplicationInitListener : null
+2026-11-07 15:22:16.742  INFO 284a34be337f --- [           main] i.ServiceRegistryApplicationInitListener : Core system sysInfo revoked 1 service(s)
+2026-11-07 15:22:16.766  INFO 284a34be337f --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 0 service(s)
+2026-11-07 15:22:16.775  INFO 284a34be337f --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 15:22:17.153 ERROR 284a34be337f --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 15:22:17.156 ERROR 284a34be337f --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 15:22:17.168 ERROR 284a34be337f --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 15:22:17.396 ERROR 284a34be337f --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 15:22:17.397 ERROR 284a34be337f --- [           main] e.a.s.j.s.ServiceInstanceDbService       : Database operation error
+2026-11-07 15:22:17.400 ERROR 284a34be337f --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 15:22:17.450 ERROR 284a34be337f --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 15:22:17.490 ERROR 284a34be337f --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 15:22:17.520 ERROR 284a34be337f --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 15:22:17.681 ERROR 284a34be337f --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:22:17.700 ERROR 284a34be337f --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:22:17.736 ERROR 284a34be337f --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:22:17.765 ERROR 284a34be337f --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:22:17.780 ERROR 284a34be337f --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:22:17.786 ERROR 284a34be337f --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 15:22:17.867 ERROR 284a34be337f --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:22:17.876 ERROR 284a34be337f --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:22:17.881 ERROR 284a34be337f --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:22:17.912 ERROR 284a34be337f --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:22:17.930 ERROR 284a34be337f --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:22:17.944 ERROR 284a34be337f --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:22:17.957 ERROR 284a34be337f --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 15:22:17.995 ERROR 284a34be337f --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 15:22:18.006 ERROR 284a34be337f --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 15:22:18.017 ERROR 284a34be337f --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 15:22:18.030 ERROR 284a34be337f --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 15:22:18.032 ERROR 284a34be337f --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 15:22:18.113  INFO 284a34be337f --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:22:18.139  INFO 284a34be337f --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:22:18.141  INFO 284a34be337f --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:22:18.145  INFO 284a34be337f --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:22:18.148  INFO 284a34be337f --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:22:18.156  INFO 284a34be337f --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:22:18.159  INFO 284a34be337f --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 15:22:19.616  INFO 284a34be337f --- [           main] e.a.s.s.v.i.InterfaceValidator           : The validator belonging to the interface template property is not implemented: PORT
+2026-11-07 16:16:23.584  INFO d679ca67fecb --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 16:16:23.599 ERROR d679ca67fecb --- [           main] i.ServiceRegistryApplicationInitListener : null
+2026-11-07 16:16:23.605  INFO d679ca67fecb --- [           main] i.ServiceRegistryApplicationInitListener : Core system sysInfo revoked 1 service(s)
+2026-11-07 16:16:23.615  INFO d679ca67fecb --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 0 service(s)
+2026-11-07 16:16:23.623  INFO d679ca67fecb --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 16:16:24.249 ERROR d679ca67fecb --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 16:16:24.251 ERROR d679ca67fecb --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 16:16:24.271 ERROR d679ca67fecb --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 16:16:24.528 ERROR d679ca67fecb --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 16:16:24.528 ERROR d679ca67fecb --- [           main] e.a.s.j.s.ServiceInstanceDbService       : Database operation error
+2026-11-07 16:16:24.531 ERROR d679ca67fecb --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 16:16:24.573 ERROR d679ca67fecb --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 16:16:24.608 ERROR d679ca67fecb --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 16:16:24.643 ERROR d679ca67fecb --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 16:16:24.834 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:16:24.859 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:16:24.880 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:16:24.905 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:16:24.924 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:16:24.934 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:16:25.029 ERROR d679ca67fecb --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:16:25.033 ERROR d679ca67fecb --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:16:25.039 ERROR d679ca67fecb --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:16:25.069 ERROR d679ca67fecb --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:16:25.098 ERROR d679ca67fecb --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:16:25.121 ERROR d679ca67fecb --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:16:25.147 ERROR d679ca67fecb --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:16:25.175 ERROR d679ca67fecb --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 16:16:25.186 ERROR d679ca67fecb --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 16:16:25.193 ERROR d679ca67fecb --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 16:16:25.202 ERROR d679ca67fecb --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 16:16:25.205 ERROR d679ca67fecb --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 16:16:25.297  INFO d679ca67fecb --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:16:25.325  INFO d679ca67fecb --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:16:25.327  INFO d679ca67fecb --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:16:25.330  INFO d679ca67fecb --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:16:25.331  INFO d679ca67fecb --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:16:25.333  INFO d679ca67fecb --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:16:25.335  INFO d679ca67fecb --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:16:27.217  INFO d679ca67fecb --- [           main] e.a.s.s.v.i.InterfaceValidator           : The validator belonging to the interface template property is not implemented: PORT
+2026-11-07 16:18:50.740  INFO eb07a3cfb095 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 16:18:50.763 ERROR eb07a3cfb095 --- [           main] i.ServiceRegistryApplicationInitListener : null
+2026-11-07 16:18:50.770  INFO eb07a3cfb095 --- [           main] i.ServiceRegistryApplicationInitListener : Core system sysInfo revoked 1 service(s)
+2026-11-07 16:18:50.796  INFO eb07a3cfb095 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 0 service(s)
+2026-11-07 16:18:50.809  INFO eb07a3cfb095 --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-07 16:18:51.313 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 16:18:51.317 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 16:18:51.354 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-07 16:18:51.778 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 16:18:51.779 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : Database operation error
+2026-11-07 16:18:51.787 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 16:18:51.948 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 16:18:52.037 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-07 16:18:52.147 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-07 16:18:52.392 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:18:52.424 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:18:52.471 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:18:52.533 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:18:52.564 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:18:52.586 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-07 16:18:52.760 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:18:52.770 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:18:52.783 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:18:52.848 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:18:52.917 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:18:52.948 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:18:52.988 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-07 16:18:53.048 ERROR eb07a3cfb095 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 16:18:53.093 ERROR eb07a3cfb095 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 16:18:53.111 ERROR eb07a3cfb095 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 16:18:53.131 ERROR eb07a3cfb095 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 16:18:53.136 ERROR eb07a3cfb095 --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-07 16:18:53.232  INFO eb07a3cfb095 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:18:53.262  INFO eb07a3cfb095 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:18:53.265  INFO eb07a3cfb095 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:18:53.268  INFO eb07a3cfb095 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:18:53.269  INFO eb07a3cfb095 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:18:53.270  INFO eb07a3cfb095 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:18:53.272  INFO eb07a3cfb095 --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-07 16:18:55.217  INFO eb07a3cfb095 --- [           main] e.a.s.s.v.i.InterfaceValidator           : The validator belonging to the interface template property is not implemented: PORT
+2026-11-09 11:02:11.497  INFO 4987e6b0b72c --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-09 11:02:11.528 ERROR 4987e6b0b72c --- [           main] i.ServiceRegistryApplicationInitListener : null
+2026-11-09 11:02:11.535  INFO 4987e6b0b72c --- [           main] i.ServiceRegistryApplicationInitListener : Core system sysInfo revoked 1 service(s)
+2026-11-09 11:02:11.545  INFO 4987e6b0b72c --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 0 service(s)
+2026-11-09 11:02:11.564  INFO 4987e6b0b72c --- [           main] i.ServiceRegistryApplicationInitListener : System ServiceRegistry published 1 service(s)
+2026-11-09 11:02:12.078 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-09 11:02:12.085 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-09 11:02:12.122 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.ServiceDefinitionDbService     : test error
+2026-11-09 11:02:12.820 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-09 11:02:12.825 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.ServiceInstanceDbService       : Database operation error
+2026-11-09 11:02:12.830 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-09 11:02:13.172 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-09 11:02:13.206 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.ServiceInstanceDbService       : test error
+2026-11-09 11:02:13.274 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.ServiceInstanceDbService       : error
+2026-11-09 11:02:13.787 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-09 11:02:13.857 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-09 11:02:14.069 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-09 11:02:14.126 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-09 11:02:14.201 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-09 11:02:14.223 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SystemDbService                : error
+2026-11-09 11:02:14.384 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-09 11:02:14.408 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-09 11:02:14.419 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-09 11:02:14.469 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-09 11:02:14.530 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-09 11:02:14.581 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-09 11:02:14.620 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.DeviceDbService                : error
+2026-11-09 11:02:14.762 ERROR 4987e6b0b72c --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-09 11:02:14.777 ERROR 4987e6b0b72c --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-09 11:02:14.786 ERROR 4987e6b0b72c --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-09 11:02:14.794 ERROR 4987e6b0b72c --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-09 11:02:14.799 ERROR 4987e6b0b72c --- [           main] .s.j.s.ServiceInterfaceTemplateDbService : error
+2026-11-09 11:02:14.929  INFO 4987e6b0b72c --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-09 11:02:14.959  INFO 4987e6b0b72c --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-09 11:02:14.961  INFO 4987e6b0b72c --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-09 11:02:14.963  INFO 4987e6b0b72c --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-09 11:02:14.965  INFO 4987e6b0b72c --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-09 11:02:14.968  INFO 4987e6b0b72c --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-09 11:02:14.975  INFO 4987e6b0b72c --- [           main] .a.s.a.h.f.ServiceLookupFilterTestHelper : ServiceLookupFilterTestHelper is active
+2026-11-09 11:02:17.728  INFO 4987e6b0b72c --- [           main] e.a.s.s.v.i.InterfaceValidator           : The validator belonging to the interface template property is not implemented: PORT

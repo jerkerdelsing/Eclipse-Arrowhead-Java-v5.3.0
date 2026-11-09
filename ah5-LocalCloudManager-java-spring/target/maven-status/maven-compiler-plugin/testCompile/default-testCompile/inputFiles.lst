@@ -1,0 +1,7 @@
+/src/src/test/java/eu/arrowhead/localcloudmanager/SecureProfileTest.java
+/src/src/test/java/eu/arrowhead/localcloudmanager/api/ConsoleApiTest.java
+/src/src/test/java/eu/arrowhead/localcloudmanager/console/ConsoleAuthTest.java
+/src/src/test/java/eu/arrowhead/localcloudmanager/console/ConsoleConnectorTest.java
+/src/src/test/java/eu/arrowhead/localcloudmanager/service/CrlStatusTest.java
+/src/src/test/java/eu/arrowhead/localcloudmanager/service/EditorsTest.java
+/src/src/test/java/eu/arrowhead/localcloudmanager/service/InventoryTest.java

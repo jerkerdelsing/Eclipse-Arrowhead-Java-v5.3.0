@@ -64,6 +64,7 @@ eu/arrowhead/dto/AuthorizationTokenGenerationRequestDTO.class
 eu/arrowhead/choreographer/service/PlanService.class
 eu/arrowhead/dto/ServiceInstanceInterfaceRequestDTO.class
 eu/arrowhead/common/mqtt/MqttResourceManager.class
+eu/arrowhead/common/init/SecurityProfileGuard.class
 eu/arrowhead/dto/SystemRequestDTO.class
 eu/arrowhead/common/http/filter/authentication/AuthenticationPolicy.class
 eu/arrowhead/common/CommonBeanConfig$1.class

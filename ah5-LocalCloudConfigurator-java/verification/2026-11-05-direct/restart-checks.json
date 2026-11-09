@@ -1,0 +1,30 @@
+[
+  {
+    "check": "worker automatic-service restart preserves completed workflow",
+    "passed": true
+  },
+  {
+    "check": "standard Java cloud container restart selects direct backend",
+    "passed": true
+  },
+  {
+    "check": "runtime status works after both restarts",
+    "passed": true
+  },
+  {
+    "check": "saved design survives container and worker restart",
+    "passed": true
+  },
+  {
+    "check": "workflow result survives container and worker restart",
+    "passed": true
+  },
+  {
+    "check": "temporary restart-test design removed",
+    "passed": true
+  },
+  {
+    "check": "worker automatically recovers after process termination without manual start or ColonyOS",
+    "passed": true
+  }
+]

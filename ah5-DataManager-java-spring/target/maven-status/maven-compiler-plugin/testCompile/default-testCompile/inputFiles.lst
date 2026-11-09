@@ -1,3 +1,4 @@
+/source/src/test/java/eu/arrowhead/datamanager/api/http/GeneralManagementAPITest.java
 /source/src/test/java/eu/arrowhead/datamanager/security/DataManagerAuthorizationTest.java
 /source/src/test/java/eu/arrowhead/datamanager/service/DataManagerHealthIndicatorTest.java
 /source/src/test/java/eu/arrowhead/datamanager/service/HistorianServiceTest.java

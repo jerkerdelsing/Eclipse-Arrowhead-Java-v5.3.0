@@ -85,7 +85,7 @@ networks:
     internal: true
     ipam:
       config:
-        - subnet: ${DB_SUBNET:-10.252.206.0/24}
+        - subnet: ${DB_SUBNET:-10.252.215.0/24}
 secrets:
   identity-password:
     file: ${IDENTITY_PASSWORD_FILE:-./security/identity-password}

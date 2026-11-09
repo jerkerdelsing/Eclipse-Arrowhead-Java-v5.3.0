@@ -25,3 +25,6 @@
 2026-10-23 09:08:08.954 ERROR 4d64ec532a36 --- [           main] e.a.d.s.DataManagerAuthorizationService  : Authorization check failed for RandomDataProducer|dataHistorian|put-data: down
 2026-10-25 10:36:47.894 ERROR b20f43e3c652 --- [           main] e.a.d.s.DataManagerAuthorizationService  : Authorization check failed for RandomDataProducer|dataHistorian|put-data: down
 2026-10-25 10:52:46.515 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.d.s.DataManagerAuthorizationService  : Authorization check failed for RandomDataProducer|dataHistorian|put-data: down
+2026-11-07 14:58:05.374 ERROR 40bd6bba9b6a --- [           main] e.a.d.s.DataManagerAuthorizationService  : Authorization check failed for RandomDataProducer|dataHistorian|put-data: down
+2026-11-07 15:12:45.170 ERROR 1cf0fb6f9fd7 --- [           main] e.a.d.s.DataManagerAuthorizationService  : Authorization check failed for RandomDataProducer|dataHistorian|put-data: down
+2026-11-07 15:23:45.183 ERROR cf83a965c806 --- [           main] e.a.d.s.DataManagerAuthorizationService  : Authorization check failed for RandomDataProducer|dataHistorian|put-data: down

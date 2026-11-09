@@ -83,6 +83,7 @@
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/http/model/HttpInterfaceModel.java
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/http/model/HttpOperationModel.java
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/init/ApplicationInitListener.java
+/source/vendor/common-utils/src/main/java/eu/arrowhead/common/init/SecurityProfileGuard.java
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/init/ServiceInterfaceExtensions.java
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/init/StartupFailureExit.java
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/intf/properties/IPropertyValidator.java

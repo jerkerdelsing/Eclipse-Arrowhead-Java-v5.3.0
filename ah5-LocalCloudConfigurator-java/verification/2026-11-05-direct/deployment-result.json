@@ -1,0 +1,16 @@
+{
+  "image": "eclipse-arrowhead/localcloudconfigurator-java:direct",
+  "imageId": "sha256:c950adbf3dcdedcba74f3934d7c56e5e03489c8238017eb2804b722e98184f3e",
+  "health": "healthy",
+  "executionBackend": "direct",
+  "workerRunAtLoad": true,
+  "workerKeepAlive": true,
+  "otherJavaContainersUnchanged": 40,
+  "onlyChangedContainer": "/arrowhead-v52-test-cloud-localcloudconfigurator-1",
+  "managerUI": 200,
+  "managerToConfigurator": 200,
+  "testsPassed": 25,
+  "liveChecksPassed": 17,
+  "restartChecksPassed": 7,
+  "actualMachineRebootPerformed": false
+}

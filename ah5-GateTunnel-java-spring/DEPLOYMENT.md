@@ -1,23 +1,35 @@
 # GateTunnel - independent deployment
 
-This folder owns the complete source, build, executable JAR, application image, configuration and Compose deployment for GateTunnel 5.2.2. No JavaSupportRuntime, sibling source folder or shared support-system data is used.
+This folder owns the complete source, build, application image, database image, configuration and Compose deployment of GateTunnel 5.2.2 (Java-Spring). No sibling folder or shared support-system data is used.
 
 ## Build
 
-With Java 21 and Maven 3.9, run `mvn -B clean verify` here. `scripts/verify.sh` also checks artifact contents. Maven Central dependencies require network access on the first build; `-o` works with a populated dependency cache. The output is `target/arrowhead-gatetunnel-5.2.2.jar`. Alternatively `docker compose build` builds from this folder, runs the tests and creates `arrowhead-gatetunnel-standalone:5.2.2`.
+`mvn -B clean verify` (Java 21, Maven 3.9) or `docker compose build`, which runs the tests and creates `arrowhead-gatetunnel-standalone:5.2.2` and `arrowhead-gatetunnel-standalone-db:5.2.2`. `-o` builds offline from a populated Maven cache.
 
-## Provision and select this system
+## Provision
 
-1. Copy `.env.example` to `.env`. Select an existing cloud network and registry endpoint. Use a unique Compose project name, host port and private subnet for each deployment on a Docker host. The project does not create or start core systems or other support systems.
-2. Provision this system's own identity and password in Authentication, its certificate and required authorization/orchestration rules. The certificate must identify `GateTunnel.<LOCAL_CLOUD>.<ORGANIZATION>.arrowhead.eu` with the system profile `sy`. Keep credential files outside version control and ensure they are readable only by their intended container user.
-3. Provision the role-specific PEM identity, password and public trust/CRL material described in README.md and `.env.example`. Use `docker compose config --quiet` followed by `docker compose up -d --build`. Only CertificateAuthority receives the issuer signing key; federation roles receive their own organization relay identity. Each role owns its private SQLite volume.
+1. Copy `.env.example` to `.env`. Select the existing cloud network, the Service Registry, a unique Compose project name, host port and private database subnet (`DB_SUBNET`).
+2. Provision under `security/` (or set the paths in `.env`), readable by container UID 10001:
+   - `GateTunnel.p12`: the system identity, alias `GateTunnel.<LOCAL_CLOUD>.<ORGANIZATION>.arrowhead.eu`, profile (dnQualifier) `sy`. The start is refused with any other name or profile, since peers pin that name. `truststore.p12` holds the cloud CA.
+   - `crl/ca.crl`: the cloud CA's CRL. Client certificates of the API and of the tunnel listeners, and the certificates of called providers, are checked against it (fail closed).
+   - `store-password`, `identity-password` (the system's password in Authentication), `db-password`, `db-root-password`: one value per file, passed as Compose secrets.
+   - `db.crt`, `db.key`, `db-ca.crt`: TLS of the private database. The system connects with `sslMode=verify-full`, so `db.crt` must name `gatetunnel-db`.
+   - `gatetunnel-relay-chain.crt` (relay certificate + cross-certificate of the cloud CA), `gatetunnel-relay.key`, `org-ca.crt`: the separate relay identity (`RELAY_*`). It is used for the MQTT relay link and, in `ah-gt-1`, for signing the key exchange.
+3. Register the identity in Authentication and the authorization and orchestration rules for the callers in README.md. Configure `NEIGHBOR_CLOUDS` and, for other organisations, `FEDERATION_PEER_ORGANIZATIONS`. Both peers must use the same `FEDERATION_PROFILE`; `legacy-mtls` is an explicit compatibility choice, never a fallback.
+4. Run `docker compose config --quiet`, then `docker compose up -d --build`.
 
-## Operational dependencies and verification
+The configuration is `config/application.properties` (secure profile: mutual TLS with PKCS12 stores, `authentication.policy=outsourced`, `CERT_AUTH`, CRL, sysMonitor over AMQPS, `ddl-auto=validate`). The 5.2.2 environment names stay as placeholders: `LOCAL_CLOUD`, `ORGANIZATION`, `ADVERTISED_ADDRESS`, `NEIGHBOR_CLOUDS`, `FEDERATION_PROFILE`, `FEDERATION_PEER_ORGANIZATIONS`, `RELAY_HOST`, `RELAY_PORT`, `RELAY_CHAIN_CERT`, `RELAY_KEY`, `RELAY_CA_CERT`, `MIN_TUNNEL_PORT`/`MAX_TUNNEL_PORT`, `INTERCLOUD_MIN_PORT`/`INTERCLOUD_MAX_PORT`, `SESSION_MAX_AGE_SECONDS`, `SESSION_IDLE_SECONDS`, `SESSION_CLOCK_SKEW_SECONDS`, `AMQP_HOST`, `AMQP_PORT`, `CRL_FILE`. `SecurityProfileGuard` refuses an insecure configuration unless `arrowhead.security.profile=development` is selected for an isolated test.
 
-The HTTPS API uses port 8453 by default. Packaging and deployment are independent; normal Arrowhead protocol dependencies remain. ServiceRegistry and Authentication are required for registration and identity. DSO and ConsumerAuthorization are required for consumed/authorized services; AMQP/MQTT, federation peers, NTP and other providers are needed according to this system's functions. Missing providers may cause startup failure or degraded features. Independence does not mean replacing core services with local bypasses.
+## Database
 
-The distribution verification deploys one support system at a time with its own data and generated test credentials. Spring startup and authenticated HTTPS access are checked against isolated mTLS core-service protocol fixtures, not production authorities. Broker/NTP/federation functions require separate operational acceptance checks. See [the distribution verification report](../ALL-JAVA-SUPPORT-VERIFICATION-2026-10-25.md).
+`gatetunnel-db` is MySQL 8.4.11 with TLS required, on an internal network. `deployment/database/init.sql` creates the schema `ah_gatetunnel` (tables `session`, `logs`); `least-privilege.sh` leaves the application account SELECT, INSERT, UPDATE and DELETE only. The schema is validated at start, never changed. Inter-cloud sessions are kept in memory and end with the process. Control sessions closed longer than `SESSION_MAX_AGE_SECONDS` are removed by a scheduled job, which returns their ports to the pool. There is no migration from the 5.2.2 SQLite store, because sessions are ephemeral.
 
-`docker compose down` stops only this project and preserves its state. Back up its database before upgrades. `down -v` deliberately erases this project's private state and must not be used for ordinary stops. No live cloud was changed by the packaging work.
+## Ports
 
-The SysDD is in `documentation/v5.2.2`; the support GSoSDD is in the enclosing distribution's `roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2`. The [distribution deployment guide](../DEPLOYMENT-GUIDE.md) covers selecting multiple systems.
+8453 is the Arrowhead API, published on loopback by default. The inter-cloud consumer tunnel listeners (8200-8299) are reached by local consumers on the cloud network under `ADVERTISED_ADDRESS`. The control pool (8000-8099) is bookkeeping only.
+
+## Operation
+
+`docker compose ps` shows health (a TCP probe of 8453). `GET /gatetunnel/mgmt/status` (LocalCloudManager, Sysop) shows the relay link and the sessions; sysMonitor reports `degraded` while the relay is not connected. `docker compose down` keeps the database volume; `down -v` erases it. No live cloud was changed by this packaging work; the Spring build has not yet been run in a live federation with the Go and Rust GateTunnels.
+
+The [distribution deployment guide](../DEPLOYMENT-GUIDE.md) covers selecting several systems.

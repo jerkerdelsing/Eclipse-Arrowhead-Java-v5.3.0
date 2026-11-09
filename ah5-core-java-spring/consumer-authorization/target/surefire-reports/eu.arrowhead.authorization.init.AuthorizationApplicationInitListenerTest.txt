@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: eu.arrowhead.authorization.init.AuthorizationApplicationInitListenerTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.282 s -- in eu.arrowhead.authorization.init.AuthorizationApplicationInitListenerTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.961 s -- in eu.arrowhead.authorization.init.AuthorizationApplicationInitListenerTest

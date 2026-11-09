@@ -49,7 +49,7 @@
 \ArrowheadType{Service Description}
 \ArrowheadTypeShort{SD}
 \ArrowheadVersion{5.2.2}
-\ArrowheadDate{2026-10-30}
+\ArrowheadDate{2026-11-09}
 \ArrowheadAuthor{Jerker Delsing}
 \ArrowheadStatus{RELEASE CANDIDATE}
 \ArrowheadContact{jerker.delsing@ltu.se}
@@ -108,12 +108,12 @@ New in this workspace.
 
 \subsection{How This Service Is Meant to Be Used}
 
-The browser console (nginx) calls the API after the operator has logged in with the console password. Each view is assembled on request from the providing systems with LocalCloudManager's own identity.
+The browser console, served by LocalCloudManager on its console connector (8490, host loopback), calls the operations after the operator has logged in with the console password. Arrowhead systems call the same operations on the Arrowhead connector (8491) with their certificate and identity token. Each view is assembled on request from the providing systems with LocalCloudManager\'s own identity.
 
 \subsection{Important Delimitations and Dependencies}
 \label{sec:delimitations}
 
-Registered with \texttt{generic\_\allowbreak{}http} and policy \texttt{NONE}: authentication is the console session, not an Arrowhead identity. Changing requests need \texttt{X-\allowbreak{}Arrowhead-\allowbreak{}Action:\allowbreak{} confirm} (428 otherwise). The registered operation names are camelCase, which deviates from the kebab-case convention of ARROWHEAD-NAMING.md.
+Registered with \texttt{generic\_\allowbreak{}https} and policy \texttt{CERT\_\allowbreak{}AUTH} on the Arrowhead connector: there a caller needs its client certificate and an identity token of the same system, and the operation is allowed for Sysop, the systems of \texttt{lcm.\allowbreak{}api.\allowbreak{}whitelist} and systems with a ConsumerAuthorization grant of the operation. On the console connector the console session authenticates instead; \texttt{session}, \texttt{login} and \texttt{logout} exist only there and are not registered. Changing requests need \texttt{X-\allowbreak{}Arrowhead-\allowbreak{}Action:\allowbreak{} confirm} (428 otherwise). The registered operation names are camelCase, which deviates from the kebab-case convention of ARROWHEAD-NAMING.md.
 
 \newpage
 
@@ -143,15 +143,15 @@ The following interface operations are available.
 
 \osubsection{session}{}{\mref{Session}}
 
-Returns whether the console session is valid (no session needed).
+Returns whether the console session is valid (no session needed; console connector only, not registered).
 
 \osubsection{login}{\mref{Login}}{}
 
-Logs in with the console password; sets the HttpOnly, SameSite=Strict session cookie.
+Logs in with the console password; sets the HttpOnly, SameSite=Strict session cookie (console connector only, not registered).
 
 \osubsection{logout}{}{}
 
-Ends the console session.
+Ends the console session (console connector only, not registered).
 
 \osubsection{overview}{}{\mref{View}}
 
@@ -231,7 +231,7 @@ Starts, stops or restarts a managed container: \texttt{POST /\allowbreak{}api/\a
 
 \subsection*{Console operations outside the registered operation list}
 
-The console API also offers the following operations. They are not part of the \texttt{operations} property registered in the ServiceRegistry (the console is its only consumer); like the registered operations they need a console session and, for changes, the confirmation header.
+The console API also offers the following operations. They are not part of the \texttt{operations} property registered in the ServiceRegistry (the console is their consumer); they are served on both connectors with the same access rules as the registered operations (on the Arrowhead connector only for Sysop and \texttt{lcm.\allowbreak{}api.\allowbreak{}whitelist}, since no grant can name them) and, for changes, need the confirmation header.
 
 \osubsection{features}{}{\mref{Features}}
 
@@ -271,11 +271,11 @@ Removes an SoS composition (identifier appended) when \texttt{expected} matches 
 
 \osubsection{localCloudConfiguration}{\pref{String}}{\mref{View}}
 
-Pass-through to the Local\allowbreak{}Cloud\allowbreak{}Configurator when \texttt{LOCAL\_\allowbreak{}CLOUD\_\allowbreak{}CONFIGURATOR\_\allowbreak{}URL} is set (404 otherwise): \texttt{GET} of \texttt{/catalog}, \texttt{/status}, \texttt{/configurations}, \texttt{/configurations/\{uuid\}} and \texttt{/deployments/\{id\}}; \texttt{POST} of \texttt{/plan}, \texttt{/deployments} and \texttt{/configurations}; \texttt{PUT} and \texttt{DELETE} of \texttt{/configurations/\{uuid\}}. Status and body of the configurator are returned unchanged.
+Local-cloud configuration view (404 when \texttt{lcm.\allowbreak{}local-\allowbreak{}cloud-\allowbreak{}configuration.\allowbreak{}enabled=\allowbreak{}false}): the route below \texttt{/api/\allowbreak{}localcloud} selects one operation of the \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service of LocalCloudConfigurator \cite{lcc-localCloudConfiguration-sd}, which is consumed through orchestration with LocalCloudManager\'s certificate and identity token: \texttt{GET} of \texttt{/catalog}, \texttt{/status}, \texttt{/configurations}, \texttt{/configurations/\{uuid\}} and \texttt{/deployments/\{id\}}; \texttt{POST} of \texttt{/plan}, \texttt{/deployments} and \texttt{/configurations}; \texttt{PUT} and \texttt{DELETE} of \texttt{/configurations/\{uuid\}}. Status and body of the configurator are returned unchanged; other routes are 404.
 
 \osubsection{chipletFloorplans}{\pref{String}}{\mref{View}}
 
-Chiplet floorplan view when \texttt{CHIPLET\_\allowbreak{}FLOORPLANS\_\allowbreak{}ENABLED=true} (404 otherwise), through orchestrated Chiplet\allowbreak{}Floorplan\allowbreak{}Generator services: \texttt{GET} list (\texttt{page}, \texttt{size} up to 200), \texttt{/library} and \texttt{/\{id\}}; \texttt{POST} create (stored inactive, 201) and \texttt{POST /check-network}; \texttt{PUT /\{id\}} with \texttt{expectedUpdatedAt} (409 when changed); \texttt{DELETE /\{id\}}. Bodies carry \texttt{floorplan} with 1--64 chiplets and at most 1024 links.
+Chiplet floorplan view when \texttt{lcm.\allowbreak{}chiplet-\allowbreak{}floorplans.\allowbreak{}enabled=\allowbreak{}true} (404 otherwise), through orchestrated Chiplet\allowbreak{}Floorplan\allowbreak{}Generator services: \texttt{GET} list (\texttt{page}, \texttt{size} up to 200), \texttt{/library} and \texttt{/\{id\}}; \texttt{POST} create (stored inactive, 201) and \texttt{POST /check-network}; \texttt{PUT /\{id\}} with \texttt{expectedUpdatedAt} (409 when changed); \texttt{DELETE /\{id\}}. Bodies carry \texttt{floorplan} with 1--64 chiplets and at most 1024 links.
 
 \newpage
 
@@ -495,6 +495,7 @@ The concrete interpretations of each of these types and structures must be provi
 
 1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
 2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): console operations outside the registered list (features, authorization policies, rule priority, SoS, local-cloud configuration, chiplet floorplans) added; information model extended. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & \arrowversion & Java-Spring implementation: registered as \texttt{generic\_\allowbreak{}https}/\texttt{CERT\_\allowbreak{}AUTH} on the Arrowhead connector with identity, whitelist and grant checks; session, login and logout console-only; local-cloud configuration through the orchestrated \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service. & Claude Opus 5.5 (draft) \\ \hline
 \end{tabularx}
 
 \subsection{Quality Assurance}

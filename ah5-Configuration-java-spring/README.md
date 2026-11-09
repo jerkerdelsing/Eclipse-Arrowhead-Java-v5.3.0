@@ -73,3 +73,9 @@ Both 5.2.2 test clouds (`Arrowhead-test-cloud`, `Arrowhead-test-cloud-go`) deplo
 ## Documentation
 
 [SysD, SysDD and an SD and IDD for each produced service](documentation/v5.2.2/README.md) (`configuration`, `configurationProxy`, `configurationManagement`, `generalManagement`, `sysMonitor`), generated from the implementation with the official Arrowhead LaTeX templates by [`documentation-tools`](../documentation-tools/README.md); the PDFs are beside the sources. The earlier `documentation/v5.2` set is in `../../_superseded/2026-10-22/`.
+
+## Listening port
+
+Default **8459** (`server.port` in the packaged `application.properties`). Override with `server.port` in `config/application.properties`, `SERVER_PORT=8459` or `--server.port=8459`. Note: this folder's deployment package (`config/application.properties`, Dockerfile and compose) uses 8450.
+
+See [LISTENING-PORTS.md](../LISTENING-PORTS.md) for precedence and all systems.

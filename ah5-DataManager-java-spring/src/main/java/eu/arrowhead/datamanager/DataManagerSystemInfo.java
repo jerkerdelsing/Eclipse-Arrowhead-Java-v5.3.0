@@ -57,7 +57,17 @@ public class DataManagerSystemInfo extends SystemInfo {
 				.version(DataManagerConstants.VERSION_DATA_HISTORIAN)
 				.serviceInterface(createHttpInterface(DataManagerConstants.HTTP_API_DATA_HISTORIAN_PATH))
 				.build();
-		return List.of(dataProxy, dataHistorian);
+        final ServiceModel generalManagement = new ServiceModel.Builder()
+                .serviceDefinition(Constants.SERVICE_DEF_GENERAL_MANAGEMENT)
+                .version("1.0.0")
+                .serviceInterface(new HttpInterfaceModel.Builder(
+                        getSslProperties().isSslEnabled() ? Constants.GENERIC_HTTPS_INTERFACE_TEMPLATE_NAME : Constants.GENERIC_HTTP_INTERFACE_TEMPLATE_NAME,
+                        getDomainAddress(), getServerPort())
+                        .basePath("/datamanager/mgmt/general")
+                        .operation("status", new HttpOperationModel.Builder().method("GET").path("/status").build())
+                        .build())
+                .build();
+        return List.of(generalManagement, dataProxy, dataHistorian);
 	}
 
 	@Override

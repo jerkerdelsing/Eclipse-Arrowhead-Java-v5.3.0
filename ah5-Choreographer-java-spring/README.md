@@ -121,3 +121,9 @@ Verified in both clouds with a temporary mTLS executor (since removed):
 ## Documentation
 
 [SysD, SysDD and an SD and IDD for each produced service](documentation/v5.2.2/README.md) (`choreographerSession`, `choreographerExecutor`, `choreographerManagement`, `generalManagement`, `sysMonitor`), generated from the implementation with the official Arrowhead LaTeX templates by [`documentation-tools`](../documentation-tools/README.md); the PDFs are beside the sources. The earlier `documentation/v5.2` set is in `../../_superseded/2026-10-22/`.
+
+## Listening port
+
+Default **8457** (`server.port` in the packaged `application.properties`). Override with `server.port` in `config/application.properties`, `SERVER_PORT=8457` or `--server.port=8457`. Note: this folder's deployment package (`config/application.properties`, Dockerfile and compose) uses 8454.
+
+See [LISTENING-PORTS.md](../LISTENING-PORTS.md) for precedence and all systems.

@@ -1,39 +1,70 @@
-# CertificateAuthority 5.2.2 - independent Java distribution
+# CertificateAuthority 5.2.2 (Java-Spring)
 
-> Current standalone packaging (25 October 2026): build and deploy from this folder. See [DEPLOYMENT.md](DEPLOYMENT.md). Any combined-tree build or live-cloud examples below are historical integration context.
+> Since 8 November 2026 this system follows the Arrowhead Java-Spring pattern, like the other support systems. The previous native implementation (JDK HttpsServer and SQLite) is no longer built; it is described in `legacy/` and in the history of this folder. See [DEPLOYMENT.md](DEPLOYMENT.md) for deployment.
 
-This folder is the complete build and deployment unit for CertificateAuthority. It uses Java 21 and Maven, JDK HttpsServer (not Spring), and its own shaded JAR. The folder name follows the existing Java repository layout. No source, build parent, image, database or configuration is loaded from JavaSupportRuntime or a sibling support folder. Shared helper implementations are private copies under `src/main/java/eu/arrowhead/port`; security fixes must be applied to each affected copy.
+CertificateAuthority issues the X.509 certificates of one local cloud, keeps track of them, revokes them and publishes the cloud's certificate revocation list (CRL). It is the only system that holds the cloud's issuer signing key.
+
+## Structure
+
+This folder is a complete, independent build and deployment unit. It has the same structure as `ah5-Blacklist-java-spring` and `ah5-TimeManager-java-spring`:
+
+| Part | Where |
+|---|---|
+| Spring Boot application | `eu.arrowhead.certificateauthority.CertificateAuthorityMain` |
+| System and service models | `CertificateAuthoritySystemInfo` |
+| ServiceRegistry registration, CERT_AUTH interfaces, sysMonitor | common `ApplicationInitListener` and `SysMonitorPublisher` |
+| Authentication (identity token bound to the client certificate) | common `OutsourcedFilter` |
+| Caller profile check (only `sy` and `op` certificates) | `security/CallerProfileFilter` |
+| Signing, validation, management, CRL | `service/` |
+| Storage | JPA entities `IssuedCertificate`, `TrustedKey`, `Logs` in the private MySQL schema `ah_certificate_authority` |
+| Arrowhead common library | private source copy under `vendor/` (see `vendor/PROVENANCE.json`) |
+
+## Services
+
+The service definitions, operations and HTTP paths are unchanged from 5.2.2. Every path is served both with and without the `/certificate-authority` base path.
+
+| Service | Operation | Method and path | Who may call |
+|---|---|---|---|
+| `certificateSigning` | `sign` | POST `/certificate-authority/sign` | Onboarding (profiles on, de, sy), Sysop (on, de, sy, op), CertificateAuthority (sy) |
+| `certificateValidation` | `check-certificate` | POST `/certificate-authority/checkCertificate` | any authenticated system |
+| | `check-trusted-key` | POST `/certificate-authority/checkTrustedKey` | any authenticated system |
+| | `get-crl` | GET `/certificate-authority/crl` | any authenticated system |
+| `certificateAuthorityManagement` | `list-certificates`, `list-keys`, `add-key` (PUT `/mgmt/keys`), `delete-key`, `revoke-certificate-by-content` (POST `/mgmt/revocations`) | `/certificate-authority/mgmt/...` | Sysop, CertificateAuthority |
+| | `revoke-certificate` | DELETE `/certificate-authority/mgmt/certificates/{id}` | Sysop, CertificateAuthority; Onboarding for the certificates it requested |
+| `generalManagement` | `status`, `get-log`, `get-config` | `/certificate-authority/mgmt/general/...` | Sysop, CertificateAuthority |
+| `sysMonitor` | echo, power, status over AMQP | routing key `<cloud>.sysmonitor.CertificateAuthority.certificateAuthority` | — |
+
+Issued certificates always have `ca=false`. Reserved system names (the Core and support systems, Sysop) are issued only to Sysop. A name that has a valid certificate requested by another identity cannot be taken over.
+
+### Differences from the native implementation
+
+- Every path, including `check-certificate`, `check-trusted-key`, `get-crl` and `/health`, now needs an identity token bound to the client certificate. The known consumers (Onboarding, LocalCloudManager) already send one.
+- Error responses use the Arrowhead `ErrorMessageDTO` (`errorMessage`, `errorCode`, `exceptionType`, `origin`) instead of `{"error": ...}`. Status codes are unchanged, except that a duplicate trusted key or an invalid time now returns 400 instead of 500.
+- `generalManagement` adds `get-log` and `get-config` next to `status`.
+- The separate plain-HTTP health listener (port 8483) is gone. The container health check is a TCP check of port 8448.
+- The system identity is a PKCS#12 keystore, like the other Spring systems. The issuer certificate and key stay PEM files.
+- The status document reports `"implementation": "java-spring"` and the certificate counts.
 
 ## Build and test
 
-From this folder with Java 21 and Maven 3.9 installed:
-
 ```sh
 mvn -B clean verify
-java -jar target/arrowhead-certificate-authority-5.2.2.jar storage-selftest
 ```
 
-Alternatively `docker compose build` runs all tests and creates `arrowhead-certificate-authority-standalone:5.2.2` using only this folder as the context. `Main` always starts CertificateAuthority; there is no runtime role selector. The artifact excludes the other three former runtime systems. Dependencies are resolved from Maven repositories, or a populated Maven cache for offline builds.
+`scripts/verify.sh` also checks the contents of the JAR, and `scripts/verify-image.sh` builds the image and checks that it runs with a read-only root and refuses an insecure configuration. `docker compose build` builds from this folder only.
 
-`scripts/verify.sh` repeats the build, SQLite check and artifact isolation check (`-o` selects offline Maven use). `scripts/verify-image.sh` also checks the actual image with a read-only root and non-executable temporary storage.
+The tests cover signing rules, revocation, the CRL, validation, the caller profile check, and every 5.2.2 route with and without the base path. `MySqlEndToEndTest` runs the whole application against a real MySQL schema when started with `-Dca.it.db.url=... -Dca.it.db.password=...`; it is skipped otherwise.
 
-## Deploy into a selected local cloud
+## Moving from the native SQLite store
 
-1. Copy `.env.example` to `.env` and select the existing Docker network and registry URL. Use a distinct `COMPOSE_PROJECT_NAME` and host port for each deployment when operating multiple clouds on one Docker host. If creating a new cloud network, create it before starting this service; configure the core systems and brokers on that network separately.
-2. Provision `security/certificate-authority.crt`, `certificate-authority.key`, `ca.crt`, `identity-password`, and `crl/ca.crl`, or set their file paths in `.env`. Use a system certificate with CN `CertificateAuthority.<LOCAL_CLOUD>.<ORGANIZATION>.arrowhead.eu` and DNQ `sy`, and register the matching identity/password and authorizations with the cloud. The CRL must be valid for the trusted cloud issuer. Private material must be readable by container UID 10001; the CRL directory must exist. No development credentials are bundled.
-3. Run `docker compose config --quiet`, then `docker compose up -d --build` from this folder. `docker compose ps` shows health and `docker compose logs` shows registration/dependency errors. Health is system-specific: SysMonitor reports HTTP 503 without its AMQP/MQTT connections, while the other three return process liveness. Examine registration, broker and orchestration status before accepting operational readiness.
-4. Repeat only for other support folders you choose. Each Compose project owns its own `state` volume; stopping one does not remove another's state. `docker compose down` preserves the volume. Back up the private SQLite database before upgrades. Do not use `down -v` unless deliberately erasing this system's state.
+`scripts/migrate-sqlite-to-mysql.py` converts the native `/data/certificate-authority.db` into SQL for the new schema. Issued certificates, revocations and trusted keys keep their ids. Run it once, as the database root user, before the new CA starts; it refuses a schema that already holds data. See the script header.
 
-The HTTPS service is published on loopback port 8448 by default; the internal health port 8483 is not published. The container is unprivileged, read-only except `/data` and `/tmp` and the CA CRL output directory. Certificates and password are mounted individually, not as a shared credentials bundle. The image installs the platform SQLite native library under `/app/lib` at build time, so `/tmp` can remain non-executable. The SQLite volume is never shared between systems. Do not attach an old cloud's database to a second running instance.
+## Documentation
 
-## Arrowhead service dependencies
+The SysD, SysDD and service interface documents are in `documentation/v5.2.2`. `make docs` rebuilds the SysDD. The support GSoSDD is in the roadmap's `WhiteBox_5.3.0` folder.
 
-ServiceRegistry is the bootstrap URL. Authentication and DynamicServiceOrchestration are discovered through the registry; ConsumerAuthorization and other consumed services are obtained through DSO. Provision the corresponding identity, service registrations, orchestration and authorization rules. AMQPS uses `AMQP_HOST`/`AMQP_PORT` and the system certificate for EXTERNAL authentication. These are network service dependencies, not a dependency on a common support runtime. Starting this process does not start other support systems or provision the cloud.
+## Listening port
 
-Only CertificateAuthority receives the issuer signing key (`ISSUER_KEY_FILE`, mounted `/certs/ca.key`). Never mount it into other support systems. Its CRL output directory is writable by UID 10001, published by atomic replacement, and must be distributed to trust consumers by the cloud operator. This Compose file does not implicitly configure another system's CRL mount.
+Default **8448** (`server.port` in the packaged `application.properties`). Override with `server.port` in `config/application.properties`, `SERVER_PORT=8448` or `--server.port=8448`.
 
-## Documentation and history
-
-The current SysDD and interface contracts are in `documentation/v5.2.2`. `make docs` rebuilds the SysDD with TeX Live/latexmk and the included assets. The enclosing distribution's `roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2` contains the updated support GSoSDD.
-
-`legacy/` preserves the previous folder's implementation and instructions as historical material; it is excluded from the image and is not part of this Java build. No live cloud deployment has been replaced by this packaging change.
+See [LISTENING-PORTS.md](../LISTENING-PORTS.md) for precedence and all systems.

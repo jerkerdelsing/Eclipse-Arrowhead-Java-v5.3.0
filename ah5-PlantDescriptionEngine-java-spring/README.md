@@ -114,3 +114,9 @@ mvn clean test
 ## Documentation
 
 [SysD, SysDD and an SD and IDD for each produced service](documentation/v5.2.2/README.md) (`plantDescriptionManagement`, `plantDescriptionMonitor`, `generalManagement`, `sysMonitor`), generated from the implementation with the official Arrowhead LaTeX templates by [`documentation-tools`](../documentation-tools/README.md); the PDFs are beside the sources. The earlier `documentation/v5.2` set is in `../../_superseded/2026-10-22/`.
+
+## Listening port
+
+Default **8432** (`server.port` in the packaged `application.properties`). Override with `server.port` in `config/application.properties`, `SERVER_PORT=8432` or `--server.port=8432`.
+
+See [LISTENING-PORTS.md](../LISTENING-PORTS.md) for precedence and all systems.

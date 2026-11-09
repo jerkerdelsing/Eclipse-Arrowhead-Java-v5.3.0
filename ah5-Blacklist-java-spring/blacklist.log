@@ -298,3 +298,39 @@
 2026-10-25 10:52:26.164  INFO UNKNOWN_LOCALHOST --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
 2026-10-25 10:52:26.168  INFO UNKNOWN_LOCALHOST --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
 2026-10-25 10:52:26.173  INFO UNKNOWN_LOCALHOST --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 14:57:26.429 ERROR 4a56adb17fc0 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 14:57:26.455 ERROR 4a56adb17fc0 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 14:57:26.464 ERROR 4a56adb17fc0 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 14:57:26.487 ERROR 4a56adb17fc0 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 14:57:26.495 ERROR 4a56adb17fc0 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 14:57:26.528  INFO 4a56adb17fc0 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 14:57:26.677  INFO 4a56adb17fc0 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 14:57:26.687  INFO 4a56adb17fc0 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 14:57:26.694  INFO 4a56adb17fc0 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 14:57:26.698  INFO 4a56adb17fc0 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 14:57:26.702  INFO 4a56adb17fc0 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 14:57:26.706  INFO 4a56adb17fc0 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:12:07.577 ERROR a0ae1e584f49 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 15:12:07.637 ERROR a0ae1e584f49 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 15:12:07.654 ERROR a0ae1e584f49 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 15:12:07.682 ERROR a0ae1e584f49 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 15:12:07.694 ERROR a0ae1e584f49 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 15:12:07.746  INFO a0ae1e584f49 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:12:07.876  INFO a0ae1e584f49 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:12:07.887  INFO a0ae1e584f49 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:12:07.891  INFO a0ae1e584f49 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:12:07.896  INFO a0ae1e584f49 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:12:07.899  INFO a0ae1e584f49 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:12:07.908  INFO a0ae1e584f49 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:23:06.594 ERROR 710f0b61a715 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 15:23:06.634 ERROR 710f0b61a715 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 15:23:06.647 ERROR 710f0b61a715 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 15:23:06.685 ERROR 710f0b61a715 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 15:23:06.703 ERROR 710f0b61a715 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-07 15:23:06.776  INFO 710f0b61a715 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:23:06.964  INFO 710f0b61a715 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:23:06.983  INFO 710f0b61a715 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:23:06.993  INFO 710f0b61a715 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:23:07.003  INFO 710f0b61a715 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:23:07.009  INFO 710f0b61a715 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-07 15:23:07.013  INFO 710f0b61a715 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active

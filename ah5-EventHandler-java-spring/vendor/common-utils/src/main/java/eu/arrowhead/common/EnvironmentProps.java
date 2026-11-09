@@ -28,7 +28,8 @@ public class EnvironmentProps implements ApplicationContextAware {
 	//=================================================================================================
 	// members
 
-	private static ApplicationContext context;
+	private static volatile ApplicationContext context;
+	private static volatile boolean startupFailed = false;
 
 	//=================================================================================================
 	// methods
@@ -40,30 +41,42 @@ public class EnvironmentProps implements ApplicationContextAware {
 	}
 
 	//-------------------------------------------------------------------------------------------------
-	@SuppressWarnings("checkstyle:MagicNumber")
 	public static Environment getEnvironment() {
-		while (context == null) {
-			try {
-				Thread.sleep(100);
-			} catch (final InterruptedException ex) {
-				// intentionally blank
-			}
-		}
+		awaitContext();
 
 		return context.getEnvironment();
 	}
 
 	//-------------------------------------------------------------------------------------------------
-	@SuppressWarnings("checkstyle:MagicNumber")
 	public static String getProperty(final String key) {
+		awaitContext();
+
+		return context.getEnvironment().getProperty(key);
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	// The context will never arrive after a failed startup. Without this, the database log appender
+	// would wait here while it holds the lock that the JVM needs for its shutdown.
+	public static void startupFailed() {
+		startupFailed = true;
+	}
+
+	//=================================================================================================
+	// assistant methods
+
+	//-------------------------------------------------------------------------------------------------
+	@SuppressWarnings("checkstyle:MagicNumber")
+	private static void awaitContext() {
 		while (context == null) {
+			if (startupFailed) {
+				throw new IllegalStateException("Startup failed before the environment was available");
+			}
+
 			try {
 				Thread.sleep(100);
 			} catch (final InterruptedException ex) {
 				// intentionally blank
 			}
 		}
-
-		return context.getEnvironment().getProperty(key);
 	}
 }

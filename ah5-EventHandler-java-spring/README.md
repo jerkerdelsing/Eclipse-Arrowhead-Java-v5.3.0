@@ -55,3 +55,9 @@ listens on 8455 (9455 in the Go cloud) with its own TLS MySQL `eventhandler-db`,
 ## Documentation
 
 [SysD, SysDD and an SD and IDD for each produced service](documentation/v5.2.2/README.md) (`eventPublish`, `eventSubscription`, `eventHandlerManagement`, `generalManagement`, `sysMonitor`), generated from the implementation with the official Arrowhead LaTeX templates by [`documentation-tools`](../documentation-tools/README.md); the PDFs are beside the sources. The earlier `Document/LaTeX` set is in `../../_superseded/2026-10-22/`.
+
+## Listening port
+
+Default **8455** (`server.port` in the packaged `application.properties`). Override with `server.port` in `config/application.properties`, `SERVER_PORT=8455` or `--server.port=8455`.
+
+See [LISTENING-PORTS.md](../LISTENING-PORTS.md) for precedence and all systems.

@@ -9,87 +9,137 @@ services:
     read_only: true
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
-    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777"]
-    ports:
-      - "${HOST_BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-8449}:8449"
+    mem_limit: 1g
+    pids_limit: 256
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777", "/app/logs:rw,noexec,nosuid,nodev,size=32m,mode=1777"]
+    ports: ["${HOST_BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-8449}:8449"]
+    depends_on:
+      gatekeeper-db:
+        condition: service_healthy
     environment:
-      LOCAL_CLOUD: "${LOCAL_CLOUD:-TestCloud}"
-      ORGANIZATION: "${ORGANIZATION:-Company}"
-      SERVICE_REGISTRY_URL: "${SERVICE_REGISTRY_URL:-https://serviceregistry:8443}"
-      AUTHENTICATION_PASSWORD_FILE: "/run/secrets/identity-password"
-      PORT: "8449"
-      HEALTH_PORT: "8480"
-      DB_PATH: "/data/gatekeeper.db"
-      TLS_CA_CERT: "/certs/ca.crt"
-      TLS_CERT: "/certs/gatekeeper.crt"
-      TLS_KEY: "/certs/gatekeeper.key"
-      TLS_SERVER_CERT: "/certs/gatekeeper.crt"
-      TLS_SERVER_KEY: "/certs/gatekeeper.key"
-      CRL_FILE: "/crl/ca.crl"
-      AMQP_HOST: "${AMQP_HOST:-amqp-broker}"
+      LOCAL_CLOUD: ${LOCAL_CLOUD:-TestCloud}
+      ORGANIZATION: ${ORGANIZATION:-Company}
+      SERVICE_REGISTRY_ADDRESS: ${SERVICE_REGISTRY_ADDRESS:-serviceregistry}
+      SERVICE_REGISTRY_PORT: "${SERVICE_REGISTRY_PORT:-8443}"
+      AMQP_HOST: ${AMQP_HOST:-amqp-broker}
       AMQP_PORT: "${AMQP_PORT:-5671}"
-      FEDERATION_PROFILE: "${FEDERATION_PROFILE:-ah-gt-1}"
-      NEIGHBOR_CLOUDS: "${NEIGHBOR_CLOUDS:-}"
-      FEDERATION_PEER_ORGANIZATIONS: "${FEDERATION_PEER_ORGANIZATIONS:-}"
-      RELAY_HOST: "${RELAY_HOST:-arrowhead-relay}"
+      SYSMONITOR_ENABLED: "${SYSMONITOR_ENABLED:-true}"
+      CRL_FILE: /crl/ca.crl
+      FEDERATION_PROFILE: ${FEDERATION_PROFILE:-ah-gt-1}
+      FEDERATION_PEER_ORGANIZATIONS: ${FEDERATION_PEER_ORGANIZATIONS:-}
+      RELAY_HOST: ${RELAY_HOST:-arrowhead-relay}
       RELAY_PORT: "${RELAY_PORT:-8883}"
-      RELAY_CHAIN_CERT: "/certs/gatekeeper-relay-chain.crt"
-      RELAY_KEY: "/certs/gatekeeper-relay.key"
-      RELAY_CA_CERT: "/certs/org-ca.crt"
-    secrets: [identity-password]
+      RELAY_CHAIN_CERT: /certs/gatekeeper-relay-chain.crt
+      RELAY_KEY: /certs/gatekeeper-relay.key
+      RELAY_CA_CERT: /certs/org-ca.crt
+      RELAY_CRL_FILE: /certs/org-ca.crl
+    secrets:
+      - source: store-password
+        target: ah.store-password
+      - source: identity-password
+        target: ah.identity-password
+      - source: db-password
+        target: ah.db-password
     volumes:
-      - state:/data
       - type: bind
-        source: ${SYSTEM_CERT_FILE:-./security/gatekeeper.crt}
-        target: /certs/gatekeeper.crt
+        source: ${SYSTEM_KEYSTORE_FILE:-./security/Gatekeeper.p12}
+        target: /certs/Gatekeeper.p12
         read_only: true
-        bind:
-          create_host_path: false
+        bind: {create_host_path: false}
       - type: bind
-        source: ${SYSTEM_KEY_FILE:-./security/gatekeeper.key}
-        target: /certs/gatekeeper.key
+        source: ${TRUSTSTORE_FILE:-./security/truststore.p12}
+        target: /certs/truststore.p12
         read_only: true
-        bind:
-          create_host_path: false
+        bind: {create_host_path: false}
       - type: bind
-        source: ${CLOUD_CA_FILE:-./security/ca.crt}
-        target: /certs/ca.crt
+        source: ${DB_CA_FILE:-./security/db-ca.crt}
+        target: /certs/db-ca.crt
         read_only: true
-        bind:
-          create_host_path: false
+        bind: {create_host_path: false}
       - type: bind
         source: ${CRL_DIRECTORY:-./security/crl}
         target: /crl
         read_only: true
-        bind:
-          create_host_path: false
+        bind: {create_host_path: false}
+      # the relay identity is separate from the system certificate: organisation-signed chain and key, organisation trust
       - type: bind
         source: ${RELAY_CHAIN_FILE:-./security/gatekeeper-relay-chain.crt}
         target: /certs/gatekeeper-relay-chain.crt
         read_only: true
-        bind:
-          create_host_path: false
+        bind: {create_host_path: false}
       - type: bind
         source: ${RELAY_KEY_FILE:-./security/gatekeeper-relay.key}
         target: /certs/gatekeeper-relay.key
         read_only: true
-        bind:
-          create_host_path: false
+        bind: {create_host_path: false}
       - type: bind
         source: ${ORGANIZATION_CA_FILE:-./security/org-ca.crt}
         target: /certs/org-ca.crt
         read_only: true
-        bind:
-          create_host_path: false
+        bind: {create_host_path: false}
+      # CRL of the organisation CA: revocation of the relay's server certificate (fail closed)
+      - type: bind
+        source: ${ORGANIZATION_CRL_FILE:-./security/org-ca.crl}
+        target: /certs/org-ca.crl
+        read_only: true
+        bind: {create_host_path: false}
     networks:
       cloud:
         aliases: [gatekeeper]
+      database: {}
+  gatekeeper-db:
+    build:
+      context: .
+      dockerfile: deployment/database/Dockerfile
+    image: arrowhead-gatekeeper-standalone-db:5.2.2
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ah_gatekeeper
+      MYSQL_USER: gatekeeper
+      MYSQL_PASSWORD_FILE: /run/secrets/db-password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db-root-password
+    secrets: [db-password, db-root-password]
+    command: ["--ssl-ca=/tls/ca.crt", "--ssl-cert=/tls/db.crt", "--ssl-key=/tls/db.key", "--require-secure-transport=ON"]
+    volumes:
+      - state:/var/lib/mysql
+      - type: bind
+        source: ${DB_CA_FILE:-./security/db-ca.crt}
+        target: /tls/ca.crt
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${DB_CERT_FILE:-./security/db.crt}
+        target: /tls/db.crt
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${DB_KEY_FILE:-./security/db.key}
+        target: /tls/db.key
+        read_only: true
+        bind: {create_host_path: false}
+    networks: [database]
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping --protocol=tcp -h127.0.0.1 --silent"]
+      interval: 5s
+      timeout: 4s
+      retries: 30
 volumes:
   state: {}
-secrets:
-  identity-password:
-    file: ${IDENTITY_PASSWORD_FILE:-./security/identity-password}
 networks:
   cloud:
     external: true
     name: ${ARROWHEAD_NETWORK:-arrowhead-local-cloud}
+  database:
+    internal: true
+    ipam:
+      config:
+        - subnet: ${DB_SUBNET:-10.252.212.0/24}
+secrets:
+  identity-password:
+    file: ${IDENTITY_PASSWORD_FILE:-./security/identity-password}
+  store-password:
+    file: ${STORE_PASSWORD_FILE:-./security/store-password}
+  db-password:
+    file: ${DB_PASSWORD_FILE:-./security/db-password}
+  db-root-password:
+    file: ${DB_ROOT_PASSWORD_FILE:-./security/db-root-password}

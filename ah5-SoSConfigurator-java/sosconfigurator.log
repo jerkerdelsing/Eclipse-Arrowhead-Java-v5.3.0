@@ -1,0 +1,139 @@
+2026-11-08 15:04:32.502  INFO b81cd9ed6feb --- [           main] e.a.s.s.SosAccessFilter                  : SosAccessFilter is active
+2026-11-08 15:04:33.644  INFO b81cd9ed6feb --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:04:34.614  INFO b81cd9ed6feb --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:04:34.709  INFO b81cd9ed6feb --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:04:34.942  INFO b81cd9ed6feb --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:04:34.994  INFO b81cd9ed6feb --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:04:35.077  INFO b81cd9ed6feb --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:05:00.589  INFO f9b73f7495f1 --- [           main] e.a.s.s.SosAccessFilter                  : SosAccessFilter is active
+2026-11-08 15:05:01.548  INFO f9b73f7495f1 --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:05:02.546  INFO f9b73f7495f1 --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:05:02.670  INFO f9b73f7495f1 --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:05:02.861  INFO f9b73f7495f1 --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:05:02.912  INFO f9b73f7495f1 --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:05:02.986  INFO f9b73f7495f1 --- [           main] e.a.s.a.SosConsoleAndApiTest$2           :  is active
+2026-11-08 15:06:09.608  INFO 3ef924f8e44b --- [           main] e.a.s.i.MySqlEndToEndTest                : Starting MySqlEndToEndTest using Java 21.0.12.1 with PID 100 (started by root in /src)
+2026-11-08 15:06:09.615  INFO 3ef924f8e44b --- [           main] e.a.s.i.MySqlEndToEndTest                : No active profile set, falling back to 1 default profile: "default"
+2026-11-08 15:06:11.358  WARN 3ef924f8e44b --- [           main] e.a.c.i.SecurityProfileGuard             : NON-CONFORMING development exception selected for an isolated test; do not expose this system: server.ssl.enabled=false; authentication.policy=declared; service.authorization.enabled=false
+2026-11-08 15:06:11.844  INFO 3ef924f8e44b --- [           main] e.a.s.s.SosAccessFilter                  : SosAccessFilter is active
+2026-11-08 15:06:12.058  INFO 3ef924f8e44b --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+2026-11-08 15:06:12.064  INFO 3ef924f8e44b --- [           main] e.a.c.h.f.a.SelfDeclaredFilter           : SelfDeclaredFilter is active
+2026-11-08 15:06:12.067  INFO 3ef924f8e44b --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+2026-11-08 15:06:12.778  WARN 3ef924f8e44b --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+2026-11-08 15:06:14.225  WARN 3ef924f8e44b --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-08 15:06:14.251  WARN 3ef924f8e44b --- [           main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: ec1041d2-73d2-43d2-b645-e08384fb8033
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-11-08 15:06:15.003  INFO 3ef924f8e44b --- [           main] e.a.s.i.MySqlEndToEndTest$Fixtures$1     : STANDALONE mode is set...
+2026-11-08 15:06:15.003  INFO 3ef924f8e44b --- [           main] i.SoSConfiguratorApplicationInitListener : System name: SoSConfigurator
+2026-11-08 15:06:15.004  INFO 3ef924f8e44b --- [           main] i.SoSConfiguratorApplicationInitListener : System port: 18494
+2026-11-08 15:06:15.004  INFO 3ef924f8e44b --- [           main] i.SoSConfiguratorApplicationInitListener : SSL mode: DISABLED
+2026-11-08 15:06:15.005  INFO 3ef924f8e44b --- [           main] i.SoSConfiguratorApplicationInitListener : Authentication policy: DECLARED
+2026-11-08 15:06:15.013  INFO 3ef924f8e44b --- [           main] e.a.s.i.MySqlEndToEndTest                : Started MySqlEndToEndTest in 5.711 seconds (process running for 7.063)
+2026-11-08 15:06:15.564 ERROR 3ef924f8e44b --- [.1-18495-exec-1] o.a.c.c.C.[.[.[.[dispatcherServlet]      : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.IllegalStateException: Ambiguous handler methods mapped for '/': {public java.lang.String eu.arrowhead.common.swagger.DefaultSwaggerController.redirectDefaultSwaggerUI(), public org.springframework.http.ResponseEntity eu.arrowhead.sosconfigurator.console.ConsoleController.index() throws java.io.IOException}] with root cause
+java.lang.IllegalStateException: Ambiguous handler methods mapped for '/': {public java.lang.String eu.arrowhead.common.swagger.DefaultSwaggerController.redirectDefaultSwaggerUI(), public org.springframework.http.ResponseEntity eu.arrowhead.sosconfigurator.console.ConsoleController.index() throws java.io.IOException}
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lookupHandlerMethod(AbstractHandlerMethodMapping.java:431)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:382)
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.getHandlerInternal(RequestMappingInfoHandlerMapping.java:127)
+	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.getHandlerInternal(RequestMappingInfoHandlerMapping.java:68)
+	at org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler(AbstractHandlerMapping.java:509)
+	at org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:1284)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1065)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:101)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$4(HandlerMappingIntrospector.java:267)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:238)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at eu.arrowhead.sosconfigurator.console.ConsoleFilter.doFilterInternal(ConsoleFilter.java:104)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:116)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:398)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1769)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1189)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:658)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-11-08 15:06:54.488  INFO 6359f53309bc --- [           main] e.a.s.s.SosAccessFilter                  : SosAccessFilter is active

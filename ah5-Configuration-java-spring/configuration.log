@@ -159,3 +159,24 @@
 2026-10-25 10:53:11.698  INFO UNKNOWN_LOCALHOST --- [           main] e.a.c.s.ConfigurationService             : Configuration removed for Pump
 2026-10-25 10:53:11.780  INFO UNKNOWN_LOCALHOST --- [           main] e.a.c.s.ConfigurationService             : Configuration a.txt stored for Thermostat (3 bytes, text/plain)
 2026-10-25 10:53:11.784  INFO UNKNOWN_LOCALHOST --- [           main] e.a.c.s.ConfigurationService             : Configuration b.ini stored for Thermostat (3 bytes, text/plain;charset=utf-8)
+2026-11-07 14:57:53.334  INFO ae9931698ce4 --- [           main] e.a.c.s.ConfigurationService             : Configuration a.txt stored for ThermoStat (1 bytes, text/plain)
+2026-11-07 14:57:53.346  INFO ae9931698ce4 --- [           main] e.a.c.s.ConfigurationService             : Configuration thermostat.json stored for Thermostat (15 bytes, application/json)
+2026-11-07 14:57:53.352  INFO ae9931698ce4 --- [           main] e.a.c.s.ConfigurationService             : Configuration v.txt stored for Valve (1 bytes, text/plain)
+2026-11-07 14:57:53.353  INFO ae9931698ce4 --- [           main] e.a.c.s.ConfigurationService             : Configuration p.txt stored for Pump (1 bytes, text/plain)
+2026-11-07 14:57:53.355  INFO ae9931698ce4 --- [           main] e.a.c.s.ConfigurationService             : Configuration removed for Pump
+2026-11-07 14:57:53.375  INFO ae9931698ce4 --- [           main] e.a.c.s.ConfigurationService             : Configuration a.txt stored for Thermostat (3 bytes, text/plain)
+2026-11-07 14:57:53.376  INFO ae9931698ce4 --- [           main] e.a.c.s.ConfigurationService             : Configuration b.ini stored for Thermostat (3 bytes, text/plain;charset=utf-8)
+2026-11-07 15:12:32.765  INFO 66928fea0d0a --- [           main] e.a.c.s.ConfigurationService             : Configuration a.txt stored for ThermoStat (1 bytes, text/plain)
+2026-11-07 15:12:32.781  INFO 66928fea0d0a --- [           main] e.a.c.s.ConfigurationService             : Configuration thermostat.json stored for Thermostat (15 bytes, application/json)
+2026-11-07 15:12:32.789  INFO 66928fea0d0a --- [           main] e.a.c.s.ConfigurationService             : Configuration v.txt stored for Valve (1 bytes, text/plain)
+2026-11-07 15:12:32.790  INFO 66928fea0d0a --- [           main] e.a.c.s.ConfigurationService             : Configuration p.txt stored for Pump (1 bytes, text/plain)
+2026-11-07 15:12:32.792  INFO 66928fea0d0a --- [           main] e.a.c.s.ConfigurationService             : Configuration removed for Pump
+2026-11-07 15:12:32.810  INFO 66928fea0d0a --- [           main] e.a.c.s.ConfigurationService             : Configuration a.txt stored for Thermostat (3 bytes, text/plain)
+2026-11-07 15:12:32.811  INFO 66928fea0d0a --- [           main] e.a.c.s.ConfigurationService             : Configuration b.ini stored for Thermostat (3 bytes, text/plain;charset=utf-8)
+2026-11-07 15:23:33.005  INFO 850f9cf062dd --- [           main] e.a.c.s.ConfigurationService             : Configuration a.txt stored for ThermoStat (1 bytes, text/plain)
+2026-11-07 15:23:33.028  INFO 850f9cf062dd --- [           main] e.a.c.s.ConfigurationService             : Configuration thermostat.json stored for Thermostat (15 bytes, application/json)
+2026-11-07 15:23:33.040  INFO 850f9cf062dd --- [           main] e.a.c.s.ConfigurationService             : Configuration v.txt stored for Valve (1 bytes, text/plain)
+2026-11-07 15:23:33.041  INFO 850f9cf062dd --- [           main] e.a.c.s.ConfigurationService             : Configuration p.txt stored for Pump (1 bytes, text/plain)
+2026-11-07 15:23:33.047  INFO 850f9cf062dd --- [           main] e.a.c.s.ConfigurationService             : Configuration removed for Pump
+2026-11-07 15:23:33.075  INFO 850f9cf062dd --- [           main] e.a.c.s.ConfigurationService             : Configuration a.txt stored for Thermostat (3 bytes, text/plain)
+2026-11-07 15:23:33.077  INFO 850f9cf062dd --- [           main] e.a.c.s.ConfigurationService             : Configuration b.ini stored for Thermostat (3 bytes, text/plain;charset=utf-8)

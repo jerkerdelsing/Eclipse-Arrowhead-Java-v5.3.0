@@ -1,15 +1,19 @@
 FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /source
 COPY pom.xml .
+COPY vendor ./vendor
 COPY src ./src
-RUN --mount=type=cache,target=/root/.m2 mvn -B -q package -DskipTests
+COPY catalogs ./catalogs
+COPY config ./config
+RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /source/target/localcloudconfigurator.jar /app/localcloudconfigurator.jar
+COPY config /app/config
 COPY catalogs /app/catalogs
-RUN mkdir /state && chown 10001:10001 /state
+RUN mkdir -p /app/logs && chown -R 10001:10001 /app/logs
 USER 10001:10001
-EXPOSE 8097
-HEALTHCHECK --interval=10s --start-period=15s --timeout=3s CMD ["bash","-c","exec 3<>/dev/tcp/127.0.0.1/8097"]
-ENTRYPOINT ["java","-Xmx160m","-XX:+UseSerialGC","-jar","/app/localcloudconfigurator.jar"]
-CMD ["serve","-listen","0.0.0.0:8097","-catalog","/app/catalogs/javacloud.json"]
+# 8492: localCloudConfiguration over mutual TLS. The host worker (8493) runs outside this container, on the host's loopback.
+EXPOSE 8492
+HEALTHCHECK --interval=15s --start-period=90s --timeout=4s CMD ["bash","-c","exec 3<>/dev/tcp/127.0.0.1/8492"]
+ENTRYPOINT ["java","-Xms64m","-Xmx256m","-Dlog4j.configurationFile=/app/config/log4j2.xml","-jar","/app/localcloudconfigurator.jar","serve","--spring.config.additional-location=file:/app/config/application.properties"]

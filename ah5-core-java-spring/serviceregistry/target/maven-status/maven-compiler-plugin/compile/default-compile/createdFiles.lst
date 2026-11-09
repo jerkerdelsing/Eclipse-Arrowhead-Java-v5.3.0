@@ -63,6 +63,7 @@ eu/arrowhead/serviceregistry/service/normalization/ServiceDiscoveryNormalization
 eu/arrowhead/serviceregistry/ServiceRegistryMain.class
 eu/arrowhead/serviceregistry/service/model/ServiceLookupFilterModel.class
 eu/arrowhead/serviceregistry/ServiceRegistryConstants.class
+eu/arrowhead/serviceregistry/service/DeviceDiscoveryService$1.class
 eu/arrowhead/serviceregistry/service/ServiceDiscoveryPolicy.class
 eu/arrowhead/serviceregistry/api/mqtt/SystemDiscoveryMqttHandler.class
 eu/arrowhead/serviceregistry/api/http/utils/SystemNamePreprocessor.class

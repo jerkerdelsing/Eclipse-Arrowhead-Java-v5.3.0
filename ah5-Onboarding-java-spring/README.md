@@ -89,3 +89,9 @@ Clients must migrate their payloads and credential handoff explicitly; preservin
 ## Documentation
 
 [SysD, SysDD and an SD and IDD for each produced service](documentation/v5.2.2/README.md) (`onboarding`, `onboardingManagement`, `generalManagement`, `sysMonitor`), generated from the implementation with the official Arrowhead LaTeX templates by [`documentation-tools`](../documentation-tools/README.md); the PDFs are beside the sources. The earlier hand-written `documentation/v5.2.2` set is in `../../_superseded/2026-10-22/`. [Sources](documentation/v5.2.2/SOURCES.md) lists what the content was taken from.
+
+## Listening port
+
+Default **8435** (`server.port` in the packaged `application.properties`). Override with `server.port` in `config/application.properties`, `SERVER_PORT=8435` or `--server.port=8435`.
+
+See [LISTENING-PORTS.md](../LISTENING-PORTS.md) for precedence and all systems.

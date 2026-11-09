@@ -948,3 +948,117 @@
 2026-10-25 10:52:29.300 ERROR UNKNOWN_LOCALHOST --- [           main] a.d.s.DeviceQualityDataManagementService : test
 2026-10-25 10:52:29.302 ERROR UNKNOWN_LOCALHOST --- [           main] a.d.s.DeviceQualityDataManagementService : test
 2026-10-25 10:52:29.306 ERROR UNKNOWN_LOCALHOST --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-11-07 14:58:19.247 ERROR 6e6bbe31a177 --- [           main] eviceQoSEvaluatorApplicationInitListener : Error occured while scheduling jobs at start-up
+2026-11-07 14:58:19.274 ERROR 6e6bbe31a177 --- [           main] eviceQoSEvaluatorApplicationInitListener : Error occured while terminating jobs scheduling
+2026-11-07 14:58:19.287  INFO 6e6bbe31a177 --- [           main] eviceQoSEvaluatorApplicationInitListener : Mesaurement organizer job has been terminated
+2026-11-07 14:58:19.287  INFO 6e6bbe31a177 --- [           main] eviceQoSEvaluatorApplicationInitListener : Cleaning job has been terminated
+2026-11-07 14:58:19.303  INFO 6e6bbe31a177 --- [           main] eviceQoSEvaluatorApplicationInitListener : Mesaurement organizer job has been started
+2026-11-07 14:58:19.304  INFO 6e6bbe31a177 --- [           main] eviceQoSEvaluatorApplicationInitListener : Cleaning job has been started
+2026-11-07 14:58:20.358 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 14:58:20.377 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 14:58:20.392 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 14:58:20.403 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 14:58:20.411 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 14:58:20.530 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 14:58:20.537 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 14:58:20.538 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 14:58:20.545 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 14:58:20.555 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 14:58:20.582 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 14:58:20.589 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 14:58:20.597 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 14:58:20.606 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 14:58:20.616 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 14:58:20.620 ERROR 6e6bbe31a177 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 14:58:20.695  WARN 6e6bbe31a177 --- [           main] a.d.q.s.AugmentedMeasurementJobScheduler : AugmentedMeasurementJob for 2f0a6b4d-3207-4eec-8694-b44780f18182 already exists
+2026-11-07 14:58:20.831  WARN 6e6bbe31a177 --- [           main] e.a.d.q.s.RttMeasurementJobScheduler     : RttMeasurementJobScheduler for 2f0a6b4d-3207-4eec-8694-b44780f18182 already exists
+2026-11-07 14:58:20.893  WARN 6e6bbe31a177 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device is not supporting augmented measurements: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 14:58:20.926 ERROR 6e6bbe31a177 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Augmented measurement fetch failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-11-07 14:58:20.928 ERROR 6e6bbe31a177 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Augmented measurement job failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-11-07 14:58:20.933  WARN 6e6bbe31a177 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device not exists: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 14:58:20.935  WARN 6e6bbe31a177 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device is inactive: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 14:58:20.957 ERROR 6e6bbe31a177 --- [           main] e.a.d.q.j.MeasurementOrganizerJob        : Measurement organizer job failure
+2026-11-07 14:58:20.958 ERROR 6e6bbe31a177 --- [           main] e.a.d.q.j.MeasurementOrganizerJob        : null
+2026-11-07 14:58:21.028 ERROR 6e6bbe31a177 --- [           main] e.a.d.q.j.RttMeasurementJob              : RTT measurement job failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-11-07 14:58:21.033  WARN 6e6bbe31a177 --- [           main] e.a.d.q.j.RttMeasurementJob              : Device does not exist: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 14:58:21.038  WARN 6e6bbe31a177 --- [           main] e.a.d.q.j.RttMeasurementJob              : Device is inactive: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 14:58:21.073 ERROR 6e6bbe31a177 --- [           main] e.a.d.q.j.CleaningJob                    : null
+2026-11-07 14:58:21.244 ERROR 6e6bbe31a177 --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-11-07 14:58:21.246 ERROR 6e6bbe31a177 --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-11-07 14:58:21.249 ERROR 6e6bbe31a177 --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-11-07 15:12:58.371 ERROR c469e79fdd29 --- [           main] eviceQoSEvaluatorApplicationInitListener : Error occured while scheduling jobs at start-up
+2026-11-07 15:12:58.420 ERROR c469e79fdd29 --- [           main] eviceQoSEvaluatorApplicationInitListener : Error occured while terminating jobs scheduling
+2026-11-07 15:12:58.437  INFO c469e79fdd29 --- [           main] eviceQoSEvaluatorApplicationInitListener : Mesaurement organizer job has been terminated
+2026-11-07 15:12:58.438  INFO c469e79fdd29 --- [           main] eviceQoSEvaluatorApplicationInitListener : Cleaning job has been terminated
+2026-11-07 15:12:58.449  INFO c469e79fdd29 --- [           main] eviceQoSEvaluatorApplicationInitListener : Mesaurement organizer job has been started
+2026-11-07 15:12:58.449  INFO c469e79fdd29 --- [           main] eviceQoSEvaluatorApplicationInitListener : Cleaning job has been started
+2026-11-07 15:12:59.728 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 15:12:59.753 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 15:12:59.767 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 15:12:59.784 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 15:12:59.799 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 15:12:59.969 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 15:12:59.985 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 15:12:59.987 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 15:13:00.005 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 15:13:00.019 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:13:00.063 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:13:00.070 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:13:00.082 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:13:00.094 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:13:00.103 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:13:00.110 ERROR c469e79fdd29 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:13:00.195  WARN c469e79fdd29 --- [           main] a.d.q.s.AugmentedMeasurementJobScheduler : AugmentedMeasurementJob for 2f0a6b4d-3207-4eec-8694-b44780f18182 already exists
+2026-11-07 15:13:00.291  WARN c469e79fdd29 --- [           main] e.a.d.q.s.RttMeasurementJobScheduler     : RttMeasurementJobScheduler for 2f0a6b4d-3207-4eec-8694-b44780f18182 already exists
+2026-11-07 15:13:00.345  WARN c469e79fdd29 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device is not supporting augmented measurements: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 15:13:00.373 ERROR c469e79fdd29 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Augmented measurement fetch failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-11-07 15:13:00.376 ERROR c469e79fdd29 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Augmented measurement job failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-11-07 15:13:00.380  WARN c469e79fdd29 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device not exists: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 15:13:00.382  WARN c469e79fdd29 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device is inactive: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 15:13:00.411 ERROR c469e79fdd29 --- [           main] e.a.d.q.j.MeasurementOrganizerJob        : Measurement organizer job failure
+2026-11-07 15:13:00.411 ERROR c469e79fdd29 --- [           main] e.a.d.q.j.MeasurementOrganizerJob        : null
+2026-11-07 15:13:00.481 ERROR c469e79fdd29 --- [           main] e.a.d.q.j.RttMeasurementJob              : RTT measurement job failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-11-07 15:13:00.483  WARN c469e79fdd29 --- [           main] e.a.d.q.j.RttMeasurementJob              : Device does not exist: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 15:13:00.486  WARN c469e79fdd29 --- [           main] e.a.d.q.j.RttMeasurementJob              : Device is inactive: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 15:13:00.509 ERROR c469e79fdd29 --- [           main] e.a.d.q.j.CleaningJob                    : null
+2026-11-07 15:13:00.624 ERROR c469e79fdd29 --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-11-07 15:13:00.628 ERROR c469e79fdd29 --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-11-07 15:13:00.630 ERROR c469e79fdd29 --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-11-07 15:23:59.267 ERROR 552347f62efd --- [           main] eviceQoSEvaluatorApplicationInitListener : Error occured while scheduling jobs at start-up
+2026-11-07 15:23:59.293 ERROR 552347f62efd --- [           main] eviceQoSEvaluatorApplicationInitListener : Error occured while terminating jobs scheduling
+2026-11-07 15:23:59.305  INFO 552347f62efd --- [           main] eviceQoSEvaluatorApplicationInitListener : Mesaurement organizer job has been terminated
+2026-11-07 15:23:59.306  INFO 552347f62efd --- [           main] eviceQoSEvaluatorApplicationInitListener : Cleaning job has been terminated
+2026-11-07 15:23:59.316  INFO 552347f62efd --- [           main] eviceQoSEvaluatorApplicationInitListener : Mesaurement organizer job has been started
+2026-11-07 15:23:59.317  INFO 552347f62efd --- [           main] eviceQoSEvaluatorApplicationInitListener : Cleaning job has been started
+2026-11-07 15:24:00.396 ERROR 552347f62efd --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 15:24:00.414 ERROR 552347f62efd --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 15:24:00.420 ERROR 552347f62efd --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 15:24:00.436 ERROR 552347f62efd --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 15:24:00.446 ERROR 552347f62efd --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-11-07 15:24:00.561 ERROR 552347f62efd --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 15:24:00.569 ERROR 552347f62efd --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 15:24:00.571 ERROR 552347f62efd --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 15:24:00.577 ERROR 552347f62efd --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-11-07 15:24:00.586 ERROR 552347f62efd --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:24:00.627 ERROR 552347f62efd --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:24:00.635 ERROR 552347f62efd --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:24:00.644 ERROR 552347f62efd --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:24:00.653 ERROR 552347f62efd --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:24:00.660 ERROR 552347f62efd --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:24:00.664 ERROR 552347f62efd --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-11-07 15:24:00.736  WARN 552347f62efd --- [           main] a.d.q.s.AugmentedMeasurementJobScheduler : AugmentedMeasurementJob for 2f0a6b4d-3207-4eec-8694-b44780f18182 already exists
+2026-11-07 15:24:00.844  WARN 552347f62efd --- [           main] e.a.d.q.s.RttMeasurementJobScheduler     : RttMeasurementJobScheduler for 2f0a6b4d-3207-4eec-8694-b44780f18182 already exists
+2026-11-07 15:24:00.897  WARN 552347f62efd --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device is not supporting augmented measurements: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 15:24:00.933 ERROR 552347f62efd --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Augmented measurement fetch failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-11-07 15:24:00.936 ERROR 552347f62efd --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Augmented measurement job failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-11-07 15:24:00.940  WARN 552347f62efd --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device not exists: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 15:24:00.942  WARN 552347f62efd --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device is inactive: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 15:24:00.962 ERROR 552347f62efd --- [           main] e.a.d.q.j.MeasurementOrganizerJob        : Measurement organizer job failure
+2026-11-07 15:24:00.963 ERROR 552347f62efd --- [           main] e.a.d.q.j.MeasurementOrganizerJob        : null
+2026-11-07 15:24:01.022 ERROR 552347f62efd --- [           main] e.a.d.q.j.RttMeasurementJob              : RTT measurement job failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-11-07 15:24:01.025  WARN 552347f62efd --- [           main] e.a.d.q.j.RttMeasurementJob              : Device does not exist: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 15:24:01.027  WARN 552347f62efd --- [           main] e.a.d.q.j.RttMeasurementJob              : Device is inactive: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-11-07 15:24:01.047 ERROR 552347f62efd --- [           main] e.a.d.q.j.CleaningJob                    : null
+2026-11-07 15:24:01.141 ERROR 552347f62efd --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-11-07 15:24:01.143 ERROR 552347f62efd --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-11-07 15:24:01.145 ERROR 552347f62efd --- [           main] a.d.s.DeviceQualityDataManagementService : test

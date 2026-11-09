@@ -1,7 +1,7 @@
 target
-legacy
-documentation
-security
-.env
 .git
-*.log
+.env
+security
+documentation
+**/target
+**/.DS_Store

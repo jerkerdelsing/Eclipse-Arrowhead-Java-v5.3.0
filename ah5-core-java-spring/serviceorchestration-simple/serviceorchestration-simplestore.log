@@ -856,3 +856,201 @@
 2026-10-23 09:07:11.562 ERROR 7f8fb34b92df --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: 1f6db24b-5f7c-4fcb-a959-2d9b453d34e1. Reason: Connection error
 2026-10-23 09:07:11.568 ERROR 7f8fb34b92df --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Invalid UUID string: subscriptionId
 2026-10-23 09:07:11.571 ERROR 7f8fb34b92df --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push job doesn't exist: 73a69f60-5dfd-49e4-8825-41e72d3a3d02
+2026-11-07 14:52:59.040 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 14:52:59.093 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 14:52:59.109 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 14:52:59.120 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 14:52:59.139 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 14:52:59.142 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 14:52:59.208 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 14:52:59.216 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 14:52:59.273 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 14:52:59.305 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 14:52:59.308 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 14:52:59.324 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 14:52:59.435 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 14:52:59.569 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 14:52:59.574 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 14:52:59.576 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 14:52:59.582 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 14:52:59.589 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 14:52:59.596 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 14:52:59.629 ERROR 30fbec9ecea5 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 14:52:59.767 ERROR 30fbec9ecea5 --- [           main] e.a.s.q.CleanerJob                       : Cleaner job error: test message
+2026-11-07 14:53:00.486 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationThread        : null
+2026-11-07 14:53:00.545 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 31e0b6a5-44cd-4658-bf59-ce49204a99e7 has no subscription with 2a418441-63c1-4616-b535-f67afdbb3a5b subscription id
+2026-11-07 14:53:00.661 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via MQTT to subscription: 412e4045-6bd0-406d-b9f8-dad8c587b106. Reason: Client is not connected
+2026-11-07 14:53:00.696 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unsupported protocol: UNKNOWN
+2026-11-07 14:53:00.699 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 07c6b451-2688-4cf4-aa32-73d873a151ac has no subscription id
+2026-11-07 14:53:00.702 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push notification via MQTT is required for subscripiton: 95be0cc0-ede8-409e-ad8f-052b2aa83578, but MQTT is not enabled
+2026-11-07 14:53:00.716 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unreadable notify properties: Unrecognized token 'invalid': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 8]
+2026-11-07 14:53:00.718 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : DB error
+2026-11-07 14:53:00.726 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: 35817814-f82d-49f6-b5ec-9c81324e9afe. Reason: Connection error
+2026-11-07 14:53:00.731 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Invalid UUID string: subscriptionId
+2026-11-07 14:53:00.737 ERROR 30fbec9ecea5 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push job doesn't exist: 53996c65-b9dc-4916-bf47-e97e92e5764e
+2026-11-07 15:11:37.894 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:11:37.951 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:11:37.963 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:11:37.970 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:11:37.988 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:11:37.991 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:11:38.077 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:11:38.091 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:11:38.164 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:11:38.183 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:11:38.185 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:11:38.191 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:11:38.256 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:11:38.332 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:11:38.337 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:11:38.339 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:11:38.344 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:11:38.349 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:11:38.353 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:11:38.383 ERROR 2932b9401a12 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:11:38.469 ERROR 2932b9401a12 --- [           main] e.a.s.q.CleanerJob                       : Cleaner job error: test message
+2026-11-07 15:11:39.303 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationThread        : null
+2026-11-07 15:11:39.420 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 678cf833-a8bc-43ea-8d09-51e32ba77e8b has no subscription with fdaebbde-a0a5-438b-90d1-a6fd3caebb62 subscription id
+2026-11-07 15:11:39.543 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via MQTT to subscription: c4aeacf9-1f10-4050-8bfd-b2e87b87e2a3. Reason: Client is not connected
+2026-11-07 15:11:39.578 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unsupported protocol: UNKNOWN
+2026-11-07 15:11:39.582 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job e3d8fe0f-5838-4bbe-8f41-42cf668847f8 has no subscription id
+2026-11-07 15:11:39.586 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push notification via MQTT is required for subscripiton: 99e5534e-3dca-4536-8f6f-2bb125bc8f2d, but MQTT is not enabled
+2026-11-07 15:11:39.592 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unreadable notify properties: Unrecognized token 'invalid': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 8]
+2026-11-07 15:11:39.594 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : DB error
+2026-11-07 15:11:39.606 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: c7162ad0-a6c5-41b7-8b3b-99db7f01f664. Reason: Connection error
+2026-11-07 15:11:39.615 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Invalid UUID string: subscriptionId
+2026-11-07 15:11:39.617 ERROR 2932b9401a12 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push job doesn't exist: ea2a72d8-9e16-40ca-9e35-8d447edcd136
+2026-11-07 15:22:36.259 ERROR 284a34be337f --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:22:36.327 ERROR 284a34be337f --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:22:36.358 ERROR 284a34be337f --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:22:36.380 ERROR 284a34be337f --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:22:36.417 ERROR 284a34be337f --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:22:36.424 ERROR 284a34be337f --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 15:22:36.552 ERROR 284a34be337f --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:22:36.580 ERROR 284a34be337f --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:22:36.654 ERROR 284a34be337f --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:22:36.693 ERROR 284a34be337f --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:22:36.700 ERROR 284a34be337f --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:22:36.721 ERROR 284a34be337f --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 15:22:36.816 ERROR 284a34be337f --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:22:36.931 ERROR 284a34be337f --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:22:36.935 ERROR 284a34be337f --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:22:36.938 ERROR 284a34be337f --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:22:36.941 ERROR 284a34be337f --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:22:36.945 ERROR 284a34be337f --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:22:36.949 ERROR 284a34be337f --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:22:36.974 ERROR 284a34be337f --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 15:22:37.102 ERROR 284a34be337f --- [           main] e.a.s.q.CleanerJob                       : Cleaner job error: test message
+2026-11-07 15:22:37.799 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationThread        : null
+2026-11-07 15:22:37.864 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 82334db2-9202-49ae-b667-5877608f7968 has no subscription with f92524bb-e67f-4b97-aafa-1dd1afcfa8ec subscription id
+2026-11-07 15:22:37.953 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via MQTT to subscription: 6a09b9c6-9a12-4c3d-a753-592f834f8dc0. Reason: Client is not connected
+2026-11-07 15:22:37.989 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unsupported protocol: UNKNOWN
+2026-11-07 15:22:37.998 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 981db8ba-5fee-4829-a178-a2bd38df7a7d has no subscription id
+2026-11-07 15:22:38.003 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push notification via MQTT is required for subscripiton: 07b5a90f-8a18-49a9-9f76-1f31afbb4a20, but MQTT is not enabled
+2026-11-07 15:22:38.009 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unreadable notify properties: Unrecognized token 'invalid': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 8]
+2026-11-07 15:22:38.013 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationWorker        : DB error
+2026-11-07 15:22:38.023 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: 8d0ce064-8e89-4fa3-96fd-7350acebabcc. Reason: Connection error
+2026-11-07 15:22:38.032 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Invalid UUID string: subscriptionId
+2026-11-07 15:22:38.035 ERROR 284a34be337f --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push job doesn't exist: f4566c76-a0ac-48b7-b878-cb14d5d3a9a8
+2026-11-07 16:16:42.889 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:16:42.932 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:16:42.943 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:16:42.951 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:16:42.972 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:16:42.976 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:16:43.050 ERROR d679ca67fecb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:16:43.057 ERROR d679ca67fecb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:16:43.093 ERROR d679ca67fecb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:16:43.112 ERROR d679ca67fecb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:16:43.114 ERROR d679ca67fecb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:16:43.131 ERROR d679ca67fecb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:16:43.196 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:16:43.254 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:16:43.257 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:16:43.259 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:16:43.262 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:16:43.265 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:16:43.269 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:16:43.286 ERROR d679ca67fecb --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:16:43.386 ERROR d679ca67fecb --- [           main] e.a.s.q.CleanerJob                       : Cleaner job error: test message
+2026-11-07 16:16:44.048 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationThread        : null
+2026-11-07 16:16:44.109 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 5db6ef60-244d-4b17-9081-db86df48efed has no subscription with ac6205c6-fc92-4d0b-8d74-79074f5f9fa0 subscription id
+2026-11-07 16:16:44.194 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via MQTT to subscription: 2e35b688-1bd3-45b6-beef-c907657f2bb8. Reason: Client is not connected
+2026-11-07 16:16:44.232 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unsupported protocol: UNKNOWN
+2026-11-07 16:16:44.237 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job d2e5dfe4-13b8-4cdc-b64c-0089badd590f has no subscription id
+2026-11-07 16:16:44.243 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push notification via MQTT is required for subscripiton: 038498b7-8175-4ff5-88c2-9d877275319b, but MQTT is not enabled
+2026-11-07 16:16:44.253 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unreadable notify properties: Unrecognized token 'invalid': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 8]
+2026-11-07 16:16:44.255 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : DB error
+2026-11-07 16:16:44.266 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: f4aeb4aa-b174-4738-8925-a808e16b0a20. Reason: Connection error
+2026-11-07 16:16:44.286 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Invalid UUID string: subscriptionId
+2026-11-07 16:16:44.289 ERROR d679ca67fecb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push job doesn't exist: c88b7a3c-7278-4bbd-9ba9-3e10e6aa25bd
+2026-11-07 16:19:11.539 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:19:11.616 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:19:11.640 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:19:11.656 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:19:11.703 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:19:11.706 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-07 16:19:11.817 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:19:11.836 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:19:11.900 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:19:11.971 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:19:11.977 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:19:11.984 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-07 16:19:12.095 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:19:12.242 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:19:12.250 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:19:12.253 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:19:12.274 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:19:12.281 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:19:12.285 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:19:12.321 ERROR eb07a3cfb095 --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-07 16:19:12.443 ERROR eb07a3cfb095 --- [           main] e.a.s.q.CleanerJob                       : Cleaner job error: test message
+2026-11-07 16:19:13.297 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationThread        : null
+2026-11-07 16:19:13.371 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 17481b7e-5913-4b2a-ae36-408cd8389711 has no subscription with 81cf269d-d5f5-45cf-86c3-9e3729155097 subscription id
+2026-11-07 16:19:13.434 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via MQTT to subscription: a09d301a-81cc-4210-8552-9a80b2e575e8. Reason: Client is not connected
+2026-11-07 16:19:13.457 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unsupported protocol: UNKNOWN
+2026-11-07 16:19:13.459 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 0a041d8d-facb-42f2-b6e2-31c142399775 has no subscription id
+2026-11-07 16:19:13.462 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push notification via MQTT is required for subscripiton: 176c317e-f0de-40d5-beda-74f9282d1c69, but MQTT is not enabled
+2026-11-07 16:19:13.466 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unreadable notify properties: Unrecognized token 'invalid': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 8]
+2026-11-07 16:19:13.468 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : DB error
+2026-11-07 16:19:13.473 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: 354a7557-e762-4a42-8ad4-1e9afb3ebca2. Reason: Connection error
+2026-11-07 16:19:13.479 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Invalid UUID string: subscriptionId
+2026-11-07 16:19:13.482 ERROR eb07a3cfb095 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push job doesn't exist: f520c968-f1ca-46ab-8282-894dcc474ddd
+2026-11-09 11:02:36.220 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-09 11:02:36.291 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-09 11:02:36.314 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-09 11:02:36.326 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-09 11:02:36.350 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-09 11:02:36.354 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SimpleStoreDbService           : DB error
+2026-11-09 11:02:36.458 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-09 11:02:36.497 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-09 11:02:36.543 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-09 11:02:36.558 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-09 11:02:36.560 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-09 11:02:36.566 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.OrchestrationJobDbService      : DB error
+2026-11-09 11:02:36.642 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-09 11:02:36.723 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-09 11:02:36.726 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-09 11:02:36.728 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-09 11:02:36.735 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-09 11:02:36.739 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-09 11:02:36.742 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-09 11:02:36.763 ERROR 4987e6b0b72c --- [           main] e.a.s.j.s.SubscriptionDbService          : DB error
+2026-11-09 11:02:36.865 ERROR 4987e6b0b72c --- [           main] e.a.s.q.CleanerJob                       : Cleaner job error: test message
+2026-11-09 11:02:37.597 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationThread        : null
+2026-11-09 11:02:37.660 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job afe9a9d2-89cd-4686-a7bd-5ff85eb1e728 has no subscription with fc01c620-c357-44fe-b2bb-a07d58da7200 subscription id
+2026-11-09 11:02:37.767 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via MQTT to subscription: 715d42d3-fcb6-4d0a-a0e8-e0bc5def5ed1. Reason: Client is not connected
+2026-11-09 11:02:37.813 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unsupported protocol: UNKNOWN
+2026-11-09 11:02:37.816 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 2932e1be-9683-4503-a375-7c6e5db3f9c7 has no subscription id
+2026-11-09 11:02:37.820 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push notification via MQTT is required for subscripiton: 96d6e501-41f6-4059-8f40-ac0dbcf228b5, but MQTT is not enabled
+2026-11-09 11:02:37.825 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unreadable notify properties: Unrecognized token 'invalid': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 8]
+2026-11-09 11:02:37.827 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : DB error
+2026-11-09 11:02:37.832 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: 088e82a1-75ae-4b2d-8464-acdea0fcbf41. Reason: Connection error
+2026-11-09 11:02:37.839 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Invalid UUID string: subscriptionId
+2026-11-09 11:02:37.841 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push job doesn't exist: a812e364-f019-4fa3-a719-549b0258856b

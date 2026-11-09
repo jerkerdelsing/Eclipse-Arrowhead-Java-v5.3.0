@@ -29,7 +29,7 @@
     \thesubsection\quad
     #2 \textcolor{ArrowheadPurple}{#3} \\
     \small
-    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+    \hspace*{0.07\textwidth}\begin{minipage}{0.1\textwidth}
       \vspace*{1mm}
       Operation: \\
       \notblank{#4}{Input: \\}{}
@@ -61,7 +61,7 @@
 \ArrowheadType{Interface Design Description}
 \ArrowheadTypeShort{IDD}
 \ArrowheadVersion{5.2.2}
-\ArrowheadDate{2026-10-30}
+\ArrowheadDate{2026-11-09}
 \ArrowheadAuthor{Jerker Delsing}
 \ArrowheadStatus{RELEASE CANDIDATE}
 \ArrowheadContact{jerker.delsing@ltu.se}
@@ -129,7 +129,7 @@ This document provides the Interface Design Description IDD to the \textit{sysMo
 
 \subsection{Interface registration}
 
-With \texttt{sysmonitor.enabled=true}, LocalCloudManager registers the service at start-up with interface template \texttt{generic\_\allowbreak{}amqps} (protocol \texttt{amqps}, policy \texttt{CERT\_\allowbreak{}AUTH}; \texttt{generic\_\allowbreak{}amqp} without TLS) and the following properties and metadata:
+With \texttt{sysmonitor.enabled=true}, the common sysMonitor publisher of LocalCloudManager registers the service at start-up with interface template \texttt{generic\_\allowbreak{}amqps} (protocol \texttt{amqps}, policy \texttt{CERT\_\allowbreak{}AUTH}; \texttt{generic\_\allowbreak{}amqp} without TLS) and the following properties and metadata:
 
 \begin{lstlisting}[caption={Registered service instance (TestCloud).}]
 {
@@ -172,7 +172,7 @@ With \texttt{sysmonitor.enabled=true}, LocalCloudManager registers the service a
 \section{Service Operations}
 \label{sec:operations}
 
-The publisher is \texttt{api/\allowbreak{}src/\allowbreak{}sysmonitor.\allowbreak{}js} (amqplib), configured with the \texttt{SYSMONITOR\_\allowbreak{}*} environment variables. The publisher connects to the broker (default \texttt{amqp-\allowbreak{}broker}, port 5671) with TLS, verifies the broker host name and authenticates with its X.509 system certificate (SASL \texttt{EXTERNAL}; the certificate CN is the broker user name). Every publication interval it publishes each observation to the topic exchange \texttt{arrowhead} with the routing key \texttt{<baseRoutingKey>.<operation>}, where the base routing key is \texttt{<Cloud>.sysmonitor.<System>.<serviceInstance>}. Messages are persistent (delivery mode 2), \texttt{application/json}, carry the observation identifier as message id, and are publisher-confirmed (timeout 5 s); a failed cycle is retried with a new connection at the next interval. The broker's topic permissions allow the system to publish only below its own base routing key.
+The publisher is the \texttt{SysMonitor\allowbreak{}Publisher} of the vendored Eclipse Arrowhead common library (RabbitMQ Java client), configured with the \texttt{sysmonitor.\allowbreak{}*} Spring properties (\texttt{enabled}, \texttt{broker.\allowbreak{}address}, \texttt{broker.\allowbreak{}port}, \texttt{local.\allowbreak{}cloud}, \texttt{service.\allowbreak{}instance}, \texttt{publish.\allowbreak{}interval}, \texttt{ssl.\allowbreak{}*}). The echo health comes from the Docker health indicator: degraded while the Docker proxy cannot be reached; \texttt{serviceCount} is the number of services in the system information (2). The publisher connects to the broker (default \texttt{amqp-\allowbreak{}broker}, port 5671) with TLS, verifies the broker host name and authenticates with its X.509 system certificate (SASL \texttt{EXTERNAL}; the certificate CN is the broker user name). Every publication interval it publishes each observation to the topic exchange \texttt{arrowhead} with the routing key \texttt{<baseRoutingKey>.<operation>}, where the base routing key is \texttt{<Cloud>.sysmonitor.<System>.<serviceInstance>}. Messages are persistent (delivery mode 2), \texttt{application/json}, carry the observation identifier as message id, and are publisher-confirmed (timeout 5 s); a failed cycle is retried with a new connection at the next interval. The broker's topic permissions allow the system to publish only below its own base routing key.
 
 \osubsection{echo}{PUBLISH}{\texttt{\textless{}Cloud\textgreater{}.\allowbreak{}sysmonitor.\allowbreak{}Local\allowbreak{}Cloud\allowbreak{}Manager.\allowbreak{}Local\allowbreak{}Cloud\allowbreak{}Manager.\allowbreak{}echo}}{}{\mref{Observation}}
 
@@ -254,6 +254,7 @@ Process state: \texttt{state=\allowbreak{}running}, \texttt{health} (\texttt{hea
 
 1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
 2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & \arrowversion & Java-Spring implementation: the observations are published by the common-library \texttt{SysMonitor\allowbreak{}Publisher} (RabbitMQ Java client) with the \texttt{sysmonitor.\allowbreak{}*} properties; health from the Docker proxy; wire format unchanged. & Claude Opus 5.5 (draft) \\ \hline
 \end{tabularx}
 
 \subsection{Quality Assurance}

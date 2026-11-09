@@ -1,14 +1,21 @@
 FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /source
 COPY pom.xml .
+COPY vendor ./vendor
 COPY src ./src
-RUN --mount=type=cache,target=/root/.m2 mvn -B -q clean package -DskipTests
+COPY catalogs ./catalogs
+COPY requests ./requests
+# StepRunnerTest runs the step scripts.
+COPY scripts ./scripts
+RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /source/target/sosconfigurator.jar /app/sosconfigurator.jar
+COPY config /app/config
 COPY catalogs /app/catalogs
+RUN mkdir -p /app/logs && chown -R 10001:10001 /app
 USER 10001:10001
-EXPOSE 8096
-HEALTHCHECK --interval=15s --start-period=20s --timeout=4s CMD ["bash","-c","exec 3<>/dev/tcp/127.0.0.1/8096"]
-ENTRYPOINT ["java","-jar","/app/sosconfigurator.jar"]
-CMD ["serve","-listen",":8096","-catalog","/app/catalogs/sos.json"]
+# 8494: sosConfiguration over mutual TLS; 8495: operator console (publish on the host's loopback interface only)
+EXPOSE 8494 8495
+HEALTHCHECK --interval=15s --start-period=90s --timeout=4s CMD ["bash","-c","exec 3<>/dev/tcp/127.0.0.1/8494"]
+ENTRYPOINT ["java","-Xms64m","-Xmx256m","-Dlog4j.configurationFile=/app/config/log4j2.xml","-jar","/app/sosconfigurator.jar","serve","--spring.config.additional-location=file:/app/config/application.properties"]

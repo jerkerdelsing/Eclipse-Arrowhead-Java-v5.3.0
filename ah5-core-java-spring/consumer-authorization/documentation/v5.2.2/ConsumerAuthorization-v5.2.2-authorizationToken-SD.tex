@@ -1,0 +1,282 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2es}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{authorizationToken}
+\ArrowheadServiceID{authorizationToken}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-22}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{authorizationToken} service, version 1.0.0, produced by the ConsumerAuthorization core system of Arrowhead 5.2.2.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{authorizationToken} service, which provides authorization tokens: a consumer obtains a token for a specific provider, service and operation; the provider verifies it.
+It is produced by the ConsumerAuthorization system \cite{ca-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{ca-authorizationToken-http-idd}. The MQTT binding is specified in the MQTT/TLS/JSON IDD \cite{ca-authorizationToken-mqtt-idd}.
+
+\subsection{Significant Prior Art}
+
+Successor of the Arrowhead 4.x token generation of the Authorization system (which issued JWTs during orchestration).
+
+\subsection{How This Service Is Meant to Be Used}
+
+Normally Dynamic\allowbreak{}Service\allowbreak{}Orchestration requests the token on behalf of the consumer during orchestration, when the provider interface has a token policy. A consumer may also call \texttt{generate} itself. The provider calls \texttt{verify} (simple tokens) or validates a JSON Web Token locally with the key from \texttt{get-\allowbreak{}public-\allowbreak{}key}. Providers that want encrypted self-contained tokens register an AES key with \texttt{register-\allowbreak{}encryption-\allowbreak{}key}.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+A token is issued only if the consumer is authorized by the policies. Simple tokens are limited by time (\texttt{token.\allowbreak{}time.\allowbreak{}limit}) or number of uses (\texttt{simple.\allowbreak{}token.\allowbreak{}usage.\allowbreak{}limit}). The service does not transport tokens; the consumer sends them in its requests to the provider.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{authorizationToken} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{authorizationToken}
+        \nodepart{second} \texttt{generate}\\ \texttt{verify}\\ \texttt{get-\allowbreak{}public-\allowbreak{}key}\\ \texttt{register-\allowbreak{}encryption-\allowbreak{}key}\\ \texttt{unregister-\allowbreak{}encryption-\allowbreak{}key}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{authorizationToken} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{generate}{\mref[Authorization\allowbreak{}Token\allowbreak{}Generation\allowbreak{}Request]{AuthorizationTokenGenerationRequest}}{\mref[Authorization\allowbreak{}Token\allowbreak{}Generation\allowbreak{}Response]{AuthorizationTokenGenerationResponse}}
+
+Generates a token of the requested variant for the requester (as consumer) to the provider's target and operation, if authorized.
+
+\osubsection{verify}{\pref{Token}}{\mref[Authorization\allowbreak{}Token\allowbreak{}Verify\allowbreak{}Response]{AuthorizationTokenVerifyResponse}}
+
+Verifies a token presented to the requester (as provider), counts a use of usage-limited tokens and returns its consumer, target and scope.
+
+\osubsection{get-public-key}{}{\pref{String}}
+
+Returns the public key (Base64 X.509 Subject\allowbreak{}Public\allowbreak{}Key\allowbreak{}Info) with which providers verify JSON Web Tokens.
+
+\osubsection{register-encryption-key}{\mref[Authorization\allowbreak{}Encryption\allowbreak{}Key\allowbreak{}Registration\allowbreak{}Request]{AuthorizationEncryptionKeyRegistrationRequest}}{\pref{String}}
+
+Registers or replaces the requester's AES key for encrypting its self-contained tokens. Returns the initialization vector (CBC) or an empty string; 201 for a new key.
+
+\osubsection{unregister-encryption-key}{}{}
+
+Removes the requester's encryption key. Returns 200 if removed, 204 if there was none.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{authorizationToken} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{AuthorizationEncryptionKeyRegistrationRequest}
+
+Registers the requester's key for encrypting its self-contained tokens.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+key & \pref{String} & AES key of the provider (at least 16 bytes). \\ \hline
+algorithm & \pref{String} & Encryption algorithm of the key, e.g. \texttt{AES/\allowbreak{}ECB/\allowbreak{}PKCS5Padding} or \texttt{AES/\allowbreak{}CBC/\allowbreak{}PKCS5Padding}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationTokenGenerationRequest}
+
+Request of the consumer for a token to one provider's service operation.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+token\allowbreak{}Variant & \pref{String} & Requested token variant, as interface security policy (e.g. \texttt{TIME\_\allowbreak{}LIMITED\_\allowbreak{}TOKEN\_\allowbreak{}AUTH}, \texttt{RSA\_\allowbreak{}SHA512\_\allowbreak{}JSON\_\allowbreak{}WEB\_\allowbreak{}TOKEN\_\allowbreak{}AUTH}). \\ \hline
+provider & \pref{Name} & Provider system the token is for. \\ \hline
+target\allowbreak{}Type & \pref{String} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+target & \pref{Name} & Service definition (or event type). \\ \hline
+scope & \pref{Name} & Operation the token is for. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationTokenGenerationResponse}
+
+A generated token.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+token\allowbreak{}Type & \pref{AuthorizationTokenType} & Token type: \texttt{TIME\_\allowbreak{}LIMITED\_\allowbreak{}TOKEN}, \texttt{USAGE\_\allowbreak{}LIMITED\_\allowbreak{}TOKEN}, \texttt{SELF\_\allowbreak{}CONTAINED\_\allowbreak{}TOKEN} or \texttt{TRANSLATION\_\allowbreak{}BRIDGE\_\allowbreak{}TOKEN}. \\ \hline
+target\allowbreak{}Type & \pref{AuthorizationTargetType} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+token & \pref{Token} & The token (opaque string, Base64 or JSON Web Token). \\ \hline
+usage\allowbreak{}Limit & \pref{Number} & Number of allowed uses (usage-limited tokens). \\ \hline
+expires\allowbreak{}At & \pref{DateTime} & UTC expiry of time-limited tokens. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationTokenVerifyResponse}
+
+Result of verifying a token presented to a provider.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+verified & \pref{Boolean} & True when the token is valid. \\ \hline
+consumer\allowbreak{}Cloud & \pref{Name} & Cloud identifier of the consumer system. \\ \hline
+consumer & \pref{Name} & Name of the consumer system. \\ \hline
+target\allowbreak{}Type & \pref{AuthorizationTargetType} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+target & \pref{Name} & Target of the policy or token: a service definition or event type. \\ \hline
+scope & \pref{Name} & Operation the token or policy is limited to; empty for all operations. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{AuthorizationTargetType} & One of \texttt{SERVICE\_\allowbreak{}DEF}, \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+\pdef{AuthorizationTokenType} & One of \texttt{TIME\_\allowbreak{}LIMITED\_\allowbreak{}TOKEN}, \texttt{USAGE\_\allowbreak{}LIMITED\_\allowbreak{}TOKEN}, \texttt{SELF\_\allowbreak{}CONTAINED\_\allowbreak{}TOKEN}, \texttt{TRANSLATION\_\allowbreak{}BRIDGE\_\allowbreak{}TOKEN}. \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\pdef{Token} & An opaque string used as credential. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

@@ -49,7 +49,7 @@
 \ArrowheadType{Service Description}
 \ArrowheadTypeShort{SD}
 \ArrowheadVersion{5.2.2}
-\ArrowheadDate{2026-10-30}
+\ArrowheadDate{2026-11-09}
 \ArrowheadAuthor{Jerker Delsing}
 \ArrowheadStatus{RELEASE CANDIDATE}
 \ArrowheadContact{jerker.delsing@ltu.se}
@@ -107,7 +107,7 @@ Arrowhead 4.x and upstream 5.2.2 had an HTTP \texttt{monitor}/\texttt{echo} endp
 
 \subsection{How This Service Is Meant to Be Used}
 
-The SysMonitor support system subscribes to the observations (selected with \texttt{sys\allowbreak{}Monitor\allowbreak{}Management}) and keeps the history; LocalCloudManager shows it.
+The SysMonitor support system subscribes to the observations (selected with \texttt{sys\allowbreak{}Monitor\allowbreak{}Management}) and keeps the history; LocalCloudManager shows it. LocalCloudManager publishes them with the common-library publisher of its Java-Spring implementation; the echo is degraded while the Docker proxy cannot be reached.
 
 \subsection{Important Delimitations and Dependencies}
 \label{sec:delimitations}
@@ -197,6 +197,7 @@ metadata & \pref{Metadata} & \texttt{publisherMode=native}. \\ \hline
 
 1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
 2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & \arrowversion & Java-Spring implementation: the observations are produced by the common-library \texttt{SysMonitor\allowbreak{}Publisher} (RabbitMQ Java client) with the \texttt{sysmonitor.\allowbreak{}*} properties; health from the Docker proxy; service unchanged. & Claude Opus 5.5 (draft) \\ \hline
 \end{tabularx}
 
 \subsection{Quality Assurance}

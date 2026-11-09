@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: eu.arrowhead.serviceregistry.jpa.service.ServiceInstanceDbServiceTest
 -------------------------------------------------------------------------------
-Tests run: 47, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.350 s -- in eu.arrowhead.serviceregistry.jpa.service.ServiceInstanceDbServiceTest
+Tests run: 47, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.147 s -- in eu.arrowhead.serviceregistry.jpa.service.ServiceInstanceDbServiceTest

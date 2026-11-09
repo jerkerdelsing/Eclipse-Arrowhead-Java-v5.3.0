@@ -4,11 +4,9 @@ import org.junit.jupiter.api.io.TempDir;
 import static org.junit.jupiter.api.Assertions.*;
 import java.nio.file.*;
 import java.util.*;
-import java.net.*;
-import java.net.http.*;
-import java.time.*;
-import com.sun.net.httpserver.HttpServer;
-import com.fasterxml.jackson.databind.JsonNode;
+import eu.arrowhead.localcloudconfigurator.service.ConfiguratorBackend;
+import eu.arrowhead.localcloudconfigurator.service.DeploymentCoordinator;
+import eu.arrowhead.localcloudconfigurator.service.dto.ApplyRequest;
 class ConfiguratorTest{
   @TempDir Path temp;
   Catalog catalog()throws Exception{
@@ -86,53 +84,6 @@ class ConfiguratorTest{
     assertFalse(out.contains("abc"));
     assertFalse(out.contains("token=secret"));
   }
-  @Test void apiAuthPersistentConfigurationsStaleRevisionsAndReviewedWorkflow()throws Exception{
-    var c=catalog();
-    List<Planner.Plan>submitted=new ArrayList<>();
-    ApiServer.Backend b=new ApiServer.Backend(){
-      public List<String>status(){
-        return all(c);
-      }
-      public String submit(Planner.Plan p){
-        submitted.add(p);
-        return "workflow-test";
-      }
-      public Object deployment(String id){
-        return Map.of("id",id,"state","success");
-      }
-    }
-    ;
-    String token="test-token-abcdefghijklmnopqrstuvwxyz";
-    HttpServer s=new ApiServer(c,b,token,temp).start(new InetSocketAddress("127.0.0.1",0));
-    try{
-      String base="http://127.0.0.1:"+s.getAddress().getPort();
-      assertEquals(401,request(base,"GET","/api/catalog",null,null).statusCode());
-      String req="{\"systems\":[],\"remove\":[],\"smoke\":true}";
-      var plan=request(base,"POST","/api/plan",req,token);
-      assertEquals(200,plan.statusCode());
-      String hash=Json.LENIENT.readTree(plan.body()).path("hash").asText();
-      assertEquals(409,request(base,"POST","/api/deployments","{\"smoke\":true,\"expectedPlanHash\":\"stale\"}",token).statusCode());
-      var deploy=request(base,"POST","/api/deployments","{\"smoke\":true,\"expectedPlanHash\":\""+hash+"\"}",token);
-      assertEquals(202,deploy.statusCode());
-      assertEquals(1,submitted.size());
-      assertEquals(1,submitted.get(0).steps().size());
-      assertEquals(200,request(base,"GET","/api/deployments/workflow-test",null,token).statusCode());
-      assertEquals(404,request(base,"GET","/api/deployments/foreign",null,token).statusCode());
-      var create=request(base,"POST","/api/configurations","{\"name\":\"Test design\",\"systems\":[],\"remove\":[],\"layout\":{\"serviceregistry\":{\"x\":1,\"y\":2}}}",token);
-      assertEquals(201,create.statusCode(),create.body());
-      var row=Json.LENIENT.readTree(create.body());
-      String id=row.path("id").asText();
-      assertEquals(4,row.path("systems").size());
-      assertEquals(409,request(base,"PUT","/api/configurations/"+id,"{\"name\":\"stale\",\"expectedRevision\":0}",token).statusCode());
-      assertEquals(200,request(base,"PUT","/api/configurations/"+id,"{\"name\":\"edited\",\"expectedRevision\":1}",token).statusCode());
-      assertEquals(409,request(base,"DELETE","/api/configurations/"+id,"{\"expectedRevision\":1}",token).statusCode());
-      assertEquals(200,request(base,"DELETE","/api/configurations/"+id,"{\"expectedRevision\":2}",token).statusCode());
-      assertEquals(404,request(base,"GET","/api/configurations/"+id,null,token).statusCode());
-    }
-    finally{
-      s.stop(0);
-    }
-  }
   @Test void alreadyRunningServiceIsNeverRecreatedByAQueuedStep()throws Exception{
     var c=catalog();Files.writeString(temp.resolve("compose.yaml"),"services: {}\n");List<List<String>> commands=new ArrayList<>();
     var runner=new Runner(c,temp,(dir,args)->{commands.add(args);if(!args.contains("ps"))throw new AssertionError("Must not issue up for a running service");return "\"timemanager\"\n\"timemanager-db\"\n";},"docker");
@@ -140,11 +91,14 @@ class ConfiguratorTest{
   }
   @Test void inFlightDeploymentGuardSurvivesApiRestart()throws Exception{
     var c=catalog();var phase=new java.util.concurrent.atomic.AtomicReference<>("running");var submissions=new java.util.concurrent.atomic.AtomicInteger();
-    ApiServer.Backend backend=new ApiServer.Backend(){public List<String>status(){return all(c);}public String submit(Planner.Plan p){return "job-"+submissions.incrementAndGet();}public Object deployment(String id){return Map.of("id",id,"state",phase.get());}};
-    String token="test-token-abcdefghijklmnopqrstuvwxyz";HttpServer server=new ApiServer(c,backend,token,temp).start(new InetSocketAddress("127.0.0.1",0));String base="http://127.0.0.1:"+server.getAddress().getPort();
-    String hash=Json.LENIENT.readTree(request(base,"POST","/api/plan","{\"smoke\":true}",token).body()).path("hash").asText();String body="{\"smoke\":true,\"expectedPlanHash\":\""+hash+"\"}";
-    assertEquals(202,request(base,"POST","/api/deployments",body,token).statusCode());assertEquals(409,request(base,"POST","/api/deployments",body,token).statusCode());server.stop(0);
-    server=new ApiServer(c,backend,token,temp).start(new InetSocketAddress("127.0.0.1",0));base="http://127.0.0.1:"+server.getAddress().getPort();try{assertEquals(409,request(base,"POST","/api/deployments",body,token).statusCode());phase.set("success");assertEquals(202,request(base,"POST","/api/deployments",body,token).statusCode());assertEquals(2,submissions.get());}finally{server.stop(0);}
+    ConfiguratorBackend backend=new ConfiguratorBackend(){public List<String>status(){return all(c);}public String submit(Planner.Plan p){return "job-"+submissions.incrementAndGet();}public Object deployment(String id){return Map.of("id",id,"state",phase.get());}public String kind(){return "colony";}};
+    var store=new MemoryDeploymentStore();var coordinator=new DeploymentCoordinator(c,backend,store);
+    String hash=String.valueOf(coordinator.plan(new Planner.Request(List.of(),List.of(),false,true)).get("hash"));var apply=new ApplyRequest(List.of(),List.of(),false,true,hash);
+    assertEquals(202,coordinator.apply(apply).status());assertThrows(Refused.class,()->coordinator.apply(apply));
+    var restarted=new DeploymentCoordinator(c,backend,store);
+    assertEquals(409,assertThrows(Refused.class,()->restarted.apply(apply)).status());phase.set("success");assertEquals(202,restarted.apply(apply).status());assertEquals(2,submissions.get());
+    assertEquals(409,assertThrows(Refused.class,()->restarted.apply(new ApplyRequest(List.of(),List.of(),false,true,"stale"))).status());
+    assertEquals(404,assertThrows(Refused.class,()->restarted.deployment("foreign")).status());
   }
   @Test void databasesAreOwnedAssetsWithOrderedLifecycle()throws Exception{
     var c=catalog();int count=0;
@@ -157,10 +111,5 @@ class ConfiguratorTest{
     var plan=Planner.build(c,new Planner.Request(List.of(),List.of("timemanager"),false,false),List.of("timemanager","timemanager-db"));
     assertEquals(List.of(new Planner.Step("stop","timemanager","timemanager"),new Planner.Step("stop","timemanager-db","timemanager")),plan.steps().stream().filter(s->s.kind().equals("stop")).toList());
     assertTrue(Planner.build(c,new Planner.Request(List.of("timemanager-db"),List.of(),false,false),List.of()).systems().contains("timemanager"));
-  }
-  static HttpResponse<String>request(String base,String method,String path,String body,String token)throws Exception{
-    var b=HttpRequest.newBuilder(URI.create(base+path)).timeout(Duration.ofSeconds(10)).header("Content-Type","application/json");
-    if(token!=null)b.header("Authorization","Bearer "+token);
-    return HttpClient.newHttpClient().send(b.method(method,body==null?HttpRequest.BodyPublishers.noBody():HttpRequest.BodyPublishers.ofString(body)).build(),HttpResponse.BodyHandlers.ofString());
   }
 }

@@ -1,5 +1,5 @@
-/src/src/test/java/eu/arrowhead/graphdbmanager/security/GraphDBManagerAuthorizationTest.java
-/src/src/test/java/eu/arrowhead/graphdbmanager/service/GraphDBManagerHealthIndicatorTest.java
-/src/src/test/java/eu/arrowhead/graphdbmanager/service/HistorianServiceTest.java
-/src/src/test/java/eu/arrowhead/graphdbmanager/service/ProxyServiceTest.java
-/src/src/test/java/eu/arrowhead/graphdbmanager/service/SenMLValidationTest.java
+/source/src/test/java/eu/arrowhead/graphdbmanager/security/GraphDBManagerAuthorizationTest.java
+/source/src/test/java/eu/arrowhead/graphdbmanager/service/GraphDBManagerHealthIndicatorTest.java
+/source/src/test/java/eu/arrowhead/graphdbmanager/service/HistorianServiceTest.java
+/source/src/test/java/eu/arrowhead/graphdbmanager/service/ProxyServiceTest.java
+/source/src/test/java/eu/arrowhead/graphdbmanager/service/SenMLValidationTest.java

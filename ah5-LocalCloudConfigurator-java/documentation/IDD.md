@@ -1,6 +1,10 @@
 # IDD — Implementation and dependency interfaces
 
-## ColonyOS
+## Host worker (default)
+
+The API calls the host worker at `https://host.docker.internal:8493` (`lcc.worker.url`): `GET /api/status`, `POST /api/deployments` (the reviewed selection plus `expectedPlanHash`; the worker re-plans and compares), `GET /api/deployments/{id}` (ids `local-<uuid>`). Mutual TLS, TLS 1.3/1.2: the API presents `LocalCloudConfigurator.<cloud>.<organization>.arrowhead.eu`, the worker `LocalCloudConfiguratorWorker.<cloud>.<organization>.arrowhead.eu`; both validate the chain against the cloud truststore (and the CRL) and accept only that peer system name. The worker binds to a loopback address only and refuses to start otherwise.
+
+## ColonyOS (legacy backend)
 
 Pinned existing server: Colonies v1.9.10. The Java client is adapted from primary Java SoSConfigurator, with secp256k1/SHA3-256 signed RPC, workflow chaining, process state/output and approved executor identities. The Java cloud has its own `arrowhead-java-localcloud` colony and `arrowhead-java-cloud-executor` executor type.
 
@@ -21,7 +25,7 @@ The catalog is `catalogs/javacloud.json`, derived from the supplied Java Compose
 
 ## Persistence and UI
 
-The API stores JSON designs and workflow markers in `java-lcc-designs`; graphical positions therefore survive container restarts and another browser session. The manager proxy carries only fixed API paths and validated request bodies. Browser exports omit credentials; imports become new designs and clear removal/reapply actions. Operator tokens and ColonyOS keys are private files outside the repository, never stored in designs or passed as argument values.
+The API stores designs, deployment records and the active-deployment record in its private MySQL schema `ah_localcloudconfigurator` (tables `configuration`, `deployment`, `active_deployment`, `logs`); graphical positions therefore survive container restarts and another browser session. The manager proxy carries only fixed API paths and validated request bodies. Browser exports omit credentials; imports become new designs and clear removal/reapply actions. There is no operator token any more. Certificates, store passwords and ColonyOS keys are private files outside the repository (Compose secrets, the worker's config tree), never stored in designs or passed as argument values.
 
 ### Database ownership
 

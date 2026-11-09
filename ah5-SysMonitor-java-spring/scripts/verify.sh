@@ -1,13 +1,12 @@
 #!/bin/sh
+# Build and test, then check that the Spring Boot JAR contains this system only and no native (eu.arrowhead.port) code.
 set -eu
 cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 mvn -B "$@" clean verify
-java -jar target/arrowhead-sysmonitor-5.2.2.jar storage-selftest
 jar tf target/arrowhead-sysmonitor-5.2.2.jar > target/package-contents.txt
-for other in CertificateAuthority Gatekeeper GateTunnel SysMonitor; do
-  [ "$other" = "SysMonitor" ] && continue
-  if grep -E "^eu/arrowhead/port/$other(\\$|\\.)" target/package-contents.txt >/dev/null; then
-    echo "Unexpected system implementation in artifact: $other" >&2
-    exit 1
-  fi
-done
+grep -q '^BOOT-INF/classes/eu/arrowhead/sysmonitor/SysMonitorMain.class$' target/package-contents.txt
+if grep -E '^BOOT-INF/classes/eu/arrowhead/(port|gatekeeper|gatetunnel|certificateauthority)/' target/package-contents.txt >/dev/null; then
+  echo "Unexpected implementation in artifact" >&2
+  exit 1
+fi
+echo "SysMonitor artifact verified"

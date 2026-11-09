@@ -1,8 +1,10 @@
-.PHONY: build test image deploy stop docs
+.PHONY: build test verify image deploy stop docs
 build:
 	mvn -B clean verify
 test:
 	mvn -B test
+verify:
+	./scripts/verify.sh
 image:
 	docker compose build
 deploy:

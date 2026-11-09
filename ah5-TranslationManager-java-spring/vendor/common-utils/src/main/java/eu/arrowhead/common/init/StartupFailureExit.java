@@ -9,6 +9,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.boot.context.event.ApplicationFailedEvent;
 import org.springframework.context.ApplicationListener;
 
+import eu.arrowhead.common.EnvironmentProps;
+
 // Turns a failed start-up into a process exit. Some libraries leave non-daemon threads behind when the Spring
 // context fails (for example an MQTT reconnect timer); the JVM would then keep running without serving, and the
 // container restart policy would never retry. If the JVM has not ended on its own after a grace period, it exits
@@ -22,6 +24,8 @@ public class StartupFailureExit implements ApplicationListener<ApplicationFailed
 
 	@Override
 	public void onApplicationEvent(final ApplicationFailedEvent event) {
+		EnvironmentProps.startupFailed();
+
 		if (!enabled()) {
 			return;
 		}

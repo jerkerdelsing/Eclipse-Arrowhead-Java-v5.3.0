@@ -1,0 +1,422 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2es}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{serviceOrchestrationPushManagement}
+\ArrowheadServiceID{serviceOrchestrationPushManagement}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-22}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{service\allowbreak{}Orchestration\allowbreak{}Push\allowbreak{}Management} service, version 1.0.0, produced by the SimpleStoreServiceOrchestration core system of Arrowhead 5.2.2.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{service\allowbreak{}Orchestration\allowbreak{}Push\allowbreak{}Management} service, which provides operator management of push orchestration: subscriptions made on behalf of consumers, and triggering of push orchestration.
+It is produced by the SimpleStoreServiceOrchestration system \cite{ssso-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{ssso-serviceOrchestrationPushManagement-http-idd}. The MQTT binding is specified in the MQTT/TLS/JSON IDD \cite{ssso-serviceOrchestrationPushManagement-mqtt-idd}.
+
+\subsection{Significant Prior Art}
+
+Corresponds to the Arrowhead 4.x orchestration store push features.
+
+\subsection{How This Service Is Meant to Be Used}
+
+Operators and support systems (e.g. the Choreographer, Plant\allowbreak{}Description\allowbreak{}Engine) create subscriptions for target systems, query and remove them, and trigger the execution of subscriptions; the orchestrator then sends the results to the subscribers' notify interfaces.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Push notifications are sent by worker threads (\texttt{push.\allowbreak{}orchestration.\allowbreak{}max.\allowbreak{}thread}); delivery is best effort and its outcome is recorded in the orchestration history.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{service\allowbreak{}Orchestration\allowbreak{}Push\allowbreak{}Management} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{serviceOrchestrationPushManagement}
+        \nodepart{second} \texttt{subscribe}\\ \texttt{unsubscribe}\\ \texttt{trigger}\\ \texttt{query}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{service\allowbreak{}Orchestration\allowbreak{}Push\allowbreak{}Management} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{subscribe}{\mref[Orchestration\allowbreak{}Subscription\allowbreak{}List\allowbreak{}Request]{OrchestrationSubscriptionListRequest}}{\mref[Orchestration\allowbreak{}Subscription\allowbreak{}List\allowbreak{}Response]{OrchestrationSubscriptionListResponse}}
+
+Creates subscriptions on behalf of target systems.
+
+\osubsection{unsubscribe}{\pref{List}$<$\allowbreak{}\pref{Identifier}$>$}{}
+
+Removes subscriptions by identifier.
+
+\osubsection{trigger}{\mref{OrchestrationPushTrigger}}{\mref[Orchestration\allowbreak{}Push\allowbreak{}Job\allowbreak{}List\allowbreak{}Response]{OrchestrationPushJobListResponse}}
+
+Starts push orchestration for the selected subscriptions (by target system or identifier); returns the started jobs.
+
+\osubsection{query}{\mref[Orchestration\allowbreak{}Subscription\allowbreak{}Query\allowbreak{}Request]{OrchestrationSubscriptionQueryRequest}}{\mref[Orchestration\allowbreak{}Subscription\allowbreak{}List\allowbreak{}Response]{OrchestrationSubscriptionListResponse}}
+
+Returns a page of subscriptions matching the filter.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{service\allowbreak{}Orchestration\allowbreak{}Push\allowbreak{}Management} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{MetadataRequirement}
+
+A JSON object of metadata requirements: each key is a metadata path (dot notation), each value the required value or an operator object such as \texttt{\{"op": "LESS\_\allowbreak{}THAN",\allowbreak{} "value": 10\}}.
+
+
+
+\msubsection{struct}{OrchestrationJob}
+
+One orchestration job (pull or push).
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Identifier} & Identifier (UUID) of the orchestration job. \\ \hline
+status & \pref{String} & Status of the job: \texttt{PENDING}, \texttt{IN\_\allowbreak{}PROGRESS}, \texttt{DONE} or \texttt{ERROR}. \\ \hline
+type & \pref{String} & Orchestration type: \texttt{PULL} or \texttt{PUSH}. \\ \hline
+requester\allowbreak{}System & \pref{Name} & Name of the system that requested the orchestration. \\ \hline
+target\allowbreak{}System & \pref{Name} & Name of the consumer system the orchestration was made for. \\ \hline
+service\allowbreak{}Definition & \pref{Name} & Service definition name. \\ \hline
+subscription\allowbreak{}Id & \pref{Identifier} & Subscription that started the push job. \\ \hline
+message & \pref{String} & Status message, e.g. \texttt{1 local result: Data\allowbreak{}Manager}. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+started\allowbreak{}At & \pref{DateTime} & UTC time when the job started. \\ \hline
+finished\allowbreak{}At & \pref{DateTime} & UTC time when the job finished. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationNotifyInterface}
+
+Notification endpoint of push orchestration.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+protocol & \pref{String} & Protocol of the notification: \texttt{HTTP}, \texttt{HTTPS}, \texttt{MQTT} or \texttt{MQTTS}. \\ \hline
+properties & \pref{Map}$<$\allowbreak{}\pref{String}, \pref{String}$>$ & For HTTP(S) \texttt{address}, \texttt{port}, \texttt{method}, \texttt{path}; for MQTT(S) \texttt{topic} (and broker \texttt{address}, \texttt{port}). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationPushJobListResponse}
+
+Push jobs started by a trigger.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+jobs & \pref{List}$<$\allowbreak{}\mref{OrchestrationJob}$>$ & Orchestration jobs started by the trigger. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationPushTrigger}
+
+Selects the subscriptions to execute now.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+target\allowbreak{}Systems & \pref{List}$<$\allowbreak{}\pref{Name}$>$ & Consumers whose subscriptions are executed. \\ \hline
+subscription\allowbreak{}Ids & \pref{List}$<$\allowbreak{}\pref{Identifier}$>$ & Subscriptions to execute. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationRequest}
+
+An orchestration request.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+service\allowbreak{}Requirement & \mref[Orchestration\allowbreak{}Service\allowbreak{}Requirement]{OrchestrationServiceRequirement} & Requirements on the service the consumer wants to use. \\ \hline
+orchestration\allowbreak{}Flags & \pref{Map}$<$\allowbreak{}\pref{String}, \pref{Boolean}$>$ & Orchestration flags, e.g. \texttt{MATCHMAKING}, \texttt{ONLY\_\allowbreak{}PREFERRED}, \texttt{ALLOW\_\allowbreak{}INTERCLOUD}. \\ \hline
+quality\allowbreak{}Requirements & \pref{List}$<$\allowbreak{}\mref{QoSRequirement}$>$ & Quality-of-service requirements (evaluated by Device\allowbreak{}Qo\allowbreak{}SEvaluator). \\ \hline
+exclusivity\allowbreak{}Duration & \pref{Number} & Requested exclusive reservation of the provider in seconds. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationServiceRequirement}
+
+Requirements on the requested service.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+service\allowbreak{}Definition & \pref{Name} & Service definition name. \\ \hline
+operations & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Service operations the consumer wants to use. \\ \hline
+versions & \pref{List}$<$\allowbreak{}\pref{Version}$>$ & Accepted service versions. \\ \hline
+alives\allowbreak{}At & \pref{DateTime} & Only instances that are still registered (not expired) at this UTC time are matched. \\ \hline
+metadata\allowbreak{}Requirements & \pref{List}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Requirements on the service instance metadata; each map is one alternative. \\ \hline
+interface\allowbreak{}Template\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Accepted interface templates, e.g. \texttt{generic\_\allowbreak{}https}. \\ \hline
+interface\allowbreak{}Address\allowbreak{}Types & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Address types the provider interface must offer. \\ \hline
+interface\allowbreak{}Property\allowbreak{}Requirements & \pref{List}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Requirements on the interface properties; each map is one alternative. \\ \hline
+security\allowbreak{}Policies & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Accepted interface security policies. \\ \hline
+preferred\allowbreak{}Providers & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Provider systems to prefer. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSubscriptionListRequest}
+
+Subscriptions to create on behalf of consumers.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+subscriptions & \pref{List}$<$\allowbreak{}\mref[Orchestration\allowbreak{}Subscription\allowbreak{}Request]{OrchestrationSubscriptionRequest}$>$ & Subscriptions to create. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSubscriptionListResponse}
+
+List of subscriptions.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref[Orchestration\allowbreak{}Subscription\allowbreak{}Response]{OrchestrationSubscriptionResponse}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSubscriptionQueryRequest}
+
+Paged filter for subscriptions.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+pagination & \mref{Page} & Paging and sorting of the result. \\ \hline
+owner\allowbreak{}Systems & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Subscription owner names to match. \\ \hline
+target\allowbreak{}Systems & \pref{List}$<$\allowbreak{}\pref{Name}$>$ & Target system names. \\ \hline
+service\allowbreak{}Definitions & \pref{List}$<$\allowbreak{}\pref{Name}$>$ & Service definition names to match. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSubscriptionRequest}
+
+A push orchestration subscription.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+target\allowbreak{}System\allowbreak{}Name & \pref{Name} & Consumer system; default the requester. \\ \hline
+orchestration\allowbreak{}Request & \mref{OrchestrationRequest} & The orchestration request executed for the subscription. \\ \hline
+notify\allowbreak{}Interface & \mref[Orchestration\allowbreak{}Notify\allowbreak{}Interface]{OrchestrationNotifyInterface} & Where and how the orchestration result is pushed to the target system. \\ \hline
+duration & \pref{Number} & Requested lifetime of the subscription in seconds; no value means unlimited. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSubscriptionResponse}
+
+A stored subscription.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Identifier} & Identifier (UUID) of the subscription. \\ \hline
+owner\allowbreak{}System\allowbreak{}Name & \pref{Name} & Name of the system that created the subscription. \\ \hline
+target\allowbreak{}System\allowbreak{}Name & \pref{Name} & Name of the consumer system the push orchestration is made for. \\ \hline
+orchestration\allowbreak{}Request & \mref{OrchestrationRequest} & The orchestration request executed for the subscription. \\ \hline
+notify\allowbreak{}Interface & \mref[Orchestration\allowbreak{}Notify\allowbreak{}Interface]{OrchestrationNotifyInterface} & Where and how the orchestration result is pushed to the target system. \\ \hline
+expired\allowbreak{}At & \pref{DateTime} & UTC time when the subscription expires. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Page}
+
+Paging and sorting; all fields optional.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+page & \pref{Number} & Zero-based page number. \\ \hline
+size & \pref{Number} & Number of records per page (at most \texttt{max.\allowbreak{}page.\allowbreak{}size}, default 1000). \\ \hline
+direction & \pref{String} & Sort direction, \texttt{ASC} or \texttt{DESC}. \\ \hline
+sort\allowbreak{}Field & \pref{String} & Field to sort by. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{QoSRequirement}
+
+One quality-of-service requirement.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+type & \pref{String} & Type of the QoS evaluation, as known by Device\allowbreak{}Qo\allowbreak{}SEvaluator. \\ \hline
+operation & \pref{String} & QoS operation: \texttt{FILTER} or \texttt{SORT}. \\ \hline
+requirements & \pref{Map}$<$\allowbreak{}\pref{String}, \pref{Object}$>$ & Parameters of the QoS requirement. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Map} & A set of key-value pairs. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{Object} & Any structured value. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\pdef{Version} & Specifies a version, semantic versioning \texttt{major.minor.patch}. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

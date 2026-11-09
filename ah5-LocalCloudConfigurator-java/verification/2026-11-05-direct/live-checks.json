@@ -1,0 +1,70 @@
+[
+  {
+    "check": "API explicitly reports direct backend",
+    "passed": true
+  },
+  {
+    "check": "authenticated catalog",
+    "passed": true
+  },
+  {
+    "check": "direct runtime status",
+    "passed": true
+  },
+  {
+    "check": "missing operator token rejected",
+    "passed": true
+  },
+  {
+    "check": "saved configurations retained",
+    "passed": true
+  },
+  {
+    "check": "verification-only reviewed plan",
+    "passed": true
+  },
+  {
+    "check": "stale plan rejected",
+    "passed": true
+  },
+  {
+    "check": "local deployment accepted",
+    "passed": true
+  },
+  {
+    "check": "direct verification succeeded without ColonyOS",
+    "passed": true
+  },
+  {
+    "check": "no ColonyOS environment",
+    "passed": true
+  },
+  {
+    "check": "no ColonyOS network",
+    "passed": true
+  },
+  {
+    "check": "no ColonyOS key mount",
+    "passed": true
+  },
+  {
+    "check": "persistent direct image",
+    "passed": true
+  },
+  {
+    "check": "container restart enabled",
+    "passed": true
+  },
+  {
+    "check": "worker starts at login and recovers after crash",
+    "passed": true
+  },
+  {
+    "check": "persistent startup file: compose.yaml",
+    "passed": true
+  },
+  {
+    "check": "persistent startup file: java-compose.json",
+    "passed": true
+  }
+]

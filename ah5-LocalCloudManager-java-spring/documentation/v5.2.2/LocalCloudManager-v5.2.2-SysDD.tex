@@ -26,7 +26,7 @@
 \ArrowheadType{System Design Description}
 \ArrowheadTypeShort{SysDD}
 \ArrowheadVersion{5.2.2}
-\ArrowheadDate{2026-10-30}
+\ArrowheadDate{2026-11-09}
 \ArrowheadAuthor{Jerker Delsing}
 \ArrowheadStatus{RELEASE CANDIDATE}
 \ArrowheadContact{jerker.delsing@ltu.se}
@@ -77,38 +77,46 @@ In Section \ref{Implementation}, we describe implementation details of the syste
 \section{Implementation}
 \label{Implementation}
 
-This implementation is based on the SysD document LocalCloudManager \cite{lcm-sysd} and is located in \texttt{ah5-LocalCloudManager-java-spring} of the primary Java source tree (\texttt{Eclipse-Arrowhead-java}). It is the non-Java exception of the Java support distribution: a Node.js/nginx console without a JAR.
+This implementation is based on the SysD document LocalCloudManager \cite{lcm-sysd} and is located in \texttt{ah5-LocalCloudManager-java-spring} of the primary Java source tree (\texttt{Eclipse-Arrowhead-java}). It is a Java-Spring support system built from two Maven projects: the console and Arrowhead system (artifact \texttt{arrowhead-\allowbreak{}localcloudmanager}, \texttt{localcloudmanager.\allowbreak{}jar}) and the Docker proxy (\texttt{docker-\allowbreak{}proxy/}, artifact \texttt{arrowhead-\allowbreak{}localcloudmanager-\allowbreak{}docker-\allowbreak{}proxy}).
 
 \subsection{Implementation language and tools}
 \begin{itemize}
-\item Node.js 20 (API, \texttt{amqplib}), nginx (UI), Node.js Docker Engine proxy.
-\item Storage: none.
+\item Java 21, Spring Boot 3.4 (Web, Security, WebFlux client, Quartz), Log4j2, BouncyCastle (scrypt).
+\item Eclipse Arrowhead common library as a private vendored source copy (\texttt{vendor/}, the variant without JPA and log database): system information, ServiceRegistry registration, outsourced authentication and management filters, service collector, sysMonitor publisher, security profile guard.
+\item Storage: none (no database).
+\item Docker proxy: minimal Spring Boot Web application, Unix-socket HTTP client of the Docker Engine API.
 \end{itemize}
 
 \subsection{Functional properties implementation}
 
-The following components implement the system:
+The following components implement the system (package \texttt{eu.\allowbreak{}arrowhead.\allowbreak{}localcloudmanager}):
 
-\noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{5.6cm} | >{\raggedright\arraybackslash}p{9.6cm} |} \hline
 \rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
-\texttt{api/\allowbreak{}src/\allowbreak{}server.\allowbreak{}js} & Routes, Arrowhead clients, registration. \\ \hline
-\texttt{api/\allowbreak{}src/\allowbreak{}console-\allowbreak{}auth.\allowbreak{}js} & Console login and sessions. \\ \hline
-\texttt{api/\allowbreak{}src/\allowbreak{}sysmonitor.\allowbreak{}js} & sysMonitor publisher. \\ \hline
-\texttt{api/\allowbreak{}src/\allowbreak{}crl-\allowbreak{}status.\allowbreak{}js} & CRL loading and status for provider certificates. \\ \hline
-\texttt{api/\allowbreak{}src/\allowbreak{}policies-\allowbreak{}api.\allowbreak{}js} & Local management-policy editor (ConsumerAuthorization grant/revoke with snapshot checks). \\ \hline
-\texttt{api/\allowbreak{}src/\allowbreak{}rule-\allowbreak{}editor-\allowbreak{}api.\allowbreak{}js} & Rule-priority changes (native \texttt{modify-\allowbreak{}priorities} or create/remove replacement). \\ \hline
-\texttt{api/\allowbreak{}src/\allowbreak{}sos-\allowbreak{}api.\allowbreak{}js}, \texttt{sos-\allowbreak{}model.\allowbreak{}js} & SoS compositions on PlantDescriptionEngine; validation, inclusion and cycle checks. \\ \hline
-\texttt{api/\allowbreak{}src/\allowbreak{}cloud-\allowbreak{}config-\allowbreak{}api.\allowbreak{}js} & Pass-through to the LocalCloudConfigurator REST API. \\ \hline
-\texttt{api/\allowbreak{}src/\allowbreak{}floorplans-\allowbreak{}api.\allowbreak{}js} & Chiplet floorplan view through orchestrated ChipletFloorplanGenerator services. \\ \hline
-\texttt{ui/\allowbreak{}} & Browser console (nginx). \\ \hline
-\texttt{docker-\allowbreak{}proxy/\allowbreak{}} & Docker Engine API proxy. \\ \hline
+\texttt{LocalCloud\allowbreak{}Manager\allowbreak{}Main}, \texttt{LocalCloud\allowbreak{}Manager\allowbreak{}SystemInfo} & Application; system \texttt{LocalCloudManager} (metadata \texttt{role}, \texttt{managedProject}, \texttt{consumerInterfaceTemplates}, X.509 public key) and the services \texttt{local\allowbreak{}Cloud\allowbreak{}Management} and \texttt{general\allowbreak{}Management}. \\ \hline
+\texttt{init/\allowbreak{}LocalCloud\allowbreak{}Manager\allowbreak{}Application\allowbreak{}Init\allowbreak{}Listener} & Registration by the common listener; registration state for \texttt{/health} and the overview. \\ \hline
+\texttt{console/\allowbreak{}ConsoleConnectorConfig} & Second Tomcat connector (plain HTTP, \texttt{console.\allowbreak{}port}, \texttt{console.\allowbreak{}address}). \\ \hline
+\texttt{console/\allowbreak{}ConsoleFilter} & Separates the connectors: on 8490 the static UI (\texttt{ui/\allowbreak{}public}, packaged as \texttt{console/}), \texttt{/health}, proxy-secret, Host/Origin and password-configured checks, marks the Arrowhead filters as done; on 8491 only \texttt{/api}, \texttt{general\allowbreak{}Management} and the API documentation. \\ \hline
+\texttt{console/\allowbreak{}ConsoleSecurityConfig} & Spring Security: console chain (session cookie as authentication \texttt{ROLE\_\allowbreak{}OPERATOR}, \texttt{/api} except \texttt{/api/\allowbreak{}session} needs it, headers, stateless) and Arrowhead chain (HTTPS only). Replaces the common \texttt{Default\allowbreak{}Security\allowbreak{}Config}. \\ \hline
+\texttt{console/\allowbreak{}ConsoleAuth} & Console login: scrypt password hash, sessions, per-client lock-out, Host/Origin check, proxy secret. \\ \hline
+\texttt{api/\allowbreak{}http/\allowbreak{}ConsoleApiController} & All \texttt{/api} routes and \texttt{/health}, matched in the order of the native console. \\ \hline
+\texttt{api/\allowbreak{}http/\allowbreak{}GeneralManagementAPI} & \texttt{general\allowbreak{}Management} \texttt{get-\allowbreak{}config}. \\ \hline
+\texttt{security/\allowbreak{}Manager\allowbreak{}AccessFilter}, \texttt{Manager\allowbreak{}Authorization\allowbreak{}Service} & On 8491, after authentication: Sysop, \texttt{lcm.\allowbreak{}api.\allowbreak{}whitelist} or ConsumerAuthorization grant of the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} operation (cached 30 s, fail closed). \\ \hline
+\texttt{client/\allowbreak{}Orchestrated\allowbreak{}Provider\allowbreak{}Gateway} & Providers selected by the common service collector (orchestration on behalf of LocalCloudManager); HTTPS with the identity token; status and body passed through for LocalCloudConfigurator. \\ \hline
+\texttt{client/\allowbreak{}TlsContextFactory} & Client TLS context: system certificate, cloud truststore, CRL of the cloud CA (rebuilt when the CRL file changes). \\ \hline
+\texttt{client/\allowbreak{}DockerGateway} & HTTP client of the Docker proxy. \\ \hline
+\texttt{service/\allowbreak{}ManagerService} & Views and actions: overview, registry management, DataManager, consumers, inter-cloud, sysMonitor, plant descriptions and SoS, orchestration rules and history, policies, logs, lifecycle, floorplans, local-cloud configuration. \\ \hline
+\texttt{service/\allowbreak{}Inventory} & Inventory names, orchestration catalog, rule validation, registry management, messaging overview, SenML resolution, Docker log frames. \\ \hline
+\texttt{service/\allowbreak{}PolicyEditor}, \texttt{RuleEditor}, \texttt{SosModel} & Policy grant/replace/revoke with snapshot checks; rule priority (native or create-and-remove); SoS validation, inclusion and cycle checks. \\ \hline
+\texttt{service/\allowbreak{}CrlStatus}, \texttt{Docker\allowbreak{}Health\allowbreak{}Indicator} & Remaining CRL validity; sysMonitor health (degraded while Docker is unreachable). \\ \hline
+\texttt{docker-\allowbreak{}proxy/\allowbreak{}Allowlist}, \texttt{Proxy\allowbreak{}Controller}, \texttt{Docker\allowbreak{}Socket} & Docker proxy: decision per request, forwarding of allowed requests to \texttt{/\allowbreak{}var/\allowbreak{}run/\allowbreak{}docker.\allowbreak{}sock}. \\ \hline
 \end{longtable}
 
-Every request except \texttt{GET /health} passes the proxy-secret check (only the console's nginx), the host/origin check, the console session check and, for changes, the confirmation check before the route handler calls the providing systems.
+A console request passes the \texttt{ConsoleFilter} (proxy secret for \texttt{/api}, Host/Origin, password configured), the Spring Security console chain (session) and, for changes, the confirmation check before the route handler calls the providing systems. A request on the Arrowhead connector passes the common authentication filter (client certificate and identity token), the management filter (\texttt{general\allowbreak{}Management}) and the \texttt{ManagerAccessFilter}.
 
 \subsubsection{Data handled and stored}
 
-None durable; sessions and the identity token in memory. SoS compositions, policies and configurator designs are stored by their providing systems.
+None durable. Console sessions, the identity token, orchestration results (300 s) and the last 60 overview samples are kept in memory. SoS compositions, policies, rules and configurator designs are stored by their providing systems.
 
 The interfaces exchange JSON objects built at run time; their structure is specified in the IDD documents.
 
@@ -116,7 +124,7 @@ The interfaces exchange JSON objects built at run time; their structure is speci
 
 \subsubsection{Security}
 
-The console API has no Docker socket; Docker is reached only through the proxy on an internal network. The console is published on the host's loopback address only.
+The console process has no Docker socket; Docker is reached only through the separate proxy on the internal \texttt{control} network, which forwards only the listed requests (SysD, Section Security). The console connector is published on the host's loopback address only. The security profile guard refuses insecure settings at start-up. Both containers run with a read-only root filesystem and without capabilities; the console as UID 10001.
 
 \subsubsection{Power management}
 
@@ -124,17 +132,22 @@ None; the system is a server process without power states. The \texttt{sysMonito
 
 \subsubsection{Internal monitoring}
 
-Logs go to stdout. The system publishes its \texttt{sysMonitor} observations every 30 s (see the sysMonitor IDD).
+Logs go to the console and a rolling file (Log4j2, no database appender). The common publisher sends the \texttt{sysMonitor} observations every 30 s (see the sysMonitor IDD); the echo is degraded while the Docker proxy cannot be reached.
 
 \subsubsection{Configuration}
 
-Configuration is read from environment variables (listed in the SysD); secrets are read from files (\texttt{*\_\allowbreak{}FILE} variables or mounted credential bundles).
+Spring properties (listed in the SysD), with secrets from \texttt{configtree:\allowbreak{}/\allowbreak{}run/\allowbreak{}secrets/}.
 
 \subsection{Deployment}
 
-The local \texttt{compose.yaml} (project \texttt{ah5-{B}localcloudmanager}) builds and runs two containers from this folder: \texttt{cloud-\allowbreak{}monitor-\allowbreak{}api} (image \texttt{arrowhead-\allowbreak{}localcloudmanager-\allowbreak{}api-\allowbreak{}standalone:5.2.2}, port 8491, on the external cloud network and the internal \texttt{control} network) and \texttt{cloud-\allowbreak{}monitor-\allowbreak{}ui} (nginx, image \texttt{arrowhead-\allowbreak{}localcloudmanager-\allowbreak{}ui-\allowbreak{}standalone:5.2.2}, published on \texttt{127.0.0.1:8490}). Both run as UID 10001 with a read-only root filesystem, no capabilities and a non-executable \texttt{/tmp}. The identity password, console password hash and console proxy secret are Compose file secrets; the certificate, key, cloud CA and CRL directory are mounted read-only. The standalone definition starts no Docker proxy (\texttt{DOCKER\_\allowbreak{}API\_\allowbreak{}URL} points nowhere and \texttt{MANAGED\_\allowbreak{}SERVICES} is empty), so the runtime view and container lifecycle are unavailable there; the configurator and floorplan views are disabled unless their variables are set. Copy \texttt{.env.example}, provision the identity, certificate and console secrets, then run \texttt{docker compose up -d --build} from this folder. ServiceRegistry, Authentication, DSO, ConsumerAuthorization and the grants of LocalCloudManager remain network dependencies.
+The local \texttt{compose.yaml} (project \texttt{ah5-\allowbreak{}localcloudmanager}) builds and runs two containers from this folder:
 
-The earlier combined test cloud (\texttt{Arrowhead-test-cloud-java}) is a separate deployment consumer; it ran the console with a Docker proxy as \texttt{cloud-{B}monitor-{B}api}, \texttt{cloud-{B}monitor-{B}ui} and \texttt{docker-{B}proxy}.
+\begin{itemize}
+\item \texttt{cloud-\allowbreak{}monitor-\allowbreak{}api} (image \texttt{arrowhead-\allowbreak{}localcloudmanager-\allowbreak{}standalone:\allowbreak{}5.2.2}): ports 8490 (published on \texttt{127.0.0.1}) and 8491, on the external cloud network and the internal \texttt{control} network; key store, truststore and CRL mounted read-only; secrets store password, identity password and console password hash.
+\item \texttt{docker-\allowbreak{}proxy} (image \texttt{arrowhead-\allowbreak{}localcloudmanager-\allowbreak{}docker-\allowbreak{}proxy-\allowbreak{}standalone:\allowbreak{}5.2.2}): port 2375 on the \texttt{control} network only, Docker socket mounted read-only, \texttt{COMPOSE\_\allowbreak{}PROJECT\_\allowbreak{}NAME} and \texttt{MANAGED\_\allowbreak{}SERVICES}.
+\end{itemize}
+
+The earlier combined test cloud (\texttt{Arrowhead-test-cloud-java}) is a separate deployment consumer and still runs the earlier packaging until it is redeployed.
 
 \subsection{Local modifications}
 \label{sec:local}
@@ -142,12 +155,13 @@ The earlier combined test cloud (\texttt{Arrowhead-test-cloud-java}) is a separa
 Notes on this implementation in the workspace:
 \begin{itemize}
   \item Workspace system; operation names are camelCase (see the SD).
-  \item Console endpoints for policies, rule priority, SoS, local-cloud configuration and chiplet floorplans are not part of the registered operation list.
+  \item \texttt{session}, \texttt{login} and \texttt{logout} are console-only and no longer registered; console endpoints for policies, rule priority, SoS, local-cloud configuration and chiplet floorplans are not part of the registered operation list.
+  \item \texttt{general\allowbreak{}Management} has no \texttt{get-\allowbreak{}log} (no log database).
 \end{itemize}
 
 \subsection{Verification}
 
-\texttt{api/\allowbreak{}test}, \texttt{ui/\allowbreak{}test} and \texttt{docker-\allowbreak{}proxy/\allowbreak{}test} contain the console's unit tests (\texttt{node -\allowbreak{}-\allowbreak{}test}): API routes, console authentication, CRL status, policies, rule priority, SoS, configurator and floorplan routes, and the UI models. The distribution report records 23 API tests for the packaged console.
+\texttt{mvn clean verify} runs the JUnit tests of both projects: a full-application MockMvc test of every \texttt{/api} route on both connectors (console login flow, Host/Origin refusal, confirmation header, pass-through of LocalCloudConfigurator, identity and grant checks on 8491, \texttt{general\allowbreak{}Management}); a real-Tomcat test that the console connector listens on the loopback address only and serves \texttt{/api} only after login; console authentication, CRL status, inventory, policy, rule-priority and SoS tests (ports of the native Node tests); the security profile test; and the Docker proxy allowlist (MockMvc with a stub socket). The browser models in \texttt{ui/\allowbreak{}test} are Node tests of the UI code.
 
 \newpage
 
@@ -160,6 +174,7 @@ The implementation of the services is based on the SD and IDD documents referenc
 \rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
 \texttt{local\allowbreak{}Cloud\allowbreak{}Management} & \cite{lcm-sysd} & \cite{lcm-localCloudManagement-sd} & \cite{lcm-localCloudManagement-http-idd} \\ \hline
 \texttt{sysMonitor} & \cite{lcm-sysd} & \cite{lcm-sysMonitor-sd} & \cite{lcm-sysMonitor-amqp-idd} \\ \hline
+\texttt{general\allowbreak{}Management} & \cite{lcm-sysd} & -- & -- \\ \hline
 &&& \\ \hline
 \rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
 serviceDiscovery; service\allowbreak{}Registry\allowbreak{}Management & \cite{core-sr-sysd} & \cite{core-sr-serviceDiscovery-sd} & -- \\ \hline
@@ -172,7 +187,7 @@ sysMonitorHistory; sys\allowbreak{}Monitor\allowbreak{}Management & \cite{smo-sy
 plant\allowbreak{}Description\allowbreak{}Management & \cite{pde-sysd} & \cite{pde-plantDescriptionManagement-sd} & -- \\ \hline
 gatekeeper\allowbreak{}Management; gate\allowbreak{}Tunnel\allowbreak{}Management & Gatekeeper, GateTunnel & -- & -- \\ \hline
 Docker Engine subset & Docker proxy & -- & -- \\ \hline
-configurator REST API & Local\allowbreak{}Cloud\allowbreak{}Configurator & -- & -- \\ \hline
+local\allowbreak{}Cloud\allowbreak{}Configuration & \cite{lcc-sysd} & \cite{lcc-localCloudConfiguration-sd} & \cite{lcc-localCloudConfiguration-http-idd} \\ \hline
 floorplan\allowbreak{}Discovery; floorplan\allowbreak{}Management & Chiplet\allowbreak{}Floorplan\allowbreak{}Generator & -- & -- \\ \hline
 \end{longtable}
 
@@ -190,6 +205,7 @@ floorplan\allowbreak{}Discovery; floorplan\allowbreak{}Management & Chiplet\allo
 
 1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
 2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): location, new console modules, standalone deployment, consumed services and tests updated. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & \arrowversion & Java-Spring implementation: components, connectors (8490 console, 8491 Arrowhead), Spring Security console login, Docker proxy project, orchestrated providers including LocalCloudConfigurator, deployment and JUnit/MockMvc verification. Node.js/nginx descriptions removed. & Claude Opus 5.5 (draft) \\ \hline
 \end{tabularx}
 
 \subsection{Quality Assurance}

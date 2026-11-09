@@ -42,6 +42,7 @@ public class Defaults {
 	public static final String SERVICE_REGISTRY_ADDRESS_DEFAULT = Constants.LOCALHOST;
 	public static final String SERVICE_REGISTRY_PORT_DEFAULT = "8443";
 	public static final String AUTHENTICATION_POLICY_DEFAULT = AuthenticationPolicy.CERTIFICATE_VALUE;
+	public static final String ARROWHEAD_SECURITY_PROFILE_DEFAULT = "secure";
 	public static final String ENABLE_MANAGEMENT_FILTER_DEFAULT = "false";
 	public static final String MANAGEMENT_POLICY_DEFAULT = ManagementPolicy.SYSOP_ONLY_VALUE;
 	public static final String MANAGEMENT_WHITELIST_DEFAULT = "\"\"";

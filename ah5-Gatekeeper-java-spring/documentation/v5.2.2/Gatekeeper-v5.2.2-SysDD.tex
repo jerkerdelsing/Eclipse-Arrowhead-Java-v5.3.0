@@ -77,44 +77,58 @@ In Section \ref{Implementation}, we describe implementation details of the syste
 \section{Implementation}
 \label{Implementation}
 
-This implementation realizes the Gatekeeper SysD in \texttt{ah5-\allowbreak{}Gatekeeper-\allowbreak{}java-\allowbreak{}spring}. The Java sources, dependencies, tests, image and deployment definition are owned by this folder. The previous implementation is preserved in \texttt{legacy/\allowbreak{}} and is excluded from the build.
+This implementation realizes the Gatekeeper SysD in \texttt{ah5-\allowbreak{}Gatekeeper-\allowbreak{}java-\allowbreak{}spring}. It follows the Arrowhead Java-Spring pattern of the other support systems. The Java sources, the private copy of the Arrowhead common library (\texttt{vendor/}), the tests, the images and the deployment definition are owned by this folder. The former native implementation (JDK \texttt{HttpsServer}, SQLite, package \texttt{eu.\allowbreak{}arrowhead.\allowbreak{}port}) has been removed. The Python predecessor is preserved in \texttt{legacy/\allowbreak{}} and is excluded from the build.
 
 \subsection{Implementation language and tools}
 \begin{itemize}
-\item Java 21 without a framework (JDK \texttt{HttpsServer}), Bouncy Castle, SQLite JDBC and RabbitMQ AMQP client; Eclipse Paho MQTT v3 relay client. Maven produces only \texttt{arrowhead-\allowbreak{}gatekeeper-\allowbreak{}5.2.2.jar}; the fixed \texttt{Main} entry point starts Gatekeeper. No environment variable selects another system.
-\item Storage: SQLite (SQLite with WAL on a data volume). Requests are handled on virtual threads with bounded parallelism.
+\item Java 21, Spring Boot 3.4 (web, security, data JPA), the vendored Arrowhead common-utils and data-transfer-objects, Bouncy Castle (PEM relay identity), and the Eclipse Paho MQTT v3 relay client. Maven produces only \texttt{arrowhead-\allowbreak{}gatekeeper-\allowbreak{}5.2.2.jar}, a Spring Boot JAR. Its entry point \texttt{GatekeeperMain} starts Gatekeeper, or with \texttt{migrate-\allowbreak{}sqlite} imports an old store.
+\item Storage: a private MySQL 8.4 schema \texttt{ah\_\allowbreak{}gatekeeper}, through JPA (\texttt{ddl-\allowbreak{}auto=validate}) and the MariaDB driver with \texttt{sslMode=verify-\allowbreak{}full}. The application account has \texttt{SELECT}, \texttt{INSERT}, \texttt{UPDATE} and \texttt{DELETE} only.
 \end{itemize}
 
 \subsection{Functional properties implementation}
 
-The following components implement the system:
+The following components implement the system (package \texttt{eu.\allowbreak{}arrowhead.\allowbreak{}gatekeeper}):
 
 \noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
 \rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
-\texttt{Gatekeeper.\allowbreak{}java} & GSD, ICN, relay message handling, management. \\ \hline
-\texttt{Messaging.\allowbreak{}java} & Relay and sysMonitor. \\ \hline
-\texttt{PeerNames.\allowbreak{}java} & Peer cloud identities. \\ \hline
+\texttt{Gatekeeper\allowbreak{}SystemInfo} & The registered system and services: \texttt{globalServiceDiscovery}, \texttt{interCloudNegotiation} and \texttt{gatekeeperManagement} 5.2.2, and \texttt{generalManagement} 1.0.0. The native \texttt{sysMonitor} offer is added by the common library. \\ \hline
+\texttt{api.\allowbreak{}http.\allowbreak{}Gatekeeper\allowbreak{}API}, \texttt{Management\allowbreak{}API}, \texttt{General\allowbreak{}Management\allowbreak{}API} & The HTTP operations, with the native paths, JSON shapes and status codes. \\ \hline
+\texttt{service.\allowbreak{}Federation\allowbreak{}Service} & Global service discovery and inter-cloud negotiation, on both the consumer and provider side. Provider-side \texttt{authorizationManagement.\allowbreak{}check-\allowbreak{}policies} for foreign consumers; GateTunnel sessions; the AH-GT-1 downgrade refusal. \\ \hline
+\texttt{service.\allowbreak{}Peer\allowbreak{}Names}, \texttt{Federation\allowbreak{}Settings} & Peer cloud identities, explicit cross-organisation bindings and the federation profile (checked at start-up). \\ \hline
+\texttt{relay.\allowbreak{}Relay\allowbreak{}Client}, \texttt{Relay\allowbreak{}Tls} & The MQTT relay link with its own organisation-signed identity and CRL check. Topics \texttt{arrowhead/\allowbreak{}relay/\allowbreak{}<cloud>/\allowbreak{}gatekeeper/\allowbreak{}in/\allowbreak{}<sender CN>/\allowbreak{}<id>}, correlation and duplicate handling are byte-for-byte those of the Go and Rust implementations. \\ \hline
+\texttt{service.\allowbreak{}Arrowhead\allowbreak{}Consumer} & ServiceRegistry lookup and orchestrated consumption through the common \texttt{ArrowheadHttpService}. \\ \hline
+\texttt{security.*} & Token-free liveness, the caller certificate profile (\texttt{sy}, \texttt{op}), the Gatekeeper caller rules, and the native response headers and \texttt{error} field. \\ \hline
+\texttt{jpa.*}, \texttt{migrate.*} & Entities \texttt{Cloud}, \texttt{Relay} and \texttt{Logs}, and the one-off SQLite import. \\ \hline
 \end{longtable}
 
-Every request passes \texttt{Service.\allowbreak{}handle}: request-count limit, \texttt{caller} (mutual TLS, certificate profile \texttt{sy} or \texttt{op}, identity token verified with Authentication and matched to the certificate), then the role's \texttt{route} with its caller lists.
+Every request passes the filter chain in this order:
+\begin{enumerate}
+\item native response headers;
+\item liveness (\texttt{/health}, token-free);
+\item caller certificate profile;
+\item the common \texttt{OutsourcedFilter}, which verifies the identity token with Authentication and binds it to the client certificate;
+\item the common management filter (whitelist policy: LocalCloudManager and the system operator);
+\item the Gatekeeper caller rules (inter-cloud and echo operations: the orchestrators, LocalCloudManager, Gatekeeper and the system operator).
+\end{enumerate}
 
 \subsubsection{Data handled and stored}
 
-Storage \texttt{SQLite}:
+Storage: MySQL schema \texttt{ah\_\allowbreak{}gatekeeper}.
 
 \noindent\begin{longtable}{| p{6.4cm} | p{8.8cm} |} \hline
 \rowcolor{gray!33} Tables & Content \\ \hline \endhead
-\texttt{clouds} & Neighbour clouds. \\ \hline
-\texttt{relays} & Relays. \\ \hline
+\texttt{cloud} & Neighbour clouds; (name, operator) is unique. \\ \hline
+\texttt{relay} & Relays; the name is unique. \\ \hline
+\texttt{logs} & Log entries (Log4j2 JDBC appender), served by \texttt{generalManagement.\allowbreak{}get-\allowbreak{}log}. \\ \hline
 \end{longtable}
 
-The interfaces exchange JSON objects built at run time; their structure is specified in the IDD documents.
+The relay and inter-cloud messages are JSON objects built at run time. Their structure is specified in the IDD documents.
 
 \subsection{Non functional properties implementation}
 
 \subsubsection{Security}
 
-\texttt{Tls} builds the TLS contexts from PEM files (\texttt{TLS\_\allowbreak{}*}), with mandatory client certificates and CRL checking (\texttt{CRL\_\allowbreak{}FILE}); \texttt{Service.\allowbreak{}caller} binds the identity token to the certificate; the Authentication client pins Authentication's certificate identity before sending credentials.
+Spring Boot TLS uses a PKCS\#12 system identity and truststore, with mandatory client certificates (TLS 1.3/1.2) and the cloud CRL (\texttt{arrowhead.\allowbreak{}ssl.\allowbreak{}crl-\allowbreak{}file}). Authentication is outsourced: the identity token is bound to the certificate, and only \texttt{sy} and \texttt{op} certificates are accepted. The \texttt{SecurityProfileGuard} refuses to start with TLS off, declared identities or service authorization off. \texttt{arrowhead.\allowbreak{}security.\allowbreak{}profile=development} is an explicit exception for isolated tests. The relay link uses a separate organisation-signed PEM identity and organisation trust, with CRL checking.
 
 \subsubsection{Power management}
 
@@ -122,37 +136,47 @@ None; the system is a server process without power states. The \texttt{sysMonito
 
 \subsubsection{Internal monitoring}
 
-Logs go to stdout. The system publishes its \texttt{sysMonitor} observations every 30 s (see the sysMonitor IDD).
+Logs go to stdout, a rolling file and the \texttt{logs} table. The common \texttt{SysMonitorPublisher} publishes the \texttt{sysMonitor} observations (see the sysMonitor IDD). The echo health is degraded while the relay link is down.
 
 \subsubsection{Configuration}
 
-Configuration is read from environment variables (listed in the SysD); secrets are read from files (\texttt{*\_\allowbreak{}FILE} variables or mounted credential bundles).
+Configuration is \texttt{config/\allowbreak{}application.\allowbreak{}properties}. It reads the environment names of the SysD as \texttt{\$\{ENV:default\}} placeholders and the secrets through \texttt{configtree:/\allowbreak{}run/\allowbreak{}secrets/}.
 
 \subsection{Deployment}
 
-The local \texttt{Dockerfile} builds only this folder and runs \texttt{arrowhead-\allowbreak{}gatekeeper-\allowbreak{}standalone:5.2.2}. The local \texttt{compose.yaml} joins an operator-selected existing cloud network; it has no sibling build context, shared runtime image or dependency on another support process for startup. The HTTPS API uses port 8449; health uses internal port 8480. The process runs as UID 10001 with a read-only root filesystem and writable private \texttt{/\allowbreak{}data} and \texttt{/\allowbreak{}tmp} paths. The image preinstalls the platform SQLite native library in \texttt{/app/lib}; temporary storage remains non-executable. Certificates and credentials are mounted individually. This packaging is supplied for operator deployment; existing test-cloud deployments are separate deployment consumers and are not changed by it.
+The local \texttt{Dockerfile} builds only this folder and runs \texttt{arrowhead-\allowbreak{}gatekeeper-\allowbreak{}standalone:5.2.2} as UID 10001 with a read-only root filesystem. The local \texttt{compose.yaml} starts two services:
+\begin{itemize}
+\item Gatekeeper, on an operator-selected existing cloud network;
+\item its private database \texttt{gatekeeper-\allowbreak{}db} (MySQL 8.4.11, secure transport required, internal network only). The image creates the schema and restricts the application account to DML.
+\end{itemize}
+The HTTPS API uses port 8449. The container health check is a TCP check of that port; the native plain-HTTP health port is gone. Certificates and credentials are mounted individually. This packaging is supplied for operator deployment; existing test-cloud deployments are not changed by it.
 
-To select this system, copy \texttt{.env.example} to \texttt{.env}, provision its identity/password, system certificate/key, trusted CA and CRL, configure network and registry, then run \texttt{docker compose up -\allowbreak{}d -\allowbreak{}-\allowbreak{}build} from this folder. The private project-scoped SQLite volume must never be shared with another system or concurrently mounted by a second instance. Stopping this Compose project preserves its volume and does not stop other systems.
-
-ServiceRegistry is the bootstrap endpoint. Authentication and DynamicServiceOrchestration are looked up there; other consumed services are orchestrated through DSO and require the cloud's authorization rules. AMQPS monitoring remains a network dependency. Federation additionally requires the organization MQTT relay, configured neighbor identities, relay certificate/key and organization trust. The Compose default is AH-GT-1, with explicit legacy-mTLS compatibility; peers must agree and must never silently downgrade. Gatekeeper and GateTunnel cooperate through authorized network services, while retaining separate builds and deployments. SysMonitor reports degraded HTTP 503 when AMQP intake or MQTT output is disconnected. The other native systems return process liveness. Inspect registration, broker and orchestration status for operational readiness.
+ServiceRegistry is the bootstrap endpoint. Authentication and the orchestrator are found there, and ConsumerAuthorization and GateTunnel are consumed through orchestration on behalf of Gatekeeper. Federation additionally requires the organisation MQTT relay, configured neighbour clouds, the relay identity and organisation trust. The Compose default is AH-GT-1, with explicit legacy-mTLS compatibility; peers must agree and never silently downgrade. \texttt{migrate-\allowbreak{}sqlite <file>} imports the clouds and relays of a native SQLite store once, without starting the HTTP listener or registering.
 
 \subsubsection{Ownership and build boundary}
-The helpers \texttt{Service}, \texttt{Tls}, \texttt{Json}, \texttt{Database} and \texttt{Messaging} are private source copies inside this project. The JAR contains no implementation of the other three former runtime systems. There is no shared runtime process, data directory or Maven parent. Maven dependencies remain external libraries. Security fixes to duplicated helpers must be propagated and verified in every affected project.
-
-Build with Java 21 and \texttt{mvn -\allowbreak{}B clean verify}, or use the local Docker build. The packaged SQLite smoke check is \texttt{java -\allowbreak{}jar target/\allowbreak{}arrowhead-\allowbreak{}gatekeeper-\allowbreak{}5.2.2.jar storage-\allowbreak{}selftest}. The build requires no sibling support folder.
+The Arrowhead common library is a private source copy (\texttt{vendor/}, with \texttt{PROVENANCE.json}) compiled into this project. The POM inherits only the Spring Boot parent. There is no shared runtime process, data directory or Arrowhead Maven parent. Security fixes to the common library must be propagated to every vendored copy. Build with Java 21 and \texttt{mvn -\allowbreak{}B clean verify}, or use the local Docker build.
 
 \subsection{Local modifications}
 \label{sec:local}
 
 Notes on this implementation in the workspace:
 \begin{itemize}
-  \item Native Java port; inter-cloud orchestration with Dynamic\allowbreak{}Service\allowbreak{}Orchestration (local extension).
-  \item Services registered with version \texttt{5.\allowbreak{}2.\allowbreak{}2}.
+  \item Inter-cloud orchestration with Dynamic\allowbreak{}Service\allowbreak{}Orchestration (local extension); provider-side \texttt{check-\allowbreak{}policies} for foreign consumers.
+  \item Services registered with version \texttt{5.\allowbreak{}2.\allowbreak{}2}; \texttt{generalManagement} 1.0.0 with \texttt{status}, \texttt{get-\allowbreak{}log} and \texttt{get-\allowbreak{}config}.
+  \item Deviations from the native implementation: a wrong method answers 405; trailing slashes are not matched; the plain-HTTP health port is removed. Error bodies keep the native \texttt{error} field.
 \end{itemize}
 
 \subsection{Verification}
 
-The project owns its JUnit security tests and system-specific tests. Verification covers mandatory mutual TLS, certificate/token binding, pinned Authentication identity, DSO discovery, concurrent token renewal and startup of this actual system with isolated generated credentials and its own temporary database. Federation and monitoring projects retain their relevant peer, session or persistence tests. The distribution verification report records independent build, packaging, image and configuration results; it does not claim a live-cloud rollout.
+The project owns these JUnit tests:
+\begin{itemize}
+\item a route contract test: every native path and method through the deployed filter chain, with the authorised, unauthenticated, wrong-certificate, refused-profile, missing-certificate and unauthorised statuses;
+\item the provider-side \texttt{check-\allowbreak{}policies} tests and the federation protocol steps;
+\item management validation and views, and peer names;
+\item the refusal of insecure settings.
+\end{itemize}
+Two integration tests run against containers: the whole application against a fresh database image (schema validation under DML-only grants, plus the SQLite import), and a relay round trip against a TLS Mosquitto broker. A live federation run against the Go and Rust Gatekeepers has not been repeated for this packaging.
+
 
 \newpage
 
@@ -192,6 +216,7 @@ sysMonitor (publisher) & AMQP broker (SysMonitor) & -- & -- \\ \hline
 1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
 2 & 2026-10-25 & \arrowversion & Independent Java build, private helpers and state, per-system deployment and configuration. & Codex (draft) \\ \hline
 3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+4 & 2026-11-09 & \arrowversion & Implementation converted to the Arrowhead Java-Spring pattern: vendored common library, private MySQL schema (JPA), common authentication, registration, orchestration and sysMonitor; relay, federation protocol and service contracts unchanged. & Claude Opus 5.5 (draft) \\ \hline
 \end{tabularx}
 
 \subsection{Quality Assurance}

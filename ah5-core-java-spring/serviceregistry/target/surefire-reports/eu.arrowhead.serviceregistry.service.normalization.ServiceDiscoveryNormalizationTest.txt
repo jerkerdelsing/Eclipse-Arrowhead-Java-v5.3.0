@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: eu.arrowhead.serviceregistry.service.normalization.ServiceDiscoveryNormalizationTest
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.080 s -- in eu.arrowhead.serviceregistry.service.normalization.ServiceDiscoveryNormalizationTest
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.094 s -- in eu.arrowhead.serviceregistry.service.normalization.ServiceDiscoveryNormalizationTest

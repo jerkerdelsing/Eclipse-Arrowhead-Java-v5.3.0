@@ -1,6 +1,6 @@
 # SD — Operator/configuration services
 
-All `/api/*` operations require `Authorization: Bearer <operator-token>`; `/healthz` is a minimal unauthenticated health response. LocalCloudManager exposes equivalent allowlisted routes below `/api/localcloud` under its existing console authentication. Its POST/PUT/DELETE proxy operations also require `X-Arrowhead-Action: confirm`. The operator credential is never returned to the browser.
+Service definition `localCloudConfiguration` 1.0.0, interface `generic_https` (base path `/api`, policy CERT_AUTH) on port 8492. Every operation needs a client certificate of the cloud, an identity token bound to it (outsourced authentication) and Sysop, `lcc.api.whitelist` or a ConsumerAuthorization grant of the operation (`catalog`, `status`, `plan`, `submit-deployment`, `get-deployment`, `list-configurations`, `create-configuration`, `get-configuration`, `update-configuration`, `remove-configuration`). The native `/healthz` is not served on the Arrowhead port (the container health check is a TCP probe); the host worker keeps it. LocalCloudManager exposes equivalent allowlisted routes below `/api/localcloud` under its existing console authentication and consumes this service through orchestration. Its POST/PUT/DELETE proxy operations also require `X-Arrowhead-Action: confirm`. The operator credential is never returned to the browser.
 
 | Method | API | Contract |
 |---|---|---|
@@ -8,7 +8,7 @@ All `/api/*` operations require `Authorization: Bearer <operator-token>`; `/heal
 | GET | `/api/status` | Running Compose services and per-component running/partial/stopped state |
 | POST | `/api/plan` | `{systems, remove, reapply, smoke}` → `{plan, hash}` using fresh runtime state |
 | POST | `/api/deployments` | Same selection plus `expectedPlanHash`; rejects stale plans and concurrent active deployments; returns an accepted workflow ID or a successful no-op |
-| GET | `/api/deployments/{id}` | Real ColonyOS graph and process state for a recorded submitted workflow |
+| GET | `/api/deployments/{id}` | Real step state reported by the host worker (or ColonyOS) for a recorded submitted deployment; the latest report is stored |
 | GET/POST | `/api/configurations` | List saved designs (up to 1,000), or create a named design |
 | GET/PUT/DELETE | `/api/configurations/{uuid}` | Read, replace with `expectedRevision`, or delete with `expectedRevision` |
 
@@ -16,7 +16,7 @@ A design has `name`, explicit `systems`, explicit `remove`, `reapply`, `smoke` a
 
 Status is cached briefly for display; plan/apply use fresh executor reads. Infrastructure dependency links are catalog-defined, not arbitrary browser-editable connections. No selected component is implicitly removed because it was absent from a new design.
 
-HTTP errors include 401 authentication, 400 invalid/catalog-conflicting input, 404 unavailable record/operation, 409 stale design/plan or active deployment, 413 oversized request, and 502 unavailable backend/executor. An accepted deployment can later fail; its earlier successful operational steps remain applied.
+HTTP errors include 401 authentication (common ErrorMessageDTO body), 403 missing grant, 400 invalid/catalog-conflicting input, 404 unavailable record/operation, 409 stale design/plan or active deployment, 413 oversized request, and 502 unavailable backend/executor. An accepted deployment can later fail; its earlier successful operational steps remain applied.
 
 ### Database ownership
 

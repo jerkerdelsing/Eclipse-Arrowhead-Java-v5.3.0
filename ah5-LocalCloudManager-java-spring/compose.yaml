@@ -1,40 +1,52 @@
 name: ah5-localcloudmanager
 services:
   cloud-monitor-api:
-    build: {context: ./api}
-    image: arrowhead-localcloudmanager-api-standalone:5.2.2
+    build: {context: .}
+    image: arrowhead-localcloudmanager-standalone:5.2.2
     user: "10001:10001"
     read_only: true
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
-    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=32m,mode=1777"]
+    mem_limit: 768m
+    pids_limit: 256
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777", "/app/logs:rw,noexec,nosuid,nodev,size=32m,mode=1777"]
+    # console (password login) on the host's loopback interface only, and answered only for the Docker gateway of the
+    # published port (other systems on the cloud network are refused: J6); the Arrowhead connector 8491 stays inside the cloud
+    # network
+    ports: ["${HOST_BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-8490}:8490"]
     environment:
-      SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL:-https://serviceregistry:8443}
       LOCAL_CLOUD: ${LOCAL_CLOUD:-TestCloud}
-      AUTHENTICATION_PASSWORD_FILE: /run/secrets/identity-password
-      CONSOLE_PASSWORD_HASH_FILE: /run/secrets/console-password-hash
-      CONSOLE_PROXY_SECRET_FILE: /run/secrets/console-proxy-secret
-      TLS_CA_CERT: /certs/ca.crt
-      TLS_CLIENT_CERT: /certs/local-cloud-manager.crt
-      TLS_CLIENT_KEY: /certs/local-cloud-manager.key
-      TLS_CRL_FILE: /crl/ca.crl
-      DOCKER_API_URL: http://127.0.0.1:1
-      MANAGED_SERVICES: ""
-    secrets: [identity-password, console-password-hash, console-proxy-secret]
+      ORGANIZATION: ${ORGANIZATION:-Company}
+      SERVICE_REGISTRY_ADDRESS: ${SERVICE_REGISTRY_ADDRESS:-serviceregistry}
+      SERVICE_REGISTRY_PORT: "${SERVICE_REGISTRY_PORT:-8443}"
+      AMQP_HOST: ${AMQP_HOST:-amqp-broker}
+      AMQP_PORT: "${AMQP_PORT:-5671}"
+      SYSMONITOR_ENABLED: "${SYSMONITOR_ENABLED:-true}"
+      COMPOSE_PROJECT_NAME: ${MANAGED_PROJECT:-arrowhead-v52-test-cloud}
+      DOCKER_API_URL: http://docker-proxy:2375
+      MANAGED_SERVICES: ${MANAGED_SERVICES:-}
+      CONSOLE_ALLOWED_HOSTS: ${CONSOLE_ALLOWED_HOSTS:-127.0.0.1,localhost,[::1]}
+      CONSOLE_ALLOWED_CLIENTS: ${CONSOLE_ALLOWED_CLIENTS:-}
+      LOCAL_CLOUD_CONFIGURATION_ENABLED: "${LOCAL_CLOUD_CONFIGURATION_ENABLED:-true}"
+      CHIPLET_FLOORPLANS_ENABLED: "${CHIPLET_FLOORPLANS_ENABLED:-false}"
+      CHIPLET_MANAGER: "${CHIPLET_MANAGER:-false}"
+      LCM_API_WHITELIST: ${LCM_API_WHITELIST:-}
+    secrets:
+      - source: store-password
+        target: ah.store-password
+      - source: identity-password
+        target: ah.identity-password
+      - source: console-password-hash
+        target: ah.console-password-hash
     volumes:
       - type: bind
-        source: ${SYSTEM_CERT_FILE:-./security/local-cloud-manager.crt}
-        target: /certs/local-cloud-manager.crt
+        source: ${SYSTEM_KEYSTORE_FILE:-./security/LocalCloudManager.p12}
+        target: /certs/LocalCloudManager.p12
         read_only: true
         bind: {create_host_path: false}
       - type: bind
-        source: ${SYSTEM_KEY_FILE:-./security/local-cloud-manager.key}
-        target: /certs/local-cloud-manager.key
-        read_only: true
-        bind: {create_host_path: false}
-      - type: bind
-        source: ${CLOUD_CA_FILE:-./security/ca.crt}
-        target: /certs/ca.crt
+        source: ${TRUSTSTORE_FILE:-./security/truststore.p12}
+        target: /certs/truststore.p12
         read_only: true
         bind: {create_host_path: false}
       - type: bind
@@ -42,26 +54,30 @@ services:
         target: /crl
         read_only: true
         bind: {create_host_path: false}
-    networks: [cloud, control]
-    healthcheck:
-      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8491/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
-      interval: 15s
-      timeout: 4s
-      retries: 10
-  cloud-monitor-ui:
-    build: {context: ./ui}
-    image: arrowhead-localcloudmanager-ui-standalone:5.2.2
-    user: "10001:10001"
+    depends_on: [docker-proxy]
+    networks:
+      cloud:
+        aliases: [cloud-monitor-api]
+      control: {}
+  docker-proxy:
+    build: {context: ./docker-proxy}
+    image: arrowhead-localcloudmanager-docker-proxy-standalone:5.2.2
     read_only: true
     cap_drop: [ALL]
     security_opt: ["no-new-privileges:true"]
-    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=32m,mode=1777"]
+    mem_limit: 192m
+    pids_limit: 64
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=16m,mode=1777"]
     environment:
-      CONSOLE_PROXY_SECRET_FILE: /run/secrets/console-proxy-secret
-    secrets: [console-proxy-secret]
-    ports: ["${HOST_BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-8490}:8490"]
-    depends_on: [cloud-monitor-api]
-    networks: [cloud, control]
+      COMPOSE_PROJECT_NAME: ${MANAGED_PROJECT:-arrowhead-v52-test-cloud}
+      MANAGED_SERVICES: ${MANAGED_SERVICES:-sysmonitor,datamanager,timemanager,eventhandler}
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        read_only: true
+    # only the console API can reach the proxy
+    networks: [control]
 networks:
   cloud:
     external: true
@@ -74,7 +90,7 @@ networks:
 secrets:
   identity-password:
     file: ${IDENTITY_PASSWORD_FILE:-./security/identity-password}
+  store-password:
+    file: ${STORE_PASSWORD_FILE:-./security/store-password}
   console-password-hash:
     file: ${CONSOLE_PASSWORD_HASH_FILE:-./security/console-password-hash}
-  console-proxy-secret:
-    file: ${CONSOLE_PROXY_SECRET_FILE:-./security/console-proxy-secret}

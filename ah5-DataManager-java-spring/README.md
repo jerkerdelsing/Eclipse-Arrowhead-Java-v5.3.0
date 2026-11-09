@@ -70,3 +70,9 @@ mvn clean test
 ## Specifications
 
 [SysD, SysDD and an SD and IDD for each produced service](documentation/v5.2.2/README.md) (`dataProxy`, `dataHistorian`, `sysMonitor`), generated from the implementation with the official Arrowhead LaTeX templates by [`documentation-tools`](../documentation-tools/README.md); the PDFs are beside the sources. The earlier `documentation/v5.2` set is in `../../_superseded/2026-10-22/`.
+
+## Listening port
+
+Default **8461** (`server.port` in the packaged `application.properties`). Override with `server.port` in `config/application.properties`, `SERVER_PORT=8461` or `--server.port=8461`.
+
+See [LISTENING-PORTS.md](../LISTENING-PORTS.md) for precedence and all systems.

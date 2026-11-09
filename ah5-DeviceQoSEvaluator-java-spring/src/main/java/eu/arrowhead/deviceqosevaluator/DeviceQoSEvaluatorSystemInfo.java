@@ -123,7 +123,7 @@ public class DeviceQoSEvaluatorSystemInfo extends SystemInfo {
 
 		// starting with management services speeds up management filters
 		return List.of(generalManagement, deviceQualityDataManagement, qualityEvaluation);
-		// TODO: add monitor service when it is specified and implemented
+		// sysMonitor is registered by the common-library SysMonitorPublisher when sysmonitor.enabled=true.
 	}
 
 	//-------------------------------------------------------------------------------------------------

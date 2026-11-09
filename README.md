@@ -12,6 +12,18 @@ The MagicDraw implmentations has been discontinued and can be regarded as obsolu
 
 An updated profile based on a detailed UML metamodel of the Eclipse Arrowhead architecture is now developed using Eclipse Papyrus. 
 
+## Reference conformance
+
+- [Secure profile](SECURITY-PROFILE.md): what makes a system refuse to start, and the explicit development exception.
+- [Upstream alignment](documentation/UPSTREAM-ALIGNMENT-5.3.md): the changes in this tree that upstream Eclipse Arrowhead has not released.
+- `python3 verification/tools/verify_reference_conformance.py`: static checks of version, ports, monitoring, security packaging, discovery and inter-cloud authorization.
+
 ## Local-cloud configuration
 
 [Java LocalCloudConfigurator](ah5-LocalCloudConfigurator-java/README.md) and the Java LocalCloudManager LC view provide catalog-based graphical cloud composition, saved designs and reviewed ColonyOS deployment workflows. New designs default to the core systems minus SimpleOrchestration plus required infrastructure.
+
+## Listening port
+
+Every core and support system has a configurable listening port (`server.port`, `SERVER_PORT`, `--server.port`) and a built-in default. The defaults, the precedence and the differences between languages are listed in this file.
+
+See [LISTENING-PORTS.md](LISTENING-PORTS.md) for precedence and all systems.

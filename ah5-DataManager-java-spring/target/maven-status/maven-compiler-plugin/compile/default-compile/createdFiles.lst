@@ -53,6 +53,7 @@ eu/arrowhead/dto/AuthorizationTokenGenerationRequestDTO.class
 eu/arrowhead/datamanager/service/DataManagerHealthIndicator.class
 eu/arrowhead/dto/ServiceInstanceInterfaceRequestDTO.class
 eu/arrowhead/common/mqtt/MqttResourceManager.class
+eu/arrowhead/common/init/SecurityProfileGuard.class
 eu/arrowhead/dto/SystemRequestDTO.class
 eu/arrowhead/common/http/filter/authentication/AuthenticationPolicy.class
 eu/arrowhead/common/CommonBeanConfig$1.class
@@ -373,6 +374,7 @@ eu/arrowhead/dto/IdentityVerifyResponseDTO.class
 eu/arrowhead/dto/OrchestrationLockResponseDTO.class
 eu/arrowhead/common/service/validation/meta/evaluator/EqualsIgnoreCaseEvaluator.class
 eu/arrowhead/dto/MqttResponseTemplate.class
+eu/arrowhead/datamanager/api/http/GeneralManagementAPI.class
 eu/arrowhead/common/intf/properties/validators/NotEmptyAddressListValidator.class
 eu/arrowhead/common/service/validation/meta/evaluator/InEvaluator.class
 eu/arrowhead/common/service/validation/meta/evaluator/NotEvaluator.class

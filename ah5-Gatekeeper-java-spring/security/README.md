@@ -1,1 +1,1 @@
-Provision this system's own credentials here before deployment. Never commit private keys or passwords. See ../README.md for required filenames. This directory is excluded from the Docker build context.
+Provision this system's own credentials here before deployment (see ../DEPLOYMENT.md for the file list: Gatekeeper.p12, truststore.p12, passwords, database TLS, CRL directory and the separate relay identity). Never commit private keys or passwords. This directory is excluded from the Docker build context.

@@ -1,23 +1,36 @@
 # SysMonitor - independent deployment
 
-This folder owns the complete source, build, executable JAR, application image, configuration and Compose deployment for SysMonitor 5.2.2. No JavaSupportRuntime, sibling source folder or shared support-system data is used.
+This folder owns the complete source, build, JAR, image, configuration and Compose deployment of SysMonitor 5.2.2. No sibling folder, shared runtime or shared database is used.
 
 ## Build
 
-With Java 21 and Maven 3.9, run `mvn -B clean verify` here. `scripts/verify.sh` also checks artifact contents. Maven Central dependencies require network access on the first build; `-o` works with a populated dependency cache. The output is `target/arrowhead-sysmonitor-5.2.2.jar`. Alternatively `docker compose build` builds from this folder, runs the tests and creates `arrowhead-sysmonitor-standalone:5.2.2`.
+Run `mvn -B clean verify` here with Java 21 and Maven 3.9. The output is `target/arrowhead-sysmonitor-5.2.2.jar`. `docker compose build` builds the application image `arrowhead-sysmonitor-standalone:5.2.2` and the database image `arrowhead-sysmonitor-standalone-db:5.2.2` from this folder.
 
-## Provision and select this system
+## Provision and start
 
-1. Copy `.env.example` to `.env`. Select an existing cloud network and registry endpoint. Use a unique Compose project name, host port and private subnet for each deployment on a Docker host. The project does not create or start core systems or other support systems.
-2. Provision this system's own identity and password in Authentication, its certificate and required authorization/orchestration rules. The certificate must identify `SysMonitor.<LOCAL_CLOUD>.<ORGANIZATION>.arrowhead.eu` with the system profile `sy`. Keep credential files outside version control and ensure they are readable only by their intended container user.
-3. Provision the role-specific PEM identity, password and public trust/CRL material described in README.md and `.env.example`. Use `docker compose config --quiet` followed by `docker compose up -d --build`. Only CertificateAuthority receives the issuer signing key; federation roles receive their own organization relay identity. Each role owns its private SQLite volume.
+1. Copy `.env.example` to `.env`. Select an existing cloud network, the ServiceRegistry address and the AMQP and MQTT brokers. Use a unique Compose project name, host port and database subnet (`DB_SUBNET`) per deployment on one Docker host.
+2. Provision the files listed in [security/README.md](security/README.md):
+   - the system keystore (`SysMonitor.p12`, CN `SysMonitor.<LOCAL_CLOUD>.<ORGANIZATION>.arrowhead.eu`, DN qualifier `sy`), the truststore and their password. The same identity authenticates to the AMQP broker (SASL EXTERNAL) and the MQTT broker;
+   - the identity password, registered in Authentication;
+   - the CRL directory with the cloud's valid `ca.crl`;
+   - database passwords and TLS material.
 
-## Operational dependencies and verification
+   Files must be readable by UID 10001.
+3. Provision the cloud's rules: ConsumerAuthorization grants for `sysMonitorHistory` consumers and for SysMonitor to consume the providers' `sysMonitor` services, broker permissions for the intake queue and the output topics.
+4. Run `docker compose config --quiet`, then `docker compose up -d --build`.
 
-The HTTPS API uses port 8475 by default. Packaging and deployment are independent; normal Arrowhead protocol dependencies remain. ServiceRegistry and Authentication are required for registration and identity. DSO and ConsumerAuthorization are required for consumed/authorized services; AMQP/MQTT, federation peers, NTP and other providers are needed according to this system's functions. Missing providers may cause startup failure or degraded features. Independence does not mean replacing core services with local bypasses.
+The database container initialises only its own schema on an empty volume. Its init script then restricts the application account to `SELECT, INSERT, UPDATE, DELETE` (`deployment/database/least-privilege.sh`); schema changes are made as root. The database has no host port and is reachable only on the project's internal network, with TLS required.
 
-The distribution verification deploys one support system at a time with its own data and generated test credentials. Spring startup and authenticated HTTPS access are checked against isolated mTLS core-service protocol fixtures, not production authorities. Broker/NTP/federation functions require separate operational acceptance checks. See [the distribution verification report](../ALL-JAVA-SUPPORT-VERIFICATION-2026-10-25.md).
+The application starts only with the secure profile: TLS with client certificates, outsourced authentication, service authorization, TLS to the brokers and a CRL. See `SECURITY-PROFILE.md` in the distribution root.
 
-`docker compose down` stops only this project and preserves its state. Back up its database before upgrades. `down -v` deliberately erases this project's private state and must not be used for ordinary stops. No live cloud was changed by the packaging work.
+## Moving from the native implementation
 
-The SysDD is in `documentation/v5.2.2`; the support GSoSDD is in the enclosing distribution's `roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2`. The [distribution deployment guide](../DEPLOYMENT-GUIDE.md) covers selecting multiple systems.
+The native SysMonitor kept subscriptions and history in a SQLite file on its `state` volume. The history is retention-bounded and is not migrated. Re-create subscriptions that differ from the default with `PUT /sysmonitor/management/subscriptions/{providerSystem}`. The native health port (8482) and PEM identity files are no longer used; provision the PKCS#12 keystore instead.
+
+## Operational dependencies
+
+The HTTPS API uses port 8475. ServiceRegistry and Authentication are required for registration and identity; DynamicServiceOrchestration and ConsumerAuthorization for orchestration and history authorization. The AMQP broker (`AMQP_HOST`, `AMQP_PORT`) and the MQTT v5 broker (`MQTT_HOST`, `MQTT_PORT`) are needed for operational readiness: without them `/health` and `generalManagement` status report degraded (HTTP 503). `sysMonitorManagement` status shows the broker, binding, storage, registration and orchestration details.
+
+`docker compose down` stops only this project and keeps its database volume. `down -v` erases this project's state and must not be used for ordinary stops.
+
+The SysDD is in `documentation/v5.2.2`. The [distribution deployment guide](../DEPLOYMENT-GUIDE.md) covers selecting several systems.

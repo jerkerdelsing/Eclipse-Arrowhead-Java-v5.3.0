@@ -49,3 +49,9 @@ curl --cacert security/x509/ca.crt --cert security/x509/local-cloud-manager.crt 
 ## Documentation
 
 [SysD, SysDD and an SD and IDD for each produced service](documentation/v5.2.2/README.md) (`aiGym`, `sysMonitor`), generated from the implementation with the official Arrowhead LaTeX templates by [`documentation-tools`](../documentation-tools/README.md); the PDFs are beside the sources. The earlier Markdown documents are in `../../_superseded/2026-10-23/`.
+
+## Listening port
+
+Default **8478** (`server.port` in the packaged `application.properties`). Override with `server.port` in `config/application.properties`, `SERVER_PORT=8478` or `--server.port=8478`.
+
+See [LISTENING-PORTS.md](../LISTENING-PORTS.md) for precedence and all systems.

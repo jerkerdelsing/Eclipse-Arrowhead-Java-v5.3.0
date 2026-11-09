@@ -100,7 +100,7 @@ In Section \ref{sec:security}, we describe the security capabilities of the syst
 \subsection{Significant Prior Art}
 \label{sec:prior_art}
 
-Successor of the Arrowhead 4.6 Certificate Authority; native Java port of the former Python implementation (the Python sources in this folder are kept only for rollback).
+Successor of the Arrowhead 4.6 Certificate Authority. The former Python implementation was ported to native Java in October 2026 and to the Arrowhead Java-Spring pattern on 8~November~2026; \texttt{legacy/} keeps the history.
 
 \subsection{How This System Is Meant to Be Used}
 \label{sec:use}
@@ -121,25 +121,25 @@ Onboarding requests certificates for devices and systems; Sysop manages the regi
 
 \subsubsection{Configuration of system properties}
 
-The system is configured with environment variables. The variables that shape its behaviour are:
+The system is configured in \texttt{config/\allowbreak{}application.\allowbreak{}properties} (Spring), with environment placeholders for deployment values. The properties that shape its behaviour are:
 
 \noindent\begin{longtable}{| p{5.4cm} | p{3.4cm} | p{6.4cm} |} \hline
 \rowcolor{gray!33} Property & Default & Meaning \\ \hline \endhead
-\texttt{PORT} & 8448 & HTTPS port (mutual TLS). \\ \hline
-\texttt{TLS\_\allowbreak{}CA\_\allowbreak{}CERT} / \texttt{TLS\_\allowbreak{}CA\_\allowbreak{}KEY} & /certs/ca.* & Cloud CA certificate and key. \\ \hline
-\texttt{TLS\_\allowbreak{}CERT} / \texttt{TLS\_\allowbreak{}KEY} & (required) & Certificate\allowbreak{}Authority system certificate. \\ \hline
-\texttt{CERT\_\allowbreak{}VALIDITY\_\allowbreak{}DAYS} / \texttt{ONBOARDING\_\allowbreak{}CERT\_\allowbreak{}VALIDITY\_\allowbreak{}HOURS} & 365 / 24 & Validity limits. \\ \hline
-\texttt{CRL\_\allowbreak{}DIR} / \texttt{CRL\_\allowbreak{}VALIDITY\_\allowbreak{}HOURS} & (unset) / 168 & CRL publication. \\ \hline
-\texttt{RESERVED\_\allowbreak{}NAMES} & core and support systems & Names only Sysop may request. \\ \hline
-\texttt{SERVICE\_\allowbreak{}REGISTRY\_\allowbreak{}URL} & \texttt{https:\allowbreak{}/\allowbreak{}/\allowbreak{}serviceregistry:\allowbreak{}8443} & Registry for registration and identity lookup. \\ \hline
-\texttt{AMQP\_\allowbreak{}HOST} / \texttt{AMQP\_\allowbreak{}PORT} & amqp-broker / 5671 & sysMonitor publication. \\ \hline
+\texttt{server.port} & 8448 & HTTPS port (mutual TLS). \\ \hline
+\texttt{ca.certificate.file} / \texttt{ca.key.file} & /certs/ca.* & Issuer certificate and signing key of the cloud (PEM). \\ \hline
+\texttt{server.ssl.key-store} & (required) & Certificate\allowbreak{}Authority system keystore (PKCS\#12). \\ \hline
+\texttt{cert.validity.days} / \texttt{onboarding.cert.validity.hours} & 365 / 24 & Validity limits. \\ \hline
+\texttt{crl.dir} / \texttt{crl.validity.hours} / \texttt{crl.refresh.seconds} & /crl / 168 / 3600 & CRL publication. \\ \hline
+\texttt{reserved.names} & core and support systems & Names only Sysop may request. \\ \hline
+\texttt{service.registry.address} / \texttt{.port} & serviceregistry / 8443 & Registry for registration and identity lookup. \\ \hline
+\texttt{sysmonitor.broker.address} / \texttt{.port} & amqp-broker / 5671 & sysMonitor publication. \\ \hline
 \end{longtable}
 
 Secrets (database, keystore and identity passwords, secret keys) have no usable defaults; the standalone deployment reads them from per-deployment Compose file secrets under \texttt{/\allowbreak{}run/\allowbreak{}secrets}.
 
 \subsubsection{Data stored by the system}
 
-Issued certificates and trusted keys (SQLite).
+Issued certificates, revocations and trusted keys, in the system's private MySQL schema.
 
 \subsubsection{Non functional properties}
 
@@ -171,7 +171,7 @@ This section describes the produced and consumed services. Each produced service
 \texttt{sysMonitor} & 1.0.0 & AMQP(S) & \cite{cau-sysMonitor-sd} & \cite{cau-sysMonitor-amqp-idd} \\ \hline
 \end{longtable}
 
-All services use \texttt{generic\_https} with \texttt{CERT\_AUTH}; \texttt{sysMonitor} uses \texttt{generic\_amqps}. The container also answers \texttt{GET /health} on a loopback-only plain-HTTP port for the container health check.
+All services use \texttt{generic\_https} with \texttt{CERT\_AUTH}; \texttt{sysMonitor} uses \texttt{generic\_amqps}. \texttt{generalManagement} offers \texttt{status}, \texttt{get-log} and \texttt{get-config}.
 
 \subsection{Consumed services}
 
@@ -189,14 +189,14 @@ Only Authentication's \texttt{identity} and the orchestrator are looked up in th
 \section{Security}
 \label{sec:security}
 
-The standalone Java system requires HTTPS with mutual TLS and X.509 certificates following the Arrowhead system certificate profile (\texttt{<System>.<Cloud>.<Organization>.arrowhead.eu}, DNQ \texttt{sy}). There is no insecure runtime mode. Identity tokens are verified through Authentication and bound to the caller certificate. A separate loopback health endpoint is infrastructure only. Provision credentials and a valid CRL using the project-local environment template and Compose definition.
+The system requires HTTPS with mutual TLS and X.509 certificates following the Arrowhead system certificate profile (\texttt{<System>.<Cloud>.<Organization>.arrowhead.eu}, DNQ \texttt{sy}). It refuses to start with an insecure configuration unless a development profile is selected explicitly for an isolated test. Every operation needs an identity token verified through Authentication and bound to the caller certificate. Provision credentials and a valid CRL using the project-local environment template and Compose definition.
 
 \subsection{Security model}
 
 
 \begin{itemize}
   \item \textbf{Protocols:} HTTPS (TLS 1.3 and 1.2) with mandatory client certificates; MQTT over TLS; AMQP over TLS for \texttt{sysMonitor}.
-  \item \textbf{Data protection:} transport encryption by TLS; SQLite storage is local to this system's private volume. Passwords are read from Compose file secrets; certificate and private-key files are mounted individually.
+  \item \textbf{Data protection:} transport encryption by TLS; storage in this system's private MySQL schema (TLS, data-manipulation privileges only). Passwords are read from Compose file secrets; certificate and private-key files are mounted individually.
   \item \textbf{System authentication:} mutual TLS with a system or operator certificate of the cloud and an identity token of the same system, verified with Authentication; declared identities are not accepted. Client certificates are checked against the CRL.
   \item \textbf{Authorization of produced services:} per operation by caller lists in the implementation and, where stated, by ConsumerAuthorization.
   \item Callers need a system or operator certificate and an identity token of the same system. Signing only for Onboarding, Sysop and Certificate\allowbreak{}Authority; management only Sysop and Certificate\allowbreak{}Authority.
@@ -219,6 +219,7 @@ For the Arrowhead certificate profile see github.com/eclipse-arrowhead/documenta
 1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
 2 & 2026-10-25 & \arrowversion & Independent Java build, private helpers and state, per-system deployment and configuration. & Codex (draft) \\ \hline
 3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+4 & 2026-11-08 & \arrowversion & Java-Spring implementation: configuration properties, MySQL storage, token on every operation, generalManagement get-log and get-config. & Claude Opus 5.5 (draft) \\ \hline
 \end{tabularx}
 
 \subsection{Quality Assurance}

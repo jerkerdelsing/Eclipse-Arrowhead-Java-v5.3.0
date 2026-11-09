@@ -1,6 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="10.17.0">
-<file name="/workspace/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/jpa/service/AuthorizationPolicyDbServiceTest.java">
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/init/AuthorizationApplicationInitListener.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/swagger/SwaggerConfig.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/AuthorizationDefaults.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/AuthorizationConstants.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/repository/CryptographerAuxiliaryRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/repository/AuthMgmtPolicyHeaderRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/repository/TimeLimitedTokenRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/repository/AuthPolicyRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/repository/AuthProviderPolicyHeaderRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/repository/SelfContainedTokenRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/repository/LogsRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/repository/TokenHeaderRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/repository/EncryptionKeyRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/repository/UsageLimitedTokenRepository.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/EncryptionKey.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/TokenHeader.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/AuthMgmtPolicyHeader.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/TimeLimitedToken.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/SelfContainedToken.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/UsageLimitedToken.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/AuthPolicyHeader.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/Logs.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/CryptographerAuxiliary.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/AuthPolicy.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/entity/AuthProviderPolicyHeader.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/service/SelfContainedTokenDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/service/EncryptionKeyDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/service/AuthorizationPolicyDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/service/UsageLimitedTokenDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/service/TokenHeaderDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/jpa/service/TimeLimitedTokenDbService.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/BeanConfig.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/http/filter/authorization/InternalManagementServiceFilter.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/AuthorizationSystemInfo.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/http/AuthorizationTokenAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/http/AuthorizationManagementAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/http/GeneralManagementAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/http/utils/SystemNamePreprocessor.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/http/AuthorizationAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/http/AuthorizationTokenManagementAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/http/MonitorAPI.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/mqtt/AuthorizationMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/mqtt/AuthorizationManagementMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/mqtt/MonitorMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/mqtt/GeneralManagementMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/mqtt/AuthorizationTokenMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/api/mqtt/AuthorizationTokenManagementMqttHandler.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/mqtt/filter/authorization/InternalManagementServiceMqttFilter.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/quartz/CleanerJobConfig.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/quartz/CleanerJob.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/dto/NormalizedGrantRequest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/dto/NormalizedAuthorizationPolicyRequest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/dto/NormalizedVerifyRequest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/dto/SelfContainedTokenPayload.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/dto/DTOConverter.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/dto/NormalizedQueryRequest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/dto/NormalizedLookupRequest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/AuthorizationService.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/AuthorizationManagementService.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/normalization/AuthorizationScopeNormalizer.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/normalization/AuthorizationTokenNormalizer.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/normalization/AuthorizationPolicyInstanceIdentifierNormalizer.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/normalization/AuthorizationPolicyRequestNormalizer.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/utils/InstanceIdUtils.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/utils/SecretCryptographer.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/model/EncryptionKeyModel.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/model/TokenModel.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/AuthorizationTokenService.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/engine/AuthorizationPolicyEngine.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/engine/TokenGenerator.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/engine/TokenEngine.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/validation/AuthorizationTokenManagementValidation.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/validation/AuthorizationManagementValidation.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/validation/AuthorizationValidation.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/validation/AuthorizationScopeValidator.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/validation/AuthorizationPolicyInstanceIdentifierValidator.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/validation/AuthorizationTokenValidation.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/validation/AuthorizationPolicyRequestValidator.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/service/AuthorizationTokenManagementService.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/java/eu/arrowhead/authorization/AuthorizationMain.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/init/AuthorizationApplicationInitListenerTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/jpa/service/AuthorizationPolicyDbServiceTest.java">
 <error line="1" severity="warning" message="File length is 2,146 lines (max allowed is 2,000)." source="com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck"/>
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/jpa/service/UsageLimitedTokenDbServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/jpa/service/EncryptionKeyDbServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/jpa/service/SelfContainedTokenDbServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/jpa/service/TokenHeaderDbServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/jpa/service/TimeLimitedTokenDbServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/http/filter/authorization/InternalManagementServiceFilterTestHelper.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/http/filter/authorization/InternalManagementServiceFilterTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/mqtt/filter/authorization/InternalManagementServiceMqttFilterTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/quartz/CleanerJobTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/AuthorizationSystemInfoTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/dto/DTOConverterTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/normalization/AuthorizationPolicyInstanceIdentifierNormalizerTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/normalization/AuthorizationPolicyRequestNormalizerTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/normalization/AuthorizationScopeNormalizerTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/normalization/AuthorizationTokenNormalizerTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/AuthorizationServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/utils/SecretCryptographerTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/utils/InstanceIdUtilsTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/AuthorizationTokenManagementServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/AuthorizationTokenServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/AuthorizationManagementServiceTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/engine/TokenEngineTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/engine/TokenGeneratorTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/engine/AuthorizationPolicyEngineTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/validation/AuthorizationScopeValidatorTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/validation/AuthorizationPolicyRequestValidatorTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/validation/AuthorizationTokenValidationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/validation/AuthorizationValidationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/validation/AuthorizationTokenManagementValidationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/validation/AuthorizationPolicyInstanceIdentifierValidatorTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/service/validation/AuthorizationManagementValidationTest.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/StandaloneModeInAuthorizationTests.java">
+</file>
+<file name="/w/ah5-core-java-spring/consumer-authorization/src/main/resources/application.properties">
 </file>
 </checkstyle>

@@ -1,1 +1,1 @@
-Provision own credentials and console secret files. See ../DEPLOYMENT.md. Never commit secrets.
+Provision own credentials here (or at the paths named in .env): LocalCloudManager.p12, truststore.p12, store-password, identity-password, console-password-hash and crl/ca.crl. See ../DEPLOYMENT.md. Never commit secrets.

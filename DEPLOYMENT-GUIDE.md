@@ -1,8 +1,8 @@
 # Selectable support-system deployments
 
-All 15 Java support systems are packaged in their own ah5-<System>-java-spring folders. Each owns its source, build, executable JAR, image, configuration and Compose definition. No selected system builds or mounts JavaSupportRuntime or a sibling support folder. The copied combined runtime remains historical reference only; core systems are a separate distribution.
+All 19 support systems are Java-Spring and packaged in their own ah5-<System>-java-spring folders. Each owns its source, build, executable JAR, image, configuration and Compose definition. No selected system builds or mounts JavaSupportRuntime or a sibling support folder. The copied combined runtime remains historical reference only; core systems are a separate distribution.
 
-The ten Spring systems that previously inherited an Arrowhead parent now compile private Arrowhead common/DTO source under vendor/. AIGym already has a standalone Spring build. CertificateAuthority, Gatekeeper, GateTunnel and SysMonitor have independent native Java builds. Third-party Maven libraries and published base images are normal external dependencies. Private source copies require coordinated security maintenance; provenance is recorded locally.
+Every system except AIGym compiles private Arrowhead common/DTO source under vendor/ and follows the common Spring pattern (SystemInfo, ApplicationInitListener registration, filter chain, security profile guard, generalManagement, sysMonitor). AIGym has a standalone Spring build. Since 8 November 2026 CertificateAuthority, Gatekeeper, GateTunnel and SysMonitor (formerly native JDK code with SQLite), LocalCloudManager (formerly Node.js/nginx), LocalCloudConfigurator and SoSConfigurator (formerly plain JDK HTTP servers) are Spring systems too. Third-party Maven libraries and published base images are normal external dependencies. Private source copies require coordinated security maintenance; provenance is recorded locally.
 
 ## Select, provision and deploy
 
@@ -17,11 +17,11 @@ docker compose ps
 docker compose logs
 ```
 
-Repeat only for the additional support systems you select. No root combined runtime is required. The external cloud network and core systems must already exist and be configured. The ten database-backed systems start only their own private database alongside the app. MySQL volumes and internal subnets are per project; DB TLS certificates must include the database service's DNS name. Set a unique DB_SUBNET when deploying multiple clouds or when Docker address pools are exhausted. No database port is published. Native Java systems own SQLite volumes. AIGym is volatile. LocalCloudManager is a non-Java console exception with its own Node/nginx deployment and no JAR.
+Repeat only for the additional support systems you select. No root combined runtime is required. The external cloud network and core systems must already exist and be configured. Every system that stores data starts only its own private MySQL database alongside the app. MySQL volumes and internal subnets are per project; DB TLS certificates must include the database service's DNS name. Set a unique DB_SUBNET when deploying multiple clouds or when Docker address pools are exhausted. No database port is published. AIGym and LocalCloudManager keep no persistent state. The operator consoles of LocalCloudManager (8490) and SoSConfigurator (8495) are plain-HTTP connectors with password login, published on the host loopback interface only; their Arrowhead services use mutual TLS. CertificateAuthority (`scripts/migrate-sqlite-to-mysql.py`) and Gatekeeper (`migrate-sqlite` start mode) import a native SQLite store into the new schema.
 
 Independence concerns source, packaging and state ownership. It does not remove normal service dependencies: registration/identity require ServiceRegistry and Authentication; consumption uses DSO and ConsumerAuthorization; monitoring, federation, NTP and domain operations require their normal brokers/providers. The selected deployments do not bypass or start those core services. Configure the appropriate grants and service offers. A successful listener health check is not full application readiness: require successful startup, registration, an authorized operation and required dependency status.
 
-`docker compose down` stops that project and preserves its volume. Back up state before upgrades and perform explicit schema migrations for existing databases. `down -v` deliberately erases private state. The generated database initializer is only for a fresh volume and does not set a sample user password.
+`docker compose down` stops that project and preserves its volume. Back up state before upgrades and perform explicit schema migrations for existing databases. `down -v` deliberately erases private state. The generated database initializer is only for a fresh volume and does not set a sample user password. It then restricts the application account to `SELECT, INSERT, UPDATE, DELETE` on its own schema (`deployment/database/least-privilege.sh`); run schema migrations as the database root account. For a volume created before this change, apply the same restriction as root, writing each `_` of the schema name as `\_` (the form the MySQL image used for its grant), for example ``REVOKE ALL ON `ah\_eventhandler`.* FROM 'eventhandler'@'%'; GRANT SELECT, INSERT, UPDATE, DELETE ON `ah\_eventhandler`.* TO 'eventhandler'@'%';``.
 
 ## Inventory
 
@@ -42,7 +42,29 @@ Independence concerns source, packaging and state ownership. It does not remove 
 | SysMonitor | [ah5-SysMonitor-java-spring](ah5-SysMonitor-java-spring/DEPLOYMENT.md) | `arrowhead-sysmonitor-5.2.2.jar` | 8475 |
 | TimeManager | [ah5-TimeManager-java-spring](ah5-TimeManager-java-spring/DEPLOYMENT.md) | `arrowhead-timemanager-5.2.2.jar` | 8463 |
 | TranslationManager | [ah5-TranslationManager-java-spring](ah5-TranslationManager-java-spring/DEPLOYMENT.md) | `arrowhead-translation-manager-5.2.2.jar` | 8465 |
-| LocalCloudManager | [Node/nginx console](ah5-LocalCloudManager-java-spring/DEPLOYMENT.md) | npm/API + static UI; JAR not applicable | 8490 (loopback HTTP console) |
+| GraphDBManager | [ah5-GraphDBManager-java-spring](ah5-GraphDBManager-java-spring/DEPLOYMENT.md) | `arrowhead-graphdbmanager-5.2.2.jar` | 8467 |
+| LocalCloudManager | [ah5-LocalCloudManager-java-spring](ah5-LocalCloudManager-java-spring/DEPLOYMENT.md) | `localcloudmanager.jar`, `localcloudmanager-docker-proxy.jar` | 8491 (console 8490, loopback) |
+| LocalCloudConfigurator | [ah5-LocalCloudConfigurator-java](ah5-LocalCloudConfigurator-java/DEPLOYMENT.md) | `localcloudconfigurator.jar` | 8492 (host worker 8493, loopback) |
+| SoSConfigurator | [ah5-SoSConfigurator-java](ah5-SoSConfigurator-java/DEPLOYMENT.md) | `sosconfigurator.jar` | 8494 (console 8495, loopback) |
+
+## Secure profile
+
+A Spring system stops at startup when its effective configuration disables TLS, uses `authentication.policy=declared` or disables authorization enforcement. The `config/application.properties` of each folder meets the profile. Do not set `arrowhead.security.profile=development` in a deployment; see [SECURITY-PROFILE.md](SECURITY-PROFILE.md).
+
+## Database account privileges
+
+At run time a system only reads and changes rows: JPA uses `ddl-auto=validate`, no system migrates its schema, Quartz keeps jobs in memory and Log4j2 only inserts into `logs`. The application database account therefore holds only `SELECT, INSERT, UPDATE, DELETE` on its own schema. Tables are created and changed by root through the initialisation scripts.
+
+- The `grant_privileges.sql` source scripts of the Core and support systems grant exactly these four privileges.
+- The ten MySQL-backed Compose deployments add `deployment/database/least-privilege.sh` after the schema script. It revokes the `ALL` grant that the MySQL image gives the `MYSQL_USER` account and grants the four privileges instead.
+- Init scripts run only on an empty volume. For a database initialised earlier, run as root (schema and user from the folder's `compose.yaml`; the underscores are escaped as in the image's own grant):
+
+```sql
+REVOKE ALL ON `ah\_eventhandler`.* FROM 'eventhandler'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `ah\_eventhandler`.* TO 'eventhandler'@'%';
+```
+
+This applies to every system with a database, including CertificateAuthority, Gatekeeper, GateTunnel, SysMonitor, LocalCloudConfigurator and SoSConfigurator, which moved from SQLite or files to MySQL on 8 November 2026.
 
 ## Verification boundaries
 

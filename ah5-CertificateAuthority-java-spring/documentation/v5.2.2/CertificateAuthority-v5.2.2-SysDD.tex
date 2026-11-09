@@ -77,12 +77,12 @@ In Section \ref{Implementation}, we describe implementation details of the syste
 \section{Implementation}
 \label{Implementation}
 
-This implementation realizes the CertificateAuthority SysD in \texttt{ah5-\allowbreak{}CertificateAuthority-\allowbreak{}java-\allowbreak{}spring}. The Java sources, dependencies, tests, image and deployment definition are owned by this folder. The previous implementation is preserved in \texttt{legacy/\allowbreak{}} and is excluded from the build.
+This implementation realizes the CertificateAuthority SysD in \texttt{ah5-\allowbreak{}CertificateAuthority-\allowbreak{}java-\allowbreak{}spring}. Since 8~November~2026 it follows the Arrowhead Java-Spring pattern of the other support systems (for example Blacklist and TimeManager). The sources, a private copy of the Arrowhead common library (\texttt{vendor/}), tests, images and the deployment definition are owned by this folder. The earlier native implementation (JDK \texttt{HttpsServer}, SQLite) is no longer built; \texttt{legacy/} keeps the older history.
 
 \subsection{Implementation language and tools}
 \begin{itemize}
-\item Java 21 without a framework (JDK \texttt{HttpsServer}), Bouncy Castle, SQLite JDBC and RabbitMQ AMQP client. Maven produces only \texttt{arrowhead-\allowbreak{}certificate-\allowbreak{}authority-\allowbreak{}5.2.2.jar}; the fixed \texttt{Main} entry point starts CertificateAuthority. No environment variable selects another system.
-\item Storage: SQLite /data/certificate-authority.db (SQLite with WAL on a data volume). Requests are handled on virtual threads with bounded parallelism.
+\item Java 21, Spring Boot 3.4, the Arrowhead common library (private source copy), Bouncy Castle for X.509, Hibernate/JPA with the MariaDB driver, Log4j2. Maven produces \texttt{arrowhead-\allowbreak{}certificate-\allowbreak{}authority-\allowbreak{}5.2.2.jar}; the entry point is \texttt{Certificate\allowbreak{}Authority\allowbreak{}Main}.
+\item Storage: a private MySQL schema \texttt{ah\_\allowbreak{}certificate\_\allowbreak{}authority} in the system's own database container.
 \end{itemize}
 
 \subsection{Functional properties implementation}
@@ -91,30 +91,36 @@ The following components implement the system:
 
 \noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
 \rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
-\texttt{Certificate\allowbreak{}Authority.\allowbreak{}java} & Signing, validation, register, CRL. \\ \hline
-\texttt{Service.\allowbreak{}java} & HTTPS server, caller authentication, registration. \\ \hline
-\texttt{Messaging.\allowbreak{}java} & sysMonitor publisher. \\ \hline
+\texttt{Certificate\allowbreak{}Authority\allowbreak{}SystemInfo} & System and service models (registered by the common \texttt{Application\allowbreak{}Init\allowbreak{}Listener} with \texttt{CERT\_AUTH} interfaces). \\ \hline
+\texttt{Certificate\allowbreak{}Authority\allowbreak{}API}, \texttt{General\allowbreak{}Management\allowbreak{}API} & HTTP operations; every path is served with and without the base path \texttt{/certificate-authority}. \\ \hline
+\texttt{Certificate\allowbreak{}Signing\allowbreak{}Service} & \texttt{sign}: CSR checks, caller profiles, reserved names, name ownership, validity limits, certificate issuing with \texttt{ca=false}. \\ \hline
+\texttt{Certificate\allowbreak{}Validation\allowbreak{}Service} & \texttt{check-certificate}, \texttt{check-trusted-key}. \\ \hline
+\texttt{Certificate\allowbreak{}Management\allowbreak{}Service} & Certificate register, revocation (by id or content), trusted keys. \\ \hline
+\texttt{Crl\allowbreak{}Service} & CRL generation (\texttt{get-crl}), publication of \texttt{<crl.dir>/ca.crl} after each revocation and periodically. \\ \hline
+\texttt{Caller\allowbreak{}Profile\allowbreak{}Filter} & Admits only system (\texttt{sy}) and operator (\texttt{op}) client certificates. \\ \hline
+\texttt{Certificate\allowbreak{}Authority\allowbreak{}Status\allowbreak{}Service} & \texttt{status} document and the sysMonitor echo detail. \\ \hline
 \end{longtable}
 
-Every request passes \texttt{Service.\allowbreak{}handle}: request-count limit, \texttt{caller} (mutual TLS, certificate profile \texttt{sy} or \texttt{op}, identity token verified with Authentication and matched to the certificate), then the role's \texttt{route} with its caller lists.
+Every request passes the common filter chain: the outsourced authentication filter verifies the identity token with Authentication and binds it to the client certificate; \texttt{Caller\allowbreak{}Profile\allowbreak{}Filter} checks the certificate profile; the management filter admits Sysop, CertificateAuthority and Onboarding to \texttt{/mgmt/} paths. The services then apply the CA's identity rules: Onboarding, Sysop and CertificateAuthority may sign (with profile limits), Sysop and CertificateAuthority manage, and Onboarding may revoke only the certificates it requested. The Blacklist filter is not used, so the CA keeps working while Blacklist is unavailable.
 
 \subsubsection{Data handled and stored}
 
-Storage \texttt{SQLite /\allowbreak{}data/\allowbreak{}certificate-\allowbreak{}authority.\allowbreak{}db}:
+Schema \texttt{ah\_\allowbreak{}certificate\_\allowbreak{}authority}:
 
 \noindent\begin{longtable}{| p{6.4cm} | p{8.8cm} |} \hline
 \rowcolor{gray!33} Tables & Content \\ \hline \endhead
-\texttt{issued\_\allowbreak{}certificates} & Certificate register. \\ \hline
-\texttt{trusted\_\allowbreak{}keys} & Trusted public keys. \\ \hline
+\texttt{issued\_\allowbreak{}certificate} & Certificate register: serial number, common name, requesting identity, validity, revocation time, PEM. \\ \hline
+\texttt{trusted\_\allowbreak{}key} & Trusted public keys with validity; a SHA-256 of the PEM keeps them unique. \\ \hline
+\texttt{logs} & Operational log entries (\texttt{get-log}). \\ \hline
 \end{longtable}
 
-The interfaces exchange JSON objects built at run time; their structure is specified in the IDD documents.
+The management responses keep the field names of the native implementation (for example \texttt{serial\_number}, \texttt{revoked\_at}). \texttt{scripts/\allowbreak{}migrate-\allowbreak{}sqlite-\allowbreak{}to-\allowbreak{}mysql.py} imports a native SQLite store, keeping the ids.
 
 \subsection{Non functional properties implementation}
 
 \subsubsection{Security}
 
-\texttt{Tls} builds the TLS contexts from PEM files (\texttt{TLS\_\allowbreak{}*}), with mandatory client certificates and CRL checking (\texttt{CRL\_\allowbreak{}FILE}); \texttt{Service.\allowbreak{}caller} binds the identity token to the certificate; the Authentication client pins Authentication's certificate identity before sending credentials.
+The HTTPS server requires TLS~1.2/1.3 with client certificates, checks them against the cloud CRL (\texttt{arrowhead.ssl.crl-file}) and accepts only certificate-bound identity tokens. The common \texttt{Security\allowbreak{}Profile\allowbreak{}Guard} refuses to start with TLS disabled or declared identities unless a development profile is selected explicitly. The issuer certificate and signing key are PEM files mounted read-only; only this system mounts the key. The database account holds data-manipulation privileges on its own schema only. Errors use the Arrowhead \texttt{ErrorMessageDTO}.
 
 \subsubsection{Power management}
 
@@ -122,37 +128,31 @@ None; the system is a server process without power states. The \texttt{sysMonito
 
 \subsubsection{Internal monitoring}
 
-Logs go to stdout. The system publishes its \texttt{sysMonitor} observations every 30 s (see the sysMonitor IDD).
+Logs go to stdout, a rolling file and the \texttt{logs} table. The common \texttt{SysMonitor\allowbreak{}Publisher} publishes echo, power and status every 30\,s with the routing key \texttt{<cloud>.sysmonitor.\allowbreak{}CertificateAuthority.\allowbreak{}certificateAuthority}; the echo detail carries the certificate counts.
 
 \subsubsection{Configuration}
 
-Configuration is read from environment variables (listed in the SysD); secrets are read from files (\texttt{*\_\allowbreak{}FILE} variables or mounted credential bundles).
+Configuration is \texttt{config/\allowbreak{}application.\allowbreak{}properties}, with environment placeholders for the cloud name, organization, registry, broker and CRL timing; secrets come from \texttt{/run/secrets} (\texttt{configtree}). The CA-specific keys are \texttt{ca.certificate.file}, \texttt{ca.key.file}, \texttt{crl.dir}, \texttt{crl.validity.hours}, \texttt{crl.refresh.seconds}, \texttt{cert.validity.days}, \texttt{onboarding.cert.validity.hours} and \texttt{reserved.names}.
 
 \subsection{Deployment}
 
-The local \texttt{Dockerfile} builds only this folder and runs \texttt{arrowhead-\allowbreak{}certificate-\allowbreak{}authority-\allowbreak{}standalone:5.2.2}. The local \texttt{compose.yaml} joins an operator-selected existing cloud network; it has no sibling build context, shared runtime image or dependency on another support process for startup. The HTTPS API uses port 8448; health uses internal port 8483. The process runs as UID 10001 with a read-only root filesystem and writable private \texttt{/\allowbreak{}data} and \texttt{/\allowbreak{}tmp} paths. The image preinstalls the platform SQLite native library in \texttt{/app/lib}; temporary storage remains non-executable. Certificates and credentials are mounted individually. This packaging is supplied for operator deployment; existing test-cloud deployments are separate deployment consumers and are not changed by it.
+The local \texttt{Dockerfile} builds only this folder and runs \texttt{arrowhead-\allowbreak{}certificate-\allowbreak{}authority-\allowbreak{}standalone:5.2.2}. \texttt{compose.yaml} adds the private database \texttt{certificate-\allowbreak{}authority-\allowbreak{}db} (MySQL~8.4, TLS required, internal network, no host port). Its init script creates the schema and restricts the application account to \texttt{SELECT, INSERT, UPDATE, DELETE}. The HTTPS API uses port 8448. The application runs as UID 10001 with a read-only root filesystem; only the CRL output directory is writable. This packaging is supplied for operator deployment; existing test-cloud deployments are not changed by it.
 
-To select this system, copy \texttt{.env.example} to \texttt{.env}, provision its identity/password, system certificate/key, trusted CA and CRL, configure network and registry, then run \texttt{docker compose up -\allowbreak{}d -\allowbreak{}-\allowbreak{}build} from this folder. The private project-scoped SQLite volume must never be shared with another system or concurrently mounted by a second instance. Stopping this Compose project preserves its volume and does not stop other systems.
-
-ServiceRegistry is the bootstrap endpoint. Authentication and DynamicServiceOrchestration are looked up there; other consumed services are orchestrated through DSO and require the cloud's authorization rules. AMQPS monitoring remains a network dependency. Only this system mounts the CA issuer signing key. Its CRL output directory is writable and must be distributed to consumers by the operator; no other system receives the signing key. SysMonitor reports degraded HTTP 503 when AMQP intake or MQTT output is disconnected. The other native systems return process liveness. Inspect registration, broker and orchestration status for operational readiness.
-
-\subsubsection{Ownership and build boundary}
-The helpers \texttt{Service}, \texttt{Tls}, \texttt{Json}, \texttt{Database} and \texttt{Messaging} are private source copies inside this project. The JAR contains no implementation of the other three former runtime systems. There is no shared runtime process, data directory or Maven parent. Maven dependencies remain external libraries. Security fixes to duplicated helpers must be propagated and verified in every affected project.
-
-Build with Java 21 and \texttt{mvn -\allowbreak{}B clean verify}, or use the local Docker build. The packaged SQLite smoke check is \texttt{java -\allowbreak{}jar target/\allowbreak{}arrowhead-\allowbreak{}certificate-\allowbreak{}authority-\allowbreak{}5.2.2.jar storage-\allowbreak{}selftest}. The build requires no sibling support folder.
+ServiceRegistry is the bootstrap endpoint; Authentication and DynamicServiceOrchestration are looked up there. AMQPS monitoring is a network dependency. The CRL output directory must be distributed to the other systems of the cloud by the operator.
 
 \subsection{Local modifications}
 \label{sec:local}
 
 Notes on this implementation in the workspace:
 \begin{itemize}
-  \item Native Java port (2026-10-16) of the Python CA.
+  \item Native Java port (2026-10-16) of the Python CA; Java-Spring implementation (2026-11-08).
   \item Reserved names; LocalCloudManager no longer signs (J6); CRL publication (H3).
+  \item Since the Spring implementation, every operation (including \texttt{check-certificate}, \texttt{get-crl} and \texttt{/health}) needs a certificate-bound identity token, and \texttt{generalManagement} adds \texttt{get-log} and \texttt{get-config}.
 \end{itemize}
 
 \subsection{Verification}
 
-The project owns its JUnit security tests and system-specific tests. Verification covers mandatory mutual TLS, certificate/token binding, pinned Authentication identity, DSO discovery, concurrent token renewal and startup of this actual system with isolated generated credentials and its own temporary database. Federation and monitoring projects retain their relevant peer, session or persistence tests. The distribution verification report records independent build, packaging, image and configuration results; it does not claim a live-cloud rollout.
+The JUnit tests cover the signing rules, revocation, CRL content and publication, certificate and trusted-key validation, the caller profile check, and every 5.2.2 route with and without the base path. An end-to-end test runs the whole application (filters, controllers, JPA) against a fresh MySQL schema created by the deployment init script with the restricted account. Startup with the development sample is refused by the security profile guard. A run in a live cloud with Onboarding is not part of this verification.
 
 \newpage
 
@@ -189,6 +189,7 @@ sysMonitor (publisher) & AMQP broker (SysMonitor) & -- & -- \\ \hline
 1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
 2 & 2026-10-25 & \arrowversion & Independent Java build, private helpers and state, per-system deployment and configuration. & Codex (draft) \\ \hline
 3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+4 & 2026-11-08 & \arrowversion & Java-Spring implementation: common library, filter chain, JPA on a private MySQL schema, migration from SQLite. & Claude Opus 5.5 (draft) \\ \hline
 \end{tabularx}
 
 \subsection{Quality Assurance}

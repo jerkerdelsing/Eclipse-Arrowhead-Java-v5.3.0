@@ -15,6 +15,7 @@ public class AiGymController {
     AiGymController(ModelStore models, AiGymRuntime runtime) { this.models = models; this.runtime = runtime; }
 
     @GetMapping("/health") Map<String,Object> health() { return Map.of("status", "up", "system", "AIGym", "time", Instant.now()); }
+    @GetMapping("/aigym/mgmt/general/status") Map<String,Object> managementStatus() { return runtime.status(); }
     @GetMapping("/aigym/status") Map<String,Object> status() { return runtime.status(); }
 
     @PostMapping("/aigym/samples") ResponseEntity<ModelStore.Sample> add(@RequestBody SampleRequest input, HttpServletRequest request) {

@@ -1,39 +1,70 @@
-# SysMonitor 5.2.2 - independent Java distribution
+# SysMonitor 5.2.2 (Java-Spring)
 
-> Current standalone packaging (25 October 2026): build and deploy from this folder. See [DEPLOYMENT.md](DEPLOYMENT.md). Any combined-tree build or live-cloud examples below are historical integration context.
+> Since 8 November 2026 this system follows the Arrowhead Java-Spring pattern, like the other support systems. The previous native implementation (JDK HttpsServer and SQLite, package `eu.arrowhead.port`) is no longer built; older material is kept in `legacy/` and in the history of this folder. See [DEPLOYMENT.md](DEPLOYMENT.md) for deployment.
 
-This folder is the complete build and deployment unit for SysMonitor. It uses Java 21 and Maven, JDK HttpsServer (not Spring), and its own shaded JAR. The folder name follows the existing Java repository layout. No source, build parent, image, database or configuration is loaded from JavaSupportRuntime or a sibling support folder. Shared helper implementations are private copies under `src/main/java/eu/arrowhead/port`; security fixes must be applied to each affected copy.
+SysMonitor collects the `sysMonitor` observations (echo, power, status, ...) that the systems of one local cloud publish on the AMQP broker. It validates and stores them as a retention-bounded history, republishes them on the MQTT v5 output `sysMonitorData`, and offers the history and the management of its subscriptions over HTTPS.
+
+## Structure
+
+This folder is a complete, independent build and deployment unit with the structure of `ah5-Blacklist-java-spring` and `ah5-CertificateAuthority-java-spring`:
+
+| Part | Where |
+|---|---|
+| Spring Boot application | `eu.arrowhead.sysmonitor.SysMonitorMain` |
+| System and service models | `SysMonitorSystemInfo` |
+| ServiceRegistry registration, CERT_AUTH interfaces, own sysMonitor observations | common `ApplicationInitListener` and `SysMonitorPublisher` |
+| Authentication (identity token bound to the client certificate) | common `OutsourcedFilter` |
+| Caller profile (`sy`, `op`) and access rules | `api/http/filter/CallerProfileFilter`, `SysMonitorAccessFilter` |
+| HTTP APIs | `api/http/HistoryAPI`, `ManagementAPI`, `GeneralManagementAPI`, `HealthAPI` |
+| AMQP intake, MQTT v5 output, orchestration, scheduled jobs | `service/AmqpIntake`, `MqttOutput`, `MonitoringService`, `SysMonitorJobs` |
+| Storage | JPA entities `Subscription`, `AmqpBinding`, `Outbox`, `Observation`, `Audit`, `Logs` in the private MySQL schema `ah_sysmonitor` |
+| Arrowhead common library | private source copy under `vendor/` (see `vendor/PROVENANCE.json`) |
+
+## Services
+
+Service definitions, operations, HTTP paths, AMQP routing keys, the observation format and the MQTT topics and payloads are unchanged from 5.2.2 (and compatible with the Go and Rust SysMonitor). The HTTPS port is 8475.
+
+| Service | Operation | Method and path | Who may call |
+|---|---|---|---|
+| `sysMonitorHistory` | `list-systems` | GET `/sysmonitor/history/systems` | systems authorized by ConsumerAuthorization |
+| | `latest` | GET `/sysmonitor/history/systems/{systemName}/latest` | as above |
+| | `query` | GET `/sysmonitor/history/systems/{systemName}/observations?count&type&from&to` | as above |
+| `sysMonitorManagement` | `status`, `providers`, `subscriptions` | GET `/sysmonitor/management/status`, `/providers`, `/subscriptions` | LocalCloudManager, Sysop |
+| | `subscribe` / `unsubscribe` | PUT / DELETE `/sysmonitor/management/subscriptions/{providerSystem}` (`If-Match` revision, `ETag`) | LocalCloudManager, Sysop |
+| | `reconcile` | POST `/sysmonitor/management/reconcile` (202) | LocalCloudManager, Sysop |
+| `generalManagement` | `status`, `get-log`, `get-config` | `/sysmonitor/mgmt/general/status`, POST `/logs`, GET `/config` | Sysop, LocalCloudManager |
+| — | liveness | GET `/health` (200 running, 503 degraded) | any authenticated system |
+| `sysMonitorData` | subscribe (MQTT v5, QoS 1) | `arrowhead/<cloud>/sysmonitor/data/<observationType>/<providerSystem>` | broker ACL |
+| `sysMonitor` (consumed) | AMQP intake | queue `SysMonitor.observations` bound on exchange `arrowhead` to `<cloud>.sysmonitor.<provider>.<instance>.<type>` | orchestrated providers |
+| `sysMonitor` (own) | echo, power, status | routing key `<cloud>.sysmonitor.SysMonitor.SysMonitor.<type>` | — |
+
+The monitored providers are orchestrated every `ORCHESTRATION_INTERVAL_SECONDS` (`sysMonitor`, `generic_amqps`, `CERT_AUTH`). Providers without a subscription follow `SYSMONITOR_DEFAULT_SUBSCRIPTION` (`all` or `none`). Observations are stored before they are acknowledged, deduplicated by `observationId`, published through an outbox (at least once) and pruned after `SYSMONITOR_RETENTION_DAYS` (every `SYSMONITOR_PRUNE_INTERVAL_SECONDS`).
+
+### Differences from the native implementation
+
+- Every path, including `/health`, now needs an identity token bound to the client certificate, as in all Spring systems.
+- Error responses use the Arrowhead `ErrorMessageDTO` (`errorMessage`, `errorCode`, `exceptionType`, `origin`) instead of `{"error": ...}`. Status codes are unchanged; invalid `from`/`to` values now return 400 instead of 500, and an observation with an unparsable `sourceTime` is rejected instead of being requeued.
+- `generalManagement` adds `get-log` and `get-config` next to `status`.
+- The plain-HTTP health listener (port 8482) and the stray `/certificate-authority/health` alias of the shared native base class are gone. The container health check is a TCP check of port 8475.
+- The system identity is a PKCS#12 keystore, like the other Spring systems. Broker certificates are still checked against the cloud CRL.
+- The own sysMonitor observations come from the common-library publisher (same routing key; its `status` value carries the common fields).
+- The SQLite history is not migrated; it is retention-bounded.
 
 ## Build and test
 
-From this folder with Java 21 and Maven 3.9 installed:
-
 ```sh
 mvn -B clean verify
-java -jar target/arrowhead-sysmonitor-5.2.2.jar storage-selftest
 ```
 
-Alternatively `docker compose build` runs all tests and creates `arrowhead-sysmonitor-standalone:5.2.2` using only this folder as the context. `Main` always starts SysMonitor; there is no runtime role selector. The artifact excludes the other three former runtime systems. Dependencies are resolved from Maven repositories, or a populated Maven cache for offline builds.
+`scripts/verify.sh` also checks the contents of the JAR, and `scripts/verify-image.sh` builds the image and checks that it runs with a read-only root and refuses an insecure configuration.
 
-`scripts/verify.sh` repeats the build, SQLite check and artifact isolation check (`-o` selects offline Maven use). `scripts/verify-image.sh` also checks the actual image with a read-only root and non-executable temporary storage.
+The tests cover the observation format, the store, orchestration and binding selection, the intake acknowledgement rules, the ConsumerAuthorization cache, the secure-profile guard, and every 5.2.2 path and method behind the deployed filter chain (unauthenticated, wrong certificate, authorised). Two opt-in tests are skipped unless their system properties are given:
 
-## Deploy into a selected local cloud
+- `MySqlEndToEndTest` (`-Dsysmonitor.it.db.url=... -Dsysmonitor.it.db.password=...`): the whole application against a MySQL schema built from `deployment/database`, including the DML-only grants.
+- `BrokerRoundTripTest` (additionally `-Dsysmonitor.it.broker.dir=<PKCS12 folder> -Dsysmonitor.it.amqp.host=... -Dsysmonitor.it.mqtt.host=...`): AMQP → store → MQTT round trip against RabbitMQ and Mosquitto with mutual TLS.
 
-1. Copy `.env.example` to `.env` and select the existing Docker network and registry URL. Use a distinct `COMPOSE_PROJECT_NAME` and host port for each deployment when operating multiple clouds on one Docker host. If creating a new cloud network, create it before starting this service; configure the core systems and brokers on that network separately.
-2. Provision `security/sysmonitor.crt`, `sysmonitor.key`, `ca.crt`, `identity-password`, and `crl/ca.crl`, or set their file paths in `.env`. Use a system certificate with CN `SysMonitor.<LOCAL_CLOUD>.<ORGANIZATION>.arrowhead.eu` and DNQ `sy`, and register the matching identity/password and authorizations with the cloud. The CRL must be valid for the trusted cloud issuer. Private material must be readable by container UID 10001; the CRL directory must exist. No development credentials are bundled.
-3. Run `docker compose config --quiet`, then `docker compose up -d --build` from this folder. `docker compose ps` shows health and `docker compose logs` shows registration/dependency errors. Health is system-specific: SysMonitor reports HTTP 503 without its AMQP/MQTT connections, while the other three return process liveness. Examine registration, broker and orchestration status before accepting operational readiness.
-4. Repeat only for other support folders you choose. Each Compose project owns its own `state` volume; stopping one does not remove another's state. `docker compose down` preserves the volume. Back up the private SQLite database before upgrades. Do not use `down -v` unless deliberately erasing this system's state.
+## Listening port
 
-The HTTPS service is published on loopback port 8475 by default; the internal health port 8482 is not published. The container is unprivileged, read-only except `/data` and `/tmp`. Certificates and password are mounted individually, not as a shared credentials bundle. The image installs the platform SQLite native library under `/app/lib` at build time, so `/tmp` can remain non-executable. The SQLite volume is never shared between systems. Do not attach an old cloud's database to a second running instance.
+Default **8475** (`server.port` in the packaged `application.properties`). Override with `server.port` in `config/application.properties`, `SERVER_PORT=8475` or `--server.port=8475`.
 
-## Arrowhead service dependencies
-
-ServiceRegistry is the bootstrap URL. Authentication and DynamicServiceOrchestration are discovered through the registry; ConsumerAuthorization and other consumed services are obtained through DSO. Provision the corresponding identity, service registrations, orchestration and authorization rules. AMQPS uses `AMQP_HOST`/`AMQP_PORT` and the system certificate for EXTERNAL authentication. These are network service dependencies, not a dependency on a common support runtime. Starting this process does not start other support systems or provision the cloud.
-
-SysMonitor additionally requires the authorized MQTT v5 broker (`MQTT_HOST`, `MQTT_PORT`). Its subscriptions, observation history, deduplication and delivery outbox live only in its own SQLite database. Set retention/default subscriptions in `.env`.
-
-## Documentation and history
-
-The current SysDD and interface contracts are in `documentation/v5.2.2`. `make docs` rebuilds the SysDD with TeX Live/latexmk and the included assets. The enclosing distribution's `roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2` contains the updated support GSoSDD.
-
-`legacy/` preserves the previous folder's implementation and instructions as historical material; it is excluded from the image and is not part of this Java build. No live cloud deployment has been replaced by this packaging change.
+See [LISTENING-PORTS.md](../LISTENING-PORTS.md) for precedence and all systems.

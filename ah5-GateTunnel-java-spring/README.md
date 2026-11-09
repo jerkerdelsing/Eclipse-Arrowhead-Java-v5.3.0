@@ -1,39 +1,63 @@
-# GateTunnel 5.2.2 - independent Java distribution
+# GateTunnel 5.2.2 - independent Java-Spring distribution
 
-> Current standalone packaging (25 October 2026): build and deploy from this folder. See [DEPLOYMENT.md](DEPLOYMENT.md). Any combined-tree build or live-cloud examples below are historical integration context.
+> Spring port (8 November 2026): GateTunnel now follows the Arrowhead Java-Spring system pattern (as Blacklist and EventHandler). The native JDK `HttpsServer` + SQLite implementation (package `eu.arrowhead.port`) has been removed. Wire contracts are unchanged. See [DEPLOYMENT.md](DEPLOYMENT.md).
 
-This folder is the complete build and deployment unit for GateTunnel. It uses Java 21 and Maven, JDK HttpsServer (not Spring), and its own shaded JAR. The folder name follows the existing Java repository layout. No source, build parent, image, database or configuration is loaded from JavaSupportRuntime or a sibling support folder. Shared helper implementations are private copies under `src/main/java/eu/arrowhead/port`; security fixes must be applied to each affected copy.
+This folder is the complete build and deployment unit for GateTunnel: Java 21, Spring Boot 3.4, Maven, a private MySQL schema `ah_gatetunnel` through JPA, and the Arrowhead common library as a private vendored source copy under `vendor/` (see `vendor/PROVENANCE.json`; the same snapshot as the other vendored systems). The POM inherits only the Spring Boot parent. Nothing is loaded from a sibling folder at build or run time.
+
+## What GateTunnel does
+
+GateTunnel carries an inter-cloud service session between two local clouds over the organisation's MQTT relay.
+
+- **Inter-cloud sessions** (`gateTunnelConnection` operations `open-provider-session` and `open-consumer-session`, called only by the local Gatekeeper after a successful inter-cloud negotiation). On the consumer side it opens a mutual-TLS tunnel listener for the negotiated consumer in the pool 8200-8299. On the provider side it executes relayed requests against the negotiated provider, within the negotiated operations only.
+- **AH-GT-1** (`FEDERATION_PROFILE=ah-gt-1`, default in Compose): the request and reply are sealed end to end (X25519, HKDF-SHA256, AES-256-GCM; key exchange signed with the relay identity and verified against the organisation CA). The relay sees ciphertext only. `legacy-mtls` keeps the earlier relay-visible JSON protocol. There is no fallback between the profiles: a peer on the other profile, or an AH-GT-1 session offered to a legacy GateTunnel, is refused.
+- **4.x-compatible control sessions** (`connect-provider`, `connect-consumer`, `close-sessions`): bookkeeping of the control port pool 8000-8099 in the database.
+- **Management** (`gateTunnelManagement`): session list, close, relay and session status. **Key** (`gateTunnelKey`): the public key of the system certificate.
+
+AH-GT-1 framing, encryption, relay topics (`arrowhead/relay/<cloud>/gatetunnel/in/<sender CN>/<id>`), `PeerNames` and `SessionSecurity` are ported verbatim in behaviour and stay byte-for-byte compatible with the Go and Rust GateTunnels; the reference vector test (`src/test/resources/ahgt1`) proves it.
+
+## Layout
+
+`eu.arrowhead.gatetunnel`: `GateTunnelMain`, `GateTunnelSystemInfo` (registered services), `GateTunnelConstants`, `GateTunnelDefaults`, `init/` (startup checks), `api/http/` (controllers), `security/` (caller rules, TLS outside the web server, identity tokens), `service/` (inter-cloud sessions, `SessionSecurity`, relay client, provider client, control sessions, scheduled jobs, `validation/`, `normalization/`, `dto/`), `jpa/` (`Session`, `Logs`).
+
+From the common library: service registration (`ApplicationInitListener`), the authentication filter (`OutsourcedFilter`: identity token verified by Authentication and bound to the client certificate), the management filter, `ArrowheadHttpService` with orchestration, the login job, `SysMonitorPublisher` (sysMonitor over AMQPS), `generalManagement` log/config, the CRL check of the web server, and `SecurityProfileGuard`.
+
+## Served paths
+
+Each operation is served under `/gatetunnel`, under the 4.x name `/gateway`, and without a base path:
+
+| Method | Path | Callers | Success |
+|---|---|---|---|
+| POST | `connect_provider`, `connect_consumer` | Gatekeeper, DynamicServiceOrchestration, SimpleStoreServiceOrchestration, LocalCloudManager, Sysop | 201 |
+| POST | `close_sessions` | same | 200 |
+| POST | `intercloud/provider`, `intercloud/consumer` | Gatekeeper | 201 |
+| GET | `publickey`, `echo`, `monitor/echo` | Gatekeeper, DSO, SimpleStoreServiceOrchestration, LocalCloudManager, Sysop | 200 |
+| GET | `mgmt/sessions`, `mgmt/status`; POST `mgmt/sessions/close` | LocalCloudManager, Sysop | 200 (close: 404 if nothing was open) |
+| GET | `/gatetunnel/mgmt/general/status`; POST `.../logs`; GET `.../get-config` | LocalCloudManager, Sysop | 200 |
+| GET | `/health` (liveness only) | any authenticated system | 200 |
+
+Success bodies are unchanged. Errors keep their 5.2.2 status codes (400, 401, 403, 404, 413, 502, 503) and now use the Arrowhead error body (`errorMessage`, `errorCode`, `exceptionType`, `origin`). Changes against 5.2.2: `/health` now needs an identity token like every other path (mutual TLS was already required); the loopback plain-HTTP health port 8481 is gone (the container health check is a TCP probe); a wrong HTTP method is 405 instead of 404. The unprefixed aliases are new: the native implementation served only `/gatetunnel` and `/gateway`.
 
 ## Build and test
 
-From this folder with Java 21 and Maven 3.9 installed:
-
 ```sh
-mvn -B clean verify
-java -jar target/arrowhead-gatetunnel-5.2.2.jar storage-selftest
+mvn -B clean verify          # or: sh scripts/verify.sh (also checks the JAR contents)
 ```
 
-Alternatively `docker compose build` runs all tests and creates `arrowhead-gatetunnel-standalone:5.2.2` using only this folder as the context. `Main` always starts GateTunnel; there is no runtime role selector. The artifact excludes the other three former runtime systems. Dependencies are resolved from Maven repositories, or a populated Maven cache for offline builds.
+The output is `target/arrowhead-gatetunnel-5.2.2.jar` (Spring Boot JAR). Tests: AH-GT-1 reference vector and key exchange, peer names, operation scope, TLS pinning and token renewal, the refused insecure start, and a MockMvc contract test of every served path and method through the real authentication filter (unauthenticated, certificate of another system, non-system certificate, unauthorised system, authorised caller). Two integration tests run only when their containers are given:
 
-`scripts/verify.sh` repeats the build, SQLite check and artifact isolation check (`-o` selects offline Maven use). `scripts/verify-image.sh` also checks the actual image with a read-only root and non-executable temporary storage.
+- `it.MySqlEndToEndTest`: `-Dgt.it.db.url=jdbc:mariadb://<host>:3306/ah_gatetunnel?... -Dgt.it.db.password=...` against a database container built from `deployment/database/Dockerfile` (schema validated, DML-only grants).
+- `it.RelayRoundTripTest`: `-Dgt.it.relay.host=<broker> -Dgt.it.relay.ca=<org CA + broker CA bundle>` against an MQTT broker with mutual TLS that trusts the organisation CA in `src/test/resources/ahgt1`.
 
-## Deploy into a selected local cloud
+## Deploy
 
-1. Copy `.env.example` to `.env` and select the existing Docker network and registry URL. Use a distinct `COMPOSE_PROJECT_NAME` and host port for each deployment when operating multiple clouds on one Docker host. If creating a new cloud network, create it before starting this service; configure the core systems and brokers on that network separately.
-2. Provision `security/gatetunnel.crt`, `gatetunnel.key`, `ca.crt`, `identity-password`, and `crl/ca.crl`, or set their file paths in `.env`. Use a system certificate with CN `GateTunnel.<LOCAL_CLOUD>.<ORGANIZATION>.arrowhead.eu` and DNQ `sy`, and register the matching identity/password and authorizations with the cloud. The CRL must be valid for the trusted cloud issuer. Private material must be readable by container UID 10001; the CRL directory must exist. No development credentials are bundled.
-3. Run `docker compose config --quiet`, then `docker compose up -d --build` from this folder. `docker compose ps` shows health and `docker compose logs` shows registration/dependency errors. Health is system-specific: SysMonitor reports HTTP 503 without its AMQP/MQTT connections, while the other three return process liveness. Examine registration, broker and orchestration status before accepting operational readiness.
-4. Repeat only for other support folders you choose. Each Compose project owns its own `state` volume; stopping one does not remove another's state. `docker compose down` preserves the volume. Back up the private SQLite database before upgrades. Do not use `down -v` unless deliberately erasing this system's state.
+See [DEPLOYMENT.md](DEPLOYMENT.md). `legacy/` preserves an earlier implementation as historical material; it is not built or deployed.
 
-The HTTPS service is published on loopback port 8453 by default; the internal health port 8481 is not published. The container is unprivileged, read-only except `/data` and `/tmp`. Certificates and password are mounted individually, not as a shared credentials bundle. The image installs the platform SQLite native library under `/app/lib` at build time, so `/tmp` can remain non-executable. The SQLite volume is never shared between systems. Do not attach an old cloud's database to a second running instance.
+## Documentation
 
-## Arrowhead service dependencies
+The SysDD and interface contracts are in `documentation/v5.2.2` (`make docs`).
 
-ServiceRegistry is the bootstrap URL. Authentication and DynamicServiceOrchestration are discovered through the registry; ConsumerAuthorization and other consumed services are obtained through DSO. Provision the corresponding identity, service registrations, orchestration and authorization rules. AMQPS uses `AMQP_HOST`/`AMQP_PORT` and the system certificate for EXTERNAL authentication. These are network service dependencies, not a dependency on a common support runtime. Starting this process does not start other support systems or provision the cloud.
+## Listening port
 
-Federation uses the MQTT relay (`RELAY_HOST`, `RELAY_PORT`), a separate organization-signed relay identity (`RELAY_CHAIN_FILE`, `RELAY_KEY_FILE`) and organization trust (`ORGANIZATION_CA_FILE`). Explicitly configure `NEIGHBOR_CLOUDS` and `FEDERATION_PEER_ORGANIZATIONS` for foreign organizations. The default Compose profile is `ah-gt-1`; both peers must support it. `legacy-mtls` is an explicit compatibility choice and must not be used as a silent downgrade. Local inter-cloud service orchestration also requires authorized Gatekeeper/GateTunnel services; their code and processes remain separately selectable.
+Default **8453** (`server.port` in the packaged `application.properties`). Override with `server.port` in `config/application.properties`, `SERVER_PORT=8453` or `--server.port=8453`.
 
-## Documentation and history
-
-The current SysDD and interface contracts are in `documentation/v5.2.2`. `make docs` rebuilds the SysDD with TeX Live/latexmk and the included assets. The enclosing distribution's `roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2` contains the updated support GSoSDD.
-
-`legacy/` preserves the previous folder's implementation and instructions as historical material; it is excluded from the image and is not part of this Java build. No live cloud deployment has been replaced by this packaging change.
+See [LISTENING-PORTS.md](../LISTENING-PORTS.md) for precedence and all systems.

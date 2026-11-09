@@ -127,6 +127,7 @@ public final class Constants {
 	public static final String $SERVICE_REGISTRY_PORT_WD = "${" + SERVICE_REGISTRY_PORT + ":" + Defaults.SERVICE_REGISTRY_PORT_DEFAULT + "}";
 	public static final String AUTHENTICATION_POLICY = "authentication.policy";
 	public static final String $AUTHENTICATION_POLICY_WD = "${" + AUTHENTICATION_POLICY + ":" + Defaults.AUTHENTICATION_POLICY_DEFAULT + "}";
+	public static final String ARROWHEAD_SECURITY_PROFILE = "arrowhead.security.profile";
 	public static final String AUTHENTICATOR_SECRET_KEYS = "authenticator.secret.keys";
 	public static final String $AUTHENTICATOR_SECRET_KEYS = "#{${" + AUTHENTICATOR_SECRET_KEYS + ":null}}";
 	public static final String AUTHENTICATOR_CREDENTIALS = "authenticator.credentials";

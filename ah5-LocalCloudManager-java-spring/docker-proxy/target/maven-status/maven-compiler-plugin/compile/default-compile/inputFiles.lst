@@ -1,0 +1,5 @@
+/src/src/main/java/eu/arrowhead/localcloudmanager/dockerproxy/Allowlist.java
+/src/src/main/java/eu/arrowhead/localcloudmanager/dockerproxy/Decision.java
+/src/src/main/java/eu/arrowhead/localcloudmanager/dockerproxy/DockerProxyApplication.java
+/src/src/main/java/eu/arrowhead/localcloudmanager/dockerproxy/DockerSocket.java
+/src/src/main/java/eu/arrowhead/localcloudmanager/dockerproxy/ProxyController.java

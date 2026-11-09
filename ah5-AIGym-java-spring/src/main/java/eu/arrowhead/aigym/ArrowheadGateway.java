@@ -72,8 +72,16 @@ public class ArrowheadGateway {
     }
 
     public Map<String,Object> verifyIdentity(String token) throws Exception {
-        String verify = identity("identity-verify", "/authentication/identity/verify");
-        return withIdentity(header -> request("GET", verify + "/" + token, null, header));
+        String verify = withPathParameter(identity("identity-verify", "/authentication/identity/verify"), token);
+        return withIdentity(header -> request("GET", verify, null, header));
+    }
+
+    // Discovered interfaces use /verify/{token}; configured and older interfaces use /verify.
+    static String withPathParameter(String url, String value) {
+        String encoded = java.net.URLEncoder.encode(value, java.nio.charset.StandardCharsets.UTF_8);
+        return url.matches(".*\\{[^}/]+\\}.*")
+                ? url.replaceFirst("\\{[^}/]+\\}", java.util.regex.Matcher.quoteReplacement(encoded))
+                : url + "/" + encoded;
     }
 
     public boolean verifyAuthorization(String consumer, String scope) throws Exception {
@@ -87,6 +95,11 @@ public class ArrowheadGateway {
         request("POST", registryUrl + "/serviceregistry/system-discovery/register",
                 Map.of("metadata", Map.of("role", "ai-experimentation", "security", "X.509"), "version", "5.2.2",
                         "addresses", List.of(advertisedHost), "deviceName", ""), systemHeader());
+        request("POST", registryUrl + "/serviceregistry/service-discovery/register", Map.of(
+                "serviceDefinitionName", "generalManagement", "version", "1.0.0", "metadata", Map.of("systemVersion", "5.2.2"),
+                "interfaces", List.of(Map.of("templateName", "generic_https", "protocol", "https", "policy", "CERT_AUTH",
+                        "properties", Map.of("accessAddresses", List.of(advertisedHost), "accessPort", port,
+                                "basePath", "/aigym/mgmt/general", "operations", Map.of("status", Map.of("method", "GET", "path", "/status")))))), systemHeader());
         Map<String,Object> operations = Map.of(
                 "status", Map.of("method", "GET", "path", "/status"),
                 "add-sample", Map.of("method", "POST", "path", "/samples"),

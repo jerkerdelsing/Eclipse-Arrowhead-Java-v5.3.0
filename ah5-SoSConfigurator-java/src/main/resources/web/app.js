@@ -1,7 +1,5 @@
 "use strict";
 const $ = (id) => document.getElementById(id);
-let token = "";
-try { token = sessionStorage.getItem("sosToken") || ""; } catch (e) {}
 let catalog = null, status = {}, members = new Set(), exchanges = [], polling = null;
 
 function el(tag, props, ...kids) {
@@ -12,8 +10,10 @@ function el(tag, props, ...kids) {
 }
 
 async function call(method, path, body) {
-  const r = await fetch(path, { method, headers: { "Authorization": "Bearer " + token, "Content-Type": "application/json" },
+  // the console session is an HttpOnly cookie, sent by the browser on every same-origin request
+  const r = await fetch(path, { method, credentials: "same-origin", headers: { "Content-Type": "application/json" },
     body: body ? JSON.stringify(body) : undefined });
+  if (r.status === 401 && path !== "/api/session") { $("app").hidden = true; $("login").hidden = false; }
   const data = await r.json().catch(() => ({}));
   if (!r.ok && r.status !== 422) throw new Error(data.error || r.statusText);
   return data;
@@ -24,10 +24,16 @@ const cloudOf = (name) => catalog.clouds.find((c) => c.name === name);
 
 async function connect() {
   showError();
-  token = $("token").value || token;
+  try {
+    await call("POST", "/api/session", { password: $("token").value });
+    $("token").value = "";
+    await openConsole();
+  } catch (e) { showError(e); }
+}
+
+async function openConsole() {
   try {
     catalog = await call("GET", "/api/catalog");
-    try { sessionStorage.setItem("sosToken", token); } catch (e) {}
     $("org").textContent = "Organization " + catalog.organization + " — relay " + catalog.relay.name + " — colony " + catalog.colony;
     $("login").hidden = true; $("app").hidden = false;
     renderClouds(); renderExchanges();
@@ -154,4 +160,5 @@ $("refresh").onclick = refresh;
 $("add").onclick = () => { exchanges.push({ consumerCloud: "", consumer: "", providerCloud: "", provider: "", service: "", operations: [] }); renderExchanges(); };
 $("preview").onclick = preview;
 $("apply").onclick = apply;
-if (token) connect();
+// an existing session (cookie) opens the console directly
+fetch("/api/catalog", { credentials: "same-origin" }).then((r) => { if (r.ok) openConsole(); }).catch(() => {});

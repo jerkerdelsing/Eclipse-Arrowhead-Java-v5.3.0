@@ -7,13 +7,18 @@
 | Catalog | Validates names/ownership/scripts/dependencies; defines the four default core systems and protected closure; computes a revision hash |
 | Planner | Adds defaults and transitive infrastructure, orders starts/setup and reverse-order removals, blocks protected/selected/dependency-conflicting removals |
 | Runner | Validates each step independently, reads compact runtime names, refuses arbitrary service/script claims, prevents recreating running services, rechecks stops and bounds/redacts command output |
-| CloudColony | Signs status requests and chained `lcc.step` workflows; host assignment loop and API heartbeat |
-| ApiServer | Operator authentication, bounded JSON requests, persistent design revisions, plan-hash checks, single active deployment persisted across restart |
-| Main | Build-independent CLI for keygen, owner-verified registration, API, executor and offline planning |
-| Manager proxy | Fixed allowlisted paths, private backend token, existing console session/action/host-origin protections |
+| CloudColony / ColonyBackend | Retained legacy backend (`lcc.backend=colony`): signed status requests and chained `lcc.step` workflows |
+| LocalCloudConfigurationAPI | `/api/*` controller: bounded strict JSON (64 KiB), native paths, JSON shapes and status codes |
+| ConfiguratorAccessFilter | After the common authentication filter: Sysop, whitelist or ConsumerAuthorization grant per operation (cached 30 s, fail closed) |
+| DeploymentCoordinator | Fresh plans, plan-hash checks, single active deployment; used by the API (JPA store) and by the host worker (file store) |
+| ConfigurationService / JPA | Saved designs with revisions; deployment records with the last reported step results; active-deployment record (MySQL `ah_localcloudconfigurator`, DML-only account) |
+| WorkerClient / MutualTls | API → host worker over mutual TLS; peer certificate system names pinned on both sides; cloud CRL |
+| WorkerApplication / WorkerServer | Host worker: non-web Spring application, loopback 8493, DirectBackend with per-step file results; interrupted deployments marked failed and never replayed |
+| LocalCloudConfiguratorMain / ConfiguratorCli | `serve` (default), `worker`, and the retained tools keygen, register, executor and offline plan |
+| Manager proxy | LocalCloudManager routes `/api/localcloud/*`, consuming `localCloudConfiguration` through orchestration with its own certificate and token |
 | Manager editor | Graphical selection/layout, derived infrastructure, distinct live state, undo/redo, import/export and real plan/progress views |
 
-Designs are atomically replaced JSON files in `/state/configurations`; deployment audit/active markers share the named volume. Each update/delete checks an expected revision under a server lock. A new process restores the active marker and checks workflow state before accepting another deployment. API workflow lookups are restricted to IDs submitted by that API and retained in its state.
+Designs, deployment records and the active-deployment record are rows of the private MySQL schema (JPA, `ddl-auto=validate`). Each update/delete checks an expected revision under a server lock. A new process reads the active-deployment record and checks workflow state before accepting another deployment. API workflow lookups are restricted to IDs submitted by that API and retained in its state.
 
 A plan is derived afresh from a live executor status response before apply. Its hash includes catalog revision, expanded selection, ordered steps and notes. The executor also compares its own catalog hash and target ownership; a stale queued start becomes a no-op if the service is already running. Stops are rechecked against current dependents. These checks are not a distributed transaction with independent host administrators.
 

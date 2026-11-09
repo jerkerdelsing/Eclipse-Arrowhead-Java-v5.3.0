@@ -11,11 +11,11 @@ ROLES := $(shell jq -r '"relay", (.clouds[] | "cloud:" + .name)' $(CATALOG))
 .PHONY: build test image keygen stack-up register up executors-start executors-stop executor down status plan smoke clean
 
 build:
-	$(MVN) -B -q clean package
+	$(MVN) -B -q clean verify
 test:
 	$(MVN) -B test
 $(JAR):
-	$(MVN) -B -q clean package -DskipTests
+	$(MVN) -B -q clean verify -DskipTests
 image:
 	SOS_COLONY=$(COLONY) $(STACK) build sosconfigurator
 
@@ -31,7 +31,7 @@ register: $(JAR)
 	$(JAVA) -jar $(JAR) register -dir $(SECRETS) -catalog $(CATALOG) -port 50081
 up: stack-up register
 	SOS_COLONY=$(COLONY) $(STACK) up -d sosconfigurator
-	@echo "UI: http://127.0.0.1:8096  (operator token: $(SECRETS)/sos_api_token)"
+	@echo "Console: http://127.0.0.1:8495  (password: $(SECRETS)/sos_console_password)"
 
 # Executors: one per local cloud and one for the relay, here all on this host (they need docker compose, curl, jq,
 # openssl and the cloud and relay directories). ROLE=cloud:GoCloud make executor runs one in the foreground.
@@ -39,10 +39,10 @@ executor_env = COLONIES_SERVER_HOST=127.0.0.1 COLONIES_SERVER_PORT=50081 COLONIE
 	COLONIES_PRVKEY_FILE=$(SECRETS)/sos_executor_$(1)_prvkey
 role_key = $(if $(filter relay,$(1)),relay,$(shell printf '%s' '$(patsubst cloud:%,%,$(1))' | tr 'A-Z' 'a-z'))
 start_executor = if [ -f state/$(2).pid ] && kill -0 $$(cat state/$(2).pid) 2>/dev/null; then echo "executor $(1) already running"; \
-	else $(call executor_env,$(2)) nohup $(JAVA) -Xmx128m -XX:+UseSerialGC -jar $(JAR) executor -catalog $(CATALOG) -role $(1) \
+	else $(call executor_env,$(2)) nohup $(JAVA) -Xmx128m -XX:+UseSerialGC -jar $(JAR) executor --sos.catalog.file=$(CATALOG) --sos.role=$(1) \
 	>state/$(2).log 2>&1 & echo $$! > state/$(2).pid; echo "executor $(1) started (state/$(2).log)"; fi;
 executor: $(JAR)
-	$(call executor_env,$(call role_key,$(ROLE))) $(JAVA) -Xmx128m -jar $(JAR) executor -catalog $(CATALOG) -role $(ROLE)
+	$(call executor_env,$(call role_key,$(ROLE))) $(JAVA) -Xmx128m -jar $(JAR) executor --sos.catalog.file=$(CATALOG) --sos.role=$(ROLE)
 executors-start: $(JAR)
 	@mkdir -p state && chmod 700 state
 	@$(foreach r,$(ROLES),$(call start_executor,$(r),$(call role_key,$(r))))

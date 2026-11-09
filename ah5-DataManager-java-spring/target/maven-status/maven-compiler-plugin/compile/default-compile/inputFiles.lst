@@ -7,6 +7,7 @@
 /source/src/main/java/eu/arrowhead/datamanager/api/dto/SystemListResponseDTO.java
 /source/src/main/java/eu/arrowhead/datamanager/api/http/DataHistorianAPI.java
 /source/src/main/java/eu/arrowhead/datamanager/api/http/DataProxyAPI.java
+/source/src/main/java/eu/arrowhead/datamanager/api/http/GeneralManagementAPI.java
 /source/src/main/java/eu/arrowhead/datamanager/init/DataManagerApplicationInitListener.java
 /source/src/main/java/eu/arrowhead/datamanager/jpa/entity/HistorianRecord.java
 /source/src/main/java/eu/arrowhead/datamanager/jpa/entity/Logs.java
@@ -63,6 +64,7 @@
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/http/model/HttpInterfaceModel.java
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/http/model/HttpOperationModel.java
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/init/ApplicationInitListener.java
+/source/vendor/common-utils/src/main/java/eu/arrowhead/common/init/SecurityProfileGuard.java
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/init/ServiceInterfaceExtensions.java
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/init/StartupFailureExit.java
 /source/vendor/common-utils/src/main/java/eu/arrowhead/common/intf/properties/IPropertyValidator.java

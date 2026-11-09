@@ -1,35 +1,53 @@
-# Deployment in the Java cloud
+# Deployment — Java-Spring LocalCloudConfigurator
 
-Primary implementation: `Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java`. Primary manager: `Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring`. The existing `Arrowhead/Arrowhead-test-cloud-java/` remains the deployment consumer. Its manager and configurator build contexts now point to the primary Java trees.
+LocalCloudConfigurator is an Arrowhead Java-Spring support system (Blacklist layout, vendored common library):
 
-## Prerequisites
+| Part | Where | Port | Security |
+|---|---|---|---|
+| `localCloudConfiguration`, generalManagement, sysMonitor | container `localcloudconfigurator` | 8492 | mutual TLS (`client-auth=need`), outsourced authentication, CERT_AUTH, ConsumerAuthorization, secure profile |
+| Private database `ah_localcloudconfigurator` | container `localcloudconfigurator-db` (MySQL 8.4.11) | none published | TLS (`verify-full`), DML-only account (`least-privilege.sh`), internal network |
+| Host worker | per-user launchd service on the host | 127.0.0.1:8493 | mutual TLS, loopback only, does not register |
 
-Java 21 or newer on the cloud host; Docker/Compose; Python 3 plus PyYAML for the deployment-file installer. The supplied deployment reuses the already-running SoS ColonyOS server on loopback port 50081 and external Docker network `sos-colonyos_default`. It creates a separate colony, not a new TimescaleDB/server pair. It does not alter existing server settings, credentials, colonies or Arrowhead authorization policies.
+The ports moved from 8097/8098 (inside the GateTunnel control pool) to the operator-tools range 8492/8493.
 
-Default private credential directory: `~/.local/share/JavaLocalCloudConfigurator`, mode 0700. `keygen` creates missing API/executor/colony keys and an operator token with mode 0600, without printing them. Registration uses the existing server-owner key from the primary Java SoSConfigurator deployment; this bootstrap key is never mounted in the new API or passed in argv as a value. Registration verifies colony ownership and existing executor identities, and uses the owner's official approval operation for matching retired identities. Mismatches fail closed. Server re-registration and stale-member policies are not relaxed.
-
-## Deploy
-
-```sh
-make build
-make deploy
-```
-
-`deploy.sh` creates missing private credentials, installs the narrowly scoped Java cloud Compose additions, registers the separate colony, builds the configurator and manager from primary sources, recreates only those three services and starts the host executor. It preserves a one-time pre-change Compose backup. The cloud installer is idempotent. The Java cloud's existing core/support/application services are not rebuilt or recreated by these commands.
-
-The API runs non-root with a read-only root filesystem, dropped capabilities, no privilege gain and bounded memory/processes. Its only writable persistent area is the designs/workflow-marker volume; `/tmp` is ephemeral. Its operator port is loopback-only, 8097. The manager-to-configurator network is internal (`10.240.92.0/28`), with only those two services attached. Existing authenticated Arrowhead calls retain their original TLS and authorization boundary.
-
-The executor is a host process, as in the Go reference: it needs access to the existing cloud's Compose files and provisioning/policy scripts. `scripts/executor.py start|stop|restart|status` manages only its own PID after checking the command. It copies the built JAR to a private, content-addressed runtime path; future Maven builds cannot invalidate the running JVM's class loader. Use `make executor-restart` after a code/catalog change. Restart checks the active workflow marker and refuses to replace an executor while a deployment is still active. The helper uses Java 21+ and the user's Docker CLI. It does not install a boot-time service; restart it after a host reboot.
-
-API keys use a 60-second authenticated assignment heartbeat. The host executor's normal assignment loop provides its heartbeat. An API identity whose membership was retired during a long outage must be restored through the authorized registration command before restarting, rather than bypassing server checks.
-
-## Status and testing
+## Build
 
 ```sh
-make status
-make test
+make build   # docker run maven:3.9-eclipse-temurin-21 mvn -B clean verify, with ~/.m2 mounted
+make image   # system image (UID 10001) and database image
 ```
 
-Use the manager **LC** view to save/reopen a design and review/apply a plan. Verification-only plans use `smoke: true` while all selected components are already running. Their real signed ColonyOS workflow checks baseline runtime state without restarting/stopping services. This is the live deployment test used here; mutation paths are unit-tested with a controlled command executor. Retained workflow records are operational audit data; temporary saved test designs are deleted.
+The packaged `application.properties` is a development sample and is refused in the default secure profile. `config/application.properties` is the deployment configuration (copied to `/app/config`).
 
-Stopping/reapplying components is operationally significant: inspect the plan and dependents first. Applying is not an atomic transaction and does not automatically restore earlier steps on failure. Saved design revisions and plan hashes prevent common stale/concurrent edits; they do not lock independent external Docker operators.
+## Standalone stack of this folder
+
+Copy `.env.example` to `.env` and provide under `./security/` (or the paths named in `.env`):
+
+- `LocalCloudConfigurator.p12` (system certificate `LocalCloudConfigurator.<cloud>.<organization>.arrowhead.eu`) and `truststore.p12`, `store-password`;
+- `identity-password` (the Authentication identity of LocalCloudConfigurator);
+- `db-password`, `db-root-password`, `db-ca.crt`, `db.crt`, `db.key`;
+- `crl/ca.crl` (the cloud CRL).
+
+`docker compose up -d --build` starts the database and the system with a read-only root filesystem, no capabilities and `no-new-privileges`. Port 8492 is published on the host's loopback interface by default (`HOST_BIND_ADDRESS`).
+
+Register the identity `LocalCloudConfigurator` in Authentication and grant **LocalCloudManager** the operations of `localCloudConfiguration` (provider LocalCloudConfigurator) in ConsumerAuthorization; LocalCloudManager reaches the service through orchestration with its own certificate and identity token. `LCC_API_WHITELIST` can name further systems that skip the grant (empty by default).
+
+## Host worker
+
+The worker is the same JAR started as `worker` (a non-web Spring application). It needs a system certificate **LocalCloudConfiguratorWorker** of the cloud CA (PKCS12), the cloud truststore and the store password:
+
+```
+~/.local/share/JavaLocalCloudConfigurator/certs/LocalCloudConfiguratorWorker.p12
+~/.local/share/JavaLocalCloudConfigurator/certs/truststore.p12
+~/.local/share/JavaLocalCloudConfigurator/secrets/store-password
+```
+
+`python3 scripts/install-direct.py --cloud-dir <cloud> --compose-file <cloud>/compose.yaml [--crl-file <cloud CRL>]` (or `make worker-start`) copies an immutable JAR/catalog release, writes the store passwords into a 0600 config tree (`worker-secrets/`, never on the command line) and installs `~/Library/LaunchAgents/eu.arrowhead.java-localcloud-direct.plist` (RunAtLoad, KeepAlive). It refuses to reinstall while a deployment of the worker is still running. The worker accepts only clients presenting a valid **LocalCloudConfigurator** certificate of the cloud (checked against the CRL when given); the API accepts only a worker presenting **LocalCloudConfiguratorWorker**. There is no shared token any more.
+
+The worker keeps its file state under `~/.local/share/JavaLocalCloudConfigurator/direct-state/`: per-step results in `workflows/`, written after every step; after a restart, interrupted deployments are marked failed and are never replayed. `active-deployment.json` and `deployments/` are its own records.
+
+## Into a cloud
+
+`make deploy` (`scripts/deploy.sh`) builds and tests, puts both services of `compose.yaml` into the cloud's Compose file (`scripts/configure-direct-cloud.py --env-file <cloud env>`, 0600 backup), installs the host worker and recreates only the configurator and its database. It changes a deployed cloud: run it only when an operator decides so. It was not run as part of the Spring conversion.
+
+Interruption is not transactional rollback: completed actions remain applied. Inspect the real state and review a new plan. Legacy ColonyOS files and commands (`keygen`, `register`, `executor`, `lcc.backend=colony`) remain available for explicit historical compatibility.
