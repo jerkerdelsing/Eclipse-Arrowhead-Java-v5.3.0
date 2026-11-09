@@ -1,0 +1,31 @@
+✔ host names are compared without port (1.024792ms)
+✔ foreign Host or Origin is refused (DNS rebinding) (0.352959ms)
+✔ login issues a strict session cookie; wrong passwords lock (237.983916ms)
+✔ unconfigured console refuses every password (0.247417ms)
+✔ a lockout is per client, so another client cannot lock the operator out (J6) (376.970875ms)
+✔ with a proxy secret only requests forwarded by the console nginx are served (J6) (0.296625ms)
+✔ secrets come from NAME, else from the file named by NAME_FILE (J7) (19.805834ms)
+✔ reads thisUpdate and nextUpdate from PEM and DER, UTCTime and GeneralizedTime (7.248625ms)
+✔ ok with margin, warning within 12 hours, expired after nextUpdate (J16) (2.552291ms)
+✔ a missing or unreadable CRL is reported, not ignored (1.280459ms)
+✔ demuxDockerLogs decodes Docker stream frames (0.756833ms)
+✔ systemStatus associates an Arrowhead system with its Compose service (0.24ms)
+✔ registry management links devices, systems, services and deployment state (0.819125ms)
+✔ database services are excluded from lifecycle management (0.070459ms)
+✔ runtime identifiers have canonical Arrowhead display names (0.187792ms)
+✔ inventory naming follows PascalCase, camelCase and kebab-case (0.256667ms)
+✔ numericValue extracts numeric SenML values only (0.158666ms)
+✔ messaging overview exposes broker and active secured flows (7.405083ms)
+✔ orchestration catalog keeps only interface-compatible consumers (0.822ms)
+✔ rule validation rejects a stale or incompatible selection (0.9125ms)
+✔ resolveSenMLRecords expands dataHistorian packs into dashboard entries (0.299708ms)
+✔ registration and observations follow the sysMonitor contract (1.473375ms)
+✔ connect negotiates a frame_max the broker accepts, with EXTERNAL auth over mTLS (1.37775ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 795.08525

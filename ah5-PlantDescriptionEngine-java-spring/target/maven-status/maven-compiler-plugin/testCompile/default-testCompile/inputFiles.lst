@@ -1,0 +1,6 @@
+/source/src/test/java/eu/arrowhead/plantdescriptionengine/security/PlantDescriptionEngineOperationResolverTest.java
+/source/src/test/java/eu/arrowhead/plantdescriptionengine/service/AlarmDetectorTest.java
+/source/src/test/java/eu/arrowhead/plantdescriptionengine/service/PlantDescriptionValidatorTest.java
+/source/src/test/java/eu/arrowhead/plantdescriptionengine/service/PlantFixtures.java
+/source/src/test/java/eu/arrowhead/plantdescriptionengine/service/PlantSynchronizerTest.java
+/source/src/test/java/eu/arrowhead/plantdescriptionengine/service/RuleResolverTest.java

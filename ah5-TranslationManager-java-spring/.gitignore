@@ -1,0 +1,5 @@
+
+.env
+security/*
+!security/README.md
+vendor/**/target/

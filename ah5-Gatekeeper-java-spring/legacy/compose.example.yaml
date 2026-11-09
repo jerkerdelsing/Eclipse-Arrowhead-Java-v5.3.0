@@ -1,0 +1,26 @@
+services:
+  gatekeeper:
+    build: .
+    image: arrowhead-gatekeeper-v5:5.2.2
+    restart: unless-stopped
+    environment:
+      PORT: 8449
+      HEALTH_PORT: 8480
+      DB_PATH: /data/gatekeeper.db
+      SERVICE_REGISTRY_URL: https://serviceregistry:8443
+      AUTHENTICATION_URL: https://authentication:8444
+      ARROWHEAD_SYSTEM_NAME: Gatekeeper
+      TLS_CA_CERT: /certs/ca.crt
+      TLS_SERVER_CERT: /certs/gatekeeper.crt
+      TLS_SERVER_KEY: /certs/gatekeeper.key
+      # Native sysMonitor publication (echo, power, status) over MQTT with mutual TLS
+      LOCAL_CLOUD: TestCloud
+      MQTT_HOST: mqtt-broker
+      MQTT_PORT: 8883
+    volumes:
+      - gatekeeper-data:/data
+      - ./certs:/certs:ro
+    ports:
+      - "127.0.0.1:8449:8449"
+volumes:
+  gatekeeper-data:

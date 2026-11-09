@@ -1,0 +1,73 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.06kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 93B done
+#4 DONE 0.0s
+
+#5 [stage-1 1/6] FROM docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99
+#5 resolve docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99 0.0s done
+#5 DONE 0.0s
+
+#6 [build 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#6 resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 1.09kB done
+#7 DONE 0.0s
+
+#8 [build 4/6] COPY src ./src
+#8 CACHED
+
+#9 [build 2/6] WORKDIR /source
+#9 CACHED
+
+#10 [build 3/6] COPY pom.xml .
+#10 CACHED
+
+#11 [build 5/6] RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
+#11 CACHED
+
+#12 [build 6/6] RUN mkdir -p /native && cd /native && jar xf /source/target/arrowhead-sysmonitor-5.2.2.jar org/sqlite/native/Linux/$(uname -m)/libsqlitejdbc.so && cp org/sqlite/native/Linux/$(uname -m)/libsqlitejdbc.so /native/libsqlitejdbc.so
+#12 DONE 0.3s
+
+#13 [stage-1 2/6] WORKDIR /app
+#13 CACHED
+
+#14 [stage-1 3/6] COPY --from=build /source/target/arrowhead-sysmonitor-5.2.2.jar /app/sysmonitor.jar
+#14 CACHED
+
+#15 [stage-1 4/6] COPY --from=build /native/libsqlitejdbc.so /app/lib/libsqlitejdbc.so
+#15 DONE 0.0s
+
+#16 [stage-1 5/6] RUN mkdir -p /data && chown 10001:10001 /data /app
+#16 DONE 0.2s
+
+#17 [stage-1 6/6] RUN java -Dorg.sqlite.lib.path=/app/lib -jar /app/sysmonitor.jar storage-selftest
+#17 0.278 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+#17 0.278 SLF4J: Defaulting to no-operation (NOP) logger implementation
+#17 0.278 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+#17 0.395 Java packaged SQLite self-test passed
+#17 DONE 0.4s
+
+#18 exporting to image
+#18 exporting layers 0.1s done
+#18 exporting manifest sha256:5c07968913574446bfa918f6b8ddbba1518d7679088ec575d208bb06a3924f3e 0.0s done
+#18 exporting config sha256:d1c41bcf61fd50634c5155aa1a494ac92d9710d3b65f1bfc29b579e3aea229fc done
+#18 exporting attestation manifest sha256:f1ca90c2f30a4b286ab06246049f47186ee1795cf1d9d0a6c9318814e4ef1e77 0.0s done
+#18 exporting manifest list sha256:ba449437bf298cd4e49915d1a82b1f73428850a3ad48a01100a3b53c2dc2aaa2 0.0s done
+#18 naming to docker.io/library/arrowhead-sysmonitor-standalone:5.2.2 done
+#18 unpacking to docker.io/library/arrowhead-sysmonitor-standalone:5.2.2 0.0s done
+#18 DONE 0.2s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/bw8tinw5bjoyhgwrz4gvyqa6g

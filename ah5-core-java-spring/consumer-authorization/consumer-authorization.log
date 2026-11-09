@@ -1,0 +1,1320 @@
+2026-10-11 09:19:47.051 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-11 09:19:47.083 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-11 09:19:47.090 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-11 09:19:47.135 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-11 09:19:47.136 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-11 09:19:47.139 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-11 09:19:47.155 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-11 09:19:47.164 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-11 09:19:47.222 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-11 09:19:47.232 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-11 09:19:47.240 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-11 09:19:47.250 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-11 09:19:47.254 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-11 09:19:47.317 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-11 09:19:47.321 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-11 09:19:47.359 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-11 09:19:47.362 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-11 09:19:47.477 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-11 09:19:47.484 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-11 09:19:47.500 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-11 09:19:47.505 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-11 09:19:47.508 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-11 09:19:47.510 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-11 09:19:47.545 ERROR cb98bdbd0bd4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-11 09:19:47.662  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.675  WARN cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-11 09:19:47.677  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.679  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.681  WARN cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-11 09:19:47.683  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.684  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.685  WARN cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-11 09:19:47.687  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.689  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.691  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.699  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.704  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.706  WARN cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-11 09:19:47.707  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.708  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.710  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.712  INFO cb98bdbd0bd4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-11 09:19:47.723  WARN cb98bdbd0bd4 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-11 09:19:47.731  WARN cb98bdbd0bd4 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-11 09:19:47.733  WARN cb98bdbd0bd4 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-11 09:19:47.745  WARN cb98bdbd0bd4 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-11 09:19:47.846 ERROR cb98bdbd0bd4 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-11 09:19:47.851 ERROR cb98bdbd0bd4 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-11 09:19:48.035 ERROR cb98bdbd0bd4 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-11 09:19:48.089 ERROR cb98bdbd0bd4 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-11 09:19:48.347 ERROR cb98bdbd0bd4 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-11 09:19:48.376 ERROR cb98bdbd0bd4 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-11 09:19:48.378 ERROR cb98bdbd0bd4 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-11 09:19:48.408 ERROR cb98bdbd0bd4 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-11 09:19:48.433 ERROR cb98bdbd0bd4 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-12 07:08:53.019 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 07:08:53.054 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 07:08:53.064 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 07:08:53.120 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 07:08:53.122 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 07:08:53.127 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 07:08:53.141 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 07:08:53.151 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 07:08:53.243 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 07:08:53.257 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 07:08:53.269 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 07:08:53.283 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 07:08:53.287 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 07:08:53.371 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-12 07:08:53.375 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-12 07:08:53.432 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-12 07:08:53.436 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-12 07:08:53.590 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 07:08:53.602 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 07:08:53.623 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 07:08:53.630 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 07:08:53.633 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 07:08:53.636 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 07:08:53.675 ERROR c6e68dc509c8 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 07:08:53.786  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.818  WARN c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 07:08:53.820  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.824  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.831  WARN c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 07:08:53.836  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.839  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.841  WARN c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 07:08:53.844  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.846  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.849  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.862  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.870  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.873  WARN c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 07:08:53.874  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.876  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.878  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.881  INFO c6e68dc509c8 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 07:08:53.902  WARN c6e68dc509c8 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 07:08:53.908  WARN c6e68dc509c8 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 07:08:53.910  WARN c6e68dc509c8 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 07:08:53.929  WARN c6e68dc509c8 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 07:08:54.016 ERROR c6e68dc509c8 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-12 07:08:54.022 ERROR c6e68dc509c8 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-12 07:08:54.232 ERROR c6e68dc509c8 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-12 07:08:54.296 ERROR c6e68dc509c8 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-12 07:08:54.577 ERROR c6e68dc509c8 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-12 07:08:54.607 ERROR c6e68dc509c8 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-12 07:08:54.610 ERROR c6e68dc509c8 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-12 07:08:54.637 ERROR c6e68dc509c8 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-12 07:08:54.674 ERROR c6e68dc509c8 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-12 10:06:55.267 ERROR 439529fabab1 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 10:06:55.299 ERROR 439529fabab1 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 10:06:55.311 ERROR 439529fabab1 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 10:06:55.361 ERROR 439529fabab1 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 10:06:55.363 ERROR 439529fabab1 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 10:06:55.369 ERROR 439529fabab1 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 10:06:55.383 ERROR 439529fabab1 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 10:06:55.392 ERROR 439529fabab1 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 10:06:55.482 ERROR 439529fabab1 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 10:06:55.497 ERROR 439529fabab1 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 10:06:55.509 ERROR 439529fabab1 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 10:06:55.525 ERROR 439529fabab1 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 10:06:55.534 ERROR 439529fabab1 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 10:06:55.638 ERROR 439529fabab1 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-12 10:06:55.642 ERROR 439529fabab1 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-12 10:06:55.690 ERROR 439529fabab1 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-12 10:06:55.693 ERROR 439529fabab1 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-12 10:06:55.890 ERROR 439529fabab1 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 10:06:55.899 ERROR 439529fabab1 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 10:06:55.916 ERROR 439529fabab1 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 10:06:55.921 ERROR 439529fabab1 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 10:06:55.924 ERROR 439529fabab1 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 10:06:55.927 ERROR 439529fabab1 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 10:06:55.962 ERROR 439529fabab1 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 10:06:56.063  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.076  WARN 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 10:06:56.078  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.081  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.083  WARN 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 10:06:56.084  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.086  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.087  WARN 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 10:06:56.089  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.091  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.093  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.101  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.104  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.105  WARN 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 10:06:56.107  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.108  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.109  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.112  INFO 439529fabab1 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 10:06:56.126  WARN 439529fabab1 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 10:06:56.132  WARN 439529fabab1 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 10:06:56.134  WARN 439529fabab1 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 10:06:56.153  WARN 439529fabab1 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 10:06:56.226 ERROR 439529fabab1 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-12 10:06:56.231 ERROR 439529fabab1 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-12 10:06:56.436 ERROR 439529fabab1 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-12 10:06:56.494 ERROR 439529fabab1 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-12 10:06:56.765 ERROR 439529fabab1 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-12 10:06:56.795 ERROR 439529fabab1 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-12 10:06:56.797 ERROR 439529fabab1 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-12 10:06:56.825 ERROR 439529fabab1 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-12 10:06:56.851 ERROR 439529fabab1 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-12 14:39:06.399 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 14:39:06.443 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 14:39:06.452 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 14:39:06.528 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 14:39:06.531 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 14:39:06.534 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 14:39:06.547 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 14:39:06.553 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 14:39:06.624 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 14:39:06.633 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 14:39:06.640 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 14:39:06.649 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 14:39:06.653 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 14:39:06.719 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-12 14:39:06.724 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-12 14:39:06.781 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-12 14:39:06.784 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-12 14:39:06.948 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 14:39:06.955 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 14:39:06.969 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 14:39:06.973 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 14:39:06.975 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 14:39:06.978 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 14:39:07.011 ERROR 90b2a0c03a8c --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 14:39:07.099  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.111  WARN 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 14:39:07.112  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.114  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.116  WARN 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 14:39:07.117  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.119  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.120  WARN 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 14:39:07.121  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.122  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.124  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.131  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.133  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.134  WARN 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 14:39:07.135  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.137  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.139  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.141  INFO 90b2a0c03a8c --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 14:39:07.152  WARN 90b2a0c03a8c --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 14:39:07.155  WARN 90b2a0c03a8c --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 14:39:07.158  WARN 90b2a0c03a8c --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 14:39:07.175  WARN 90b2a0c03a8c --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 14:39:07.242 ERROR 90b2a0c03a8c --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-12 14:39:07.247 ERROR 90b2a0c03a8c --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-12 14:39:07.494 ERROR 90b2a0c03a8c --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-12 14:39:07.555 ERROR 90b2a0c03a8c --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-12 14:39:07.842 ERROR 90b2a0c03a8c --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-12 14:39:07.872 ERROR 90b2a0c03a8c --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-12 14:39:07.875 ERROR 90b2a0c03a8c --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-12 14:39:07.966 ERROR 90b2a0c03a8c --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-12 14:39:07.994 ERROR 90b2a0c03a8c --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-12 15:44:57.469 ERROR 12960114469d --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 15:44:57.509 ERROR 12960114469d --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 15:44:57.518 ERROR 12960114469d --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-12 15:44:57.571 ERROR 12960114469d --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 15:44:57.572 ERROR 12960114469d --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 15:44:57.576 ERROR 12960114469d --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 15:44:57.591 ERROR 12960114469d --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 15:44:57.600 ERROR 12960114469d --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-12 15:44:57.676 ERROR 12960114469d --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 15:44:57.687 ERROR 12960114469d --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 15:44:57.697 ERROR 12960114469d --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 15:44:57.709 ERROR 12960114469d --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 15:44:57.714 ERROR 12960114469d --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-12 15:44:57.787 ERROR 12960114469d --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-12 15:44:57.793 ERROR 12960114469d --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-12 15:44:57.844 ERROR 12960114469d --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-12 15:44:57.847 ERROR 12960114469d --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-12 15:44:58.027 ERROR 12960114469d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 15:44:58.035 ERROR 12960114469d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 15:44:58.050 ERROR 12960114469d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 15:44:58.055 ERROR 12960114469d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 15:44:58.058 ERROR 12960114469d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 15:44:58.061 ERROR 12960114469d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 15:44:58.100 ERROR 12960114469d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-12 15:44:58.196  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.213  WARN 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 15:44:58.215  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.217  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.220  WARN 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 15:44:58.222  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.223  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.224  WARN 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 15:44:58.226  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.230  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.232  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.241  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.243  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.244  WARN 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-12 15:44:58.246  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.247  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.248  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.250  INFO 12960114469d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-12 15:44:58.268  WARN 12960114469d --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 15:44:58.272  WARN 12960114469d --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 15:44:58.274  WARN 12960114469d --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 15:44:58.283  WARN 12960114469d --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-12 15:44:58.363 ERROR 12960114469d --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-12 15:44:58.367 ERROR 12960114469d --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-12 15:44:58.572 ERROR 12960114469d --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-12 15:44:58.670 ERROR 12960114469d --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-12 15:44:59.047 ERROR 12960114469d --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-12 15:44:59.094 ERROR 12960114469d --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-12 15:44:59.097 ERROR 12960114469d --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-12 15:44:59.126 ERROR 12960114469d --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-12 15:44:59.153 ERROR 12960114469d --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 07:28:35.306 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 07:28:35.335 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 07:28:35.342 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 07:28:35.389 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 07:28:35.392 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 07:28:35.396 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 07:28:35.408 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 07:28:35.415 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 07:28:35.483 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 07:28:35.494 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 07:28:35.504 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 07:28:35.517 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 07:28:35.522 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 07:28:35.589 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 07:28:35.593 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 07:28:35.637 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 07:28:35.640 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 07:28:35.777 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:28:35.785 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:28:35.802 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:28:35.807 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:28:35.809 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:28:35.811 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:28:35.874 ERROR 550f9b1731b6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:28:35.973  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:35.986  WARN 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 07:28:35.988  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:35.990  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:35.993  WARN 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 07:28:35.996  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:35.998  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:35.999  WARN 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 07:28:36.001  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:36.002  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:36.004  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:36.011  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:36.013  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:36.014  WARN 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 07:28:36.015  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:36.016  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:36.017  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:36.020  INFO 550f9b1731b6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:28:36.030  WARN 550f9b1731b6 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 07:28:36.042  WARN 550f9b1731b6 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 07:28:36.044  WARN 550f9b1731b6 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 07:28:36.054  WARN 550f9b1731b6 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 07:28:36.116 ERROR 550f9b1731b6 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 07:28:36.120 ERROR 550f9b1731b6 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 07:28:36.306 ERROR 550f9b1731b6 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 07:28:36.361 ERROR 550f9b1731b6 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 07:28:36.615 ERROR 550f9b1731b6 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 07:28:36.648 ERROR 550f9b1731b6 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 07:28:36.652 ERROR 550f9b1731b6 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 07:28:36.679 ERROR 550f9b1731b6 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 07:28:36.707 ERROR 550f9b1731b6 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 07:34:59.947 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 07:34:59.989 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 07:34:59.999 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 07:35:00.048 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 07:35:00.050 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 07:35:00.054 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 07:35:00.069 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 07:35:00.079 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 07:35:00.158 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 07:35:00.172 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 07:35:00.185 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 07:35:00.205 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 07:35:00.212 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 07:35:00.286 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 07:35:00.290 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 07:35:00.335 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 07:35:00.340 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 07:35:00.518 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:35:00.527 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:35:00.546 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:35:00.553 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:35:00.558 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:35:00.562 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:35:00.614 ERROR 95bef2871db6 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 07:35:00.712  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.723  WARN 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 07:35:00.724  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.727  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.730  WARN 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 07:35:00.731  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.732  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.733  WARN 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 07:35:00.736  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.738  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.740  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.749  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.752  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.753  WARN 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 07:35:00.754  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.756  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.757  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.760  INFO 95bef2871db6 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 07:35:00.773  WARN 95bef2871db6 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 07:35:00.777  WARN 95bef2871db6 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 07:35:00.779  WARN 95bef2871db6 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 07:35:00.789  WARN 95bef2871db6 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 07:35:00.869 ERROR 95bef2871db6 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 07:35:00.874 ERROR 95bef2871db6 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 07:35:01.064 ERROR 95bef2871db6 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 07:35:01.121 ERROR 95bef2871db6 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 07:35:01.396 ERROR 95bef2871db6 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 07:35:01.429 ERROR 95bef2871db6 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 07:35:01.432 ERROR 95bef2871db6 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 07:35:01.459 ERROR 95bef2871db6 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 07:35:01.485 ERROR 95bef2871db6 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 10:13:16.563 ERROR a1668269227d --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:13:16.590 ERROR a1668269227d --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:13:16.596 ERROR a1668269227d --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:13:16.636 ERROR a1668269227d --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:13:16.638 ERROR a1668269227d --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:13:16.641 ERROR a1668269227d --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:13:16.655 ERROR a1668269227d --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:13:16.663 ERROR a1668269227d --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:13:16.731 ERROR a1668269227d --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:13:16.741 ERROR a1668269227d --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:13:16.747 ERROR a1668269227d --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:13:16.758 ERROR a1668269227d --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:13:16.761 ERROR a1668269227d --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:13:16.823 ERROR a1668269227d --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 10:13:16.827 ERROR a1668269227d --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 10:13:16.876 ERROR a1668269227d --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 10:13:16.878 ERROR a1668269227d --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 10:13:17.011 ERROR a1668269227d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:17.020 ERROR a1668269227d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:17.032 ERROR a1668269227d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:17.038 ERROR a1668269227d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:17.040 ERROR a1668269227d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:17.043 ERROR a1668269227d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:17.078 ERROR a1668269227d --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:17.169  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.181  WARN a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:13:17.182  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.185  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.187  WARN a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:13:17.188  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.190  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.191  WARN a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:13:17.192  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.194  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.196  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.205  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.208  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.209  WARN a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:13:17.211  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.212  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.216  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.223  INFO a1668269227d --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:17.237  WARN a1668269227d --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:13:17.243  WARN a1668269227d --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:13:17.246  WARN a1668269227d --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:13:17.258  WARN a1668269227d --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:13:17.328 ERROR a1668269227d --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 10:13:17.332 ERROR a1668269227d --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 10:13:17.516 ERROR a1668269227d --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 10:13:17.570 ERROR a1668269227d --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 10:13:17.851 ERROR a1668269227d --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 10:13:17.879 ERROR a1668269227d --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 10:13:17.882 ERROR a1668269227d --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 10:13:17.910 ERROR a1668269227d --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 10:13:17.934 ERROR a1668269227d --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 10:13:58.942 ERROR e141fb949af5 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:13:58.974 ERROR e141fb949af5 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:13:58.983 ERROR e141fb949af5 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:13:59.029 ERROR e141fb949af5 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:13:59.031 ERROR e141fb949af5 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:13:59.034 ERROR e141fb949af5 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:13:59.047 ERROR e141fb949af5 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:13:59.054 ERROR e141fb949af5 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:13:59.118 ERROR e141fb949af5 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:13:59.126 ERROR e141fb949af5 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:13:59.133 ERROR e141fb949af5 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:13:59.143 ERROR e141fb949af5 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:13:59.146 ERROR e141fb949af5 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:13:59.208 ERROR e141fb949af5 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 10:13:59.210 ERROR e141fb949af5 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 10:13:59.247 ERROR e141fb949af5 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 10:13:59.249 ERROR e141fb949af5 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 10:13:59.366 ERROR e141fb949af5 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:59.374 ERROR e141fb949af5 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:59.385 ERROR e141fb949af5 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:59.389 ERROR e141fb949af5 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:59.392 ERROR e141fb949af5 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:59.394 ERROR e141fb949af5 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:59.425 ERROR e141fb949af5 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:13:59.515  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.536  WARN e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:13:59.540  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.543  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.547  WARN e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:13:59.549  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.550  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.552  WARN e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:13:59.553  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.555  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.557  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.564  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.565  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.567  WARN e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:13:59.568  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.570  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.571  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.574  INFO e141fb949af5 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:13:59.590  WARN e141fb949af5 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:13:59.597  WARN e141fb949af5 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:13:59.601  WARN e141fb949af5 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:13:59.625  WARN e141fb949af5 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:13:59.711 ERROR e141fb949af5 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 10:13:59.715 ERROR e141fb949af5 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 10:13:59.921 ERROR e141fb949af5 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 10:13:59.978 ERROR e141fb949af5 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 10:14:00.281 ERROR e141fb949af5 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 10:14:00.308 ERROR e141fb949af5 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 10:14:00.310 ERROR e141fb949af5 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 10:14:00.441 ERROR e141fb949af5 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 10:14:00.464 ERROR e141fb949af5 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 10:15:25.792 ERROR 9073caf516ab --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:15:25.819 ERROR 9073caf516ab --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:15:25.826 ERROR 9073caf516ab --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:15:25.867 ERROR 9073caf516ab --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:15:25.869 ERROR 9073caf516ab --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:15:25.872 ERROR 9073caf516ab --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:15:25.882 ERROR 9073caf516ab --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:15:25.888 ERROR 9073caf516ab --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:15:25.952 ERROR 9073caf516ab --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:15:25.961 ERROR 9073caf516ab --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:15:25.970 ERROR 9073caf516ab --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:15:25.980 ERROR 9073caf516ab --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:15:25.984 ERROR 9073caf516ab --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:15:26.046 ERROR 9073caf516ab --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 10:15:26.049 ERROR 9073caf516ab --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 10:15:26.095 ERROR 9073caf516ab --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 10:15:26.098 ERROR 9073caf516ab --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 10:15:26.227 ERROR 9073caf516ab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:15:26.234 ERROR 9073caf516ab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:15:26.247 ERROR 9073caf516ab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:15:26.252 ERROR 9073caf516ab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:15:26.254 ERROR 9073caf516ab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:15:26.256 ERROR 9073caf516ab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:15:26.290 ERROR 9073caf516ab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:15:26.382  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.394  WARN 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:15:26.395  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.397  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.399  WARN 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:15:26.400  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.402  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.403  WARN 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:15:26.404  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.406  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.408  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.416  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.418  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.419  WARN 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:15:26.420  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.421  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.423  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.426  INFO 9073caf516ab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:15:26.435  WARN 9073caf516ab --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:15:26.440  WARN 9073caf516ab --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:15:26.442  WARN 9073caf516ab --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:15:26.462  WARN 9073caf516ab --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:15:26.530 ERROR 9073caf516ab --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 10:15:26.536 ERROR 9073caf516ab --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 10:15:26.711 ERROR 9073caf516ab --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 10:15:26.769 ERROR 9073caf516ab --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 10:15:27.056 ERROR 9073caf516ab --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 10:15:27.087 ERROR 9073caf516ab --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 10:15:27.091 ERROR 9073caf516ab --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 10:15:27.219 ERROR 9073caf516ab --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 10:15:27.244 ERROR 9073caf516ab --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 10:35:07.580 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:35:07.607 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:35:07.614 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:35:07.652 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:35:07.654 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:35:07.657 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:35:07.672 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:35:07.678 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:35:07.732 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:35:07.740 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:35:07.747 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:35:07.756 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:35:07.758 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:35:07.810 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 10:35:07.813 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 10:35:07.866 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 10:35:07.868 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 10:35:07.980 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:35:07.987 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:35:07.999 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:35:08.003 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:35:08.006 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:35:08.008 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:35:08.045 ERROR 082c1b7253e9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:35:08.127  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.139  WARN 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:35:08.140  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.142  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.145  WARN 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:35:08.146  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.148  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.149  WARN 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:35:08.150  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.153  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.155  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.164  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.166  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.167  WARN 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:35:08.169  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.171  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.172  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.174  INFO 082c1b7253e9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:35:08.184  WARN 082c1b7253e9 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:35:08.188  WARN 082c1b7253e9 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:35:08.190  WARN 082c1b7253e9 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:35:08.204  WARN 082c1b7253e9 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:35:08.268 ERROR 082c1b7253e9 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 10:35:08.272 ERROR 082c1b7253e9 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 10:35:08.447 ERROR 082c1b7253e9 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 10:35:08.497 ERROR 082c1b7253e9 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 10:35:08.774 ERROR 082c1b7253e9 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 10:35:08.803 ERROR 082c1b7253e9 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 10:35:08.806 ERROR 082c1b7253e9 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 10:35:08.850 ERROR 082c1b7253e9 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 10:35:08.873 ERROR 082c1b7253e9 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 10:57:17.476 ERROR 3be101a53607 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:57:17.502 ERROR 3be101a53607 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:57:17.510 ERROR 3be101a53607 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 10:57:17.560 ERROR 3be101a53607 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:57:17.561 ERROR 3be101a53607 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:57:17.565 ERROR 3be101a53607 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:57:17.578 ERROR 3be101a53607 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:57:17.586 ERROR 3be101a53607 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 10:57:17.652 ERROR 3be101a53607 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:57:17.662 ERROR 3be101a53607 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:57:17.671 ERROR 3be101a53607 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:57:17.682 ERROR 3be101a53607 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:57:17.686 ERROR 3be101a53607 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 10:57:17.761 ERROR 3be101a53607 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 10:57:17.768 ERROR 3be101a53607 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 10:57:17.813 ERROR 3be101a53607 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 10:57:17.816 ERROR 3be101a53607 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 10:57:17.950 ERROR 3be101a53607 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:57:17.957 ERROR 3be101a53607 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:57:17.970 ERROR 3be101a53607 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:57:17.975 ERROR 3be101a53607 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:57:17.977 ERROR 3be101a53607 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:57:17.980 ERROR 3be101a53607 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:57:18.018 ERROR 3be101a53607 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 10:57:18.116  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.130  WARN 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:57:18.131  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.134  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.137  WARN 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:57:18.138  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.140  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.141  WARN 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:57:18.143  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.145  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.153  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.162  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.165  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.166  WARN 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 10:57:18.168  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.169  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.171  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.174  INFO 3be101a53607 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 10:57:18.186  WARN 3be101a53607 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:57:18.191  WARN 3be101a53607 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:57:18.193  WARN 3be101a53607 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:57:18.203  WARN 3be101a53607 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 10:57:18.281 ERROR 3be101a53607 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 10:57:18.285 ERROR 3be101a53607 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 10:57:18.470 ERROR 3be101a53607 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 10:57:18.520 ERROR 3be101a53607 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 10:57:18.781 ERROR 3be101a53607 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 10:57:18.809 ERROR 3be101a53607 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 10:57:18.813 ERROR 3be101a53607 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 10:57:18.840 ERROR 3be101a53607 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 10:57:18.865 ERROR 3be101a53607 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 12:31:35.465 ERROR 725205414bea --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 12:31:35.493 ERROR 725205414bea --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 12:31:35.500 ERROR 725205414bea --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 12:31:35.545 ERROR 725205414bea --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:31:35.547 ERROR 725205414bea --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:31:35.551 ERROR 725205414bea --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:31:35.564 ERROR 725205414bea --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:31:35.570 ERROR 725205414bea --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:31:35.630 ERROR 725205414bea --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:31:35.638 ERROR 725205414bea --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:31:35.646 ERROR 725205414bea --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:31:35.656 ERROR 725205414bea --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:31:35.659 ERROR 725205414bea --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:31:35.715 ERROR 725205414bea --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 12:31:35.718 ERROR 725205414bea --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 12:31:35.764 ERROR 725205414bea --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 12:31:35.767 ERROR 725205414bea --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 12:31:35.887 ERROR 725205414bea --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:31:35.896 ERROR 725205414bea --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:31:35.907 ERROR 725205414bea --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:31:35.912 ERROR 725205414bea --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:31:35.915 ERROR 725205414bea --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:31:35.917 ERROR 725205414bea --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:31:35.954 ERROR 725205414bea --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:31:36.053  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.084  WARN 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:31:36.086  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.089  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.092  WARN 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:31:36.093  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.094  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.095  WARN 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:31:36.096  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.099  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.100  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.107  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.109  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.112  WARN 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:31:36.113  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.115  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.117  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.119  INFO 725205414bea --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:31:36.128  WARN 725205414bea --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:31:36.133  WARN 725205414bea --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:31:36.135  WARN 725205414bea --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:31:36.150  WARN 725205414bea --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:31:36.215 ERROR 725205414bea --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 12:31:36.219 ERROR 725205414bea --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 12:31:36.389 ERROR 725205414bea --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 12:31:36.439 ERROR 725205414bea --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 12:31:36.697 ERROR 725205414bea --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 12:31:36.722 ERROR 725205414bea --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 12:31:36.725 ERROR 725205414bea --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 12:31:36.776 ERROR 725205414bea --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 12:31:36.803 ERROR 725205414bea --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 12:35:37.564 ERROR c18055a00d98 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 12:35:37.602 ERROR c18055a00d98 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 12:35:37.614 ERROR c18055a00d98 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 12:35:37.672 ERROR c18055a00d98 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:35:37.674 ERROR c18055a00d98 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:35:37.678 ERROR c18055a00d98 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:35:37.693 ERROR c18055a00d98 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:35:37.703 ERROR c18055a00d98 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:35:37.784 ERROR c18055a00d98 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:35:37.797 ERROR c18055a00d98 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:35:37.808 ERROR c18055a00d98 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:35:37.821 ERROR c18055a00d98 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:35:37.827 ERROR c18055a00d98 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:35:37.905 ERROR c18055a00d98 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 12:35:37.921 ERROR c18055a00d98 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 12:35:37.977 ERROR c18055a00d98 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 12:35:37.979 ERROR c18055a00d98 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 12:35:38.128 ERROR c18055a00d98 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:35:38.136 ERROR c18055a00d98 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:35:38.151 ERROR c18055a00d98 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:35:38.157 ERROR c18055a00d98 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:35:38.159 ERROR c18055a00d98 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:35:38.163 ERROR c18055a00d98 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:35:38.203 ERROR c18055a00d98 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:35:38.302  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.315  WARN c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:35:38.318  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.320  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.322  WARN c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:35:38.324  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.325  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.326  WARN c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:35:38.329  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.334  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.336  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.346  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.349  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.350  WARN c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:35:38.352  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.353  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.355  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.358  INFO c18055a00d98 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:35:38.374  WARN c18055a00d98 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:35:38.383  WARN c18055a00d98 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:35:38.387  WARN c18055a00d98 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:35:38.405  WARN c18055a00d98 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:35:38.484 ERROR c18055a00d98 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 12:35:38.489 ERROR c18055a00d98 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 12:35:38.686 ERROR c18055a00d98 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 12:35:38.743 ERROR c18055a00d98 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 12:35:39.021 ERROR c18055a00d98 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 12:35:39.052 ERROR c18055a00d98 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 12:35:39.055 ERROR c18055a00d98 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 12:35:39.087 ERROR c18055a00d98 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 12:35:39.116 ERROR c18055a00d98 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 12:42:00.363 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 12:42:00.401 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 12:42:00.411 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 12:42:00.466 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:42:00.468 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:42:00.472 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:42:00.488 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:42:00.499 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 12:42:00.586 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:42:00.602 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:42:00.616 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:42:00.630 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:42:00.635 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 12:42:00.713 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 12:42:00.720 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 12:42:00.772 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 12:42:00.774 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 12:42:00.933 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:42:00.941 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:42:00.954 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:42:00.960 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:42:00.963 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:42:00.966 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:42:01.004 ERROR 59ea4d863a8e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 12:42:01.108  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.125  WARN 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:42:01.127  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.129  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.131  WARN 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:42:01.132  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.134  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.135  WARN 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:42:01.137  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.139  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.141  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.152  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.155  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.156  WARN 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 12:42:01.157  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.158  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.160  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.163  INFO 59ea4d863a8e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 12:42:01.188  WARN 59ea4d863a8e --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:42:01.194  WARN 59ea4d863a8e --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:42:01.196  WARN 59ea4d863a8e --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:42:01.212  WARN 59ea4d863a8e --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 12:42:01.284 ERROR 59ea4d863a8e --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 12:42:01.288 ERROR 59ea4d863a8e --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 12:42:01.494 ERROR 59ea4d863a8e --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 12:42:01.557 ERROR 59ea4d863a8e --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 12:42:01.843 ERROR 59ea4d863a8e --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 12:42:01.875 ERROR 59ea4d863a8e --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 12:42:01.878 ERROR 59ea4d863a8e --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 12:42:01.908 ERROR 59ea4d863a8e --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 12:42:01.935 ERROR 59ea4d863a8e --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 13:11:56.624 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 13:11:56.655 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 13:11:56.664 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 13:11:56.714 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 13:11:56.715 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 13:11:56.719 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 13:11:56.732 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 13:11:56.739 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 13:11:56.809 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 13:11:56.819 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 13:11:56.828 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 13:11:56.838 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 13:11:56.841 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 13:11:56.918 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 13:11:56.929 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 13:11:56.992 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 13:11:56.995 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 13:11:57.134 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 13:11:57.146 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 13:11:57.168 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 13:11:57.175 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 13:11:57.178 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 13:11:57.185 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 13:11:57.241 ERROR 9506ec88f0c4 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 13:11:57.346  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.360  WARN 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 13:11:57.362  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.364  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.367  WARN 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 13:11:57.368  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.369  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.370  WARN 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 13:11:57.373  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.375  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.377  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.386  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.388  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.389  WARN 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 13:11:57.391  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.392  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.394  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.397  INFO 9506ec88f0c4 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 13:11:57.408  WARN 9506ec88f0c4 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 13:11:57.412  WARN 9506ec88f0c4 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 13:11:57.415  WARN 9506ec88f0c4 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 13:11:57.427  WARN 9506ec88f0c4 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 13:11:57.505 ERROR 9506ec88f0c4 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 13:11:57.510 ERROR 9506ec88f0c4 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 13:11:57.723 ERROR 9506ec88f0c4 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 13:11:57.784 ERROR 9506ec88f0c4 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 13:11:58.117 ERROR 9506ec88f0c4 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 13:11:58.152 ERROR 9506ec88f0c4 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 13:11:58.156 ERROR 9506ec88f0c4 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 13:11:58.199 ERROR 9506ec88f0c4 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 13:11:58.228 ERROR 9506ec88f0c4 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 15:45:45.885 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 15:45:45.915 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 15:45:45.923 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 15:45:45.972 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 15:45:45.973 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 15:45:45.977 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 15:45:45.993 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 15:45:46.002 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 15:45:46.086 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 15:45:46.103 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 15:45:46.116 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 15:45:46.126 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 15:45:46.130 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 15:45:46.198 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 15:45:46.202 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 15:45:46.243 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 15:45:46.246 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 15:45:46.372 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 15:45:46.381 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 15:45:46.404 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 15:45:46.409 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 15:45:46.412 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 15:45:46.415 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 15:45:46.454 ERROR 8f32108dcbcf --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 15:45:46.554  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.566  WARN 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 15:45:46.567  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.569  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.572  WARN 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 15:45:46.573  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.574  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.575  WARN 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 15:45:46.577  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.579  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.581  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.589  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.591  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.592  WARN 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 15:45:46.593  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.595  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.596  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.598  INFO 8f32108dcbcf --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 15:45:46.607  WARN 8f32108dcbcf --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 15:45:46.611  WARN 8f32108dcbcf --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 15:45:46.613  WARN 8f32108dcbcf --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 15:45:46.624  WARN 8f32108dcbcf --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 15:45:46.694 ERROR 8f32108dcbcf --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 15:45:46.701 ERROR 8f32108dcbcf --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 15:45:46.910 ERROR 8f32108dcbcf --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 15:45:46.963 ERROR 8f32108dcbcf --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 15:45:47.228 ERROR 8f32108dcbcf --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 15:45:47.257 ERROR 8f32108dcbcf --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 15:45:47.260 ERROR 8f32108dcbcf --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 15:45:47.290 ERROR 8f32108dcbcf --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 15:45:47.317 ERROR 8f32108dcbcf --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-13 19:47:42.027 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 19:47:42.061 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 19:47:42.069 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-13 19:47:42.112 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 19:47:42.114 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 19:47:42.120 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 19:47:42.135 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 19:47:42.143 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-13 19:47:42.212 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 19:47:42.223 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 19:47:42.233 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 19:47:42.244 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 19:47:42.248 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-13 19:47:42.322 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 19:47:42.327 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-13 19:47:42.373 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 19:47:42.376 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-13 19:47:42.508 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 19:47:42.516 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 19:47:42.529 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 19:47:42.533 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 19:47:42.536 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 19:47:42.538 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 19:47:42.579 ERROR da8fc43abc0e --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-13 19:47:42.679  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.692  WARN da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 19:47:42.693  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.696  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.699  WARN da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 19:47:42.700  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.701  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.702  WARN da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 19:47:42.704  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.713  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.715  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.723  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.726  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.727  WARN da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-13 19:47:42.728  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.730  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.732  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.734  INFO da8fc43abc0e --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-13 19:47:42.744  WARN da8fc43abc0e --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 19:47:42.748  WARN da8fc43abc0e --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 19:47:42.753  WARN da8fc43abc0e --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 19:47:42.768  WARN da8fc43abc0e --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-13 19:47:42.854 ERROR da8fc43abc0e --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-13 19:47:42.859 ERROR da8fc43abc0e --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-13 19:47:43.077 ERROR da8fc43abc0e --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-13 19:47:43.142 ERROR da8fc43abc0e --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-13 19:47:43.442 ERROR da8fc43abc0e --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-13 19:47:43.475 ERROR da8fc43abc0e --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 19:47:43.479 ERROR da8fc43abc0e --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-13 19:47:43.507 ERROR da8fc43abc0e --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-13 19:47:43.541 ERROR da8fc43abc0e --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-17 07:42:04.360 ERROR 29c790d35cab --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-17 07:42:04.393 ERROR 29c790d35cab --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-17 07:42:04.403 ERROR 29c790d35cab --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-17 07:42:04.461 ERROR 29c790d35cab --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-17 07:42:04.463 ERROR 29c790d35cab --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-17 07:42:04.467 ERROR 29c790d35cab --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-17 07:42:04.484 ERROR 29c790d35cab --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-17 07:42:04.492 ERROR 29c790d35cab --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-17 07:42:04.572 ERROR 29c790d35cab --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-17 07:42:04.584 ERROR 29c790d35cab --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-17 07:42:04.594 ERROR 29c790d35cab --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-17 07:42:04.607 ERROR 29c790d35cab --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-17 07:42:04.611 ERROR 29c790d35cab --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-17 07:42:04.685 ERROR 29c790d35cab --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-17 07:42:04.691 ERROR 29c790d35cab --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-17 07:42:04.748 ERROR 29c790d35cab --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-17 07:42:04.751 ERROR 29c790d35cab --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-17 07:42:04.913 ERROR 29c790d35cab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 07:42:04.921 ERROR 29c790d35cab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 07:42:04.941 ERROR 29c790d35cab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 07:42:04.946 ERROR 29c790d35cab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 07:42:04.948 ERROR 29c790d35cab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 07:42:04.952 ERROR 29c790d35cab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 07:42:04.997 ERROR 29c790d35cab --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 07:42:05.107  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.121  WARN 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-17 07:42:05.123  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.126  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.130  WARN 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-17 07:42:05.132  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.133  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.134  WARN 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-17 07:42:05.136  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.138  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.140  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.151  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.154  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.156  WARN 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-17 07:42:05.157  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.159  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.161  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.164  INFO 29c790d35cab --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 07:42:05.182  WARN 29c790d35cab --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-17 07:42:05.187  WARN 29c790d35cab --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-17 07:42:05.190  WARN 29c790d35cab --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-17 07:42:05.202  WARN 29c790d35cab --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-17 07:42:05.294 ERROR 29c790d35cab --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-17 07:42:05.300 ERROR 29c790d35cab --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-17 07:42:05.506 ERROR 29c790d35cab --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-17 07:42:05.567 ERROR 29c790d35cab --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-17 07:42:05.846 ERROR 29c790d35cab --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-17 07:42:05.879 ERROR 29c790d35cab --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-17 07:42:05.882 ERROR 29c790d35cab --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-17 07:42:05.927 ERROR 29c790d35cab --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-17 07:42:05.969 ERROR 29c790d35cab --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-17 17:21:45.367 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-17 17:21:45.408 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-17 17:21:45.422 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-17 17:21:45.492 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-17 17:21:45.494 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-17 17:21:45.500 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-17 17:21:45.522 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-17 17:21:45.535 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-17 17:21:45.650 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-17 17:21:45.686 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-17 17:21:45.700 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-17 17:21:45.723 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-17 17:21:45.729 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-17 17:21:45.838 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-17 17:21:45.844 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-17 17:21:45.910 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-17 17:21:45.913 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-17 17:21:46.089 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 17:21:46.100 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 17:21:46.120 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 17:21:46.129 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 17:21:46.133 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 17:21:46.137 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 17:21:46.185 ERROR 5b93b68d7a08 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-17 17:21:46.345  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.362  WARN 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-17 17:21:46.365  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.369  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.373  WARN 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-17 17:21:46.375  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.376  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.378  WARN 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-17 17:21:46.381  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.384  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.386  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.397  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.401  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.403  WARN 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-17 17:21:46.405  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.408  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.411  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.415  INFO 5b93b68d7a08 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-17 17:21:46.431  WARN 5b93b68d7a08 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-17 17:21:46.444  WARN 5b93b68d7a08 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-17 17:21:46.449  WARN 5b93b68d7a08 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-17 17:21:46.474  WARN 5b93b68d7a08 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-17 17:21:46.583 ERROR 5b93b68d7a08 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-17 17:21:46.592 ERROR 5b93b68d7a08 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-17 17:21:46.850 ERROR 5b93b68d7a08 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-17 17:21:46.932 ERROR 5b93b68d7a08 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-17 17:21:47.275 ERROR 5b93b68d7a08 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-17 17:21:47.306 ERROR 5b93b68d7a08 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-17 17:21:47.309 ERROR 5b93b68d7a08 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-17 17:21:47.346 ERROR 5b93b68d7a08 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-17 17:21:47.393 ERROR 5b93b68d7a08 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-19 01:57:22.630 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-19 01:57:22.671 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-19 01:57:22.682 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-19 01:57:22.741 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-19 01:57:22.743 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-19 01:57:22.747 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-19 01:57:22.766 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-19 01:57:22.776 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-19 01:57:22.865 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-19 01:57:22.879 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-19 01:57:22.888 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-19 01:57:22.900 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-19 01:57:22.904 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-19 01:57:22.979 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-19 01:57:22.985 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-19 01:57:23.042 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-19 01:57:23.045 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-19 01:57:23.196 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 01:57:23.205 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 01:57:23.220 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 01:57:23.225 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 01:57:23.228 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 01:57:23.231 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 01:57:23.264 ERROR 1dd182cc6755 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 01:57:23.362  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.374  WARN 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-19 01:57:23.376  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.378  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.381  WARN 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-19 01:57:23.382  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.384  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.385  WARN 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-19 01:57:23.389  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.391  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.393  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.404  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.406  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.407  WARN 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-19 01:57:23.408  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.410  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.412  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.415  INFO 1dd182cc6755 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 01:57:23.429  WARN 1dd182cc6755 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-19 01:57:23.436  WARN 1dd182cc6755 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-19 01:57:23.438  WARN 1dd182cc6755 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-19 01:57:23.448  WARN 1dd182cc6755 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-19 01:57:23.535 ERROR 1dd182cc6755 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-19 01:57:23.540 ERROR 1dd182cc6755 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-19 01:57:23.738 ERROR 1dd182cc6755 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-19 01:57:23.801 ERROR 1dd182cc6755 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-19 01:57:24.101 ERROR 1dd182cc6755 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-19 01:57:24.141 ERROR 1dd182cc6755 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-19 01:57:24.143 ERROR 1dd182cc6755 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-19 01:57:24.184 ERROR 1dd182cc6755 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-19 01:57:24.224 ERROR 1dd182cc6755 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-19 05:52:17.815 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-19 05:52:17.877 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-19 05:52:17.894 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-19 05:52:17.971 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-19 05:52:17.975 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-19 05:52:17.982 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-19 05:52:17.999 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-19 05:52:18.014 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-19 05:52:18.107 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-19 05:52:18.123 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-19 05:52:18.135 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-19 05:52:18.149 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-19 05:52:18.157 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-19 05:52:18.250 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-19 05:52:18.256 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-19 05:52:18.358 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-19 05:52:18.366 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-19 05:52:18.573 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 05:52:18.583 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 05:52:18.603 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 05:52:18.612 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 05:52:18.616 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 05:52:18.623 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 05:52:18.681 ERROR 82a6c4dce259 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-19 05:52:18.818  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.833  WARN 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-19 05:52:18.842  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.847  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.852  WARN 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-19 05:52:18.855  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.856  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.858  WARN 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-19 05:52:18.860  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.862  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.864  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.872  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.881  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.885  WARN 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-19 05:52:18.886  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.888  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.889  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.892  INFO 82a6c4dce259 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-19 05:52:18.905  WARN 82a6c4dce259 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-19 05:52:18.913  WARN 82a6c4dce259 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-19 05:52:18.915  WARN 82a6c4dce259 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-19 05:52:18.932  WARN 82a6c4dce259 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-19 05:52:19.027 ERROR 82a6c4dce259 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-19 05:52:19.031 ERROR 82a6c4dce259 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-19 05:52:19.258 ERROR 82a6c4dce259 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-19 05:52:19.317 ERROR 82a6c4dce259 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-19 05:52:19.624 ERROR 82a6c4dce259 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-19 05:52:19.656 ERROR 82a6c4dce259 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-19 05:52:19.658 ERROR 82a6c4dce259 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-19 05:52:19.687 ERROR 82a6c4dce259 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-19 05:52:19.716 ERROR 82a6c4dce259 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-23 08:34:25.811 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-23 08:34:25.847 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-23 08:34:25.857 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-23 08:34:25.923 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-23 08:34:25.925 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-23 08:34:25.929 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-23 08:34:25.943 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-23 08:34:25.953 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-23 08:34:26.039 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-23 08:34:26.053 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-23 08:34:26.064 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-23 08:34:26.078 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-23 08:34:26.083 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-23 08:34:26.184 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-23 08:34:26.192 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-23 08:34:26.261 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-23 08:34:26.264 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-23 08:34:26.426 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 08:34:26.435 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 08:34:26.450 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 08:34:26.455 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 08:34:26.457 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 08:34:26.461 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 08:34:26.498 ERROR 987b432a7ce9 --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 08:34:26.598  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.610  WARN 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-23 08:34:26.612  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.614  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.617  WARN 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-23 08:34:26.618  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.619  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.621  WARN 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-23 08:34:26.623  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.627  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.629  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.638  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.641  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.642  WARN 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-23 08:34:26.643  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.645  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.647  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.650  INFO 987b432a7ce9 --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 08:34:26.669  WARN 987b432a7ce9 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-23 08:34:26.674  WARN 987b432a7ce9 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-23 08:34:26.676  WARN 987b432a7ce9 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-23 08:34:26.690  WARN 987b432a7ce9 --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-23 08:34:26.772 ERROR 987b432a7ce9 --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-23 08:34:26.778 ERROR 987b432a7ce9 --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-23 08:34:26.999 ERROR 987b432a7ce9 --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-23 08:34:27.089 ERROR 987b432a7ce9 --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-23 08:34:27.780 ERROR 987b432a7ce9 --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-23 08:34:27.840 ERROR 987b432a7ce9 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-23 08:34:27.846 ERROR 987b432a7ce9 --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-23 08:34:27.892 ERROR 987b432a7ce9 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-23 08:34:27.953 ERROR 987b432a7ce9 --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported
+2026-10-23 09:07:23.042 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-23 09:07:23.081 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-23 09:07:23.091 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.UsageLimitedTokenDbService     : null
+2026-10-23 09:07:23.147 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-23 09:07:23.149 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-23 09:07:23.154 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-23 09:07:23.173 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-23 09:07:23.183 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.TokenHeaderDbService           : null
+2026-10-23 09:07:23.277 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-23 09:07:23.291 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-23 09:07:23.302 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-23 09:07:23.316 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-23 09:07:23.321 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.EncryptionKeyDbService         : null
+2026-10-23 09:07:23.402 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-23 09:07:23.415 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.SelfContainedTokenDbService    : null
+2026-10-23 09:07:23.466 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-23 09:07:23.469 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.TimeLimitedTokenDbService      : null
+2026-10-23 09:07:23.620 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 09:07:23.629 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 09:07:23.642 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 09:07:23.648 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 09:07:23.650 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 09:07:23.653 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 09:07:23.712 ERROR 7f8fb34b92df --- [           main] e.a.a.j.s.AuthorizationPolicyDbService   : null
+2026-10-23 09:07:23.829  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.848  WARN 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-23 09:07:23.852  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.855  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.859  WARN 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-23 09:07:23.863  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.865  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.866  WARN 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-23 09:07:23.868  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.872  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.875  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.888  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.890  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.892  WARN 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : Can't identify service definition and operation for path: /consumerauthorization/authorization/mgmt/grant
+2026-10-23 09:07:23.893  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.895  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.897  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.901  INFO 7f8fb34b92df --- [           main] nternalManagementServiceFilterTestHelper : InternalManagementServiceFilterTestHelper is active
+2026-10-23 09:07:23.914  WARN 7f8fb34b92df --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-23 09:07:23.926  WARN 7f8fb34b92df --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-23 09:07:23.930  WARN 7f8fb34b92df --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-23 09:07:23.947  WARN 7f8fb34b92df --- [           main] .f.a.InternalManagementServiceMqttFilter : Can't identify service definition for topic: something/management/test-operation
+2026-10-23 09:07:24.035 ERROR 7f8fb34b92df --- [           main] e.a.a.q.CleanerJob                       : Cleaner job error: test
+2026-10-23 09:07:24.040 ERROR 7f8fb34b92df --- [           main] e.a.a.q.CleanerJob                       : Unhandled token type in cleaner job: TRANSLATION_BRIDGE_TOKEN
+2026-10-23 09:07:24.272 ERROR 7f8fb34b92df --- [           main] .a.s.AuthorizationTokenManagementService : test
+2026-10-23 09:07:24.360 ERROR 7f8fb34b92df --- [           main] e.a.a.s.AuthorizationTokenService        : test
+2026-10-23 09:07:24.658 ERROR 7f8fb34b92df --- [           main] e.a.a.s.e.AuthorizationPolicyEngine      : null
+2026-10-23 09:07:24.689 ERROR 7f8fb34b92df --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-23 09:07:24.691 ERROR 7f8fb34b92df --- [           main] e.a.a.s.e.TokenEngine                    : null
+2026-10-23 09:07:24.720 ERROR 7f8fb34b92df --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token type: CERT_AUTH
+2026-10-23 09:07:24.755 ERROR 7f8fb34b92df --- [           main] e.a.a.s.e.TokenEngine                    : Unhandled token encryption algorithm: unsupported

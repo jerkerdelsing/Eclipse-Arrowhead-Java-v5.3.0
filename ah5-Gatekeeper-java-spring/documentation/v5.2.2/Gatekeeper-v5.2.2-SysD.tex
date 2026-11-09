@@ -1,0 +1,233 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{Gatekeeper}
+\ArrowheadType{System Description}
+\ArrowheadTypeShort{SysD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the Gatekeeper support system of the Eclipse Arrowhead 5.2.2 framework, as implemented in \texttt{ah5-Gatekeeper-java-spring} with an independent local-cloud deployment definition in its own folder.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the Gatekeeper system. The Gatekeeper connects the local cloud to its neighbour clouds through the inter-cloud MQTT relay: global service discovery of authorized foreign providers and inter-cloud negotiation of GateTunnel sessions.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small, >=Stealth]
+    \node[draw=ArrowheadBlue, very thick, minimum width=4.2cm, minimum height=2.2cm, align=center, fill=ArrowheadBlue!10] (s)
+      {\guillemotleft{}System\guillemotright{}\\\textbf{Gatekeeper}};
+    \node[draw=ArrowheadTeal, rectangle, align=left, left=1.3cm of s, text width=4.6cm, inner sep=5pt] (p)
+      {\textbf{Produced services}\\ \texttt{global\allowbreak{}Service\allowbreak{}Discovery}\\ \texttt{inter\allowbreak{}Cloud\allowbreak{}Negotiation}\\ \texttt{gatekeeper\allowbreak{}Management}\\ \texttt{sysMonitor}};
+    \node[draw=ArrowheadOrange, rectangle, align=left, right=1.3cm of s, text width=4.6cm, inner sep=5pt] (c)
+      {\textbf{Consumed}\\ AMQP broker (SysMonitor)\\ Authentication\\ ConsumerAuthorization\\ GateTunnel\\ Relay (MQTT)\\ ServiceRegistry};
+    \draw[->, thick, ArrowheadTeal] (s) -- (p);
+    \draw[->, thick, ArrowheadOrange] (s) -- (c);
+  \end{tikzpicture}
+  \caption{SysML-style block view of Gatekeeper with its produced and consumed services.}
+  \label{fig:system}
+\end{figure}
+
+The rest of this document is organized as follows.
+In Section \ref{sec:prior_art}, we reference major prior art capabilities of the system.
+In Section \ref{sec:use}, we describe the intended usage of the system.
+In Section \ref{sec:properties}, we describe fundamental properties provided by the system.
+In Section \ref{sec:delimitations}, we describe delimitations of capabilities of the system.
+In Section \ref{sec:services}, we describe the abstract service functions consumed or produced by the system.
+In Section \ref{sec:security}, we describe the security capabilities of the system.
+
+\newpage
+
+\subsection{Significant Prior Art}
+\label{sec:prior_art}
+
+Successor of the Arrowhead 4.6 Gatekeeper; native Java port of the former Python implementation (Python sources kept for rollback).
+
+\subsection{How This System Is Meant to Be Used}
+\label{sec:use}
+
+Dynamic\allowbreak{}Service\allowbreak{}Orchestration calls \texttt{global\allowbreak{}Service\allowbreak{}Discovery.\allowbreak{}query} and \texttt{inter\allowbreak{}Cloud\allowbreak{}Negotiation.\allowbreak{}negotiate} during inter-cloud orchestration; the result points the consumer at the local GateTunnel.
+
+\subsection{System functionalities and properties}
+\label{sec:properties}
+
+\subsubsection{Functional properties of the system}
+
+\begin{itemize}
+  \item GSD over the relay with peer-identity check.
+  \item Provider-cloud authorization with Consumer\allowbreak{}Authorization \texttt{check-\allowbreak{}policies}.
+  \item ICN with GateTunnel provider and consumer sessions.
+  \item Configuration of clouds and relays.
+\end{itemize}
+
+\subsubsection{Configuration of system properties}
+
+The system is configured with environment variables. The variables that shape its behaviour are:
+
+\noindent\begin{longtable}{| p{5.4cm} | p{3.4cm} | p{6.4cm} |} \hline
+\rowcolor{gray!33} Property & Default & Meaning \\ \hline \endhead
+\texttt{PORT} & 8449 & HTTPS port. \\ \hline
+\texttt{RELAY\_\allowbreak{}HOST} / \texttt{RELAY\_\allowbreak{}PORT} & arrowhead-relay / 8883 & Inter-cloud relay (MQTT over TLS). \\ \hline
+\texttt{ORGANIZATION} / \texttt{FEDERATION\_\allowbreak{}PEER\_\allowbreak{}ORGANIZATIONS} & Company / (empty) & Own and peer organizations. \\ \hline
+\texttt{FEDERATION\_\allowbreak{}PROFILE} & legacy-mtls & \texttt{legacy-\allowbreak{}mtls} or \texttt{ah-\allowbreak{}gt-\allowbreak{}1}. \\ \hline
+\texttt{SERVICE\_\allowbreak{}REGISTRY\_\allowbreak{}URL} & \texttt{https:\allowbreak{}/\allowbreak{}/\allowbreak{}serviceregistry:\allowbreak{}8443} & Registry. \\ \hline
+\end{longtable}
+
+Secrets (database, keystore and identity passwords, secret keys) have no usable defaults; the standalone deployment reads them from per-deployment Compose file secrets under \texttt{/\allowbreak{}run/\allowbreak{}secrets}.
+
+\subsubsection{Data stored by the system}
+
+Neighbour clouds and relays (SQLite).
+
+\subsubsection{Non functional properties}
+
+Relay requests have timeouts; duplicate QoS 1 requests reuse cached responses.
+
+\subsubsection{Stateful or stateless}
+
+Stateful configuration; sessions are held by GateTunnel.
+
+\subsection{Important Delimitations}
+\label{sec:delimitations}
+
+\texttt{legacy-\allowbreak{}mtls} is not end-to-end encrypted: the relay can see the payload. AH-GT-1 peers are refused, not downgraded.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+This section describes the produced and consumed services. Each produced service is specified by an SD document and one IDD document per interface.
+
+\subsection{Produced services}
+
+\noindent\begin{longtable}{| p{5.3cm} | p{1.3cm} | p{2.6cm} | p{1.6cm} | p{3.6cm} |} \hline
+\rowcolor{gray!33} Service & Version & Interfaces & SD & IDD \\ \hline \endhead
+\texttt{global\allowbreak{}Service\allowbreak{}Discovery} & 5.2.2 & HTTP(S) & \cite{gk-globalServiceDiscovery-sd} & \cite{gk-globalServiceDiscovery-http-idd} \\ \hline
+\texttt{inter\allowbreak{}Cloud\allowbreak{}Negotiation} & 5.2.2 & HTTP(S) & \cite{gk-interCloudNegotiation-sd} & \cite{gk-interCloudNegotiation-http-idd} \\ \hline
+\texttt{gatekeeper\allowbreak{}Management} & 5.2.2 & HTTP(S) & \cite{gk-gatekeeperManagement-sd} & \cite{gk-gatekeeperManagement-http-idd} \\ \hline
+\texttt{sysMonitor} & 1.0.0 & AMQP(S) & \cite{gk-sysMonitor-sd} & \cite{gk-sysMonitor-amqp-idd} \\ \hline
+\end{longtable}
+
+All services use \texttt{generic\_https} with \texttt{CERT\_AUTH}; \texttt{sysMonitor} uses \texttt{generic\_amqps}. The container also answers \texttt{GET /health} on a loopback-only plain-HTTP port for the container health check.
+
+\subsection{Consumed services}
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{2.9cm} | >{\raggedright\arraybackslash}p{3.1cm} | >{\raggedright\arraybackslash}p{2.5cm} | p{3.6cm} | >{\raggedright\arraybackslash}p{2.9cm} |} \hline
+\rowcolor{gray!33} Provider & Service & Operations & Use & Condition \\ \hline \endhead
+ServiceRegistry & serviceDiscovery & register, lookup & Registration; local providers. & always \\ \hline
+Authentication & identity & identity-login, identity-verify & Own token; caller verification. & always \\ \hline
+Consumer\allowbreak{}Authorization & authorization\allowbreak{}Management & check-policies & Authorization of foreign consumers. & provider cloud \\ \hline
+GateTunnel & gate\allowbreak{}Tunnel\allowbreak{}Connection & open-provider-session, open-consumer-session & Relay sessions. & negotiation \\ \hline
+Relay (MQTT) & inter-cloud messages & gsd-request, icn-request & Neighbour Gatekeepers. & always \\ \hline
+AMQP broker (SysMonitor) & sysMonitor (publisher) & echo, power, status & Own observations. & always \\ \hline
+\end{longtable}
+
+Only Authentication's \texttt{identity} and the orchestrator are looked up in the ServiceRegistry; other services are reached through DynamicServiceOrchestration (results cached), and every such call needs a ConsumerAuthorization grant.
+
+\newpage
+
+\section{Security}
+\label{sec:security}
+
+The standalone Java system requires HTTPS with mutual TLS and X.509 certificates following the Arrowhead system certificate profile (\texttt{<System>.<Cloud>.<Organization>.arrowhead.eu}, DNQ \texttt{sy}). There is no insecure runtime mode. Identity tokens are verified through Authentication and bound to the caller certificate. A separate loopback health endpoint is infrastructure only. Provision credentials and a valid CRL using the project-local environment template and Compose definition.
+
+\subsection{Security model}
+
+
+\begin{itemize}
+  \item \textbf{Protocols:} HTTPS (TLS 1.3 and 1.2) with mandatory client certificates; MQTT over TLS; AMQP over TLS for \texttt{sysMonitor}.
+  \item \textbf{Data protection:} transport encryption by TLS; SQLite storage is local to this system's private volume. Passwords are read from Compose file secrets; certificate and private-key files are mounted individually.
+  \item \textbf{System authentication:} mutual TLS with a system or operator certificate of the cloud and an identity token of the same system, verified with Authentication; declared identities are not accepted. Client certificates are checked against the CRL.
+  \item \textbf{Authorization of produced services:} per operation by caller lists in the implementation and, where stated, by ConsumerAuthorization.
+  \item Service operations only for Dynamic\allowbreak{}Service\allowbreak{}Orchestration, Simple\allowbreak{}Store\allowbreak{}Service\allowbreak{}Orchestration, LocalCloudManager, Gatekeeper and Sysop; management only LocalCloudManager and Sysop. Only orchestrators may act for another consumer.
+\end{itemize}
+
+For the Arrowhead certificate profile see github.com/eclipse-arrowhead/documentation.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-25 & \arrowversion & Independent Java build, private helpers and state, per-system deployment and configuration. & Codex (draft) \\ \hline
+3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

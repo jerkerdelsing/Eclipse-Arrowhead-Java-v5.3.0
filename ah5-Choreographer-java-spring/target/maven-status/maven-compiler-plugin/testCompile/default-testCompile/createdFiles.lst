@@ -1,0 +1,5 @@
+eu/arrowhead/choreographer/service/PlanValidatorTest.class
+eu/arrowhead/choreographer/service/VersionsTest.class
+eu/arrowhead/choreographer/graph/StepGraphUtilsTest.class
+eu/arrowhead/choreographer/service/SessionServiceTest.class
+eu/arrowhead/choreographer/engine/OrchestrationResultBrokerTest.class

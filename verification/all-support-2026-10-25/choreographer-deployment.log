@@ -1,0 +1,70 @@
+choreographer-1  | Arrowhead Choreographer 5.2.2
+choreographer-1  | 
+choreographer-1  | 2026-10-25 10:55:27.418  INFO af85f67e8a1f --- [           main] e.a.c.ChoreographerMain                  : Starting ChoreographerMain v5.2.2 using Java 21.0.12.1 with PID 1 (/app/app.jar started by ? in /app)
+choreographer-1  | 2026-10-25 10:55:27.422  INFO af85f67e8a1f --- [           main] e.a.c.ChoreographerMain                  : No active profile set, falling back to 1 default profile: "default"
+choreographer-1  | 2026-10-25 10:55:28.523  INFO af85f67e8a1f --- [           main] .c.s.CrlRevocationConfig$$SpringCGLIB$$0 : Client certificates are checked against the CRL [/crl/ca.crl]
+choreographer-1  | 2026-10-25 10:55:28.577  INFO af85f67e8a1f --- [           main] e.a.c.h.f.a.OutsourcedFilter             : OutsourcedFilter is active
+choreographer-1  | 2026-10-25 10:55:28.815  INFO af85f67e8a1f --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+choreographer-1  | 2026-10-25 10:55:28.823  INFO af85f67e8a1f --- [           main] e.a.c.s.OrchestrationCallbackFilter      : OrchestrationCallbackFilter is active
+choreographer-1  | 2026-10-25 10:55:28.834  INFO af85f67e8a1f --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+choreographer-1  | 2026-10-25 10:55:29.351  WARN af85f67e8a1f --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+choreographer-1  | 2026-10-25 10:55:30.333  INFO af85f67e8a1f --- [           main] e.a.c.s.SysMonitorPublisher              : sysMonitor publisher enabled on arrowhead TestCloud.sysmonitor.Choreographer.Choreographer
+choreographer-1  | 2026-10-25 10:55:30.346  INFO af85f67e8a1f --- [           main] .q.OutsourcedLoginConfig$$SpringCGLIB$$0 : Login job (to authentication server) is initialized.
+choreographer-1  | 2026-10-25 10:55:30.361  WARN af85f67e8a1f --- [nitor-publisher] e.a.c.s.SysMonitorPublisher              : sysMonitor publication failed: Connection refused
+choreographer-1  | 2026-10-25 10:55:30.431  WARN af85f67e8a1f --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+choreographer-1  | 2026-10-25 10:55:30.897  INFO af85f67e8a1f --- [           main] c.i.ChoreographerApplicationInitListener : System name: Choreographer
+choreographer-1  | 2026-10-25 10:55:30.898  INFO af85f67e8a1f --- [           main] c.i.ChoreographerApplicationInitListener : System port: 8454
+choreographer-1  | 2026-10-25 10:55:30.898  INFO af85f67e8a1f --- [           main] c.i.ChoreographerApplicationInitListener : SSL mode: ENABLED
+choreographer-1  | 2026-10-25 10:55:30.898  INFO af85f67e8a1f --- [           main] c.i.ChoreographerApplicationInitListener : Authentication policy: OUTSOURCED
+choreographer-1  | 2026-10-25 10:55:31.351  INFO af85f67e8a1f --- [eduler_Worker-1] e.a.c.q.OutsourcedLoginJob               : (Re-)Login is successful
+choreographer-1  | 2026-10-25 10:55:33.915  INFO af85f67e8a1f --- [           main] c.i.ChoreographerApplicationInitListener : ServiceRegistry is accessible...
+choreographer-1  | 2026-10-25 10:55:34.011  INFO af85f67e8a1f --- [           main] c.i.ChoreographerApplicationInitListener : System Choreographer published 5 service(s)
+choreographer-1  | 2026-10-25 10:55:34.043  INFO af85f67e8a1f --- [           main] c.i.ChoreographerApplicationInitListener : Re-registered 4 service(s) with CERT_AUTH interfaces
+choreographer-1  | 2026-10-25 10:55:34.052  INFO af85f67e8a1f --- [           main] e.a.c.ChoreographerMain                  : Started ChoreographerMain in 6.839 seconds (process running for 7.363)
+choreographer-db-1  | 2026-10-25 10:55:20+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+choreographer-db-1  | 2026-10-25 10:55:21+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+choreographer-db-1  | 2026-10-25 10:55:21+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+choreographer-db-1  | 2026-10-25 10:55:21+00:00 [Note] [Entrypoint]: Initializing database files
+choreographer-db-1  | 2026-10-25T10:55:21.269560Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+choreographer-db-1  | 2026-10-25T10:55:21.270520Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.4.11) initializing of server in progress as process 82
+choreographer-db-1  | 2026-10-25T10:55:21.275006Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+choreographer-db-1  | 2026-10-25T10:55:21.409134Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+choreographer-db-1  | 2026-10-25T10:55:21.779116Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+choreographer-db-1  | 2026-10-25T10:55:23.238238Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+choreographer-db-1  | 2026-10-25 10:55:23+00:00 [Note] [Entrypoint]: Database files initialized
+choreographer-db-1  | 2026-10-25 10:55:23+00:00 [Note] [Entrypoint]: Starting temporary server
+choreographer-db-1  | 2026-10-25T10:55:23.273756Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+choreographer-db-1  | 2026-10-25T10:55:23.427168Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 127
+choreographer-db-1  | 2026-10-25T10:55:23.433663Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+choreographer-db-1  | 2026-10-25T10:55:23.494740Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+choreographer-db-1  | 2026-10-25T10:55:23.611556Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+choreographer-db-1  | 2026-10-25T10:55:23.611642Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+choreographer-db-1  | 2026-10-25T10:55:23.612856Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+choreographer-db-1  | 2026-10-25T10:55:23.620836Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+choreographer-db-1  | 2026-10-25T10:55:23.620866Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+choreographer-db-1  | 2026-10-25 10:55:23+00:00 [Note] [Entrypoint]: Temporary server started.
+choreographer-db-1  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+choreographer-db-1  | 2026-10-25 10:55:24+00:00 [Note] [Entrypoint]: Creating database ah_choreographer
+choreographer-db-1  | 2026-10-25 10:55:24+00:00 [Note] [Entrypoint]: Creating user choreographer
+choreographer-db-1  | 2026-10-25 10:55:24+00:00 [Note] [Entrypoint]: Giving user choreographer access to schema ah_choreographer
+choreographer-db-1  | 
+choreographer-db-1  | 2026-10-25 10:55:24+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/10-schema.sql
+choreographer-db-1  | 
+choreographer-db-1  | 
+choreographer-db-1  | 2026-10-25 10:55:24+00:00 [Note] [Entrypoint]: Stopping temporary server
+choreographer-db-1  | 2026-10-25T10:55:24.409643Z 14 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.4.11).
+choreographer-db-1  | 2026-10-25T10:55:25.092379Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.4.11)  MySQL Community Server - GPL.
+choreographer-db-1  | 2026-10-25T10:55:25.092397Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+choreographer-db-1  | 2026-10-25 10:55:25+00:00 [Note] [Entrypoint]: Temporary server stopped
+choreographer-db-1  | 
+choreographer-db-1  | 2026-10-25 10:55:25+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+choreographer-db-1  | 
+choreographer-db-1  | 2026-10-25T10:55:25.419648Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+choreographer-db-1  | 2026-10-25T10:55:25.570661Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 1
+choreographer-db-1  | 2026-10-25T10:55:25.573643Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+choreographer-db-1  | 2026-10-25T10:55:25.635892Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+choreographer-db-1  | 2026-10-25T10:55:25.743231Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+choreographer-db-1  | 2026-10-25T10:55:25.743270Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+choreographer-db-1  | 2026-10-25T10:55:25.744511Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+choreographer-db-1  | 2026-10-25T10:55:25.753965Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+choreographer-db-1  | 2026-10-25T10:55:25.754010Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.

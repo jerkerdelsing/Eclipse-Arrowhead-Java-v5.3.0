@@ -1,0 +1,8 @@
+{
+  "javaBaselineContainers": 43,
+  "changedContainers": [
+    "arrowhead-v52-test-cloud-cloud-monitor-ui-1",
+    "arrowhead-v52-test-cloud-cloud-monitor-api-1"
+  ],
+  "otherJavaBaselineContainersUnchanged": true
+}

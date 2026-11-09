@@ -1,0 +1,57 @@
+user RandomDataProducer.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/RandomDataProducer/randomNumberProducer/#
+
+user DataManager.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/DataManager/DataManager/#
+
+user SysMonitor.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/health/mqtt
+topic read arrowhead/TestCloud/sysmonitor/+/+/+
+topic write arrowhead/TestCloud/sysmonitor/data/+/+
+topic write arrowhead/TestCloud/sysmonitor/SysMonitor/SysMonitor/+
+
+
+user AIGym.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/AIGym/aiGym/+
+topic read arrowhead/TestCloud/sysmonitor/data/+/+
+
+user LocalCloudManager.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/LocalCloudManager/LocalCloudManager/#
+
+user CertificateAuthority.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/CertificateAuthority/certificateAuthority/+
+
+# Native sysMonitor publishers: each system may write only below its own topic.
+
+user ServiceRegistry.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/ServiceRegistry/ServiceRegistry/#
+
+user Authentication.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/Authentication/Authentication/#
+
+user ConsumerAuthorization.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/ConsumerAuthorization/ConsumerAuthorization/#
+
+user DynamicServiceOrchestration.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/DynamicServiceOrchestration/DynamicServiceOrchestration/#
+
+user SimpleStoreServiceOrchestration.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration/#
+
+user Blacklist.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/Blacklist/Blacklist/#
+
+user TranslationManager.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/TranslationManager/TranslationManager/#
+
+user DeviceQoSEvaluator.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/DeviceQoSEvaluator/DeviceQoSEvaluator/#
+
+user Onboarding.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/Onboarding/Onboarding/#
+
+user Gatekeeper.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/Gatekeeper/Gatekeeper/#
+
+user GateTunnel.TestCloud.Company.arrowhead.eu
+topic write arrowhead/TestCloud/sysmonitor/GateTunnel/GateTunnel/#

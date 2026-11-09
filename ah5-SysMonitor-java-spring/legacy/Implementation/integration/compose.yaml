@@ -1,0 +1,645 @@
+name: ${COMPOSE_PROJECT_NAME:-arrowhead-v52-test-cloud}
+
+x-db-common: &db-common
+  platform: ${DOCKER_PLATFORM:-linux/amd64}
+  restart: unless-stopped
+  environment:
+    MYSQL_ROOT_PASSWORD: ${DB_ROOT_PSW:?Set DB_ROOT_PSW in .env}
+    MYSQL_USER: ah-operator
+    MYSQL_PASSWORD: ${DB_AH_OPERATOR_PSW:?Set DB_AH_OPERATOR_PSW in .env}
+  healthcheck:
+    test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+    interval: 4s
+    timeout: 3s
+    retries: 15
+    start_period: 20s
+  networks: [arrowhead]
+
+x-system-common: &system-common
+  platform: ${DOCKER_PLATFORM:-linux/amd64}
+  restart: unless-stopped
+  networks: [arrowhead]
+
+services:
+  # Mandatory local-cloud core: ServiceRegistry
+  serviceregistry-db:
+    <<: *db-common
+    image: aitiaiiot/arrowhead-serviceregistry-db:${AH_VERSION:-5.2.2}
+    volumes:
+      - serviceregistry-db:/var/lib/mysql
+
+  serviceregistry:
+    <<: *system-common
+    image: aitiaiiot/arrowhead-serviceregistry:${AH_VERSION:-5.2.2}
+    depends_on:
+      serviceregistry-db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://serviceregistry-db:3306/ah_serviceregistry?sslMode=trust
+      DOMAIN_NAME: serviceregistry
+      # v5.2.2 common-utils discovers serviceDiscovery before its first
+      # outsourced login, so ServiceRegistry is the declared bootstrap anchor.
+      AUTHENTICATION_POLICY: declared
+      MANAGEMENT_POLICY: whitelist
+      MANAGEMENT_WHITELIST: Authentication,LocalCloudManager,DynamicServiceOrchestration,DeviceQoSEvaluator
+      JAVA_TOOL_OPTIONS: "-Xms64m -Xmx256m"
+    volumes:
+      - ./runtime/ServiceRegistry/config:/app/config
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${SERVICEREGISTRY_PORT:-8443}:8443"
+
+  # Internal-only compatibility adapter for the v5.2.2 pre-login registry
+  # probe. Each listener injects one immutable core-system identity.
+  registry-bootstrap-proxy:
+    <<: *system-common
+    image: nginx:1.27-alpine
+    depends_on:
+      serviceregistry:
+        condition: service_started
+    volumes:
+      - ./runtime/ServiceRegistry/bootstrap-proxy.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./security/x509:/certs:ro
+
+  # Mandatory local-cloud core: dynamic orchestration
+  serviceorchestration-dynamic-db:
+    <<: *db-common
+    image: aitiaiiot/arrowhead-serviceorchestration-dynamic-db:${AH_VERSION:-5.2.2}
+    volumes:
+      - serviceorchestration-dynamic-db:/var/lib/mysql
+
+  serviceorchestration-dynamic:
+    <<: *system-common
+    image: aitiaiiot/arrowhead-serviceorchestration-dynamic:${AH_VERSION:-5.2.2}
+    depends_on:
+      serviceorchestration-dynamic-db:
+        condition: service_healthy
+      serviceregistry:
+        condition: service_started
+      registry-bootstrap-proxy:
+        condition: service_started
+      authentication-identity-bridge:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://serviceorchestration-dynamic-db:3306/ah_serviceorchestration_dynamic?sslMode=trust
+      DOMAIN_NAME: serviceorchestration-dynamic
+      SERVICE_REGISTRY_ADDRESS: registry-bootstrap-proxy
+      SERVICE_REGISTRY_PORT: 8501
+      AUTHENTICATION_POLICY: outsourced
+      AUTHENTICATOR_CREDENTIALS: "{'password':'${AH_PW_DSO:?set AH_PW_DSO}'}"
+      SERVER_SSL_ENABLED: "true"
+      SERVER_SSL_KEY_STORE: file:/app/config/certificate/DynamicServiceOrchestration.p12
+      SERVER_SSL_TRUST_STORE: file:/app/config/certificate/truststore.p12
+      SERVER_SSL_CLIENT_AUTH: need
+      SERVER_SSL_ENABLED_PROTOCOLS: TLSv1.3,TLSv1.2
+      JAVA_TOOL_OPTIONS: "-Xms64m -Xmx256m"
+    volumes:
+      - ./runtime/DynamicServiceOrchestration/config:/app/config
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${DYNAMIC_ORCHESTRATION_PORT:-8441}:8441"
+
+  # Optional alternative orchestrator introduced in 5.2.
+  serviceorchestration-simple-db:
+    <<: *db-common
+    profiles: [simple, all]
+    image: aitiaiiot/arrowhead-serviceorchestration-simple-db:${AH_VERSION:-5.2.2}
+    volumes:
+      - serviceorchestration-simple-db:/var/lib/mysql
+
+  serviceorchestration-simple:
+    <<: *system-common
+    profiles: [simple, all]
+    image: aitiaiiot/arrowhead-serviceorchestration-simple:${AH_VERSION:-5.2.2}
+    depends_on:
+      serviceorchestration-simple-db:
+        condition: service_healthy
+      serviceregistry:
+        condition: service_started
+      registry-bootstrap-proxy:
+        condition: service_started
+      authentication-identity-bridge:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://serviceorchestration-simple-db:3306/ah_serviceorchestration_simple?sslMode=trust
+      SERVER_PORT: "8442"  # canonical port (GSoSDD port specification); the base image config still says 8465
+      DOMAIN_NAME: serviceorchestration-simple
+      SERVICE_REGISTRY_ADDRESS: registry-bootstrap-proxy
+      SERVICE_REGISTRY_PORT: 8506
+      AUTHENTICATION_POLICY: outsourced
+      AUTHENTICATOR_CREDENTIALS: "{'password':'${AH_PW_SSO:?set AH_PW_SSO}'}"
+      SERVER_SSL_ENABLED: "true"
+      SERVER_SSL_KEY_STORE: file:/app/config/certificate/SimpleStoreServiceOrchestration.p12
+      SERVER_SSL_TRUST_STORE: file:/app/config/certificate/truststore.p12
+      SERVER_SSL_CLIENT_AUTH: need
+      SERVER_SSL_ENABLED_PROTOCOLS: TLSv1.3,TLSv1.2
+      JAVA_TOOL_OPTIONS: "-Xms64m -Xmx256m"
+    volumes:
+      - ./runtime/SimpleStoreServiceOrchestration/config:/app/config
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${SIMPLE_ORCHESTRATION_PORT:-8442}:8442"
+
+  # Mandatory local-cloud core: ConsumerAuthorization
+  consumerauthorization-db:
+    <<: *db-common
+    image: aitiaiiot/arrowhead-consumerauthorization-db:${AH_VERSION:-5.2.2}
+    volumes:
+      - consumerauthorization-db:/var/lib/mysql
+
+  consumerauthorization:
+    <<: *system-common
+    image: aitiaiiot/arrowhead-consumerauthorization:${AH_VERSION:-5.2.2}
+    depends_on:
+      consumerauthorization-db:
+        condition: service_healthy
+      serviceregistry:
+        condition: service_started
+      registry-bootstrap-proxy:
+        condition: service_started
+      authentication-identity-bridge:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://consumerauthorization-db:3306/ah_consumer_authorization?sslMode=trust
+      DOMAIN_NAME: consumerauthorization
+      SERVICE_REGISTRY_ADDRESS: registry-bootstrap-proxy
+      SERVICE_REGISTRY_PORT: 8502
+      AUTHENTICATION_POLICY: outsourced
+      AUTHENTICATOR_SECRET_KEYS: "{'Authentication':'IJhl6xFr31p7g4l'}"
+      AUTHENTICATOR_CREDENTIALS: "{'password':'${AH_PW_CA:?set AH_PW_CA}'}"
+      SERVER_SSL_ENABLED: "true"
+      SERVER_SSL_KEY_STORE: file:/app/config/certificate/ConsumerAuthorization.p12
+      SERVER_SSL_TRUST_STORE: file:/app/config/certificate/truststore.p12
+      SERVER_SSL_CLIENT_AUTH: need
+      SERVER_SSL_ENABLED_PROTOCOLS: TLSv1.3,TLSv1.2
+      JAVA_TOOL_OPTIONS: "-Xms64m -Xmx256m"
+    volumes:
+      - ./runtime/ConsumerAuthorization/config:/app/config
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${CONSUMER_AUTHORIZATION_PORT:-8445}:8445"
+
+  # Mandatory Authentication core for outsourced identity tokens.
+  authentication-db:
+    <<: *db-common
+    image: aitiaiiot/arrowhead-authentication-db:${AH_VERSION:-5.2.2}
+    volumes:
+      - authentication-db:/var/lib/mysql
+
+  # Private mTLS ingress used only by Authentication's certificate-mode SR bootstrap.
+  authentication-registry-mtls:
+    <<: *system-common
+    image: nginx:1.27-alpine
+    depends_on:
+      serviceregistry:
+        condition: service_started
+    volumes:
+      - ./runtime/Authentication/registry-mtls.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./security/x509:/certs:ro
+
+  authentication:
+    <<: *system-common
+    image: aitiaiiot/arrowhead-authentication:${AH_VERSION:-5.2.2}
+    depends_on:
+      authentication-db:
+        condition: service_healthy
+      serviceregistry:
+        condition: service_started
+      authentication-registry-mtls:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://authentication-db:3306/ah_authentication?sslMode=trust
+      DOMAIN_NAME: authentication
+      SERVICE_REGISTRY_ADDRESS: authentication-registry-mtls
+      AUTHENTICATION_POLICY: internal
+      SERVER_SSL_ENABLED: "true"
+      SERVER_SSL_KEY_STORE_TYPE: PKCS12
+      SERVER_SSL_KEY_STORE: file:/app/config/certificate/Authentication.p12
+      SERVER_SSL_KEY_STORE_PASSWORD: "123456"
+      SERVER_SSL_KEY_ALIAS: Authentication.TestCloud.Company.arrowhead.eu
+      SERVER_SSL_KEY_PASSWORD: "123456"
+      SERVER_SSL_CLIENT_AUTH: need
+      SERVER_SSL_TRUST_STORE_TYPE: PKCS12
+      SERVER_SSL_TRUST_STORE: file:/app/config/certificate/truststore.p12
+      SERVER_SSL_TRUST_STORE_PASSWORD: "123456"
+      SERVER_SSL_ENABLED_PROTOCOLS: TLSv1.3,TLSv1.2
+      DISABLE_HOSTNAME_VERIFIER: "false"
+      JAVA_TOOL_OPTIONS: "-Xms64m -Xmx256m"
+    volumes:
+      - ./runtime/Authentication/config:/app/config
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${AUTHENTICATION_PORT:-8444}:8444"
+
+  # v5.2.2 HTTP core systems discover this internal-only adapter to obtain and
+  # verify outsourced identity tokens. Authentication itself remains mTLS.
+  authentication-identity-bridge:
+    <<: *system-common
+    image: nginx:1.27-alpine
+    depends_on:
+      authentication:
+        condition: service_started
+    volumes:
+      - ./runtime/Authentication/identity-bridge.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./security/x509:/certs:ro
+
+  # Released v5 support: Blacklist
+  blacklist-db:
+    <<: *db-common
+    image: aitiaiiot/arrowhead-blacklist-db:${AH_VERSION:-5.2.2}
+    volumes:
+      - blacklist-db:/var/lib/mysql
+
+  blacklist:
+    <<: *system-common
+    image: aitiaiiot/arrowhead-blacklist:${AH_VERSION:-5.2.2}
+    depends_on:
+      blacklist-db:
+        condition: service_healthy
+      serviceregistry:
+        condition: service_started
+      registry-bootstrap-proxy:
+        condition: service_started
+      authentication-identity-bridge:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://blacklist-db:3306/ah_blacklist?sslMode=trust
+      DOMAIN_NAME: blacklist
+      SERVICE_REGISTRY_ADDRESS: registry-bootstrap-proxy
+      SERVICE_REGISTRY_PORT: 8503
+      AUTHENTICATION_POLICY: outsourced
+      AUTHENTICATOR_CREDENTIALS: "{'password':'${AH_PW_BL:?set AH_PW_BL}'}"
+      JAVA_TOOL_OPTIONS: "-Xms64m -Xmx256m"
+    volumes:
+      - ./runtime/Blacklist/config:/app/config
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${BLACKLIST_PORT:-8464}:8464"
+
+  # Released v5 support: TranslationManager
+  translation-manager-db:
+    <<: *db-common
+    image: aitiaiiot/arrowhead-translation-manager-db:${AH_VERSION:-5.2.2}
+    volumes:
+      - translation-manager-db:/var/lib/mysql
+
+  translation-manager:
+    <<: *system-common
+    image: aitiaiiot/arrowhead-translation-manager:${AH_VERSION:-5.2.2}
+    depends_on:
+      translation-manager-db:
+        condition: service_healthy
+      serviceregistry:
+        condition: service_started
+      registry-bootstrap-proxy:
+        condition: service_started
+      authentication-identity-bridge:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://translation-manager-db:3306/ah_translation_manager?sslMode=trust
+      DOMAIN_NAME: translation-manager
+      SERVICE_REGISTRY_ADDRESS: registry-bootstrap-proxy
+      SERVICE_REGISTRY_PORT: 8504
+      AUTHENTICATION_POLICY: outsourced
+      AUTHENTICATOR_CREDENTIALS: "{'password':'${AH_PW_TM:?set AH_PW_TM}'}"
+      JAVA_TOOL_OPTIONS: "-Xms64m -Xmx256m"
+    volumes:
+      - ./runtime/TranslationManager/config:/app/config
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${TRANSLATION_MANAGER_PORT:-8465}:8465"
+
+  # Released v5.2 support: DeviceQoSEvaluator
+  device-qos-evaluator-db:
+    <<: *db-common
+    image: aitiaiiot/arrowhead-device-qos-evaluator-db:${AH_VERSION:-5.2.2}
+    volumes:
+      - device-qos-evaluator-db:/var/lib/mysql
+
+  device-qos-evaluator:
+    <<: *system-common
+    image: aitiaiiot/arrowhead-device-qos-evaluator:${AH_VERSION:-5.2.2}
+    depends_on:
+      device-qos-evaluator-db:
+        condition: service_healthy
+      serviceregistry:
+        condition: service_started
+      registry-bootstrap-proxy:
+        condition: service_started
+      authentication-identity-bridge:
+        condition: service_started
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://device-qos-evaluator-db:3306/ah_device_qos_evaluator?sslMode=trust
+      DOMAIN_NAME: device-qos-evaluator
+      SERVICE_REGISTRY_ADDRESS: registry-bootstrap-proxy
+      SERVICE_REGISTRY_PORT: 8505
+      AUTHENTICATION_POLICY: outsourced
+      AUTHENTICATOR_CREDENTIALS: "{'password':'${AH_PW_DQE:?set AH_PW_DQE}'}"
+      JAVA_TOOL_OPTIONS: "-Xms64m -Xmx256m"
+    volumes:
+      - ./runtime/DeviceQoSEvaluator/config:/app/config
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${DEVICE_QOS_EVALUATOR_PORT:-8472}:8472"
+
+  # v5-native test DataManager: persistent SenML historian and latest-value cache.
+  datamanager:
+    build:
+      context: ./datamanager
+    image: arrowhead-datamanager-v5-test:1.0.0
+    platform: ${DOCKER_PLATFORM:-linux/amd64}
+    restart: unless-stopped
+    depends_on:
+      serviceregistry:
+        condition: service_started
+      authentication:
+        condition: service_started
+      mqtt-broker:
+        condition: service_healthy
+    environment:
+      PORT: 8461
+      TLS_PORT: 8462
+      DB_PATH: /data/datamanager.db
+      SERVICE_REGISTRY_URL: http://serviceregistry:8443
+      AUTHENTICATION_URL: https://authentication:8444
+      AUTHENTICATION_PASSWORD: "${AH_PW_DM:?set AH_PW_DM}"
+      ARROWHEAD_SYSTEM_NAME: DataManager
+      TLS_CA_CERT: /certs/ca.crt
+      TLS_SERVER_CERT: /certs/datamanager.crt
+      TLS_SERVER_KEY: /certs/datamanager.key
+      MQTT_HOST: mqtt-broker
+      MQTT_PORT: 8883
+      LOCAL_CLOUD: TestCloud
+      MONITOR_INTERVAL_SECONDS: 30
+    volumes:
+      - datamanager-data:/data
+      - ./security/x509:/certs:ro
+    networks: [arrowhead]
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${DATAMANAGER_PORT:-8461}:8461"
+      - "${BIND_ADDRESS:-127.0.0.1}:${DATAMANAGER_TLS_PORT:-8462}:8462"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8461/health', timeout=3)"]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+      start_period: 10s
+
+  # X.509/mTLS system that publishes a cryptographically random 0..100 value every 30 seconds.
+  random-data-producer:
+    build:
+      context: ./random-data-producer
+    image: arrowhead-random-data-producer:1.0.0
+    platform: ${DOCKER_PLATFORM:-linux/amd64}
+    restart: unless-stopped
+    depends_on:
+      datamanager:
+        condition: service_healthy
+      serviceregistry:
+        condition: service_started
+      serviceorchestration-dynamic:
+        condition: service_started
+      consumerauthorization:
+        condition: service_started
+      authentication:
+        condition: service_started
+      mqtt-broker:
+        condition: service_healthy
+    environment:
+      PORT: 8463
+      PUBLISH_INTERVAL_SECONDS: 30
+      SERVICE_REGISTRY_URL: http://serviceregistry:8443
+      ORCHESTRATOR_URL: https://serviceorchestration-dynamic:8441
+      AUTHENTICATION_URL: https://authentication:8444
+      AUTHENTICATION_PASSWORD: "${AH_PW_RDP:?set AH_PW_RDP}"
+      ARROWHEAD_SYSTEM_NAME: RandomDataProducer
+      TLS_CA_CERT: /certs/ca.crt
+      TLS_CLIENT_CERT: /certs/random-data-producer.crt
+      TLS_CLIENT_KEY: /certs/random-data-producer.key
+      MQTT_HOST: mqtt-broker
+      MQTT_PORT: 8883
+      LOCAL_CLOUD: TestCloud
+    volumes:
+      - ./security/x509:/certs:ro
+    networks: [arrowhead]
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${RANDOM_DATA_PRODUCER_PORT:-8463}:8463"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import ssl,urllib.request; c=ssl.create_default_context(cafile='/certs/ca.crt'); c.load_cert_chain('/certs/random-data-producer.crt','/certs/random-data-producer.key'); urllib.request.urlopen('https://random-data-producer:8500/health',context=c,timeout=3)"]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+      start_period: 10s
+
+  # X.509-only MQTT 5 broker for Monitoring and SysMonitor data-plane traffic.
+  mqtt-broker:
+    image: eclipse-mosquitto:2.0.20
+    user: "0:0"
+    restart: unless-stopped
+    volumes:
+      - ./mqtt/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+      - ./mqtt/acl:/mosquitto/config/acl:ro
+      - ./security/x509:/certs:ro
+      - mqtt-data:/mosquitto/data
+    networks: [arrowhead]
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${MQTT_TLS_PORT:-8883}:8883"
+    healthcheck:
+      test: ["CMD", "mosquitto_pub", "-h", "127.0.0.1", "-p", "8883", "--cafile", "/certs/ca.crt", "--cert", "/certs/sysmonitor.crt", "--key", "/certs/sysmonitor.key", "-t", "arrowhead/TestCloud/sysmonitor/data/healthcheck/SysMonitor", "-m", "{}", "-q", "1"]
+      interval: 10s
+      timeout: 4s
+      retries: 8
+      start_period: 5s
+
+  # SysMonitor implements the generated SysDD and IDDs: MQTT intake/output,
+  # durable outbox and subscription policy, mTLS management, and DataManager delivery.
+  sysmonitor:
+    build:
+      context: ./sysmonitor
+    image: arrowhead-sysmonitor-v5:5.2.2
+    platform: ${DOCKER_PLATFORM:-linux/amd64}
+    restart: unless-stopped
+    depends_on:
+      mqtt-broker:
+        condition: service_healthy
+      datamanager:
+        condition: service_healthy
+      serviceregistry:
+        condition: service_started
+      serviceorchestration-dynamic:
+        condition: service_started
+      authentication:
+        condition: service_started
+    environment:
+      PORT: 8475
+      HEALTH_PORT: 8482
+      DB_PATH: /data/sysmonitor.db
+      LOCAL_CLOUD: TestCloud
+      MQTT_HOST: mqtt-broker
+      MQTT_PORT: 8883
+      ORCHESTRATION_INTERVAL_SECONDS: 30
+      SERVICE_REGISTRY_URL: http://serviceregistry:8443
+      ORCHESTRATOR_URL: https://serviceorchestration-dynamic:8441
+      AUTHENTICATION_URL: https://authentication:8444
+      AUTHENTICATION_PASSWORD: "${AH_PW_SM:?set AH_PW_SM}"
+      ARROWHEAD_SYSTEM_NAME: SysMonitor
+      TLS_CA_CERT: /certs/ca.crt
+      TLS_CERT: /certs/sysmonitor.crt
+      TLS_KEY: /certs/sysmonitor.key
+    volumes:
+      - sysmonitor-data:/data
+      - ./security/x509:/certs:ro
+    networks: [arrowhead]
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${SYSMONITOR_PORT:-8475}:8475"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8482/health',timeout=3)"]
+      interval: 10s
+      timeout: 4s
+      retries: 8
+      start_period: 10s
+
+  # Arrowhead 5.2.2 Gatekeeper compatibility microsystem. It preserves the
+  # v4.6 GSD/ICN resource paths while using v5 service-operation registration,
+  # independent storage, outsourced Authentication and mandatory mTLS.
+  gatekeeper:
+    build:
+      context: ./gatekeeper
+    image: arrowhead-gatekeeper-v5:5.2.2
+    platform: ${DOCKER_PLATFORM:-linux/amd64}
+    restart: unless-stopped
+    depends_on:
+      serviceregistry:
+        condition: service_started
+      registry-bootstrap-proxy:
+        condition: service_started
+      authentication:
+        condition: service_started
+    environment:
+      PORT: 8449
+      HEALTH_PORT: 8480
+      DB_PATH: /data/gatekeeper.db
+      SERVICE_REGISTRY_URL: https://registry-bootstrap-proxy:8507
+      AUTHENTICATION_URL: https://authentication:8444
+      AUTHENTICATION_PASSWORD: "${AH_PW_GK:?set AH_PW_GK}"
+      ARROWHEAD_SYSTEM_NAME: Gatekeeper
+      TLS_CA_CERT: /certs/ca.crt
+      TLS_SERVER_CERT: /certs/gatekeeper.crt
+      TLS_SERVER_KEY: /certs/gatekeeper.key
+    volumes:
+      - gatekeeper-data:/data
+      - ./security/x509:/certs:ro
+    networks: [arrowhead]
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${GATEKEEPER_PORT:-8449}:8449"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8480/health',timeout=3)"]
+      interval: 10s
+      timeout: 4s
+      retries: 8
+      start_period: 15s
+
+  # The v5.2.2 successor to the v4.6 Gateway is deliberately named
+  # GateTunnel to distinguish its secured tunnel/session contract.
+  gatetunnel:
+    build:
+      context: ./gatetunnel
+    image: arrowhead-gatetunnel-v5:5.2.2
+    platform: ${DOCKER_PLATFORM:-linux/amd64}
+    restart: unless-stopped
+    depends_on:
+      serviceregistry:
+        condition: service_started
+      registry-bootstrap-proxy:
+        condition: service_started
+      authentication:
+        condition: service_started
+    environment:
+      PORT: 8453
+      HEALTH_PORT: 8481
+      MIN_TUNNEL_PORT: 8000
+      MAX_TUNNEL_PORT: 8100
+      DB_PATH: /data/gatetunnel.db
+      SERVICE_REGISTRY_URL: https://registry-bootstrap-proxy:8508
+      AUTHENTICATION_URL: https://authentication:8444
+      AUTHENTICATION_PASSWORD: "${AH_PW_GT:?set AH_PW_GT}"
+      TLS_CA_CERT: /certs/ca.crt
+      TLS_SERVER_CERT: /certs/gatetunnel.crt
+      TLS_SERVER_KEY: /certs/gatetunnel.key
+    volumes:
+      - gatetunnel-data:/data
+      - ./security/x509:/certs:ro
+    networks: [arrowhead]
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${GATETUNNEL_PORT:-8453}:8453"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8481/health',timeout=3)"]
+      interval: 10s
+      timeout: 4s
+      retries: 8
+      start_period: 15s
+
+  # LocalCloudManager microsystem: Arrowhead adapter and Docker collector
+  cloud-monitor-api:
+    build:
+      context: ./manager/api
+    image: arrowhead-local-cloud-monitor-api:1.0.0
+    restart: unless-stopped
+    depends_on:
+      serviceregistry:
+        condition: service_started
+      authentication:
+        condition: service_started
+    environment:
+      PORT: 8790
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME:-arrowhead-v52-test-cloud}
+      ARROWHEAD_VERSION: ${AH_VERSION:-5.2.2}
+      SERVICE_REGISTRY_URL: http://serviceregistry:8443
+      DATAMANAGER_URL: https://datamanager:8461
+      AUTHENTICATION_URL: https://authentication:8444
+      AUTHENTICATION_PASSWORD: "${AH_PW_LCM:?set AH_PW_LCM}"
+      ARROWHEAD_SYSTEM_NAME: LocalCloudManager
+      ARROWHEAD_ADMIN_SYSTEM: Sysop
+      TLS_CA_CERT: /certs/ca.crt
+      TLS_CLIENT_CERT: /certs/local-cloud-manager.crt
+      TLS_CLIENT_KEY: /certs/local-cloud-manager.key
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./security/x509:/certs:ro
+    networks: [arrowhead]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8790/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+      start_period: 10s
+
+  # Browser-facing dashboard; Docker socket is intentionally not mounted here.
+  cloud-monitor-ui:
+    build:
+      context: ./manager/ui
+    image: arrowhead-local-cloud-monitor-ui:1.0.0
+    restart: unless-stopped
+    depends_on:
+      cloud-monitor-api:
+        condition: service_healthy
+    networks: [arrowhead]
+    ports:
+      - "${BIND_ADDRESS:-127.0.0.1}:${CLOUD_MONITOR_PORT:-8080}:8080"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 4s
+      retries: 6
+      start_period: 10s
+
+networks:
+  arrowhead:
+    name: ${COMPOSE_PROJECT_NAME:-arrowhead-v52-test-cloud}-network
+
+volumes:
+  serviceregistry-db:
+  serviceorchestration-dynamic-db:
+  serviceorchestration-simple-db:
+  consumerauthorization-db:
+  authentication-db:
+  blacklist-db:
+  translation-manager-db:
+  device-qos-evaluator-db:
+  datamanager-data:
+  gatekeeper-data:
+  gatetunnel-data:
+  sysmonitor-data:
+  mqtt-data:

@@ -1,0 +1,251 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{LocalCloudManager}
+\ArrowheadType{System Description}
+\ArrowheadTypeShort{SysD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the LocalCloudManager support system of the Eclipse Arrowhead 5.2.2 framework, as implemented in \texttt{ah5-LocalCloudManager-java-spring} of the primary Java source tree (\texttt{Eclipse-Arrowhead-java}) and deployed with the standalone Compose definition of that folder.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the LocalCloudManager system. LocalCloudManager is the operator console of the local cloud: it shows the state of the cloud and carries out the management actions an operator starts, with its own Arrowhead identity.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small, >=Stealth]
+    \node[draw=ArrowheadBlue, very thick, minimum width=4.2cm, minimum height=2.2cm, align=center, fill=ArrowheadBlue!10] (s)
+      {\guillemotleft{}System\guillemotright{}\\\textbf{LocalCloudManager}};
+    \node[draw=ArrowheadTeal, rectangle, align=left, left=1.3cm of s, text width=4.6cm, inner sep=5pt] (p)
+      {\textbf{Produced services}\\ \texttt{local\allowbreak{}Cloud\allowbreak{}Management}\\ \texttt{sysMonitor}};
+    \node[draw=ArrowheadOrange, rectangle, align=left, right=1.3cm of s, text width=4.6cm, inner sep=5pt] (c)
+      {\textbf{Consumed}\\ Authentication\\ ConsumerAuthorization\\ DataManager\\ Docker proxy\\ DynamicServiceOrchestration\\ Gatekeeper, GateTunnel\\ PlantDescriptionEngine\\ ServiceRegistry\\ SimpleStoreServiceOrchestration\\ SysMonitor\\ LocalCloudConfigurator (opt.)\\ ChipletFloorplanGenerator (opt.)};
+    \draw[->, thick, ArrowheadTeal] (s) -- (p);
+    \draw[->, thick, ArrowheadOrange] (s) -- (c);
+  \end{tikzpicture}
+  \caption{SysML-style block view of LocalCloudManager with its produced and consumed services.}
+  \label{fig:system}
+\end{figure}
+
+The rest of this document is organized as follows.
+In Section \ref{sec:prior_art}, we reference major prior art capabilities of the system.
+In Section \ref{sec:use}, we describe the intended usage of the system.
+In Section \ref{sec:properties}, we describe fundamental properties provided by the system.
+In Section \ref{sec:delimitations}, we describe delimitations of capabilities of the system.
+In Section \ref{sec:services}, we describe the abstract service functions consumed or produced by the system.
+In Section \ref{sec:security}, we describe the security capabilities of the system.
+
+\newpage
+
+\subsection{Significant Prior Art}
+\label{sec:prior_art}
+
+New in this workspace.
+
+\subsection{How This System Is Meant to Be Used}
+\label{sec:use}
+
+The operator opens the console (\texttt{http:\allowbreak{}/\allowbreak{}/\allowbreak{}127.\allowbreak{}0.\allowbreak{}0.\allowbreak{}1:\allowbreak{}8490}), logs in with the console password and works in the views (overview, registry, orchestration rules and authorization policies, plant descriptions, SoS composition, consumers, data, sysMonitor, inter-cloud, runtime and, when enabled, local-cloud configuration and chiplet floorplans).
+
+\subsection{System functionalities and properties}
+\label{sec:properties}
+
+\subsubsection{Functional properties of the system}
+
+\begin{itemize}
+  \item Views assembled from the core and support systems.
+  \item Orchestration rules (create, remove, change priority), plant descriptions and sysMonitor subscriptions.
+  \item Local-cloud management authorization policies of ConsumerAuthorization (view, grant, replace, revoke), with optimistic concurrency on the expected policy snapshot.
+  \item System-of-Systems (SoS) compositions, stored as plant descriptions in the Plant\allowbreak{}Description\allowbreak{}Engine; saving an active SoS needs an explicit confirmation because it changes orchestration.
+  \item Optional graphical local-cloud configuration through the Local\allowbreak{}Cloud\allowbreak{}Configurator (catalog, saved designs, plans and reviewed deployments) when \texttt{LOCAL\_\allowbreak{}CLOUD\_\allowbreak{}CONFIGURATOR\_\allowbreak{}URL} is set.
+  \item Optional chiplet floorplan editing through the Chiplet\allowbreak{}Floorplan\allowbreak{}Generator (orchestrated) when \texttt{CHIPLET\_\allowbreak{}FLOORPLANS\_\allowbreak{}ENABLED=\allowbreak{}true}.
+  \item Container logs and lifecycle through the Docker proxy.
+  \item Native sysMonitor observations.
+\end{itemize}
+
+\subsubsection{Configuration of system properties}
+
+The system is configured with environment variables. The variables that shape its behaviour are:
+
+\noindent\begin{longtable}{| p{5.4cm} | p{3.4cm} | p{6.4cm} |} \hline
+\rowcolor{gray!33} Property & Default & Meaning \\ \hline \endhead
+\texttt{PORT} & 8491 (API), 8490 (UI) & Ports. \\ \hline
+\texttt{SERVICE\_\allowbreak{}REGISTRY\_\allowbreak{}URL} & \texttt{https:\allowbreak{}/\allowbreak{}/\allowbreak{}serviceregistry:\allowbreak{}8443} & Registry. \\ \hline
+\texttt{TLS\_\allowbreak{}CA\_\allowbreak{}CERT} / \texttt{TLS\_\allowbreak{}CLIENT\_\allowbreak{}*} & (required) & Cloud CA and LocalCloudManager credential. \\ \hline
+\texttt{CONSOLE\_\allowbreak{}PASSWORD\_\allowbreak{}HASH\_\allowbreak{}FILE} / \texttt{CONSOLE\_\allowbreak{}ALLOWED\_\allowbreak{}HOSTS} & (required) & Console login and accepted host names. \\ \hline
+\texttt{MANAGED\_\allowbreak{}SERVICES} & (list) & Containers the console may start, stop and restart. \\ \hline
+\texttt{DOCKER\_\allowbreak{}API\_\allowbreak{}URL} / \texttt{COMPOSE\_\allowbreak{}PROJECT\_\allowbreak{}NAME} & (required) & Docker proxy (standalone deployment: no proxy, \texttt{MANAGED\_\allowbreak{}SERVICES} empty). \\ \hline
+\texttt{CONSOLE\_\allowbreak{}PROXY\_\allowbreak{}SECRET\_\allowbreak{}FILE} & (required) & Secret shared with the console's nginx; API requests without it are refused (403). \\ \hline
+\texttt{CONSOLE\_\allowbreak{}SESSION\_\allowbreak{}SECONDS} & 28800 & Console session lifetime. \\ \hline
+\texttt{AUTHENTICATION\_\allowbreak{}PASSWORD\_\allowbreak{}FILE} & (required) & Identity password of LocalCloudManager. \\ \hline
+\texttt{TLS\_\allowbreak{}CRL\_\allowbreak{}FILE} & (unset) & CRL of the cloud CA for provider certificates, fail closed (standalone deployment: \texttt{/\allowbreak{}crl/\allowbreak{}ca.\allowbreak{}crl}). \\ \hline
+\texttt{ARROWHEAD\_\allowbreak{}SYSTEM\_\allowbreak{}NAME} / \texttt{ORCHESTRATOR\_\allowbreak{}SYSTEM} & LocalCloudManager / Dynamic\allowbreak{}Service\allowbreak{}Orchestration & Own system name; orchestrator looked up in the ServiceRegistry. \\ \hline
+\texttt{ORCHESTRATION\_\allowbreak{}TTL\_\allowbreak{}SECONDS} & 300 & Reuse of orchestration results. \\ \hline
+\texttt{ORCHESTRATION\_\allowbreak{}PRIORITY\_\allowbreak{}MODE} & (native) & \texttt{replace}: change a rule priority by create and remove instead of SimpleStore \texttt{modify-\allowbreak{}priorities}. \\ \hline
+\texttt{SYSMONITOR\_\allowbreak{}BROKER\_\allowbreak{}*} / \texttt{SYSMONITOR\_\allowbreak{}LOCAL\_\allowbreak{}CLOUD} & amqp-broker / 5671 & Native sysMonitor publisher. \\ \hline
+\texttt{LOCAL\_\allowbreak{}CLOUD\_\allowbreak{}CONFIGURATOR\_\allowbreak{}URL} / \texttt{\_\allowbreak{}TOKEN\_\allowbreak{}FILE} & (unset) & Enables the local-cloud configuration view; bearer token of the configurator. \\ \hline
+\texttt{CHIPLET\_\allowbreak{}FLOORPLANS\_\allowbreak{}ENABLED} & false & Enables the chiplet floorplan view (console name ChipletLocalCloudManager). \\ \hline
+\end{longtable}
+
+Secrets (identity password, console password hash, console proxy secret, configurator token, private key) have no usable defaults; the standalone deployment reads them from per-deployment Compose file secrets (\texttt{*\_FILE} variables) under \texttt{/\allowbreak{}run/\allowbreak{}secrets}.
+
+\subsubsection{Data stored by the system}
+
+None durable; sessions and the identity token in memory. SoS compositions are stored by the Plant\allowbreak{}Description\allowbreak{}Engine, policies by Consumer\allowbreak{}Authorization and designs by the Local\allowbreak{}Cloud\allowbreak{}Configurator.
+
+\subsubsection{Non functional properties}
+
+A failing provider gives a partial view with an error note.
+
+\subsubsection{Stateful or stateless}
+
+Stateless apart from sessions.
+
+\subsection{Important Delimitations}
+\label{sec:delimitations}
+
+Acts only within the grants given to LocalCloudManager (not a sysop since J23).
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+This section describes the produced and consumed services. Each produced service is specified by an SD document and one IDD document per interface.
+
+\subsection{Produced services}
+
+\noindent\begin{longtable}{| p{5.3cm} | p{1.3cm} | p{2.6cm} | p{1.6cm} | p{3.6cm} |} \hline
+\rowcolor{gray!33} Service & Version & Interfaces & SD & IDD \\ \hline \endhead
+\texttt{local\allowbreak{}Cloud\allowbreak{}Management} & 1.0.0 & HTTP(S) & \cite{lcm-localCloudManagement-sd} & \cite{lcm-localCloudManagement-http-idd} \\ \hline
+\texttt{sysMonitor} & 1.0.0 & AMQP(S) & \cite{lcm-sysMonitor-sd} & \cite{lcm-sysMonitor-amqp-idd} \\ \hline
+\end{longtable}
+
+The console API is registered with \texttt{generic\_http} and policy \texttt{NONE}; \texttt{GET /health} and the console endpoints added after the registration list (features, authorization policies, rule priority, SoS, local-cloud configuration, chiplet floorplans) are not registered; the IDD specifies them.
+
+\subsection{Consumed services}
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{2.9cm} | >{\raggedright\arraybackslash}p{3.1cm} | >{\raggedright\arraybackslash}p{2.5cm} | p{3.6cm} | >{\raggedright\arraybackslash}p{2.9cm} |} \hline
+\rowcolor{gray!33} Provider & Service & Operations & Use & Condition \\ \hline \endhead
+ServiceRegistry & serviceDiscovery; service\allowbreak{}Registry\allowbreak{}Management & register, lookup; queries & Registration; inventory. & always \\ \hline
+Authentication & identity & identity-login & Own token. & always \\ \hline
+Dynamic\allowbreak{}Service\allowbreak{}Orchestration & service\allowbreak{}Orchestration; service\allowbreak{}Orchestration\allowbreak{}History\allowbreak{}Management & pull; query & Orchestration of all other services; history. & always \\ \hline
+Simple\allowbreak{}Store\allowbreak{}Service\allowbreak{}Orchestration & service\allowbreak{}Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Management & query, create, remove, modify-priorities & Rules and rule priorities. & grant \\ \hline
+Consumer\allowbreak{}Authorization & authorization\allowbreak{}Management & query-policies, grant-policies, revoke-policies & Consumers view; policy editor. & grant \\ \hline
+DataManager & dataHistorian & list-systems, get-data & Data view. & grant \\ \hline
+SysMonitor & sysMonitorHistory; sys\allowbreak{}Monitor\allowbreak{}Management & all & sysMonitor views. & grant \\ \hline
+Plant\allowbreak{}Description\allowbreak{}Engine & plant\allowbreak{}Description\allowbreak{}Management & all & PD and SoS views. & PDE whitelist with LocalCloudManager \\ \hline
+Gatekeeper, GateTunnel & gatekeeper\allowbreak{}Management; gate\allowbreak{}Tunnel\allowbreak{}Management & status, sessions & Inter-cloud view. & grant \\ \hline
+Docker proxy & Docker Engine subset & list, logs, start/stop/restart & Runtime view. & proxy deployed \\ \hline
+Local\allowbreak{}Cloud\allowbreak{}Configurator & configurator REST API (bearer token, not orchestrated) & catalog, status, configurations, plan, deployments & Local-cloud configuration view. & configurator URL set \\ \hline
+Chiplet\allowbreak{}Floorplan\allowbreak{}Generator & floorplan\allowbreak{}Discovery; floorplan\allowbreak{}Management & query-floorplans, get-floorplan; create, replace, remove, check-network & Floorplan view. & floorplans enabled, grant \\ \hline
+\end{longtable}
+
+Only Authentication's \texttt{identity} and the orchestrator are looked up in the ServiceRegistry; other Arrowhead services are reached through DynamicServiceOrchestration (results cached), and every such call needs a ConsumerAuthorization grant.
+
+\newpage
+
+\section{Security}
+\label{sec:security}
+
+LocalCloudManager is a Node.js console, not a Spring system. Towards the cloud it always uses HTTPS with its X.509 certificate following the Arrowhead certificate profile (\texttt{LocalCloudManager.<Cloud>.<Organization>.arrowhead.eu}); provider certificates not issued under the cloud CA, or revoked in its CRL, are refused. The operator side is plain HTTP on the host's loopback address through the console's nginx. The standalone deployment of this folder (\texttt{compose.yaml}) runs this configuration.
+
+\subsection{Security model}
+
+
+\begin{itemize}
+  \item \textbf{Protocols:} HTTPS (TLS 1.3 and 1.2) with its client certificate towards the cloud; AMQP over TLS for \texttt{sysMonitor}; plain HTTP between the browser, nginx and the API on the loopback address and the console's own networks.
+  \item \textbf{Data protection:} transport encryption by TLS towards the cloud; no database. Secrets are kept out of the container environment (Compose file secrets).
+  \item \textbf{Operator authentication:} console password (scrypt hash), HttpOnly SameSite=Strict session cookie, lock-out after repeated failures, allowed host names.
+  \item \textbf{Towards the cloud:} mutual TLS with the LocalCloudManager certificate and an identity token bound to it; rights are exactly the grants given to LocalCloudManager.
+  \item Console access: only requests forwarded by the console's nginx (proxy secret), allowed host names (against DNS rebinding), scrypt-hashed password, JSON-only login, HttpOnly SameSite=Strict session cookie, per-client lock-out after five wrong passwords, \texttt{X-\allowbreak{}Arrowhead-\allowbreak{}Action:\allowbreak{} confirm} on changes and expected-snapshot checks (409) for policy, rule-priority, SoS and floorplan edits. Docker only through the proxy.
+\end{itemize}
+
+For the Arrowhead certificate profile see github.com/eclipse-arrowhead/documentation.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): console functions, configuration, consumed services and security updated to the current Node.js implementation (policies, rule priority, SoS, local-cloud configuration, chiplet floorplans). & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

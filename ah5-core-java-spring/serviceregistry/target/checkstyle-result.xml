@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.17.0">
+<file name="/workspace/ah5-core-java-spring/serviceregistry/src/main/java/eu/arrowhead/serviceregistry/jpa/entity/Device.java">
+<error line="52" severity="warning" message="Line has trailing spaces." source="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineCheck"/>
+</file>
+<file name="/workspace/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/init/ServiceRegistryExtraInterfacesTest.java">
+<error line="31" column="117" severity="warning" message="&apos;8443&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="61" column="30" severity="warning" message="&apos;8443&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="75" column="30" severity="warning" message="&apos;8501&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+</file>
+<file name="/workspace/ah5-core-java-spring/serviceregistry/src/test/java/eu/arrowhead/serviceregistry/service/validation/ManagementValidationTest.java">
+<error line="1" severity="warning" message="File length is 3,299 lines (max allowed is 2,000)." source="com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck"/>
+</file>
+</checkstyle>

@@ -1,0 +1,9 @@
+sysmonitor-1  | SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+sysmonitor-1  | SLF4J: Defaulting to no-operation (NOP) logger implementation
+sysmonitor-1  | SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+sysmonitor-1  | SysMonitor Java 5.2.2 mTLS listening on 8475
+sysmonitor-1  | SysMonitor background task failed: UnknownHostException
+sysmonitor-1  | SysMonitor background task failed: UnknownHostException
+sysmonitor-1  | SysMonitor background task failed: MqttException
+sysmonitor-1  | SysMonitor background task failed: ConnectException
+sysmonitor-1  | SysMonitor background task failed: ConnectException

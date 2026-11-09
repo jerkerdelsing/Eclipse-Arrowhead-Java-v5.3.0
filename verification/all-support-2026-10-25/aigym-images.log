@@ -1,0 +1,64 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 637B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 80B done
+#4 DONE 0.0s
+
+#5 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99
+#5 resolve docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99 0.0s done
+#5 DONE 0.0s
+
+#6 [build 1/5] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#6 resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 1.20kB done
+#7 DONE 0.0s
+
+#8 [stage-1 2/5] WORKDIR /app
+#8 CACHED
+
+#9 [build 4/5] COPY src ./src
+#9 CACHED
+
+#10 [stage-1 3/5] COPY --from=build /source/target/arrowhead-ai-gym-5.2.2.jar /app/app.jar
+#10 CACHED
+
+#11 [build 2/5] WORKDIR /source
+#11 CACHED
+
+#12 [build 3/5] COPY pom.xml .
+#12 CACHED
+
+#13 [build 5/5] RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
+#13 CACHED
+
+#14 [stage-1 4/5] COPY config /app/config
+#14 CACHED
+
+#15 [stage-1 5/5] RUN chown -R 10001:10001 /app
+#15 CACHED
+
+#16 exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:eb9df0d7fdf1a4d877c0ee3a402d8ad99f8b6af17632dd87c165ec2263daa375 done
+#16 exporting config sha256:3e6f7418b20c8a64e4bc15109a3188cbce349dbe39b250db724ae866d9dc1525 done
+#16 exporting attestation manifest sha256:b643b59ea7b7cd3505f1d7aa9fc256140a33361ab1ef0e917dc175b37d1ed57f done
+#16 exporting manifest list sha256:f889b450b9264f01e6f5d0ad04ac6e57d0247c6de028a705e0ca7c352af63e37 done
+#16 naming to docker.io/library/arrowhead-aigym-standalone:5.2.2
+#16 naming to docker.io/library/arrowhead-aigym-standalone:5.2.2 done
+#16 unpacking to docker.io/library/arrowhead-aigym-standalone:5.2.2 done
+#16 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/hahzvic3zsqn0u9yi4hgj16hb

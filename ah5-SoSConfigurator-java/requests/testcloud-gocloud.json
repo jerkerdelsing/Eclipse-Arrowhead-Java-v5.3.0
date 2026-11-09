@@ -1,0 +1,11 @@
+{
+  "name": "DemoSoS",
+  "clouds": ["TestCloud", "GoCloud"],
+  "verifyDiscovery": true,
+  "exchanges": [
+    {"consumerCloud": "GoCloud", "consumer": "RandomDataProducer", "providerCloud": "TestCloud",
+     "provider": "DataManager", "service": "dataHistorian", "operations": ["put-data"]},
+    {"consumerCloud": "TestCloud", "consumer": "RandomDataProducer", "providerCloud": "GoCloud",
+     "provider": "DataManager", "service": "dataHistorian", "operations": ["put-data"]}
+  ]
+}

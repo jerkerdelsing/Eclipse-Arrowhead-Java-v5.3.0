@@ -1,0 +1,626 @@
+Rc files read:
+  NONE
+Latexmk: This is Latexmk, John Collins, 7 Jan. 2023. Version 4.79.
+Latexmk: applying rule 'pdflatex'...
+Rule 'pdflatex':  Reasons for rerun
+Changed files or newly in use/created:
+  CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex
+Category 'changed_user':
+  CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex
+
+------------
+Run number 1 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex  -interaction=nonstopmode -halt-on-error -recorder  "CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex"'
+------------
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-02-22> (./arrowhead.cls
+Document Class: arrowhead 2021/08/19 Version 1.2.1 
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/size10.clo))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)))
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/courier-scaled/couriers.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/keyval.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/helvet.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/lastpage/lastpage.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/lastpage/lastpage2e.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/lastpage/lastpagemodern.sty) 
+)) (/usr/local/texlive/2023/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/tabularx.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/array.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+))) (/usr/local/texlive/2023/texmf-dist/tex/latex/tocbibind/tocbibind.sty
+
+Package tocbibind Note: Using section or other style headings.
+
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/colortbl/colortbl.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/datetime/datetime.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/fmtcount/fmtcount.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/fmtcount/fcprefix.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/fmtcount/fcnumparser.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/datetime/datetime-defaults.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/inputenc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/pgf.revision.tex)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfil
+tered.code.tex))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
+ef
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def)))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex)
+) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
+tex)))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex))
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex)))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarypositioning.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.multipart.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.multipart.code.tex))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
+meta.code.tex) (./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/caption/ltcaption.sty)
+(./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.out)
+(./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.out)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/fmtcount/fc-english.def)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/courier-scaled/t1pcrs.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/mt-cmr.cfg) [1{/usr/loc
+al/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texliv
+e/2023/texmf-dist/fonts/enc/dvips/base/8r.enc} <./figures/arrowhead_logo.pdf>]
+(./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.toc) [2] [3]
+Underfull \hbox (badness 1142) in paragraph at lines 175--176
+\T1/phv/m/n/10 (+20) its \T1/pcrs/m/n/10 echo \T1/phv/m/n/10 (+20) value is \T1
+/pcrs/m/n/10 status=alive \T1/phv/m/n/10 (+20) and the meta-data add \T1/pcrs/m
+/n/10 implementation=java\T1/phv/m/n/10 (+20) . The pub-lisher
+
+Underfull \hbox (badness 1596) in paragraph at lines 175--176
+\T1/phv/m/n/10 (+20) ker user name). Ev-ery pub-li-ca-tion in-ter-val it pub-li
+shes each ob-ser-va-tion to the topic ex-change
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 177.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--177
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--177
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--177
+[][] \T1/phv/b/n/12 (+20) 2.1 PUB-LISH []\T1/pcrs/b/n/12 <Cloud>.sysmonitor.Cer
+tificateAuthority.Certificate
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+[][] \T1/phv/b/n/12 (+20) 2.2 PUB-LISH []\T1/pcrs/b/n/12 <Cloud>.sysmonitor.Cer
+tificateAuthority.Certificate
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--185
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--185
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--185
+[][] \T1/phv/b/n/12 (+20) 2.3 PUB-LISH []\T1/pcrs/b/n/12 <Cloud>.sysmonitor.Cer
+tificateAuthority.Certificate
+[4] [5]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 215.
+
+[6] (./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.bbl) [7] [8]
+
+enddocument/afterlastpage: lastpage setting LastPage.
+(./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(see the transcript file for additional information)</usr/local/texlive/2023/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/tex
+mf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2023/texmf-dist/
+fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/ty
+pe1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw
+/helvetic/uhvr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/helvet
+ic/uhvro8a.pfb>
+Output written on CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.pdf (8 pages,
+ 94590 bytes).
+Transcript written on CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.log.
+Latexmk: Getting log file 'CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.log'
+Latexmk: Examining 'CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.fls'
+Latexmk: Examining 'CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.log'
+Latexmk: Found input bbl file 'CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.bbl'
+Latexmk: References changed.
+Latexmk: Log file says output to 'CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.pdf'
+Latexmk: Found bibliography file(s):
+  ./bibliography.bib
+Latexmk: applying rule 'bibtex CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD'...
+Rule 'bibtex CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD':  Reasons for rerun
+Changed files or newly in use/created:
+  CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.aux
+
+------------
+Run number 1 of rule 'bibtex CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD'
+------------
+------------
+Running 'bibtex  "CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.aux"'
+------------
+This is BibTeX, Version 0.99d (TeX Live 2023)
+The top-level auxiliary file: CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.aux
+The style file: IEEEtran.bst
+Database file #1: bibliography.bib
+-- IEEEtran.bst version 1.13 (2008/09/30) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+
+Done.
+Latexmk: applying rule 'pdflatex'...
+Rule 'pdflatex':  Reasons for rerun
+Changed files or newly in use/created:
+  CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.aux
+
+------------
+Run number 2 of rule 'pdflatex'
+------------
+------------
+Running 'pdflatex  -interaction=nonstopmode -halt-on-error -recorder  "CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex"'
+------------
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex)
+ restricted \write18 enabled.
+entering extended mode
+(./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex
+LaTeX2e <2022-11-01> patch level 1
+L3 programming layer <2023-02-22> (./arrowhead.cls
+Document Class: arrowhead 2021/08/19 Version 1.2.1 
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2022/07/02 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/size10.clo))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def)))
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/courier-scaled/couriers.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/keyval.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/ifvtex.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/iftex/iftex.sty)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/helvet.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/lastpage/lastpage.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/lastpage/lastpage2e.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/lastpage/lastpagemodern.sty) 
+)) (/usr/local/texlive/2023/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/microtype.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/etoolbox/etoolbox.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/microtype-pdftex.def)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/microtype.cfg))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-def/pdftex.def)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/tabularx.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/array.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/caption/caption3.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/infwarerr/infwarerr.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hycolor/hycolor.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/auxhook/auxhook.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/refcount/refcount.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/gettitlestring/gettitlestring.s
+ty (/usr/local/texlive/2023/texmf-dist/tex/latex/kvoptions/kvoptions.sty)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/intcalc/intcalc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/url/url.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bitset/bitset.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atbegshi-ltx.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/atveryend-ltx.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+))) (/usr/local/texlive/2023/texmf-dist/tex/latex/tocbibind/tocbibind.sty
+
+Package tocbibind Note: Using section or other style headings.
+
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/colortbl/colortbl.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/datetime/datetime.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/fmtcount/fmtcount.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/xkeyval/xkvutils.tex)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/fmtcount/fcprefix.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/fmtcount/fcnumparser.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/amsmath/amsgen.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/datetime/datetime-defaults.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/inputenc.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/psnfss/t1phv.fd))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/pgf.revision.tex)))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfil
+tered.code.tex))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
+ef
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def)))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex)
+) (/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
+tex)))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex))
+
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex)))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarypositioning.code.tex)
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibraryshapes.multipart.code.tex
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibrary
+shapes.multipart.code.tex))
+(/usr/local/texlive/2023/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.
+meta.code.tex) (./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.aux)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(/usr/local/texlive/2023/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/local/texlive/2023/texmf-dist/tex/latex/caption/ltcaption.sty)
+(./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.out)
+(./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.out)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/fmtcount/fc-english.def)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/courier-scaled/t1pcrs.fd)
+(/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/mt-cmr.cfg) [1{/usr/loc
+al/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texliv
+e/2023/texmf-dist/fonts/enc/dvips/base/8r.enc} <./figures/arrowhead_logo.pdf>]
+(./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.toc) [2] [3]
+Underfull \hbox (badness 1142) in paragraph at lines 175--176
+\T1/phv/m/n/10 (+20) its \T1/pcrs/m/n/10 echo \T1/phv/m/n/10 (+20) value is \T1
+/pcrs/m/n/10 status=alive \T1/phv/m/n/10 (+20) and the meta-data add \T1/pcrs/m
+/n/10 implementation=java\T1/phv/m/n/10 (+20) . The pub-lisher
+
+Underfull \hbox (badness 1596) in paragraph at lines 175--176
+\T1/phv/m/n/10 (+20) ker user name). Ev-ery pub-li-ca-tion in-ter-val it pub-li
+shes each ob-ser-va-tion to the topic ex-change
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 177.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--177
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--177
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 177--177
+[][] \T1/phv/b/n/12 (+20) 2.1 PUB-LISH []\T1/pcrs/b/n/12 <Cloud>.sysmonitor.Cer
+tificateAuthority.Certificate
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 181--181
+[][] \T1/phv/b/n/12 (+20) 2.2 PUB-LISH []\T1/pcrs/b/n/12 <Cloud>.sysmonitor.Cer
+tificateAuthority.Certificate
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--185
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--185
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 185--185
+[][] \T1/phv/b/n/12 (+20) 2.3 PUB-LISH []\T1/pcrs/b/n/12 <Cloud>.sysmonitor.Cer
+tificateAuthority.Certificate
+[4] [5]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 215.
+
+[6] (./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.bbl) [7] [8]
+
+enddocument/afterlastpage: lastpage setting LastPage.
+(./CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.aux) )
+(see the transcript file for additional information)</usr/local/texlive/2023/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2023/tex
+mf-dist/fonts/type1/urw/courier/ucrb8a.pfb></usr/local/texlive/2023/texmf-dist/
+fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/ty
+pe1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw
+/helvetic/uhvr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/urw/helvet
+ic/uhvro8a.pfb>
+Output written on CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.pdf (8 pages,
+ 94590 bytes).
+Transcript written on CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.log.
+Latexmk: Getting log file 'CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.log'
+Latexmk: Examining 'CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.fls'
+Latexmk: Examining 'CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.log'
+Latexmk: Found input bbl file 'CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.bbl'
+Latexmk: Log file says output to 'CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.pdf'
+Latexmk: Found bibliography file(s):
+  ./bibliography.bib
+Latexmk: All targets () are up-to-date
+

@@ -1,0 +1,20 @@
+# GraphDB repository of GraphDBManager's historian (GraphDB 10 Free; empty ruleset: plain storage, no inference).
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rep: <http://www.openrdf.org/config/repository#> .
+@prefix sr: <http://www.openrdf.org/config/repository/sail#> .
+@prefix sail: <http://www.openrdf.org/config/sail#> .
+@prefix graphdb: <http://www.ontotext.com/config/graphdb#> .
+
+[] a rep:Repository ;
+    rep:repositoryID "graphdbmanager" ;
+    rdfs:label "GraphDBManager historian" ;
+    rep:repositoryImpl [
+        rep:repositoryType "graphdb:SailRepository" ;
+        sr:sailImpl [
+            sail:sailType "graphdb:Sail" ;
+            graphdb:ruleset "empty" ;
+            graphdb:base-URL "https://arrowhead.eu/ns/graphdbmanager#" ;
+            graphdb:enable-context-index "true" ;
+            graphdb:entity-index-size "10000000"
+        ]
+    ] .

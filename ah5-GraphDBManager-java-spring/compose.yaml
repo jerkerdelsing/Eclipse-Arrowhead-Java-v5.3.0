@@ -1,0 +1,97 @@
+name: ah5-graphdbmanager
+services:
+  graphdbmanager:
+    build:
+      context: .
+    image: arrowhead-graphdbmanager-standalone:5.2.2
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 1g
+    pids_limit: 256
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777", "/app/logs:rw,noexec,nosuid,nodev,size=32m,mode=1777"]
+    ports: ["${HOST_BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-8467}:8467"]
+    depends_on:
+      graphdbmanager-graphdb:
+        condition: service_healthy
+    environment:
+      LOCAL_CLOUD: ${LOCAL_CLOUD:-TestCloud}
+      ORGANIZATION: ${ORGANIZATION:-Company}
+      SERVICE_REGISTRY_ADDRESS: ${SERVICE_REGISTRY_ADDRESS:-serviceregistry}
+      SERVICE_REGISTRY_PORT: "${SERVICE_REGISTRY_PORT:-8443}"
+      AMQP_HOST: ${AMQP_HOST:-amqp-broker}
+      AMQP_PORT: "${AMQP_PORT:-5671}"
+      SYSMONITOR_ENABLED: "${SYSMONITOR_ENABLED:-true}"
+      GRAPHDB_URL: http://graphdbmanager-graphdb:7200
+    secrets:
+      - source: store-password
+        target: ah.store-password
+      - source: identity-password
+        target: ah.identity-password
+      - source: graphdb-password
+        target: ah.graphdb-password
+    volumes:
+      - type: bind
+        source: ${SYSTEM_KEYSTORE_FILE:-./security/GraphDBManager.p12}
+        target: /certs/GraphDBManager.p12
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${TRUSTSTORE_FILE:-./security/truststore.p12}
+        target: /certs/truststore.p12
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${CRL_DIRECTORY:-./security/crl}
+        target: /crl
+        read_only: true
+        bind: {create_host_path: false}
+    networks:
+      cloud:
+        aliases: [graphdbmanager]
+      database: {}
+  # Ontotext GraphDB Free; deployment/graphdb/entrypoint.sh creates the repository, sets the admin password and
+  # GraphDBManager's own user and turns security on (no anonymous access). No published port.
+  graphdbmanager-graphdb:
+    build:
+      context: .
+      dockerfile: deployment/graphdb/Dockerfile
+    image: arrowhead-graphdbmanager-standalone-graphdb:5.2.2
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 1536m
+    pids_limit: 512
+    tmpfs: ["/tmp:rw,nosuid,nodev,size=128m,mode=1777"]
+    environment:
+      GDB_HEAP_SIZE: 768m
+      GRAPHDB_REPOSITORY: graphdbmanager
+      GRAPHDB_USER: graphdbmanager
+      GRAPHDB_ADMIN_PASSWORD_FILE: /run/secrets/graphdb-admin-password
+      GRAPHDB_USER_PASSWORD_FILE: /run/secrets/graphdb-password
+    secrets: [graphdb-admin-password, graphdb-password]
+    volumes:
+      - state:/opt/graphdb/home
+    networks: [database]
+volumes:
+  state: {}
+networks:
+  cloud:
+    external: true
+    name: ${ARROWHEAD_NETWORK:-arrowhead-local-cloud}
+  database:
+    internal: true
+    ipam:
+      config:
+        - subnet: ${DB_SUBNET:-10.252.206.0/24}
+secrets:
+  identity-password:
+    file: ${IDENTITY_PASSWORD_FILE:-./security/identity-password}
+  store-password:
+    file: ${STORE_PASSWORD_FILE:-./security/store-password}
+  graphdb-password:
+    file: ${GRAPHDB_PASSWORD_FILE:-./security/graphdb-password}
+  graphdb-admin-password:
+    file: ${GRAPHDB_ADMIN_PASSWORD_FILE:-./security/graphdb-admin-password}

@@ -1,0 +1,241 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{TranslationManager}
+\ArrowheadType{System Description}
+\ArrowheadTypeShort{SysD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the TranslationManager support system of the Eclipse Arrowhead 5.2.2 framework, as implemented in \texttt{ah5-TranslationManager-java-spring} of the primary Java source tree (\texttt{Eclipse-Arrowhead-java}) and deployed with the standalone Compose definition of that folder.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the TranslationManager system. Translation\allowbreak{}Manager enables automatic interface and data-model translation: it finds providers a consumer could use through a translation bridge, builds the bridge with interface and data-model translator systems, and tracks the bridges' use.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small, >=Stealth]
+    \node[draw=ArrowheadBlue, very thick, minimum width=4.2cm, minimum height=2.2cm, align=center, fill=ArrowheadBlue!10] (s)
+      {\guillemotleft{}System\guillemotright{}\\\textbf{TranslationManager}};
+    \node[draw=ArrowheadTeal, rectangle, align=left, left=1.3cm of s, text width=4.6cm, inner sep=5pt] (p)
+      {\textbf{Produced services}\\ \texttt{translationReport}\\ \texttt{translationBridge}\\ \texttt{translation\allowbreak{}Bridge\allowbreak{}Management}\\ \texttt{generalManagement}\\ \texttt{sysMonitor}};
+    \node[draw=ArrowheadOrange, rectangle, align=left, right=1.3cm of s, text width=4.6cm, inner sep=5pt] (c)
+      {\textbf{Consumed}\\ AMQP broker (SysMonitor)\\ Authentication\\ Blacklist\\ ConsumerAuthorization\\ ServiceRegistry\\ Translators};
+    \draw[->, thick, ArrowheadTeal] (s) -- (p);
+    \draw[->, thick, ArrowheadOrange] (s) -- (c);
+  \end{tikzpicture}
+  \caption{SysML-style block view of TranslationManager with its produced and consumed services.}
+  \label{fig:system}
+\end{figure}
+
+The rest of this document is organized as follows.
+In Section \ref{sec:prior_art}, we reference major prior art capabilities of the system.
+In Section \ref{sec:use}, we describe the intended usage of the system.
+In Section \ref{sec:properties}, we describe fundamental properties provided by the system.
+In Section \ref{sec:delimitations}, we describe delimitations of capabilities of the system.
+In Section \ref{sec:services}, we describe the abstract service functions consumed or produced by the system.
+In Section \ref{sec:security}, we describe the security capabilities of the system.
+
+\newpage
+
+\subsection{Significant Prior Art}
+\label{sec:prior_art}
+
+Successor of the Arrowhead 4.x Translator and Gateway concepts (AITIA 5.2.2 implementation).
+
+\subsection{How This System Is Meant to Be Used}
+\label{sec:use}
+
+Dynamic\allowbreak{}Service\allowbreak{}Orchestration uses \texttt{translation\allowbreak{}Bridge\allowbreak{}Management} during orchestration with \texttt{ALLOW\_\allowbreak{}TRANSLATION}; translators report with \texttt{translationReport}; consumers may use \texttt{translationBridge} directly.
+
+\subsection{System functionalities and properties}
+\label{sec:properties}
+
+\subsubsection{Functional properties of the system}
+
+\begin{itemize}
+  \item Discover translation candidates among service instances.
+  \item Negotiate bridges with interface and data-model translators and issue bridge tokens.
+  \item Record bridge state and usage reports; abort bridges; query bridges.
+\end{itemize}
+
+\subsubsection{Configuration of system properties}
+
+The system is configured with Spring properties (\texttt{application.properties}, overridden by environment variables in the container deployment). The properties that shape its behaviour are:
+
+\noindent\begin{longtable}{| p{5.4cm} | p{3.4cm} | p{6.4cm} |} \hline
+\rowcolor{gray!33} Property & Default & Meaning \\ \hline \endhead
+\texttt{server.\allowbreak{}port} & 8465 & HTTPS port. \\ \hline
+\texttt{authentication.\allowbreak{}policy} & declared & Standalone deployment: \texttt{outsourced} with Authentication identity tokens and mutual TLS. \\ \hline
+\texttt{management.\allowbreak{}policy} / \texttt{management.\allowbreak{}whitelist} & authorization & Access to the management services. \\ \hline
+\texttt{enable.\allowbreak{}blacklist.\allowbreak{}filter} / \texttt{force.\allowbreak{}blacklist.\allowbreak{}filter} & false / true & Blacklist check of requesters. \\ \hline
+\texttt{enable.\allowbreak{}authorization} & true & Check consumer authorization of candidates. \\ \hline
+\texttt{allow.\allowbreak{}discovery.\allowbreak{}flags} & true & Accept discovery flags in management discovery. \\ \hline
+\texttt{translator.\allowbreak{}service.\allowbreak{}min.\allowbreak{}availability} & 5 & Minimum remaining availability (minutes) of translator services. \\ \hline
+\texttt{normalization.\allowbreak{}mode} & extended & Name normalization. \\ \hline
+\texttt{mqtt.\allowbreak{}api.\allowbreak{}enabled} & false & Offer the MQTT interfaces. \\ \hline
+\texttt{sysmonitor.\allowbreak{}enabled,\allowbreak{} sysmonitor.\allowbreak{}broker.\allowbreak{}*,\allowbreak{} sysmonitor.\allowbreak{}ssl.\allowbreak{}*} & true, amqp-broker:5671, server.ssl stores & Native \texttt{sysMonitor} publisher of the common library. \\ \hline
+\texttt{arrowhead.\allowbreak{}ssl.\allowbreak{}crl-\allowbreak{}file} & (unset) & CRL checked for every client certificate (standalone deployment: \texttt{/\allowbreak{}crl/\allowbreak{}ca.\allowbreak{}crl}). \\ \hline
+\end{longtable}
+
+Secrets (database, keystore and identity passwords, secret keys) have no usable defaults; the standalone deployment reads them from per-deployment Compose file secrets under \texttt{/\allowbreak{}run/\allowbreak{}secrets}.
+
+The standalone deployment of this folder uses \texttt{config/\allowbreak{}application.\allowbreak{}properties} (copied into the image) with \texttt{server.\allowbreak{}port}=8465, \texttt{authentication.\allowbreak{}policy}=\texttt{outsourced}, \texttt{service.\allowbreak{}interface.\allowbreak{}policy}=\texttt{CERT\_AUTH}, \texttt{management.\allowbreak{}policy}=\texttt{sysop-\allowbreak{}only}, \texttt{service.\allowbreak{}authorization.\allowbreak{}enabled}=\texttt{true}, \texttt{mqtt.\allowbreak{}api.\allowbreak{}enabled}=\texttt{false}, \texttt{arrowhead.\allowbreak{}ssl.\allowbreak{}crl-\allowbreak{}file}=\texttt{/\allowbreak{}crl/\allowbreak{}ca.\allowbreak{}crl}; secrets are read from Compose file secrets under \texttt{/\allowbreak{}run/\allowbreak{}secrets} (\texttt{spring.\allowbreak{}config.\allowbreak{}import=\allowbreak{}configtree:\allowbreak{}/\allowbreak{}run/\allowbreak{}secrets/}). \texttt{enable.\allowbreak{}blacklist.\allowbreak{}filter} is not enabled there, so incoming requests are not checked against the Blacklist; blacklisted providers are still removed by Dynamic\allowbreak{}Service\allowbreak{}Orchestration.
+
+\subsubsection{Data stored by the system}
+
+Bridge headers, discovery and details records, and log entries (database \texttt{ah\_\allowbreak{}translation\_\allowbreak{}manager}).
+
+\subsubsection{Non functional properties}
+
+Discovery and negotiation call Consumer\allowbreak{}Authorization, the ServiceRegistry and the translators synchronously.
+
+\subsubsection{Stateful or stateless}
+
+Stateful: bridges are persistent.
+
+\subsection{Important Delimitations}
+\label{sec:delimitations}
+
+The Translation\allowbreak{}Manager does not translate; without translator systems in the cloud no bridge can be built. The standalone deployment starts no translator; translators are separate systems that register their own services.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+This section describes the produced and consumed services. Each produced service is specified by an SD document and one IDD document per interface.
+
+\subsection{Produced services}
+
+\noindent\begin{longtable}{| p{5.3cm} | p{1.3cm} | p{2.6cm} | p{1.6cm} | p{3.6cm} |} \hline
+\rowcolor{gray!33} Service & Version & Interfaces & SD & IDD \\ \hline \endhead
+\texttt{translationReport} & 1.0.0 & HTTP(S), MQTT(S) & \cite{tm-translationReport-sd} & \cite{tm-translationReport-http-idd}, \cite{tm-translationReport-mqtt-idd} \\ \hline
+\texttt{translationBridge} & 1.0.0 & HTTP(S), MQTT(S) & \cite{tm-translationBridge-sd} & \cite{tm-translationBridge-http-idd}, \cite{tm-translationBridge-mqtt-idd} \\ \hline
+\texttt{translation\allowbreak{}Bridge\allowbreak{}Management} & 1.0.0 & HTTP(S), MQTT(S) & \cite{tm-translationBridgeManagement-sd} & \cite{tm-translationBridgeManagement-http-idd}, \cite{tm-translationBridgeManagement-mqtt-idd} \\ \hline
+\texttt{generalManagement} & 1.0.0 & HTTP(S), MQTT(S) & \cite{tm-generalManagement-sd} & \cite{tm-generalManagement-http-idd}, \cite{tm-generalManagement-mqtt-idd} \\ \hline
+\texttt{sysMonitor} & 1.0.0 & AMQP(S) & \cite{tm-sysMonitor-sd} & \cite{tm-sysMonitor-amqp-idd} \\ \hline
+\end{longtable}
+
+The HTTP interfaces are always offered, the MQTT interfaces with \texttt{mqtt.api.enabled=true} and the AMQP \texttt{sysMonitor} interface with \texttt{sysmonitor.enabled=true}. The unregistered endpoints of the implementation are: \texttt{GET /\allowbreak{}translation/\allowbreak{}monitor/\allowbreak{}echo}.
+
+\subsection{Consumed services}
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{2.9cm} | >{\raggedright\arraybackslash}p{3.1cm} | >{\raggedright\arraybackslash}p{2.5cm} | p{3.6cm} | >{\raggedright\arraybackslash}p{2.9cm} |} \hline
+\rowcolor{gray!33} Provider & Service & Operations & Use & Condition \\ \hline \endhead
+ServiceRegistry & systemDiscovery, serviceDiscovery & register, revoke, lookup & Registration of the system and its services; lookup of the bootstrap services. & always \\ \hline
+Authentication & identity & identity-login, identity-verify & Own identity token; verification of requester tokens. & \texttt{authentication.\allowbreak{}policy=\allowbreak{}outsourced} \\ \hline
+Consumer\allowbreak{}Authorization & authorization & verify & Management filter decisions. & \texttt{management.\allowbreak{}policy=\allowbreak{}authorization} \\ \hline
+Blacklist & blacklist\allowbreak{}Discovery & check & Blacklist filter. & \texttt{enable.\allowbreak{}blacklist.\allowbreak{}filter=\allowbreak{}true} \\ \hline
+Consumer\allowbreak{}Authorization & authorization\allowbreak{}Token\allowbreak{}Management & generate-tokens & Bridge tokens. & bridges \\ \hline
+Translators & interface and data-model translation services & initialize, abort & Building and closing bridges. & bridges \\ \hline
+AMQP broker (SysMonitor) & sysMonitor (publisher) & echo, power, status & Own observations. & \texttt{sysmonitor.\allowbreak{}enabled=\allowbreak{}true} \\ \hline
+\end{longtable}
+
+Except for the bootstrap services, which are looked up in the ServiceRegistry, the system reaches other systems' services through DynamicServiceOrchestration (\texttt{http.collector.mode=ORCHESTRATION}, results cached for 300 s); every such call needs a ConsumerAuthorization grant.
+
+\newpage
+
+\section{Security}
+\label{sec:security}
+
+The system can run in an insecure mode (\texttt{server.ssl.enabled=false}, plain HTTP, identity declared by the requester) for development, and in the Arrowhead secure mode with HTTPS and X.509 certificates following the Arrowhead certificate profile (\texttt{<System>.<Cloud>.<Organization>.arrowhead.eu}). Certificates not issued under the cloud CA are refused by the TLS handshake. The standalone deployment of this folder (\texttt{config/\allowbreak{}application.\allowbreak{}properties} and \texttt{compose.yaml}) runs the secure mode.
+
+\subsection{Security model}
+
+
+\begin{itemize}
+  \item \textbf{Protocols:} HTTPS (TLS 1.3 and 1.2) with mandatory client certificates; MQTT over TLS; AMQP over TLS for \texttt{sysMonitor}.
+  \item \textbf{Data protection:} transport encryption by TLS; the database connection uses TLS with server verification in the standalone deployment. Secrets are kept out of the container environment (Compose file secrets).
+  \item \textbf{System authentication:} by the authentication policy: \texttt{certificate}, \texttt{outsourced} (identity token verified with Authentication) or \texttt{declared} (insecure); the standalone deployment uses \texttt{outsourced}. An identity token is accepted only together with the client certificate of the system it was issued to (token-to-certificate binding), and every client certificate is checked against the cloud CA's CRL (fail closed).
+  \item \textbf{Authorization of produced services:} management services are protected by the management filter (\texttt{management.policy}: \texttt{SYSOP\_ONLY}, \texttt{WHITELIST} or \texttt{AUTHORIZATION}); with \texttt{service.authorization.enabled=true} ConsumerAuthorization decides each call; an optional blacklist filter refuses blacklisted requesters. Sysop identities bypass the management filter.
+  \item Bridges are created only for authorized candidates (\texttt{enable.\allowbreak{}authorization=\allowbreak{}true}).
+\end{itemize}
+
+For the Arrowhead certificate profile see github.com/eclipse-arrowhead/documentation.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

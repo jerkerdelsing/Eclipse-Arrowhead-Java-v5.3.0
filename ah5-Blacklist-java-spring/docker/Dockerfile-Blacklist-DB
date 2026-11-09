@@ -1,0 +1,14 @@
+FROM mysql:8.1
+
+WORKDIR /db-scripts
+
+# Copy initialization scripts
+COPY ah5-blacklist-java-spring/src/main/resources/database .
+RUN mv /db-scripts/create_empty_db.sql /docker-entrypoint-initdb.d/init.sql
+RUN chmod 644 /docker-entrypoint-initdb.d/init.sql
+
+# SQL command to ensure rights to the database for "ah-operator" user.
+RUN sed -i '/^CREATE DATABASE/a GRANT ALL PRIVILEGES ON `ah_blacklist`.* TO '\''ah-operator'\''@'\''%'\'';\nFLUSH PRIVILEGES;' /docker-entrypoint-initdb.d/init.sql
+
+# Replace each "source filename.sql" with "source ../db-scripts/filename.sql"
+RUN sed -i -E 's/^(source[[:space:]]+)([^[:space:]]+)/\1..\/db-scripts\/\2/' /docker-entrypoint-initdb.d/init.sql

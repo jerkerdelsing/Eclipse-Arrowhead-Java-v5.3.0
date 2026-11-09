@@ -1,0 +1,103 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 735B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 103B done
+#4 DONE 0.0s
+
+#5 [build 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#5 resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 0.0s done
+#5 DONE 0.0s
+
+#6 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99
+#6 resolve docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 1.03MB 0.1s done
+#7 DONE 0.1s
+
+#8 [build 2/6] WORKDIR /source
+#8 CACHED
+
+#9 [build 3/6] COPY pom.xml .
+#9 CACHED
+
+#10 [build 6/6] RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
+#10 CACHED
+
+#11 [stage-1 2/5] WORKDIR /app
+#11 CACHED
+
+#12 [build 4/6] COPY vendor ./vendor
+#12 CACHED
+
+#13 [build 5/6] COPY src ./src
+#13 CACHED
+
+#14 [stage-1 3/5] COPY --from=build /source/target/arrowhead-onboarding-5.2.2.jar /app/app.jar
+#14 CACHED
+
+#15 [stage-1 4/5] COPY config /app/config
+#15 DONE 0.1s
+
+#16 [stage-1 5/5] RUN mkdir -p /app/logs && chown -R 10001:10001 /app
+#16 DONE 0.2s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 1.5s done
+#17 exporting manifest sha256:e448977597f5354f48f67daceedc09bbf26411bf3dcd1f7d0d80e66588ca62a7 done
+#17 exporting config sha256:32d9e2384e12517f7edaed8895fa4726af87d6c1a2f5a55febb1848226ebb8f7 done
+#17 exporting attestation manifest sha256:1e6c8239901535b3e0c3859d79ab0b97296b4845b14cbcf2d9280091a564a39c done
+#17 exporting manifest list sha256:1970d9a87885d9abfd279524b6d0dad47255d94ed95ab7903a6466afb5d62a8e done
+#17 naming to docker.io/library/arrowhead-onboarding-standalone:5.2.2 done
+#17 unpacking to docker.io/library/arrowhead-onboarding-standalone:5.2.2
+#17 unpacking to docker.io/library/arrowhead-onboarding-standalone:5.2.2 0.4s done
+#17 DONE 2.0s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/w4urvv4rz7yecqcgxys10alxf
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 131B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/mysql:8.4.11
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 103B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70
+#4 resolve docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70 done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 2.04kB done
+#5 DONE 0.0s
+
+#6 [2/2] COPY deployment/database/init.sql /docker-entrypoint-initdb.d/10-schema.sql
+#6 CACHED
+
+#7 exporting to image
+#7 exporting layers done
+#7 exporting manifest sha256:37d69a186cf553880562f64a956464683da162933bad6954debf1fa8e7c471ba done
+#7 exporting config sha256:1c877ddf60998cfbbff2abec267643ddbc8f5f4e1702af4d1585d8b29dd9f84f done
+#7 exporting attestation manifest sha256:3d7be522919ee17fa7accb339c40e3d68376346073569a695f6e5bf5c37582d8 done
+#7 exporting manifest list sha256:5091f06389ead7b98eb2b6a2c69949656be5b73c5971812402dd0bbeb58fe7b1 done
+#7 naming to docker.io/library/arrowhead-onboarding-standalone-db:5.2.2 done
+#7 unpacking to docker.io/library/arrowhead-onboarding-standalone-db:5.2.2 done
+#7 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/3v03t01av29t8ohyjqz7kbx5o

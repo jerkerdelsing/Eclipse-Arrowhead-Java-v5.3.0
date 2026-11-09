@@ -1,0 +1,104 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 737B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#3 DONE 0.3s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 103B done
+#4 DONE 0.0s
+
+#5 [build 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#5 resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 0.0s done
+#5 DONE 0.0s
+
+#6 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99
+#6 resolve docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 1.00MB 0.1s done
+#7 DONE 0.1s
+
+#8 [stage-1 2/5] WORKDIR /app
+#8 CACHED
+
+#9 [build 3/6] COPY pom.xml .
+#9 CACHED
+
+#10 [build 6/6] RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
+#10 CACHED
+
+#11 [build 2/6] WORKDIR /source
+#11 CACHED
+
+#12 [build 4/6] COPY vendor ./vendor
+#12 CACHED
+
+#13 [build 5/6] COPY src ./src
+#13 CACHED
+
+#14 [stage-1 3/5] COPY --from=build /source/target/arrowhead-eventhandler-5.2.2.jar /app/app.jar
+#14 CACHED
+
+#15 [stage-1 4/5] COPY config /app/config
+#15 DONE 0.1s
+
+#16 [stage-1 5/5] RUN mkdir -p /app/logs && chown -R 10001:10001 /app
+#16 DONE 0.2s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 1.6s done
+#17 exporting manifest sha256:2604cbaf31893e62da71ccb1f00b341d5f718b7497f6e0e7830518ce36b3fbd3 done
+#17 exporting config sha256:1f3997cb95b083415b1d584df290144823a47614b5410e6be90ccb8ff0a0101b done
+#17 exporting attestation manifest sha256:d075764a5302a082aa1a1be069421a493f5fde6c8b2cbca2baec0ce6c805dfc5 done
+#17 exporting manifest list sha256:e77c3dfe20fff62a6255f2b8a2606e13fd0cd4ad52561e5ea9c05b716ac2bf89 done
+#17 naming to docker.io/library/arrowhead-eventhandler-standalone:5.2.2 done
+#17 unpacking to docker.io/library/arrowhead-eventhandler-standalone:5.2.2
+#17 unpacking to docker.io/library/arrowhead-eventhandler-standalone:5.2.2 0.3s done
+#17 DONE 1.9s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/lxdp27dbpf68sexirtbzki8zh
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 131B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/mysql:8.4.11
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 103B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 1.36kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70
+#5 resolve docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70
+#5 resolve docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70 0.0s done
+#5 DONE 0.0s
+
+#6 [2/2] COPY deployment/database/init.sql /docker-entrypoint-initdb.d/10-schema.sql
+#6 CACHED
+
+#7 exporting to image
+#7 exporting layers done
+#7 exporting manifest sha256:8269c96226e46fa68963e76b50cce5047d60a4ce0373fd65a29cc4b53fbbbd90 done
+#7 exporting config sha256:d02aff81f8fe743bb852f5d6c497766794cdc2f77c7e2e0c220b8f0e05cd850e done
+#7 exporting attestation manifest sha256:35d350e32a4b8908cbe9efc7f0a8724c0e5be2a40584a353131715db7c478a3c 0.0s done
+#7 exporting manifest list sha256:47dbe098e37d7987b4d3de1a57a2303858dc4cd1648653b60cb6fa58de44deb3 0.0s done
+#7 naming to docker.io/library/arrowhead-eventhandler-standalone-db:5.2.2 done
+#7 unpacking to docker.io/library/arrowhead-eventhandler-standalone-db:5.2.2 done
+#7 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/7qk289gspfgasg6zcowf1c4gq

@@ -1,0 +1,235 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{SysMonitor}
+\ArrowheadType{System Description}
+\ArrowheadTypeShort{SysD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the SysMonitor support system of the Eclipse Arrowhead 5.2.2 framework, as implemented in \texttt{ah5-SysMonitor-java-spring} with an independent local-cloud deployment definition in its own folder.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the SysMonitor system. SysMonitor collects the native \texttt{sysMonitor} observations of all systems from the AMQP broker, stores their history and republishes them on the MQTT broker (\texttt{sysMonitorData}).
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small, >=Stealth]
+    \node[draw=ArrowheadBlue, very thick, minimum width=4.2cm, minimum height=2.2cm, align=center, fill=ArrowheadBlue!10] (s)
+      {\guillemotleft{}System\guillemotright{}\\\textbf{SysMonitor}};
+    \node[draw=ArrowheadTeal, rectangle, align=left, left=1.3cm of s, text width=4.6cm, inner sep=5pt] (p)
+      {\textbf{Produced services}\\ \texttt{sys\allowbreak{}Monitor\allowbreak{}Management}\\ \texttt{sysMonitorHistory}\\ \texttt{sysMonitorData}\\ \texttt{sysMonitor}};
+    \node[draw=ArrowheadOrange, rectangle, align=left, right=1.3cm of s, text width=4.6cm, inner sep=5pt] (c)
+      {\textbf{Consumed}\\ AMQP broker\\ Authentication\\ ConsumerAuthorization\\ DynamicServiceOrchestration\\ MQTT broker\\ ServiceRegistry};
+    \draw[->, thick, ArrowheadTeal] (s) -- (p);
+    \draw[->, thick, ArrowheadOrange] (s) -- (c);
+  \end{tikzpicture}
+  \caption{SysML-style block view of SysMonitor with its produced and consumed services.}
+  \label{fig:system}
+\end{figure}
+
+The rest of this document is organized as follows.
+In Section \ref{sec:prior_art}, we reference major prior art capabilities of the system.
+In Section \ref{sec:use}, we describe the intended usage of the system.
+In Section \ref{sec:properties}, we describe fundamental properties provided by the system.
+In Section \ref{sec:delimitations}, we describe delimitations of capabilities of the system.
+In Section \ref{sec:services}, we describe the abstract service functions consumed or produced by the system.
+In Section \ref{sec:security}, we describe the security capabilities of the system.
+
+\newpage
+
+\subsection{Significant Prior Art}
+\label{sec:prior_art}
+
+New in this workspace; native Java port of the former Node.js implementation (sources in \texttt{Implementation} kept for rollback).
+
+\subsection{How This System Is Meant to Be Used}
+\label{sec:use}
+
+SysMonitor orchestrates the \texttt{sysMonitor} providers, binds their routing keys per subscription, stores observations transactionally and forwards them. LocalCloudManager edits subscriptions and reads history; the Plant\allowbreak{}Description\allowbreak{}Engine reads liveness.
+
+\subsection{System functionalities and properties}
+\label{sec:properties}
+
+\subsubsection{Functional properties of the system}
+
+\begin{itemize}
+  \item Orchestration of sysMonitor providers and AMQP binding per subscription.
+  \item Validation, deduplication and storage with 30-day retention.
+  \item Transactional outbox to MQTT (QoS 1).
+  \item History queries with authorization.
+\end{itemize}
+
+\subsubsection{Configuration of system properties}
+
+The system is configured with environment variables. The variables that shape its behaviour are:
+
+\noindent\begin{longtable}{| p{5.4cm} | p{3.4cm} | p{6.4cm} |} \hline
+\rowcolor{gray!33} Property & Default & Meaning \\ \hline \endhead
+\texttt{PORT} & 8475 & HTTPS port. \\ \hline
+\texttt{AMQP\_\allowbreak{}HOST} / \texttt{AMQP\_\allowbreak{}PORT} & amqp-broker / 5671 & Intake broker. \\ \hline
+\texttt{MQTT\_\allowbreak{}HOST} / \texttt{MQTT\_\allowbreak{}PORT} & mqtt-broker / 8883 & Output broker. \\ \hline
+\texttt{SYSMONITOR\_\allowbreak{}RETENTION\_\allowbreak{}DAYS} & 30 & History retention. \\ \hline
+\texttt{SYSMONITOR\_\allowbreak{}DEFAULT\_\allowbreak{}SUBSCRIPTION} & all & \texttt{all} or \texttt{none}. \\ \hline
+\texttt{ORCHESTRATION\_\allowbreak{}INTERVAL\_\allowbreak{}SECONDS} & 30 & Provider re-orchestration. \\ \hline
+\texttt{LOCAL\_\allowbreak{}CLOUD} & TestCloud & Routing-key cloud segment. \\ \hline
+\end{longtable}
+
+Secrets (database, keystore and identity passwords, secret keys) have no usable defaults; the standalone deployment reads them from per-deployment Compose file secrets under \texttt{/\allowbreak{}run/\allowbreak{}secrets}.
+
+\subsubsection{Data stored by the system}
+
+Observations, outbox, subscriptions, AMQP bindings and audit (SQLite).
+
+\subsubsection{Non functional properties}
+
+AMQP deliveries are acknowledged only after persistence.
+
+\subsubsection{Stateful or stateless}
+
+Stateful.
+
+\subsection{Important Delimitations}
+\label{sec:delimitations}
+
+History is not a long-term archive; duplicates on \texttt{sysMonitorData} are possible after a crash.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+This section describes the produced and consumed services. Each produced service is specified by an SD document and one IDD document per interface.
+
+\subsection{Produced services}
+
+\noindent\begin{longtable}{| p{5.3cm} | p{1.3cm} | p{2.6cm} | p{1.6cm} | p{3.6cm} |} \hline
+\rowcolor{gray!33} Service & Version & Interfaces & SD & IDD \\ \hline \endhead
+\texttt{sys\allowbreak{}Monitor\allowbreak{}Management} & 1.0.0 & HTTP(S) & \cite{smo-sysMonitorManagement-sd} & \cite{smo-sysMonitorManagement-http-idd} \\ \hline
+\texttt{sysMonitorHistory} & 1.0.0 & HTTP(S) & \cite{smo-sysMonitorHistory-sd} & \cite{smo-sysMonitorHistory-http-idd} \\ \hline
+\texttt{sysMonitorData} & 1.0.0 & MQTT(S) & \cite{smo-sysMonitorData-sd} & \cite{smo-sysMonitorData-mqtt-idd} \\ \hline
+\texttt{sysMonitor} & 1.0.0 & AMQP(S) & \cite{smo-sysMonitor-sd} & \cite{smo-sysMonitor-amqp-idd} \\ \hline
+\end{longtable}
+
+All services use \texttt{generic\_https} with \texttt{CERT\_AUTH}; \texttt{sysMonitor} uses \texttt{generic\_amqps}. The container also answers \texttt{GET /health} on a loopback-only plain-HTTP port for the container health check.
+
+\subsection{Consumed services}
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{2.9cm} | >{\raggedright\arraybackslash}p{3.1cm} | >{\raggedright\arraybackslash}p{2.5cm} | p{3.6cm} | >{\raggedright\arraybackslash}p{2.9cm} |} \hline
+\rowcolor{gray!33} Provider & Service & Operations & Use & Condition \\ \hline \endhead
+ServiceRegistry & serviceDiscovery & register, lookup & Registration; orchestrator lookup. & always \\ \hline
+Authentication & identity & identity-login, identity-verify & Own token; caller verification. & always \\ \hline
+Dynamic\allowbreak{}Service\allowbreak{}Orchestration & service\allowbreak{}Orchestration & pull & sysMonitor providers. & always \\ \hline
+Consumer\allowbreak{}Authorization & authorization & verify & History authorization. & history \\ \hline
+AMQP broker & sysMonitor (all providers) & echo, power, status, \ldots{} & Intake. & subscriptions \\ \hline
+MQTT broker & sysMonitorData & publish & Output. & always \\ \hline
+\end{longtable}
+
+Only Authentication's \texttt{identity} and the orchestrator are looked up in the ServiceRegistry; other services are reached through DynamicServiceOrchestration (results cached), and every such call needs a ConsumerAuthorization grant.
+
+\newpage
+
+\section{Security}
+\label{sec:security}
+
+The standalone Java system requires HTTPS with mutual TLS and X.509 certificates following the Arrowhead system certificate profile (\texttt{<System>.<Cloud>.<Organization>.arrowhead.eu}, DNQ \texttt{sy}). There is no insecure runtime mode. Identity tokens are verified through Authentication and bound to the caller certificate. A separate loopback health endpoint is infrastructure only. Provision credentials and a valid CRL using the project-local environment template and Compose definition.
+
+\subsection{Security model}
+
+
+\begin{itemize}
+  \item \textbf{Protocols:} HTTPS (TLS 1.3 and 1.2) with mandatory client certificates; MQTT over TLS; AMQP over TLS for \texttt{sysMonitor}.
+  \item \textbf{Data protection:} transport encryption by TLS; SQLite storage is local to this system's private volume. Passwords are read from Compose file secrets; certificate and private-key files are mounted individually.
+  \item \textbf{System authentication:} mutual TLS with a system or operator certificate of the cloud and an identity token of the same system, verified with Authentication; declared identities are not accepted. Client certificates are checked against the CRL.
+  \item \textbf{Authorization of produced services:} per operation by caller lists in the implementation and, where stated, by ConsumerAuthorization.
+  \item Observations are accepted only if their identity matches the authorized routing key. Management only LocalCloudManager and Sysop.
+\end{itemize}
+
+For the Arrowhead certificate profile see github.com/eclipse-arrowhead/documentation.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-25 & \arrowversion & Independent Java build, private helpers and state, per-system deployment and configuration. & Codex (draft) \\ \hline
+3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

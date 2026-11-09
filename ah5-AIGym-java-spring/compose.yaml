@@ -1,0 +1,52 @@
+name: ah5-aigym
+services:
+  aigym:
+    build: {context: .}
+    image: arrowhead-aigym-standalone:5.2.2
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 512m
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777"]
+    ports: ["${HOST_BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-8478}:8478"]
+    environment:
+      LOCAL_CLOUD: ${LOCAL_CLOUD:-TestCloud}
+      ORGANIZATION: ${ORGANIZATION:-Company}
+      SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL:-https://serviceregistry:8443}
+      AMQP_HOST: ${AMQP_HOST:-amqp-broker}
+      AMQP_PORT: "${AMQP_PORT:-5671}"
+      MQTT_HOST: ${MQTT_HOST:-mqtt-broker}
+      MQTT_PORT: "${MQTT_PORT:-8883}"
+    secrets:
+      - source: store-password
+        target: ah.store-password
+      - source: identity-password
+        target: ah.identity-password
+    volumes:
+      - type: bind
+        source: ${SYSTEM_KEYSTORE_FILE:-./security/AIGym.p12}
+        target: /certs/AIGym.p12
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${TRUSTSTORE_FILE:-./security/truststore.p12}
+        target: /certs/truststore.p12
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${CRL_DIRECTORY:-./security/crl}
+        target: /crl
+        read_only: true
+        bind: {create_host_path: false}
+    networks:
+      cloud: {aliases: [aigym]}
+networks:
+  cloud:
+    external: true
+    name: ${ARROWHEAD_NETWORK:-arrowhead-local-cloud}
+secrets:
+  identity-password:
+    file: ${IDENTITY_PASSWORD_FILE:-./security/identity-password}
+  store-password:
+    file: ${STORE_PASSWORD_FILE:-./security/store-password}

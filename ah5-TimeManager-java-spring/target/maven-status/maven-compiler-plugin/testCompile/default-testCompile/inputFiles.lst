@@ -1,0 +1,4 @@
+/source/src/test/java/eu/arrowhead/timemanager/security/TimeManagerAuthorizationTest.java
+/source/src/test/java/eu/arrowhead/timemanager/service/SntpClientTest.java
+/source/src/test/java/eu/arrowhead/timemanager/service/TimeServiceTest.java
+/source/src/test/java/eu/arrowhead/timemanager/service/TimeTrustServiceTest.java

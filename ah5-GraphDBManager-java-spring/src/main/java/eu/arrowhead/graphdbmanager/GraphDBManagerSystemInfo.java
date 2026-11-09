@@ -1,0 +1,106 @@
+/*******************************************************************************
+ * Copyright (c) 2026 Lulea University of Technology
+ * SPDX-License-Identifier: EPL-2.0
+ *******************************************************************************/
+package eu.arrowhead.graphdbmanager;
+
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
+
+import eu.arrowhead.common.Constants;
+import eu.arrowhead.common.SystemInfo;
+import eu.arrowhead.common.http.filter.authentication.AuthenticationPolicy;
+import eu.arrowhead.common.http.model.HttpInterfaceModel;
+import eu.arrowhead.common.http.model.HttpOperationModel;
+import eu.arrowhead.common.model.InterfaceModel;
+import eu.arrowhead.common.model.ServiceModel;
+import eu.arrowhead.common.model.SystemModel;
+
+@Component(Constants.BEAN_NAME_SYSTEM_INFO)
+public class GraphDBManagerSystemInfo extends SystemInfo {
+
+	private SystemModel systemModel;
+
+
+	@Override
+	public String getSystemName() {
+		return GraphDBManagerConstants.SYSTEM_NAME;
+	}
+
+	@Override
+	public SystemModel getSystemModel() {
+		if (systemModel == null) {
+			SystemModel.Builder builder = new SystemModel.Builder()
+					.address(getAddress())
+					.version(Constants.AH_FRAMEWORK_VERSION);
+			if (AuthenticationPolicy.CERTIFICATE == getAuthenticationPolicy()) {
+				builder = builder.metadata(Constants.METADATA_KEY_X509_PUBLIC_KEY, getPublicKey());
+			}
+			systemModel = builder.build();
+		}
+		return systemModel;
+	}
+
+	@Override
+	public List<ServiceModel> getServices() {
+		final ServiceModel dataProxy = new ServiceModel.Builder()
+				.serviceDefinition(GraphDBManagerConstants.SERVICE_DEF_DATA_PROXY)
+				.version(GraphDBManagerConstants.VERSION_DATA_PROXY)
+				.serviceInterface(createHttpInterface(GraphDBManagerConstants.HTTP_API_DATA_PROXY_PATH))
+				.build();
+		final ServiceModel dataHistorian = new ServiceModel.Builder()
+				.serviceDefinition(GraphDBManagerConstants.SERVICE_DEF_DATA_HISTORIAN)
+				.version(GraphDBManagerConstants.VERSION_DATA_HISTORIAN)
+				.serviceInterface(createHttpInterface(GraphDBManagerConstants.HTTP_API_DATA_HISTORIAN_PATH))
+				.build();
+		return List.of(dataProxy, dataHistorian);
+	}
+
+	@Override
+	protected PublicConfigurationKeysAndDefaults getPublicConfigurationKeysAndDefaults() {
+		return new PublicConfigurationKeysAndDefaults(
+				Set.of(Constants.SERVER_ADDRESS,
+						Constants.SERVER_PORT,
+						Constants.DOMAIN_NAME,
+						Constants.AUTHENTICATION_POLICY,
+						Constants.NORMALIZATION_MODE,
+						Constants.ALLOW_SELF_ADDRESSING,
+						Constants.ALLOW_NON_ROUTABLE_ADDRESSING),
+				GraphDBManagerDefaults.class);
+	}
+
+	private InterfaceModel createHttpInterface(final String basePath) {
+		final String templateName = getSslProperties().isSslEnabled()
+				? Constants.GENERIC_HTTPS_INTERFACE_TEMPLATE_NAME
+				: Constants.GENERIC_HTTP_INTERFACE_TEMPLATE_NAME;
+
+		final HttpOperationModel listSystems = new HttpOperationModel.Builder()
+				.method(HttpMethod.GET.name())
+				.path(GraphDBManagerConstants.HTTP_API_OP_SYSTEMS_PATH)
+				.build();
+		final HttpOperationModel listServices = new HttpOperationModel.Builder()
+				.method(HttpMethod.GET.name())
+				.path(GraphDBManagerConstants.HTTP_API_OP_SERVICES_PATH)
+				.build();
+		final HttpOperationModel getData = new HttpOperationModel.Builder()
+				.method(HttpMethod.GET.name())
+				.path(GraphDBManagerConstants.HTTP_API_OP_DATA_PATH)
+				.build();
+		final HttpOperationModel putData = new HttpOperationModel.Builder()
+				.method(HttpMethod.PUT.name())
+				.path(GraphDBManagerConstants.HTTP_API_OP_DATA_PATH)
+				.build();
+
+		return new HttpInterfaceModel.Builder(templateName, getDomainAddress(), getServerPort())
+				.basePath(basePath)
+				.operation(GraphDBManagerConstants.SERVICE_OP_LIST_SYSTEMS, listSystems)
+				.operation(GraphDBManagerConstants.SERVICE_OP_LIST_SERVICES, listServices)
+				.operation(GraphDBManagerConstants.SERVICE_OP_GET_DATA, getData)
+				.operation(GraphDBManagerConstants.SERVICE_OP_PUT_DATA, putData)
+				.build();
+	}
+}

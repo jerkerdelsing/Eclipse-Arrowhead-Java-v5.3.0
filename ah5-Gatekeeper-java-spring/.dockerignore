@@ -1,0 +1,7 @@
+target
+legacy
+documentation
+security
+.env
+.git
+*.log

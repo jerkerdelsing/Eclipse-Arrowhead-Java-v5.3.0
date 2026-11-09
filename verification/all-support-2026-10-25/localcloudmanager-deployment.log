@@ -1,0 +1,42 @@
+cloud-monitor-ui-1   | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+cloud-monitor-ui-1   | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+cloud-monitor-api-1  | Arrowhead local-cloud manager API listening on 8491
+cloud-monitor-api-1  | Arrowhead registration failed: connect ECONNREFUSED 127.0.0.1:1
+cloud-monitor-api-1  | sysMonitor publication failed: getaddrinfo ENOTFOUND amqp-broker
+cloud-monitor-api-1  | Console login
+cloud-monitor-ui-1   | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/05-secret-files.envsh
+cloud-monitor-ui-1   | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+cloud-monitor-ui-1   | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf is not a file or does not exist
+cloud-monitor-ui-1   | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+cloud-monitor-ui-1   | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+cloud-monitor-ui-1   | 20-envsubst-on-templates.sh: Running envsubst on /etc/nginx/templates/default.conf.template to /tmp/default.conf
+cloud-monitor-ui-1   | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/25-drop-secrets.envsh
+cloud-monitor-ui-1   | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+cloud-monitor-ui-1   | /docker-entrypoint.sh: Configuration complete; ready for start up
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: using the "epoll" event method
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: nginx/1.30.6
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: OS: Linux 7.0.12-linuxkit
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker processes
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 27
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 28
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 29
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 30
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 31
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 32
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 33
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 34
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 35
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 36
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 37
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 38
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 39
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 40
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 41
+cloud-monitor-ui-1   | 2026/10/25 10:58:47 [notice] 1#1: start worker process 42
+cloud-monitor-ui-1   | 10.253.248.1 - - [25/Oct/2026:10:58:47 +0000] "GET /health HTTP/1.1" 200 162 "-" "Python-urllib/3.13"
+cloud-monitor-ui-1   | 10.253.248.1 - - [25/Oct/2026:10:58:47 +0000] "GET / HTTP/1.1" 200 24672 "-" "Python-urllib/3.13"
+cloud-monitor-ui-1   | 10.253.248.1 - - [25/Oct/2026:10:58:47 +0000] "GET /api/overview HTTP/1.1" 401 34 "-" "Python-urllib/3.13"
+cloud-monitor-ui-1   | 10.253.248.1 - - [25/Oct/2026:10:58:47 +0000] "POST /api/session HTTP/1.1" 204 0 "-" "Python-urllib/3.13"
+cloud-monitor-ui-1   | 10.253.248.1 - - [25/Oct/2026:10:58:47 +0000] "GET /api/session HTTP/1.1" 200 40 "-" "Python-urllib/3.13"

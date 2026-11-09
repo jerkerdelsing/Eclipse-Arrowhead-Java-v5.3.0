@@ -1,0 +1,62 @@
+[
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-Blacklist-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-TranslationManager-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-DeviceQoSEvaluator-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-Onboarding-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-DataManager-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-TimeManager-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-EventHandler-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-PlantDescriptionEngine-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-Configuration-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-Choreographer-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-SysDD.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-AIGym-v5.2.2-SysDD.log"
+  },
+  {
+    "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/documentation/WhiteBox_5.2.2/GSoSDD_Arrowhead_Support_Systems_5.2.tex",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/latex-GSoSDD_Arrowhead_Support_Systems_5.2.log"
+  }
+]

@@ -1,0 +1,259 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{graphDataHistorian}
+\ArrowheadServiceID{graphDataHistorian}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{graphDataHistorian} service, version 1.0.0, produced by the GraphDBManager support system of Arrowhead 5.2.2.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{graphDataHistorian} service, which provides persistent storage and query of SenML time series per system and service.
+It is produced by the GraphDBManager system \cite{gdm-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{gdm-graphDataHistorian-http-idd}.
+
+\subsection{Significant Prior Art}
+
+Copy of the DataManager \texttt{dataHistorian} service (5.2.2) under its own service definition; same operations and data model, persisted as RDF in GraphDB \cite{graphdb}.
+
+\subsection{How This Service Is Meant to Be Used}
+
+Producers append records with \texttt{put-\allowbreak{}data}; consumers query with \texttt{get-\allowbreak{}data}, optionally limited by \texttt{from}, \texttt{to}, \texttt{count}, \texttt{signals} and \texttt{signalCount}.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Data are stored as RDF in GraphDBManager's own GraphDB repository (see the SysDD for the vocabulary), without retention policy and without inference. With \texttt{service.\allowbreak{}authorization.\allowbreak{}enabled=\allowbreak{}true} every call is checked with Consumer\allowbreak{}Authorization.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{graphDataHistorian} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{graphDataHistorian}
+        \nodepart{second} \texttt{list-\allowbreak{}systems}\\ \texttt{list-\allowbreak{}services}\\ \texttt{get-\allowbreak{}data}\\ \texttt{put-\allowbreak{}data}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{graphDataHistorian} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{list-systems}{}{\mref{SystemListResponse}}
+
+Returns the systems with stored data.
+
+\osubsection{list-services}{\pref{Name}}{\mref{ServiceListResponse}}
+
+Returns the services of a system with stored data.
+
+\osubsection{get-data}{\pref{Name}}{\pref{List}$<$\allowbreak{}\mref{SenMLRecord}$>$}
+
+Returns stored SenML records of the system and service, newest first, limited by the query parameters.
+
+\osubsection{put-data}{\pref{List}$<$\allowbreak{}\mref{SenMLRecord}$>$}{}
+
+Appends SenML records for the system and service.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{graphDataHistorian} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{SenMLRecord}
+
+A SenML record (RFC 8428); a message is a JSON array of records.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+bn & \pref{String} & SenML base name. \\ \hline
+bt & \pref{String} & SenML base time (seconds). \\ \hline
+bu & \pref{String} & SenML base unit. \\ \hline
+bv & \pref{String} & SenML base value. \\ \hline
+bs & \pref{String} & SenML base sum. \\ \hline
+bver & \pref{String} & SenML base version. \\ \hline
+n & \pref{String} & SenML name. \\ \hline
+u & \pref{String} & SenML unit. \\ \hline
+v & \pref{String} & SenML numeric value. \\ \hline
+vs & \pref{String} & SenML string value. \\ \hline
+vb & \pref{Boolean} & SenML Boolean value. \\ \hline
+vd & \pref{String} & SenML data value (Base64). \\ \hline
+s & \pref{String} & SenML sum. \\ \hline
+t & \pref{String} & SenML time (seconds, relative to the base time). \\ \hline
+ut & \pref{String} & SenML update time (seconds). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceListResponse}
+
+Service names with data of a system.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+services & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Service names with stored data. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemListResponse}
+
+List of systems.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+systems & \pref{List}$<$\allowbreak{}\pref{String}$>$ & System names with stored data. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-28 & \arrowversion & Document created from the corresponding DataManager document for the GraphDB-backed copy GraphDBManager. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

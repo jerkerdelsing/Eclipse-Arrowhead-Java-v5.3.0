@@ -1,0 +1,37 @@
+# Build context: the workspace root that contains ah5-common-java-spring, ah5-core-java-spring and ah5-support-java-spring.
+# Stage 1: build
+FROM eclipse-temurin:21-jdk AS build
+
+ARG AH_VERSION=5.2.2
+
+RUN apt-get update && apt-get install -y maven dos2unix
+
+WORKDIR /common
+COPY ah5-common-java-spring .
+RUN mvn clean install -DskipTests
+
+# Parent pom (arrowhead-core) of the support module
+WORKDIR /core
+COPY ah5-core-java-spring/pom.xml pom.xml
+RUN mvn -N install
+
+WORKDIR /app
+COPY ah5-support-java-spring/TimeManager .
+RUN dos2unix /app/docker/entrypoint.sh
+RUN mvn -DskipTests clean package
+
+# Stage 2: runtime
+FROM eclipse-temurin:21-jre
+
+ARG AH_VERSION=5.2.2
+ENV AH_VERSION=$AH_VERSION
+
+WORKDIR /app
+COPY --from=build /app/target/arrowhead-timemanager-${AH_VERSION}.jar arrowhead-timemanager-${AH_VERSION}.jar
+COPY --from=build /app/target/application.properties config_temp/application.properties
+COPY --from=build /app/target/log4j2.xml config_temp/log4j2.xml
+COPY --from=build /app/docker/entrypoint.sh entrypoint.sh
+
+RUN chmod +x entrypoint.sh
+EXPOSE 8463
+ENTRYPOINT ["/app/entrypoint.sh"]

@@ -1,0 +1,34 @@
+# Stage 1: Build (jdk needed)
+FROM eclipse-temurin:21-jdk AS build
+
+ARG AH_VERSION
+
+RUN apt-get update && \
+    apt-get install -y maven && \
+	apt-get install -y dos2unix
+	
+WORKDIR /common
+COPY ah5-common-java-spring .
+RUN mvn clean install -DskipTests
+
+WORKDIR /app
+COPY ah5-blacklist-java-spring .
+RUN dos2unix /app/docker/entrypoint.sh
+RUN mvn clean install -am -DskipTests
+
+# Stage 2: Runtime (jdk not needed)
+FROM eclipse-temurin:21-jre
+
+ARG AH_VERSION
+ENV AH_VERSION=$AH_VERSION
+
+WORKDIR /app
+COPY --from=build /app/target/arrowhead-blacklist-${AH_VERSION}.jar arrowhead-blacklist-${AH_VERSION}.jar
+COPY --from=build /app/target/application.properties config_temp/application.properties
+COPY --from=build /app/target/log4j2.xml config_temp/log4j2.xml
+COPY --from=build /app/src/main/resources/certificate config_temp/certificte
+COPY --from=build /app/docker/entrypoint.sh entrypoint.sh
+
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT ["/app/entrypoint.sh"]

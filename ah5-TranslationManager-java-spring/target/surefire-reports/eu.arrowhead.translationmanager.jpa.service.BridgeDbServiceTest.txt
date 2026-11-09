@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: eu.arrowhead.translationmanager.jpa.service.BridgeDbServiceTest
+-------------------------------------------------------------------------------
+Tests run: 77, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.027 s -- in eu.arrowhead.translationmanager.jpa.service.BridgeDbServiceTest

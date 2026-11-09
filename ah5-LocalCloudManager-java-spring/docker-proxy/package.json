@@ -1,0 +1,9 @@
+{
+  "name": "arrowhead-console-docker-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Whitelisting Docker Engine API proxy for the LocalCloudManager console",
+  "main": "src/proxy.js",
+  "scripts": { "start": "node src/proxy.js", "test": "node --test" },
+  "engines": { "node": ">=24" }
+}

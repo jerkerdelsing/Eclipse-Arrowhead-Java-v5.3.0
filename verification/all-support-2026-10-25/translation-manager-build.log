@@ -1,0 +1,151 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------< eu.arrowhead:arrowhead-translation-manager >-------------
+[INFO] Building Arrowhead TranslationManager standalone 5.2.2
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.4.1/maven-clean-plugin-3.4.1.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.4.1/maven-clean-plugin-3.4.1.pom (5.6 kB at 16 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.4.1/maven-clean-plugin-3.4.1.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.4.1/maven-clean-plugin-3.4.1.jar (36 kB at 577 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/build-helper-maven-plugin/3.6.0/build-helper-maven-plugin-3.6.0.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/build-helper-maven-plugin/3.6.0/build-helper-maven-plugin-3.6.0.pom (8.1 kB at 162 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/mojo-parent/82/mojo-parent-82.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/mojo-parent/82/mojo-parent-82.pom (36 kB at 553 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/build-helper-maven-plugin/3.6.0/build-helper-maven-plugin-3.6.0.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/mojo/build-helper-maven-plugin/3.6.0/build-helper-maven-plugin-3.6.0.jar (72 kB at 1.1 MB/s)
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ arrowhead-translation-manager ---
+[INFO] Deleting /source/target
+[INFO] 
+[INFO] --- resources:3.3.1:copy-resources (copy-resources) @ arrowhead-translation-manager ---
+[INFO] Copying 2 resources from src/main/resources to target
+[INFO] 
+[INFO] --- build-helper:3.6.0:add-source (private-library-source) @ arrowhead-translation-manager ---
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.pom (5.0 kB at 94 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.4.2/plexus-utils-3.4.2.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.4.2/plexus-utils-3.4.2.pom (8.2 kB at 142 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/8/plexus-8.pom
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus/8/plexus-8.pom (25 kB at 454 kB/s)
+[INFO] Downloading from central: https://repo.maven.apache.org/maven2/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.jar
+[INFO] Downloaded from central: https://repo.maven.apache.org/maven2/org/apache-extras/beanshell/bsh/2.0b6/bsh-2.0b6.jar (389 kB at 2.2 MB/s)
+[INFO] Source directory: /source/vendor/common-utils/src/main/java added.
+[INFO] Source directory: /source/vendor/data-transfer-objects/src/main/java added.
+[INFO] 
+[INFO] --- build-helper:3.6.0:add-resource (private-library-source) @ arrowhead-translation-manager ---
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ arrowhead-translation-manager ---
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] Copying 2 resources from vendor/common-utils/src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ arrowhead-translation-manager ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 379 source files with javac [debug parameters release 21] to target/classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ arrowhead-translation-manager ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ arrowhead-translation-manager ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 16 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ arrowhead-translation-manager ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running eu.arrowhead.translationmanager.jpa.service.BridgeDbServiceTest
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-10-25 10:36:17.934 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.155 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.162 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.198 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.271 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-25 10:36:18.271 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.287 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.337 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.362 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.379 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.384 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+[INFO] Tests run: 77, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.303 s -- in eu.arrowhead.translationmanager.jpa.service.BridgeDbServiceTest
+[INFO] Running eu.arrowhead.translationmanager.quartz.CleanerJobTest
+2026-10-25 10:36:18.552 ERROR a53b6128936e --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.164 s -- in eu.arrowhead.translationmanager.quartz.CleanerJobTest
+[INFO] Running eu.arrowhead.translationmanager.service.dto.NormalizedTranslationQueryRequestDTOTest
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 s -- in eu.arrowhead.translationmanager.service.dto.NormalizedTranslationQueryRequestDTOTest
+[INFO] Running eu.arrowhead.translationmanager.service.dto.DTOConverterTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.119 s -- in eu.arrowhead.translationmanager.service.dto.DTOConverterTest
+[INFO] Running eu.arrowhead.translationmanager.service.TranslationBridgeManagementServiceTest
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.352 s -- in eu.arrowhead.translationmanager.service.TranslationBridgeManagementServiceTest
+[INFO] Running eu.arrowhead.translationmanager.service.TranslationReportServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 s -- in eu.arrowhead.translationmanager.service.TranslationReportServiceTest
+[INFO] Running eu.arrowhead.translationmanager.service.matchmaking.DefaultDataModelTranslatorMatchmakerTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.072 s -- in eu.arrowhead.translationmanager.service.matchmaking.DefaultDataModelTranslatorMatchmakerTest
+[INFO] Running eu.arrowhead.translationmanager.service.matchmaking.DefaultInterfaceTranslatorMatchmakerTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in eu.arrowhead.translationmanager.service.matchmaking.DefaultInterfaceTranslatorMatchmakerTest
+[INFO] Running eu.arrowhead.translationmanager.service.TranslationBridgeServiceTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s -- in eu.arrowhead.translationmanager.service.TranslationBridgeServiceTest
+[INFO] Running eu.arrowhead.translationmanager.service.engine.CoreSystemsDriverTest
+2026-10-25 10:36:19.409 ERROR a53b6128936e --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-25 10:36:19.409 ERROR a53b6128936e --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-25 10:36:19.490 ERROR a53b6128936e --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-25 10:36:19.491 ERROR a53b6128936e --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+[INFO] Tests run: 56, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.240 s -- in eu.arrowhead.translationmanager.service.engine.CoreSystemsDriverTest
+[INFO] Running eu.arrowhead.translationmanager.service.engine.TranslatorBridgeEngineTest
+2026-10-25 10:36:19.835  WARN a53b6128936e --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+[INFO] Tests run: 60, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.346 s -- in eu.arrowhead.translationmanager.service.engine.TranslatorBridgeEngineTest
+[INFO] Running eu.arrowhead.translationmanager.service.engine.InterfaceTranslatorDriverTest
+2026-10-25 10:36:19.962  WARN a53b6128936e --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-25 10:36:19.974  WARN a53b6128936e --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-25 10:36:19.999  WARN a53b6128936e --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+[INFO] Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.145 s -- in eu.arrowhead.translationmanager.service.engine.InterfaceTranslatorDriverTest
+[INFO] Running eu.arrowhead.translationmanager.service.engine.DataModelTranslatorFactoryDriverTest
+2026-10-25 10:36:20.089 ERROR a53b6128936e --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-25 10:36:20.092  WARN a53b6128936e --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-25 10:36:20.118  WARN a53b6128936e --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+[INFO] Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.118 s -- in eu.arrowhead.translationmanager.service.engine.DataModelTranslatorFactoryDriverTest
+[INFO] Running eu.arrowhead.translationmanager.service.validation.TranslationReportValidationTest
+[INFO] Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.038 s -- in eu.arrowhead.translationmanager.service.validation.TranslationReportValidationTest
+[INFO] Running eu.arrowhead.translationmanager.service.validation.TranslationBridgeValidationTest
+[INFO] Tests run: 57, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.160 s -- in eu.arrowhead.translationmanager.service.validation.TranslationBridgeValidationTest
+[INFO] Running eu.arrowhead.translationmanager.service.validation.TranslationBridgeMgmtValidationTest
+[INFO] Tests run: 95, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.125 s -- in eu.arrowhead.translationmanager.service.validation.TranslationBridgeMgmtValidationTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 490, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ arrowhead-translation-manager ---
+[INFO] Building jar: /source/target/arrowhead-translation-manager-5.2.2.jar
+[INFO] 
+[INFO] --- spring-boot:3.4.9:repackage (repackage) @ arrowhead-translation-manager ---
+[INFO] Replacing main artifact /source/target/arrowhead-translation-manager-5.2.2.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /source/target/arrowhead-translation-manager-5.2.2.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  15.640 s
+[INFO] Finished at: 2026-10-25T10:36:22Z
+[INFO] ------------------------------------------------------------------------

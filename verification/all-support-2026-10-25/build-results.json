@@ -1,0 +1,52 @@
+[
+  {
+    "system": "Blacklist",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/blacklist-build.log"
+  },
+  {
+    "system": "TranslationManager",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/translation-manager-build.log"
+  },
+  {
+    "system": "DeviceQoSEvaluator",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/device-qos-evaluator-build.log"
+  },
+  {
+    "system": "Onboarding",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/onboarding-build.log"
+  },
+  {
+    "system": "DataManager",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/datamanager-build.log"
+  },
+  {
+    "system": "TimeManager",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/timemanager-build.log"
+  },
+  {
+    "system": "EventHandler",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/eventhandler-build.log"
+  },
+  {
+    "system": "PlantDescriptionEngine",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/plantdescriptionengine-build.log"
+  },
+  {
+    "system": "Configuration",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/configuration-build.log"
+  },
+  {
+    "system": "Choreographer",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/choreographer-build.log"
+  }
+]

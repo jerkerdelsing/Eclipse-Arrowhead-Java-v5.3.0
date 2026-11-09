@@ -1,0 +1,5867 @@
+{
+ "systems": {
+  "ServiceRegistry": {
+   "module": "serviceregistry",
+   "services": [
+    {
+     "serviceDefinition": "deviceDiscovery",
+     "version": "1.0.0",
+     "metadata": {
+      "unrestrictedDiscovery": "true"
+     },
+     "http": {
+      "basePath": "/serviceregistry/device-discovery",
+      "ops": [
+       {
+        "name": "register",
+        "method": "POST",
+        "path": "/register",
+        "javaMethod": "register",
+        "summary": "Returns the newly created or matching device entry",
+        "requestBody": "DeviceRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ResponseEntity<DeviceResponseDTO>",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "DeviceDiscoveryAPI",
+        "fullPath": "/serviceregistry/device-discovery/register"
+       },
+       {
+        "name": "lookup",
+        "method": "POST",
+        "path": "/lookup",
+        "javaMethod": "lookup",
+        "summary": "Returns device entries according to the given filters",
+        "requestBody": "DeviceLookupRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "DeviceListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "DeviceDiscoveryAPI",
+        "fullPath": "/serviceregistry/device-discovery/lookup"
+       },
+       {
+        "name": "revoke",
+        "method": "DELETE",
+        "path": "/revoke/{name}",
+        "javaMethod": "revoke",
+        "summary": "Deletes device entry by name if exists and no systems are assigned to it",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [
+         "name"
+        ],
+        "response": "ResponseEntity<Void>",
+        "status": null,
+        "codes": [
+         "OK",
+         "NO_CONTENT",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "LOCKED",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "DeviceDiscoveryAPI",
+        "fullPath": "/serviceregistry/device-discovery/revoke/{name}"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceregistry/device-discovery/",
+      "ops": [
+       {
+        "name": "register",
+        "payload": "DeviceRequestDTO",
+        "handler": "DeviceDiscoveryMqttHandler"
+       },
+       {
+        "name": "lookup",
+        "payload": "DeviceLookupRequestDTO",
+        "handler": "DeviceDiscoveryMqttHandler"
+       },
+       {
+        "name": "revoke",
+        "payload": "String",
+        "handler": "DeviceDiscoveryMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "systemDiscovery",
+     "version": "1.0.0",
+     "metadata": {
+      "unrestrictedDiscovery": "true"
+     },
+     "http": {
+      "basePath": "/serviceregistry/system-discovery",
+      "ops": [
+       {
+        "name": "register",
+        "method": "POST",
+        "path": "/register",
+        "javaMethod": "register",
+        "summary": "Returns the newly created or matching system entry",
+        "requestBody": "SystemRegisterRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ResponseEntity<SystemResponseDTO>",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "SystemDiscoveryAPI",
+        "fullPath": "/serviceregistry/system-discovery/register"
+       },
+       {
+        "name": "lookup",
+        "method": "POST",
+        "path": "/lookup",
+        "javaMethod": "lookup",
+        "summary": "Returns system entries according to the given filters",
+        "requestBody": "SystemLookupRequestDTO",
+        "queryParams": [
+         {
+          "name": "verbose",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+         }
+        ],
+        "pathVars": [],
+        "response": "SystemListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "SystemDiscoveryAPI",
+        "fullPath": "/serviceregistry/system-discovery/lookup"
+       },
+       {
+        "name": "revoke",
+        "method": "DELETE",
+        "path": "/revoke",
+        "javaMethod": "revoke",
+        "summary": "Deletes system entry if exists",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ResponseEntity<Void>",
+        "status": null,
+        "codes": [
+         "OK",
+         "NO_CONTENT",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "SystemDiscoveryAPI",
+        "fullPath": "/serviceregistry/system-discovery/revoke"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceregistry/system-discovery/",
+      "ops": [
+       {
+        "name": "register",
+        "payload": "SystemRegisterRequestDTO",
+        "handler": "SystemDiscoveryMqttHandler"
+       },
+       {
+        "name": "lookup",
+        "payload": "SystemLookupRequestDTO",
+        "handler": "SystemDiscoveryMqttHandler"
+       },
+       {
+        "name": "revoke",
+        "payload": null,
+        "handler": "SystemDiscoveryMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceDiscovery",
+     "version": "1.0.0",
+     "metadata": {
+      "unrestrictedDiscovery": "true"
+     },
+     "http": {
+      "basePath": "/serviceregistry/service-discovery",
+      "ops": [
+       {
+        "name": "register",
+        "method": "POST",
+        "path": "/register",
+        "javaMethod": "register",
+        "summary": "Returns the created service entry",
+        "requestBody": "ServiceInstanceCreateRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ServiceInstanceResponseDTO",
+        "status": "CREATED",
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ServiceDiscoveryAPI",
+        "fullPath": "/serviceregistry/service-discovery/register"
+       },
+       {
+        "name": "lookup",
+        "method": "POST",
+        "path": "/lookup",
+        "javaMethod": "lookup",
+        "summary": "Returns the service entries according to the given filters",
+        "requestBody": "ServiceInstanceLookupRequestDTO",
+        "queryParams": [
+         {
+          "name": "verbose",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+         }
+        ],
+        "pathVars": [],
+        "response": "ServiceInstanceListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ServiceDiscoveryAPI",
+        "fullPath": "/serviceregistry/service-discovery/lookup"
+       },
+       {
+        "name": "revoke",
+        "method": "DELETE",
+        "path": "/revoke/{instanceId}",
+        "javaMethod": "revoke",
+        "summary": "Deletes service instance entry if exists",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [
+         "instanceId"
+        ],
+        "response": "ResponseEntity<Void>",
+        "status": null,
+        "codes": [
+         "OK",
+         "NO_CONTENT",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ServiceDiscoveryAPI",
+        "fullPath": "/serviceregistry/service-discovery/revoke/{instanceId}"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceregistry/service-discovery/",
+      "ops": [
+       {
+        "name": "register",
+        "payload": "ServiceInstanceCreateRequestDTO",
+        "handler": "ServiceDiscoveryMqttHandler"
+       },
+       {
+        "name": "lookup",
+        "payload": "ServiceInstanceLookupRequestDTO",
+        "handler": "ServiceDiscoveryMqttHandler"
+       },
+       {
+        "name": "revoke",
+        "payload": "String",
+        "handler": "ServiceDiscoveryMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "generalManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceregistry/general/mgmt",
+      "ops": [
+       {
+        "name": "get-log",
+        "method": "POST",
+        "path": "/logs",
+        "javaMethod": "getLogEntries",
+        "summary": "Returns the log entries",
+        "requestBody": "LogRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "LogEntryListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "GeneralManagementAPI",
+        "fullPath": "/serviceregistry/general/mgmt/logs"
+       },
+       {
+        "name": "get-config",
+        "method": "GET",
+        "path": "/get-config",
+        "javaMethod": "getConfig",
+        "summary": "Returns a list of configurations",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "keys",
+          "type": "List<String>",
+          "required": false,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "KeyValuesDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "GeneralManagementAPI",
+        "fullPath": "/serviceregistry/general/mgmt/get-config"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceregistry/general/management/",
+      "ops": [
+       {
+        "name": "get-log",
+        "payload": "LogRequestDTO",
+        "handler": "GeneralManagementMqttHandler"
+       },
+       {
+        "name": "get-config",
+        "payload": "List<String>",
+        "handler": "GeneralManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceRegistryManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceregistry/mgmt",
+      "ops": [
+       {
+        "name": "device-query",
+        "method": "POST",
+        "path": "/devices/query",
+        "javaMethod": "queryDevices",
+        "summary": "Returns the device entries according to the query request",
+        "requestBody": "DeviceQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "DeviceListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/devices/query"
+       },
+       {
+        "name": "device-create",
+        "method": "POST",
+        "path": "/devices",
+        "javaMethod": "createDevices",
+        "summary": "Returns the created device entries",
+        "requestBody": "DeviceListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "DeviceListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/devices"
+       },
+       {
+        "name": "device-update",
+        "method": "PUT",
+        "path": "/devices",
+        "javaMethod": "updateDevices",
+        "summary": "Returns the updated device entries",
+        "requestBody": "DeviceListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "DeviceListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/devices"
+       },
+       {
+        "name": "device-remove",
+        "method": "DELETE",
+        "path": "/devices",
+        "javaMethod": "removeDevices",
+        "summary": "Deletes the defined device entries",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "names",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "LOCKED",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/devices"
+       },
+       {
+        "name": "system-query",
+        "method": "POST",
+        "path": "/systems/query",
+        "javaMethod": "querySystems",
+        "summary": "Returns the system entries according to the query request",
+        "requestBody": "SystemQueryRequestDTO",
+        "queryParams": [
+         {
+          "name": "verbose",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+         }
+        ],
+        "pathVars": [],
+        "response": "SystemListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/systems/query"
+       },
+       {
+        "name": "system-create",
+        "method": "POST",
+        "path": "/systems",
+        "javaMethod": "createSystems",
+        "summary": "Returns the created system entries",
+        "requestBody": "SystemListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "SystemListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/systems"
+       },
+       {
+        "name": "system-update",
+        "method": "PUT",
+        "path": "/systems",
+        "javaMethod": "updateSystems",
+        "summary": "Returns the updated system entries",
+        "requestBody": "SystemListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "SystemListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/systems"
+       },
+       {
+        "name": "system-remove",
+        "method": "DELETE",
+        "path": "/systems",
+        "javaMethod": "removeSystems",
+        "summary": "Deletes the defined system entries",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "names",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/systems"
+       },
+       {
+        "name": "service-definition-query",
+        "method": "POST",
+        "path": "/service-definitions/query",
+        "javaMethod": "getServiceDefinitions",
+        "summary": "Returns the service definition entries according to the given page request",
+        "requestBody": "PageDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ServiceDefinitionListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/service-definitions/query"
+       },
+       {
+        "name": "service-definition-create",
+        "method": "POST",
+        "path": "/service-definitions",
+        "javaMethod": "createServiceDefinitions",
+        "summary": "Returns the created service definition entries",
+        "requestBody": "ServiceDefinitionListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ServiceDefinitionListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/service-definitions"
+       },
+       {
+        "name": "service-definition-remove",
+        "method": "DELETE",
+        "path": "/service-definitions",
+        "javaMethod": "removeServiceDefinitions",
+        "summary": "Deletes the defined service definition entries",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "names",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/service-definitions"
+       },
+       {
+        "name": "service-query",
+        "method": "POST",
+        "path": "/service-instances/query",
+        "javaMethod": "queryServiceInstances",
+        "summary": "Returns the service instance entries according to the query request",
+        "requestBody": "ServiceInstanceQueryRequestDTO",
+        "queryParams": [
+         {
+          "name": "verbose",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+         }
+        ],
+        "pathVars": [],
+        "response": "ServiceInstanceListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/service-instances/query"
+       },
+       {
+        "name": "service-create",
+        "method": "POST",
+        "path": "/service-instances",
+        "javaMethod": "createServiceInstances",
+        "summary": "Returns the created service instance entries",
+        "requestBody": "ServiceInstanceCreateListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ServiceInstanceListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/service-instances"
+       },
+       {
+        "name": "service-update",
+        "method": "PUT",
+        "path": "/service-instances",
+        "javaMethod": "updateServiceInstances",
+        "summary": "Returns the updated service instance entries",
+        "requestBody": "ServiceInstanceUpdateListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ServiceInstanceListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/service-instances"
+       },
+       {
+        "name": "service-remove",
+        "method": "DELETE",
+        "path": "/service-instances",
+        "javaMethod": "removeServiceInstances",
+        "summary": "Deletes the defined service instance entries",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "serviceInstances",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/service-instances"
+       },
+       {
+        "name": "interface-template-query",
+        "method": "POST",
+        "path": "/interface-templates/query",
+        "javaMethod": "queryInterfaceTemplates",
+        "summary": "Returns the interface template entries according to the query request",
+        "requestBody": "ServiceInterfaceTemplateQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ServiceInterfaceTemplateListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/interface-templates/query"
+       },
+       {
+        "name": "interface-template-create",
+        "method": "POST",
+        "path": "/interface-templates",
+        "javaMethod": "createInterfaceTemplates",
+        "summary": "Returns the created interface template entries",
+        "requestBody": "ServiceInterfaceTemplateListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ServiceInterfaceTemplateListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/interface-templates"
+       },
+       {
+        "name": "interface-template-remove",
+        "method": "DELETE",
+        "path": "/interface-templates",
+        "javaMethod": "removeInterfaceTemplates",
+        "summary": "Deletes the defined interface template entries",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "names",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/serviceregistry/mgmt/interface-templates"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceregistry/management/",
+      "ops": [
+       {
+        "name": "device-query",
+        "payload": "DeviceQueryRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "device-create",
+        "payload": "DeviceListRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "device-update",
+        "payload": "DeviceListRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "device-remove",
+        "payload": "List<String>",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "system-query",
+        "payload": "SystemQueryRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "system-create",
+        "payload": "SystemListRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "system-update",
+        "payload": "SystemListRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "system-remove",
+        "payload": "List<String>",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "service-definition-query",
+        "payload": "PageDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "service-definition-create",
+        "payload": "ServiceDefinitionListRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "service-definition-remove",
+        "payload": "List<String>",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "service-query",
+        "payload": "ServiceInstanceQueryRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "service-create",
+        "payload": "ServiceInstanceCreateListRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "service-update",
+        "payload": "ServiceInstanceUpdateListRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "service-remove",
+        "payload": "List<String>",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "interface-template-query",
+        "payload": "ServiceInterfaceTemplateQueryRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "interface-template-create",
+        "payload": "ServiceInterfaceTemplateListRequestDTO",
+        "handler": "ManagementMqttHandler"
+       },
+       {
+        "name": "interface-template-remove",
+        "payload": "List<String>",
+        "handler": "ManagementMqttHandler"
+       }
+      ]
+     }
+    }
+   ],
+   "unregisteredEndpoints": [
+    {
+     "class": "MonitorAPI",
+     "method": "GET",
+     "path": "/serviceregistry/monitor/echo",
+     "javaMethod": "echoService",
+     "summary": "Returns an echo message with the purpose of testing the service availability",
+     "requestBody": null,
+     "queryParams": [],
+     "pathVars": [],
+     "response": "String",
+     "status": null,
+     "codes": [
+      "OK",
+      "UNAUTHORIZED",
+      "INTERNAL_SERVER_ERROR"
+     ]
+    }
+   ]
+  },
+  "Authentication": {
+   "module": "authentication",
+   "services": [
+    {
+     "serviceDefinition": "identity",
+     "version": "1.0.0",
+     "metadata": {
+      "unrestrictedDiscovery": "true"
+     },
+     "http": {
+      "basePath": "/authentication/identity",
+      "ops": [
+       {
+        "name": "identity-login",
+        "method": "POST",
+        "path": "/login",
+        "javaMethod": "login",
+        "summary": "Returns an identity token for the identified system",
+        "requestBody": "IdentityRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "IdentityLoginResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "INTERNAL_SERVER_ERROR",
+         "SERVICE_UNAVAILABLE"
+        ],
+        "class": "IdentityAPI",
+        "fullPath": "/authentication/identity/login"
+       },
+       {
+        "name": "identity-logout",
+        "method": "POST",
+        "path": "/logout",
+        "javaMethod": "logout",
+        "summary": "Logs out from the Local Cloud",
+        "requestBody": "IdentityRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "INTERNAL_SERVER_ERROR",
+         "SERVICE_UNAVAILABLE"
+        ],
+        "class": "IdentityAPI",
+        "fullPath": "/authentication/identity/logout"
+       },
+       {
+        "name": "identity-change-credentials",
+        "method": "POST",
+        "path": "/change",
+        "javaMethod": "change",
+        "summary": "Changes the credentials (where it is possible) of the identified system",
+        "requestBody": "IdentityChangeRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "INTERNAL_SERVER_ERROR",
+         "SERVICE_UNAVAILABLE"
+        ],
+        "class": "IdentityAPI",
+        "fullPath": "/authentication/identity/change"
+       },
+       {
+        "name": "identity-verify",
+        "method": "GET",
+        "path": "/verify/{token}",
+        "javaMethod": "verify",
+        "summary": "Returns information about a system (if verified) based on token",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [
+         "token"
+        ],
+        "response": "IdentityVerifyResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "IdentityAPI",
+        "fullPath": "/authentication/identity/verify/{token}"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/authentication/identity/",
+      "ops": [
+       {
+        "name": "identity-login",
+        "payload": "IdentityRequestDTO",
+        "handler": "IdentityMqttHandler"
+       },
+       {
+        "name": "identity-logout",
+        "payload": "IdentityRequestDTO",
+        "handler": "IdentityMqttHandler"
+       },
+       {
+        "name": "identity-change-credentials",
+        "payload": "IdentityChangeRequestDTO",
+        "handler": "IdentityMqttHandler"
+       },
+       {
+        "name": "identity-verify",
+        "payload": "String",
+        "handler": "IdentityMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "identityManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/authentication/mgmt",
+      "ops": [
+       {
+        "name": "identity-mgmt-create",
+        "method": "POST",
+        "path": "/identities",
+        "javaMethod": "createIdentities",
+        "summary": "Returns the created system identities (without sensitive information)",
+        "requestBody": "IdentityListMgmtCreateRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "IdentityListMgmtResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR",
+         "SERVICE_UNAVAILABLE"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/authentication/mgmt/identities"
+       },
+       {
+        "name": "identity-mgmt-update",
+        "method": "PUT",
+        "path": "/identities",
+        "javaMethod": "updateIdentities",
+        "summary": "Returns the updated system identities (without sensitive information)",
+        "requestBody": "IdentityListMgmtUpdateRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "IdentityListMgmtResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR",
+         "SERVICE_UNAVAILABLE"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/authentication/mgmt/identities"
+       },
+       {
+        "name": "identity-mgmt-remove",
+        "method": "DELETE",
+        "path": "/identities",
+        "javaMethod": "removeIdentities",
+        "summary": "Deletes the defined system identities",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "names",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR",
+         "SERVICE_UNAVAILABLE"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/authentication/mgmt/identities"
+       },
+       {
+        "name": "identity-mgmt-query",
+        "method": "POST",
+        "path": "/identities/query",
+        "javaMethod": "queryIdentities",
+        "summary": "Returns the identifiable systems according to the query request",
+        "requestBody": "IdentityQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "IdentityListMgmtResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/authentication/mgmt/identities/query"
+       },
+       {
+        "name": "identity-mgmt-session-close",
+        "method": "DELETE",
+        "path": "/sessions",
+        "javaMethod": "closeSessions",
+        "summary": "Closes the defined system identities' active sessions",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "names",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/authentication/mgmt/sessions"
+       },
+       {
+        "name": "identity-mgmt-session-query",
+        "method": "POST",
+        "path": "/sessions",
+        "javaMethod": "querySessions",
+        "summary": "Returns the active sessions according to the query request",
+        "requestBody": "IdentitySessionQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "IdentitySessionListMgmtResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "ManagementAPI",
+        "fullPath": "/authentication/mgmt/sessions"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/authentication/identity/management/",
+      "ops": [
+       {
+        "name": "identity-mgmt-create",
+        "payload": "IdentityListMgmtCreateRequestDTO",
+        "handler": "IdentityManagementMqttHandler"
+       },
+       {
+        "name": "identity-mgmt-update",
+        "payload": "IdentityListMgmtUpdateRequestDTO",
+        "handler": "IdentityManagementMqttHandler"
+       },
+       {
+        "name": "identity-mgmt-remove",
+        "payload": "List<String>",
+        "handler": "IdentityManagementMqttHandler"
+       },
+       {
+        "name": "identity-mgmt-query",
+        "payload": "IdentityQueryRequestDTO",
+        "handler": "IdentityManagementMqttHandler"
+       },
+       {
+        "name": "identity-mgmt-session-close",
+        "payload": "List<String>",
+        "handler": "IdentityManagementMqttHandler"
+       },
+       {
+        "name": "identity-mgmt-session-query",
+        "payload": "IdentitySessionQueryRequestDTO",
+        "handler": "IdentityManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "generalManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/authentication/general/mgmt",
+      "ops": [
+       {
+        "name": "get-log",
+        "method": "POST",
+        "path": "/logs",
+        "javaMethod": "getLogEntries",
+        "summary": "Returns the log entries",
+        "requestBody": "LogRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "LogEntryListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "GeneralManagementAPI",
+        "fullPath": "/authentication/general/mgmt/logs"
+       },
+       {
+        "name": "get-config",
+        "method": "GET",
+        "path": "/get-config",
+        "javaMethod": "getConfig",
+        "summary": "Returns a list of configurations",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "keys",
+          "type": "List<String>",
+          "required": false,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "KeyValuesDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "GeneralManagementAPI",
+        "fullPath": "/authentication/general/mgmt/get-config"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/authentication/general/management/",
+      "ops": [
+       {
+        "name": "get-log",
+        "payload": "LogRequestDTO",
+        "handler": "GeneralManagementMqttHandler"
+       },
+       {
+        "name": "get-config",
+        "payload": "List<String>",
+        "handler": "GeneralManagementMqttHandler"
+       }
+      ]
+     }
+    }
+   ],
+   "unregisteredEndpoints": [
+    {
+     "class": "MonitorAPI",
+     "method": "GET",
+     "path": "/authentication/monitor/echo",
+     "javaMethod": "echoService",
+     "summary": "Returns an echo message with the purpose of testing the service availability",
+     "requestBody": null,
+     "queryParams": [],
+     "pathVars": [],
+     "response": "String",
+     "status": null,
+     "codes": [
+      "OK",
+      "INTERNAL_SERVER_ERROR"
+     ]
+    }
+   ]
+  },
+  "ConsumerAuthorization": {
+   "module": "consumer-authorization",
+   "services": [
+    {
+     "serviceDefinition": "authorization",
+     "version": "1.0.0",
+     "metadata": {
+      "unrestrictedDiscovery": "true"
+     },
+     "http": {
+      "basePath": "/consumerauthorization/authorization",
+      "ops": [
+       {
+        "name": "grant",
+        "method": "POST",
+        "path": "/grant",
+        "javaMethod": "grant",
+        "summary": "Returns the created authorization policy",
+        "requestBody": "AuthorizationGrantRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ResponseEntity<AuthorizationPolicyResponseDTO>",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationAPI",
+        "fullPath": "/consumerauthorization/authorization/grant"
+       },
+       {
+        "name": "revoke",
+        "method": "DELETE",
+        "path": "/revoke/{instanceId}",
+        "javaMethod": "revoke",
+        "summary": "Deletes policy instance entry if exists",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [
+         "instanceId"
+        ],
+        "response": "ResponseEntity<Void>",
+        "status": null,
+        "codes": [
+         "OK",
+         "NO_CONTENT",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationAPI",
+        "fullPath": "/consumerauthorization/authorization/revoke/{instanceId}"
+       },
+       {
+        "name": "lookup",
+        "method": "POST",
+        "path": "/lookup",
+        "javaMethod": "lookup",
+        "summary": "Returns the requester created authorization policies according to the given filters",
+        "requestBody": "AuthorizationLookupRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "AuthorizationPolicyListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationAPI",
+        "fullPath": "/consumerauthorization/authorization/lookup"
+       },
+       {
+        "name": "verify",
+        "method": "POST",
+        "path": "/verify",
+        "javaMethod": "verify",
+        "summary": "Returns whether a consumer has access to a specified service/service operation/event type.",
+        "requestBody": "AuthorizationVerifyRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "boolean",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationAPI",
+        "fullPath": "/consumerauthorization/authorization/verify"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/consumer-authorization/authorization/",
+      "ops": [
+       {
+        "name": "grant",
+        "payload": "AuthorizationGrantRequestDTO",
+        "handler": "AuthorizationMqttHandler"
+       },
+       {
+        "name": "revoke",
+        "payload": "String",
+        "handler": "AuthorizationMqttHandler"
+       },
+       {
+        "name": "lookup",
+        "payload": "AuthorizationLookupRequestDTO",
+        "handler": "AuthorizationMqttHandler"
+       },
+       {
+        "name": "verify",
+        "payload": "AuthorizationVerifyRequestDTO",
+        "handler": "AuthorizationMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "authorizationToken",
+     "version": "1.0.0",
+     "metadata": {
+      "unrestrictedDiscovery": "true"
+     },
+     "http": {
+      "basePath": "/consumerauthorization/authorization-token",
+      "ops": [
+       {
+        "name": "generate",
+        "method": "POST",
+        "path": "/generate",
+        "javaMethod": "generate",
+        "summary": "Returns a generated authorization token and its parameters.",
+        "requestBody": "AuthorizationTokenGenerationRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "AuthorizationTokenGenerationResponseDTO",
+        "status": "CREATED",
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationTokenAPI",
+        "fullPath": "/consumerauthorization/authorization-token/generate"
+       },
+       {
+        "name": "verify",
+        "method": "GET",
+        "path": "/token/verify/{token}",
+        "javaMethod": "verify",
+        "summary": "Verifies the provided token and returns the belonged details.",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [
+         "token"
+        ],
+        "response": "AuthorizationTokenVerifyResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationTokenAPI",
+        "fullPath": "/consumerauthorization/authorization-token/token/verify/{token}"
+       },
+       {
+        "name": "get-public-key",
+        "method": "GET",
+        "path": "/public-key",
+        "javaMethod": "getPublicKey",
+        "summary": "Returns the public key of the server if any.",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [],
+        "response": "String",
+        "status": null,
+        "codes": [
+         "OK",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "NOT_FOUND",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationTokenAPI",
+        "fullPath": "/consumerauthorization/authorization-token/public-key"
+       },
+       {
+        "name": "register-encryption-key",
+        "method": "POST",
+        "path": "/encryption-key",
+        "javaMethod": "registerEncryptionKey",
+        "summary": "Registers the provided encryption key and returns the belonged auxiliary if any.",
+        "requestBody": "AuthorizationEncryptionKeyRegistrationRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "String",
+        "status": "CREATED",
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationTokenAPI",
+        "fullPath": "/consumerauthorization/authorization-token/encryption-key"
+       },
+       {
+        "name": "unregister-encryption-key",
+        "method": "DELETE",
+        "path": "/encryption-key",
+        "javaMethod": "unregisterEncryptionKey",
+        "summary": "Unregisters the encryption key belonged to the requester system.",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [],
+        "response": "ResponseEntity<Void>",
+        "status": null,
+        "codes": [
+         "OK",
+         "NO_CONTENT",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationTokenAPI",
+        "fullPath": "/consumerauthorization/authorization-token/encryption-key"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/consumer-authorization/authorization-token/",
+      "ops": [
+       {
+        "name": "generate",
+        "payload": "AuthorizationTokenGenerationRequestDTO",
+        "handler": "AuthorizationTokenMqttHandler"
+       },
+       {
+        "name": "verify",
+        "payload": "String",
+        "handler": "AuthorizationTokenMqttHandler"
+       },
+       {
+        "name": "get-public-key",
+        "payload": null,
+        "handler": "AuthorizationTokenMqttHandler"
+       },
+       {
+        "name": "register-encryption-key",
+        "payload": "AuthorizationEncryptionKeyRegistrationRequestDTO",
+        "handler": "AuthorizationTokenMqttHandler"
+       },
+       {
+        "name": "unregister-encryption-key",
+        "payload": null,
+        "handler": "AuthorizationTokenMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "authorizationManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/consumerauthorization/authorization/mgmt",
+      "ops": [
+       {
+        "name": "grant-policies",
+        "method": "POST",
+        "path": "/grant",
+        "javaMethod": "grantPolicies",
+        "summary": "Returns the created authorization policies",
+        "requestBody": "AuthorizationMgmtGrantListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "AuthorizationPolicyListResponseDTO",
+        "status": "CREATED",
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationManagementAPI",
+        "fullPath": "/consumerauthorization/authorization/mgmt/grant"
+       },
+       {
+        "name": "revoke-policies",
+        "method": "DELETE",
+        "path": "/revoke",
+        "javaMethod": "revokePolicies",
+        "summary": "Deletes policy instance entries if exists",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "instanceIds",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationManagementAPI",
+        "fullPath": "/consumerauthorization/authorization/mgmt/revoke"
+       },
+       {
+        "name": "query-policies",
+        "method": "POST",
+        "path": "/query",
+        "javaMethod": "queryPolicies",
+        "summary": "Returns authorization policies according to the given filters",
+        "requestBody": "AuthorizationQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "AuthorizationPolicyListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationManagementAPI",
+        "fullPath": "/consumerauthorization/authorization/mgmt/query"
+       },
+       {
+        "name": "check-policies",
+        "method": "POST",
+        "path": "/check",
+        "javaMethod": "checkPolicies",
+        "summary": "Returns whether consumers have access to specified services/service operations/event types.",
+        "requestBody": "AuthorizationVerifyListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "AuthorizationVerifyListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationManagementAPI",
+        "fullPath": "/consumerauthorization/authorization/mgmt/check"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/consumer-authorization/authorization/management/",
+      "ops": [
+       {
+        "name": "grant-policies",
+        "payload": "AuthorizationMgmtGrantListRequestDTO",
+        "handler": "AuthorizationManagementMqttHandler"
+       },
+       {
+        "name": "revoke-policies",
+        "payload": "List<String>",
+        "handler": "AuthorizationManagementMqttHandler"
+       },
+       {
+        "name": "query-policies",
+        "payload": "AuthorizationQueryRequestDTO",
+        "handler": "AuthorizationManagementMqttHandler"
+       },
+       {
+        "name": "check-policies",
+        "payload": "AuthorizationVerifyListRequestDTO",
+        "handler": "AuthorizationManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "authorizationTokenManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/consumerauthorization/authorization/mgmt/token",
+      "ops": [
+       {
+        "name": "generate-tokens",
+        "method": "POST",
+        "path": "/generate",
+        "javaMethod": "generateTokens",
+        "summary": "Returns the generated authorization tokens and their parameters.",
+        "requestBody": "AuthorizationTokenGenerationMgmtListRequestDTO",
+        "queryParams": [
+         {
+          "name": "unbound",
+          "type": "boolean",
+          "required": false,
+          "default": "false"
+         }
+        ],
+        "pathVars": [],
+        "response": "AuthorizationTokenMgmtListResponseDTO",
+        "status": "CREATED",
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationTokenManagementAPI",
+        "fullPath": "/consumerauthorization/authorization/mgmt/token/generate"
+       },
+       {
+        "name": "query-tokens",
+        "method": "POST",
+        "path": "/query",
+        "javaMethod": "queryTokens",
+        "summary": "Returns the matching token entries according to the given filters.",
+        "requestBody": "AuthorizationTokenQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "AuthorizationTokenMgmtListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationTokenManagementAPI",
+        "fullPath": "/consumerauthorization/authorization/mgmt/token/query"
+       },
+       {
+        "name": "revoke-tokens",
+        "method": "DELETE",
+        "path": "/revoke",
+        "javaMethod": "revokeTokens",
+        "summary": "Deletes token entries by tokenReference if exists",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "tokenReferences",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationTokenManagementAPI",
+        "fullPath": "/consumerauthorization/authorization/mgmt/token/revoke"
+       },
+       {
+        "name": "add-encryption-keys",
+        "method": "POST",
+        "path": "/encryption-key",
+        "javaMethod": "addEncryptionKeys",
+        "summary": "Returns the created encryption key entries.",
+        "requestBody": "AuthorizationMgmtEncryptionKeyRegistrationListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "AuthorizationMgmtEncryptionKeyListResponseDTO",
+        "status": "CREATED",
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationTokenManagementAPI",
+        "fullPath": "/consumerauthorization/authorization/mgmt/token/encryption-key"
+       },
+       {
+        "name": "remove-encryption-keys",
+        "method": "DELETE",
+        "path": "/encryption-key",
+        "javaMethod": "removeEncryptionKeys",
+        "summary": "Deletes encryption key entries if exists",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "systemNames",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "AuthorizationTokenManagementAPI",
+        "fullPath": "/consumerauthorization/authorization/mgmt/token/encryption-key"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/consumer-authorization/authorization-token/management/",
+      "ops": [
+       {
+        "name": "generate-tokens",
+        "payload": "AuthorizationTokenGenerationMgmtListRequestDTO",
+        "handler": "AuthorizationTokenManagementMqttHandler"
+       },
+       {
+        "name": "query-tokens",
+        "payload": "AuthorizationTokenQueryRequestDTO",
+        "handler": "AuthorizationTokenManagementMqttHandler"
+       },
+       {
+        "name": "revoke-tokens",
+        "payload": "List<String>",
+        "handler": "AuthorizationTokenManagementMqttHandler"
+       },
+       {
+        "name": "add-encryption-keys",
+        "payload": "AuthorizationMgmtEncryptionKeyRegistrationListRequestDTO",
+        "handler": "AuthorizationTokenManagementMqttHandler"
+       },
+       {
+        "name": "remove-encryption-keys",
+        "payload": "List<String>",
+        "handler": "AuthorizationTokenManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "generalManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/consumerauthorization/general/mgmt",
+      "ops": [
+       {
+        "name": "get-log",
+        "method": "POST",
+        "path": "/logs",
+        "javaMethod": "getLogEntries",
+        "summary": "Returns the log entries",
+        "requestBody": "LogRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "LogEntryListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "GeneralManagementAPI",
+        "fullPath": "/consumerauthorization/general/mgmt/logs"
+       },
+       {
+        "name": "get-config",
+        "method": "GET",
+        "path": "/get-config",
+        "javaMethod": "getConfig",
+        "summary": "Returns a list of configurations",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "keys",
+          "type": "List<String>",
+          "required": false,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "KeyValuesDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "GeneralManagementAPI",
+        "fullPath": "/consumerauthorization/general/mgmt/get-config"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/consumer-authorization/general/management/",
+      "ops": [
+       {
+        "name": "get-log",
+        "payload": "LogRequestDTO",
+        "handler": "GeneralManagementMqttHandler"
+       },
+       {
+        "name": "get-config",
+        "payload": "List<String>",
+        "handler": "GeneralManagementMqttHandler"
+       }
+      ]
+     }
+    }
+   ],
+   "unregisteredEndpoints": [
+    {
+     "class": "MonitorAPI",
+     "method": "GET",
+     "path": "/consumerauthorization/monitor/echo",
+     "javaMethod": "echoService",
+     "summary": "Returns an echo message with the purpose of testing the service availability",
+     "requestBody": null,
+     "queryParams": [],
+     "pathVars": [],
+     "response": "String",
+     "status": null,
+     "codes": [
+      "OK",
+      "UNAUTHORIZED",
+      "INTERNAL_SERVER_ERROR"
+     ]
+    }
+   ]
+  },
+  "DynamicServiceOrchestration": {
+   "module": "serviceorchestration-dynamic",
+   "services": [
+    {
+     "serviceDefinition": "generalManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceorchestration/general/mgmt",
+      "ops": [
+       {
+        "name": "get-log",
+        "method": "POST",
+        "path": "/logs",
+        "javaMethod": "getLogEntries",
+        "summary": "Returns the log entries",
+        "requestBody": "LogRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "LogEntryListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "GeneralManagementAPI",
+        "fullPath": "/serviceorchestration/general/mgmt/logs"
+       },
+       {
+        "name": "get-config",
+        "method": "GET",
+        "path": "/get-config",
+        "javaMethod": "getConfig",
+        "summary": "Returns a list of configurations",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "keys",
+          "type": "List<String>",
+          "required": false,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "KeyValuesDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "GeneralManagementAPI",
+        "fullPath": "/serviceorchestration/general/mgmt/get-config"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceorchestration/general/management/",
+      "ops": [
+       {
+        "name": "get-log",
+        "payload": "LogRequestDTO",
+        "handler": "GeneralManagementMqttHandler"
+       },
+       {
+        "name": "get-config",
+        "payload": "List<String>",
+        "handler": "GeneralManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceOrchestration",
+     "version": "1.0.0",
+     "metadata": {
+      "orchestrationStrategy": "DynamicServiceOrchestrationConstants.METADATA_VALUE_ORCHESTRATION_STRATEGY",
+      "unrestrictedDiscovery": "true"
+     },
+     "http": {
+      "basePath": "/serviceorchestration/orchestration",
+      "ops": [
+       {
+        "name": "pull",
+        "method": "POST",
+        "path": "/pull",
+        "javaMethod": "pull",
+        "summary": "Returns the dynamically produced orchestration results",
+        "requestBody": "OrchestrationRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR",
+         "SERVICE_UNAVAILABLE"
+        ],
+        "class": "OrchestrationAPI",
+        "fullPath": "/serviceorchestration/orchestration/pull"
+       },
+       {
+        "name": "subscribe",
+        "method": "POST",
+        "path": "/subscribe",
+        "javaMethod": "pushSubscribe",
+        "summary": "Returns a subscription id. Existing subscriptions will be overwritten.",
+        "requestBody": "OrchestrationSubscriptionRequestDTO",
+        "queryParams": [
+         {
+          "name": "trigger",
+          "type": "Boolean",
+          "required": false,
+          "default": "false"
+         }
+        ],
+        "pathVars": [],
+        "response": "ResponseEntity<String>",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationAPI",
+        "fullPath": "/serviceorchestration/orchestration/subscribe"
+       },
+       {
+        "name": "unsubscribe",
+        "method": "DELETE",
+        "path": "/unsubscribe/{id}",
+        "javaMethod": "pushUnsubscribe",
+        "summary": "Removes the subscription by the given id",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [
+         "id"
+        ],
+        "response": "ResponseEntity<Void>",
+        "status": null,
+        "codes": [
+         "OK",
+         "NO_CONTENT",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationAPI",
+        "fullPath": "/serviceorchestration/orchestration/unsubscribe/{id}"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceorchestration/orchestration/",
+      "ops": [
+       {
+        "name": "pull",
+        "payload": "OrchestrationRequestDTO",
+        "handler": "OrchestrationMqttHandler"
+       },
+       {
+        "name": "subscribe",
+        "payload": "OrchestrationSubscriptionRequestDTO",
+        "handler": "OrchestrationMqttHandler"
+       },
+       {
+        "name": "unsubscribe",
+        "payload": "String",
+        "handler": "OrchestrationMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceOrchestrationPushManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceorchestration/orchestration/mgmt/push",
+      "ops": [
+       {
+        "name": "subscribe",
+        "method": "POST",
+        "path": "/subscribe",
+        "javaMethod": "pushSubscribe",
+        "summary": "Returns the created subscription records. Existing ones will be overwritten.",
+        "requestBody": "OrchestrationSubscriptionListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationSubscriptionListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationPushManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/push/subscribe"
+       },
+       {
+        "name": "unsubscribe",
+        "method": "DELETE",
+        "path": "/unsubscribe",
+        "javaMethod": "pushUnsubscribe",
+        "summary": "Removes the specified subscriptions",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "ids",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationPushManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/push/unsubscribe"
+       },
+       {
+        "name": "trigger",
+        "method": "POST",
+        "path": "/trigger",
+        "javaMethod": "pushTrigger",
+        "summary": "Returns the created push orchestration job records",
+        "requestBody": "OrchestrationPushTriggerDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationPushJobListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationPushManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/push/trigger"
+       },
+       {
+        "name": "query",
+        "method": "POST",
+        "path": "/query",
+        "javaMethod": "queryPushSubscriptions",
+        "summary": "Returns the required subcription records.",
+        "requestBody": "OrchestrationSubscriptionQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationSubscriptionListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationPushManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/push/query"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceorchestration/orchestration/management/push/",
+      "ops": [
+       {
+        "name": "subscribe",
+        "payload": "OrchestrationSubscriptionListRequestDTO",
+        "handler": "OrchestrationPushManagementMqttHandler"
+       },
+       {
+        "name": "trigger",
+        "payload": "OrchestrationPushTriggerDTO",
+        "handler": "OrchestrationPushManagementMqttHandler"
+       },
+       {
+        "name": "unsubscribe",
+        "payload": "List<String>",
+        "handler": "OrchestrationPushManagementMqttHandler"
+       },
+       {
+        "name": "query",
+        "payload": "OrchestrationSubscriptionQueryRequestDTO",
+        "handler": "OrchestrationPushManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceOrchestrationLockManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceorchestration/orchestration/mgmt/lock",
+      "ops": [
+       {
+        "name": "query",
+        "method": "POST",
+        "path": "/query",
+        "javaMethod": "query",
+        "summary": "Returns the lock records according to the given filters",
+        "requestBody": "OrchestrationLockQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationLockListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationLockManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/lock/query"
+       },
+       {
+        "name": "remove",
+        "method": "DELETE",
+        "path": "/remove/{owner}",
+        "javaMethod": "remove",
+        "summary": "Deletes the existing lock entries",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "instanceIds",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [
+         "owner"
+        ],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "NO_CONTENT",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationLockManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/lock/remove/{owner}"
+       },
+       {
+        "name": "create",
+        "method": "POST",
+        "path": "/create",
+        "javaMethod": "create",
+        "summary": "Returns the created lock records",
+        "requestBody": "OrchestrationLockListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationLockListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationLockManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/lock/create"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceorchestration/orchestration/management/lock/",
+      "ops": [
+       {
+        "name": "create",
+        "payload": "OrchestrationLockListRequestDTO",
+        "handler": "OrchestrationLockManagementMqttHandler"
+       },
+       {
+        "name": "query",
+        "payload": "OrchestrationLockQueryRequestDTO",
+        "handler": "OrchestrationLockManagementMqttHandler"
+       },
+       {
+        "name": "remove",
+        "payload": "List<String>",
+        "handler": "OrchestrationLockManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceOrchestrationHistoryManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceorchestration/orchestration/mgmt/history",
+      "ops": [
+       {
+        "name": "query",
+        "method": "POST",
+        "path": "/query",
+        "javaMethod": "query",
+        "summary": "Returns the orchestration job history records according to the given filters.",
+        "requestBody": "OrchestrationHistoryQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationHistoryResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationHistoryManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/history/query"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceorchestration/orchestration/management/history/",
+      "ops": [
+       {
+        "name": "query",
+        "payload": "OrchestrationHistoryQueryRequestDTO",
+        "handler": "OrchestrationHistoryManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceOrchestrationPlantManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceorchestration/mgmt/plant-rules",
+      "ops": [
+       {
+        "name": "query",
+        "method": "POST",
+        "path": "/query",
+        "javaMethod": "query",
+        "summary": "Returns the active engineered plant snapshot",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationPlantRulesDTO",
+        "status": null,
+        "codes": [],
+        "class": "OrchestrationPlantManagementAPI",
+        "fullPath": "/serviceorchestration/mgmt/plant-rules/query"
+       },
+       {
+        "name": "replace",
+        "method": "PUT",
+        "path": "/replace",
+        "javaMethod": "replace",
+        "summary": "Atomically replaces all active-plant scopes; empty rules clears the snapshot",
+        "requestBody": "OrchestrationPlantRulesDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationPlantRulesDTO",
+        "status": null,
+        "codes": [],
+        "class": "OrchestrationPlantManagementAPI",
+        "fullPath": "/serviceorchestration/mgmt/plant-rules/replace"
+       }
+      ]
+     }
+    }
+   ],
+   "unregisteredEndpoints": []
+  },
+  "SimpleStoreServiceOrchestration": {
+   "module": "serviceorchestration-simple",
+   "services": [
+    {
+     "serviceDefinition": "generalManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceorchestration/general/mgmt",
+      "ops": [
+       {
+        "name": "get-log",
+        "method": "POST",
+        "path": "/logs",
+        "javaMethod": "getLogEntries",
+        "summary": "Returns the log entries",
+        "requestBody": "LogRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "LogEntryListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "GeneralManagementAPI",
+        "fullPath": "/serviceorchestration/general/mgmt/logs"
+       },
+       {
+        "name": "get-config",
+        "method": "GET",
+        "path": "/get-config",
+        "javaMethod": "getConfig",
+        "summary": "Returns a list of configurations",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "keys",
+          "type": "List<String>",
+          "required": false,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "KeyValuesDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "GeneralManagementAPI",
+        "fullPath": "/serviceorchestration/general/mgmt/get-config"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceorchestration/general/management/",
+      "ops": [
+       {
+        "name": "get-log",
+        "payload": "LogRequestDTO",
+        "handler": "GeneralManagementMqttHandler"
+       },
+       {
+        "name": "get-config",
+        "payload": "List<String>",
+        "handler": "GeneralManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceOrchestration",
+     "version": "1.0.0",
+     "metadata": {
+      "orchestrationStrategy": "SimpleStoreServiceOrchestrationConstants.METADATA_VALUE_ORCHESTRATION_STRATEGY",
+      "unrestrictedDiscovery": "true"
+     },
+     "http": {
+      "basePath": "/serviceorchestration/orchestration",
+      "ops": [
+       {
+        "name": "pull",
+        "method": "POST",
+        "path": "/pull",
+        "javaMethod": "pull",
+        "summary": "Returns the orchestration results from the simple store",
+        "requestBody": "OrchestrationRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationAPI",
+        "fullPath": "/serviceorchestration/orchestration/pull"
+       },
+       {
+        "name": "subscribe",
+        "method": "POST",
+        "path": "/subscribe",
+        "javaMethod": "pushSubscribe",
+        "summary": "Returns a subscription id. Existing subscriptions will be overwritten.",
+        "requestBody": "OrchestrationSubscriptionRequestDTO",
+        "queryParams": [
+         {
+          "name": "trigger",
+          "type": "Boolean",
+          "required": false,
+          "default": "false"
+         }
+        ],
+        "pathVars": [],
+        "response": "ResponseEntity<String>",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationAPI",
+        "fullPath": "/serviceorchestration/orchestration/subscribe"
+       },
+       {
+        "name": "unsubscribe",
+        "method": "DELETE",
+        "path": "/unsubscribe/{id}",
+        "javaMethod": "pushUnsubscribe",
+        "summary": "Removes the subscription by the given id",
+        "requestBody": null,
+        "queryParams": [],
+        "pathVars": [
+         "id"
+        ],
+        "response": "ResponseEntity<Void>",
+        "status": null,
+        "codes": [
+         "OK",
+         "NO_CONTENT",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationAPI",
+        "fullPath": "/serviceorchestration/orchestration/unsubscribe/{id}"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceorchestration/orchestration/",
+      "ops": [
+       {
+        "name": "pull",
+        "payload": "OrchestrationRequestDTO",
+        "handler": "OrchestrationMqttHandler"
+       },
+       {
+        "name": "subscribe",
+        "payload": "OrchestrationSubscriptionRequestDTO",
+        "handler": "OrchestrationMqttHandler"
+       },
+       {
+        "name": "unsubscribe",
+        "payload": "String",
+        "handler": "OrchestrationMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceOrchestrationSimpleStoreManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceorchestration/orchestration/mgmt/simple-store",
+      "ops": [
+       {
+        "name": "query",
+        "method": "POST",
+        "path": "/query",
+        "javaMethod": "query",
+        "summary": "Returns the store records according to the filters",
+        "requestBody": "OrchestrationSimpleStoreQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationSimpleStoreListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationStoreManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/simple-store/query"
+       },
+       {
+        "name": "remove",
+        "method": "DELETE",
+        "path": "/remove",
+        "javaMethod": "remove",
+        "summary": "Deletes the simple store records by UUID.",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "uuids",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationStoreManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/simple-store/remove"
+       },
+       {
+        "name": "create",
+        "method": "POST",
+        "path": "/create",
+        "javaMethod": "create",
+        "summary": "Returns the store records that were actually created",
+        "requestBody": "OrchestrationSimpleStoreListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationSimpleStoreListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationStoreManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/simple-store/create"
+       },
+       {
+        "name": "modify-priorities",
+        "method": "PUT",
+        "path": "/modify-priorities",
+        "javaMethod": "modifyPriorities",
+        "summary": "Returns the store records that were updated",
+        "requestBody": "PriorityRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationSimpleStoreListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationStoreManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/simple-store/modify-priorities"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceorchestration/orchestration/management/store/",
+      "ops": [
+       {
+        "name": "create",
+        "payload": "OrchestrationSimpleStoreListRequestDTO",
+        "handler": "OrchestrationStoreManagementMqttHandler"
+       },
+       {
+        "name": "query",
+        "payload": "OrchestrationSimpleStoreQueryRequestDTO",
+        "handler": "OrchestrationStoreManagementMqttHandler"
+       },
+       {
+        "name": "remove",
+        "payload": "List<String>",
+        "handler": "OrchestrationStoreManagementMqttHandler"
+       },
+       {
+        "name": "modify-priorities",
+        "payload": "PriorityRequestDTO",
+        "handler": "OrchestrationStoreManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceOrchestrationPushManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceorchestration/orchestration/mgmt/push",
+      "ops": [
+       {
+        "name": "subscribe",
+        "method": "POST",
+        "path": "/subscribe",
+        "javaMethod": "pushSubscribe",
+        "summary": "Returns the created subscription records. Existing ones will be overwritten.",
+        "requestBody": "OrchestrationSubscriptionListRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationSubscriptionListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationPushManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/push/subscribe"
+       },
+       {
+        "name": "unsubscribe",
+        "method": "DELETE",
+        "path": "/unsubscribe",
+        "javaMethod": "pushUnsubscribe",
+        "summary": "Removes the specified subscriptions",
+        "requestBody": null,
+        "queryParams": [
+         {
+          "name": "ids",
+          "type": "List<String>",
+          "required": true,
+          "default": null
+         }
+        ],
+        "pathVars": [],
+        "response": "void",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationPushManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/push/unsubscribe"
+       },
+       {
+        "name": "trigger",
+        "method": "POST",
+        "path": "/trigger",
+        "javaMethod": "pushTrigger",
+        "summary": "Returns the created push orchestration job records",
+        "requestBody": "OrchestrationPushTriggerDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationPushJobListResponseDTO",
+        "status": null,
+        "codes": [
+         "CREATED",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationPushManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/push/trigger"
+       },
+       {
+        "name": "query",
+        "method": "POST",
+        "path": "/query",
+        "javaMethod": "queryPushSubscriptions",
+        "summary": "Returns the required subcription records.",
+        "requestBody": "OrchestrationSubscriptionQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationSubscriptionListResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationPushManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/push/query"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceorchestration/orchestration/management/push/",
+      "ops": [
+       {
+        "name": "subscribe",
+        "payload": "OrchestrationSubscriptionListRequestDTO",
+        "handler": "OrchestrationPushManagementMqttHandler"
+       },
+       {
+        "name": "trigger",
+        "payload": "OrchestrationPushTriggerDTO",
+        "handler": "OrchestrationPushManagementMqttHandler"
+       },
+       {
+        "name": "unsubscribe",
+        "payload": "List<String>",
+        "handler": "OrchestrationPushManagementMqttHandler"
+       },
+       {
+        "name": "query",
+        "payload": "OrchestrationSubscriptionQueryRequestDTO",
+        "handler": "OrchestrationPushManagementMqttHandler"
+       }
+      ]
+     }
+    },
+    {
+     "serviceDefinition": "serviceOrchestrationHistoryManagement",
+     "version": "1.0.0",
+     "metadata": {},
+     "http": {
+      "basePath": "/serviceorchestration/orchestration/mgmt/history",
+      "ops": [
+       {
+        "name": "query",
+        "method": "POST",
+        "path": "/query",
+        "javaMethod": "query",
+        "summary": "Returns the orchestration job history records according to the given filters.",
+        "requestBody": "OrchestrationHistoryQueryRequestDTO",
+        "queryParams": [],
+        "pathVars": [],
+        "response": "OrchestrationHistoryResponseDTO",
+        "status": null,
+        "codes": [
+         "OK",
+         "BAD_REQUEST",
+         "UNAUTHORIZED",
+         "FORBIDDEN",
+         "INTERNAL_SERVER_ERROR"
+        ],
+        "class": "OrchestrationHistoryManagementAPI",
+        "fullPath": "/serviceorchestration/orchestration/mgmt/history/query"
+       }
+      ]
+     },
+     "mqtt": {
+      "baseTopic": "arrowhead/serviceorchestration/orchestration/management/history/",
+      "ops": [
+       {
+        "name": "query",
+        "payload": "OrchestrationHistoryQueryRequestDTO",
+        "handler": "OrchestrationHistoryManagementMqttHandler"
+       }
+      ]
+     }
+    }
+   ],
+   "unregisteredEndpoints": []
+  }
+ },
+ "dtos": {
+  "OrchestrationSubscriptionQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "ownerSystems",
+    "type": "List<String>"
+   },
+   {
+    "name": "targetSystems",
+    "type": "List<String>"
+   },
+   {
+    "name": "serviceDefinitions",
+    "type": "List<String>"
+   }
+  ],
+  "AuthorizationMgmtGrantListRequestDTO": [
+   {
+    "name": "list",
+    "type": "List<AuthorizationMgmtGrantRequestDTO>"
+   }
+  ],
+  "TranslationCheckTargetsResponseDTO": [
+   {
+    "name": "targets",
+    "type": "List<TranslationTargetDTO>"
+   }
+  ],
+  "TranslationBridgeInitializationRequestDTO": [
+   {
+    "name": "bridgeId",
+    "type": "String"
+   },
+   {
+    "name": "inputInterface",
+    "type": "String"
+   },
+   {
+    "name": "inputDataModelTranslator",
+    "type": "TranslationDataModelTranslationDataDescriptorDTO"
+   },
+   {
+    "name": "resultDataModelTranslator",
+    "type": "TranslationDataModelTranslationDataDescriptorDTO"
+   },
+   {
+    "name": "inputDataModelRequirement",
+    "type": "String"
+   },
+   {
+    "name": "resultDataModelRequirement",
+    "type": "String"
+   },
+   {
+    "name": "targetInterface",
+    "type": "String"
+   },
+   {
+    "name": "targetInterfaceProperties",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "operation",
+    "type": "String"
+   },
+   {
+    "name": "authorizationToken",
+    "type": "String"
+   },
+   {
+    "name": "interfaceTranslatorSettings",
+    "type": "Map<String, Object>"
+   }
+  ],
+  "OrchestrationPlantProviderDTO": [
+   {
+    "name": "serviceInstanceId",
+    "type": "String"
+   },
+   {
+    "name": "priority",
+    "type": "Integer"
+   }
+  ],
+  "OrchestrationHistoryResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<OrchestrationJobDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "ConfigListRequestDTO": [
+   {
+    "name": "names",
+    "type": "List<String>"
+   }
+  ],
+  "OrchestrationSimpleStoreResponseDTO": [
+   {
+    "name": "id",
+    "type": "String"
+   },
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "serviceDefinition",
+    "type": "String"
+   },
+   {
+    "name": "serviceInstanceId",
+    "type": "String"
+   },
+   {
+    "name": "priority",
+    "type": "Integer"
+   },
+   {
+    "name": "createdBy",
+    "type": "String"
+   },
+   {
+    "name": "updatedBy",
+    "type": "String"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "updatedAt",
+    "type": "String"
+   }
+  ],
+  "TranslationReportRequestDTO": [
+   {
+    "name": "bridgeId",
+    "type": "String"
+   },
+   {
+    "name": "timestamp",
+    "type": "String"
+   },
+   {
+    "name": "state",
+    "type": "String"
+   },
+   {
+    "name": "errorMessage",
+    "type": "String"
+   }
+  ],
+  "DataModelTranslationResultResponseDTO": [
+   {
+    "name": "status",
+    "type": "DataModelTranslationTaskStatus"
+   },
+   {
+    "name": "result",
+    "type": "String"
+   },
+   {
+    "name": "mimeType",
+    "type": "String"
+   }
+  ],
+  "IdentitySessionListMgmtResponseDTO": [
+   {
+    "name": "sessions",
+    "type": "List<IdentitySessionResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "AuthorizationMgmtGrantRequestDTO": [
+   {
+    "name": "cloud",
+    "type": "String"
+   },
+   {
+    "name": "provider",
+    "type": "String"
+   },
+   {
+    "name": "targetType",
+    "type": "String"
+   },
+   {
+    "name": "target",
+    "type": "String"
+   },
+   {
+    "name": "description",
+    "type": "String"
+   },
+   {
+    "name": "defaultPolicy",
+    "type": "AuthorizationPolicyRequestDTO"
+   },
+   {
+    "name": "scopedPolicies",
+    "type": "Map<String, AuthorizationPolicyRequestDTO>"
+   }
+  ],
+  "TranslationAbortMgmtResponseDTO": [
+   {
+    "name": "results",
+    "type": "Map<String, Boolean>"
+   }
+  ],
+  "ServiceInstanceUpdateRequestDTO": [
+   {
+    "name": "instanceId",
+    "type": "String"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   },
+   {
+    "name": "metadata",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "interfaces",
+    "type": "List<ServiceInstanceInterfaceRequestDTO>"
+   }
+  ],
+  "MqttNotifyTemplate": [
+   {
+    "name": "receiver",
+    "type": "String"
+   },
+   {
+    "name": "sender",
+    "type": "String"
+   },
+   {
+    "name": "payload",
+    "type": "Object"
+   }
+  ],
+  "TranslationDiscoveryResponseDTO": [
+   {
+    "name": "bridgeId",
+    "type": "String"
+   },
+   {
+    "name": "candidates",
+    "type": "List<TranslationBridgeCandidateDTO>"
+   }
+  ],
+  "BlacklistCreateRequestDTO": [
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   },
+   {
+    "name": "reason",
+    "type": "String"
+   }
+  ],
+  "DeviceLookupRequestDTO": [
+   {
+    "name": "deviceNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "addresses",
+    "type": "List<String>"
+   },
+   {
+    "name": "addressType",
+    "type": "String"
+   },
+   {
+    "name": "metadataRequirementList",
+    "type": "List<MetadataRequirementDTO>"
+   }
+  ],
+  "DeviceRequestDTO": [
+   {
+    "name": "name",
+    "type": "String"
+   },
+   {
+    "name": "metadata",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "addresses",
+    "type": "List<String>"
+   }
+  ],
+  "MqttPublishTemplate": [
+   {
+    "name": "sender",
+    "type": "String"
+   },
+   {
+    "name": "payload",
+    "type": "Object"
+   }
+  ],
+  "IdentityListMgmtUpdateRequestDTO": [
+   {
+    "name": "identities",
+    "type": "List<IdentityMgmtRequestDTO>"
+   }
+  ],
+  "QoSDeviceStatRecordDTO": [
+   {
+    "name": "metricGroup",
+    "type": "String"
+   },
+   {
+    "name": "id",
+    "type": "long"
+   },
+   {
+    "name": "timestamp",
+    "type": "String"
+   },
+   {
+    "name": "uuid",
+    "type": "String"
+   },
+   {
+    "name": "minimum",
+    "type": "Double"
+   },
+   {
+    "name": "maximum",
+    "type": "Double"
+   },
+   {
+    "name": "mean",
+    "type": "Double"
+   },
+   {
+    "name": "median",
+    "type": "Double"
+   },
+   {
+    "name": "current",
+    "type": "Double"
+   },
+   {
+    "name": "systems",
+    "type": "List<String>"
+   }
+  ],
+  "AuthorizationPolicyListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<AuthorizationPolicyResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "TranslationQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "bridgeIds",
+    "type": "List<String>"
+   },
+   {
+    "name": "creators",
+    "type": "List<String>"
+   },
+   {
+    "name": "statuses",
+    "type": "List<String>"
+   },
+   {
+    "name": "consumers",
+    "type": "List<String>"
+   },
+   {
+    "name": "providers",
+    "type": "List<String>"
+   },
+   {
+    "name": "serviceDefinitions",
+    "type": "List<String>"
+   },
+   {
+    "name": "interfaceTranslators",
+    "type": "List<String>"
+   },
+   {
+    "name": "dataModelTranslators",
+    "type": "List<String>"
+   },
+   {
+    "name": "creationFrom",
+    "type": "String"
+   },
+   {
+    "name": "creationTo",
+    "type": "String"
+   },
+   {
+    "name": "alivesFrom",
+    "type": "String"
+   },
+   {
+    "name": "alivesTo",
+    "type": "String"
+   },
+   {
+    "name": "minUsage",
+    "type": "Integer"
+   },
+   {
+    "name": "maxUsage",
+    "type": "Integer"
+   }
+  ],
+  "SystemListRequestDTO": [
+   {
+    "name": "systems",
+    "type": "List<SystemRequestDTO>"
+   }
+  ],
+  "AuthorizationTokenGenerationResponseDTO": [
+   {
+    "name": "tokenType",
+    "type": "AuthorizationTokenType"
+   },
+   {
+    "name": "targetType",
+    "type": "AuthorizationTargetType"
+   },
+   {
+    "name": "token",
+    "type": "String"
+   },
+   {
+    "name": "usageLimit",
+    "type": "Integer"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   }
+  ],
+  "SystemRegisterRequestDTO": [
+   {
+    "name": "metadata",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "version",
+    "type": "String"
+   },
+   {
+    "name": "addresses",
+    "type": "List<String>"
+   },
+   {
+    "name": "deviceName",
+    "type": "String"
+   }
+  ],
+  "OrchestrationResultDTO": [
+   {
+    "name": "serviceInstanceId",
+    "type": "String"
+   },
+   {
+    "name": "cloudIdentitifer",
+    "type": "String"
+   },
+   {
+    "name": "providerName",
+    "type": "String"
+   },
+   {
+    "name": "serviceDefinitition",
+    "type": "String"
+   },
+   {
+    "name": "version",
+    "type": "String"
+   },
+   {
+    "name": "aliveUntil",
+    "type": "String"
+   },
+   {
+    "name": "exclusiveUntil",
+    "type": "String"
+   },
+   {
+    "name": "metadata",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "interfaces",
+    "type": "List<ServiceInstanceInterfaceResponseDTO>"
+   },
+   {
+    "name": "authorizationTokens",
+    "type": "Map<String, Map<String, AuthorizationTokenGenerationResponseDTO>>"
+   }
+  ],
+  "ServiceInstanceInterfaceRequestDTO": [
+   {
+    "name": "templateName",
+    "type": "String"
+   },
+   {
+    "name": "protocol",
+    "type": "String"
+   },
+   {
+    "name": "policy",
+    "type": "String"
+   },
+   {
+    "name": "properties",
+    "type": "Map<String, Object>"
+   }
+  ],
+  "DeviceListRequestDTO": [
+   {
+    "name": "devices",
+    "type": "List<DeviceRequestDTO>"
+   }
+  ],
+  "ServiceInterfaceTemplatePropertyDTO": [
+   {
+    "name": "name",
+    "type": "String"
+   },
+   {
+    "name": "mandatory",
+    "type": "boolean"
+   },
+   {
+    "name": "validator",
+    "type": "String"
+   },
+   {
+    "name": "validatorParams",
+    "type": "List<String>"
+   }
+  ],
+  "OrchestrationNotifyInterfaceDTO": [
+   {
+    "name": "protocol",
+    "type": "String"
+   },
+   {
+    "name": "properties",
+    "type": "Map<String, String>"
+   }
+  ],
+  "OrchestrationSubscriptionRequestDTO": [
+   {
+    "name": "targetSystemName",
+    "type": "String"
+   },
+   {
+    "name": "orchestrationRequest",
+    "type": "OrchestrationRequestDTO"
+   },
+   {
+    "name": "notifyInterface",
+    "type": "OrchestrationNotifyInterfaceDTO"
+   },
+   {
+    "name": "duration",
+    "type": "Long"
+   }
+  ],
+  "ServiceInstanceLookupRequestDTO": [
+   {
+    "name": "instanceIds",
+    "type": "List<String>"
+   },
+   {
+    "name": "providerNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "serviceDefinitionNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "versions",
+    "type": "List<String>"
+   },
+   {
+    "name": "alivesAt",
+    "type": "String"
+   },
+   {
+    "name": "metadataRequirementsList",
+    "type": "List<MetadataRequirementDTO>"
+   },
+   {
+    "name": "addressTypes",
+    "type": "List<String>"
+   },
+   {
+    "name": "interfaceTemplateNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "interfacePropertyRequirementsList",
+    "type": "List<MetadataRequirementDTO>"
+   },
+   {
+    "name": "policies",
+    "type": "List<String>"
+   }
+  ],
+  "TranslationCheckTargetsRequestDTO": [
+   {
+    "name": "targetOperation",
+    "type": "String"
+   },
+   {
+    "name": "targets",
+    "type": "List<TranslationTargetDTO>"
+   }
+  ],
+  "ServiceInstanceRequestDTO": [
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "serviceDefinitionName",
+    "type": "String"
+   },
+   {
+    "name": "version",
+    "type": "String"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   },
+   {
+    "name": "metadata",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "interfaces",
+    "type": "List<ServiceInstanceInterfaceRequestDTO>"
+   }
+  ],
+  "OrchestrationLockQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "ids",
+    "type": "List<Long>"
+   },
+   {
+    "name": "orchestrationJobIds",
+    "type": "List<String>"
+   },
+   {
+    "name": "serviceInstanceIds",
+    "type": "List<String>"
+   },
+   {
+    "name": "owners",
+    "type": "List<String>"
+   },
+   {
+    "name": "expiresBefore",
+    "type": "String"
+   },
+   {
+    "name": "expiresAfter",
+    "type": "String"
+   }
+  ],
+  "ServiceInterfaceTemplateQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "templateNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "protocols",
+    "type": "List<String>"
+   }
+  ],
+  "AuthorizationTokenResponseDTO": [
+   {
+    "name": "tokenType",
+    "type": "AuthorizationTokenType"
+   },
+   {
+    "name": "variant",
+    "type": "String"
+   },
+   {
+    "name": "token",
+    "type": "String"
+   },
+   {
+    "name": "tokenReference",
+    "type": "String"
+   },
+   {
+    "name": "requester",
+    "type": "String"
+   },
+   {
+    "name": "consumerCloud",
+    "type": "String"
+   },
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "provider",
+    "type": "String"
+   },
+   {
+    "name": "targetType",
+    "type": "AuthorizationTargetType"
+   },
+   {
+    "name": "target",
+    "type": "String"
+   },
+   {
+    "name": "scope",
+    "type": "String"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "usageLimit",
+    "type": "Integer"
+   },
+   {
+    "name": "usageLeft",
+    "type": "Integer"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   }
+  ],
+  "PageDTO": [
+   {
+    "name": "page",
+    "type": "Integer"
+   },
+   {
+    "name": "size",
+    "type": "Integer"
+   },
+   {
+    "name": "direction",
+    "type": "String"
+   },
+   {
+    "name": "sortField",
+    "type": "String"
+   }
+  ],
+  "OrchestrationPushJobListResponseDTO": [
+   {
+    "name": "jobs",
+    "type": "List<OrchestrationJobDTO>"
+   }
+  ],
+  "OrchestrationRequestDTO": [
+   {
+    "name": "serviceRequirement",
+    "type": "OrchestrationServiceRequirementDTO"
+   },
+   {
+    "name": "orchestrationFlags",
+    "type": "Map<String, Boolean>"
+   },
+   {
+    "name": "qualityRequirements",
+    "type": "List<QoSRequirementDTO>"
+   },
+   {
+    "name": "exclusivityDuration",
+    "type": "Integer"
+   }
+  ],
+  "AuthorizationQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "level",
+    "type": "String"
+   },
+   {
+    "name": "providers",
+    "type": "List<String>"
+   },
+   {
+    "name": "instanceIds",
+    "type": "List<String>"
+   },
+   {
+    "name": "cloudIdentifiers",
+    "type": "List<String>"
+   },
+   {
+    "name": "targetNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "targetType",
+    "type": "String"
+   }
+  ],
+  "ServiceInstanceCreateListRequestDTO": [
+   {
+    "name": "instances",
+    "type": "List<ServiceInstanceRequestDTO>"
+   }
+  ],
+  "SystemLookupRequestDTO": [
+   {
+    "name": "systemNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "addresses",
+    "type": "List<String>"
+   },
+   {
+    "name": "addressType",
+    "type": "String"
+   },
+   {
+    "name": "metadataRequirementList",
+    "type": "List<MetadataRequirementDTO>"
+   },
+   {
+    "name": "versions",
+    "type": "List<String>"
+   },
+   {
+    "name": "deviceNames",
+    "type": "List<String>"
+   }
+  ],
+  "AuthorizationMgmtEncryptionKeyResponseDTO": [
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "rawKey",
+    "type": "String"
+   },
+   {
+    "name": "algorithm",
+    "type": "String"
+   },
+   {
+    "name": "keyAdditive",
+    "type": "String"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   }
+  ],
+  "TranslationNegotiationResponseDTO": [
+   {
+    "name": "bridgeId",
+    "type": "String"
+   },
+   {
+    "name": "bridgeInterface",
+    "type": "ServiceInstanceInterfaceResponseDTO"
+   },
+   {
+    "name": "tokenExpiresAt",
+    "type": "String"
+   },
+   {
+    "name": "tokenUsageLimit",
+    "type": "Integer"
+   }
+  ],
+  "BlacklistQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "systemNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "mode",
+    "type": "String"
+   },
+   {
+    "name": "issuers",
+    "type": "List<String>"
+   },
+   {
+    "name": "revokers",
+    "type": "List<String>"
+   },
+   {
+    "name": "reason",
+    "type": "String"
+   },
+   {
+    "name": "alivesAt",
+    "type": "String"
+   }
+  ],
+  "OrchestrationSimpleStoreQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "ids",
+    "type": "List<String>"
+   },
+   {
+    "name": "consumerNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "serviceDefinitions",
+    "type": "List<String>"
+   },
+   {
+    "name": "serviceInstanceIds",
+    "type": "List<String>"
+   },
+   {
+    "name": "minPriority",
+    "type": "Integer"
+   },
+   {
+    "name": "maxPriority",
+    "type": "Integer"
+   },
+   {
+    "name": "createdBy",
+    "type": "String"
+   }
+  ],
+  "AuthorizationVerifyListRequestDTO": [
+   {
+    "name": "list",
+    "type": "List<AuthorizationVerifyRequestDTO>"
+   }
+  ],
+  "OrchestrationSubscriptionResponseDTO": [
+   {
+    "name": "id",
+    "type": "String"
+   },
+   {
+    "name": "ownerSystemName",
+    "type": "String"
+   },
+   {
+    "name": "targetSystemName",
+    "type": "String"
+   },
+   {
+    "name": "orchestrationRequest",
+    "type": "OrchestrationRequestDTO"
+   },
+   {
+    "name": "notifyInterface",
+    "type": "OrchestrationNotifyInterfaceDTO"
+   },
+   {
+    "name": "expiredAt",
+    "type": "String"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   }
+  ],
+  "BlacklistEntryListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<BlacklistEntryDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "OrchestrationResponseDTO": [
+   {
+    "name": "results",
+    "type": "List<OrchestrationResultDTO>"
+   },
+   {
+    "name": "warnings",
+    "type": "List<String>"
+   }
+  ],
+  "AuthorizationPolicyDTO": [
+   {
+    "name": "policyType",
+    "type": "AuthorizationPolicyType"
+   },
+   {
+    "name": "policyList",
+    "type": "List<String>"
+   },
+   {
+    "name": "policyMetadataRequirement",
+    "type": "MetadataRequirementDTO"
+   }
+  ],
+  "ServiceInstanceResponseDTO": [
+   {
+    "name": "instanceId",
+    "type": "String"
+   },
+   {
+    "name": "provider",
+    "type": "SystemResponseDTO"
+   },
+   {
+    "name": "serviceDefinition",
+    "type": "ServiceDefinitionResponseDTO"
+   },
+   {
+    "name": "version",
+    "type": "String"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   },
+   {
+    "name": "metadata",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "interfaces",
+    "type": "List<ServiceInstanceInterfaceResponseDTO>"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "updatedAt",
+    "type": "String"
+   }
+  ],
+  "ServiceInstanceQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "instanceIds",
+    "type": "List<String>"
+   },
+   {
+    "name": "providerNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "serviceDefinitionNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "versions",
+    "type": "List<String>"
+   },
+   {
+    "name": "alivesAt",
+    "type": "String"
+   },
+   {
+    "name": "metadataRequirementsList",
+    "type": "List<MetadataRequirementDTO>"
+   },
+   {
+    "name": "addressTypes",
+    "type": "List<String>"
+   },
+   {
+    "name": "interfaceTemplateNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "interfacePropertyRequirementsList",
+    "type": "List<MetadataRequirementDTO>"
+   },
+   {
+    "name": "policies",
+    "type": "List<String>"
+   }
+  ],
+  "IdentityMgmtResponseDTO": [
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "authenticationMethod",
+    "type": "String"
+   },
+   {
+    "name": "sysop",
+    "type": "boolean"
+   },
+   {
+    "name": "createdBy",
+    "type": "String"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "updatedBy",
+    "type": "String"
+   },
+   {
+    "name": "updatedAt",
+    "type": "String"
+   }
+  ],
+  "TranslationBridgeCandidateDTO": [
+   {
+    "name": "serviceInstanceId",
+    "type": "String"
+   },
+   {
+    "name": "interfaceTemplateName",
+    "type": "String"
+   }
+  ],
+  "TranslationDataModelTranslationDataDescriptorDTO": [
+   {
+    "name": "fromModelId",
+    "type": "String"
+   },
+   {
+    "name": "toModelId",
+    "type": "String"
+   },
+   {
+    "name": "interfaceProperties",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "configurationSettings",
+    "type": "Map<String, Object>"
+   }
+  ],
+  "TranslationTargetDTO": [
+   {
+    "name": "instanceId",
+    "type": "String"
+   },
+   {
+    "name": "interfaces",
+    "type": "List<ServiceInstanceInterfaceResponseDTO>"
+   }
+  ],
+  "TranslationQueryListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<TranslationQueryResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "TranslationDataModelTranslatorInitializationResponseDTO": [
+   {
+    "name": "dataModelTranslatorName",
+    "type": "String"
+   },
+   {
+    "name": "interfaceProperties",
+    "type": "Map<String, Object>"
+   }
+  ],
+  "SystemListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<SystemResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "AuthorizationMgmtEncryptionKeyRegistrationListRequestDTO": [
+   {
+    "name": "list",
+    "type": "List<AuthorizationMgmtEncryptionKeyRegistrationRequestDTO>"
+   }
+  ],
+  "OrchestrationLockResponseDTO": [
+   {
+    "name": "id",
+    "type": "long"
+   },
+   {
+    "name": "orchestrationJobId",
+    "type": "String"
+   },
+   {
+    "name": "serviceInstanceId",
+    "type": "String"
+   },
+   {
+    "name": "owner",
+    "type": "String"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   },
+   {
+    "name": "temporary",
+    "type": "boolean"
+   }
+  ],
+  "OrchestrationSimpleStoreListRequestDTO": [
+   {
+    "name": "candidates",
+    "type": "List<OrchestrationSimpleStoreRequestDTO>"
+   }
+  ],
+  "ServiceInterfaceTemplateListRequestDTO": [
+   {
+    "name": "interfaceTemplates",
+    "type": "List<ServiceInterfaceTemplateRequestDTO>"
+   }
+  ],
+  "AuthorizationMgmtEncryptionKeyListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<AuthorizationMgmtEncryptionKeyResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "QoSEvaluationRequestDTO": [
+   {
+    "name": "providers",
+    "type": "List<String>"
+   },
+   {
+    "name": "configuration",
+    "type": "Map<String, Object>"
+   }
+  ],
+  "LogEntryDTO": [
+   {
+    "name": "logId",
+    "type": "String"
+   },
+   {
+    "name": "entryDate",
+    "type": "String"
+   },
+   {
+    "name": "logger",
+    "type": "String"
+   },
+   {
+    "name": "severity",
+    "type": "String"
+   },
+   {
+    "name": "message",
+    "type": "String"
+   },
+   {
+    "name": "exception",
+    "type": "String"
+   }
+  ],
+  "KeyValuesDTO": [
+   {
+    "name": "map",
+    "type": "Map<String, String>"
+   }
+  ],
+  "IdentitySessionResponseDTO": [
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "loginTime",
+    "type": "String"
+   },
+   {
+    "name": "expirationTime",
+    "type": "String"
+   }
+  ],
+  "QoSDeviceDataEvaluationConfigDTO": [
+   {
+    "name": "metricNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "metricWeights",
+    "type": "List<Double>"
+   },
+   {
+    "name": "timeWindow",
+    "type": "Integer"
+   },
+   {
+    "name": "threshold",
+    "type": "Double"
+   }
+  ],
+  "AuthorizationTokenVerifyResponseDTO": [
+   {
+    "name": "verified",
+    "type": "boolean"
+   },
+   {
+    "name": "consumerCloud",
+    "type": "String"
+   },
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "targetType",
+    "type": "AuthorizationTargetType"
+   },
+   {
+    "name": "target",
+    "type": "String"
+   },
+   {
+    "name": "scope",
+    "type": "String"
+   }
+  ],
+  "QoSDeviceStatQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "metricGroup",
+    "type": "String"
+   },
+   {
+    "name": "from",
+    "type": "String"
+   },
+   {
+    "name": "to",
+    "type": "String"
+   },
+   {
+    "name": "aggregation",
+    "type": "List<String>"
+   },
+   {
+    "name": "systemNames",
+    "type": "List<String>"
+   }
+  ],
+  "DataModelTranslatorFactoryRequestDTO": [
+   {
+    "name": "fromModelId",
+    "type": "String"
+   },
+   {
+    "name": "toModelId",
+    "type": "String"
+   }
+  ],
+  "DeviceQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "deviceNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "addresses",
+    "type": "List<String>"
+   },
+   {
+    "name": "addressType",
+    "type": "String"
+   },
+   {
+    "name": "metadataRequirementList",
+    "type": "List<MetadataRequirementDTO>"
+   }
+  ],
+  "AuthorizationTokenGenerationMgmtListRequestDTO": [
+   {
+    "name": "list",
+    "type": "List<AuthorizationTokenGenerationMgmtRequestDTO>"
+   }
+  ],
+  "ServiceInstanceListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<ServiceInstanceResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "OrchestrationHistoryQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "ids",
+    "type": "List<String>"
+   },
+   {
+    "name": "statuses",
+    "type": "List<String>"
+   },
+   {
+    "name": "type",
+    "type": "String"
+   },
+   {
+    "name": "requesterSystems",
+    "type": "List<String>"
+   },
+   {
+    "name": "targetSystems",
+    "type": "List<String>"
+   },
+   {
+    "name": "serviceDefinitions",
+    "type": "List<String>"
+   },
+   {
+    "name": "subscriptionIds",
+    "type": "List<String>"
+   }
+  ],
+  "ServiceInterfaceTemplateResponseDTO": [
+   {
+    "name": "name",
+    "type": "String"
+   },
+   {
+    "name": "protocol",
+    "type": "String"
+   },
+   {
+    "name": "propertyRequirements",
+    "type": "List<ServiceInterfaceTemplatePropertyDTO>"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "updatedAt",
+    "type": "String"
+   }
+  ],
+  "MqttRequestTemplate": [
+   {
+    "name": "traceId",
+    "type": "String"
+   },
+   {
+    "name": "authentication",
+    "type": "String"
+   },
+   {
+    "name": "responseTopic",
+    "type": "String"
+   },
+   {
+    "name": "qosRequirement",
+    "type": "Integer"
+   },
+   {
+    "name": "params",
+    "type": "Map<String, String>"
+   },
+   {
+    "name": "payload",
+    "type": "Object"
+   }
+  ],
+  "AuthorizationMgmtEncryptionKeyRegistrationRequestDTO": [
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "key",
+    "type": "String"
+   },
+   {
+    "name": "algorithm",
+    "type": "String"
+   }
+  ],
+  "SystemQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "systemNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "addresses",
+    "type": "List<String>"
+   },
+   {
+    "name": "addressType",
+    "type": "String"
+   },
+   {
+    "name": "metadataRequirementList",
+    "type": "List<MetadataRequirementDTO>"
+   },
+   {
+    "name": "versions",
+    "type": "List<String>"
+   },
+   {
+    "name": "deviceNames",
+    "type": "List<String>"
+   }
+  ],
+  "OrchestrationPlantRulesDTO": [
+   {
+    "name": "rules",
+    "type": "List<OrchestrationPlantRuleDTO>"
+   }
+  ],
+  "OrchestrationServiceRequirementDTO": [
+   {
+    "name": "serviceDefinition",
+    "type": "String"
+   },
+   {
+    "name": "operations",
+    "type": "List<String>"
+   },
+   {
+    "name": "versions",
+    "type": "List<String>"
+   },
+   {
+    "name": "alivesAt",
+    "type": "String"
+   },
+   {
+    "name": "metadataRequirements",
+    "type": "List<MetadataRequirementDTO>"
+   },
+   {
+    "name": "interfaceTemplateNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "interfaceAddressTypes",
+    "type": "List<String>"
+   },
+   {
+    "name": "interfacePropertyRequirements",
+    "type": "List<MetadataRequirementDTO>"
+   },
+   {
+    "name": "securityPolicies",
+    "type": "List<String>"
+   },
+   {
+    "name": "preferredProviders",
+    "type": "List<String>"
+   }
+  ],
+  "AuthorizationVerifyResponseDTO": [
+   {
+    "name": "provider",
+    "type": "String"
+   },
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "cloud",
+    "type": "String"
+   },
+   {
+    "name": "targetType",
+    "type": "AuthorizationTargetType"
+   },
+   {
+    "name": "target",
+    "type": "String"
+   },
+   {
+    "name": "scope",
+    "type": "String"
+   },
+   {
+    "name": "granted",
+    "type": "boolean"
+   }
+  ],
+  "IdentityChangeRequestDTO": [
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "credentials",
+    "type": "Map<String, String>"
+   },
+   {
+    "name": "newCredentials",
+    "type": "Map<String, String>"
+   }
+  ],
+  "OrchestrationLockRequestDTO": [
+   {
+    "name": "serviceInstanceId",
+    "type": "String"
+   },
+   {
+    "name": "owner",
+    "type": "String"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   }
+  ],
+  "IdentityQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "namePart",
+    "type": "String"
+   },
+   {
+    "name": "isSysop",
+    "type": "Boolean"
+   },
+   {
+    "name": "createdBy",
+    "type": "String"
+   },
+   {
+    "name": "creationFrom",
+    "type": "String"
+   },
+   {
+    "name": "creationTo",
+    "type": "String"
+   },
+   {
+    "name": "hasSession",
+    "type": "Boolean"
+   }
+  ],
+  "LogRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "from",
+    "type": "String"
+   },
+   {
+    "name": "to",
+    "type": "String"
+   },
+   {
+    "name": "severity",
+    "type": "String"
+   },
+   {
+    "name": "logger",
+    "type": "String"
+   }
+  ],
+  "TranslationInterfaceTranslationDataDescriptorDTO": [
+   {
+    "name": "fromInterfaceTemplate",
+    "type": "String"
+   },
+   {
+    "name": "toInterfaceTemplate",
+    "type": "String"
+   },
+   {
+    "name": "token",
+    "type": "String"
+   },
+   {
+    "name": "interfaceProperties",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "configurationSettings",
+    "type": "Map<String, Object>"
+   }
+  ],
+  "SystemResponseDTO": [
+   {
+    "name": "name",
+    "type": "String"
+   },
+   {
+    "name": "metadata",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "version",
+    "type": "String"
+   },
+   {
+    "name": "addresses",
+    "type": "List<AddressDTO>"
+   },
+   {
+    "name": "device",
+    "type": "DeviceResponseDTO"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "updatedAt",
+    "type": "String"
+   }
+  ],
+  "DeviceListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<DeviceResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "DataModelTranslationInitRequestDTO": [
+   {
+    "name": "inputModelId",
+    "type": "String"
+   },
+   {
+    "name": "outputModelId",
+    "type": "String"
+   },
+   {
+    "name": "payload",
+    "type": "String"
+   },
+   {
+    "name": "settings",
+    "type": "Map<String, Object>"
+   }
+  ],
+  "DeviceResponseDTO": [
+   {
+    "name": "name",
+    "type": "String"
+   },
+   {
+    "name": "metadata",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "addresses",
+    "type": "List<AddressDTO>"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "updatedAt",
+    "type": "String"
+   }
+  ],
+  "SystemRequestDTO": [
+   {
+    "name": "name",
+    "type": "String"
+   },
+   {
+    "name": "metadata",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "version",
+    "type": "String"
+   },
+   {
+    "name": "addresses",
+    "type": "List<String>"
+   },
+   {
+    "name": "deviceName",
+    "type": "String"
+   }
+  ],
+  "ServiceInterfaceTemplateListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<ServiceInterfaceTemplateResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "AuthorizationTokenGenerationRequestDTO": [
+   {
+    "name": "tokenVariant",
+    "type": "String"
+   },
+   {
+    "name": "provider",
+    "type": "String"
+   },
+   {
+    "name": "targetType",
+    "type": "String"
+   },
+   {
+    "name": "target",
+    "type": "String"
+   },
+   {
+    "name": "scope",
+    "type": "String"
+   }
+  ],
+  "OrchestrationLockListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<OrchestrationLockResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "ServiceDefinitionResponseDTO": [
+   {
+    "name": "name",
+    "type": "String"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "updatedAt",
+    "type": "String"
+   }
+  ],
+  "TranslationNegotiationRequestDTO": [
+   {
+    "name": "bridgeId",
+    "type": "String"
+   },
+   {
+    "name": "target",
+    "type": "ServiceInstanceResponseDTO"
+   },
+   {
+    "name": "operation",
+    "type": "String"
+   },
+   {
+    "name": "interfaceTemplateName",
+    "type": "String"
+   },
+   {
+    "name": "inputDataModelId",
+    "type": "String"
+   },
+   {
+    "name": "outputDataModelId",
+    "type": "String"
+   }
+  ],
+  "AuthorizationTokenGenerationMgmtRequestDTO": [
+   {
+    "name": "tokenVariant",
+    "type": "String"
+   },
+   {
+    "name": "targetType",
+    "type": "String"
+   },
+   {
+    "name": "consumerCloud",
+    "type": "String"
+   },
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "provider",
+    "type": "String"
+   },
+   {
+    "name": "target",
+    "type": "String"
+   },
+   {
+    "name": "scope",
+    "type": "String"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   },
+   {
+    "name": "usageLimit",
+    "type": "Integer"
+   }
+  ],
+  "ServiceDefinitionListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<ServiceDefinitionResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "BlacklistEntryDTO": [
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "createdBy",
+    "type": "String"
+   },
+   {
+    "name": "revokedBy",
+    "type": "String"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "updatedAt",
+    "type": "String"
+   },
+   {
+    "name": "reason",
+    "type": "String"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   },
+   {
+    "name": "active",
+    "type": "boolean"
+   }
+  ],
+  "OrchestrationPushTriggerDTO": [
+   {
+    "name": "targetSystems",
+    "type": "List<String>"
+   },
+   {
+    "name": "subscriptionIds",
+    "type": "List<String>"
+   }
+  ],
+  "OrchestrationPlantRuleDTO": [
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "serviceDefinition",
+    "type": "String"
+   },
+   {
+    "name": "providers",
+    "type": "List<OrchestrationPlantProviderDTO>"
+   }
+  ],
+  "TranslationQueryResponseDTO": [
+   {
+    "name": "bridgeId",
+    "type": "String"
+   },
+   {
+    "name": "status",
+    "type": "String"
+   },
+   {
+    "name": "usageReportCount",
+    "type": "int"
+   },
+   {
+    "name": "alivesAt",
+    "type": "String"
+   },
+   {
+    "name": "message",
+    "type": "String"
+   },
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "provider",
+    "type": "String"
+   },
+   {
+    "name": "serviceDefinition",
+    "type": "String"
+   },
+   {
+    "name": "operation",
+    "type": "String"
+   },
+   {
+    "name": "interfaceTranslator",
+    "type": "String"
+   },
+   {
+    "name": "interfaceTranslatorData",
+    "type": "TranslationInterfaceTranslationDataDescriptorDTO"
+   },
+   {
+    "name": "inputDataModelTranslator",
+    "type": "String"
+   },
+   {
+    "name": "inputDataModelTranslatorData",
+    "type": "TranslationDataModelTranslationDataDescriptorDTO"
+   },
+   {
+    "name": "outputDataModelTranslator",
+    "type": "String"
+   },
+   {
+    "name": "outputDataModelTranslatorData",
+    "type": "TranslationDataModelTranslationDataDescriptorDTO"
+   },
+   {
+    "name": "createdBy",
+    "type": "String"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "updatedAt",
+    "type": "String"
+   }
+  ],
+  "AuthorizationVerifyRequestDTO": [
+   {
+    "name": "provider",
+    "type": "String"
+   },
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "cloud",
+    "type": "String"
+   },
+   {
+    "name": "targetType",
+    "type": "String"
+   },
+   {
+    "name": "target",
+    "type": "String"
+   },
+   {
+    "name": "scope",
+    "type": "String"
+   }
+  ],
+  "IdentityLoginResponseDTO": [
+   {
+    "name": "token",
+    "type": "String"
+   },
+   {
+    "name": "expirationTime",
+    "type": "String"
+   }
+  ],
+  "IdentityListMgmtResponseDTO": [
+   {
+    "name": "identities",
+    "type": "List<IdentityMgmtResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "QoSEvaluationFilterResponseDTO": [
+   {
+    "name": "passedProviders",
+    "type": "List<String>"
+   },
+   {
+    "name": "droppedProviders",
+    "type": "List<String>"
+   },
+   {
+    "name": "warnings",
+    "type": "Map<String, List<String>>"
+   }
+  ],
+  "OrchestrationSimpleStoreListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<OrchestrationSimpleStoreResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "QoSDeviceStatQueryResponseDTO": [
+   {
+    "name": "records",
+    "type": "List<QoSDeviceStatRecordDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "QoSEvaluationSortResponseDTO": [
+   {
+    "name": "sortedProviders",
+    "type": "List<String>"
+   },
+   {
+    "name": "warnings",
+    "type": "Map<String, List<String>>"
+   }
+  ],
+  "OrchestrationLockListRequestDTO": [
+   {
+    "name": "locks",
+    "type": "List<OrchestrationLockRequestDTO>"
+   }
+  ],
+  "ServiceInstanceUpdateListRequestDTO": [
+   {
+    "name": "instances",
+    "type": "List<ServiceInstanceUpdateRequestDTO>"
+   }
+  ],
+  "TranslationNegotiationMgmtRequestDTO": [
+   {
+    "name": "bridgeId",
+    "type": "String"
+   },
+   {
+    "name": "targetInstanceId",
+    "type": "String"
+   }
+  ],
+  "AuthorizationTokenMgmtListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<AuthorizationTokenResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "AuthorizationVerifyListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<AuthorizationVerifyResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "IdentityRequestDTO": [
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "credentials",
+    "type": "Map<String, String>"
+   }
+  ],
+  "ServiceInstanceInterfaceResponseDTO": [
+   {
+    "name": "templateName",
+    "type": "String"
+   },
+   {
+    "name": "protocol",
+    "type": "String"
+   },
+   {
+    "name": "policy",
+    "type": "String"
+   },
+   {
+    "name": "properties",
+    "type": "Map<String, Object>"
+   }
+  ],
+  "DataModelFactoryTranslatorInitiaizationResponseDTO": [
+   {
+    "name": "dataModelTranslatorName",
+    "type": "String"
+   },
+   {
+    "name": "interfaceProperties",
+    "type": "Map<String, Object>"
+   }
+  ],
+  "ServiceInterfaceTemplateRequestDTO": [
+   {
+    "name": "name",
+    "type": "String"
+   },
+   {
+    "name": "protocol",
+    "type": "String"
+   },
+   {
+    "name": "propertyRequirements",
+    "type": "List<ServiceInterfaceTemplatePropertyDTO>"
+   }
+  ],
+  "ServiceInstanceCreateRequestDTO": [
+   {
+    "name": "serviceDefinitionName",
+    "type": "String"
+   },
+   {
+    "name": "version",
+    "type": "String"
+   },
+   {
+    "name": "expiresAt",
+    "type": "String"
+   },
+   {
+    "name": "metadata",
+    "type": "Map<String, Object>"
+   },
+   {
+    "name": "interfaces",
+    "type": "List<ServiceInstanceInterfaceRequestDTO>"
+   }
+  ],
+  "ErrorMessageDTO": [
+   {
+    "name": "errorMessage",
+    "type": "String"
+   },
+   {
+    "name": "errorCode",
+    "type": "int"
+   },
+   {
+    "name": "exceptionType",
+    "type": "ExceptionType"
+   },
+   {
+    "name": "origin",
+    "type": "String"
+   }
+  ],
+  "TranslationDiscoveryRequestDTO": [
+   {
+    "name": "candidates",
+    "type": "List<ServiceInstanceResponseDTO>"
+   },
+   {
+    "name": "operation",
+    "type": "String"
+   },
+   {
+    "name": "interfaceTemplateNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "inputDataModelId",
+    "type": "String"
+   },
+   {
+    "name": "outputDataModelId",
+    "type": "String"
+   }
+  ],
+  "AddressDTO": [
+   {
+    "name": "type",
+    "type": "String"
+   },
+   {
+    "name": "address",
+    "type": "String"
+   }
+  ],
+  "OrchestrationSimpleStoreRequestDTO": [
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "serviceInstanceId",
+    "type": "String"
+   },
+   {
+    "name": "priority",
+    "type": "Integer"
+   }
+  ],
+  "OrchestrationSubscriptionListRequestDTO": [
+   {
+    "name": "subscriptions",
+    "type": "List<OrchestrationSubscriptionRequestDTO>"
+   }
+  ],
+  "IdentitySessionQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "namePart",
+    "type": "String"
+   },
+   {
+    "name": "loginFrom",
+    "type": "String"
+   },
+   {
+    "name": "loginTo",
+    "type": "String"
+   }
+  ],
+  "IdentityListMgmtCreateRequestDTO": [
+   {
+    "name": "authenticationMethod",
+    "type": "String"
+   },
+   {
+    "name": "identities",
+    "type": "List<IdentityMgmtRequestDTO>"
+   }
+  ],
+  "OrchestrationSubscriptionListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<OrchestrationSubscriptionResponseDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "AuthorizationPolicyResponseDTO": [
+   {
+    "name": "instanceId",
+    "type": "String"
+   },
+   {
+    "name": "level",
+    "type": "AuthorizationLevel"
+   },
+   {
+    "name": "cloud",
+    "type": "String"
+   },
+   {
+    "name": "provider",
+    "type": "String"
+   },
+   {
+    "name": "targetType",
+    "type": "AuthorizationTargetType"
+   },
+   {
+    "name": "target",
+    "type": "String"
+   },
+   {
+    "name": "description",
+    "type": "String"
+   },
+   {
+    "name": "defaultPolicy",
+    "type": "AuthorizationPolicyDTO"
+   },
+   {
+    "name": "scopedPolicies",
+    "type": "Map<String, AuthorizationPolicyDTO>"
+   },
+   {
+    "name": "createdBy",
+    "type": "String"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   }
+  ],
+  "IdentityMgmtRequestDTO": [
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "credentials",
+    "type": "Map<String, String>"
+   },
+   {
+    "name": "sysop",
+    "type": "Boolean"
+   }
+  ],
+  "AuthorizationTokenQueryRequestDTO": [
+   {
+    "name": "pagination",
+    "type": "PageDTO"
+   },
+   {
+    "name": "requester",
+    "type": "String"
+   },
+   {
+    "name": "tokenType",
+    "type": "String"
+   },
+   {
+    "name": "consumerCloud",
+    "type": "String"
+   },
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "provider",
+    "type": "String"
+   },
+   {
+    "name": "targetType",
+    "type": "String"
+   },
+   {
+    "name": "target",
+    "type": "String"
+   }
+  ],
+  "ServiceDefinitionListRequestDTO": [
+   {
+    "name": "serviceDefinitionNames",
+    "type": "List<String>"
+   }
+  ],
+  "LogEntryListResponseDTO": [
+   {
+    "name": "entries",
+    "type": "List<LogEntryDTO>"
+   },
+   {
+    "name": "count",
+    "type": "long"
+   }
+  ],
+  "AuthorizationPolicyRequestDTO": [
+   {
+    "name": "policyType",
+    "type": "String"
+   },
+   {
+    "name": "policyList",
+    "type": "List<String>"
+   },
+   {
+    "name": "policyMetadataRequirement",
+    "type": "MetadataRequirementDTO"
+   }
+  ],
+  "TranslationDiscoveryMgmtRequestDTO": [
+   {
+    "name": "candidates",
+    "type": "List<ServiceInstanceResponseDTO>"
+   },
+   {
+    "name": "consumer",
+    "type": "String"
+   },
+   {
+    "name": "operation",
+    "type": "String"
+   },
+   {
+    "name": "interfaceTemplateNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "inputDataModelId",
+    "type": "String"
+   },
+   {
+    "name": "outputDataModelId",
+    "type": "String"
+   },
+   {
+    "name": "flags",
+    "type": "Map<String, Boolean>"
+   }
+  ],
+  "QoSRequirementDTO": [
+   {
+    "name": "type",
+    "type": "String"
+   },
+   {
+    "name": "operation",
+    "type": "String"
+   },
+   {
+    "name": "requirements",
+    "type": "Map<String, Object>"
+   }
+  ],
+  "AuthorizationGrantRequestDTO": [
+   {
+    "name": "cloud",
+    "type": "String"
+   },
+   {
+    "name": "targetType",
+    "type": "String"
+   },
+   {
+    "name": "target",
+    "type": "String"
+   },
+   {
+    "name": "description",
+    "type": "String"
+   },
+   {
+    "name": "defaultPolicy",
+    "type": "AuthorizationPolicyRequestDTO"
+   },
+   {
+    "name": "scopedPolicies",
+    "type": "Map<String, AuthorizationPolicyRequestDTO>"
+   }
+  ],
+  "IdentityVerifyResponseDTO": [
+   {
+    "name": "verified",
+    "type": "boolean"
+   },
+   {
+    "name": "systemName",
+    "type": "String"
+   },
+   {
+    "name": "sysop",
+    "type": "Boolean"
+   },
+   {
+    "name": "loginTime",
+    "type": "String"
+   },
+   {
+    "name": "expirationTime",
+    "type": "String"
+   }
+  ],
+  "MqttResponseTemplate": [
+   {
+    "name": "status",
+    "type": "int"
+   },
+   {
+    "name": "traceId",
+    "type": "String"
+   },
+   {
+    "name": "receiver",
+    "type": "String"
+   },
+   {
+    "name": "payload",
+    "type": "Object"
+   }
+  ],
+  "AuthorizationLookupRequestDTO": [
+   {
+    "name": "instanceIds",
+    "type": "List<String>"
+   },
+   {
+    "name": "cloudIdentifiers",
+    "type": "List<String>"
+   },
+   {
+    "name": "targetNames",
+    "type": "List<String>"
+   },
+   {
+    "name": "targetType",
+    "type": "String"
+   }
+  ],
+  "BlacklistCreateListRequestDTO": [
+   {
+    "name": "entities",
+    "type": "List<BlacklistCreateRequestDTO>"
+   }
+  ],
+  "OrchestrationJobDTO": [
+   {
+    "name": "id",
+    "type": "String"
+   },
+   {
+    "name": "status",
+    "type": "String"
+   },
+   {
+    "name": "type",
+    "type": "String"
+   },
+   {
+    "name": "requesterSystem",
+    "type": "String"
+   },
+   {
+    "name": "targetSystem",
+    "type": "String"
+   },
+   {
+    "name": "serviceDefinition",
+    "type": "String"
+   },
+   {
+    "name": "subscriptionId",
+    "type": "String"
+   },
+   {
+    "name": "message",
+    "type": "String"
+   },
+   {
+    "name": "createdAt",
+    "type": "String"
+   },
+   {
+    "name": "startedAt",
+    "type": "String"
+   },
+   {
+    "name": "finishedAt",
+    "type": "String"
+   }
+  ],
+  "AuthorizationEncryptionKeyRegistrationRequestDTO": [
+   {
+    "name": "key",
+    "type": "String"
+   },
+   {
+    "name": "algorithm",
+    "type": "String"
+   }
+  ]
+ },
+ "enums": {
+  "AuthorizationTargetType": [
+   "SERVICE_DEF",
+   "EVENT_TYPE"
+  ],
+  "AddressType": [
+   "HOSTNAME",
+   "IPV4",
+   "IPV6",
+   "MAC"
+  ],
+  "TranslationDiscoveryFlag": [
+   "CONSUMER_BLACKLIST_CHECK",
+   "CANDIDATES_BLACKLIST_CHECK",
+   "TRANSLATORS_BLACKLIST_CHECK",
+   "CANDIDATES_AUTH_CHECK",
+   "TRANSLATORS_AUTH_CHECK"
+  ],
+  "ExceptionType": [
+   "ARROWHEAD",
+   "INVALID_PARAMETER",
+   "AUTH",
+   "FORBIDDEN",
+   "DATA_NOT_FOUND",
+   "TIMEOUT",
+   "LOCKED",
+   "INTERNAL_SERVER_ERROR",
+   "EXTERNAL_SERVER_ERROR"
+  ],
+  "AuthenticationMethod": [
+   "PASSWORD"
+  ],
+  "NotifyProtocol": [
+   "HTTP",
+   "HTTPS",
+   "MQTT",
+   "MQTTS"
+  ],
+  "Mode": [
+   "ALL",
+   "ACTIVES",
+   "INACTIVES"
+  ],
+  "OrchestrationType": [
+   "PULL",
+   "PUSH"
+  ],
+  "OrchestrationFlag": [
+   "MATCHMAKING",
+   "ONLY_PREFERRED",
+   "ONLY_EXCLUSIVE",
+   "ALLOW_TRANSLATION",
+   "ALLOW_INTERCLOUD",
+   "ONLY_INTERCLOUD"
+  ],
+  "AuthorizationLevel": [
+   "MGMT",
+   "PROVIDER"
+  ],
+  "ServiceInterfacePolicy": [
+   "NONE",
+   "CERT_AUTH",
+   "TIME_LIMITED_TOKEN_AUTH",
+   "USAGE_LIMITED_TOKEN_AUTH",
+   "BASE64_SELF_CONTAINED_TOKEN_AUTH",
+   "RSA_SHA256_JSON_WEB_TOKEN_AUTH",
+   "RSA_SHA512_JSON_WEB_TOKEN_AUTH",
+   "TRANSLATION_BRIDGE_TOKEN_AUTH"
+  ],
+  "DataModelTranslationTaskStatus": [
+   "PENDING",
+   "IN_PROGRESS",
+   "DONE",
+   "ERROR"
+  ],
+  "TranslationBridgeStatus": [
+   "NEW",
+   "DISCOVERED",
+   "PENDING",
+   "INITIALIZED",
+   "USED",
+   "ABORTED",
+   "CLOSED",
+   "ERROR"
+  ],
+  "AuthorizationTokenType": [
+   "TIME_LIMITED_TOKEN",
+   "USAGE_LIMITED_TOKEN",
+   "SELF_CONTAINED_TOKEN",
+   "TRANSLATION_BRIDGE_TOKEN"
+  ],
+  "QoSOperation": [
+   "FILTER",
+   "SORT"
+  ],
+  "TranslationBridgeEventState": [
+   "USED",
+   "INTERNAL_CLOSED",
+   "INTERNAL_ERROR",
+   "EXTERNAL_ERROR"
+  ],
+  "AuthorizationPolicyType": [
+   "ALL",
+   "WHITELIST",
+   "BLACKLIST",
+   "SYS_METADATA"
+  ]
+ }
+}

@@ -1,0 +1,70 @@
+datamanager-db-1  | 2026-10-25 10:57:11+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+datamanager-db-1  | 2026-10-25 10:57:11+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+datamanager-db-1  | 2026-10-25 10:57:11+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+datamanager-db-1  | 2026-10-25 10:57:11+00:00 [Note] [Entrypoint]: Initializing database files
+datamanager-db-1  | 2026-10-25T10:57:11.865399Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+datamanager-db-1  | 2026-10-25T10:57:11.866212Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.4.11) initializing of server in progress as process 82
+datamanager-db-1  | 2026-10-25T10:57:11.870270Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+datamanager-db-1  | 2026-10-25T10:57:11.952930Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+datamanager-db-1  | 2026-10-25T10:57:12.331159Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+datamanager-db-1  | 2026-10-25T10:57:13.707356Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+datamanager-db-1  | 2026-10-25 10:57:13+00:00 [Note] [Entrypoint]: Database files initialized
+datamanager-db-1  | 2026-10-25 10:57:13+00:00 [Note] [Entrypoint]: Starting temporary server
+datamanager-db-1  | 2026-10-25T10:57:13.737576Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+datamanager-db-1  | 2026-10-25T10:57:13.886823Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 127
+datamanager-1     | Arrowhead DataManager 5.2
+datamanager-1     | 
+datamanager-1     | 2026-10-25 10:57:17.919  INFO 6f38fc7a4fd5 --- [           main] e.a.d.DataManagerMain                    : Starting DataManagerMain v5.2.2 using Java 21.0.12.1 with PID 1 (/app/app.jar started by ? in /app)
+datamanager-1     | 2026-10-25 10:57:17.924  INFO 6f38fc7a4fd5 --- [           main] e.a.d.DataManagerMain                    : No active profile set, falling back to 1 default profile: "default"
+datamanager-1     | 2026-10-25 10:57:18.970  INFO 6f38fc7a4fd5 --- [           main] .c.s.CrlRevocationConfig$$SpringCGLIB$$0 : Client certificates are checked against the CRL [/crl/ca.crl]
+datamanager-1     | 2026-10-25 10:57:19.035  INFO 6f38fc7a4fd5 --- [           main] e.a.d.s.DataManagerAuthorizationFilter   : DataManagerAuthorizationFilter is active
+datamanager-db-1  | 2026-10-25T10:57:13.894899Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+datamanager-1     | 2026-10-25 10:57:19.265  INFO 6f38fc7a4fd5 --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+datamanager-1     | 2026-10-25 10:57:19.268  INFO 6f38fc7a4fd5 --- [           main] e.a.c.h.f.a.OutsourcedFilter             : OutsourcedFilter is active
+datamanager-1     | 2026-10-25 10:57:19.271  INFO 6f38fc7a4fd5 --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+datamanager-1     | 2026-10-25 10:57:19.722  WARN 6f38fc7a4fd5 --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+datamanager-db-1  | 2026-10-25T10:57:13.989748Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+datamanager-db-1  | 2026-10-25T10:57:14.135879Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+datamanager-db-1  | 2026-10-25T10:57:14.135925Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+datamanager-db-1  | 2026-10-25T10:57:14.141239Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+datamanager-db-1  | 2026-10-25T10:57:14.152445Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+datamanager-db-1  | 2026-10-25T10:57:14.152495Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+datamanager-db-1  | 2026-10-25 10:57:14+00:00 [Note] [Entrypoint]: Temporary server started.
+datamanager-db-1  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+datamanager-db-1  | 2026-10-25 10:57:14+00:00 [Note] [Entrypoint]: Creating database ah_datamanager
+datamanager-db-1  | 2026-10-25 10:57:14+00:00 [Note] [Entrypoint]: Creating user datamanager
+datamanager-db-1  | 2026-10-25 10:57:14+00:00 [Note] [Entrypoint]: Giving user datamanager access to schema ah_datamanager
+datamanager-db-1  | 
+datamanager-1     | 2026-10-25 10:57:20.382  INFO 6f38fc7a4fd5 --- [           main] .q.OutsourcedLoginConfig$$SpringCGLIB$$0 : Login job (to authentication server) is initialized.
+datamanager-1     | 2026-10-25 10:57:20.401  INFO 6f38fc7a4fd5 --- [           main] e.a.c.s.SysMonitorPublisher              : sysMonitor publisher enabled on arrowhead TestCloud.sysmonitor.DataManager.DataManager
+datamanager-1     | 2026-10-25 10:57:20.434  WARN 6f38fc7a4fd5 --- [nitor-publisher] e.a.c.s.SysMonitorPublisher              : sysMonitor publication failed: Connection refused
+datamanager-1     | 2026-10-25 10:57:20.775  WARN 6f38fc7a4fd5 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+datamanager-1     | 2026-10-25 10:57:21.200  INFO 6f38fc7a4fd5 --- [           main] a.d.i.DataManagerApplicationInitListener : System name: DataManager
+datamanager-1     | 2026-10-25 10:57:21.201  INFO 6f38fc7a4fd5 --- [           main] a.d.i.DataManagerApplicationInitListener : System port: 8461
+datamanager-1     | 2026-10-25 10:57:21.201  INFO 6f38fc7a4fd5 --- [           main] a.d.i.DataManagerApplicationInitListener : SSL mode: ENABLED
+datamanager-1     | 2026-10-25 10:57:21.201  INFO 6f38fc7a4fd5 --- [           main] a.d.i.DataManagerApplicationInitListener : Authentication policy: OUTSOURCED
+datamanager-1     | 2026-10-25 10:57:21.637  INFO 6f38fc7a4fd5 --- [eduler_Worker-1] e.a.c.q.OutsourcedLoginJob               : (Re-)Login is successful
+datamanager-1     | 2026-10-25 10:57:24.218  INFO 6f38fc7a4fd5 --- [           main] a.d.i.DataManagerApplicationInitListener : ServiceRegistry is accessible...
+datamanager-1     | 2026-10-25 10:57:24.297  INFO 6f38fc7a4fd5 --- [           main] a.d.i.DataManagerApplicationInitListener : System DataManager published 3 service(s)
+datamanager-1     | 2026-10-25 10:57:24.312  INFO 6f38fc7a4fd5 --- [           main] a.d.i.DataManagerApplicationInitListener : Re-registered 2 service(s) with CERT_AUTH interfaces
+datamanager-1     | 2026-10-25 10:57:24.319  INFO 6f38fc7a4fd5 --- [           main] e.a.d.DataManagerMain                    : Started DataManagerMain in 6.608 seconds (process running for 7.061)
+datamanager-db-1  | 2026-10-25 10:57:14+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/10-schema.sql
+datamanager-db-1  | 
+datamanager-db-1  | 
+datamanager-db-1  | 2026-10-25 10:57:14+00:00 [Note] [Entrypoint]: Stopping temporary server
+datamanager-db-1  | 2026-10-25T10:57:14.902502Z 14 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.4.11).
+datamanager-db-1  | 2026-10-25T10:57:15.609690Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.4.11)  MySQL Community Server - GPL.
+datamanager-db-1  | 2026-10-25T10:57:15.609702Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+datamanager-db-1  | 2026-10-25 10:57:15+00:00 [Note] [Entrypoint]: Temporary server stopped
+datamanager-db-1  | 
+datamanager-db-1  | 2026-10-25 10:57:15+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+datamanager-db-1  | 
+datamanager-db-1  | 2026-10-25T10:57:15.912619Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+datamanager-db-1  | 2026-10-25T10:57:16.069099Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 1
+datamanager-db-1  | 2026-10-25T10:57:16.072519Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+datamanager-db-1  | 2026-10-25T10:57:16.162054Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+datamanager-db-1  | 2026-10-25T10:57:16.288630Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+datamanager-db-1  | 2026-10-25T10:57:16.288717Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+datamanager-db-1  | 2026-10-25T10:57:16.291376Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+datamanager-db-1  | 2026-10-25T10:57:16.308126Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+datamanager-db-1  | 2026-10-25T10:57:16.308190Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.

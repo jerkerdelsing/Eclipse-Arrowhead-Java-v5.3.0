@@ -1,0 +1,79 @@
+name: ah5-certificate-authority
+services:
+  certificate-authority:
+    build:
+      context: .
+    image: arrowhead-certificate-authority-standalone:5.2.2
+    restart: unless-stopped
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777"]
+    ports:
+      - "${HOST_BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-8448}:8448"
+    environment:
+      LOCAL_CLOUD: "${LOCAL_CLOUD:-TestCloud}"
+      ORGANIZATION: "${ORGANIZATION:-Company}"
+      SERVICE_REGISTRY_URL: "${SERVICE_REGISTRY_URL:-https://serviceregistry:8443}"
+      AUTHENTICATION_PASSWORD_FILE: "/run/secrets/identity-password"
+      PORT: "8448"
+      HEALTH_PORT: "8483"
+      DB_PATH: "/data/certificate-authority.db"
+      TLS_CA_CERT: "/certs/ca.crt"
+      TLS_CERT: "/certs/certificate-authority.crt"
+      TLS_KEY: "/certs/certificate-authority.key"
+      TLS_SERVER_CERT: "/certs/certificate-authority.crt"
+      TLS_SERVER_KEY: "/certs/certificate-authority.key"
+      CRL_FILE: "/crl/ca.crl"
+      AMQP_HOST: "${AMQP_HOST:-amqp-broker}"
+      AMQP_PORT: "${AMQP_PORT:-5671}"
+      TLS_CA_KEY: "/certs/ca.key"
+      CRL_DIR: "/crl"
+      CRL_VALIDITY_HOURS: "72"
+      CRL_REFRESH_SECONDS: "3600"
+    secrets: [identity-password]
+    volumes:
+      - state:/data
+      - type: bind
+        source: ${SYSTEM_CERT_FILE:-./security/certificate-authority.crt}
+        target: /certs/certificate-authority.crt
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${SYSTEM_KEY_FILE:-./security/certificate-authority.key}
+        target: /certs/certificate-authority.key
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${CLOUD_CA_FILE:-./security/ca.crt}
+        target: /certs/ca.crt
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${CRL_DIRECTORY:-./security/crl}
+        target: /crl
+        read_only: false
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ISSUER_KEY_FILE:-./security/ca.key}
+        target: /certs/ca.key
+        read_only: true
+        bind:
+          create_host_path: false
+    networks:
+      cloud:
+        aliases: [certificate-authority]
+volumes:
+  state: {}
+secrets:
+  identity-password:
+    file: ${IDENTITY_PASSWORD_FILE:-./security/identity-password}
+networks:
+  cloud:
+    external: true
+    name: ${ARROWHEAD_NETWORK:-arrowhead-local-cloud}

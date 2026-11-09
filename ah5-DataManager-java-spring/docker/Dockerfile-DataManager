@@ -1,0 +1,30 @@
+# Stage 1: build
+FROM eclipse-temurin:21-jdk AS build
+
+ARG AH_VERSION=5.2.2
+
+RUN apt-get update && apt-get install -y maven dos2unix
+
+WORKDIR /common
+COPY ah5-common-java-spring .
+RUN mvn clean install -DskipTests
+
+WORKDIR /app
+COPY ah5-core-java-spring .
+RUN dos2unix /app/datamanager/docker/entrypoint.sh
+RUN mvn -pl datamanager -am -DskipTests clean install
+
+# Stage 2: runtime
+FROM eclipse-temurin:21-jre
+
+ARG AH_VERSION=5.2.2
+ENV AH_VERSION=$AH_VERSION
+
+WORKDIR /app
+COPY --from=build /app/datamanager/target/arrowhead-datamanager-${AH_VERSION}.jar arrowhead-datamanager-${AH_VERSION}.jar
+COPY --from=build /app/datamanager/target/application.properties config_temp/application.properties
+COPY --from=build /app/datamanager/target/log4j2.xml config_temp/log4j2.xml
+COPY --from=build /app/datamanager/docker/entrypoint.sh entrypoint.sh
+
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]

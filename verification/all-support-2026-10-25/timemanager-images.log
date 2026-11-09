@@ -1,0 +1,103 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 736B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#3 DONE 0.2s
+
+#4 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99
+#4 resolve docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99 0.0s done
+#4 DONE 0.0s
+
+#5 [build 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#5 resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 103B done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 978.87kB 0.0s done
+#7 DONE 0.0s
+
+#8 [build 5/6] COPY src ./src
+#8 CACHED
+
+#9 [stage-1 2/5] WORKDIR /app
+#9 CACHED
+
+#10 [build 4/6] COPY vendor ./vendor
+#10 CACHED
+
+#11 [build 3/6] COPY pom.xml .
+#11 CACHED
+
+#12 [build 6/6] RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
+#12 CACHED
+
+#13 [build 2/6] WORKDIR /source
+#13 CACHED
+
+#14 [stage-1 3/5] COPY --from=build /source/target/arrowhead-timemanager-5.2.2.jar /app/app.jar
+#14 CACHED
+
+#15 [stage-1 4/5] COPY config /app/config
+#15 DONE 0.0s
+
+#16 [stage-1 5/5] RUN mkdir -p /app/logs && chown -R 10001:10001 /app
+#16 DONE 0.2s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 1.4s done
+#17 exporting manifest sha256:3b3bd0d34cb62a6bf29b25b876edba4d1f2287de637638fbda13b36fda0fbfbb done
+#17 exporting config sha256:44852475b44555c9bd65742468c7e5cefb19c6eb22526d9f2a6f61b7dcfa364a done
+#17 exporting attestation manifest sha256:64839b8df5a706ef9d41a82867dfa840c73c253bdd83f48a3fb41d83fe5e299b done
+#17 exporting manifest list sha256:9c32b79d1424cd2e445463dbb9961b967c2e55c1bcad92fc823f2b1293168e4f done
+#17 naming to docker.io/library/arrowhead-timemanager-standalone:5.2.2 done
+#17 unpacking to docker.io/library/arrowhead-timemanager-standalone:5.2.2
+#17 unpacking to docker.io/library/arrowhead-timemanager-standalone:5.2.2 0.3s done
+#17 DONE 1.8s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/np4mh57umctwg7ni41twwozo4
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 131B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/mysql:8.4.11
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 103B done
+#3 DONE 0.0s
+
+#4 [1/2] FROM docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70
+#4 resolve docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70 done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 659B done
+#5 DONE 0.0s
+
+#6 [2/2] COPY deployment/database/init.sql /docker-entrypoint-initdb.d/10-schema.sql
+#6 CACHED
+
+#7 exporting to image
+#7 exporting layers done
+#7 exporting manifest sha256:9f5cd6fe36bd61301c20175c4b1262b72f47679a4674b2f5f9bf1614e57e7388 done
+#7 exporting config sha256:4a5ee16949dfa9ea3fb24604be8dc6516bf6fd7d94e56802eaa277cda55f0515 done
+#7 exporting attestation manifest sha256:5098e3944665177a155e397382c140cd8888556fa92b4dc575e18c3f4b76cd9e done
+#7 exporting manifest list sha256:012dc76e7273e6a73f920e7280cc2b0d9eb62ce1f3dec49f804f0bd3d3600d19 done
+#7 naming to docker.io/library/arrowhead-timemanager-standalone-db:5.2.2 done
+#7 unpacking to docker.io/library/arrowhead-timemanager-standalone-db:5.2.2 done
+#7 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/5ifvbt25elu56lxdolwp4yh2j

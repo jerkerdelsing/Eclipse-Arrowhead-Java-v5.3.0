@@ -1,0 +1,213 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{GraphDBManager}
+\ArrowheadType{System Design Description}
+\ArrowheadTypeShort{SysDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the design and implementation of the GraphDBManager support system of Arrowhead 5.2.2 (\texttt{ah5-GraphDBManager-java-spring}).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the GraphDBManager system implementation, which realizes the GraphDBManager SysD \cite{gdm-sysd}. GraphDBManager caches and persists SenML (RFC 8428) sensor and actuator data: \texttt{graphDataProxy} keeps the latest message per system and service, \texttt{graphDataHistorian} the time series, kept as RDF in Ontotext GraphDB \cite{graphdb}.
+In Section \ref{Implementation}, we describe implementation details of the system.
+
+\newpage
+
+\section{Implementation}
+\label{Implementation}
+
+This implementation is based on the SysD document GraphDBManager \cite{gdm-sysd} and is located in \texttt{ah5-GraphDBManager-java-spring}.
+
+\subsection{Implementation language and tools}
+\begin{itemize}
+\item Java 21, Spring Boot 3.4.9, Arrowhead common library 5.2.2 (private source under \texttt{vendor/}), Log4j 2; Eclipse RDF4J 5.1.2 client \cite{rdf4j} (\texttt{rdf4j-\allowbreak{}client}, HTTP repository).
+\item Ontotext GraphDB Free 10.8.5 \cite{graphdb} as RDF store: one repository \texttt{graphdbmanager} (GraphDB-Free sail, \texttt{empty} ruleset, context index on). No relational database, JPA or Hibernate. Stateless request processing apart from the in-memory proxy cache.
+\end{itemize}
+
+\subsection{Independent source and build ownership}
+The project folder \texttt{ah5-\allowbreak{}GraphDBManager-\allowbreak{}java-\allowbreak{}spring} is a copy of the standalone DataManager folder \cite{dm-sysd-ref} and owns its application source, Maven build, tests, executable JAR, Dockerfiles (application and GraphDB), configuration and Compose definition. Build with Java 21 and \texttt{mvn -B clean verify}; after a first build that fetches RDF4J from Maven Central, offline builds work with the populated cache.
+
+Arrowhead common utilities and DTOs are private source copies in \texttt{vendor/}, compiled into this system by the local Maven POM. In this copy the JPA-dependent parts of the common library are removed (\texttt{common/\allowbreak{}jpa}, \texttt{Log\allowbreak{}Service}, \texttt{Log\allowbreak{}Validation}, the Log4j 2 JDBC connection factory); \texttt{Constants} holds the former entity column sizes. The removals are recorded in \texttt{vendor/\allowbreak{}PROVENANCE.json}.
+
+The packaged artifact is \texttt{arrowhead-\allowbreak{}graphdbmanager-5.2.2.jar} (main class \texttt{eu.\allowbreak{}arrowhead.\allowbreak{}graphdbmanager.\allowbreak{}Graph\allowbreak{}DB\allowbreak{}Manager\allowbreak{}Main}).
+
+\subsection{Functional properties implementation}
+
+The following components (packages below \texttt{eu.\allowbreak{}arrowhead.\allowbreak{}graphdbmanager}) implement the system:
+
+\noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
+\rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
+\texttt{api.\allowbreak{}http} & Controllers of graphDataProxy and graphDataHistorian. \\ \hline
+\texttt{service} & Proxy cache and historian logic, SenML validation, name normalization, sysMonitor health indicator. \\ \hline
+\texttt{security} & Operation resolver and authorization filter (ConsumerAuthorization \texttt{verify} per call). \\ \hline
+\texttt{graphdb} & \texttt{Historian\allowbreak{}Store} interface, \texttt{Historian\allowbreak{}Pack} record and \texttt{Graph\allowbreak{}DB\allowbreak{}Historian\allowbreak{}Store} (RDF4J \texttt{HTTP\allowbreak{}Repository}). \\ \hline
+\texttt{init} & Re-registration of the HTTP offers with \texttt{CERT\_\allowbreak{}AUTH}. \\ \hline
+\end{longtable}
+
+Every request passes the common filter chain: authentication filter (\texttt{authentication.\allowbreak{}policy}), optional blacklist filter, management filter (management services), the system's authorization filter, then the controller, validation and normalization, the service logic and the historian store.
+
+\subsubsection{Data handled and stored}
+
+\texttt{put-\allowbreak{}data} on graphDataHistorian writes one SenML pack in one RDF4J transaction into the named graph \texttt{<urn:\allowbreak{}arrowhead:\allowbreak{}graphdbmanager:\allowbreak{}historian>} of the repository. Vocabulary prefix \texttt{gdm:} = \texttt{https://\allowbreak{}arrowhead.eu/\allowbreak{}ns/\allowbreak{}graphdbmanager\#}:
+
+\noindent\begin{longtable}{| p{5.0cm} | p{10.2cm} |} \hline
+\rowcolor{gray!33} Resource / property & Content \\ \hline \endhead
+\texttt{<urn:uuid:\ldots>} \texttt{a gdm:SenMLPack} & One stored pack (random UUID). \\ \hline
+\texttt{gdm:systemName}, \texttt{gdm:serviceName} & Normalized endpoint (string literals). \\ \hline
+\texttt{gdm:baseTime}, \texttt{gdm:minTime}, \texttt{gdm:maxTime} & Base time and time range of the pack, \texttt{xsd:double} seconds; used by the time-range query. \\ \hline
+\texttt{gdm:payload} & The normalized pack as SenML JSON, returned unchanged by \texttt{get-\allowbreak{}data}. \\ \hline
+\texttt{gdm:createdAt} & Storage time, \texttt{xsd:dateTime}. \\ \hline
+\texttt{gdm:measurement} $\rightarrow$ \texttt{a gdm:Measurement} & One resource per named record (\texttt{<urn:uuid:\ldots\#m\textit{i}>}) with \texttt{gdm:name}, \texttt{gdm:unit} (record or base unit), absolute \texttt{gdm:time} and \texttt{gdm:value}, \texttt{gdm:stringValue} or \texttt{gdm:booleanValue}; for SPARQL users. \\ \hline
+\end{longtable}
+
+\texttt{list-\allowbreak{}systems}, \texttt{list-\allowbreak{}services} and \texttt{get-\allowbreak{}data} are SPARQL \texttt{SELECT} queries \cite{sparql11} on that graph (\texttt{DISTINCT} names; packs with \texttt{maxTime >= from} and \texttt{minTime <= to}, newest base time first, \texttt{LIMIT} count). Request values are bound to query variables as RDF literals, never concatenated into the query text. graphDataProxy keeps the last pack per endpoint in memory only.
+
+The data models of the interfaces are Java records (of \texttt{eu.arrowhead.dto} in the common library, or of the module); the IDD documents name them without the \texttt{DTO} suffix. The records used by this system are: \texttt{SenMLRecordDTO}, \texttt{Service\allowbreak{}List\allowbreak{}Response\allowbreak{}DTO}, \texttt{System\allowbreak{}List\allowbreak{}Response\allowbreak{}DTO}.
+
+\subsection{Non functional properties implementation}
+
+\subsubsection{Security}
+
+TLS and client authentication are configured with the Spring \texttt{server.\allowbreak{}ssl.\allowbreak{}*} properties (PKCS\#12 keystore and truststore, \texttt{client-\allowbreak{}auth=\allowbreak{}need}). The common library's filters implement the authentication policies; \texttt{Token\allowbreak{}Certificate\allowbreak{}Binding} binds identity tokens to the client certificate and \texttt{Crl\allowbreak{}Revocation\allowbreak{}Config} enables CRL checking. GraphDBManager authenticates to GraphDB with HTTP Basic as user \texttt{graphdbmanager}, which has only \texttt{READ\_\allowbreak{}REPO\_\allowbreak{}graphdbmanager} and \texttt{WRITE\_\allowbreak{}REPO\_\allowbreak{}graphdbmanager}.
+
+\subsubsection{Power management}
+
+None; the system is a server process without power states. The \texttt{sysMonitor} \texttt{power} observation always reports line supply.
+
+\subsubsection{Internal monitoring}
+
+Log4j 2 logs to stdout and files; there is no database log appender, so \texttt{general\allowbreak{}Management.\allowbreak{}get-\allowbreak{}log} has no stored entries. The common library's \texttt{Sys\allowbreak{}Monitor\allowbreak{}Publisher} publishes \texttt{echo}, \texttt{power} and \texttt{status} every 30 s; \texttt{echo} is \texttt{degraded} while the historian query fails.
+
+\subsubsection{Configuration}
+
+Configuration is read from \texttt{application.\allowbreak{}properties} and environment variables (Spring relaxed binding, e.g.\ \texttt{GRAPHDB\_\allowbreak{}URL}); secrets come from files through \texttt{SPRING\_\allowbreak{}CONFIG\_\allowbreak{}IMPORT=\allowbreak{}configtree:\allowbreak{}/\allowbreak{}run/\allowbreak{}secrets/\allowbreak{}} (\texttt{ah.\allowbreak{}graphdb-\allowbreak{}password}, \texttt{ah.\allowbreak{}store-\allowbreak{}password}, \texttt{ah.\allowbreak{}identity-\allowbreak{}password}). The properties are listed in the SysD; \texttt{general\allowbreak{}Management.\allowbreak{}get-\allowbreak{}config} returns the public ones.
+
+\subsection{Deployment}
+
+Two containers: the application (UID 10001, read-only root filesystem, no capabilities, HTTPS port 8467) and \texttt{graphdbmanager-\allowbreak{}graphdb}, built from \texttt{ontotext/\allowbreak{}graphdb:10.8.5} by \texttt{deployment/\allowbreak{}graphdb/\allowbreak{}Dockerfile} (UID 10001, read-only root filesystem, data volume \texttt{/\allowbreak{}opt/\allowbreak{}graphdb/\allowbreak{}home}, no host port). Its \texttt{entrypoint.sh} starts GraphDB and on every start, idempotently, creates the repository from \texttt{repository-\allowbreak{}config.ttl}, sets the admin password, creates or updates the \texttt{graphdbmanager} user, enables GraphDB security and disables free access; only then is the container healthy. Passwords are read from files and passed to curl through a temporary netrc file and standard input. The two containers share an internal network that no other system joins; GraphDB is reached over plain HTTP on it.
+
+The local \texttt{compose.yaml} runs both on an operator-selected external cloud network (\texttt{docker compose up -d --build}). The Arrowhead-test-cloud-java test cloud is a separate deployment consumer of this primary source: there the services \texttt{graphdbmanager} and \texttt{graphdbmanager-\allowbreak{}graphdb} are added by \texttt{make up-\allowbreak{}graphdbmanager}: certificate and keystore (\texttt{generate-x509.sh}), identity (\texttt{provision-\allowbreak{}authentication-\allowbreak{}identities.sh}), AMQP access list, ConsumerAuthorization grants (\texttt{configure-\allowbreak{}graphdbmanager-\allowbreak{}policies.sh}, verifier and sysMonitor provider entries), then the two containers; the internal network \texttt{db-\allowbreak{}graphdbmanager} has a fixed subnet. ServiceRegistry, Authentication, DSO, ConsumerAuthorization and the AMQP broker remain network dependencies.
+
+\subsection{Local modifications}
+\label{sec:local}
+
+Notes on this implementation in the workspace:
+\begin{itemize}
+  \item Copy of DataManager 5.2.2 (2026-10-28) with JPA/MySQL replaced by GraphDB; DataManager's \texttt{/\allowbreak{}echo} replacement by \texttt{sysMonitor} is kept.
+  \item Service definitions \texttt{graphDataProxy} and \texttt{graphDataHistorian}, base path \texttt{/\allowbreak{}graphdbmanager}: ServiceRegistry's reserved service definitions bind \texttt{dataProxy} and \texttt{dataHistorian} to DataManager.
+  \item \texttt{put-\allowbreak{}data} answers 204.
+\end{itemize}
+
+\subsection{Verification}
+
+The JUnit suite covers the historian service with a mocked store, SenML validation, the proxy, the health indicator and the operation resolver and authorization filter. In the Arrowhead-test-cloud-java deployment consumer, \texttt{scripts/\allowbreak{}smoke-\allowbreak{}graphdbmanager.sh} checks, as SmokeClient and through orchestration only, for both HTTP services: \texttt{put-\allowbreak{}data}, \texttt{get-\allowbreak{}data} round trip and \texttt{list-\allowbreak{}systems}; then a SPARQL count of the stored measurement in GraphDB and the refusal (401) of anonymous GraphDB access. \texttt{smoke-test.sh} checks mTLS and identity-token access and \texttt{smoke-security.sh} the port's certificate and CRL handling. Historian data survived a restart of the GraphDB container.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+The implementation of the services is based on the SD and IDD documents referenced below.
+
+\noindent\begin{longtable}{| p{5.4cm} | p{2.2cm} | p{2.2cm} | p{4.8cm} |} \hline
+\rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
+\texttt{graphDataProxy} & \cite{gdm-sysd} & \cite{gdm-graphDataProxy-sd} & \cite{gdm-graphDataProxy-http-idd} \\ \hline
+\texttt{graphDataHistorian} & \cite{gdm-sysd} & \cite{gdm-graphDataHistorian-sd} & \cite{gdm-graphDataHistorian-http-idd} \\ \hline
+\texttt{sysMonitor} & \cite{gdm-sysd} & \cite{gdm-sysMonitor-sd} & \cite{gdm-sysMonitor-amqp-idd} \\ \hline
+&&& \\ \hline
+\rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
+systemDiscovery, serviceDiscovery & \cite{core-sr-sysd} & \cite{core-sr-systemDiscovery-sd} & -- \\ \hline
+identity & \cite{core-auth-sysd} & \cite{core-auth-identity-sd} & -- \\ \hline
+authorization & \cite{core-ca-sysd} & \cite{core-ca-authorization-sd} & -- \\ \hline
+authorization & \cite{core-ca-sysd} & \cite{core-ca-authorization-sd} & -- \\ \hline
+sysMonitor (publisher) & AMQP broker (SysMonitor) & -- & -- \\ \hline
+RDF4J HTTP protocol (GraphDB) & -- & -- & \cite{rdf4j,graphdb} \\ \hline
+\end{longtable}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-28 & \arrowversion & Document created from the DataManager SysDD for the GraphDB-backed copy GraphDBManager. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

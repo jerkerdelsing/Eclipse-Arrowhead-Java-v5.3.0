@@ -1,0 +1,8 @@
+{
+  "name": "OneWaySoS",
+  "clouds": ["TestCloud", "GoCloud"],
+  "exchanges": [
+    {"consumerCloud": "GoCloud", "consumer": "RandomDataProducer", "providerCloud": "TestCloud",
+     "provider": "DataManager", "service": "dataHistorian", "operations": ["put-data"]}
+  ]
+}

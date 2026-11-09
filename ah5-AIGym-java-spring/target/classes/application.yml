@@ -1,0 +1,37 @@
+server:
+  port: ${PORT:8478}
+  ssl:
+    enabled: true
+    key-store: ${TLS_KEYSTORE:file:/certs/AIGym.p12}
+    key-store-password: ${TLS_STORE_PASSWORD:123456}
+    key-store-type: PKCS12
+    key-alias: AIGym.${LOCAL_CLOUD:TestCloud}.Company.arrowhead.eu
+    trust-store: ${TLS_TRUSTSTORE:file:/certs/aigym-truststore.p12}
+    trust-store-password: ${TLS_STORE_PASSWORD:123456}
+    trust-store-type: PKCS12
+    client-auth: need
+    enabled-protocols: TLSv1.3,TLSv1.2
+spring:
+  application:
+    name: AIGym
+  jackson:
+    default-property-inclusion: non_null
+arrowhead:
+  system-name: ${ARROWHEAD_SYSTEM_NAME:AIGym}
+  cloud: ${LOCAL_CLOUD:TestCloud}
+  password: ${AUTHENTICATION_PASSWORD:AIG-test-52}
+  # the only configured Arrowhead endpoint: Authentication and the orchestrator are looked up here, the rest is orchestrated
+  registry-url: ${SERVICE_REGISTRY_URL:https://serviceregistry:8443}
+  # optional override of the ServiceRegistry lookup of Authentication
+  authentication-url: ${AUTHENTICATION_URL:}
+  orchestration-ttl-seconds: ${ORCHESTRATION_TTL_SECONDS:300}
+  advertised-host: ${ADVERTISED_HOST:aigym}
+  mqtt-host: ${MQTT_HOST:mqtt-broker}
+  mqtt-port: ${MQTT_PORT:8883}
+  amqp-host: ${AMQP_HOST:amqp-broker}
+  amqp-port: ${AMQP_PORT:5671}
+  amqp-exchange: ${AMQP_EXCHANGE:arrowhead}
+  key-store: ${TLS_KEYSTORE:/certs/AIGym.p12}
+  trust-store: ${TLS_TRUSTSTORE:/certs/aigym-truststore.p12}
+  store-password: ${TLS_STORE_PASSWORD:123456}
+  status-interval-ms: ${STATUS_INTERVAL_MS:60000}

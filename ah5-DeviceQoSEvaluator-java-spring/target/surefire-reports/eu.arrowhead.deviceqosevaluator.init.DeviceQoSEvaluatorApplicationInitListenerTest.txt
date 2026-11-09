@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: eu.arrowhead.deviceqosevaluator.init.DeviceQoSEvaluatorApplicationInitListenerTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.176 s -- in eu.arrowhead.deviceqosevaluator.init.DeviceQoSEvaluatorApplicationInitListenerTest

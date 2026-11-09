@@ -1,0 +1,87 @@
+{"properties": [
+  {
+    "name": "mqtt.api.enabled",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'mqtt.api.enabled'"
+  },
+  {
+    "name": "mqtt.broker.address",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.broker.address'"
+  },
+  {
+    "name": "mqtt.broker.port",
+    "type": "java.lang.Integer",
+    "description": "A description for 'mqtt.broker.port'"
+  },
+  {
+    "name": "mqtt.client.password",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.client.password'"
+  },
+  {
+    "name": "domain.name",
+    "type": "java.lang.String",
+    "description": "A description for 'domain.name'"
+  },
+  {
+    "name": "service.registry.address",
+    "type": "java.lang.String",
+    "description": "A description for 'service.registry.address'"
+  },
+  {
+    "name": "service.registry.port",
+    "type": "java.lang.Integer",
+    "description": "A description for 'service.registry.port'"
+  },
+  {
+    "name": "authentication.policy",
+    "type": "eu.arrowhead.common.http.filter.authentication.AuthenticationPolicy",
+    "description": "A description for 'authentication.policy'"
+  },
+  {
+    "name": "enable.management.filter",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.management.filter'"
+  },
+  {
+    "name": "management.policy",
+    "type": "eu.arrowhead.common.http.filter.authorization.ManagementPolicy",
+    "description": "A description for 'management.policy'"
+  },
+  {
+    "name": "management.whitelist",
+    "type": "java.lang.String",
+    "description": "A description for 'management.whitelist'"
+  },
+  {
+    "name": "log.all.request.and.response",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'log.all.request.and.response'"
+  },
+  {
+    "name": "max.page.size",
+    "type": "java.lang.Integer",
+    "description": "A description for 'max.page.size'"
+  },
+  {
+    "name": "normalization.mode",
+    "type": "eu.arrowhead.common.service.normalization.NormalizationMode",
+    "description": "A description for 'normalization.mode'"
+  },
+  {
+    "name": "whitelist",
+    "type": "java.lang.String",
+    "description": "A description for 'whitelist'"
+  },
+  {
+    "name": "disable.hostname.verifier",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'disable.hostname.verifier'"
+  },
+  {
+    "name": "authenticator.credentials",
+    "type": "java.lang.String",
+    "description": "A description for 'authenticator.credentials'"
+  }
+]}

@@ -1,0 +1,347 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{plantDescriptionManagement}
+\ArrowheadServiceID{plantDescriptionManagement}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{plant\allowbreak{}Description\allowbreak{}Management} service, version 1.0.0, produced by the PlantDescriptionEngine support system of Arrowhead 5.2.2.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{plant\allowbreak{}Description\allowbreak{}Management} service, which provides management of plant descriptions: the engineered systems of the plant, the services they consume and produce (ports), and the connections between ports.
+It is produced by the PlantDescriptionEngine system \cite{pde-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{pde-plantDescriptionManagement-http-idd}.
+
+\subsection{Significant Prior Art}
+
+Successor of the Arrowhead 4.6 Plant\allowbreak{}Description\allowbreak{}Engine management service.
+
+\subsection{How This Service Is Meant to Be Used}
+
+Engineers and LocalCloudManager create, replace, update, activate and remove plant descriptions. One description (with its includes) is active; its connections become a managed provider snapshot in Dynamic\allowbreak{}Service\allowbreak{}Orchestration.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Descriptions are validated (includes, unique systems, ports and connections, naming). Requires the local DSO service\allowbreak{}Orchestration\allowbreak{}Plant\allowbreak{}Management extension. PDE atomically replaces its complete snapshot; unresolved producers retain empty scopes, and DSO applies its normal security checks. Access follows the management policy (standalone deployment: \texttt{sysop-\allowbreak{}only}; LocalCloudManager needs the whitelist policy with \texttt{management.\allowbreak{}whitelist=\allowbreak{}LocalCloudManager}).
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{plant\allowbreak{}Description\allowbreak{}Management} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{plantDescriptionManagement}
+        \nodepart{second} \texttt{query}\\ \texttt{get}\\ \texttt{create}\\ \texttt{replace}\\ \texttt{update}\\ \texttt{remove}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{plant\allowbreak{}Description\allowbreak{}Management} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{query}{}{\mref[Plant\allowbreak{}Description\allowbreak{}List\allowbreak{}Response]{PlantDescriptionListResponse}}
+
+Returns a page of plant descriptions, optionally only the active one.
+
+\osubsection{get}{\pref{Identifier}}{\mref{PlantDescriptionResponse}}
+
+Returns a plant description.
+
+\osubsection{create}{\mref{PlantDescriptionRequest}}{\mref{PlantDescriptionResponse}}
+
+Creates a plant description; if active, it replaces the active one and the rules are synchronized.
+
+\osubsection{replace}{\mref{PlantDescriptionRequest}}{\mref{PlantDescriptionResponse}}
+
+Replaces a plant description.
+
+\osubsection{update}{\mref{PlantDescriptionUpdate}}{\mref{PlantDescriptionResponse}}
+
+Changes the given fields of a plant description.
+
+\osubsection{remove}{\pref{Identifier}}{}
+
+Removes a plant description and its rules.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{plant\allowbreak{}Description\allowbreak{}Management} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{Connection}
+
+A connection from a consumer port to a producer port.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+consumer & \mref{SystemPort} & The consumer port of the connection. \\ \hline
+producer & \mref{SystemPort} & The producer port of the connection. \\ \hline
+priority & \pref{Number} & Priority of the resulting orchestration rules (1 highest). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PdeSystem}
+
+A system of the plant.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+system\allowbreak{}Id & \pref{Identifier} & Identifier of the system within the plant description. \\ \hline
+system\allowbreak{}Name & \pref{Name} & Name of the registered system (optional; metadata may identify it instead). \\ \hline
+metadata & \pref{Metadata} & Metadata the registered system must have. \\ \hline
+ports & \pref{List}$<$\allowbreak{}\mref{Port}$>$ & Services the system consumes or produces. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlantDescriptionListResponse}
+
+List of plant descriptions.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{PlantDescriptionResponse}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlantDescriptionRequest}
+
+A plant description to create or replace.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+plant\allowbreak{}Description & \pref{String} & Name of the plant description. \\ \hline
+active & \pref{Boolean} & Make this the active plant description. \\ \hline
+include & \pref{List}$<$\allowbreak{}\pref{Number}$>$ & Identifiers of included plant descriptions. \\ \hline
+systems & \pref{List}$<$\allowbreak{}\mref{PdeSystem}$>$ & Systems to create or update. \\ \hline
+connections & \pref{List}$<$\allowbreak{}\mref{Connection}$>$ & Connections between consumer and producer ports. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlantDescriptionResponse}
+
+A stored plant description.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Number} & Identifier of the plant description. \\ \hline
+plant\allowbreak{}Description & \pref{String} & Name of the plant description. \\ \hline
+active & \pref{Boolean} & Whether this is the active plant description. \\ \hline
+include & \pref{List}$<$\allowbreak{}\pref{Number}$>$ & Identifiers of included plant descriptions. \\ \hline
+systems & \pref{List}$<$\allowbreak{}\mref{PdeSystem}$>$ & Systems to create or update. \\ \hline
+connections & \pref{List}$<$\allowbreak{}\mref{Connection}$>$ & Connections between consumer and producer ports. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlantDescriptionUpdate}
+
+Fields of a plant description to change; absent fields are kept.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+plant\allowbreak{}Description & \pref{String} & Name of the plant description. \\ \hline
+active & \pref{Boolean} & Make this the active plant description. \\ \hline
+include & \pref{List}$<$\allowbreak{}\pref{Number}$>$ & Identifiers of included plant descriptions. \\ \hline
+systems & \pref{List}$<$\allowbreak{}\mref{PdeSystem}$>$ & Systems to create or update. \\ \hline
+connections & \pref{List}$<$\allowbreak{}\mref{Connection}$>$ & Connections between consumer and producer ports. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Port}
+
+A service a plant system consumes or produces.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+port\allowbreak{}Name & \pref{String} & Name of the port within its system. \\ \hline
+service\allowbreak{}Definition & \pref{Name} & Service definition name. \\ \hline
+service\allowbreak{}Interface & \pref{String} & Required interface template of the port, if any. \\ \hline
+metadata & \pref{Metadata} & Metadata the service instance must have. \\ \hline
+consumer & \pref{Boolean} & True for a consumed service, false for a produced one. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemPort}
+
+Reference to a port of a plant system.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+system\allowbreak{}Id & \pref{Identifier} & Identifier of the system within the plant description. \\ \hline
+port\allowbreak{}Name & \pref{String} & Name of the port within its system. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Metadata} & A set of key-value pairs with arbitrary, possibly nested values. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-23 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

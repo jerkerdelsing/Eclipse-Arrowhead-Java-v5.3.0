@@ -1,0 +1,73 @@
+translation-manager-db-1  | 2026-10-25 10:56:53+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+translation-manager-db-1  | 2026-10-25 10:56:53+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+translation-manager-db-1  | 2026-10-25 10:56:53+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+translation-manager-db-1  | 2026-10-25 10:56:53+00:00 [Note] [Entrypoint]: Initializing database files
+translation-manager-db-1  | 2026-10-25T10:56:53.609083Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+translation-manager-db-1  | 2026-10-25T10:56:53.609825Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.4.11) initializing of server in progress as process 82
+translation-manager-db-1  | 2026-10-25T10:56:53.613504Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+translation-manager-db-1  | 2026-10-25T10:56:53.722372Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+translation-manager-db-1  | 2026-10-25T10:56:54.061305Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+translation-manager-db-1  | 2026-10-25T10:56:55.524692Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+translation-manager-db-1  | 2026-10-25 10:56:55+00:00 [Note] [Entrypoint]: Database files initialized
+translation-manager-db-1  | 2026-10-25 10:56:55+00:00 [Note] [Entrypoint]: Starting temporary server
+translation-manager-db-1  | 2026-10-25T10:56:55.569532Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+translation-manager-db-1  | 2026-10-25T10:56:55.726201Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 127
+translation-manager-db-1  | 2026-10-25T10:56:55.733816Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+translation-manager-db-1  | 2026-10-25T10:56:55.801575Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+translation-manager-db-1  | 2026-10-25T10:56:55.933750Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+translation-manager-db-1  | 2026-10-25T10:56:55.933848Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+translation-manager-db-1  | 2026-10-25T10:56:55.935107Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+translation-manager-db-1  | 2026-10-25T10:56:55.943825Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+translation-manager-db-1  | 2026-10-25T10:56:55.943855Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+translation-manager-db-1  | 2026-10-25 10:56:55+00:00 [Note] [Entrypoint]: Temporary server started.
+translation-manager-db-1  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+translation-manager-db-1  | 2026-10-25 10:56:56+00:00 [Note] [Entrypoint]: Creating database ah_translation_manager
+translation-manager-db-1  | 2026-10-25 10:56:56+00:00 [Note] [Entrypoint]: Creating user translationmanager
+translation-manager-db-1  | 2026-10-25 10:56:56+00:00 [Note] [Entrypoint]: Giving user translationmanager access to schema ah_translation_manager
+translation-manager-db-1  | 
+translation-manager-db-1  | 2026-10-25 10:56:56+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/10-schema.sql
+translation-manager-db-1  | 
+translation-manager-db-1  | 
+translation-manager-db-1  | 2026-10-25 10:56:56+00:00 [Note] [Entrypoint]: Stopping temporary server
+translation-manager-db-1  | 2026-10-25T10:56:56.777197Z 14 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.4.11).
+translation-manager-db-1  | 2026-10-25T10:56:57.416217Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.4.11)  MySQL Community Server - GPL.
+translation-manager-db-1  | 2026-10-25T10:56:57.416233Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+translation-manager-db-1  | 2026-10-25 10:56:57+00:00 [Note] [Entrypoint]: Temporary server stopped
+translation-manager-db-1  | 
+translation-manager-db-1  | 2026-10-25 10:56:57+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+translation-manager-db-1  | 
+translation-manager-db-1  | 2026-10-25T10:56:57.791962Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+translation-manager-db-1  | 2026-10-25T10:56:57.945113Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 1
+translation-manager-db-1  | 2026-10-25T10:56:57.949736Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+translation-manager-db-1  | 2026-10-25T10:56:58.048538Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+translation-manager-db-1  | 2026-10-25T10:56:58.170826Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+translation-manager-db-1  | 2026-10-25T10:56:58.170912Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+translation-manager-db-1  | 2026-10-25T10:56:58.174450Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+translation-manager-db-1  | 2026-10-25T10:56:58.194861Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+translation-manager-db-1  | 2026-10-25T10:56:58.194867Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+translation-manager-1     |    ___                      __               __  ____
+translation-manager-1     |   / _ | ___________ _    __/ /  ___ ___ ____/ / / __/
+translation-manager-1     |  / __ |/ __/ __/ _ \ |/|/ / _ \/ -_) _ `/ _  / /__ \ 
+translation-manager-1     | /_/ |_/_/ /_/  \___/__,__/_//_/\__/\_,_/\_,_/ /____/ 
+translation-manager-1     | 
+translation-manager-1     | 
+translation-manager-1     | 2026-10-25 10:56:59.877  INFO 5562eda9c8ac --- [           main] e.a.t.TranslationManagerMain             : Starting TranslationManagerMain v5.2.2 using Java 21.0.12.1 with PID 1 (/app/app.jar started by ? in /app)
+translation-manager-1     | 2026-10-25 10:56:59.882  INFO 5562eda9c8ac --- [           main] e.a.t.TranslationManagerMain             : No active profile set, falling back to 1 default profile: "default"
+translation-manager-1     | 2026-10-25 10:57:00.947  INFO 5562eda9c8ac --- [           main] .c.s.CrlRevocationConfig$$SpringCGLIB$$0 : Client certificates are checked against the CRL [/crl/ca.crl]
+translation-manager-1     | 2026-10-25 10:57:00.999  INFO 5562eda9c8ac --- [           main] e.a.c.h.f.a.OutsourcedFilter             : OutsourcedFilter is active
+translation-manager-1     | 2026-10-25 10:57:01.231  INFO 5562eda9c8ac --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+translation-manager-1     | 2026-10-25 10:57:01.234  INFO 5562eda9c8ac --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+translation-manager-1     | 2026-10-25 10:57:01.874  WARN 5562eda9c8ac --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+translation-manager-1     | 2026-10-25 10:57:02.549  INFO 5562eda9c8ac --- [           main] .q.OutsourcedLoginConfig$$SpringCGLIB$$0 : Login job (to authentication server) is initialized.
+translation-manager-1     | 2026-10-25 10:57:02.568  INFO 5562eda9c8ac --- [           main] e.a.c.s.SysMonitorPublisher              : sysMonitor publisher enabled on arrowhead TestCloud.sysmonitor.TranslationManager.TranslationManager
+translation-manager-1     | 2026-10-25 10:57:02.594  WARN 5562eda9c8ac --- [nitor-publisher] e.a.c.s.SysMonitorPublisher              : sysMonitor publication failed: Connection refused
+translation-manager-1     | 2026-10-25 10:57:02.666  INFO 5562eda9c8ac --- [           main] e.a.t.q.CleanerJobConfig$$SpringCGLIB$$0 : Cleaner job is initialized.
+translation-manager-1     | 2026-10-25 10:57:02.723  WARN 5562eda9c8ac --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+translation-manager-1     | 2026-10-25 10:57:03.163  INFO 5562eda9c8ac --- [           main] ranslationManagerApplicationInitListener : System name: TranslationManager
+translation-manager-1     | 2026-10-25 10:57:03.163  INFO 5562eda9c8ac --- [           main] ranslationManagerApplicationInitListener : System port: 8465
+translation-manager-1     | 2026-10-25 10:57:03.163  INFO 5562eda9c8ac --- [           main] ranslationManagerApplicationInitListener : SSL mode: ENABLED
+translation-manager-1     | 2026-10-25 10:57:03.163  INFO 5562eda9c8ac --- [           main] ranslationManagerApplicationInitListener : Authentication policy: OUTSOURCED
+translation-manager-1     | 2026-10-25 10:57:03.566  INFO 5562eda9c8ac --- [eduler_Worker-1] e.a.c.q.OutsourcedLoginJob               : (Re-)Login is successful
+translation-manager-1     | 2026-10-25 10:57:06.178  INFO 5562eda9c8ac --- [           main] ranslationManagerApplicationInitListener : ServiceRegistry is accessible...
+translation-manager-1     | 2026-10-25 10:57:06.260  INFO 5562eda9c8ac --- [           main] ranslationManagerApplicationInitListener : System TranslationManager published 5 service(s)
+translation-manager-1     | 2026-10-25 10:57:06.269  INFO 5562eda9c8ac --- [           main] e.a.t.TranslationManagerMain             : Started TranslationManagerMain in 6.595 seconds (process running for 7.144)

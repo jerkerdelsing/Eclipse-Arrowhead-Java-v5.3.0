@@ -1,0 +1,87 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< eu.arrowhead:arrowhead-eventhandler >-----------------
+[INFO] Building Arrowhead EventHandler standalone 5.2.2
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ arrowhead-eventhandler ---
+[INFO] Deleting /source/target
+[INFO] 
+[INFO] --- resources:3.3.1:copy-resources (copy-resources) @ arrowhead-eventhandler ---
+[INFO] Copying 2 resources from src/main/resources to target
+[INFO] 
+[INFO] --- build-helper:3.6.0:add-source (private-library-source) @ arrowhead-eventhandler ---
+[INFO] Source directory: /source/vendor/common-utils/src/main/java added.
+[INFO] Source directory: /source/vendor/data-transfer-objects/src/main/java added.
+[INFO] 
+[INFO] --- build-helper:3.6.0:add-resource (private-library-source) @ arrowhead-eventhandler ---
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ arrowhead-eventhandler ---
+[INFO] Copying 6 resources from src/main/resources to target/classes
+[INFO] Copying 2 resources from vendor/common-utils/src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ arrowhead-eventhandler ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 356 source files with javac [debug parameters release 21] to target/classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ arrowhead-eventhandler ---
+[INFO] skip non existing resourceDirectory /source/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ arrowhead-eventhandler ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 4 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ arrowhead-eventhandler ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running eu.arrowhead.eventhandler.security.EventHandlerAuthorizationTest
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-10-25 10:37:01.683 ERROR 4ef56b5c6f29 --- [           main] e.a.e.s.EventHandlerAuthorizationService : Authorization check failed for LocalCloudManager|eventSubscription|subscribe: down
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.707 s -- in eu.arrowhead.eventhandler.security.EventHandlerAuthorizationTest
+[INFO] Running eu.arrowhead.eventhandler.service.EventHandlerValidationTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.359 s -- in eu.arrowhead.eventhandler.service.EventHandlerValidationTest
+[INFO] Running eu.arrowhead.eventhandler.service.EventNotificationFormatTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.102 s -- in eu.arrowhead.eventhandler.service.EventNotificationFormatTest
+[INFO] Running eu.arrowhead.eventhandler.service.EventHandlerServiceTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.074 s -- in eu.arrowhead.eventhandler.service.EventHandlerServiceTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ arrowhead-eventhandler ---
+[INFO] Building jar: /source/target/arrowhead-eventhandler-5.2.2.jar
+[INFO] 
+[INFO] --- spring-boot:3.4.9:repackage (repackage) @ arrowhead-eventhandler ---
+[INFO] Replacing main artifact /source/target/arrowhead-eventhandler-5.2.2.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /source/target/arrowhead-eventhandler-5.2.2.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  12.315 s
+[INFO] Finished at: 2026-10-25T10:37:04Z
+[INFO] ------------------------------------------------------------------------

@@ -1,0 +1,5 @@
+/source/src/test/java/eu/arrowhead/choreographer/engine/OrchestrationResultBrokerTest.java
+/source/src/test/java/eu/arrowhead/choreographer/graph/StepGraphUtilsTest.java
+/source/src/test/java/eu/arrowhead/choreographer/service/PlanValidatorTest.java
+/source/src/test/java/eu/arrowhead/choreographer/service/SessionServiceTest.java
+/source/src/test/java/eu/arrowhead/choreographer/service/VersionsTest.java

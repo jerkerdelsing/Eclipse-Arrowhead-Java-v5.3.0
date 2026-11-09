@@ -1,0 +1,70 @@
+plantdescriptionengine-1  | Arrowhead PlantDescriptionEngine 5.2.2
+plantdescriptionengine-1  | 
+plantdescriptionengine-1  | 2026-10-25 10:54:51.370  INFO 11d7100c5229 --- [           main] e.a.p.PlantDescriptionEngineMain         : Starting PlantDescriptionEngineMain v5.2.2 using Java 21.0.12.1 with PID 1 (/app/app.jar started by ? in /app)
+plantdescriptionengine-1  | 2026-10-25 10:54:51.375  INFO 11d7100c5229 --- [           main] e.a.p.PlantDescriptionEngineMain         : No active profile set, falling back to 1 default profile: "default"
+plantdescriptionengine-1  | 2026-10-25 10:54:52.462  INFO 11d7100c5229 --- [           main] .c.s.CrlRevocationConfig$$SpringCGLIB$$0 : Client certificates are checked against the CRL [/crl/ca.crl]
+plantdescriptionengine-1  | 2026-10-25 10:54:52.515  INFO 11d7100c5229 --- [           main] lantDescriptionEngineAuthorizationFilter : PlantDescriptionEngineAuthorizationFilter is active
+plantdescriptionengine-1  | 2026-10-25 10:54:52.726  INFO 11d7100c5229 --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+plantdescriptionengine-1  | 2026-10-25 10:54:52.731  INFO 11d7100c5229 --- [           main] e.a.c.h.f.a.OutsourcedFilter             : OutsourcedFilter is active
+plantdescriptionengine-1  | 2026-10-25 10:54:52.738  INFO 11d7100c5229 --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+plantdescriptionengine-1  | 2026-10-25 10:54:53.207  WARN 11d7100c5229 --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+plantdescriptionengine-1  | 2026-10-25 10:54:53.855  INFO 11d7100c5229 --- [           main] .q.OutsourcedLoginConfig$$SpringCGLIB$$0 : Login job (to authentication server) is initialized.
+plantdescriptionengine-1  | 2026-10-25 10:54:53.875  INFO 11d7100c5229 --- [           main] e.a.c.s.SysMonitorPublisher              : sysMonitor publisher enabled on arrowhead TestCloud.sysmonitor.PlantDescriptionEngine.PlantDescriptionEngine
+plantdescriptionengine-1  | 2026-10-25 10:54:53.908  WARN 11d7100c5229 --- [nitor-publisher] e.a.c.s.SysMonitorPublisher              : sysMonitor publication failed: Connection refused
+plantdescriptionengine-1  | 2026-10-25 10:54:54.021  WARN 11d7100c5229 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+plantdescriptionengine-1  | 2026-10-25 10:54:54.470  INFO 11d7100c5229 --- [           main] DescriptionEngineApplicationInitListener : System name: PlantDescriptionEngine
+plantdescriptionengine-1  | 2026-10-25 10:54:54.470  INFO 11d7100c5229 --- [           main] DescriptionEngineApplicationInitListener : System port: 8432
+plantdescriptionengine-1  | 2026-10-25 10:54:54.470  INFO 11d7100c5229 --- [           main] DescriptionEngineApplicationInitListener : SSL mode: ENABLED
+plantdescriptionengine-1  | 2026-10-25 10:54:54.471  INFO 11d7100c5229 --- [           main] DescriptionEngineApplicationInitListener : Authentication policy: OUTSOURCED
+plantdescriptionengine-1  | 2026-10-25 10:54:54.817  INFO 11d7100c5229 --- [eduler_Worker-1] e.a.c.q.OutsourcedLoginJob               : (Re-)Login is successful
+plantdescriptionengine-1  | 2026-10-25 10:54:57.488  INFO 11d7100c5229 --- [           main] DescriptionEngineApplicationInitListener : ServiceRegistry is accessible...
+plantdescriptionengine-1  | 2026-10-25 10:54:57.564  INFO 11d7100c5229 --- [           main] DescriptionEngineApplicationInitListener : System PlantDescriptionEngine published 4 service(s)
+plantdescriptionengine-1  | 2026-10-25 10:54:57.584  INFO 11d7100c5229 --- [           main] DescriptionEngineApplicationInitListener : Re-registered 3 service(s) with CERT_AUTH interfaces
+plantdescriptionengine-1  | 2026-10-25 10:54:57.594  INFO 11d7100c5229 --- [           main] e.a.p.PlantDescriptionEngineMain         : Started PlantDescriptionEngineMain in 6.441 seconds (process running for 6.924)
+plantdescriptionengine-db-1  | 2026-10-25 10:54:44+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+plantdescriptionengine-db-1  | 2026-10-25 10:54:45+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+plantdescriptionengine-db-1  | 2026-10-25 10:54:45+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+plantdescriptionengine-db-1  | 2026-10-25 10:54:45+00:00 [Note] [Entrypoint]: Initializing database files
+plantdescriptionengine-db-1  | 2026-10-25T10:54:45.245583Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:45.246412Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.4.11) initializing of server in progress as process 82
+plantdescriptionengine-db-1  | 2026-10-25T10:54:45.250044Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:45.332742Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:45.665577Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:47.101464Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+plantdescriptionengine-db-1  | 2026-10-25 10:54:47+00:00 [Note] [Entrypoint]: Database files initialized
+plantdescriptionengine-db-1  | 2026-10-25 10:54:47+00:00 [Note] [Entrypoint]: Starting temporary server
+plantdescriptionengine-db-1  | 2026-10-25T10:54:47.144000Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:47.298141Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 127
+plantdescriptionengine-db-1  | 2026-10-25T10:54:47.307173Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:47.373694Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:47.496004Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:47.496050Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:47.497482Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:47.505644Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+plantdescriptionengine-db-1  | 2026-10-25T10:54:47.505685Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+plantdescriptionengine-db-1  | 2026-10-25 10:54:47+00:00 [Note] [Entrypoint]: Temporary server started.
+plantdescriptionengine-db-1  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+plantdescriptionengine-db-1  | 2026-10-25 10:54:48+00:00 [Note] [Entrypoint]: Creating database ah_plantdescriptionengine
+plantdescriptionengine-db-1  | 2026-10-25 10:54:48+00:00 [Note] [Entrypoint]: Creating user plantdescriptionengine
+plantdescriptionengine-db-1  | 2026-10-25 10:54:48+00:00 [Note] [Entrypoint]: Giving user plantdescriptionengine access to schema ah_plantdescriptionengine
+plantdescriptionengine-db-1  | 
+plantdescriptionengine-db-1  | 2026-10-25 10:54:48+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/10-schema.sql
+plantdescriptionengine-db-1  | 
+plantdescriptionengine-db-1  | 
+plantdescriptionengine-db-1  | 2026-10-25 10:54:48+00:00 [Note] [Entrypoint]: Stopping temporary server
+plantdescriptionengine-db-1  | 2026-10-25T10:54:48.229148Z 14 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.4.11).
+plantdescriptionengine-db-1  | 2026-10-25T10:54:48.992022Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.4.11)  MySQL Community Server - GPL.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:48.992037Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+plantdescriptionengine-db-1  | 2026-10-25 10:54:49+00:00 [Note] [Entrypoint]: Temporary server stopped
+plantdescriptionengine-db-1  | 
+plantdescriptionengine-db-1  | 2026-10-25 10:54:49+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+plantdescriptionengine-db-1  | 
+plantdescriptionengine-db-1  | 2026-10-25T10:54:49.239259Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:49.398789Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 1
+plantdescriptionengine-db-1  | 2026-10-25T10:54:49.401794Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:49.477988Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:49.598072Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:49.598147Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:49.599592Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+plantdescriptionengine-db-1  | 2026-10-25T10:54:49.609170Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+plantdescriptionengine-db-1  | 2026-10-25T10:54:49.609201Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.

@@ -1,0 +1,69 @@
+configuration-1  | Arrowhead Configuration 5.2.2
+configuration-1  | 
+configuration-1  | 2026-10-25 10:55:09.382  INFO 9489896fa29e --- [           main] e.a.c.ConfigurationMain                  : Starting ConfigurationMain v5.2.2 using Java 21.0.12.1 with PID 1 (/app/app.jar started by ? in /app)
+configuration-1  | 2026-10-25 10:55:09.387  INFO 9489896fa29e --- [           main] e.a.c.ConfigurationMain                  : No active profile set, falling back to 1 default profile: "default"
+configuration-1  | 2026-10-25 10:55:10.498  INFO 9489896fa29e --- [           main] .c.s.CrlRevocationConfig$$SpringCGLIB$$0 : Client certificates are checked against the CRL [/crl/ca.crl]
+configuration-1  | 2026-10-25 10:55:10.558  INFO 9489896fa29e --- [           main] e.a.c.h.f.a.OutsourcedFilter             : OutsourcedFilter is active
+configuration-1  | 2026-10-25 10:55:10.785  INFO 9489896fa29e --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+configuration-1  | 2026-10-25 10:55:10.788  INFO 9489896fa29e --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+configuration-1  | 2026-10-25 10:55:11.327  WARN 9489896fa29e --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+configuration-1  | 2026-10-25 10:55:11.927  INFO 9489896fa29e --- [           main] .q.OutsourcedLoginConfig$$SpringCGLIB$$0 : Login job (to authentication server) is initialized.
+configuration-1  | 2026-10-25 10:55:11.942  INFO 9489896fa29e --- [           main] e.a.c.s.SysMonitorPublisher              : sysMonitor publisher enabled on arrowhead TestCloud.sysmonitor.Configuration.Configuration
+configuration-1  | 2026-10-25 10:55:11.970  WARN 9489896fa29e --- [nitor-publisher] e.a.c.s.SysMonitorPublisher              : sysMonitor publication failed: Connection refused
+configuration-1  | 2026-10-25 10:55:12.047  WARN 9489896fa29e --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+configuration-1  | 2026-10-25 10:55:12.460  INFO 9489896fa29e --- [           main] c.i.ConfigurationApplicationInitListener : System name: Configuration
+configuration-1  | 2026-10-25 10:55:12.460  INFO 9489896fa29e --- [           main] c.i.ConfigurationApplicationInitListener : System port: 8450
+configuration-1  | 2026-10-25 10:55:12.460  INFO 9489896fa29e --- [           main] c.i.ConfigurationApplicationInitListener : SSL mode: ENABLED
+configuration-1  | 2026-10-25 10:55:12.460  INFO 9489896fa29e --- [           main] c.i.ConfigurationApplicationInitListener : Authentication policy: OUTSOURCED
+configuration-1  | 2026-10-25 10:55:12.778  INFO 9489896fa29e --- [eduler_Worker-1] e.a.c.q.OutsourcedLoginJob               : (Re-)Login is successful
+configuration-1  | 2026-10-25 10:55:15.546  INFO 9489896fa29e --- [           main] c.i.ConfigurationApplicationInitListener : ServiceRegistry is accessible...
+configuration-1  | 2026-10-25 10:55:15.629  INFO 9489896fa29e --- [           main] c.i.ConfigurationApplicationInitListener : System Configuration published 5 service(s)
+configuration-1  | 2026-10-25 10:55:15.656  INFO 9489896fa29e --- [           main] c.i.ConfigurationApplicationInitListener : Re-registered 4 service(s) with CERT_AUTH interfaces
+configuration-1  | 2026-10-25 10:55:15.665  INFO 9489896fa29e --- [           main] e.a.c.ConfigurationMain                  : Started ConfigurationMain in 6.486 seconds (process running for 7.02)
+configuration-db-1  | 2026-10-25 10:55:02+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+configuration-db-1  | 2026-10-25 10:55:03+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+configuration-db-1  | 2026-10-25 10:55:03+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+configuration-db-1  | 2026-10-25 10:55:03+00:00 [Note] [Entrypoint]: Initializing database files
+configuration-db-1  | 2026-10-25T10:55:03.228661Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+configuration-db-1  | 2026-10-25T10:55:03.229552Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.4.11) initializing of server in progress as process 82
+configuration-db-1  | 2026-10-25T10:55:03.233467Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+configuration-db-1  | 2026-10-25T10:55:03.338128Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+configuration-db-1  | 2026-10-25T10:55:03.782205Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+configuration-db-1  | 2026-10-25T10:55:05.168454Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+configuration-db-1  | 2026-10-25 10:55:05+00:00 [Note] [Entrypoint]: Database files initialized
+configuration-db-1  | 2026-10-25 10:55:05+00:00 [Note] [Entrypoint]: Starting temporary server
+configuration-db-1  | 2026-10-25T10:55:05.212925Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+configuration-db-1  | 2026-10-25T10:55:05.366785Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 127
+configuration-db-1  | 2026-10-25T10:55:05.373525Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+configuration-db-1  | 2026-10-25T10:55:05.431809Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+configuration-db-1  | 2026-10-25T10:55:05.547939Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+configuration-db-1  | 2026-10-25T10:55:05.547987Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+configuration-db-1  | 2026-10-25T10:55:05.549425Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+configuration-db-1  | 2026-10-25T10:55:05.555770Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+configuration-db-1  | 2026-10-25T10:55:05.555798Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+configuration-db-1  | 2026-10-25 10:55:05+00:00 [Note] [Entrypoint]: Temporary server started.
+configuration-db-1  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+configuration-db-1  | 2026-10-25 10:55:06+00:00 [Note] [Entrypoint]: Creating database ah_configuration
+configuration-db-1  | 2026-10-25 10:55:06+00:00 [Note] [Entrypoint]: Creating user configuration
+configuration-db-1  | 2026-10-25 10:55:06+00:00 [Note] [Entrypoint]: Giving user configuration access to schema ah_configuration
+configuration-db-1  | 
+configuration-db-1  | 2026-10-25 10:55:06+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/10-schema.sql
+configuration-db-1  | 
+configuration-db-1  | 
+configuration-db-1  | 2026-10-25 10:55:06+00:00 [Note] [Entrypoint]: Stopping temporary server
+configuration-db-1  | 2026-10-25T10:55:06.247295Z 14 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.4.11).
+configuration-db-1  | 2026-10-25T10:55:07.029621Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.4.11)  MySQL Community Server - GPL.
+configuration-db-1  | 2026-10-25T10:55:07.029639Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+configuration-db-1  | 2026-10-25 10:55:07+00:00 [Note] [Entrypoint]: Temporary server stopped
+configuration-db-1  | 
+configuration-db-1  | 2026-10-25 10:55:07+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+configuration-db-1  | 
+configuration-db-1  | 2026-10-25T10:55:07.257371Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+configuration-db-1  | 2026-10-25T10:55:07.406711Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 1
+configuration-db-1  | 2026-10-25T10:55:07.410144Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+configuration-db-1  | 2026-10-25T10:55:07.475119Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+configuration-db-1  | 2026-10-25T10:55:07.596380Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+configuration-db-1  | 2026-10-25T10:55:07.596432Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+configuration-db-1  | 2026-10-25T10:55:07.598766Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+configuration-db-1  | 2026-10-25T10:55:07.617850Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+configuration-db-1  | 2026-10-25T10:55:07.617897Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.

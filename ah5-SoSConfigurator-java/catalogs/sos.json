@@ -1,0 +1,57 @@
+{
+  "organization": "Company",
+  "colony": "arrowhead-sos",
+  "relay": {
+    "name": "Arrowhead-relay",
+    "dir": "../../Arrowhead/Arrowhead-relay",
+    "composeProject": "arrowhead-relay",
+    "service": "relay",
+    "executorType": "sos-relay",
+    "aclFile": "mqtt/acl",
+    "clouds": ["TestCloud", "GoCloud"]
+  },
+  "forbiddenConsumers": ["Sysop", "LocalCloudManager", "Gatekeeper", "GateTunnel", "ServiceRegistry", "Authentication",
+    "ConsumerAuthorization", "DynamicServiceOrchestration", "SimpleStoreServiceOrchestration", "ServiceOrchestration",
+    "CertificateAuthority", "Onboarding", "Blacklist"],
+  "clouds": [
+    {
+      "name": "TestCloud",
+      "organization": "Company",
+      "implementation": "java",
+      "dir": "../../Arrowhead/Arrowhead-test-cloud-java",
+      "composeProject": "arrowhead-v52-test-cloud",
+      "executorType": "sos-cloud-testcloud",
+      "intercloud": {"supported": true, "gatekeeperService": "gatekeeper", "gatetunnelService": "gatetunnel"},
+      "ports": {"authentication": 8444, "authorization": 8445, "gatekeeper": 8449},
+      "consumers": ["RandomDataProducer"],
+      "exports": [
+        {"provider": "DataManager", "service": "dataHistorian", "operations": ["put-data"], "services": ["datamanager", "datamanager-rust"]}
+      ]
+    },
+    {
+      "name": "GoCloud",
+      "organization": "Company",
+      "implementation": "go",
+      "dir": "../../Arrowhead/Arrowhead-test-cloud-go",
+      "composeProject": "arrowhead-v52-test-cloud-go",
+      "executorType": "sos-cloud-gocloud",
+      "intercloud": {"supported": true, "gatekeeperService": "gatekeeper", "gatetunnelService": "gatetunnel"},
+      "ports": {"authentication": 9444, "authorization": 9445, "gatekeeper": 9449},
+      "consumers": ["RandomDataProducer"],
+      "exports": [
+        {"provider": "DataManager", "service": "dataHistorian", "operations": ["put-data"], "services": ["datamanager", "datamanager-rust"]}
+      ]
+    },
+    {
+      "name": "RustDev",
+      "organization": "Lab",
+      "implementation": "rust",
+      "dir": "../../Arrowhead/Arrowhead-test-cloud-rust/candidate-native",
+      "composeProject": "arrowhead-v53-test-cloud-rust",
+      "executorType": "sos-cloud-rustdev",
+      "intercloud": {"supported": false, "reason": "native Rust GSD, ICN and GateTunnel forwarding are not implemented (Arrowhead-relay README, 2026-10-18)"},
+      "consumers": [],
+      "exports": []
+    }
+  ]
+}

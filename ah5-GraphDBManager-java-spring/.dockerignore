@@ -1,0 +1,9 @@
+# target/ is excluded except the packaged jar, which the test-cloud runtime image copies (additional context)
+target/*
+!target/arrowhead-graphdbmanager-5.2.2.jar
+.git
+.env
+security
+documentation
+vendor/**/target
+**/.DS_Store

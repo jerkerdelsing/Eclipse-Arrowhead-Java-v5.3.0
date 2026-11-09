@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "checks": [
+    "operator authentication enforced",
+    "four default core systems exclude SimpleOrchestration",
+    "real ColonyOS executor reads Java cloud runtime",
+    "reviewed baseline plan makes no system changes",
+    "stale/unreviewed plan refused",
+    "signed ColonyOS workflow executes baseline verification successfully",
+    "core, required infrastructure and manager stop requests are refused"
+  ],
+  "workflow": {
+    "id": "7675fd0c47815d4bc9c91d8995f08d926d6361ca7dd243c27a0b222f9f1082a5",
+    "state": "success",
+    "steps": [
+      {
+        "node": "s001-smoke-verify-localcloud",
+        "processId": "0f47cc708c73820bfa2e9084db55c0fb9a700db6f13acbb83f9175ca8650c78f",
+        "kind": "smoke",
+        "target": "verify-localcloud",
+        "state": "success",
+        "errors": [],
+        "output": "Verified default core minus SimpleOrchestration and necessary infrastructure; no services changed."
+      }
+    ]
+  }
+}

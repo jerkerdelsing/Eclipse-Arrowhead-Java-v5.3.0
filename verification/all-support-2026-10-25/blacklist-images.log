@@ -1,0 +1,104 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 734B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#3 DONE 0.5s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 103B 0.0s done
+#4 DONE 0.0s
+
+#5 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99
+#5 resolve docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99 0.0s done
+#5 DONE 0.0s
+
+#6 [build 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#6 resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 1.18MB 0.1s done
+#7 DONE 0.1s
+
+#8 [stage-1 2/5] WORKDIR /app
+#8 CACHED
+
+#9 [build 3/6] COPY pom.xml .
+#9 CACHED
+
+#10 [build 4/6] COPY vendor ./vendor
+#10 CACHED
+
+#11 [build 5/6] COPY src ./src
+#11 CACHED
+
+#12 [build 2/6] WORKDIR /source
+#12 CACHED
+
+#13 [build 6/6] RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
+#13 CACHED
+
+#14 [stage-1 3/5] COPY --from=build /source/target/arrowhead-blacklist-5.2.2.jar /app/app.jar
+#14 CACHED
+
+#15 [stage-1 4/5] COPY config /app/config
+#15 DONE 0.0s
+
+#16 [stage-1 5/5] RUN mkdir -p /app/logs && chown -R 10001:10001 /app
+#16 DONE 0.2s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 1.5s done
+#17 exporting manifest sha256:461f7b44816a376a3c7bed499350fe883a9beec619e57a12b10869db58f18d42 0.0s done
+#17 exporting config sha256:ad3d1b828c8a6491064e99de9067139d7b728791b0bcdf66bfb1527e32227708 0.0s done
+#17 exporting attestation manifest sha256:24f60d2fda48ee200668246a2232cb3272643bc8f194fc4e7f9ccb3586272d68 done
+#17 exporting manifest list sha256:a6f3256304e64aaa39dc6114eace8025e2e9cc6cae4c0995ded80320822f9048 done
+#17 naming to docker.io/library/arrowhead-blacklist-standalone:5.2.2 done
+#17 unpacking to docker.io/library/arrowhead-blacklist-standalone:5.2.2
+#17 unpacking to docker.io/library/arrowhead-blacklist-standalone:5.2.2 0.3s done
+#17 DONE 1.9s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/qq17km8susmxxkm5rhpmzxciu
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 131B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/mysql:8.4.11
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 103B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 1.18kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70
+#5 resolve docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70 0.0s done
+#5 DONE 0.0s
+
+#6 [2/2] COPY deployment/database/init.sql /docker-entrypoint-initdb.d/10-schema.sql
+#6 CACHED
+
+#7 exporting to image
+#7 exporting layers done
+#7 exporting manifest sha256:d8f027dfb2153ebc73cf0d5fd94245960350a70d47b302bcf2e31864c8aa5cfd done
+#7 exporting config sha256:5932462c0b8377a611a634e6b7e88315703e324fc692ca98d248504e9414fe06 done
+#7 exporting attestation manifest sha256:b099d00dcd68f75361090b482eb72306be030642f3bbff0e0a1d56df75ffc2c5 done
+#7 exporting manifest list sha256:2701359996de250e2246865b95d1cf4334a8a515741958bfe04e6dda2ed274a6 done
+#7 naming to docker.io/library/arrowhead-blacklist-standalone-db:5.2.2
+#7 naming to docker.io/library/arrowhead-blacklist-standalone-db:5.2.2 done
+#7 unpacking to docker.io/library/arrowhead-blacklist-standalone-db:5.2.2 done
+#7 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/i8bc15t1ya5ml434jgpxo4haj

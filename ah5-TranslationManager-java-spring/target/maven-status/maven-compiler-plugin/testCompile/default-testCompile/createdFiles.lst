@@ -1,0 +1,16 @@
+eu/arrowhead/translationmanager/service/dto/NormalizedTranslationQueryRequestDTOTest.class
+eu/arrowhead/translationmanager/quartz/CleanerJobTest.class
+eu/arrowhead/translationmanager/service/dto/DTOConverterTest.class
+eu/arrowhead/translationmanager/service/engine/DataModelTranslatorFactoryDriverTest.class
+eu/arrowhead/translationmanager/service/engine/TranslatorBridgeEngineTest.class
+eu/arrowhead/translationmanager/service/TranslationBridgeServiceTest.class
+eu/arrowhead/translationmanager/service/validation/TranslationBridgeMgmtValidationTest.class
+eu/arrowhead/translationmanager/service/engine/InterfaceTranslatorDriverTest.class
+eu/arrowhead/translationmanager/service/matchmaking/DefaultDataModelTranslatorMatchmakerTest.class
+eu/arrowhead/translationmanager/service/TranslationBridgeManagementServiceTest.class
+eu/arrowhead/translationmanager/service/matchmaking/DefaultInterfaceTranslatorMatchmakerTest.class
+eu/arrowhead/translationmanager/service/validation/TranslationReportValidationTest.class
+eu/arrowhead/translationmanager/service/validation/TranslationBridgeValidationTest.class
+eu/arrowhead/translationmanager/jpa/service/BridgeDbServiceTest.class
+eu/arrowhead/translationmanager/service/engine/CoreSystemsDriverTest.class
+eu/arrowhead/translationmanager/service/TranslationReportServiceTest.class

@@ -1,0 +1,132 @@
+{"properties": [
+  {
+    "name": "service.registry.address",
+    "type": "java.lang.String",
+    "description": "A description for 'service.registry.address'"
+  },
+  {
+    "name": "service.registry.port",
+    "type": "java.lang.Integer",
+    "description": "A description for 'service.registry.port'"
+  },
+  {
+    "name": "domain.name",
+    "type": "java.lang.String",
+    "description": "A description for 'domain.name'"
+  },
+  {
+    "name": "log.all.request.and.response",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'log.all.request.and.response'"
+  },
+  {
+    "name": "authentication.policy",
+    "type": "eu.arrowhead.common.http.filter.authentication.AuthenticationPolicy",
+    "description": "A description for 'authentication.policy'"
+  },
+  {
+    "name": "enable.management.filter",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.management.filter'"
+  },
+  {
+    "name": "management.policy",
+    "type": "eu.arrowhead.common.http.filter.authorization.ManagementPolicy",
+    "description": "A description for 'management.policy'"
+  },
+  {
+    "name": "management.whitelist",
+    "type": "java.util.List",
+    "description": "A description for 'management.whitelist'"
+  },
+  {
+    "name": "enable.blacklist.filter",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.blacklist.filter'"
+  },
+  {
+    "name": "mqtt.api.enabled",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'mqtt.api.enabled'"
+  },
+  {
+    "name": "mqtt.broker.address",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.broker.address'"
+  },
+  {
+    "name": "mqtt.broker.port",
+    "type": "java.lang.Integer",
+    "description": "A description for 'mqtt.broker.port'"
+  },
+  {
+    "name": "mqtt.client.password",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.client.password'"
+  },
+  {
+    "name": "enable.authorization",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.authorization'"
+  },
+  {
+    "name": "enable.translation",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.translation'"
+  },
+  {
+    "name": "enable.qos",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.qos'"
+  },
+  {
+    "name": "enable.intercloud",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.intercloud'"
+  },
+  {
+    "name": "cleaner.job.interval",
+    "type": "java.lang.Long",
+    "description": "A description for 'cleaner.job.interval'"
+  },
+  {
+    "name": "orchestration.history.max.age",
+    "type": "java.lang.Integer",
+    "description": "A description for 'orchestration.history.max.age'"
+  },
+  {
+    "name": "push.orchestration.max.thread",
+    "type": "java.lang.Integer",
+    "description": "A description for 'push.orchestration.max.thread'"
+  },
+  {
+    "name": "normalization.mode",
+    "type": "eu.arrowhead.common.service.normalization.NormalizationMode",
+    "description": "A description for 'normalization.mode'"
+  },
+  {
+    "name": "disable.hostname.verifier",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'disable.hostname.verifier'"
+  },
+  {
+    "name": "authenticator.credentials",
+    "type": "java.lang.String",
+    "description": "A description for 'authenticator.credentials'"
+  },
+  {
+    "name": "max.page.size",
+    "type": "java.lang.Integer",
+    "description": "A description for 'max.page.size'"
+  },
+  {
+    "name": "force.blacklist.filter",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'force.blacklist.filter'"
+  },
+  {
+    "name": "blacklist.check.exclude.list",
+    "type": "java.util.List",
+    "description": "A description for 'blacklist.check.exclude.list'"
+  }
+]}

@@ -1,0 +1,110 @@
+{
+  "Blacklist": {
+    "folder": "ah5-Blacklist-java-spring",
+    "slug": "blacklist",
+    "port": 8464,
+    "artifact": "arrowhead-blacklist",
+    "database": "ah_blacklist",
+    "dbuser": "blacklist",
+    "runtime": "spring",
+    "java": true
+  },
+  "TranslationManager": {
+    "folder": "ah5-TranslationManager-java-spring",
+    "slug": "translation-manager",
+    "port": 8465,
+    "artifact": "arrowhead-translation-manager",
+    "database": "ah_translation_manager",
+    "dbuser": "translationmanager",
+    "runtime": "spring",
+    "java": true
+  },
+  "DeviceQoSEvaluator": {
+    "folder": "ah5-DeviceQoSEvaluator-java-spring",
+    "slug": "device-qos-evaluator",
+    "port": 8472,
+    "artifact": "arrowhead-device-qos-evaluator",
+    "database": "ah_device_qos_evaluator",
+    "dbuser": "deviceqosevaluator",
+    "runtime": "spring",
+    "java": true
+  },
+  "Onboarding": {
+    "folder": "ah5-Onboarding-java-spring",
+    "slug": "onboarding",
+    "port": 8435,
+    "artifact": "arrowhead-onboarding",
+    "database": "ah_onboarding",
+    "dbuser": "onboarding",
+    "runtime": "spring",
+    "java": true
+  },
+  "DataManager": {
+    "folder": "ah5-DataManager-java-spring",
+    "slug": "datamanager",
+    "port": 8461,
+    "artifact": "arrowhead-datamanager",
+    "database": "ah_datamanager",
+    "dbuser": "datamanager",
+    "runtime": "spring",
+    "java": true
+  },
+  "TimeManager": {
+    "folder": "ah5-TimeManager-java-spring",
+    "slug": "timemanager",
+    "port": 8463,
+    "artifact": "arrowhead-timemanager",
+    "database": "ah_timemanager",
+    "dbuser": "timemanager",
+    "runtime": "spring",
+    "java": true
+  },
+  "EventHandler": {
+    "folder": "ah5-EventHandler-java-spring",
+    "slug": "eventhandler",
+    "port": 8455,
+    "artifact": "arrowhead-eventhandler",
+    "database": "ah_eventhandler",
+    "dbuser": "eventhandler",
+    "runtime": "spring",
+    "java": true
+  },
+  "PlantDescriptionEngine": {
+    "folder": "ah5-PlantDescriptionEngine-java-spring",
+    "slug": "plantdescriptionengine",
+    "port": 8432,
+    "artifact": "arrowhead-plantdescriptionengine",
+    "database": "ah_plantdescriptionengine",
+    "dbuser": "plantdescriptionengine",
+    "runtime": "spring",
+    "java": true
+  },
+  "Configuration": {
+    "folder": "ah5-Configuration-java-spring",
+    "slug": "configuration",
+    "port": 8450,
+    "artifact": "arrowhead-configuration",
+    "database": "ah_configuration",
+    "dbuser": "configuration",
+    "runtime": "spring",
+    "java": true
+  },
+  "Choreographer": {
+    "folder": "ah5-Choreographer-java-spring",
+    "slug": "choreographer",
+    "port": 8454,
+    "artifact": "arrowhead-choreographer",
+    "database": "ah_choreographer",
+    "dbuser": "choreographer",
+    "runtime": "spring",
+    "java": true
+  },
+  "AIGym": {
+    "folder": "ah5-AIGym-java-spring",
+    "slug": "aigym",
+    "port": 8478,
+    "artifact": "arrowhead-ai-gym",
+    "runtime": "spring-independent",
+    "java": true
+  }
+}

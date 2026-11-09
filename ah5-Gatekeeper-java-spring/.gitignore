@@ -1,0 +1,13 @@
+target/
+.env
+security/*
+!security/README.md
+!security/*.ext
+documentation/**/*.aux
+documentation/**/*.log
+documentation/**/*.out
+documentation/**/*.toc
+documentation/**/*.bbl
+documentation/**/*.blg
+documentation/**/*.fls
+documentation/**/*.fdb_latexmk

@@ -1,0 +1,73 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.13kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 93B done
+#4 DONE 0.0s
+
+#5 [stage-1 1/6] FROM docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99
+#5 resolve docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99 0.0s done
+#5 DONE 0.0s
+
+#6 [build 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#6 resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 966B done
+#7 DONE 0.0s
+
+#8 [build 2/6] WORKDIR /source
+#8 CACHED
+
+#9 [build 3/6] COPY pom.xml .
+#9 CACHED
+
+#10 [build 4/6] COPY src ./src
+#10 CACHED
+
+#11 [build 5/6] RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
+#11 CACHED
+
+#12 [build 6/6] RUN mkdir -p /native && cd /native && jar xf /source/target/arrowhead-certificate-authority-5.2.2.jar org/sqlite/native/Linux/$(uname -m)/libsqlitejdbc.so && cp org/sqlite/native/Linux/$(uname -m)/libsqlitejdbc.so /native/libsqlitejdbc.so
+#12 DONE 0.3s
+
+#13 [stage-1 2/6] WORKDIR /app
+#13 CACHED
+
+#14 [stage-1 3/6] COPY --from=build /source/target/arrowhead-certificate-authority-5.2.2.jar /app/certificate-authority.jar
+#14 CACHED
+
+#15 [stage-1 4/6] COPY --from=build /native/libsqlitejdbc.so /app/lib/libsqlitejdbc.so
+#15 DONE 0.0s
+
+#16 [stage-1 5/6] RUN mkdir -p /data && chown 10001:10001 /data /app
+#16 DONE 0.2s
+
+#17 [stage-1 6/6] RUN java -Dorg.sqlite.lib.path=/app/lib -jar /app/certificate-authority.jar storage-selftest
+#17 0.274 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+#17 0.274 SLF4J: Defaulting to no-operation (NOP) logger implementation
+#17 0.274 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+#17 0.396 Java packaged SQLite self-test passed
+#17 DONE 0.4s
+
+#18 exporting to image
+#18 exporting layers 0.1s done
+#18 exporting manifest sha256:b5d619b2e78fd8d564615e7f1a21262d50f06b49e19908a02bae80d6573715d2 0.0s done
+#18 exporting config sha256:3fc078e5a96a9f8778f191710f0858e965992aaa0a642d642360c98a727d40fd done
+#18 exporting attestation manifest sha256:b50d2da18e35882372d13bf03a403da7a573adc4169da2edecfc4dd9018d0976 done
+#18 exporting manifest list sha256:e3aeb302a4a5e5958e8383be32a54ea7e5252f0de91d4eebdce7cc8863c7cfab done
+#18 naming to docker.io/library/arrowhead-certificate-authority-standalone:5.2.2 done
+#18 unpacking to docker.io/library/arrowhead-certificate-authority-standalone:5.2.2 0.1s done
+#18 DONE 0.2s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/n8lbt4nmpcgdxxewb6z4cokqp

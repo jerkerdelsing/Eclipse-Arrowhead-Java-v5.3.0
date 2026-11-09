@@ -1,0 +1,1 @@
+Java port of the primary Go LocalCloudConfigurator catalog/planner/executor architecture. ColonyOS RPC/crypto and JSON helpers adapted from the primary Java SoSConfigurator. SPDX-License-Identifier: EPL-2.0. No credentials copied.

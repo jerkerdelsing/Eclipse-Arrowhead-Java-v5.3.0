@@ -1,0 +1,103 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 738B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 103B done
+#4 DONE 0.0s
+
+#5 [build 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#5 resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 0.0s done
+#5 DONE 0.1s
+
+#6 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99
+#6 resolve docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99 0.0s done
+#6 DONE 0.1s
+
+#7 [internal] load build context
+#7 transferring context: 992.71kB 0.0s done
+#7 DONE 0.1s
+
+#8 [build 5/6] COPY src ./src
+#8 CACHED
+
+#9 [build 2/6] WORKDIR /source
+#9 CACHED
+
+#10 [build 4/6] COPY vendor ./vendor
+#10 CACHED
+
+#11 [build 3/6] COPY pom.xml .
+#11 CACHED
+
+#12 [stage-1 2/5] WORKDIR /app
+#12 CACHED
+
+#13 [build 6/6] RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
+#13 CACHED
+
+#14 [stage-1 3/5] COPY --from=build /source/target/arrowhead-configuration-5.2.2.jar /app/app.jar
+#14 CACHED
+
+#15 [stage-1 4/5] COPY config /app/config
+#15 DONE 0.1s
+
+#16 [stage-1 5/5] RUN mkdir -p /app/logs && chown -R 10001:10001 /app
+#16 DONE 0.2s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 1.5s done
+#17 exporting manifest sha256:de8ec39c48744824ba8c04adf894e4b53f3438d43777c37b1e53b8dc41257dd6 done
+#17 exporting config sha256:7e135fe1c03257f08ac5772ce8c6279d8489f07b85ef63fac05507a5796ef12e done
+#17 exporting attestation manifest sha256:180cccb8a44e1cc42da9f7599e453f96106bb5d9f7f46a07577c3f08b0898427 done
+#17 exporting manifest list sha256:354510313d9b1f802cae7639a6db7dcfdc034188b0c4f4037472058cd5f44352 done
+#17 naming to docker.io/library/arrowhead-configuration-standalone:5.2.2 done
+#17 unpacking to docker.io/library/arrowhead-configuration-standalone:5.2.2
+#17 unpacking to docker.io/library/arrowhead-configuration-standalone:5.2.2 0.3s done
+#17 DONE 1.8s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/0ta5iano4heslnm2olzboonr4
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 131B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/mysql:8.4.11
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 103B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 1.25kB done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70
+#5 resolve docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70 done
+#5 DONE 0.0s
+
+#6 [2/2] COPY deployment/database/init.sql /docker-entrypoint-initdb.d/10-schema.sql
+#6 CACHED
+
+#7 exporting to image
+#7 exporting layers done
+#7 exporting manifest sha256:b6a70468bf17493d667f80cfd10828404ad6765d51769acc44b1741a8cf6cd0b done
+#7 exporting config sha256:6e6ab08ac392c84b9c36f982d7249a205f345cb4991281c68206a0855beac42b done
+#7 exporting attestation manifest sha256:29a5b62bd67db92aca864ea257fa02c9cd3963d1810142e8f3bf555e5c0aa32d done
+#7 exporting manifest list sha256:29d695783367b3e3568cfdf8a34c32b76d3458f6bfe096561633d3fc61f0ec0a done
+#7 naming to docker.io/library/arrowhead-configuration-standalone-db:5.2.2 done
+#7 unpacking to docker.io/library/arrowhead-configuration-standalone-db:5.2.2 done
+#7 DONE 0.0s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/lnd0vi4fkuufw0bfrwg1ph8ew

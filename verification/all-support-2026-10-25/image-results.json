@@ -1,0 +1,57 @@
+[
+  {
+    "system": "Blacklist",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/blacklist-images.log"
+  },
+  {
+    "system": "TranslationManager",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/translation-manager-images.log"
+  },
+  {
+    "system": "DeviceQoSEvaluator",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/device-qos-evaluator-images.log"
+  },
+  {
+    "system": "Onboarding",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/onboarding-images.log"
+  },
+  {
+    "system": "DataManager",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/datamanager-images.log"
+  },
+  {
+    "system": "TimeManager",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/timemanager-images.log"
+  },
+  {
+    "system": "EventHandler",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/eventhandler-images.log"
+  },
+  {
+    "system": "PlantDescriptionEngine",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/plantdescriptionengine-images.log"
+  },
+  {
+    "system": "Configuration",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/configuration-images.log"
+  },
+  {
+    "system": "Choreographer",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/choreographer-images.log"
+  },
+  {
+    "system": "AIGym",
+    "exit": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/aigym-images.log"
+  }
+]

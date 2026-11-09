@@ -1,0 +1,206 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{Gatekeeper}
+\ArrowheadType{System Design Description}
+\ArrowheadTypeShort{SysDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the design and implementation of the Gatekeeper support system of Arrowhead 5.2.2 (\texttt{ah5-Gatekeeper-java-spring}).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the Gatekeeper system implementation, which realizes the Gatekeeper SysD \cite{gk-sysd}. The Gatekeeper connects the local cloud to its neighbour clouds through the inter-cloud MQTT relay: global service discovery of authorized foreign providers and inter-cloud negotiation of GateTunnel sessions.
+In Section \ref{Implementation}, we describe implementation details of the system.
+
+\newpage
+
+\section{Implementation}
+\label{Implementation}
+
+This implementation realizes the Gatekeeper SysD in \texttt{ah5-\allowbreak{}Gatekeeper-\allowbreak{}java-\allowbreak{}spring}. The Java sources, dependencies, tests, image and deployment definition are owned by this folder. The previous implementation is preserved in \texttt{legacy/\allowbreak{}} and is excluded from the build.
+
+\subsection{Implementation language and tools}
+\begin{itemize}
+\item Java 21 without a framework (JDK \texttt{HttpsServer}), Bouncy Castle, SQLite JDBC and RabbitMQ AMQP client; Eclipse Paho MQTT v3 relay client. Maven produces only \texttt{arrowhead-\allowbreak{}gatekeeper-\allowbreak{}5.2.2.jar}; the fixed \texttt{Main} entry point starts Gatekeeper. No environment variable selects another system.
+\item Storage: SQLite (SQLite with WAL on a data volume). Requests are handled on virtual threads with bounded parallelism.
+\end{itemize}
+
+\subsection{Functional properties implementation}
+
+The following components implement the system:
+
+\noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
+\rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
+\texttt{Gatekeeper.\allowbreak{}java} & GSD, ICN, relay message handling, management. \\ \hline
+\texttt{Messaging.\allowbreak{}java} & Relay and sysMonitor. \\ \hline
+\texttt{PeerNames.\allowbreak{}java} & Peer cloud identities. \\ \hline
+\end{longtable}
+
+Every request passes \texttt{Service.\allowbreak{}handle}: request-count limit, \texttt{caller} (mutual TLS, certificate profile \texttt{sy} or \texttt{op}, identity token verified with Authentication and matched to the certificate), then the role's \texttt{route} with its caller lists.
+
+\subsubsection{Data handled and stored}
+
+Storage \texttt{SQLite}:
+
+\noindent\begin{longtable}{| p{6.4cm} | p{8.8cm} |} \hline
+\rowcolor{gray!33} Tables & Content \\ \hline \endhead
+\texttt{clouds} & Neighbour clouds. \\ \hline
+\texttt{relays} & Relays. \\ \hline
+\end{longtable}
+
+The interfaces exchange JSON objects built at run time; their structure is specified in the IDD documents.
+
+\subsection{Non functional properties implementation}
+
+\subsubsection{Security}
+
+\texttt{Tls} builds the TLS contexts from PEM files (\texttt{TLS\_\allowbreak{}*}), with mandatory client certificates and CRL checking (\texttt{CRL\_\allowbreak{}FILE}); \texttt{Service.\allowbreak{}caller} binds the identity token to the certificate; the Authentication client pins Authentication's certificate identity before sending credentials.
+
+\subsubsection{Power management}
+
+None; the system is a server process without power states. The \texttt{sysMonitor} \texttt{power} observation always reports line supply.
+
+\subsubsection{Internal monitoring}
+
+Logs go to stdout. The system publishes its \texttt{sysMonitor} observations every 30 s (see the sysMonitor IDD).
+
+\subsubsection{Configuration}
+
+Configuration is read from environment variables (listed in the SysD); secrets are read from files (\texttt{*\_\allowbreak{}FILE} variables or mounted credential bundles).
+
+\subsection{Deployment}
+
+The local \texttt{Dockerfile} builds only this folder and runs \texttt{arrowhead-\allowbreak{}gatekeeper-\allowbreak{}standalone:5.2.2}. The local \texttt{compose.yaml} joins an operator-selected existing cloud network; it has no sibling build context, shared runtime image or dependency on another support process for startup. The HTTPS API uses port 8449; health uses internal port 8480. The process runs as UID 10001 with a read-only root filesystem and writable private \texttt{/\allowbreak{}data} and \texttt{/\allowbreak{}tmp} paths. The image preinstalls the platform SQLite native library in \texttt{/app/lib}; temporary storage remains non-executable. Certificates and credentials are mounted individually. This packaging is supplied for operator deployment; existing test-cloud deployments are separate deployment consumers and are not changed by it.
+
+To select this system, copy \texttt{.env.example} to \texttt{.env}, provision its identity/password, system certificate/key, trusted CA and CRL, configure network and registry, then run \texttt{docker compose up -\allowbreak{}d -\allowbreak{}-\allowbreak{}build} from this folder. The private project-scoped SQLite volume must never be shared with another system or concurrently mounted by a second instance. Stopping this Compose project preserves its volume and does not stop other systems.
+
+ServiceRegistry is the bootstrap endpoint. Authentication and DynamicServiceOrchestration are looked up there; other consumed services are orchestrated through DSO and require the cloud's authorization rules. AMQPS monitoring remains a network dependency. Federation additionally requires the organization MQTT relay, configured neighbor identities, relay certificate/key and organization trust. The Compose default is AH-GT-1, with explicit legacy-mTLS compatibility; peers must agree and must never silently downgrade. Gatekeeper and GateTunnel cooperate through authorized network services, while retaining separate builds and deployments. SysMonitor reports degraded HTTP 503 when AMQP intake or MQTT output is disconnected. The other native systems return process liveness. Inspect registration, broker and orchestration status for operational readiness.
+
+\subsubsection{Ownership and build boundary}
+The helpers \texttt{Service}, \texttt{Tls}, \texttt{Json}, \texttt{Database} and \texttt{Messaging} are private source copies inside this project. The JAR contains no implementation of the other three former runtime systems. There is no shared runtime process, data directory or Maven parent. Maven dependencies remain external libraries. Security fixes to duplicated helpers must be propagated and verified in every affected project.
+
+Build with Java 21 and \texttt{mvn -\allowbreak{}B clean verify}, or use the local Docker build. The packaged SQLite smoke check is \texttt{java -\allowbreak{}jar target/\allowbreak{}arrowhead-\allowbreak{}gatekeeper-\allowbreak{}5.2.2.jar storage-\allowbreak{}selftest}. The build requires no sibling support folder.
+
+\subsection{Local modifications}
+\label{sec:local}
+
+Notes on this implementation in the workspace:
+\begin{itemize}
+  \item Native Java port; inter-cloud orchestration with Dynamic\allowbreak{}Service\allowbreak{}Orchestration (local extension).
+  \item Services registered with version \texttt{5.\allowbreak{}2.\allowbreak{}2}.
+\end{itemize}
+
+\subsection{Verification}
+
+The project owns its JUnit security tests and system-specific tests. Verification covers mandatory mutual TLS, certificate/token binding, pinned Authentication identity, DSO discovery, concurrent token renewal and startup of this actual system with isolated generated credentials and its own temporary database. Federation and monitoring projects retain their relevant peer, session or persistence tests. The distribution verification report records independent build, packaging, image and configuration results; it does not claim a live-cloud rollout.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+The implementation of the services is based on the SD and IDD documents referenced below.
+
+\noindent\begin{longtable}{| p{5.4cm} | p{2.2cm} | p{2.2cm} | p{4.8cm} |} \hline
+\rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
+\texttt{global\allowbreak{}Service\allowbreak{}Discovery} & \cite{gk-sysd} & \cite{gk-globalServiceDiscovery-sd} & \cite{gk-globalServiceDiscovery-http-idd} \\ \hline
+\texttt{inter\allowbreak{}Cloud\allowbreak{}Negotiation} & \cite{gk-sysd} & \cite{gk-interCloudNegotiation-sd} & \cite{gk-interCloudNegotiation-http-idd} \\ \hline
+\texttt{gatekeeper\allowbreak{}Management} & \cite{gk-sysd} & \cite{gk-gatekeeperManagement-sd} & \cite{gk-gatekeeperManagement-http-idd} \\ \hline
+\texttt{sysMonitor} & \cite{gk-sysd} & \cite{gk-sysMonitor-sd} & \cite{gk-sysMonitor-amqp-idd} \\ \hline
+&&& \\ \hline
+\rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
+serviceDiscovery & \cite{core-sr-sysd} & \cite{core-sr-serviceDiscovery-sd} & -- \\ \hline
+identity & \cite{core-auth-sysd} & \cite{core-auth-identity-sd} & -- \\ \hline
+authorization\allowbreak{}Management & \cite{core-ca-sysd} & \cite{core-ca-authorizationManagement-sd} & -- \\ \hline
+gate\allowbreak{}Tunnel\allowbreak{}Connection & \cite{gt-sysd} & \cite{gt-gateTunnelConnection-sd} & -- \\ \hline
+inter-cloud messages & Relay (MQTT) & -- & -- \\ \hline
+sysMonitor (publisher) & AMQP broker (SysMonitor) & -- & -- \\ \hline
+\end{longtable}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-25 & \arrowversion & Independent Java build, private helpers and state, per-system deployment and configuration. & Codex (draft) \\ \hline
+3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

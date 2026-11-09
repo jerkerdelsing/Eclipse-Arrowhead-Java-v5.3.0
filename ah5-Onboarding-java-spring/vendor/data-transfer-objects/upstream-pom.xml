@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>eu.arrowhead</groupId>
+	<artifactId>arrowhead-data-transfer-objects</artifactId>
+	<version>5.2.2</version>
+	<packaging>jar</packaging>
+	<name>Arrowhead DTOs</name>
+	<description>Arrowhead DTOs</description>
+
+	<url>https://github.com/eclipse-arrowhead/ah5-common-java-spring</url>
+	
+	<properties>
+		<java.version>21</java.version>
+		<mvn.compiler.version>3.13.0</mvn.compiler.version>
+		<mvn.compile.target>21</mvn.compile.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-annotations</artifactId>
+		    <version>2.17.1</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<defaultGoal>clean install</defaultGoal>
+		<plugins>
+			<plugin>
+	        	<artifactId>maven-compiler-plugin</artifactId>
+	        	<version>${mvn.compiler.version}</version>
+	        	<configuration>
+	        		<source>${mvn.compile.target}</source>
+	         		<target>${mvn.compile.target}</target>
+	        	</configuration>
+	      	</plugin>
+	      	<plugin>
+			 	<groupId>org.apache.maven.plugins</groupId>
+			 	<artifactId>maven-checkstyle-plugin</artifactId>
+			 	<version>3.4.0</version>
+			 	<dependencies>
+		            <dependency>
+		              <groupId>com.puppycrawl.tools</groupId>
+		              <artifactId>checkstyle</artifactId>
+		              <version>10.17.0</version>
+		            </dependency>
+		        </dependencies>
+		 		<configuration>
+					<consoleOutput>true</consoleOutput>
+					<includeTestSourceDirectory>true</includeTestSourceDirectory>
+					<configLocation>https://raw.githubusercontent.com/Aitia-IIOT/aitia-java-styling/master/aitia_checkstyle_checks.xml</configLocation>
+					<failOnViolation>false</failOnViolation>
+				</configuration>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,204 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{LocalCloudManager}
+\ArrowheadType{System Design Description}
+\ArrowheadTypeShort{SysDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the design and implementation of the LocalCloudManager support system of Arrowhead 5.2.2 (\texttt{ah5-LocalCloudManager-java-spring}).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the LocalCloudManager system implementation, which realizes the LocalCloudManager SysD \cite{lcm-sysd}. LocalCloudManager is the operator console of the local cloud: it shows the state of the cloud and carries out the management actions an operator starts, with its own Arrowhead identity.
+In Section \ref{Implementation}, we describe implementation details of the system.
+
+\newpage
+
+\section{Implementation}
+\label{Implementation}
+
+This implementation is based on the SysD document LocalCloudManager \cite{lcm-sysd} and is located in \texttt{ah5-LocalCloudManager-java-spring} of the primary Java source tree (\texttt{Eclipse-Arrowhead-java}). It is the non-Java exception of the Java support distribution: a Node.js/nginx console without a JAR.
+
+\subsection{Implementation language and tools}
+\begin{itemize}
+\item Node.js 20 (API, \texttt{amqplib}), nginx (UI), Node.js Docker Engine proxy.
+\item Storage: none.
+\end{itemize}
+
+\subsection{Functional properties implementation}
+
+The following components implement the system:
+
+\noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
+\rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
+\texttt{api/\allowbreak{}src/\allowbreak{}server.\allowbreak{}js} & Routes, Arrowhead clients, registration. \\ \hline
+\texttt{api/\allowbreak{}src/\allowbreak{}console-\allowbreak{}auth.\allowbreak{}js} & Console login and sessions. \\ \hline
+\texttt{api/\allowbreak{}src/\allowbreak{}sysmonitor.\allowbreak{}js} & sysMonitor publisher. \\ \hline
+\texttt{api/\allowbreak{}src/\allowbreak{}crl-\allowbreak{}status.\allowbreak{}js} & CRL loading and status for provider certificates. \\ \hline
+\texttt{api/\allowbreak{}src/\allowbreak{}policies-\allowbreak{}api.\allowbreak{}js} & Local management-policy editor (ConsumerAuthorization grant/revoke with snapshot checks). \\ \hline
+\texttt{api/\allowbreak{}src/\allowbreak{}rule-\allowbreak{}editor-\allowbreak{}api.\allowbreak{}js} & Rule-priority changes (native \texttt{modify-\allowbreak{}priorities} or create/remove replacement). \\ \hline
+\texttt{api/\allowbreak{}src/\allowbreak{}sos-\allowbreak{}api.\allowbreak{}js}, \texttt{sos-\allowbreak{}model.\allowbreak{}js} & SoS compositions on PlantDescriptionEngine; validation, inclusion and cycle checks. \\ \hline
+\texttt{api/\allowbreak{}src/\allowbreak{}cloud-\allowbreak{}config-\allowbreak{}api.\allowbreak{}js} & Pass-through to the LocalCloudConfigurator REST API. \\ \hline
+\texttt{api/\allowbreak{}src/\allowbreak{}floorplans-\allowbreak{}api.\allowbreak{}js} & Chiplet floorplan view through orchestrated ChipletFloorplanGenerator services. \\ \hline
+\texttt{ui/\allowbreak{}} & Browser console (nginx). \\ \hline
+\texttt{docker-\allowbreak{}proxy/\allowbreak{}} & Docker Engine API proxy. \\ \hline
+\end{longtable}
+
+Every request except \texttt{GET /health} passes the proxy-secret check (only the console's nginx), the host/origin check, the console session check and, for changes, the confirmation check before the route handler calls the providing systems.
+
+\subsubsection{Data handled and stored}
+
+None durable; sessions and the identity token in memory. SoS compositions, policies and configurator designs are stored by their providing systems.
+
+The interfaces exchange JSON objects built at run time; their structure is specified in the IDD documents.
+
+\subsection{Non functional properties implementation}
+
+\subsubsection{Security}
+
+The console API has no Docker socket; Docker is reached only through the proxy on an internal network. The console is published on the host's loopback address only.
+
+\subsubsection{Power management}
+
+None; the system is a server process without power states. The \texttt{sysMonitor} \texttt{power} observation always reports line supply.
+
+\subsubsection{Internal monitoring}
+
+Logs go to stdout. The system publishes its \texttt{sysMonitor} observations every 30 s (see the sysMonitor IDD).
+
+\subsubsection{Configuration}
+
+Configuration is read from environment variables (listed in the SysD); secrets are read from files (\texttt{*\_\allowbreak{}FILE} variables or mounted credential bundles).
+
+\subsection{Deployment}
+
+The local \texttt{compose.yaml} (project \texttt{ah5-{B}localcloudmanager}) builds and runs two containers from this folder: \texttt{cloud-\allowbreak{}monitor-\allowbreak{}api} (image \texttt{arrowhead-\allowbreak{}localcloudmanager-\allowbreak{}api-\allowbreak{}standalone:5.2.2}, port 8491, on the external cloud network and the internal \texttt{control} network) and \texttt{cloud-\allowbreak{}monitor-\allowbreak{}ui} (nginx, image \texttt{arrowhead-\allowbreak{}localcloudmanager-\allowbreak{}ui-\allowbreak{}standalone:5.2.2}, published on \texttt{127.0.0.1:8490}). Both run as UID 10001 with a read-only root filesystem, no capabilities and a non-executable \texttt{/tmp}. The identity password, console password hash and console proxy secret are Compose file secrets; the certificate, key, cloud CA and CRL directory are mounted read-only. The standalone definition starts no Docker proxy (\texttt{DOCKER\_\allowbreak{}API\_\allowbreak{}URL} points nowhere and \texttt{MANAGED\_\allowbreak{}SERVICES} is empty), so the runtime view and container lifecycle are unavailable there; the configurator and floorplan views are disabled unless their variables are set. Copy \texttt{.env.example}, provision the identity, certificate and console secrets, then run \texttt{docker compose up -d --build} from this folder. ServiceRegistry, Authentication, DSO, ConsumerAuthorization and the grants of LocalCloudManager remain network dependencies.
+
+The earlier combined test cloud (\texttt{Arrowhead-test-cloud-java}) is a separate deployment consumer; it ran the console with a Docker proxy as \texttt{cloud-{B}monitor-{B}api}, \texttt{cloud-{B}monitor-{B}ui} and \texttt{docker-{B}proxy}.
+
+\subsection{Local modifications}
+\label{sec:local}
+
+Notes on this implementation in the workspace:
+\begin{itemize}
+  \item Workspace system; operation names are camelCase (see the SD).
+  \item Console endpoints for policies, rule priority, SoS, local-cloud configuration and chiplet floorplans are not part of the registered operation list.
+\end{itemize}
+
+\subsection{Verification}
+
+\texttt{api/\allowbreak{}test}, \texttt{ui/\allowbreak{}test} and \texttt{docker-\allowbreak{}proxy/\allowbreak{}test} contain the console's unit tests (\texttt{node -\allowbreak{}-\allowbreak{}test}): API routes, console authentication, CRL status, policies, rule priority, SoS, configurator and floorplan routes, and the UI models. The distribution report records 23 API tests for the packaged console.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+The implementation of the services is based on the SD and IDD documents referenced below.
+
+\noindent\begin{longtable}{| p{5.4cm} | p{2.2cm} | p{2.2cm} | p{4.8cm} |} \hline
+\rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
+\texttt{local\allowbreak{}Cloud\allowbreak{}Management} & \cite{lcm-sysd} & \cite{lcm-localCloudManagement-sd} & \cite{lcm-localCloudManagement-http-idd} \\ \hline
+\texttt{sysMonitor} & \cite{lcm-sysd} & \cite{lcm-sysMonitor-sd} & \cite{lcm-sysMonitor-amqp-idd} \\ \hline
+&&& \\ \hline
+\rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
+serviceDiscovery; service\allowbreak{}Registry\allowbreak{}Management & \cite{core-sr-sysd} & \cite{core-sr-serviceDiscovery-sd} & -- \\ \hline
+identity & \cite{core-auth-sysd} & \cite{core-auth-identity-sd} & -- \\ \hline
+service\allowbreak{}Orchestration; service\allowbreak{}Orchestration\allowbreak{}History\allowbreak{}Management & \cite{core-dso-sysd} & \cite{core-dso-serviceOrchestration-sd} & -- \\ \hline
+service\allowbreak{}Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Management & \cite{core-ssso-sysd} & \cite{core-ssso-serviceOrchestrationSimpleStoreManagement-sd} & -- \\ \hline
+authorization\allowbreak{}Management (query, grant, revoke policies) & \cite{core-ca-sysd} & \cite{core-ca-authorizationManagement-sd} & -- \\ \hline
+dataHistorian & \cite{dm-sysd} & \cite{dm-dataHistorian-sd} & -- \\ \hline
+sysMonitorHistory; sys\allowbreak{}Monitor\allowbreak{}Management & \cite{smo-sysd} & \cite{smo-sysMonitorHistory-sd} & -- \\ \hline
+plant\allowbreak{}Description\allowbreak{}Management & \cite{pde-sysd} & \cite{pde-plantDescriptionManagement-sd} & -- \\ \hline
+gatekeeper\allowbreak{}Management; gate\allowbreak{}Tunnel\allowbreak{}Management & Gatekeeper, GateTunnel & -- & -- \\ \hline
+Docker Engine subset & Docker proxy & -- & -- \\ \hline
+configurator REST API & Local\allowbreak{}Cloud\allowbreak{}Configurator & -- & -- \\ \hline
+floorplan\allowbreak{}Discovery; floorplan\allowbreak{}Management & Chiplet\allowbreak{}Floorplan\allowbreak{}Generator & -- & -- \\ \hline
+\end{longtable}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): location, new console modules, standalone deployment, consumed services and tests updated. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

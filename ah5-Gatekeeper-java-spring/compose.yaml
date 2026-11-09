@@ -1,0 +1,95 @@
+name: ah5-gatekeeper
+services:
+  gatekeeper:
+    build:
+      context: .
+    image: arrowhead-gatekeeper-standalone:5.2.2
+    restart: unless-stopped
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777"]
+    ports:
+      - "${HOST_BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-8449}:8449"
+    environment:
+      LOCAL_CLOUD: "${LOCAL_CLOUD:-TestCloud}"
+      ORGANIZATION: "${ORGANIZATION:-Company}"
+      SERVICE_REGISTRY_URL: "${SERVICE_REGISTRY_URL:-https://serviceregistry:8443}"
+      AUTHENTICATION_PASSWORD_FILE: "/run/secrets/identity-password"
+      PORT: "8449"
+      HEALTH_PORT: "8480"
+      DB_PATH: "/data/gatekeeper.db"
+      TLS_CA_CERT: "/certs/ca.crt"
+      TLS_CERT: "/certs/gatekeeper.crt"
+      TLS_KEY: "/certs/gatekeeper.key"
+      TLS_SERVER_CERT: "/certs/gatekeeper.crt"
+      TLS_SERVER_KEY: "/certs/gatekeeper.key"
+      CRL_FILE: "/crl/ca.crl"
+      AMQP_HOST: "${AMQP_HOST:-amqp-broker}"
+      AMQP_PORT: "${AMQP_PORT:-5671}"
+      FEDERATION_PROFILE: "${FEDERATION_PROFILE:-ah-gt-1}"
+      NEIGHBOR_CLOUDS: "${NEIGHBOR_CLOUDS:-}"
+      FEDERATION_PEER_ORGANIZATIONS: "${FEDERATION_PEER_ORGANIZATIONS:-}"
+      RELAY_HOST: "${RELAY_HOST:-arrowhead-relay}"
+      RELAY_PORT: "${RELAY_PORT:-8883}"
+      RELAY_CHAIN_CERT: "/certs/gatekeeper-relay-chain.crt"
+      RELAY_KEY: "/certs/gatekeeper-relay.key"
+      RELAY_CA_CERT: "/certs/org-ca.crt"
+    secrets: [identity-password]
+    volumes:
+      - state:/data
+      - type: bind
+        source: ${SYSTEM_CERT_FILE:-./security/gatekeeper.crt}
+        target: /certs/gatekeeper.crt
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${SYSTEM_KEY_FILE:-./security/gatekeeper.key}
+        target: /certs/gatekeeper.key
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${CLOUD_CA_FILE:-./security/ca.crt}
+        target: /certs/ca.crt
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${CRL_DIRECTORY:-./security/crl}
+        target: /crl
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${RELAY_CHAIN_FILE:-./security/gatekeeper-relay-chain.crt}
+        target: /certs/gatekeeper-relay-chain.crt
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${RELAY_KEY_FILE:-./security/gatekeeper-relay.key}
+        target: /certs/gatekeeper-relay.key
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${ORGANIZATION_CA_FILE:-./security/org-ca.crt}
+        target: /certs/org-ca.crt
+        read_only: true
+        bind:
+          create_host_path: false
+    networks:
+      cloud:
+        aliases: [gatekeeper]
+volumes:
+  state: {}
+secrets:
+  identity-password:
+    file: ${IDENTITY_PASSWORD_FILE:-./security/identity-password}
+networks:
+  cloud:
+    external: true
+    name: ${ARROWHEAD_NETWORK:-arrowhead-local-cloud}

@@ -1,0 +1,4 @@
+
+.env
+security/*
+!security/README.md

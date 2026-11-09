@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-25",
+  "canonical_distribution": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead",
+  "java_systems": 15,
+  "java_tests_passed": 1098,
+  "java_builds_offline_folder_only": 15,
+  "application_images": 15,
+  "private_mysql_images": 10,
+  "isolated_java_deployments_passed": 15,
+  "expanded_spring_https_security_deployments": 11,
+  "native_java_startup_storage_deployments": 4,
+  "node_console_tests_passed": 23,
+  "node_console_deployment_passed": true,
+  "original_files_verified_unchanged": 2020,
+  "original_changed_files": [],
+  "sysdds_rebuilt": 11,
+  "gsosdd_rebuilt": true,
+  "live_cloud_changed": false,
+  "platform": "linux/arm64",
+  "full_broker_ntp_federation_acceptance": "not part of this packaging/startup audit"
+}

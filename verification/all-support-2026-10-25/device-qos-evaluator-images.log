@@ -1,0 +1,103 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 745B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 103B done
+#4 DONE 0.0s
+
+#5 [build 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#5 resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 0.0s done
+#5 DONE 0.0s
+
+#6 [stage-1 1/5] FROM docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99
+#6 resolve docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 1.50MB 0.1s done
+#7 DONE 0.1s
+
+#8 [build 6/6] RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
+#8 CACHED
+
+#9 [build 2/6] WORKDIR /source
+#9 CACHED
+
+#10 [build 5/6] COPY src ./src
+#10 CACHED
+
+#11 [stage-1 2/5] WORKDIR /app
+#11 CACHED
+
+#12 [build 3/6] COPY pom.xml .
+#12 CACHED
+
+#13 [build 4/6] COPY vendor ./vendor
+#13 CACHED
+
+#14 [stage-1 3/5] COPY --from=build /source/target/arrowhead-device-qos-evaluator-5.2.2.jar /app/app.jar
+#14 CACHED
+
+#15 [stage-1 4/5] COPY config /app/config
+#15 DONE 0.1s
+
+#16 [stage-1 5/5] RUN mkdir -p /app/logs && chown -R 10001:10001 /app
+#16 DONE 0.2s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 1.3s done
+#17 exporting manifest sha256:81d1fdb281ee637407231c635ba5d5cb036c949ab5e9938d9f77ce4d16bfdc92 0.0s done
+#17 exporting config sha256:71841d7ad32cccf17ddcbec79faaf6d2988b7666220562fc2ce5234bddb0b683 done
+#17 exporting attestation manifest sha256:827bfbf818bdc227cd4fe335fa42b86b324767329cd9234358fa9855271e9c18 done
+#17 exporting manifest list sha256:f43ca3ff25b2c61b613292bc598d846ad4dbd37edc42b9278eef6db2d11b23a2 done
+#17 naming to docker.io/library/arrowhead-device-qos-evaluator-standalone:5.2.2 done
+#17 unpacking to docker.io/library/arrowhead-device-qos-evaluator-standalone:5.2.2
+#17 unpacking to docker.io/library/arrowhead-device-qos-evaluator-standalone:5.2.2 0.3s done
+#17 DONE 1.7s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/l632pdvzs0no0kd1dekrdp23l
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 131B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/mysql:8.4.11
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 103B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 3.81kB 0.0s done
+#4 DONE 0.0s
+
+#5 [1/2] FROM docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70
+#5 resolve docker.io/library/mysql:8.4.11@sha256:24989179f58856db763f418010c1169fecc944e3ec1ea7e921572d83eb070f70 0.0s done
+#5 DONE 0.0s
+
+#6 [2/2] COPY deployment/database/init.sql /docker-entrypoint-initdb.d/10-schema.sql
+#6 CACHED
+
+#7 exporting to image
+#7 exporting layers done
+#7 exporting manifest sha256:0a9ef612127b5372a6af4fc9b5761ff460be9dc8d73f3293ced2e3a0d812362e done
+#7 exporting config sha256:1c76292900ae470741619100c0d22526170e7a47ff0e35aa1e1ebb04be5cebcd done
+#7 exporting attestation manifest sha256:8b0ca4e49d95ab264fcf29d6bdc774b98e9fe2868bd6b50f128d935066bc63ae done
+#7 exporting manifest list sha256:10bf30e977d4298021fefe164fb4d6df666b987376da69de0ca406fea317d810 done
+#7 naming to docker.io/library/arrowhead-device-qos-evaluator-standalone-db:5.2.2 done
+#7 unpacking to docker.io/library/arrowhead-device-qos-evaluator-standalone-db:5.2.2 done
+#7 DONE 0.0s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/gkbmirugvqtyilkzlllu3ru7m

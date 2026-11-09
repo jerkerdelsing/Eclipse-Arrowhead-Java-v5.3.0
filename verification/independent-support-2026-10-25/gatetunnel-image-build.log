@@ -1,0 +1,76 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.06kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/maven:3.9-eclipse-temurin-21
+#2 DONE 0.0s
+
+#3 [auth] library/eclipse-temurin:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre
+#4 DONE 0.7s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 93B done
+#5 DONE 0.0s
+
+#6 [build 1/6] FROM docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#6 resolve docker.io/library/maven:3.9-eclipse-temurin-21@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 0.0s done
+#6 DONE 0.0s
+
+#7 [stage-1 1/6] FROM docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99
+#7 resolve docker.io/library/eclipse-temurin:21-jre@sha256:227118764cccd3c3294617061aaa93a08309c63a395eefa83e6b35032992ea99 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 1.82kB done
+#8 DONE 0.0s
+
+#9 [build 3/6] COPY pom.xml .
+#9 CACHED
+
+#10 [build 4/6] COPY src ./src
+#10 CACHED
+
+#11 [build 2/6] WORKDIR /source
+#11 CACHED
+
+#12 [build 5/6] RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
+#12 CACHED
+
+#13 [build 6/6] RUN mkdir -p /native && cd /native && jar xf /source/target/arrowhead-gatetunnel-5.2.2.jar org/sqlite/native/Linux/$(uname -m)/libsqlitejdbc.so && cp org/sqlite/native/Linux/$(uname -m)/libsqlitejdbc.so /native/libsqlitejdbc.so
+#13 DONE 0.2s
+
+#14 [stage-1 2/6] WORKDIR /app
+#14 CACHED
+
+#15 [stage-1 3/6] COPY --from=build /source/target/arrowhead-gatetunnel-5.2.2.jar /app/gatetunnel.jar
+#15 CACHED
+
+#16 [stage-1 4/6] COPY --from=build /native/libsqlitejdbc.so /app/lib/libsqlitejdbc.so
+#16 DONE 0.0s
+
+#17 [stage-1 5/6] RUN mkdir -p /data && chown 10001:10001 /data /app
+#17 DONE 0.1s
+
+#18 [stage-1 6/6] RUN java -Dorg.sqlite.lib.path=/app/lib -jar /app/gatetunnel.jar storage-selftest
+#18 0.175 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+#18 0.175 SLF4J: Defaulting to no-operation (NOP) logger implementation
+#18 0.175 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+#18 0.309 Java packaged SQLite self-test passed
+#18 DONE 0.3s
+
+#19 exporting to image
+#19 exporting layers 0.1s done
+#19 exporting manifest sha256:d44301a93f7401ef6aa1dd4beb7feaade24152eb45cf8d0b34c4501d55d6e2fb 0.0s done
+#19 exporting config sha256:7c5562e2d30906b6b248f0923525739e78f9ddfcf29e68c8f1044b2627853dad done
+#19 exporting attestation manifest sha256:b55b4d1153a9facb55f091a7ac0b4f283b2d505c0e173805b2e5147525684ba2 done
+#19 exporting manifest list sha256:0d5e92df50b77fcfc60e977ea3b3513d17ae7dbb5c3a8141ae4229ca259885d0 done
+#19 naming to docker.io/library/arrowhead-gatetunnel-standalone:5.2.2 done
+#19 unpacking to docker.io/library/arrowhead-gatetunnel-standalone:5.2.2 0.1s done
+#19 DONE 0.3s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/pv7zbyyi2ekwfdvz4dsxwrt33

@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-25",
+  "result": "passed",
+  "method": "All 12 updated PDFs rendered; SysDD contact sheets and changed GSoSDD pages reviewed. Final LaTeX logs checked for overfull boxes and unresolved citations/references.",
+  "documents": [
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-SysDD.pdf",
+      "pages": 9,
+      "sha256": "fea4d9fa1e03518e0424eca0aa1286d9b09edc6ec4e4ba280984dc7244ccb811"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-SysDD.pdf",
+      "pages": 9,
+      "sha256": "d54b86b7d306d8c91e2ec37810238c4ac340ed79cff97955b1288cdcfcae760a"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-SysDD.pdf",
+      "pages": 9,
+      "sha256": "91a05ad8d54cd1422da6f5f8701ea1a8a0a32fdc38580b80b20f19dd7eba18dd"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-SysDD.pdf",
+      "pages": 9,
+      "sha256": "c2e3f7eed87716b576c0bd7c4d1b84595589116eb231ecd1dd3a677711eddca5"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-SysDD.pdf",
+      "pages": 9,
+      "sha256": "b0353ddb2b5b2e0f0e8f9c6fee6fa184a6e56b20f6c2dce48063cf20ba1fa976"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-SysDD.pdf",
+      "pages": 9,
+      "sha256": "0c31ad4561b8354d22545f48843a79f2dd1b162c24ed662c00dd52d1fbcb110c"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-SysDD.pdf",
+      "pages": 9,
+      "sha256": "23b63b521c7b84416eb33a65e16895e2bd592b3feb69c37888645d2bc7160473"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-SysDD.pdf",
+      "pages": 9,
+      "sha256": "c7c17f6a7227d07720045c1939410171673822c71b2fe958035cc13a0917ee5d"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-SysDD.pdf",
+      "pages": 9,
+      "sha256": "720374033c6e9088951d337b0bd79faf790f753e92da272960e93699600d9aac"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-SysDD.pdf",
+      "pages": 9,
+      "sha256": "923867fa7284c270f8be6a9e4779f18e405b0681f17bd4ed7a4a2f428cbcf022"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-SysDD.pdf",
+      "pages": 8,
+      "sha256": "eda2df7abb4cbf22d6e31a0554eea188ebb54591f837b3eceea156c895aa7e7e"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/documentation/WhiteBox_5.2.2/GSoSDD_Arrowhead_Support_Systems_5.2.pdf",
+      "pages": 33,
+      "sha256": "3f95eddbf65d61c229654783742ff1b234ee405dbb3fd50942b7b44ad62008aa"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-25",
+  "method": "Rendered all 13 updated PDFs; reviewed contact sheets and final deployment/architecture pages; checked final LaTeX logs for overfull boxes and unresolved references.",
+  "result": "passed",
+  "documents": [
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+      "sha256": "d156eefc3b33b667bc9f860a8ca1c3e2525a70c2613a8520c1ae3d00f50b5872"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysDD.pdf",
+      "sha256": "bf80ce22feb45e5306c903e8b92e57f2611f765f1bd6ca3a74c0a6c4be20cceb"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysD.pdf",
+      "sha256": "d44f974995cf81e5d80dda2c0bb8133eca013af74a62562139080c10f3638bb0"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+      "sha256": "4c6362db56905ca2059e9e3a38f55a7c9ac964cda65f367f149b667e1d1543c7"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysDD.pdf",
+      "sha256": "f41662244af07ee09feed2caa4983968418f590566bd280c0d79722a9220a62a"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysD.pdf",
+      "sha256": "9485cbd4ed813c658d684f18fccdcafc6a915730cb96dbb9d39428c1b8959c0f"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+      "sha256": "fb57fce0f29d91101c7928bae8ee2cc6865c5baf2636221b15f266df8a41a4c2"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysD.pdf",
+      "sha256": "7fc5a6e4b43318376165fc8398947cf434933472dfd9eddb835a94fe68c7b8fb"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysDD.pdf",
+      "sha256": "3db13815adf7069ecd736e0281e1dd64fc0fe78650377253c488fb66543a938e"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysDD.pdf",
+      "sha256": "5d80e0e168534f3370e593ea56ffe017e4d9d4ae6866c76a6761bb8c01022a77"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+      "sha256": "267d9b79f2063613484f0cba59c04db3893dc54412c6b3c7ba6a637f3031761c"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysD.pdf",
+      "sha256": "f0e5751c51f6858043ee0e4b072cb19c88868ccea58c59417574bd2590934c86"
+    },
+    {
+      "path": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/documentation/WhiteBox_5.2.2/GSoSDD_Arrowhead_Support_Systems_5.2.pdf",
+      "sha256": "e7e86018b8d310155c3f73ec0e455d841c675d2f9b7114586cf6abaa036c9ab4"
+    }
+  ]
+}

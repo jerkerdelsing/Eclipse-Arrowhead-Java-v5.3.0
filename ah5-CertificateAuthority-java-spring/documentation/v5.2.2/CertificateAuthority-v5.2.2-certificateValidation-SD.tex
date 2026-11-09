@@ -1,0 +1,273 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{certificateValidation}
+\ArrowheadServiceID{certificateValidation}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{certificate\allowbreak{}Validation} service, version 1.0.0, produced by the CertificateAuthority support system of Arrowhead 5.2.2.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{certificate\allowbreak{}Validation} service, which provides checking certificates and trusted keys against the CA's register, and publishing the certificate revocation list.
+It is produced by the CertificateAuthority system \cite{cau-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{cau-certificateValidation-http-idd}.
+
+\subsection{Significant Prior Art}
+
+Successor of the Arrowhead 4.6 Certificate Authority validation endpoints; the CRL is new.
+
+\subsection{How This Service Is Meant to Be Used}
+
+Systems check a presented certificate with \texttt{check-\allowbreak{}certificate} (status \texttt{GOOD}, \texttt{REVOKED}, \texttt{EXPIRED} or \texttt{UNKNOWN}) and a public key with \texttt{check-\allowbreak{}trusted-\allowbreak{}key}. Brokers, the relay and the Java systems use the CRL, which is also written to \texttt{CRL\_\allowbreak{}DIR/\allowbreak{}ca.\allowbreak{}crl} at start, after every revocation and periodically.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Only certificates of this cloud CA can be \texttt{GOOD}.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{certificate\allowbreak{}Validation} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{certificateValidation}
+        \nodepart{second} \texttt{check-\allowbreak{}certificate}\\ \texttt{check-\allowbreak{}trusted-\allowbreak{}key}\\ \texttt{get-\allowbreak{}crl}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{certificate\allowbreak{}Validation} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{check-certificate}{\mref{CertificateCheckRequest}}{\mref{CertificateCheckResult}}
+
+Returns the status of a certificate.
+
+\osubsection{check-trusted-key}{\mref{TrustedKeyCheckRequest}}{\mref{TrustedKeyCheckResult}}
+
+Returns whether a public key is trusted now.
+
+\osubsection{get-crl}{}{}
+
+Returns the current CRL (every revoked, unexpired certificate; next update after \texttt{CRL\_\allowbreak{}VALIDITY\_\allowbreak{}HOURS}, 168).
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{certificate\allowbreak{}Validation} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{CertificateCheckRequest}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+certificate & \pref{String} & Certificate to check, PEM or Base64 DER (alias \texttt{encodedCertificate}). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{CertificateCheckResult}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+status & \pref{String} & \texttt{GOOD}, \texttt{REVOKED}, \texttt{EXPIRED} or \texttt{UNKNOWN} (not issued by this CA). \\ \hline
+valid & \pref{Boolean} & True only for \texttt{GOOD}. \\ \hline
+serial\allowbreak{}Number & \pref{String} & Serial number, decimal. \\ \hline
+known & \pref{Boolean} & Whether the serial is in the register (only for certificates of this CA). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{TrustedKeyCheckRequest}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+public\allowbreak{}Key & \pref{String} & PEM Subject\allowbreak{}Public\allowbreak{}Key\allowbreak{}Info (alias \texttt{publicKeyPem}). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{TrustedKeyCheckResult}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+trusted & \pref{Boolean} & Whether the key is a trusted key within its validity. \\ \hline
+key & \mref{TrustedKeyRecord} & The matching record, or null. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{TrustedKeyRecord}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Number} & Record identifier. \\ \hline
+public\_key\_pem & \pref{String} & The key, PEM. \\ \hline
+description & \pref{String} & Description. \\ \hline
+valid\_after & \pref{String} & Start of validity. \\ \hline
+valid\_before & \pref{String} & End of validity. \\ \hline
+created\_at & \pref{String} & Creation time. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

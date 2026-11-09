@@ -1,0 +1,11 @@
+/source/src/test/java/eu/arrowhead/blacklist/api/http/filter/InternalBlacklistFilterTest.java
+/source/src/test/java/eu/arrowhead/blacklist/api/http/filter/InternalBlacklistFilterTestHelper.java
+/source/src/test/java/eu/arrowhead/blacklist/api/mqtt/filter/InternalBlacklistMqttFilterTest.java
+/source/src/test/java/eu/arrowhead/blacklist/init/BlacklistApplicationInitListenerTest.java
+/source/src/test/java/eu/arrowhead/blacklist/jpa/service/EntryDbServiceTest.java
+/source/src/test/java/eu/arrowhead/blacklist/service/DiscoveryServiceTest.java
+/source/src/test/java/eu/arrowhead/blacklist/service/ManagementServiceTest.java
+/source/src/test/java/eu/arrowhead/blacklist/service/WhitelistServiceTest.java
+/source/src/test/java/eu/arrowhead/blacklist/service/dto/DTOConverterTest.java
+/source/src/test/java/eu/arrowhead/blacklist/service/normalization/NormalizationTest.java
+/source/src/test/java/eu/arrowhead/blacklist/service/validation/ValidationTest.java

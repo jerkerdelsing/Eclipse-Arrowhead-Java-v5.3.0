@@ -1,0 +1,381 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{translationBridge}
+\ArrowheadServiceID{translationBridge}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{translationBridge} service, version 1.0.0, produced by the TranslationManager support system of Arrowhead 5.2.2.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{translationBridge} service, which provides interface and data-model translation for a consumer: finding providers that become usable through a translation bridge, building the bridge and aborting it.
+It is produced by the TranslationManager system \cite{tm-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interfaces are specified in the HTTP/TLS/JSON IDD \cite{tm-translationBridge-http-idd} and the MQTT/TLS/JSON IDD \cite{tm-translationBridge-mqtt-idd}.
+
+\subsection{Significant Prior Art}
+
+Successor of the Arrowhead 4.x Translator and Gateway concepts, redesigned for Arrowhead 5 interface templates and data-model identifiers.
+
+\subsection{How This Service Is Meant to Be Used}
+
+Dynamic\allowbreak{}Service\allowbreak{}Orchestration normally drives translation (orchestration flag \texttt{ALLOW\_\allowbreak{}TRANSLATION}, \texttt{enable.\allowbreak{}translation=\allowbreak{}true}): \texttt{discovery} with the candidates and the consumer's interface and data models, then \texttt{negotiation} for the chosen candidate. The consumer calls the returned bridge interface instead of the provider. A consumer may also use the service directly.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Translation needs interface and data-model translator systems registered in the cloud; the Translation\allowbreak{}Manager orchestrates them but does not translate itself.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{translationBridge} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{translationBridge}
+        \nodepart{second} \texttt{discovery}\\ \texttt{negotiation}\\ \texttt{abort}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{translationBridge} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{discovery}{\mref[Translation\allowbreak{}Discovery\allowbreak{}Request]{TranslationDiscoveryRequest}}{\mref[Translation\allowbreak{}Discovery\allowbreak{}Response]{TranslationDiscoveryResponse}}
+
+Returns the candidates usable by the requester through translation, with a bridge identifier.
+
+\osubsection{negotiation}{\mref[Translation\allowbreak{}Negotiation\allowbreak{}Request]{TranslationNegotiationRequest}}{\mref[Translation\allowbreak{}Negotiation\allowbreak{}Response]{TranslationNegotiationResponse}}
+
+Builds the bridge to the chosen candidate and returns the bridge interface and token limits.
+
+\osubsection{abort}{\pref{Identifier}}{}
+
+Aborts a bridge of the requester. Returns 200 if aborted, 204 if there was nothing to abort. The bridge identifier fills the \texttt{\{bridgeId\}} placeholder of the registered path.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{translationBridge} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{Address}
+
+A network address with its type.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+type & \pref{String} & Address type: \texttt{HOSTNAME}, \texttt{IPV4}, \texttt{IPV6} or \texttt{MAC}. \\ \hline
+address & \pref{String} & One network address (host name, IPv4, IPv6 or MAC address). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceResponse}
+
+A registered device.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & Device name. \\ \hline
+metadata & \pref{Metadata} & Free-form metadata (JSON object). \\ \hline
+addresses & \pref{List}$<$\allowbreak{}\mref{Address}$>$ & Network addresses with their types. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceDefinitionResponse}
+
+A service definition.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & Service definition name. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceInterfaceResponse}
+
+One interface of a service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+template\allowbreak{}Name & \pref{Name} & Name of the interface template, snake\_case (e.g. \texttt{generic\_\allowbreak{}https}). \\ \hline
+protocol & \pref{String} & Protocol of the interface, e.g. \texttt{http}, \texttt{https}, \texttt{mqtt}, \texttt{mqtts}. \\ \hline
+policy & \pref{String} & Security policy of the interface: \texttt{NONE}, \texttt{CERT\_\allowbreak{}AUTH} or one of the token policies. \\ \hline
+properties & \pref{Map}$<$\allowbreak{}\pref{String}, \pref{Object}$>$ & Interface properties defined by the template, e.g. \texttt{accessAddresses}, \texttt{accessPort}, \texttt{basePath}, \texttt{operations}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceResponse}
+
+A registered service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+instance\allowbreak{}Id & \pref{Identifier} & Service instance identifier \texttt{\textless{}System\textgreater{}\textbar{}\allowbreak{}\textless{}service\allowbreak{}Definition\textgreater{}\textbar{}\allowbreak{}\textless{}version\textgreater{}}, or policy instance identifier. \\ \hline
+provider & \mref{SystemResponse} & The provider system. \\ \hline
+service\allowbreak{}Definition & \mref[Service\allowbreak{}Definition\allowbreak{}Response]{ServiceDefinitionResponse} & The service definition. \\ \hline
+version & \pref{Version} & Version of the service instance. \\ \hline
+expires\allowbreak{}At & \pref{DateTime} & UTC expiry time; no value means no expiry. \\ \hline
+metadata & \pref{Metadata} & Free-form metadata (JSON object). \\ \hline
+interfaces & \pref{List}$<$\allowbreak{}\mref[Service\allowbreak{}Instance\allowbreak{}Interface\allowbreak{}Response]{ServiceInstanceInterfaceResponse}$>$ & Service interfaces offered by the instance. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemResponse}
+
+A registered system.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & System name. \\ \hline
+metadata & \pref{Metadata} & Free-form metadata (JSON object). \\ \hline
+version & \pref{Version} & Version of the system. \\ \hline
+addresses & \pref{List}$<$\allowbreak{}\mref{Address}$>$ & Network addresses with their types. \\ \hline
+device & \mref{DeviceResponse} & The device hosting the system, if registered. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{TranslationBridgeCandidate}
+
+A candidate reachable through translation.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+service\allowbreak{}Instance\allowbreak{}Id & \pref{Identifier} & Service instance identifier \texttt{\textless{}System\textgreater{}\textbar{}\allowbreak{}\textless{}service\allowbreak{}Definition\textgreater{}\textbar{}\allowbreak{}\textless{}version\textgreater{}}. \\ \hline
+interface\allowbreak{}Template\allowbreak{}Name & \pref{String} & Interface template of the candidate the bridge would translate to. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{TranslationDiscoveryRequest}
+
+Discovery of translation bridges for the requester.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+candidates & \pref{List}$<$\allowbreak{}\mref{ServiceInstanceResponse}$>$ & Candidate service instances (from service discovery). \\ \hline
+operation & \pref{String} & Operation the consumer wants to call. \\ \hline
+interface\allowbreak{}Template\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Interface templates the consumer can use. \\ \hline
+input\allowbreak{}Data\allowbreak{}Model\allowbreak{}Id & \pref{Identifier} & Data model of the operation input expected by the consumer. \\ \hline
+output\allowbreak{}Data\allowbreak{}Model\allowbreak{}Id & \pref{Identifier} & Data model of the operation output expected by the consumer. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{TranslationDiscoveryResponse}
+
+Candidates reachable through a translation bridge.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+bridge\allowbreak{}Id & \pref{Identifier} & Identifier (UUID) of the translation bridge. \\ \hline
+candidates & \pref{List}$<$\allowbreak{}\mref[Translation\allowbreak{}Bridge\allowbreak{}Candidate]{TranslationBridgeCandidate}$>$ & Store entries to create. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{TranslationNegotiationRequest}
+
+Builds the bridge to the chosen candidate.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+bridge\allowbreak{}Id & \pref{Identifier} & Identifier (UUID) of the translation bridge. \\ \hline
+target & \mref{ServiceInstanceResponse} & The chosen candidate service instance. \\ \hline
+operation & \pref{String} & QoS operation: \texttt{FILTER} or \texttt{SORT}. \\ \hline
+interface\allowbreak{}Template\allowbreak{}Name & \pref{String} & Interface template the consumer will use. \\ \hline
+input\allowbreak{}Data\allowbreak{}Model\allowbreak{}Id & \pref{Identifier} & Data model of the operation input expected by the consumer. \\ \hline
+output\allowbreak{}Data\allowbreak{}Model\allowbreak{}Id & \pref{Identifier} & Data model of the operation output expected by the consumer. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{TranslationNegotiationResponse}
+
+The established bridge.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+bridge\allowbreak{}Id & \pref{Identifier} & Identifier (UUID) of the translation bridge. \\ \hline
+bridge\allowbreak{}Interface & \mref[Service\allowbreak{}Instance\allowbreak{}Interface\allowbreak{}Response]{ServiceInstanceInterfaceResponse} & Interface of the bridge the consumer calls instead of the provider. \\ \hline
+token\allowbreak{}Expires\allowbreak{}At & \pref{DateTime} & Expiry of the bridge token. \\ \hline
+token\allowbreak{}Usage\allowbreak{}Limit & \pref{Number} & Number of uses allowed with the bridge token. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Map} & A set of key-value pairs. \\ \hline
+\pdef{Metadata} & A set of key-value pairs with arbitrary, possibly nested values. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{Object} & Any structured value. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\pdef{Version} & Specifies a version, semantic versioning \texttt{major.minor.patch}. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

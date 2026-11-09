@@ -1,0 +1,18 @@
+{
+  "name": "arrowhead-local-cloud-monitor-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Arrowhead v5 local-cloud monitoring and management adapter",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test",
+    "check": "node --check src/server.js"
+  },
+  "dependencies": {
+    "amqplib": "0.10.4"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

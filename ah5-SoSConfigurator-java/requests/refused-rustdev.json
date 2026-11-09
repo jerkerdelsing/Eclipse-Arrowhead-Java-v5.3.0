@@ -1,0 +1,10 @@
+{
+  "name": "RefusedSoS",
+  "clouds": ["GoCloud", "RustDev"],
+  "exchanges": [
+    {"consumerCloud": "RustDev", "consumer": "RandomDataProducer", "providerCloud": "GoCloud",
+     "provider": "DataManager", "service": "dataHistorian", "operations": ["put-data"]},
+    {"consumerCloud": "GoCloud", "consumer": "Sysop", "providerCloud": "RustDev",
+     "provider": "ServiceRegistry", "service": "serviceRegistryManagement", "operations": ["query"]}
+  ]
+}

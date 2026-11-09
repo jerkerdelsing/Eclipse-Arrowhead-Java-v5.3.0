@@ -1,0 +1,77 @@
+blacklist-1  | 
+blacklist-1  |   .   ____          _            __ _ _
+blacklist-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+blacklist-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+blacklist-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+blacklist-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+blacklist-1  |  =========|_|==============|___/=/_/_/_/
+blacklist-1  | 
+blacklist-1  |  :: Spring Boot ::                (v3.4.9)
+blacklist-1  | 
+blacklist-1  | 2026-10-25 10:52:19.680  INFO e324233843a2 --- [           main] e.a.b.BlacklistMain                      : Starting BlacklistMain v5.2.2 using Java 21.0.12.1 with PID 1 (/app/app.jar started by ? in /app)
+blacklist-1  | 2026-10-25 10:52:19.687  INFO e324233843a2 --- [           main] e.a.b.BlacklistMain                      : No active profile set, falling back to 1 default profile: "default"
+blacklist-1  | 2026-10-25 10:52:20.989  INFO e324233843a2 --- [           main] .c.s.CrlRevocationConfig$$SpringCGLIB$$0 : Client certificates are checked against the CRL [/crl/ca.crl]
+blacklist-1  | 2026-10-25 10:52:21.067  INFO e324233843a2 --- [           main] e.a.b.a.h.f.InternalBlacklistFilter      : InternalBlacklistFilter is active
+blacklist-1  | 2026-10-25 10:52:21.804  WARN e324233843a2 --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+blacklist-1  | 2026-10-25 10:52:23.042  INFO e324233843a2 --- [           main] e.a.c.h.f.a.OutsourcedFilter             : OutsourcedFilter is active
+blacklist-1  | 2026-10-25 10:52:23.235  INFO e324233843a2 --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+blacklist-1  | 2026-10-25 10:52:23.238  INFO e324233843a2 --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+blacklist-1  | 2026-10-25 10:52:23.348  INFO e324233843a2 --- [           main] e.a.c.s.SysMonitorPublisher              : sysMonitor publisher enabled on arrowhead TestCloud.sysmonitor.Blacklist.Blacklist
+blacklist-1  | 2026-10-25 10:52:23.364  INFO e324233843a2 --- [           main] .q.OutsourcedLoginConfig$$SpringCGLIB$$0 : Login job (to authentication server) is initialized.
+blacklist-1  | 2026-10-25 10:52:23.378  WARN e324233843a2 --- [nitor-publisher] e.a.c.s.SysMonitorPublisher              : sysMonitor publication failed: Connection refused
+blacklist-1  | 2026-10-25 10:52:23.466  WARN e324233843a2 --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+blacklist-1  | 2026-10-25 10:52:24.142  INFO e324233843a2 --- [           main] e.a.b.i.BlacklistApplicationInitListener : System name: Blacklist
+blacklist-1  | 2026-10-25 10:52:24.143  INFO e324233843a2 --- [           main] e.a.b.i.BlacklistApplicationInitListener : System port: 8464
+blacklist-1  | 2026-10-25 10:52:24.143  INFO e324233843a2 --- [           main] e.a.b.i.BlacklistApplicationInitListener : SSL mode: ENABLED
+blacklist-1  | 2026-10-25 10:52:24.143  INFO e324233843a2 --- [           main] e.a.b.i.BlacklistApplicationInitListener : Authentication policy: OUTSOURCED
+blacklist-1  | 2026-10-25 10:52:24.516  INFO e324233843a2 --- [eduler_Worker-1] e.a.c.q.OutsourcedLoginJob               : (Re-)Login is successful
+blacklist-1  | 2026-10-25 10:52:27.177  INFO e324233843a2 --- [           main] e.a.b.i.BlacklistApplicationInitListener : ServiceRegistry is accessible...
+blacklist-1  | 2026-10-25 10:52:27.377  INFO e324233843a2 --- [           main] e.a.b.i.BlacklistApplicationInitListener : System Blacklist published 4 service(s)
+blacklist-1  | 2026-10-25 10:52:27.529  INFO e324233843a2 --- [           main] e.a.b.BlacklistMain                      : Started BlacklistMain in 8.086 seconds (process running for 8.863)
+blacklist-db-1  | 2026-10-25 10:52:07+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+blacklist-db-1  | 2026-10-25 10:52:07+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+blacklist-db-1  | 2026-10-25 10:52:07+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+blacklist-db-1  | 2026-10-25 10:52:08+00:00 [Note] [Entrypoint]: Initializing database files
+blacklist-db-1  | 2026-10-25T10:52:08.090810Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+blacklist-db-1  | 2026-10-25T10:52:08.091731Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.4.11) initializing of server in progress as process 82
+blacklist-db-1  | 2026-10-25T10:52:08.099813Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+blacklist-db-1  | 2026-10-25T10:52:08.181592Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+blacklist-db-1  | 2026-10-25T10:52:08.506163Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+blacklist-db-1  | 2026-10-25T10:52:09.959670Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+blacklist-db-1  | 2026-10-25 10:52:09+00:00 [Note] [Entrypoint]: Database files initialized
+blacklist-db-1  | 2026-10-25 10:52:09+00:00 [Note] [Entrypoint]: Starting temporary server
+blacklist-db-1  | 2026-10-25T10:52:10.003268Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+blacklist-db-1  | 2026-10-25T10:52:10.156276Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 127
+blacklist-db-1  | 2026-10-25T10:52:10.164192Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+blacklist-db-1  | 2026-10-25T10:52:10.244811Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+blacklist-db-1  | 2026-10-25T10:52:10.398892Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+blacklist-db-1  | 2026-10-25T10:52:10.398964Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+blacklist-db-1  | 2026-10-25T10:52:10.402321Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+blacklist-db-1  | 2026-10-25T10:52:10.415003Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+blacklist-db-1  | 2026-10-25T10:52:10.415072Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+blacklist-db-1  | 2026-10-25 10:52:10+00:00 [Note] [Entrypoint]: Temporary server started.
+blacklist-db-1  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+blacklist-db-1  | 2026-10-25 10:52:11+00:00 [Note] [Entrypoint]: Creating database ah_blacklist
+blacklist-db-1  | 2026-10-25 10:52:11+00:00 [Note] [Entrypoint]: Creating user blacklist
+blacklist-db-1  | 2026-10-25 10:52:11+00:00 [Note] [Entrypoint]: Giving user blacklist access to schema ah_blacklist
+blacklist-db-1  | 
+blacklist-db-1  | 2026-10-25 10:52:11+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/10-schema.sql
+blacklist-db-1  | 
+blacklist-db-1  | 
+blacklist-db-1  | 2026-10-25 10:52:11+00:00 [Note] [Entrypoint]: Stopping temporary server
+blacklist-db-1  | 2026-10-25T10:52:11.395479Z 14 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.4.11).
+blacklist-db-1  | 2026-10-25T10:52:12.826846Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.4.11)  MySQL Community Server - GPL.
+blacklist-db-1  | 2026-10-25T10:52:12.826859Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+blacklist-db-1  | 2026-10-25 10:52:13+00:00 [Note] [Entrypoint]: Temporary server stopped
+blacklist-db-1  | 
+blacklist-db-1  | 2026-10-25 10:52:13+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+blacklist-db-1  | 
+blacklist-db-1  | 2026-10-25T10:52:13.406653Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+blacklist-db-1  | 2026-10-25T10:52:13.567948Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 1
+blacklist-db-1  | 2026-10-25T10:52:13.571294Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+blacklist-db-1  | 2026-10-25T10:52:13.693758Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+blacklist-db-1  | 2026-10-25T10:52:13.850818Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+blacklist-db-1  | 2026-10-25T10:52:13.851215Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+blacklist-db-1  | 2026-10-25T10:52:13.852974Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+blacklist-db-1  | 2026-10-25T10:52:13.876994Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+blacklist-db-1  | 2026-10-25T10:52:13.877055Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.

@@ -1,0 +1,12 @@
+2026-10-23 09:08:40.016  INFO df275ad60b38 --- [           main] e.a.p.s.PlantSynchronizer                : DSO plant rules replaced: 0 managed consumer/service scopes
+2026-10-23 09:08:40.070  WARN df275ad60b38 --- [           main] e.a.p.s.PlantSynchronizer                : Plant synchronization failed: DSO unavailable
+2026-10-23 09:08:47.830  INFO 2b3da11eb286 --- [           main] e.a.p.s.PlantSynchronizer                : DSO plant rules replaced: 0 managed consumer/service scopes
+2026-10-23 09:08:47.882  WARN 2b3da11eb286 --- [           main] e.a.p.s.PlantSynchronizer                : Plant synchronization failed: DSO unavailable
+2026-10-23 09:18:40.919  INFO dd025116968a --- [           main] e.a.p.s.PlantSynchronizer                : DSO plant rules replaced: 0 managed consumer/service scopes
+2026-10-23 09:18:41.070  WARN dd025116968a --- [           main] e.a.p.s.PlantSynchronizer                : Plant synchronization failed: DSO unavailable
+2026-10-23 09:51:38.637  INFO 5a2db8e2424c --- [           main] e.a.p.s.PlantSynchronizer                : DSO plant rules replaced: 0 managed consumer/service scopes
+2026-10-23 09:51:38.683  WARN 5a2db8e2424c --- [           main] e.a.p.s.PlantSynchronizer                : Plant synchronization failed: DSO unavailable
+2026-10-25 10:37:06.668  INFO 5c8c2b87e91c --- [           main] e.a.p.s.PlantSynchronizer                : DSO plant rules replaced: 0 managed consumer/service scopes
+2026-10-25 10:37:06.718  WARN 5c8c2b87e91c --- [           main] e.a.p.s.PlantSynchronizer                : Plant synchronization failed: DSO unavailable
+2026-10-25 10:53:07.248  INFO UNKNOWN_LOCALHOST --- [           main] e.a.p.s.PlantSynchronizer                : DSO plant rules replaced: 0 managed consumer/service scopes
+2026-10-25 10:53:07.279  WARN UNKNOWN_LOCALHOST --- [           main] e.a.p.s.PlantSynchronizer                : Plant synchronization failed: DSO unavailable

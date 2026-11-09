@@ -1,0 +1,13 @@
+/target/
+/tmp/
+*.log
+documentation/**/*.aux
+documentation/**/*.out
+documentation/**/*.toc
+documentation/**/*.fdb_latexmk
+documentation/**/*.fls
+
+.env
+security/*
+!security/README.md
+vendor/**/target/

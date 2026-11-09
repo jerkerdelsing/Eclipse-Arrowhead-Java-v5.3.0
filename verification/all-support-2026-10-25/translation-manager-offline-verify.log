@@ -1,0 +1,237 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------< eu.arrowhead:arrowhead-translation-manager >-------------
+[INFO] Building Arrowhead TranslationManager standalone 5.2.2
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ arrowhead-translation-manager ---
+[INFO] Deleting /source/target
+[INFO] 
+[INFO] --- resources:3.3.1:copy-resources (copy-resources) @ arrowhead-translation-manager ---
+[INFO] Copying 2 resources from src/main/resources to target
+[INFO] 
+[INFO] --- build-helper:3.6.0:add-source (private-library-source) @ arrowhead-translation-manager ---
+[INFO] Source directory: /source/vendor/common-utils/src/main/java added.
+[INFO] Source directory: /source/vendor/data-transfer-objects/src/main/java added.
+[INFO] 
+[INFO] --- build-helper:3.6.0:add-resource (private-library-source) @ arrowhead-translation-manager ---
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ arrowhead-translation-manager ---
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] Copying 2 resources from vendor/common-utils/src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ arrowhead-translation-manager ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 379 source files with javac [debug parameters release 21] to target/classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ arrowhead-translation-manager ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ arrowhead-translation-manager ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 16 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ arrowhead-translation-manager ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running eu.arrowhead.translationmanager.jpa.service.BridgeDbServiceTest
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-10-25T10:52:26.391973595Z main ERROR Could not determine local host name java.net.UnknownHostException: 9268ce51e14c: 9268ce51e14c: Temporary failure in name resolution
+	at java.base/java.net.InetAddress.getLocalHost(InetAddress.java:1936)
+	at org.apache.logging.log4j.core.util.NetUtils.getHostname(NetUtils.java:71)
+	at org.apache.logging.log4j.core.util.NetUtils.getLocalHostname(NetUtils.java:56)
+	at org.apache.logging.log4j.core.LoggerContext.lambda$setConfiguration$2(LoggerContext.java:667)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)
+	at org.apache.logging.log4j.core.LoggerContext.setConfiguration(LoggerContext.java:667)
+	at org.apache.logging.log4j.core.LoggerContext.reconfigure(LoggerContext.java:762)
+	at org.apache.logging.log4j.core.LoggerContext.reconfigure(LoggerContext.java:784)
+	at org.apache.logging.log4j.core.LoggerContext.start(LoggerContext.java:300)
+	at org.apache.logging.log4j.core.impl.Log4jContextFactory.getContext(Log4jContextFactory.java:153)
+	at org.apache.logging.log4j.core.impl.Log4jContextFactory.getContext(Log4jContextFactory.java:46)
+	at org.apache.logging.log4j.LogManager.getContext(LogManager.java:138)
+	at org.apache.logging.log4j.LogManager.getLogger(LogManager.java:555)
+	at eu.arrowhead.translationmanager.jpa.service.BridgeDbService.<init>(BridgeDbService.java:59)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:733)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor$Dispatcher$ByteBuddy$cxQhbpVF.invokeWithArguments(Unknown Source)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.lambda$newInstance$0(InstrumentationMemberAccessor.java:199)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:188)
+	at org.mockito.internal.util.reflection.InstrumentationMemberAccessor.newInstance(InstrumentationMemberAccessor.java:161)
+	at org.mockito.internal.util.reflection.ModuleMemberAccessor.newInstance(ModuleMemberAccessor.java:42)
+	at org.mockito.internal.util.reflection.FieldInitializer$NoArgConstructorInstantiator.instantiate(FieldInitializer.java:203)
+	at org.mockito.internal.util.reflection.FieldInitializer.acquireFieldInstance(FieldInitializer.java:146)
+	at org.mockito.internal.util.reflection.FieldInitializer.initialize(FieldInitializer.java:91)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.initializeInjectMocksField(PropertyAndSetterInjection.java:93)
+	at org.mockito.internal.configuration.injection.PropertyAndSetterInjection.processInjection(PropertyAndSetterInjection.java:73)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:68)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.relayProcessToNextStrategy(MockInjectionStrategy.java:91)
+	at org.mockito.internal.configuration.injection.MockInjectionStrategy.process(MockInjectionStrategy.java:71)
+	at org.mockito.internal.configuration.injection.MockInjection$OngoingMockInjection.apply(MockInjection.java:88)
+	at org.mockito.internal.configuration.DefaultInjectionEngine.injectMocksOnFields(DefaultInjectionEngine.java:26)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.injectCloseableMocks(InjectingAnnotationEngine.java:107)
+	at org.mockito.internal.configuration.InjectingAnnotationEngine.process(InjectingAnnotationEngine.java:48)
+	at org.mockito.MockitoAnnotations.openMocks(MockitoAnnotations.java:81)
+	at org.mockito.internal.framework.DefaultMockitoSession.<init>(DefaultMockitoSession.java:43)
+	at org.mockito.internal.session.DefaultMockitoSessionBuilder.startMocking(DefaultMockitoSessionBuilder.java:83)
+	at org.mockito.junit.jupiter.MockitoExtension.beforeEach(MockitoExtension.java:160)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeBeforeEachCallbacks$3(TestMethodTestDescriptor.java:166)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeBeforeMethodsOrCallbacksUntilExceptionOccurs$7(TestMethodTestDescriptor.java:202)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeBeforeMethodsOrCallbacksUntilExceptionOccurs(TestMethodTestDescriptor.java:202)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeBeforeEachCallbacks(TestMethodTestDescriptor.java:165)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:132)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:156)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:194)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:150)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:124)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+Caused by: java.net.UnknownHostException: 9268ce51e14c: Temporary failure in name resolution
+	at java.base/java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+	at java.base/java.net.Inet6AddressImpl.lookupAllHostAddr(Inet6AddressImpl.java:52)
+	at java.base/java.net.InetAddress$PlatformResolver.lookupByName(InetAddress.java:1211)
+	at java.base/java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1828)
+	at java.base/java.net.InetAddress$NameServiceAddresses.get(InetAddress.java:1139)
+	at java.base/java.net.InetAddress.getAllByName0(InetAddress.java:1818)
+	at java.base/java.net.InetAddress.getLocalHost(InetAddress.java:1931)
+	... 92 more
+
+2026-10-25 10:52:26.890 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.164 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.170 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.212 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.273 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-25 10:52:27.274 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.292 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.325 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.341 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.360 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.370 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+[INFO] Tests run: 77, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.027 s -- in eu.arrowhead.translationmanager.jpa.service.BridgeDbServiceTest
+[INFO] Running eu.arrowhead.translationmanager.quartz.CleanerJobTest
+2026-10-25 10:52:27.526 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.150 s -- in eu.arrowhead.translationmanager.quartz.CleanerJobTest
+[INFO] Running eu.arrowhead.translationmanager.service.dto.NormalizedTranslationQueryRequestDTOTest
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 s -- in eu.arrowhead.translationmanager.service.dto.NormalizedTranslationQueryRequestDTOTest
+[INFO] Running eu.arrowhead.translationmanager.service.dto.DTOConverterTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.064 s -- in eu.arrowhead.translationmanager.service.dto.DTOConverterTest
+[INFO] Running eu.arrowhead.translationmanager.service.TranslationBridgeManagementServiceTest
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.213 s -- in eu.arrowhead.translationmanager.service.TranslationBridgeManagementServiceTest
+[INFO] Running eu.arrowhead.translationmanager.service.TranslationReportServiceTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.038 s -- in eu.arrowhead.translationmanager.service.TranslationReportServiceTest
+[INFO] Running eu.arrowhead.translationmanager.service.matchmaking.DefaultDataModelTranslatorMatchmakerTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.083 s -- in eu.arrowhead.translationmanager.service.matchmaking.DefaultDataModelTranslatorMatchmakerTest
+[INFO] Running eu.arrowhead.translationmanager.service.matchmaking.DefaultInterfaceTranslatorMatchmakerTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 s -- in eu.arrowhead.translationmanager.service.matchmaking.DefaultInterfaceTranslatorMatchmakerTest
+[INFO] Running eu.arrowhead.translationmanager.service.TranslationBridgeServiceTest
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.058 s -- in eu.arrowhead.translationmanager.service.TranslationBridgeServiceTest
+[INFO] Running eu.arrowhead.translationmanager.service.engine.CoreSystemsDriverTest
+2026-10-25 10:52:28.237 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-25 10:52:28.237 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-25 10:52:28.292 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-25 10:52:28.292 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+[INFO] Tests run: 56, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.237 s -- in eu.arrowhead.translationmanager.service.engine.CoreSystemsDriverTest
+[INFO] Running eu.arrowhead.translationmanager.service.engine.TranslatorBridgeEngineTest
+2026-10-25 10:52:28.698  WARN UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+[INFO] Tests run: 60, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.489 s -- in eu.arrowhead.translationmanager.service.engine.TranslatorBridgeEngineTest
+[INFO] Running eu.arrowhead.translationmanager.service.engine.InterfaceTranslatorDriverTest
+2026-10-25 10:52:28.949  WARN UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-25 10:52:28.960  WARN UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-25 10:52:28.976  WARN UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+[INFO] Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.194 s -- in eu.arrowhead.translationmanager.service.engine.InterfaceTranslatorDriverTest
+[INFO] Running eu.arrowhead.translationmanager.service.engine.DataModelTranslatorFactoryDriverTest
+2026-10-25 10:52:29.105 ERROR UNKNOWN_LOCALHOST --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-25 10:52:29.112  WARN UNKNOWN_LOCALHOST --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-25 10:52:29.156  WARN UNKNOWN_LOCALHOST --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+[INFO] Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.172 s -- in eu.arrowhead.translationmanager.service.engine.DataModelTranslatorFactoryDriverTest
+[INFO] Running eu.arrowhead.translationmanager.service.validation.TranslationReportValidationTest
+[INFO] Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.043 s -- in eu.arrowhead.translationmanager.service.validation.TranslationReportValidationTest
+[INFO] Running eu.arrowhead.translationmanager.service.validation.TranslationBridgeValidationTest
+[INFO] Tests run: 57, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.258 s -- in eu.arrowhead.translationmanager.service.validation.TranslationBridgeValidationTest
+[INFO] Running eu.arrowhead.translationmanager.service.validation.TranslationBridgeMgmtValidationTest
+[INFO] Tests run: 95, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.244 s -- in eu.arrowhead.translationmanager.service.validation.TranslationBridgeMgmtValidationTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 490, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ arrowhead-translation-manager ---
+[INFO] Building jar: /source/target/arrowhead-translation-manager-5.2.2.jar
+[INFO] 
+[INFO] --- spring-boot:3.4.9:repackage (repackage) @ arrowhead-translation-manager ---
+[INFO] Replacing main artifact /source/target/arrowhead-translation-manager-5.2.2.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /source/target/arrowhead-translation-manager-5.2.2.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  21.192 s
+[INFO] Finished at: 2026-10-25T10:52:33Z
+[INFO] ------------------------------------------------------------------------

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: eu.arrowhead.graphdbmanager.security.GraphDBManagerAuthorizationTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.950 s -- in eu.arrowhead.graphdbmanager.security.GraphDBManagerAuthorizationTest

@@ -1,0 +1,152 @@
+2026-10-12 04:20:32.315  INFO 6051b993a75f --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-12 04:20:32.338  INFO 6051b993a75f --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-12 04:20:32.339  INFO 6051b993a75f --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-12 04:20:32.342  INFO 6051b993a75f --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-12 04:20:32.346  INFO 6051b993a75f --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-12 05:38:49.690  INFO b3a1e3b1dc9e --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-12 05:38:49.713  INFO b3a1e3b1dc9e --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-12 05:38:49.713  INFO b3a1e3b1dc9e --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-12 05:38:49.716  INFO b3a1e3b1dc9e --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-12 05:38:49.719  INFO b3a1e3b1dc9e --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-12 07:09:24.653  INFO 5c84d964f5d7 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-12 07:09:24.694  INFO 5c84d964f5d7 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-12 07:09:24.695  INFO 5c84d964f5d7 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-12 07:09:24.701  INFO 5c84d964f5d7 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-12 07:09:24.711  INFO 5c84d964f5d7 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-12 10:07:25.253  INFO 6c78a4c882be --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-12 10:07:25.280  INFO 6c78a4c882be --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-12 10:07:25.281  INFO 6c78a4c882be --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-12 10:07:25.285  INFO 6c78a4c882be --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-12 10:07:25.289  INFO 6c78a4c882be --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-12 12:34:27.062 ERROR 28244a3cd2da --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-12 12:34:27.084  INFO 28244a3cd2da --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-12 12:34:27.113  INFO 28244a3cd2da --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-12 12:34:27.115  INFO 28244a3cd2da --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-12 12:34:27.119  INFO 28244a3cd2da --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-12 12:34:27.124  INFO 28244a3cd2da --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-12 14:39:36.170 ERROR 10233b2c8132 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-12 14:39:36.195  INFO 10233b2c8132 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-12 14:39:36.232  INFO 10233b2c8132 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-12 14:39:36.233  INFO 10233b2c8132 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-12 14:39:36.238  INFO 10233b2c8132 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-12 14:39:36.243  INFO 10233b2c8132 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-12 15:45:30.260 ERROR cee5a793e5f2 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-12 15:45:30.290  INFO cee5a793e5f2 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-12 15:45:30.318  INFO cee5a793e5f2 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-12 15:45:30.318  INFO cee5a793e5f2 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-12 15:45:30.323  INFO cee5a793e5f2 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-12 15:45:30.328  INFO cee5a793e5f2 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 07:29:05.965 ERROR b0378876c811 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 07:29:05.996  INFO b0378876c811 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 07:29:06.031  INFO b0378876c811 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 07:29:06.031  INFO b0378876c811 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 07:29:06.036  INFO b0378876c811 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 07:29:06.040  INFO b0378876c811 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 07:35:41.368 ERROR 00ee07dac82e --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 07:35:41.390  INFO 00ee07dac82e --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 07:35:41.423  INFO 00ee07dac82e --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 07:35:41.424  INFO 00ee07dac82e --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 07:35:41.427  INFO 00ee07dac82e --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 07:35:41.432  INFO 00ee07dac82e --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 10:16:05.730 ERROR f794b736efcc --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 10:16:05.754  INFO f794b736efcc --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 10:16:05.791  INFO f794b736efcc --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 10:16:05.793  INFO f794b736efcc --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 10:16:05.796  INFO f794b736efcc --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 10:16:05.799  INFO f794b736efcc --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 10:35:46.799 ERROR b70214e12eb1 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 10:35:46.823  INFO b70214e12eb1 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 10:35:46.870  INFO b70214e12eb1 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 10:35:46.871  INFO b70214e12eb1 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 10:35:46.876  INFO b70214e12eb1 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 10:35:46.882  INFO b70214e12eb1 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 10:58:00.609 ERROR e92f1766b3e2 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 10:58:00.633  INFO e92f1766b3e2 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 10:58:00.674  INFO e92f1766b3e2 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 10:58:00.675  INFO e92f1766b3e2 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 10:58:00.682  INFO e92f1766b3e2 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 10:58:00.686  INFO e92f1766b3e2 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 12:32:15.263 ERROR 636aae1377e9 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 12:32:15.291  INFO 636aae1377e9 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 12:32:15.323  INFO 636aae1377e9 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 12:32:15.324  INFO 636aae1377e9 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 12:32:15.327  INFO 636aae1377e9 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 12:32:15.333  INFO 636aae1377e9 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 12:36:20.076 ERROR 1f40a1897bf7 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 12:36:20.102  INFO 1f40a1897bf7 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 12:36:20.132  INFO 1f40a1897bf7 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 12:36:20.132  INFO 1f40a1897bf7 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 12:36:20.137  INFO 1f40a1897bf7 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 12:36:20.143  INFO 1f40a1897bf7 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 12:42:43.187 ERROR e6bf4a61da5c --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 12:42:43.215  INFO e6bf4a61da5c --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 12:42:43.248  INFO e6bf4a61da5c --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 12:42:43.250  INFO e6bf4a61da5c --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 12:42:43.254  INFO e6bf4a61da5c --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 12:42:43.259  INFO e6bf4a61da5c --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 13:12:38.102 ERROR 3ac3ff90f34b --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 13:12:38.124  INFO 3ac3ff90f34b --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 13:12:38.148  INFO 3ac3ff90f34b --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 13:12:38.149  INFO 3ac3ff90f34b --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 13:12:38.153  INFO 3ac3ff90f34b --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 13:12:38.156  INFO 3ac3ff90f34b --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 15:46:26.499 ERROR bf1207f980a8 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 15:46:26.523  INFO bf1207f980a8 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 15:46:26.564  INFO bf1207f980a8 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 15:46:26.566  INFO bf1207f980a8 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 15:46:26.570  INFO bf1207f980a8 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 15:46:26.576  INFO bf1207f980a8 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-13 19:48:25.556 ERROR df49711a03c6 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-13 19:48:25.580  INFO df49711a03c6 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-13 19:48:25.616  INFO df49711a03c6 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-13 19:48:25.617  INFO df49711a03c6 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-13 19:48:25.622  INFO df49711a03c6 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-13 19:48:25.626  INFO df49711a03c6 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-17 07:42:45.297 ERROR 023b66e9a311 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-17 07:42:45.323  INFO 023b66e9a311 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-17 07:42:45.352  INFO 023b66e9a311 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-17 07:42:45.353  INFO 023b66e9a311 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-17 07:42:45.358  INFO 023b66e9a311 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-17 07:42:45.362  INFO 023b66e9a311 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-17 17:22:37.562 ERROR 182723545b1a --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-17 17:22:37.592  INFO 182723545b1a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-17 17:22:37.633  INFO 182723545b1a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-17 17:22:37.634  INFO 182723545b1a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-17 17:22:37.640  INFO 182723545b1a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-17 17:22:37.645  INFO 182723545b1a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-19 01:58:14.881 ERROR 97f5199a3d6a --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-19 01:58:14.913  INFO 97f5199a3d6a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-19 01:58:14.949  INFO 97f5199a3d6a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-19 01:58:14.950  INFO 97f5199a3d6a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-19 01:58:14.954  INFO 97f5199a3d6a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-19 01:58:14.958  INFO 97f5199a3d6a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-19 05:53:10.107 ERROR d847a9fdacec --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-19 05:53:10.148  INFO d847a9fdacec --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-19 05:53:10.178  INFO d847a9fdacec --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-19 05:53:10.182  INFO d847a9fdacec --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-19 05:53:10.188  INFO d847a9fdacec --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-19 05:53:10.193  INFO d847a9fdacec --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-23 08:35:25.145 ERROR 3bb02efaf023 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-23 08:35:25.169  INFO 3bb02efaf023 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-23 08:35:25.203  INFO 3bb02efaf023 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-23 08:35:25.204  INFO 3bb02efaf023 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-23 08:35:25.208  INFO 3bb02efaf023 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-23 08:35:25.214  INFO 3bb02efaf023 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-23 09:08:17.471 ERROR 80e1e59f40e5 --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-23 09:08:17.505  INFO 80e1e59f40e5 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-23 09:08:17.544  INFO 80e1e59f40e5 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-23 09:08:17.547  INFO 80e1e59f40e5 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-23 09:08:17.554  INFO 80e1e59f40e5 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-23 09:08:17.566  INFO 80e1e59f40e5 --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-25 10:36:53.312 ERROR 5dc48b7b0f5a --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-25 10:36:53.355  INFO 5dc48b7b0f5a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-25 10:36:53.388  INFO 5dc48b7b0f5a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-25 10:36:53.388  INFO 5dc48b7b0f5a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-25 10:36:53.394  INFO 5dc48b7b0f5a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-25 10:36:53.405  INFO 5dc48b7b0f5a --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms
+2026-10-25 10:52:46.618 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.s.TimeManagerAuthorizationService  : Authorization check failed for SysMonitor|time|get-time: down
+2026-10-25 10:52:46.686  INFO UNKNOWN_LOCALHOST --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 42 ms to ntp.example is within 5000 ms
+2026-10-25 10:52:46.749  INFO UNKNOWN_LOCALHOST --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 4999 ms to a is within 5000 ms
+2026-10-25 10:52:46.750  INFO UNKNOWN_LOCALHOST --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset -4999 ms to a is within 5000 ms
+2026-10-25 10:52:46.757  INFO UNKNOWN_LOCALHOST --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 10 ms to a is within 5000 ms
+2026-10-25 10:52:46.783  INFO UNKNOWN_LOCALHOST --- [           main] e.a.t.s.TimeTrustService                 : Time trust changed to true: Clock offset 12 ms to b is within 5000 ms

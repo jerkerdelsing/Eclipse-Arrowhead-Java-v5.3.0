@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09110f">
+  <title>Arrowhead LocalCloudManager</title>
+  <script>
+    // This dashboard requires the nginx API proxy. Recover gracefully when the
+    // source file is opened directly from Finder, an editor, or a file link.
+    if (window.location.protocol === 'file:') {
+      window.location.replace('http://127.0.0.1:8080/');
+    }
+  </script>
+  <link rel="stylesheet" href="/styles.css?v=service-registry-management-1">
+</head>
+<body>
+  <div class="shell">
+    <aside class="rail" aria-label="Primary navigation">
+      <div class="brand-mark" aria-label="Arrowhead">A5</div>
+      <nav>
+        <button class="rail-button" data-view="overview" aria-label="Overview"><span>OV</span></button>
+        <button class="rail-button" data-view="registry" aria-label="ServiceRegistry management"><span>SR</span></button>
+        <button class="rail-button" data-view="systems" aria-label="Systems"><span>SY</span></button>
+        <button class="rail-button" data-view="services" aria-label="Services"><span>SV</span></button>
+        <button class="rail-button active" data-view="orchestration" aria-label="Orchestration rules"><span>OR</span></button>
+        <button class="rail-button" data-view="data" aria-label="DataManager content"><span>DM</span></button>
+        <button class="rail-button" data-view="sysmonitor" aria-label="SysMonitor history"><span>SM</span></button>
+        <button class="rail-button" data-view="runtime" aria-label="Runtime activity"><span>RT</span></button>
+      </nav>
+      <div class="rail-version">5.2</div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Eclipse Arrowhead / Local cloud</p>
+          <h1>LocalCloudManager</h1>
+        </div>
+        <div class="top-actions">
+          <div class="connection" id="connection"><span class="status-dot"></span><span>Connecting</span></div>
+          <button class="button secondary" id="refresh-button">Refresh</button>
+        </div>
+      </header>
+
+      <section id="error-banner" class="error-banner" role="alert" hidden></section>
+
+      <section class="view" id="view-overview" aria-labelledby="overview-heading" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">Live state</p><h2 id="overview-heading">Cloud overview</h2></div>
+          <p class="updated" id="updated-at">Waiting for telemetry…</p>
+        </div>
+
+        <div class="metrics" aria-live="polite">
+          <article class="metric"><span>Runtime</span><strong id="metric-running">—</strong><small id="metric-containers">containers</small></article>
+          <article class="metric"><span>Registered systems</span><strong id="metric-systems">—</strong><small>ServiceRegistry</small></article>
+          <article class="metric"><span>Service instances</span><strong id="metric-services">—</strong><small>discoverable</small></article>
+          <article class="metric"><span>Incidents</span><strong id="metric-incidents">—</strong><small>health or registry anomalies</small></article>
+        </div>
+
+        <div class="overview-grid overview-single">
+          <article class="panel topology-panel">
+            <div class="panel-heading"><div><p class="eyebrow">Topology</p><h3>Governed systems</h3></div><span class="legend"><i></i> running</span></div>
+            <div class="topology" id="topology" aria-label="Arrowhead local cloud topology"></div>
+          </article>
+        </div>
+
+        <article class="panel messaging-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">Secured data plane</p><h3>MQTT infrastructure & orchestrations</h3></div>
+            <span class="legend"><i></i> active flow</span>
+          </div>
+          <div class="messaging-layout">
+            <div id="mqtt-infrastructure" class="infrastructure-list" aria-label="Messaging infrastructure"></div>
+            <div id="orchestration-flow" class="orchestration-flow" aria-label="SysMonitor orchestration flows"></div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading"><div><p class="eyebrow">Control plane</p><h3>Core and support systems</h3></div><button class="text-button" data-go="systems">View all systems →</button></div>
+          <div class="system-list" id="overview-systems"></div>
+        </article>
+      </section>
+
+      <section class="view" id="view-registry" aria-labelledby="registry-heading" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">ServiceRegistry management</p><h2 id="registry-heading">Deployment & registration map</h2></div>
+          <label class="search"><span>Filter</span><input id="registry-filter" type="search" placeholder="Device, system or service"></label>
+        </div>
+        <div class="registry-metrics" aria-live="polite">
+          <article class="metric"><span>Devices</span><strong id="registry-device-count">—</strong><small id="registry-device-deployed">— deployed</small></article>
+          <article class="metric"><span>Systems</span><strong id="registry-system-count">—</strong><small id="registry-system-deployed">— deployed</small></article>
+          <article class="metric"><span>Services</span><strong id="registry-service-count">—</strong><small id="registry-service-deployed">— deployed</small></article>
+          <article class="metric"><span>Runtime only</span><strong id="registry-runtime-count">—</strong><small>deployed, not registered</small></article>
+        </div>
+        <article class="panel registry-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">Relationships</p><h3>Registered devices → systems → services</h3></div>
+            <div class="registry-legend"><span><i class="registered"></i>registered</span><span><i class="deployed"></i>deployed</span></div>
+          </div>
+          <div id="registry-map" class="registry-map" aria-label="ServiceRegistry deployment and registration relationships"></div>
+        </article>
+        <article class="panel registry-runtime-panel" id="registry-runtime-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Deployment gaps</p><h3>Runtime systems missing from ServiceRegistry</h3></div></div>
+          <div id="registry-runtime-only" class="registry-runtime-only"></div>
+        </article>
+      </section>
+
+      <section class="view" id="view-systems" aria-labelledby="systems-heading" hidden>
+        <div class="section-heading"><div><p class="eyebrow">Inventory & control</p><h2 id="systems-heading">Systems</h2></div><p class="section-note">Lifecycle actions are limited to application containers.</p></div>
+        <div class="system-grid" id="systems-grid"></div>
+      </section>
+
+      <section class="view" id="view-services" aria-labelledby="services-heading" hidden>
+        <div class="section-heading"><div><p class="eyebrow">ServiceRegistry</p><h2 id="services-heading">Service instances</h2></div><label class="search"><span>Filter</span><input id="service-filter" type="search" placeholder="Provider or service name"></label></div>
+        <article class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>Service definition</th><th>Provider</th><th>Version</th><th>Protocol</th><th>Endpoint</th></tr></thead><tbody id="service-table"></tbody></table></div></article>
+      </section>
+
+      <section class="view active" id="view-orchestration" aria-labelledby="orchestration-heading">
+        <div class="section-heading">
+          <div><p class="eyebrow">Simple Store orchestration</p><h2 id="orchestration-heading">Orchestration rules</h2></div>
+          <button class="button secondary" id="reload-rules">Reload rules</button>
+        </div>
+        <article class="panel rule-map-panel">
+          <div class="panel-heading">
+            <div><p class="eyebrow">Live routing map</p><h3>Active orchestration flows</h3></div>
+            <span class="rule-map-count" id="active-rule-count">0 active</span>
+          </div>
+          <div class="rule-map" id="orchestration-map" aria-label="Active orchestration rule flows"></div>
+        </article>
+        <div class="orchestration-grid">
+          <article class="panel rule-editor">
+            <div class="panel-heading"><div><p class="eyebrow">New binding</p><h3>Connect a consumer to a producer</h3></div></div>
+            <form id="orchestration-form" class="rule-form">
+              <label class="rule-field"><span>Service producer</span><select id="rule-producer" required></select></label>
+              <div class="producer-detail" id="rule-producer-detail">Select a producer.</div>
+              <label class="rule-field"><span>Interoperable consumer</span><select id="rule-consumer" required></select></label>
+              <label class="rule-field compact"><span>Priority</span><input id="rule-priority" type="number" min="1" step="1" value="1" required></label>
+              <button class="button rule-submit" id="create-rule" type="submit">Add orchestration rule</button>
+            </form>
+          </article>
+          <article class="panel compatibility-panel">
+            <div><p class="eyebrow">Compatibility</p><h3>Registry-derived choices</h3></div>
+            <p>Consumers are offered when they share at least one registered interface template with the selected service producer.</p>
+            <p>For <code>CERT_AUTH</code>, the consumer must also publish an X.509 identity in ServiceRegistry.</p>
+            <div class="compatibility-count"><strong id="compatible-count">—</strong><span>compatible consumers</span></div>
+          </article>
+        </div>
+        <article class="panel rule-table-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Active configuration</p><h3>Stored rules</h3></div><span class="updated" id="orchestration-updated">Not loaded</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Priority</th><th>Consumer</th><th>Service definition</th><th>Producer</th><th>Created</th><th></th></tr></thead><tbody id="orchestration-rule-table"></tbody></table></div>
+        </article>
+      </section>
+
+      <section class="view" id="view-data" aria-labelledby="data-heading" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">DataManager historian</p><h2 id="data-heading">Stored measurements</h2></div>
+          <div class="data-controls"><label class="select-label">Stream<select id="data-series"></select></label><button class="button secondary" id="reload-data">Reload data</button></div>
+        </div>
+        <div class="data-metrics">
+          <article class="metric"><span>Records loaded</span><strong id="data-count">—</strong><small>historian sample</small></article>
+          <article class="metric"><span>Latest value</span><strong id="data-latest">—</strong><small id="data-unit">selected stream</small></article>
+          <article class="metric"><span>Last received</span><strong class="metric-time" id="data-last-time">—</strong><small>local time</small></article>
+        </div>
+        <article class="panel data-chart-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Time series</p><h3 id="data-chart-title">Select a numeric stream</h3></div><span class="legend"><i></i> value</span></div>
+          <div class="data-chart-wrap"><svg id="data-chart" role="img" aria-label="DataManager measurement history"></svg></div>
+        </article>
+        <article class="panel data-table-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Historian content</p><h3>Recent records</h3></div><span class="updated" id="data-updated">Not loaded</span></div>
+          <div class="table-wrap"><table><thead><tr><th>Time</th><th>Name</th><th>Value</th><th>Unit</th></tr></thead><tbody id="data-table"></tbody></table></div>
+        </article>
+      </section>
+
+      <section class="view" id="view-sysmonitor" aria-labelledby="sysmonitor-heading" hidden>
+        <div class="section-heading">
+          <div><p class="eyebrow">SysMonitor history · stored in SysMonitor</p><h2 id="sysmonitor-heading">Microsystem monitoring</h2></div>
+          <div class="data-controls"><label class="select-label">System<select id="sm-system"></select></label><button class="button secondary" id="reload-sm">Reload history</button></div>
+        </div>
+        <div class="data-metrics">
+          <article class="metric"><span>Monitored systems</span><strong id="sm-systems">—</strong><small>with stored observations</small></article>
+          <article class="metric"><span>Stored observations</span><strong id="sm-stored">—</strong><small id="sm-retention">retention</small></article>
+          <article class="metric"><span>Selected system</span><strong class="metric-time" id="sm-echo">—</strong><small id="sm-last-time">latest echo</small></article>
+        </div>
+        <article class="panel data-table-panel">
+          <div class="panel-heading"><div><p class="eyebrow">sysMonitorHistory.latest</p><h3>Latest observations per system</h3></div><span class="updated" id="sm-updated">Not loaded</span></div>
+          <div class="table-wrap"><table><thead><tr><th>System</th><th>Echo</th><th>Power</th><th>Status</th><th>Last observation</th><th>Stored</th></tr></thead><tbody id="sm-system-table"></tbody></table></div>
+        </article>
+        <article class="panel data-chart-panel">
+          <div class="panel-heading"><div><p class="eyebrow">sysMonitorHistory.query · echo</p><h3 id="sm-chart-title">Liveness</h3></div><span class="legend"><i></i> 1 alive · 0.5 degraded · 0 failed</span></div>
+          <div class="data-chart-wrap"><svg id="sm-chart" role="img" aria-label="SysMonitor liveness history"></svg></div>
+        </article>
+        <article class="panel data-table-panel">
+          <div class="panel-heading"><div><p class="eyebrow">sysMonitorHistory.query</p><h3>Recent observations</h3></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Time</th><th>Type</th><th>Value</th><th>Quality</th></tr></thead><tbody id="sm-table"></tbody></table></div>
+        </article>
+      </section>
+
+      <section class="view" id="view-runtime" aria-labelledby="runtime-heading" hidden>
+        <div class="section-heading"><div><p class="eyebrow">Last five minutes</p><h2 id="runtime-heading">Runtime activity</h2></div><span class="updated">Live container and registry telemetry</span></div>
+        <article class="panel runtime-chart-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Cloud state</p><h3>Running containers & registered systems</h3></div><div class="activity-legend"><span><i class="line-running"></i>Running</span><span><i class="line-systems"></i>Registered</span></div></div>
+          <div class="runtime-chart-wrap"><svg id="activity-chart" role="img" aria-label="Running containers and registered systems over the last five minutes"></svg></div>
+          <div class="registration" id="registration-state">Manager registration pending</div>
+        </article>
+        <div class="section-heading runtime-detail-heading"><div><p class="eyebrow">Docker runtime</p><h2>Containers & logs</h2></div><label class="select-label">Container<select id="log-service"></select></label></div>
+        <div class="runtime-grid">
+          <article class="panel"><div class="panel-heading"><h3>Project containers</h3></div><div class="container-list" id="container-list"></div></article>
+          <article class="panel terminal-panel"><div class="terminal-head"><span id="log-title">Select a container</span><button class="text-button" id="reload-logs">Reload logs</button></div><pre id="logs" aria-live="polite">Logs will appear here.</pre></article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="/app.js?v=service-registry-management-1" defer></script>
+</body>
+</html>

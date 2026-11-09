@@ -1,0 +1,552 @@
+2026-10-11 09:20:17.396 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-11 09:20:17.513 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-11 09:20:17.516 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-11 09:20:17.528 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-11 09:20:17.560 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-11 09:20:17.561 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-11 09:20:17.569 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-11 09:20:17.589 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-11 09:20:17.598 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-11 09:20:17.608 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-11 09:20:17.610 ERROR 3d2d4407df26 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-11 09:20:17.684 ERROR 3d2d4407df26 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-11 09:20:18.081 ERROR 3d2d4407df26 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-11 09:20:18.082 ERROR 3d2d4407df26 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-11 09:20:18.128 ERROR 3d2d4407df26 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-11 09:20:18.128 ERROR 3d2d4407df26 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-11 09:20:18.330  WARN 3d2d4407df26 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-11 09:20:18.408  WARN 3d2d4407df26 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-11 09:20:18.414  WARN 3d2d4407df26 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-11 09:20:18.424  WARN 3d2d4407df26 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-11 09:20:18.482 ERROR 3d2d4407df26 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-11 09:20:18.484  WARN 3d2d4407df26 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-11 09:20:18.494  WARN 3d2d4407df26 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-12 07:09:06.695 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 07:09:06.832 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 07:09:06.835 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 07:09:06.850 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 07:09:06.887 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-12 07:09:06.887 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 07:09:06.897 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 07:09:06.916 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 07:09:06.926 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 07:09:06.938 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 07:09:06.941 ERROR 34b6dd28eb7a --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 07:09:07.034 ERROR 34b6dd28eb7a --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-12 07:09:07.498 ERROR 34b6dd28eb7a --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-12 07:09:07.499 ERROR 34b6dd28eb7a --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-12 07:09:07.533 ERROR 34b6dd28eb7a --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-12 07:09:07.533 ERROR 34b6dd28eb7a --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-12 07:09:07.747  WARN 34b6dd28eb7a --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-12 07:09:07.835  WARN 34b6dd28eb7a --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-12 07:09:07.841  WARN 34b6dd28eb7a --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-12 07:09:07.850  WARN 34b6dd28eb7a --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-12 07:09:07.904 ERROR 34b6dd28eb7a --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-12 07:09:07.906  WARN 34b6dd28eb7a --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-12 07:09:07.919  WARN 34b6dd28eb7a --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-12 10:07:07.701 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 10:07:07.857 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 10:07:07.861 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 10:07:07.876 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 10:07:07.911 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-12 10:07:07.912 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 10:07:07.921 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 10:07:07.937 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 10:07:07.948 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 10:07:07.959 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 10:07:07.962 ERROR 19b14b6b0965 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 10:07:08.077 ERROR 19b14b6b0965 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-12 10:07:08.544 ERROR 19b14b6b0965 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-12 10:07:08.545 ERROR 19b14b6b0965 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-12 10:07:08.580 ERROR 19b14b6b0965 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-12 10:07:08.580 ERROR 19b14b6b0965 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-12 10:07:08.789  WARN 19b14b6b0965 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-12 10:07:08.863  WARN 19b14b6b0965 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-12 10:07:08.873  WARN 19b14b6b0965 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-12 10:07:08.881  WARN 19b14b6b0965 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-12 10:07:08.934 ERROR 19b14b6b0965 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-12 10:07:08.936  WARN 19b14b6b0965 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-12 10:07:08.946  WARN 19b14b6b0965 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-12 14:39:18.454 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 14:39:18.588 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 14:39:18.593 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 14:39:18.612 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 14:39:18.669 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-12 14:39:18.669 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 14:39:18.678 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 14:39:18.695 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 14:39:18.705 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 14:39:18.715 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 14:39:18.717 ERROR 5057efabaecf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 14:39:18.801 ERROR 5057efabaecf --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-12 14:39:19.284 ERROR 5057efabaecf --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-12 14:39:19.285 ERROR 5057efabaecf --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-12 14:39:19.326 ERROR 5057efabaecf --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-12 14:39:19.328 ERROR 5057efabaecf --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-12 14:39:19.596  WARN 5057efabaecf --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-12 14:39:19.686  WARN 5057efabaecf --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-12 14:39:19.696  WARN 5057efabaecf --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-12 14:39:19.708  WARN 5057efabaecf --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-12 14:39:19.767 ERROR 5057efabaecf --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-12 14:39:19.770  WARN 5057efabaecf --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-12 14:39:19.781  WARN 5057efabaecf --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-12 15:45:10.581 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 15:45:10.724 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 15:45:10.728 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 15:45:10.743 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 15:45:10.783 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-12 15:45:10.783 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 15:45:10.794 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 15:45:10.817 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 15:45:10.829 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 15:45:10.840 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 15:45:10.843 ERROR 9fccffdd7611 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-12 15:45:11.025 ERROR 9fccffdd7611 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-12 15:45:11.593 ERROR 9fccffdd7611 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-12 15:45:11.594 ERROR 9fccffdd7611 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-12 15:45:11.627 ERROR 9fccffdd7611 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-12 15:45:11.627 ERROR 9fccffdd7611 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-12 15:45:11.870  WARN 9fccffdd7611 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-12 15:45:11.964  WARN 9fccffdd7611 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-12 15:45:11.972  WARN 9fccffdd7611 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-12 15:45:11.984  WARN 9fccffdd7611 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-12 15:45:12.054 ERROR 9fccffdd7611 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-12 15:45:12.056  WARN 9fccffdd7611 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-12 15:45:12.068  WARN 9fccffdd7611 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 07:28:47.452 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:28:47.590 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:28:47.593 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:28:47.609 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:28:47.648 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 07:28:47.649 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:28:47.660 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:28:47.677 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:28:47.688 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:28:47.703 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:28:47.707 ERROR bba0e884d26f --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:28:47.797 ERROR bba0e884d26f --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 07:28:48.283 ERROR bba0e884d26f --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 07:28:48.283 ERROR bba0e884d26f --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 07:28:48.314 ERROR bba0e884d26f --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 07:28:48.315 ERROR bba0e884d26f --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 07:28:48.526  WARN bba0e884d26f --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 07:28:48.608  WARN bba0e884d26f --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 07:28:48.613  WARN bba0e884d26f --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 07:28:48.622  WARN bba0e884d26f --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 07:28:48.676 ERROR bba0e884d26f --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 07:28:48.679  WARN bba0e884d26f --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 07:28:48.691  WARN bba0e884d26f --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 07:35:16.947 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:35:17.086 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:35:17.090 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:35:17.105 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:35:17.139 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 07:35:17.139 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:35:17.150 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:35:17.168 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:35:17.185 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:35:17.196 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:35:17.199 ERROR 8084e7a224bf --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 07:35:17.299 ERROR 8084e7a224bf --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 07:35:17.796 ERROR 8084e7a224bf --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 07:35:17.797 ERROR 8084e7a224bf --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 07:35:17.834 ERROR 8084e7a224bf --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 07:35:17.834 ERROR 8084e7a224bf --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 07:35:18.090  WARN 8084e7a224bf --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 07:35:18.184  WARN 8084e7a224bf --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 07:35:18.192  WARN 8084e7a224bf --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 07:35:18.202  WARN 8084e7a224bf --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 07:35:18.267 ERROR 8084e7a224bf --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 07:35:18.269  WARN 8084e7a224bf --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 07:35:18.285  WARN 8084e7a224bf --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 10:15:42.327 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:15:42.455 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:15:42.458 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:15:42.473 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:15:42.508 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 10:15:42.509 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:15:42.519 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:15:42.542 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:15:42.553 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:15:42.563 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:15:42.566 ERROR f5a2362f4fa7 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:15:42.652 ERROR f5a2362f4fa7 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 10:15:43.090 ERROR f5a2362f4fa7 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 10:15:43.091 ERROR f5a2362f4fa7 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 10:15:43.122 ERROR f5a2362f4fa7 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 10:15:43.123 ERROR f5a2362f4fa7 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 10:15:43.339  WARN f5a2362f4fa7 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 10:15:43.413  WARN f5a2362f4fa7 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 10:15:43.418  WARN f5a2362f4fa7 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 10:15:43.427  WARN f5a2362f4fa7 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 10:15:43.479 ERROR f5a2362f4fa7 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 10:15:43.481  WARN f5a2362f4fa7 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 10:15:43.491  WARN f5a2362f4fa7 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 10:35:24.213 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:35:24.337 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:35:24.339 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:35:24.353 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:35:24.389 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 10:35:24.389 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:35:24.397 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:35:24.412 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:35:24.436 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:35:24.447 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:35:24.452 ERROR bbd9f2543fab --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:35:24.533 ERROR bbd9f2543fab --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 10:35:24.916 ERROR bbd9f2543fab --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 10:35:24.916 ERROR bbd9f2543fab --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 10:35:24.948 ERROR bbd9f2543fab --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 10:35:24.948 ERROR bbd9f2543fab --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 10:35:25.144  WARN bbd9f2543fab --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 10:35:25.219  WARN bbd9f2543fab --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 10:35:25.224  WARN bbd9f2543fab --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 10:35:25.231  WARN bbd9f2543fab --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 10:35:25.285 ERROR bbd9f2543fab --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 10:35:25.288  WARN bbd9f2543fab --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 10:35:25.299  WARN bbd9f2543fab --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 10:57:35.580 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:57:35.728 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:57:35.731 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:57:35.746 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:57:35.781 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 10:57:35.781 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:57:35.791 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:57:35.810 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:57:35.820 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:57:35.828 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:57:35.831 ERROR 14030f3dbb78 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 10:57:35.920 ERROR 14030f3dbb78 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 10:57:36.360 ERROR 14030f3dbb78 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 10:57:36.361 ERROR 14030f3dbb78 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 10:57:36.395 ERROR 14030f3dbb78 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 10:57:36.396 ERROR 14030f3dbb78 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 10:57:36.658  WARN 14030f3dbb78 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 10:57:36.760  WARN 14030f3dbb78 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 10:57:36.768  WARN 14030f3dbb78 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 10:57:36.781  WARN 14030f3dbb78 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 10:57:36.843 ERROR 14030f3dbb78 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 10:57:36.846  WARN 14030f3dbb78 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 10:57:36.857  WARN 14030f3dbb78 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 12:31:52.335 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:31:52.472 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:31:52.475 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:31:52.489 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:31:52.525 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 12:31:52.525 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:31:52.535 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:31:52.557 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:31:52.567 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:31:52.576 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:31:52.579 ERROR 136ef55ff278 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:31:52.661 ERROR 136ef55ff278 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 12:31:53.048 ERROR 136ef55ff278 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 12:31:53.048 ERROR 136ef55ff278 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 12:31:53.080 ERROR 136ef55ff278 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 12:31:53.080 ERROR 136ef55ff278 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 12:31:53.283  WARN 136ef55ff278 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 12:31:53.358  WARN 136ef55ff278 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 12:31:53.364  WARN 136ef55ff278 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 12:31:53.372  WARN 136ef55ff278 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 12:31:53.427 ERROR 136ef55ff278 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 12:31:53.429  WARN 136ef55ff278 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 12:31:53.443  WARN 136ef55ff278 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 12:35:54.776 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:35:54.929 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:35:54.933 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:35:54.951 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:35:54.989 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 12:35:54.989 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:35:54.999 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:35:55.017 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:35:55.029 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:35:55.040 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:35:55.043 ERROR 8ffe97fc4593 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:35:55.135 ERROR 8ffe97fc4593 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 12:35:55.591 ERROR 8ffe97fc4593 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 12:35:55.591 ERROR 8ffe97fc4593 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 12:35:55.630 ERROR 8ffe97fc4593 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 12:35:55.631 ERROR 8ffe97fc4593 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 12:35:55.847  WARN 8ffe97fc4593 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 12:35:55.940  WARN 8ffe97fc4593 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 12:35:55.948  WARN 8ffe97fc4593 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 12:35:55.956  WARN 8ffe97fc4593 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 12:35:56.021 ERROR 8ffe97fc4593 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 12:35:56.025  WARN 8ffe97fc4593 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 12:35:56.038  WARN 8ffe97fc4593 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 12:42:18.998 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:42:19.138 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:42:19.142 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:42:19.158 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:42:19.198 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 12:42:19.199 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:42:19.209 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:42:19.227 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:42:19.238 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:42:19.248 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:42:19.251 ERROR ff6a3b0a12a4 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 12:42:19.355 ERROR ff6a3b0a12a4 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 12:42:19.855 ERROR ff6a3b0a12a4 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 12:42:19.856 ERROR ff6a3b0a12a4 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 12:42:19.894 ERROR ff6a3b0a12a4 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 12:42:19.894 ERROR ff6a3b0a12a4 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 12:42:20.120  WARN ff6a3b0a12a4 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 12:42:20.212  WARN ff6a3b0a12a4 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 12:42:20.219  WARN ff6a3b0a12a4 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 12:42:20.229  WARN ff6a3b0a12a4 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 12:42:20.294 ERROR ff6a3b0a12a4 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 12:42:20.297  WARN ff6a3b0a12a4 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 12:42:20.308  WARN ff6a3b0a12a4 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 13:12:14.484 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 13:12:14.625 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 13:12:14.628 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 13:12:14.643 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 13:12:14.682 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 13:12:14.683 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 13:12:14.693 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 13:12:14.712 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 13:12:14.724 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 13:12:14.735 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 13:12:14.738 ERROR fbd2c3d31a10 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 13:12:14.827 ERROR fbd2c3d31a10 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 13:12:15.261 ERROR fbd2c3d31a10 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 13:12:15.262 ERROR fbd2c3d31a10 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 13:12:15.298 ERROR fbd2c3d31a10 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 13:12:15.298 ERROR fbd2c3d31a10 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 13:12:15.533  WARN fbd2c3d31a10 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 13:12:15.630  WARN fbd2c3d31a10 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 13:12:15.637  WARN fbd2c3d31a10 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 13:12:15.647  WARN fbd2c3d31a10 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 13:12:15.708 ERROR fbd2c3d31a10 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 13:12:15.711  WARN fbd2c3d31a10 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 13:12:15.721  WARN fbd2c3d31a10 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 15:46:02.769 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 15:46:02.894 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 15:46:02.897 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 15:46:02.910 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 15:46:02.949 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 15:46:02.949 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 15:46:02.960 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 15:46:02.976 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 15:46:02.987 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 15:46:02.997 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 15:46:03.001 ERROR 916cbfb3c534 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 15:46:03.086 ERROR 916cbfb3c534 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 15:46:03.509 ERROR 916cbfb3c534 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 15:46:03.509 ERROR 916cbfb3c534 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 15:46:03.539 ERROR 916cbfb3c534 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 15:46:03.539 ERROR 916cbfb3c534 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 15:46:03.752  WARN 916cbfb3c534 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 15:46:03.883  WARN 916cbfb3c534 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 15:46:03.889  WARN 916cbfb3c534 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 15:46:03.899  WARN 916cbfb3c534 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 15:46:03.951 ERROR 916cbfb3c534 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 15:46:03.953  WARN 916cbfb3c534 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 15:46:03.963  WARN 916cbfb3c534 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 19:48:00.686 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 19:48:00.829 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 19:48:00.836 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 19:48:00.858 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 19:48:00.902 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-13 19:48:00.903 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 19:48:00.917 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 19:48:00.937 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 19:48:00.951 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 19:48:00.973 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 19:48:00.981 ERROR 69e18ae519bb --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-13 19:48:01.110 ERROR 69e18ae519bb --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-13 19:48:01.605 ERROR 69e18ae519bb --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 19:48:01.605 ERROR 69e18ae519bb --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-13 19:48:01.653 ERROR 69e18ae519bb --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-13 19:48:01.653 ERROR 69e18ae519bb --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-13 19:48:01.872  WARN 69e18ae519bb --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-13 19:48:01.963  WARN 69e18ae519bb --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-13 19:48:01.970  WARN 69e18ae519bb --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-13 19:48:01.981  WARN 69e18ae519bb --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-13 19:48:02.055 ERROR 69e18ae519bb --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-13 19:48:02.059  WARN 69e18ae519bb --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-13 19:48:02.070  WARN 69e18ae519bb --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-17 07:42:21.401 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 07:42:21.550 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 07:42:21.553 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 07:42:21.570 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 07:42:21.614 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-17 07:42:21.615 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 07:42:21.626 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 07:42:21.645 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 07:42:21.658 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 07:42:21.670 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 07:42:21.674 ERROR 93d40cc08756 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 07:42:21.768 ERROR 93d40cc08756 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-17 07:42:22.245 ERROR 93d40cc08756 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-17 07:42:22.246 ERROR 93d40cc08756 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-17 07:42:22.282 ERROR 93d40cc08756 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-17 07:42:22.283 ERROR 93d40cc08756 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-17 07:42:22.524  WARN 93d40cc08756 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-17 07:42:22.615  WARN 93d40cc08756 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-17 07:42:22.622  WARN 93d40cc08756 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-17 07:42:22.631  WARN 93d40cc08756 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-17 07:42:22.691 ERROR 93d40cc08756 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-17 07:42:22.693  WARN 93d40cc08756 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-17 07:42:22.707  WARN 93d40cc08756 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-17 17:22:07.000 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 17:22:07.185 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 17:22:07.190 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 17:22:07.210 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 17:22:07.258 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-17 17:22:07.259 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 17:22:07.271 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 17:22:07.295 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 17:22:07.309 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 17:22:07.325 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 17:22:07.331 ERROR d4a0e90990a3 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-17 17:22:07.475 ERROR d4a0e90990a3 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-17 17:22:08.093 ERROR d4a0e90990a3 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-17 17:22:08.093 ERROR d4a0e90990a3 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-17 17:22:08.163 ERROR d4a0e90990a3 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-17 17:22:08.164 ERROR d4a0e90990a3 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-17 17:22:08.414  WARN d4a0e90990a3 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-17 17:22:08.523  WARN d4a0e90990a3 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-17 17:22:08.530  WARN d4a0e90990a3 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-17 17:22:08.543  WARN d4a0e90990a3 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-17 17:22:08.631 ERROR d4a0e90990a3 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-17 17:22:08.635  WARN d4a0e90990a3 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-17 17:22:08.659  WARN d4a0e90990a3 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-19 01:57:45.328 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 01:57:45.472 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 01:57:45.475 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 01:57:45.490 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 01:57:45.528 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-19 01:57:45.529 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 01:57:45.539 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 01:57:45.558 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 01:57:45.570 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 01:57:45.582 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 01:57:45.586 ERROR 730cdb247cfc --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 01:57:45.668 ERROR 730cdb247cfc --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-19 01:57:46.201 ERROR 730cdb247cfc --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-19 01:57:46.202 ERROR 730cdb247cfc --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-19 01:57:46.238 ERROR 730cdb247cfc --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-19 01:57:46.239 ERROR 730cdb247cfc --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-19 01:57:46.479  WARN 730cdb247cfc --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-19 01:57:46.593  WARN 730cdb247cfc --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-19 01:57:46.600  WARN 730cdb247cfc --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-19 01:57:46.619  WARN 730cdb247cfc --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-19 01:57:46.689 ERROR 730cdb247cfc --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-19 01:57:46.692  WARN 730cdb247cfc --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-19 01:57:46.706  WARN 730cdb247cfc --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-19 05:52:39.314 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 05:52:39.495 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 05:52:39.498 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 05:52:39.518 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 05:52:39.566 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-19 05:52:39.566 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 05:52:39.578 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 05:52:39.598 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 05:52:39.612 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 05:52:39.624 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 05:52:39.628 ERROR 95721b96a28d --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-19 05:52:39.735 ERROR 95721b96a28d --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-19 05:52:40.352 ERROR 95721b96a28d --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-19 05:52:40.353 ERROR 95721b96a28d --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-19 05:52:40.392 ERROR 95721b96a28d --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-19 05:52:40.393 ERROR 95721b96a28d --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-19 05:52:40.706  WARN 95721b96a28d --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-19 05:52:40.862  WARN 95721b96a28d --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-19 05:52:40.871  WARN 95721b96a28d --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-19 05:52:40.888  WARN 95721b96a28d --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-19 05:52:40.974 ERROR 95721b96a28d --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-19 05:52:40.976  WARN 95721b96a28d --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-19 05:52:40.992  WARN 95721b96a28d --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-23 08:34:51.433 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 08:34:51.653 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 08:34:51.657 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 08:34:51.681 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 08:34:51.737 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-23 08:34:51.737 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 08:34:51.750 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 08:34:51.772 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 08:34:51.783 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 08:34:51.798 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 08:34:51.804 ERROR 649f9cd56171 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 08:34:51.936 ERROR 649f9cd56171 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-23 08:34:52.628 ERROR 649f9cd56171 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-23 08:34:52.628 ERROR 649f9cd56171 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-23 08:34:52.685 ERROR 649f9cd56171 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-23 08:34:52.687 ERROR 649f9cd56171 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-23 08:34:52.959  WARN 649f9cd56171 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-23 08:34:53.093  WARN 649f9cd56171 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-23 08:34:53.100  WARN 649f9cd56171 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-23 08:34:53.117  WARN 649f9cd56171 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-23 08:34:53.204 ERROR 649f9cd56171 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-23 08:34:53.208  WARN 649f9cd56171 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-23 08:34:53.221  WARN 649f9cd56171 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-23 09:07:45.500 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 09:07:45.668 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 09:07:45.672 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 09:07:45.688 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 09:07:45.727 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-23 09:07:45.728 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 09:07:45.740 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 09:07:45.760 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 09:07:45.773 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 09:07:45.785 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 09:07:45.789 ERROR c75486ae6243 --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-23 09:07:45.903 ERROR c75486ae6243 --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-23 09:07:46.517 ERROR c75486ae6243 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-23 09:07:46.517 ERROR c75486ae6243 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-23 09:07:46.575 ERROR c75486ae6243 --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-23 09:07:46.575 ERROR c75486ae6243 --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-23 09:07:46.915  WARN c75486ae6243 --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-23 09:07:47.031  WARN c75486ae6243 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-23 09:07:47.041  WARN c75486ae6243 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-23 09:07:47.063  WARN c75486ae6243 --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-23 09:07:47.135 ERROR c75486ae6243 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-23 09:07:47.138  WARN c75486ae6243 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-23 09:07:47.159  WARN c75486ae6243 --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-25 10:36:17.934 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.155 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.162 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.198 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.271 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-25 10:36:18.271 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.287 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.337 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.362 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.379 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.384 ERROR a53b6128936e --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:36:18.552 ERROR a53b6128936e --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-25 10:36:19.409 ERROR a53b6128936e --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-25 10:36:19.409 ERROR a53b6128936e --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-25 10:36:19.490 ERROR a53b6128936e --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-25 10:36:19.491 ERROR a53b6128936e --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-25 10:36:19.835  WARN a53b6128936e --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-25 10:36:19.962  WARN a53b6128936e --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-25 10:36:19.974  WARN a53b6128936e --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-25 10:36:19.999  WARN a53b6128936e --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-25 10:36:20.089 ERROR a53b6128936e --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-25 10:36:20.092  WARN a53b6128936e --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-25 10:36:20.118  WARN a53b6128936e --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-25 10:52:26.890 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.164 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.170 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.212 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.273 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : Bridge 42ab0775-26cc-49aa-87a4-2313f9d9975b should be in ERROR state with the following error message: error
+2026-10-25 10:52:27.274 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.292 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.325 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.341 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.360 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.370 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.j.s.BridgeDbService                : null
+2026-10-25 10:52:27.526 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.q.CleanerJob                       : Cleaner job error: null
+2026-10-25 10:52:28.237 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-25 10:52:28.237 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been filtered out, because blacklist is forced
+2026-10-25 10:52:28.292 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.CoreSystemsDriver              : Blacklist server is not available during the translation bridge process
+2026-10-25 10:52:28.292 ERROR UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.CoreSystemsDriver              : All the systems have been passed, because blacklist is not forced
+2026-10-25 10:52:28.698  WARN UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.TranslatorBridgeEngine         : Check the data model translators in the local cloud, because some of them are not accessible by the interface translator InterfaceTranslator
+2026-10-25 10:52:28.949  WARN UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator InterfaceTranslator
+2026-10-25 10:52:28.960  WARN UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator
+2026-10-25 10:52:28.976  WARN UNKNOWN_LOCALHOST --- [           main] e.a.t.s.e.InterfaceTranslatorDriver      : Invalid operations property for interface translator null
+2026-10-25 10:52:29.105 ERROR UNKNOWN_LOCALHOST --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : test
+2026-10-25 10:52:29.112  WARN UNKNOWN_LOCALHOST --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory
+2026-10-25 10:52:29.156  WARN UNKNOWN_LOCALHOST --- [           main] a.t.s.e.DataModelTranslatorFactoryDriver : Invalid operations property for data model translator factory Factory

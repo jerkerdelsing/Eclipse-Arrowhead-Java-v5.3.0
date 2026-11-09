@@ -1,0 +1,137 @@
+[
+  {
+    "system": "Blacklist",
+    "exit": 0,
+    "tests": 139,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/blacklist-offline-verify.log"
+  },
+  {
+    "system": "TranslationManager",
+    "exit": 0,
+    "tests": 490,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/translation-manager-offline-verify.log"
+  },
+  {
+    "system": "DeviceQoSEvaluator",
+    "exit": 0,
+    "tests": 301,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/device-qos-evaluator-offline-verify.log"
+  },
+  {
+    "system": "Onboarding",
+    "exit": 0,
+    "tests": 25,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/onboarding-offline-verify.log"
+  },
+  {
+    "system": "DataManager",
+    "exit": 0,
+    "tests": 15,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/datamanager-offline-verify.log"
+  },
+  {
+    "system": "TimeManager",
+    "exit": 0,
+    "tests": 17,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/timemanager-offline-verify.log"
+  },
+  {
+    "system": "EventHandler",
+    "exit": 0,
+    "tests": 14,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/eventhandler-offline-verify.log"
+  },
+  {
+    "system": "PlantDescriptionEngine",
+    "exit": 0,
+    "tests": 20,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/plantdescriptionengine-offline-verify.log"
+  },
+  {
+    "system": "Configuration",
+    "exit": 0,
+    "tests": 11,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/configuration-offline-verify.log"
+  },
+  {
+    "system": "Choreographer",
+    "exit": 0,
+    "tests": 18,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/choreographer-offline-verify.log"
+  },
+  {
+    "system": "AIGym",
+    "exit": 0,
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/aigym-offline-verify.log"
+  },
+  {
+    "system": "CertificateAuthority",
+    "exit": 0,
+    "tests": 12,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/certificate-authority-offline-verify.log"
+  },
+  {
+    "system": "Gatekeeper",
+    "exit": 0,
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/gatekeeper-offline-verify.log"
+  },
+  {
+    "system": "GateTunnel",
+    "exit": 0,
+    "tests": 15,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/gatetunnel-offline-verify.log"
+  },
+  {
+    "system": "SysMonitor",
+    "exit": 0,
+    "tests": 11,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "log": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/verification/all-support-2026-10-25/sysmonitor-offline-verify.log"
+  }
+]

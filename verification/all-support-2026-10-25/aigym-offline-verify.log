@@ -1,0 +1,51 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< eu.arrowhead:arrowhead-ai-gym >--------------------
+[INFO] Building Arrowhead AIGym 5.2.2
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ arrowhead-ai-gym ---
+[INFO] Deleting /source/target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ arrowhead-ai-gym ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ arrowhead-ai-gym ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 7 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ arrowhead-ai-gym ---
+[INFO] skip non existing resourceDirectory /source/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ arrowhead-ai-gym ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ arrowhead-ai-gym ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running eu.arrowhead.aigym.ModelStoreTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.116 s -- in eu.arrowhead.aigym.ModelStoreTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ arrowhead-ai-gym ---
+[INFO] Building jar: /source/target/arrowhead-ai-gym-5.2.2.jar
+[INFO] 
+[INFO] --- spring-boot:3.4.9:repackage (repackage) @ arrowhead-ai-gym ---
+[INFO] Replacing main artifact /source/target/arrowhead-ai-gym-5.2.2.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /source/target/arrowhead-ai-gym-5.2.2.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  7.208 s
+[INFO] Finished at: 2026-10-25T10:53:18Z
+[INFO] ------------------------------------------------------------------------

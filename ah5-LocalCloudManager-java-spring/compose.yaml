@@ -1,0 +1,80 @@
+name: ah5-localcloudmanager
+services:
+  cloud-monitor-api:
+    build: {context: ./api}
+    image: arrowhead-localcloudmanager-api-standalone:5.2.2
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=32m,mode=1777"]
+    environment:
+      SERVICE_REGISTRY_URL: ${SERVICE_REGISTRY_URL:-https://serviceregistry:8443}
+      LOCAL_CLOUD: ${LOCAL_CLOUD:-TestCloud}
+      AUTHENTICATION_PASSWORD_FILE: /run/secrets/identity-password
+      CONSOLE_PASSWORD_HASH_FILE: /run/secrets/console-password-hash
+      CONSOLE_PROXY_SECRET_FILE: /run/secrets/console-proxy-secret
+      TLS_CA_CERT: /certs/ca.crt
+      TLS_CLIENT_CERT: /certs/local-cloud-manager.crt
+      TLS_CLIENT_KEY: /certs/local-cloud-manager.key
+      TLS_CRL_FILE: /crl/ca.crl
+      DOCKER_API_URL: http://127.0.0.1:1
+      MANAGED_SERVICES: ""
+    secrets: [identity-password, console-password-hash, console-proxy-secret]
+    volumes:
+      - type: bind
+        source: ${SYSTEM_CERT_FILE:-./security/local-cloud-manager.crt}
+        target: /certs/local-cloud-manager.crt
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${SYSTEM_KEY_FILE:-./security/local-cloud-manager.key}
+        target: /certs/local-cloud-manager.key
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${CLOUD_CA_FILE:-./security/ca.crt}
+        target: /certs/ca.crt
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${CRL_DIRECTORY:-./security/crl}
+        target: /crl
+        read_only: true
+        bind: {create_host_path: false}
+    networks: [cloud, control]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:8491/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 4s
+      retries: 10
+  cloud-monitor-ui:
+    build: {context: ./ui}
+    image: arrowhead-localcloudmanager-ui-standalone:5.2.2
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=32m,mode=1777"]
+    environment:
+      CONSOLE_PROXY_SECRET_FILE: /run/secrets/console-proxy-secret
+    secrets: [console-proxy-secret]
+    ports: ["${HOST_BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-8490}:8490"]
+    depends_on: [cloud-monitor-api]
+    networks: [cloud, control]
+networks:
+  cloud:
+    external: true
+    name: ${ARROWHEAD_NETWORK:-arrowhead-local-cloud}
+  control:
+    internal: true
+    ipam:
+      config:
+        - subnet: ${CONTROL_SUBNET:-10.252.220.0/24}
+secrets:
+  identity-password:
+    file: ${IDENTITY_PASSWORD_FILE:-./security/identity-password}
+  console-password-hash:
+    file: ${CONSOLE_PASSWORD_HASH_FILE:-./security/console-password-hash}
+  console-proxy-secret:
+    file: ${CONSOLE_PROXY_SECRET_FILE:-./security/console-proxy-secret}

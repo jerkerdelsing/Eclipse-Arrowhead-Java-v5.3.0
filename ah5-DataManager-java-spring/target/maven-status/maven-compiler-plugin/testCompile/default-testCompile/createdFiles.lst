@@ -1,0 +1,5 @@
+eu/arrowhead/datamanager/service/DataManagerHealthIndicatorTest.class
+eu/arrowhead/datamanager/security/DataManagerAuthorizationTest.class
+eu/arrowhead/datamanager/service/HistorianServiceTest.class
+eu/arrowhead/datamanager/service/ProxyServiceTest.class
+eu/arrowhead/datamanager/service/SenMLValidationTest.class

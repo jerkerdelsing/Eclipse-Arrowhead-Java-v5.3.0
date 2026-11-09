@@ -1,0 +1,989 @@
+{
+  "version": "paper9-paper6-20261029-1",
+  "sources": [
+    {
+      "file": "Papers/Paper-9/SysMLModelling/SysMLModelling.uml",
+      "sha256": "9dbaabd04572c2b6d156d522a8d6f278413cbbfb9519d385df3bb7ae2e5dbe3a"
+    },
+    {
+      "file": "Papers/Paper-6/chiplet interconnect reorg.tex",
+      "sha256": "364dd1c7f286df2512d1bcf034dbbce5e65f03d3248c7d9bf004f574717a6603"
+    }
+  ],
+  "unitsNote": "Contract editor uses SI units; the UML supplies value types but no numerical defaults. Network selections are engineer declarations, not verified hardware capabilities.",
+  "ipBlocks": [
+    {
+      "id": "DigitalFilter",
+      "sourceId": "_DigitalFilter",
+      "ports": [
+        {
+          "id": "dataIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "clockIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "dataOut",
+          "contractId": "DigitalProviderContract"
+        },
+        {
+          "id": "config",
+          "contractId": "ConfigurationContract"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "cutoffFrequency",
+          "type": "Frequency",
+          "unit": "Hz",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "ADC",
+      "sourceId": "_ADC",
+      "ports": [
+        {
+          "id": "analogIn",
+          "contractId": "AnalogReceiverContract"
+        },
+        {
+          "id": "clockIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "dataOut",
+          "contractId": "DigitalProviderContract"
+        },
+        {
+          "id": "complete",
+          "contractId": "DigitalProviderContract"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "resolution",
+          "type": "BitCount",
+          "unit": "bit",
+          "enum": []
+        },
+        {
+          "id": "samplingRate",
+          "type": "Frequency",
+          "unit": "Hz",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "DAC",
+      "sourceId": "_DAC",
+      "ports": [
+        {
+          "id": "dataIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "clockIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "analogOut",
+          "contractId": "AnalogProviderContract"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "resolution",
+          "type": "BitCount",
+          "unit": "bit",
+          "enum": []
+        },
+        {
+          "id": "updateRate",
+          "type": "Frequency",
+          "unit": "Hz",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "Timer",
+      "sourceId": "_Timer",
+      "ports": [
+        {
+          "id": "clockIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "triggerIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "pulseOut",
+          "contractId": "DigitalProviderContract"
+        },
+        {
+          "id": "interruptOut",
+          "contractId": "DigitalProviderContract"
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "id": "Register",
+      "sourceId": "_Register",
+      "ports": [
+        {
+          "id": "dataIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "writeEnable",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "clockIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "dataOut",
+          "contractId": "DigitalProviderContract"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "wordWidth",
+          "type": "BitCount",
+          "unit": "bit",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "Memory",
+      "sourceId": "_Memory",
+      "ports": [
+        {
+          "id": "addressIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "dataIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "controlIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "dataOut",
+          "contractId": "DigitalProviderContract"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "wordWidth",
+          "type": "BitCount",
+          "unit": "bit",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "ShiftRegister",
+      "sourceId": "_ShiftRegister",
+      "ports": [
+        {
+          "id": "serialIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "parallelIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "serialOut",
+          "contractId": "DigitalProviderContract"
+        },
+        {
+          "id": "parallelOut",
+          "contractId": "DigitalProviderContract"
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "id": "ProcessingUnit",
+      "sourceId": "_ProcessingUnit",
+      "ports": [
+        {
+          "id": "instructionBus",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "dataBus",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "statusOut",
+          "contractId": "DigitalProviderContract"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "clockFrequency",
+          "type": "Frequency",
+          "unit": "Hz",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "DigitalIO",
+      "sourceId": "_DigitalIO",
+      "ports": [
+        {
+          "id": "padIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "padOut",
+          "contractId": "DigitalProviderContract"
+        },
+        {
+          "id": "config",
+          "contractId": "ConfigurationContract"
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "id": "AnalogIO",
+      "sourceId": "_AnalogIO",
+      "ports": [
+        {
+          "id": "analogIn",
+          "contractId": "AnalogReceiverContract"
+        },
+        {
+          "id": "analogOut",
+          "contractId": "AnalogProviderContract"
+        },
+        {
+          "id": "config",
+          "contractId": "ConfigurationContract"
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "id": "EthernetInterface",
+      "sourceId": "_Ethernet",
+      "ports": [
+        {
+          "id": "mdi",
+          "contractId": "DifferentialContract"
+        },
+        {
+          "id": "hostDataIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "hostDataOut",
+          "contractId": "DigitalProviderContract"
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "id": "WLANInterface",
+      "sourceId": "_WLAN",
+      "ports": [
+        {
+          "id": "rf",
+          "contractId": "RFContract"
+        },
+        {
+          "id": "hostDataIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "hostDataOut",
+          "contractId": "DigitalProviderContract"
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "id": "BluetoothInterface",
+      "sourceId": "_Bluetooth",
+      "ports": [
+        {
+          "id": "rf",
+          "contractId": "RFContract"
+        },
+        {
+          "id": "hostDataIn",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "hostDataOut",
+          "contractId": "DigitalProviderContract"
+        }
+      ],
+      "parameters": []
+    },
+    {
+      "id": "RS232Interface",
+      "sourceId": "_RS232",
+      "ports": [
+        {
+          "id": "rx",
+          "contractId": "DigitalReceiverContract"
+        },
+        {
+          "id": "tx",
+          "contractId": "DigitalProviderContract"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "baudRate",
+          "type": "DataRate",
+          "unit": "bit/s",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "I2CInterface",
+      "sourceId": "_I2C",
+      "ports": [
+        {
+          "id": "sda",
+          "contractId": "OpenDrainBusContract"
+        },
+        {
+          "id": "scl",
+          "contractId": "OpenDrainBusContract"
+        }
+      ],
+      "parameters": [
+        {
+          "id": "deviceAddress",
+          "type": "BitCount",
+          "unit": "bit",
+          "enum": []
+        }
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "id": "ElectricalContract",
+      "sourceId": "_ElectricalContract",
+      "fields": [
+        {
+          "id": "signalKind",
+          "type": "SignalKind",
+          "unit": "",
+          "enum": [
+            "analog",
+            "digital",
+            "differentialAnalog",
+            "radioFrequency",
+            "openDrainDigital"
+          ]
+        },
+        {
+          "id": "voltageStandard",
+          "type": "VoltageStandard",
+          "unit": "",
+          "enum": [
+            "LVCMOS_1V2",
+            "LVCMOS_1V8",
+            "LVCMOS_3V3",
+            "TTL_5V",
+            "LVDS",
+            "RS232",
+            "StandardDefined"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "DigitalProviderContract",
+      "sourceId": "_DigitalProvider",
+      "fields": [
+        {
+          "id": "signalKind",
+          "type": "SignalKind",
+          "unit": "",
+          "enum": [
+            "analog",
+            "digital",
+            "differentialAnalog",
+            "radioFrequency",
+            "openDrainDigital"
+          ]
+        },
+        {
+          "id": "voltageStandard",
+          "type": "VoltageStandard",
+          "unit": "",
+          "enum": [
+            "LVCMOS_1V2",
+            "LVCMOS_1V8",
+            "LVCMOS_3V3",
+            "TTL_5V",
+            "LVDS",
+            "RS232",
+            "StandardDefined"
+          ]
+        },
+        {
+          "id": "data",
+          "type": "String",
+          "unit": "",
+          "enum": []
+        },
+        {
+          "id": "vohMin",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "volMax",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "sourceCurrentMax",
+          "type": "Current",
+          "unit": "A",
+          "enum": []
+        },
+        {
+          "id": "actualRate",
+          "type": "Frequency",
+          "unit": "Hz",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "DigitalReceiverContract",
+      "sourceId": "_DigitalReceiver",
+      "fields": [
+        {
+          "id": "signalKind",
+          "type": "SignalKind",
+          "unit": "",
+          "enum": [
+            "analog",
+            "digital",
+            "differentialAnalog",
+            "radioFrequency",
+            "openDrainDigital"
+          ]
+        },
+        {
+          "id": "voltageStandard",
+          "type": "VoltageStandard",
+          "unit": "",
+          "enum": [
+            "LVCMOS_1V2",
+            "LVCMOS_1V8",
+            "LVCMOS_3V3",
+            "TTL_5V",
+            "LVDS",
+            "RS232",
+            "StandardDefined"
+          ]
+        },
+        {
+          "id": "data",
+          "type": "String",
+          "unit": "",
+          "enum": []
+        },
+        {
+          "id": "vihMin",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "vilMax",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "loadCurrentMax",
+          "type": "Current",
+          "unit": "A",
+          "enum": []
+        },
+        {
+          "id": "maxRate",
+          "type": "Frequency",
+          "unit": "Hz",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "AnalogProviderContract",
+      "sourceId": "_AnalogProvider",
+      "fields": [
+        {
+          "id": "signalKind",
+          "type": "SignalKind",
+          "unit": "",
+          "enum": [
+            "analog",
+            "digital",
+            "differentialAnalog",
+            "radioFrequency",
+            "openDrainDigital"
+          ]
+        },
+        {
+          "id": "voltageStandard",
+          "type": "VoltageStandard",
+          "unit": "",
+          "enum": [
+            "LVCMOS_1V2",
+            "LVCMOS_1V8",
+            "LVCMOS_3V3",
+            "TTL_5V",
+            "LVDS",
+            "RS232",
+            "StandardDefined"
+          ]
+        },
+        {
+          "id": "signal",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "voltageMin",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "voltageMax",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "bandwidth",
+          "type": "Frequency",
+          "unit": "Hz",
+          "enum": []
+        },
+        {
+          "id": "driveCurrentMax",
+          "type": "Current",
+          "unit": "A",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "AnalogReceiverContract",
+      "sourceId": "_AnalogReceiver",
+      "fields": [
+        {
+          "id": "signalKind",
+          "type": "SignalKind",
+          "unit": "",
+          "enum": [
+            "analog",
+            "digital",
+            "differentialAnalog",
+            "radioFrequency",
+            "openDrainDigital"
+          ]
+        },
+        {
+          "id": "voltageStandard",
+          "type": "VoltageStandard",
+          "unit": "",
+          "enum": [
+            "LVCMOS_1V2",
+            "LVCMOS_1V8",
+            "LVCMOS_3V3",
+            "TTL_5V",
+            "LVDS",
+            "RS232",
+            "StandardDefined"
+          ]
+        },
+        {
+          "id": "signal",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "acceptedMin",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "acceptedMax",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "requiredBandwidth",
+          "type": "Frequency",
+          "unit": "Hz",
+          "enum": []
+        },
+        {
+          "id": "inputImpedance",
+          "type": "Resistance",
+          "unit": "ohm",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "DifferentialContract",
+      "sourceId": "_Differential",
+      "fields": [
+        {
+          "id": "signalKind",
+          "type": "SignalKind",
+          "unit": "",
+          "enum": [
+            "analog",
+            "digital",
+            "differentialAnalog",
+            "radioFrequency",
+            "openDrainDigital"
+          ]
+        },
+        {
+          "id": "voltageStandard",
+          "type": "VoltageStandard",
+          "unit": "",
+          "enum": [
+            "LVCMOS_1V2",
+            "LVCMOS_1V8",
+            "LVCMOS_3V3",
+            "TTL_5V",
+            "LVDS",
+            "RS232",
+            "StandardDefined"
+          ]
+        },
+        {
+          "id": "differentialVoltage",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "differentialImpedance",
+          "type": "Resistance",
+          "unit": "ohm",
+          "enum": []
+        },
+        {
+          "id": "maxDataRate",
+          "type": "DataRate",
+          "unit": "bit/s",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "RFContract",
+      "sourceId": "_RF",
+      "fields": [
+        {
+          "id": "signalKind",
+          "type": "SignalKind",
+          "unit": "",
+          "enum": [
+            "analog",
+            "digital",
+            "differentialAnalog",
+            "radioFrequency",
+            "openDrainDigital"
+          ]
+        },
+        {
+          "id": "voltageStandard",
+          "type": "VoltageStandard",
+          "unit": "",
+          "enum": [
+            "LVCMOS_1V2",
+            "LVCMOS_1V8",
+            "LVCMOS_3V3",
+            "TTL_5V",
+            "LVDS",
+            "RS232",
+            "StandardDefined"
+          ]
+        },
+        {
+          "id": "centerFrequency",
+          "type": "Frequency",
+          "unit": "Hz",
+          "enum": []
+        },
+        {
+          "id": "impedance",
+          "type": "Resistance",
+          "unit": "ohm",
+          "enum": []
+        },
+        {
+          "id": "txPower",
+          "type": "PowerLevel",
+          "unit": "W",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "OpenDrainBusContract",
+      "sourceId": "_OpenDrain",
+      "fields": [
+        {
+          "id": "signalKind",
+          "type": "SignalKind",
+          "unit": "",
+          "enum": [
+            "analog",
+            "digital",
+            "differentialAnalog",
+            "radioFrequency",
+            "openDrainDigital"
+          ]
+        },
+        {
+          "id": "voltageStandard",
+          "type": "VoltageStandard",
+          "unit": "",
+          "enum": [
+            "LVCMOS_1V2",
+            "LVCMOS_1V8",
+            "LVCMOS_3V3",
+            "TTL_5V",
+            "LVDS",
+            "RS232",
+            "StandardDefined"
+          ]
+        },
+        {
+          "id": "data",
+          "type": "Boolean",
+          "unit": "",
+          "enum": []
+        },
+        {
+          "id": "pullupSupply",
+          "type": "Voltage",
+          "unit": "V",
+          "enum": []
+        },
+        {
+          "id": "sinkCurrentMax",
+          "type": "Current",
+          "unit": "A",
+          "enum": []
+        },
+        {
+          "id": "maxClockRate",
+          "type": "Frequency",
+          "unit": "Hz",
+          "enum": []
+        }
+      ]
+    },
+    {
+      "id": "ConfigurationContract",
+      "sourceId": "_Config",
+      "fields": [
+        {
+          "id": "configuration",
+          "type": "String",
+          "unit": "",
+          "enum": []
+        }
+      ]
+    }
+  ],
+  "networkProperties": [
+    {
+      "id": "IP1",
+      "label": "Location-independent endpoint identity: services are addressed by logical endpoint identifiers (LEIDs) that do not encode physical position",
+      "scenarios": "S3, S4, S6",
+      "verification": "Migrating an endpoint requires no change in any peer's state"
+    },
+    {
+      "id": "IP2",
+      "label": "Programmable indirection from LEID to physical port at every fabric attach point",
+      "scenarios": "S1--S6",
+      "verification": "Translation entries can be rewritten at runtime; lookup latency is bounded"
+    },
+    {
+      "id": "IP3",
+      "label": "Fabric-level discoverability: each attach point exposes a readable identity and capability descriptor",
+      "scenarios": "S1, S2, S5",
+      "verification": "Control plane enumerates all endpoints and links without prior knowledge beyond the root"
+    },
+    {
+      "id": "IP4",
+      "label": "Switched topology with programmable routing, not fixed point-to-point wiring or a single shared medium",
+      "scenarios": "S1--S5",
+      "verification": "Any admissible source--destination pair is reachable by table update alone"
+    },
+    {
+      "id": "IP5",
+      "label": "Path and lane redundancy",
+      "scenarios": "S3, S5",
+      "verification": "Single-link or lane failure leaves every admitted flow reachable"
+    },
+    {
+      "id": "IP6",
+      "label": "Protocol-agnostic packet transport with separated message classes (request, response, control, migration, telemetry)",
+      "scenarios": "S1--S7",
+      "verification": "Each class maps to its own virtual channel; no class can block another"
+    },
+    {
+      "id": "IP7",
+      "label": "Deadlock freedom for every admissible configuration and every transition between configurations",
+      "scenarios": "S1--S6",
+      "verification": "Channel dependency graph check passes before commit (Section sec:proto)"
+    },
+    {
+      "id": "IP8",
+      "label": "Ordering domains defined per microsystem rather than globally",
+      "scenarios": "S4, S6",
+      "verification": "Order preserved within a domain across migration; other domains unaffected"
+    },
+    {
+      "id": "IP9",
+      "label": "Scoped drain and quiesce primitives with completion detection",
+      "scenarios": "S3, S4, S6",
+      "verification": "Control plane can detect when no packets of a flow or version remain in flight"
+    },
+    {
+      "id": "IP10",
+      "label": "Versioned, atomic configuration with per-packet consistency",
+      "scenarios": "S1--S7",
+      "verification": "No packet is routed, translated, or filtered by a mixture of old and new configuration"
+    },
+    {
+      "id": "IP11",
+      "label": "Bounded, predictable reconfiguration time",
+      "scenarios": "S3, S4",
+      "verification": "Measured reconfiguration time stays within the bound of Eq. eq:trc"
+    },
+    {
+      "id": "IP12",
+      "label": "Reservable bandwidth and latency per flow",
+      "scenarios": "S1, S2, S4",
+      "verification": "Admitted flows meet their reservation while other flows are reconfigured"
+    },
+    {
+      "id": "IP13",
+      "label": "Protected control channel (out-of-band or reserved in-band) that survives data-plane congestion or failure",
+      "scenarios": "All",
+      "verification": "Configuration and telemetry remain deliverable under saturating data traffic and single data-link failure"
+    },
+    {
+      "id": "IP14",
+      "label": "Unforgeable source identity and endpoint firewalls",
+      "scenarios": "S7, all",
+      "verification": "A packet with a forged source or disallowed destination is dropped and reported"
+    },
+    {
+      "id": "IP15",
+      "label": "Authenticated configuration writes and scrub on reassignment",
+      "scenarios": "S1, S6, S7",
+      "verification": "Unsigned or stale-version configuration is rejected; buffers of a reassigned endpoint are cleared"
+    },
+    {
+      "id": "IP16",
+      "label": "Per-link and per-flow telemetry (errors, retries, latency, occupancy)",
+      "scenarios": "S3, S5",
+      "verification": "Counters readable at runtime without halting traffic"
+    },
+    {
+      "id": "IP17",
+      "label": "Error containment and repair (retry, lane repair, link isolation, poisoned-packet handling)",
+      "scenarios": "S3, S5",
+      "verification": "A failing link is isolated and flows rerouted without corrupting other flows"
+    },
+    {
+      "id": "IP18",
+      "label": "Trace and fault injection for V&V",
+      "scenarios": "All",
+      "verification": "Controlled faults can be injected on any link and their effect observed"
+    },
+    {
+      "id": "IP19",
+      "label": "Version and capability negotiation with protocol bridging",
+      "scenarios": "S2, S5",
+      "verification": "Chiplets of different interface revisions interoperate or are refused explicitly"
+    },
+    {
+      "id": "IP20",
+      "label": "Clock- and power-domain independence of attach points",
+      "scenarios": "S5, S6",
+      "verification": "An endpoint or region can be clock- or power-gated without stalling unrelated traffic"
+    },
+    {
+      "id": "IP21",
+      "label": "Always-reachable lifecycle proxy: identity, health, wake request, and isolation state remain accessible while the functional endpoint is gated",
+      "scenarios": "S1, S5, S6",
+      "verification": "A gated endpoint is discoverable and can be authenticated, awakened, tested, or refused without accessing its inactive functional registers"
+    },
+    {
+      "id": "IP22",
+      "label": "Typed electrical contract for every bindable physical port, checked before admission and after link-mode change",
+      "scenarios": "S1--S6",
+      "verification": "Incompatible signal type, voltage thresholds, drive/load current, data rate, or required standard-specific parameters prevent binding and are reported"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "DigitalCompatibility",
+      "rules": [
+        "providerVOHMin >= receiverVIHMin and providerVOLMax <= receiverVILMax and providerSourceCurrent >= receiverLoadCurrent and providerActualRate <= receiverMaxRate"
+      ]
+    },
+    {
+      "id": "AnalogRangeCompatibility",
+      "rules": [
+        "providerMin >= receiverAcceptedMin and providerMax <= receiverAcceptedMax and providerBandwidth >= receiverRequiredBandwidth"
+      ]
+    },
+    {
+      "id": "I2CBusCompatibility",
+      "rules": [
+        "deviceSinkCurrent >= busRequiredSinkCurrent and actualClockRate <= deviceMaxClockRate"
+      ]
+    }
+  ]
+}

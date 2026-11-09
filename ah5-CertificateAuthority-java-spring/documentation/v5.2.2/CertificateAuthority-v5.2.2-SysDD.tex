@@ -1,0 +1,203 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{CertificateAuthority}
+\ArrowheadType{System Design Description}
+\ArrowheadTypeShort{SysDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the design and implementation of the CertificateAuthority support system of Arrowhead 5.2.2 (\texttt{ah5-CertificateAuthority-java-spring}).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the CertificateAuthority system implementation, which realizes the CertificateAuthority SysD \cite{cau-sysd}. The Certificate\allowbreak{}Authority is the local-cloud CA: it signs certificates under the Arrowhead profiles (onboarding, device, system, operator), validates certificates and trusted keys, keeps the certificate register and publishes the CRL.
+In Section \ref{Implementation}, we describe implementation details of the system.
+
+\newpage
+
+\section{Implementation}
+\label{Implementation}
+
+This implementation realizes the CertificateAuthority SysD in \texttt{ah5-\allowbreak{}CertificateAuthority-\allowbreak{}java-\allowbreak{}spring}. The Java sources, dependencies, tests, image and deployment definition are owned by this folder. The previous implementation is preserved in \texttt{legacy/\allowbreak{}} and is excluded from the build.
+
+\subsection{Implementation language and tools}
+\begin{itemize}
+\item Java 21 without a framework (JDK \texttt{HttpsServer}), Bouncy Castle, SQLite JDBC and RabbitMQ AMQP client. Maven produces only \texttt{arrowhead-\allowbreak{}certificate-\allowbreak{}authority-\allowbreak{}5.2.2.jar}; the fixed \texttt{Main} entry point starts CertificateAuthority. No environment variable selects another system.
+\item Storage: SQLite /data/certificate-authority.db (SQLite with WAL on a data volume). Requests are handled on virtual threads with bounded parallelism.
+\end{itemize}
+
+\subsection{Functional properties implementation}
+
+The following components implement the system:
+
+\noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
+\rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
+\texttt{Certificate\allowbreak{}Authority.\allowbreak{}java} & Signing, validation, register, CRL. \\ \hline
+\texttt{Service.\allowbreak{}java} & HTTPS server, caller authentication, registration. \\ \hline
+\texttt{Messaging.\allowbreak{}java} & sysMonitor publisher. \\ \hline
+\end{longtable}
+
+Every request passes \texttt{Service.\allowbreak{}handle}: request-count limit, \texttt{caller} (mutual TLS, certificate profile \texttt{sy} or \texttt{op}, identity token verified with Authentication and matched to the certificate), then the role's \texttt{route} with its caller lists.
+
+\subsubsection{Data handled and stored}
+
+Storage \texttt{SQLite /\allowbreak{}data/\allowbreak{}certificate-\allowbreak{}authority.\allowbreak{}db}:
+
+\noindent\begin{longtable}{| p{6.4cm} | p{8.8cm} |} \hline
+\rowcolor{gray!33} Tables & Content \\ \hline \endhead
+\texttt{issued\_\allowbreak{}certificates} & Certificate register. \\ \hline
+\texttt{trusted\_\allowbreak{}keys} & Trusted public keys. \\ \hline
+\end{longtable}
+
+The interfaces exchange JSON objects built at run time; their structure is specified in the IDD documents.
+
+\subsection{Non functional properties implementation}
+
+\subsubsection{Security}
+
+\texttt{Tls} builds the TLS contexts from PEM files (\texttt{TLS\_\allowbreak{}*}), with mandatory client certificates and CRL checking (\texttt{CRL\_\allowbreak{}FILE}); \texttt{Service.\allowbreak{}caller} binds the identity token to the certificate; the Authentication client pins Authentication's certificate identity before sending credentials.
+
+\subsubsection{Power management}
+
+None; the system is a server process without power states. The \texttt{sysMonitor} \texttt{power} observation always reports line supply.
+
+\subsubsection{Internal monitoring}
+
+Logs go to stdout. The system publishes its \texttt{sysMonitor} observations every 30 s (see the sysMonitor IDD).
+
+\subsubsection{Configuration}
+
+Configuration is read from environment variables (listed in the SysD); secrets are read from files (\texttt{*\_\allowbreak{}FILE} variables or mounted credential bundles).
+
+\subsection{Deployment}
+
+The local \texttt{Dockerfile} builds only this folder and runs \texttt{arrowhead-\allowbreak{}certificate-\allowbreak{}authority-\allowbreak{}standalone:5.2.2}. The local \texttt{compose.yaml} joins an operator-selected existing cloud network; it has no sibling build context, shared runtime image or dependency on another support process for startup. The HTTPS API uses port 8448; health uses internal port 8483. The process runs as UID 10001 with a read-only root filesystem and writable private \texttt{/\allowbreak{}data} and \texttt{/\allowbreak{}tmp} paths. The image preinstalls the platform SQLite native library in \texttt{/app/lib}; temporary storage remains non-executable. Certificates and credentials are mounted individually. This packaging is supplied for operator deployment; existing test-cloud deployments are separate deployment consumers and are not changed by it.
+
+To select this system, copy \texttt{.env.example} to \texttt{.env}, provision its identity/password, system certificate/key, trusted CA and CRL, configure network and registry, then run \texttt{docker compose up -\allowbreak{}d -\allowbreak{}-\allowbreak{}build} from this folder. The private project-scoped SQLite volume must never be shared with another system or concurrently mounted by a second instance. Stopping this Compose project preserves its volume and does not stop other systems.
+
+ServiceRegistry is the bootstrap endpoint. Authentication and DynamicServiceOrchestration are looked up there; other consumed services are orchestrated through DSO and require the cloud's authorization rules. AMQPS monitoring remains a network dependency. Only this system mounts the CA issuer signing key. Its CRL output directory is writable and must be distributed to consumers by the operator; no other system receives the signing key. SysMonitor reports degraded HTTP 503 when AMQP intake or MQTT output is disconnected. The other native systems return process liveness. Inspect registration, broker and orchestration status for operational readiness.
+
+\subsubsection{Ownership and build boundary}
+The helpers \texttt{Service}, \texttt{Tls}, \texttt{Json}, \texttt{Database} and \texttt{Messaging} are private source copies inside this project. The JAR contains no implementation of the other three former runtime systems. There is no shared runtime process, data directory or Maven parent. Maven dependencies remain external libraries. Security fixes to duplicated helpers must be propagated and verified in every affected project.
+
+Build with Java 21 and \texttt{mvn -\allowbreak{}B clean verify}, or use the local Docker build. The packaged SQLite smoke check is \texttt{java -\allowbreak{}jar target/\allowbreak{}arrowhead-\allowbreak{}certificate-\allowbreak{}authority-\allowbreak{}5.2.2.jar storage-\allowbreak{}selftest}. The build requires no sibling support folder.
+
+\subsection{Local modifications}
+\label{sec:local}
+
+Notes on this implementation in the workspace:
+\begin{itemize}
+  \item Native Java port (2026-10-16) of the Python CA.
+  \item Reserved names; LocalCloudManager no longer signs (J6); CRL publication (H3).
+\end{itemize}
+
+\subsection{Verification}
+
+The project owns its JUnit security tests and system-specific tests. Verification covers mandatory mutual TLS, certificate/token binding, pinned Authentication identity, DSO discovery, concurrent token renewal and startup of this actual system with isolated generated credentials and its own temporary database. Federation and monitoring projects retain their relevant peer, session or persistence tests. The distribution verification report records independent build, packaging, image and configuration results; it does not claim a live-cloud rollout.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+The implementation of the services is based on the SD and IDD documents referenced below.
+
+\noindent\begin{longtable}{| p{5.4cm} | p{2.2cm} | p{2.2cm} | p{4.8cm} |} \hline
+\rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
+\texttt{certificateSigning} & \cite{cau-sysd} & \cite{cau-certificateSigning-sd} & \cite{cau-certificateSigning-http-idd} \\ \hline
+\texttt{certificate\allowbreak{}Validation} & \cite{cau-sysd} & \cite{cau-certificateValidation-sd} & \cite{cau-certificateValidation-http-idd} \\ \hline
+\texttt{certificate\allowbreak{}Authority\allowbreak{}Management} & \cite{cau-sysd} & \cite{cau-certificateAuthorityManagement-sd} & \cite{cau-certificateAuthorityManagement-http-idd} \\ \hline
+\texttt{sysMonitor} & \cite{cau-sysd} & \cite{cau-sysMonitor-sd} & \cite{cau-sysMonitor-amqp-idd} \\ \hline
+&&& \\ \hline
+\rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
+systemDiscovery, serviceDiscovery & \cite{core-sr-sysd} & \cite{core-sr-systemDiscovery-sd} & -- \\ \hline
+identity & \cite{core-auth-sysd} & \cite{core-auth-identity-sd} & -- \\ \hline
+sysMonitor (publisher) & AMQP broker (SysMonitor) & -- & -- \\ \hline
+\end{longtable}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-25 & \arrowversion & Independent Java build, private helpers and state, per-system deployment and configuration. & Codex (draft) \\ \hline
+3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

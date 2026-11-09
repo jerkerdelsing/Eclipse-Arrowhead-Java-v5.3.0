@@ -1,0 +1,12 @@
+{
+  "system": "LocalCloudManager",
+  "runtime": "Node.js/nginx",
+  "jar": "not applicable",
+  "passed": true,
+  "host_docker_access": false,
+  "ui_http": 200,
+  "health_http": 200,
+  "anonymous_api_status": 401,
+  "operator_session": "login and authenticated session passed",
+  "private_generated_credentials": true
+}

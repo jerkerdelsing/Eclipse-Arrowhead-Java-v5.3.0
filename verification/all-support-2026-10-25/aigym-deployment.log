@@ -1,0 +1,24 @@
+aigym-1  | 
+aigym-1  |   .   ____          _            __ _ _
+aigym-1  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+aigym-1  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+aigym-1  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+aigym-1  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+aigym-1  |  =========|_|==============|___/=/_/_/_/
+aigym-1  | 
+aigym-1  |  :: Spring Boot ::                (v3.4.9)
+aigym-1  | 
+aigym-1  | 2026-10-25T10:55:39.624Z  INFO 1 --- [AIGym] [           main] eu.arrowhead.aigym.AiGymApplication      : Starting AiGymApplication v5.2.2 using Java 21.0.12.1 with PID 1 (/app/app.jar started by ? in /app)
+aigym-1  | 2026-10-25T10:55:39.626Z  INFO 1 --- [AIGym] [           main] eu.arrowhead.aigym.AiGymApplication      : No active profile set, falling back to 1 default profile: "default"
+aigym-1  | 2026-10-25T10:55:40.175Z  INFO 1 --- [AIGym] [           main] .a.a.CrlRevocationConfig$$SpringCGLIB$$0 : Client certificates are checked against the CRL /crl/ca.crl
+aigym-1  | 2026-10-25T10:55:40.194Z  INFO 1 --- [AIGym] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8478 (https)
+aigym-1  | 2026-10-25T10:55:40.201Z  INFO 1 --- [AIGym] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+aigym-1  | 2026-10-25T10:55:40.202Z  INFO 1 --- [AIGym] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.44]
+aigym-1  | 2026-10-25T10:55:40.217Z  INFO 1 --- [AIGym] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+aigym-1  | 2026-10-25T10:55:40.218Z  INFO 1 --- [AIGym] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 557 ms
+aigym-1  | 2026-10-25T10:55:40.523Z  INFO 1 --- [AIGym] [           main] o.a.t.util.net.NioEndpoint.certificate   : Connector [https-jsse-nio-8478], TLS virtual host [_default_], certificate type [UNDEFINED] configured from keystore [//.keystore] using alias [AIGym.TestCloud.Company.arrowhead.eu] with trust store [null]
+aigym-1  | 2026-10-25T10:55:40.529Z  INFO 1 --- [AIGym] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8478 (https) with context path '/'
+aigym-1  | 2026-10-25T10:55:40.537Z  INFO 1 --- [AIGym] [           main] eu.arrowhead.aigym.AiGymApplication      : Started AiGymApplication in 1.197 seconds (process running for 1.524)
+aigym-1  | 2026-10-25T10:55:41.409Z  INFO 1 --- [AIGym] [nio-8478-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+aigym-1  | 2026-10-25T10:55:41.410Z  INFO 1 --- [AIGym] [nio-8478-exec-5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+aigym-1  | 2026-10-25T10:55:41.410Z  INFO 1 --- [AIGym] [nio-8478-exec-5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms

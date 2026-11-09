@@ -1,0 +1,164 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------< eu.arrowhead:arrowhead-device-qos-evaluator >-------------
+[INFO] Building Arrowhead DeviceQoSEvaluator standalone 5.2.2
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.4.1:clean (default-clean) @ arrowhead-device-qos-evaluator ---
+[INFO] Deleting /source/target
+[INFO] 
+[INFO] --- resources:3.3.1:copy-resources (copy-resources) @ arrowhead-device-qos-evaluator ---
+[INFO] Copying 2 resources from src/main/resources to target
+[INFO] 
+[INFO] --- build-helper:3.6.0:add-source (private-library-source) @ arrowhead-device-qos-evaluator ---
+[INFO] Source directory: /source/vendor/common-utils/src/main/java added.
+[INFO] Source directory: /source/vendor/data-transfer-objects/src/main/java added.
+[INFO] 
+[INFO] --- build-helper:3.6.0:add-resource (private-library-source) @ arrowhead-device-qos-evaluator ---
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ arrowhead-device-qos-evaluator ---
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] Copying 2 resources from vendor/common-utils/src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ arrowhead-device-qos-evaluator ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 392 source files with javac [debug parameters release 21] to target/classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ arrowhead-device-qos-evaluator ---
+[INFO] Copying 1 resource from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ arrowhead-device-qos-evaluator ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 24 source files with javac [debug parameters release 21] to target/test-classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- surefire:3.5.3:test (default-test) @ arrowhead-device-qos-evaluator ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running eu.arrowhead.deviceqosevaluator.dto.DTOConverterTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.197 s -- in eu.arrowhead.deviceqosevaluator.dto.DTOConverterTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.init.DeviceQoSEvaluatorApplicationInitListenerTest
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build what is described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/root/.m2/repository/net/bytebuddy/byte-buddy-agent/1.15.11/byte-buddy-agent-1.15.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+2026-10-25 10:36:33.603 ERROR 69fa10b80cc4 --- [           main] eviceQoSEvaluatorApplicationInitListener : Error occured while scheduling jobs at start-up
+2026-10-25 10:36:33.636 ERROR 69fa10b80cc4 --- [           main] eviceQoSEvaluatorApplicationInitListener : Error occured while terminating jobs scheduling
+2026-10-25 10:36:33.654  INFO 69fa10b80cc4 --- [           main] eviceQoSEvaluatorApplicationInitListener : Mesaurement organizer job has been terminated
+2026-10-25 10:36:33.654  INFO 69fa10b80cc4 --- [           main] eviceQoSEvaluatorApplicationInitListener : Cleaning job has been terminated
+2026-10-25 10:36:33.666  INFO 69fa10b80cc4 --- [           main] eviceQoSEvaluatorApplicationInitListener : Mesaurement organizer job has been started
+2026-10-25 10:36:33.667  INFO 69fa10b80cc4 --- [           main] eviceQoSEvaluatorApplicationInitListener : Cleaning job has been started
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.672 s -- in eu.arrowhead.deviceqosevaluator.init.DeviceQoSEvaluatorApplicationInitListenerTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.driver.RttMeasurementDriverTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.111 s -- in eu.arrowhead.deviceqosevaluator.driver.RttMeasurementDriverTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.driver.AugmentedMeasurementDriverTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.743 s -- in eu.arrowhead.deviceqosevaluator.driver.AugmentedMeasurementDriverTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.jpa.service.StatDbServiceTest
+2026-10-25 10:36:34.788 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-10-25 10:36:34.800 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-10-25 10:36:34.805 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-10-25 10:36:34.814 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.StatDbService                  : null
+2026-10-25 10:36:34.821 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.StatDbService                  : null
+[INFO] Tests run: 46, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.287 s -- in eu.arrowhead.deviceqosevaluator.jpa.service.StatDbServiceTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.jpa.service.SystemDbServiceTest
+2026-10-25 10:36:34.897 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-10-25 10:36:34.901 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-10-25 10:36:34.903 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.SystemDbService                : null
+2026-10-25 10:36:34.907 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.SystemDbService                : null
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.035 s -- in eu.arrowhead.deviceqosevaluator.jpa.service.SystemDbServiceTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.jpa.service.DeviceDbServiceTest
+2026-10-25 10:36:34.912 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-10-25 10:36:34.933 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-10-25 10:36:34.936 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-10-25 10:36:34.941 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-10-25 10:36:34.946 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-10-25 10:36:34.949 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.DeviceDbService                : null
+2026-10-25 10:36:34.952 ERROR 69fa10b80cc4 --- [           main] e.a.d.j.s.DeviceDbService                : null
+[INFO] Tests run: 29, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.044 s -- in eu.arrowhead.deviceqosevaluator.jpa.service.DeviceDbServiceTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.quartz.scheduler.AugmentedMeasurementJobSchedulerTest
+2026-10-25 10:36:34.990  WARN 69fa10b80cc4 --- [           main] a.d.q.s.AugmentedMeasurementJobScheduler : AugmentedMeasurementJob for 2f0a6b4d-3207-4eec-8694-b44780f18182 already exists
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.049 s -- in eu.arrowhead.deviceqosevaluator.quartz.scheduler.AugmentedMeasurementJobSchedulerTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.quartz.scheduler.CleaningJobSchedulerTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 s -- in eu.arrowhead.deviceqosevaluator.quartz.scheduler.CleaningJobSchedulerTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.quartz.scheduler.MeasurementOrganizerJobSchedulerTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in eu.arrowhead.deviceqosevaluator.quartz.scheduler.MeasurementOrganizerJobSchedulerTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.quartz.scheduler.RttMeasurementJobSchedulerTest
+2026-10-25 10:36:35.059  WARN 69fa10b80cc4 --- [           main] e.a.d.q.s.RttMeasurementJobScheduler     : RttMeasurementJobScheduler for 2f0a6b4d-3207-4eec-8694-b44780f18182 already exists
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s -- in eu.arrowhead.deviceqosevaluator.quartz.scheduler.RttMeasurementJobSchedulerTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.quartz.job.AugmentedMeasurementJobTest
+2026-10-25 10:36:35.098  WARN 69fa10b80cc4 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device is not supporting augmented measurements: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-10-25 10:36:35.118 ERROR 69fa10b80cc4 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Augmented measurement fetch failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-10-25 10:36:35.122 ERROR 69fa10b80cc4 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Augmented measurement job failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-10-25 10:36:35.126  WARN 69fa10b80cc4 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device not exists: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-10-25 10:36:35.128  WARN 69fa10b80cc4 --- [           main] e.a.d.q.j.AugmentedMeasurementJob        : Device is inactive: 2f0a6b4d-3207-4eec-8694-b44780f18182
+[INFO] Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.061 s -- in eu.arrowhead.deviceqosevaluator.quartz.job.AugmentedMeasurementJobTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.quartz.job.MeasurementOrganizerJobTest
+2026-10-25 10:36:35.144 ERROR 69fa10b80cc4 --- [           main] e.a.d.q.j.MeasurementOrganizerJob        : Measurement organizer job failure
+2026-10-25 10:36:35.144 ERROR 69fa10b80cc4 --- [           main] e.a.d.q.j.MeasurementOrganizerJob        : null
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in eu.arrowhead.deviceqosevaluator.quartz.job.MeasurementOrganizerJobTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.quartz.job.RttMeasurementJobTest
+2026-10-25 10:36:35.214 ERROR 69fa10b80cc4 --- [           main] e.a.d.q.j.RttMeasurementJob              : RTT measurement job failure. Device: 2f0a6b4d-3207-4eec-8694-b44780f18182, Error: null
+2026-10-25 10:36:35.216  WARN 69fa10b80cc4 --- [           main] e.a.d.q.j.RttMeasurementJob              : Device does not exist: 2f0a6b4d-3207-4eec-8694-b44780f18182
+2026-10-25 10:36:35.218  WARN 69fa10b80cc4 --- [           main] e.a.d.q.j.RttMeasurementJob              : Device is inactive: 2f0a6b4d-3207-4eec-8694-b44780f18182
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.072 s -- in eu.arrowhead.deviceqosevaluator.quartz.job.RttMeasurementJobTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.quartz.job.CleaningJobTest
+2026-10-25 10:36:35.234 ERROR 69fa10b80cc4 --- [           main] e.a.d.q.j.CleaningJob                    : null
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.020 s -- in eu.arrowhead.deviceqosevaluator.quartz.job.CleaningJobTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.service.normalization.QualityEvaluationNormalizationTest
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.027 s -- in eu.arrowhead.deviceqosevaluator.service.normalization.QualityEvaluationNormalizationTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.service.normalization.DeviceQualityDataManagementNormalizationTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.015 s -- in eu.arrowhead.deviceqosevaluator.service.normalization.DeviceQualityDataManagementNormalizationTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.service.DeviceQualityDataManagementServiceTest
+2026-10-25 10:36:35.328 ERROR 69fa10b80cc4 --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-10-25 10:36:35.331 ERROR 69fa10b80cc4 --- [           main] a.d.s.DeviceQualityDataManagementService : test
+2026-10-25 10:36:35.333 ERROR 69fa10b80cc4 --- [           main] a.d.s.DeviceQualityDataManagementService : test
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.063 s -- in eu.arrowhead.deviceqosevaluator.service.DeviceQualityDataManagementServiceTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.service.validation.QualityEvaluationValidationTest
+[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.050 s -- in eu.arrowhead.deviceqosevaluator.service.validation.QualityEvaluationValidationTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.service.validation.DeviceQualityDataManagementValidationTest
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.037 s -- in eu.arrowhead.deviceqosevaluator.service.validation.DeviceQualityDataManagementValidationTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.service.QualityEvaluationServiceTest
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.240 s -- in eu.arrowhead.deviceqosevaluator.service.QualityEvaluationServiceTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.engine.StatisticsEngineTest
+[INFO] Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.041 s -- in eu.arrowhead.deviceqosevaluator.engine.StatisticsEngineTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.engine.MeasurementEngineTest
+[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.056 s -- in eu.arrowhead.deviceqosevaluator.engine.MeasurementEngineTest
+[INFO] Running eu.arrowhead.deviceqosevaluator.engine.SystemDeviceMapTest
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in eu.arrowhead.deviceqosevaluator.engine.SystemDeviceMapTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 301, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ arrowhead-device-qos-evaluator ---
+[INFO] Building jar: /source/target/arrowhead-device-qos-evaluator-5.2.2.jar
+[INFO] 
+[INFO] --- spring-boot:3.4.9:repackage (repackage) @ arrowhead-device-qos-evaluator ---
+[INFO] Replacing main artifact /source/target/arrowhead-device-qos-evaluator-5.2.2.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to /source/target/arrowhead-device-qos-evaluator-5.2.2.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  15.112 s
+[INFO] Finished at: 2026-10-25T10:36:37Z
+[INFO] ------------------------------------------------------------------------

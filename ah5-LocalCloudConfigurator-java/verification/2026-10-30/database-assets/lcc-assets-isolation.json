@@ -1,0 +1,114 @@
+[
+  {
+    "host": "serviceregistry",
+    "database": "serviceregistry-db",
+    "privateNetwork": "db-serviceregistry",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "serviceorchestration-dynamic",
+    "database": "serviceorchestration-dynamic-db",
+    "privateNetwork": "db-serviceorchestration-dynamic",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "serviceorchestration-simple",
+    "database": "serviceorchestration-simple-db",
+    "privateNetwork": "db-serviceorchestration-simple",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "consumerauthorization",
+    "database": "consumerauthorization-db",
+    "privateNetwork": "db-consumerauthorization",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "authentication",
+    "database": "authentication-db",
+    "privateNetwork": "db-authentication",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "blacklist",
+    "database": "blacklist-db",
+    "privateNetwork": "db-blacklist",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "translation-manager",
+    "database": "translation-manager-db",
+    "privateNetwork": "db-translation-manager",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "device-qos-evaluator",
+    "database": "device-qos-evaluator-db",
+    "privateNetwork": "db-device-qos-evaluator",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "onboarding",
+    "database": "onboarding-db",
+    "privateNetwork": "db-onboarding",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "datamanager",
+    "database": "datamanager-db",
+    "privateNetwork": "db-datamanager",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "timemanager",
+    "database": "timemanager-db",
+    "privateNetwork": "db-timemanager",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "eventhandler",
+    "database": "eventhandler-db",
+    "privateNetwork": "db-eventhandler",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "plantdescriptionengine",
+    "database": "plantdescriptionengine-db",
+    "privateNetwork": "db-plantdescriptionengine",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "configuration",
+    "database": "configuration-db",
+    "privateNetwork": "db-configuration",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "choreographer",
+    "database": "choreographer-db",
+    "privateNetwork": "db-choreographer",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  },
+  {
+    "host": "graphdbmanager",
+    "database": "graphdbmanager-graphdb",
+    "privateNetwork": "db-graphdbmanager",
+    "onlyHostAndDatabase": true,
+    "publishedPorts": false
+  }
+]

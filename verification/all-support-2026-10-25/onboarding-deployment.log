@@ -1,0 +1,67 @@
+onboarding-1     | Eclipse Arrowhead Onboarding 5.2.2
+onboarding-1     | 
+onboarding-db-1  | 2026-10-25 10:53:26+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+onboarding-db-1  | 2026-10-25 10:53:26+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+onboarding-1     | 2026-10-25 10:53:37.640  INFO 46e82a29e296 --- [           main] e.a.o.OnboardingMain                     : Starting OnboardingMain v5.2.2 using Java 21.0.12.1 with PID 1 (/app/app.jar started by ? in /app)
+onboarding-1     | 2026-10-25 10:53:37.646  INFO 46e82a29e296 --- [           main] e.a.o.OnboardingMain                     : No active profile set, falling back to 1 default profile: "default"
+onboarding-1     | 2026-10-25 10:53:38.721  INFO 46e82a29e296 --- [           main] .c.s.CrlRevocationConfig$$SpringCGLIB$$0 : Client certificates are checked against the CRL [/crl/ca.crl]
+onboarding-1     | 2026-10-25 10:53:38.794  INFO 46e82a29e296 --- [           main] e.a.c.h.f.a.OutsourcedFilter             : OutsourcedFilter is active
+onboarding-1     | 2026-10-25 10:53:39.062  INFO 46e82a29e296 --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+onboarding-1     | 2026-10-25 10:53:39.077  INFO 46e82a29e296 --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+onboarding-1     | 2026-10-25 10:53:39.617  WARN 46e82a29e296 --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+onboarding-1     | 2026-10-25 10:53:40.486  INFO 46e82a29e296 --- [           main] .q.OutsourcedLoginConfig$$SpringCGLIB$$0 : Login job (to authentication server) is initialized.
+onboarding-db-1  | 2026-10-25 10:53:26+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+onboarding-db-1  | 2026-10-25 10:53:26+00:00 [Note] [Entrypoint]: Initializing database files
+onboarding-db-1  | 2026-10-25T10:53:26.417016Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+onboarding-1     | 2026-10-25 10:53:40.511  INFO 46e82a29e296 --- [           main] e.a.c.s.SysMonitorPublisher              : sysMonitor publisher enabled on arrowhead TestCloud.sysmonitor.Onboarding.Onboarding
+onboarding-db-1  | 2026-10-25T10:53:26.417873Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.4.11) initializing of server in progress as process 82
+onboarding-db-1  | 2026-10-25T10:53:26.421639Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+onboarding-1     | 2026-10-25 10:53:40.543  WARN 46e82a29e296 --- [nitor-publisher] e.a.c.s.SysMonitorPublisher              : sysMonitor publication failed: Connection refused
+onboarding-1     | 2026-10-25 10:53:41.094  INFO 46e82a29e296 --- [           main] .a.o.i.OnboardingApplicationInitListener : System name: Onboarding
+onboarding-1     | 2026-10-25 10:53:41.094  INFO 46e82a29e296 --- [           main] .a.o.i.OnboardingApplicationInitListener : System port: 8435
+onboarding-1     | 2026-10-25 10:53:41.095  INFO 46e82a29e296 --- [           main] .a.o.i.OnboardingApplicationInitListener : SSL mode: ENABLED
+onboarding-1     | 2026-10-25 10:53:41.095  INFO 46e82a29e296 --- [           main] .a.o.i.OnboardingApplicationInitListener : Authentication policy: OUTSOURCED
+onboarding-1     | 2026-10-25 10:53:41.539  INFO 46e82a29e296 --- [eduler_Worker-1] e.a.c.q.OutsourcedLoginJob               : (Re-)Login is successful
+onboarding-1     | 2026-10-25 10:53:44.111  INFO 46e82a29e296 --- [           main] .a.o.i.OnboardingApplicationInitListener : ServiceRegistry is accessible...
+onboarding-1     | 2026-10-25 10:53:44.185  INFO 46e82a29e296 --- [           main] .a.o.i.OnboardingApplicationInitListener : System Onboarding published 4 service(s)
+onboarding-1     | 2026-10-25 10:53:44.192  INFO 46e82a29e296 --- [           main] e.a.o.OnboardingMain                     : Started OnboardingMain in 6.749 seconds (process running for 7.327)
+onboarding-db-1  | 2026-10-25T10:53:26.573414Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+onboarding-db-1  | 2026-10-25T10:53:27.046922Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+onboarding-db-1  | 2026-10-25T10:53:28.530607Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+onboarding-db-1  | 2026-10-25 10:53:28+00:00 [Note] [Entrypoint]: Database files initialized
+onboarding-db-1  | 2026-10-25 10:53:28+00:00 [Note] [Entrypoint]: Starting temporary server
+onboarding-db-1  | 2026-10-25T10:53:28.564201Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+onboarding-db-1  | 2026-10-25T10:53:28.716049Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 127
+onboarding-db-1  | 2026-10-25T10:53:28.725143Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+onboarding-db-1  | 2026-10-25T10:53:28.851093Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+onboarding-db-1  | 2026-10-25T10:53:29.111223Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+onboarding-db-1  | 2026-10-25T10:53:29.111570Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+onboarding-db-1  | 2026-10-25T10:53:29.114777Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+onboarding-db-1  | 2026-10-25T10:53:29.137019Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+onboarding-db-1  | 2026-10-25T10:53:29.137070Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+onboarding-db-1  | 2026-10-25 10:53:29+00:00 [Note] [Entrypoint]: Temporary server started.
+onboarding-db-1  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+onboarding-db-1  | 2026-10-25 10:53:29+00:00 [Note] [Entrypoint]: Creating database ah_onboarding
+onboarding-db-1  | 2026-10-25 10:53:29+00:00 [Note] [Entrypoint]: Creating user onboarding
+onboarding-db-1  | 2026-10-25 10:53:29+00:00 [Note] [Entrypoint]: Giving user onboarding access to schema ah_onboarding
+onboarding-db-1  | 
+onboarding-db-1  | 2026-10-25 10:53:29+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/10-schema.sql
+onboarding-db-1  | 
+onboarding-db-1  | 
+onboarding-db-1  | 2026-10-25 10:53:29+00:00 [Note] [Entrypoint]: Stopping temporary server
+onboarding-db-1  | 2026-10-25T10:53:29.904408Z 14 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.4.11).
+onboarding-db-1  | 2026-10-25T10:53:31.470158Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.4.11)  MySQL Community Server - GPL.
+onboarding-db-1  | 2026-10-25T10:53:31.470173Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+onboarding-db-1  | 2026-10-25 10:53:31+00:00 [Note] [Entrypoint]: Temporary server stopped
+onboarding-db-1  | 
+onboarding-db-1  | 2026-10-25 10:53:31+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+onboarding-db-1  | 
+onboarding-db-1  | 2026-10-25T10:53:31.919560Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+onboarding-db-1  | 2026-10-25T10:53:32.070102Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 1
+onboarding-db-1  | 2026-10-25T10:53:32.075840Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+onboarding-db-1  | 2026-10-25T10:53:32.288495Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+onboarding-db-1  | 2026-10-25T10:53:32.479986Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+onboarding-db-1  | 2026-10-25T10:53:32.480235Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+onboarding-db-1  | 2026-10-25T10:53:32.482424Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+onboarding-db-1  | 2026-10-25T10:53:32.504730Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+onboarding-db-1  | 2026-10-25T10:53:32.504792Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.

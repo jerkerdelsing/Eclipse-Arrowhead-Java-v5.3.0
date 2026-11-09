@@ -1,0 +1,4313 @@
+{
+  "modelVersion": "5.2.2",
+  "date": "2026-10-27",
+  "inputs": {
+    "distribution/Papyrus/ArrowheadDSL_2025_v5/SysML v2/ArrowheeadDSL-SysMLv2.library/ArrowheadDSL.sysml": "353fe66c4474f99a6d58ae8808a782f47dfc5dc2c639b28a0623ed6cf18ce764",
+    "distribution/Papyrus/ArrowheadDSL_2025_v5/SysML v1.6/Metamodel and Profile/SysML v1.6/ArrowheadProfile_v5.0.profile.uml": "219f56d8d66d4cfbcb82f4312a880f74b7484c548b06553f34bb516508132186",
+    "ah5-core-java-spring/documentation-tools/model.json": "eec697f05a1474972ad78473c4ade717fa5112e5d18af327beeebd71827b4e1d",
+    "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-SysD.tex": "16b364fe561d1479206d445086ed69c659dcc3fed700462238554e05b54ff7ef",
+    "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-aiGym-HTTP-IDD.tex": "a1c27eef965afc361644c23dc55e97a440df8a4376b54f3903f5b9604e0d7b70",
+    "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-sysMonitor-AMQP-IDD.tex": "57b2b64c1d309e37cd51d2040ab69bc8514d94f684be6c2bff7217d314259793",
+    "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-sysMonitor-SD.tex": "efe8cdec5623d55d80d5a7d188e70a9183a371ddf2ad7e92ffb42547abd86560",
+    "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-aiGym-SD.tex": "006bf9575b3dd4fc154bd69a5e52b3a7b1e7949adc781d66421465511ae18162",
+    "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-SysDD.tex": "aea6680ff9a292056cbf81e8326c8f82ad18eeaf3f122822d382cdb582b74545",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-SysD.tex": "fc743eebb656ceee28ea6b7f4ebac4b4ad08e42a0ef927cfd31b97065ae38dc3",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-HTTP-IDD.tex": "11d919e96f900e3332a1a1eaefc418d7f90da8ed9e781e736a7bd16c6aea3e8e",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-MQTT-IDD.tex": "6e7d064bbf165e4f433dd4803563097520ea47531dcceb8f8d3ec185347adbaf",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-HTTP-IDD.tex": "fe9b58e84fadd02cc80997d0a45b45136a5e659460657e0d7f3c773a5404a0ed",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-MQTT-IDD.tex": "1ad477cbf930588196cc61f0f3100e847b8162c037f38c9370449b869804e118",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-HTTP-IDD.tex": "2f882414a1f320e63c41364e13919dd471cf0f89be5694eae38028d440279a11",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-MQTT-IDD.tex": "f8c58da03df4ff4b818100197ff2ce1f2fb273796180e347711dea7934b532ed",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-sysMonitor-AMQP-IDD.tex": "3749197f0d1ca75a0c39c424993ac128aa26ef8449111934f6b778652d81e9fb",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-sysMonitor-SD.tex": "558ccaf26790a3f652978531e198acee77fd9940987e6c1b99fc2e5b5cbea72d",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-SD.tex": "61ce2c8aadfd3e877f9fafe4ab35a1d1f76375737fb278f5c0b48961dd4cf27a",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-SD.tex": "63e3b26543137ac899bcefffa8e1855d3b21372d71805a5cb0580caba5b8fbff",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-SD.tex": "dcb8edd51a6d3ffb93227b133768b4bac73c33a826ad1d84e09f860ea6df2ae1",
+    "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-SysDD.tex": "da72411eeb0645d8efb137665da12094efde50168dc8ec1abd2b53fe9efe1d54",
+    "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysD.tex": "01628893b1bcc767ed729e25f07c38e731e0b54d65cb332afb2ef51e5d56ecc8",
+    "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-HTTP-IDD.tex": "7087fdc37e5dc0cfd5aacb0a78081db797ff46a79486570d2d099be7cd74b371",
+    "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateSigning-HTTP-IDD.tex": "34ba02cd185576d14971a8ff9aaf95d099628634f096ab28123e52bde388bb37",
+    "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateValidation-HTTP-IDD.tex": "c5493bc4346a07b6a37a238a10e9e56f547b45c0bd9dd82efa73908bd46ca182",
+    "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex": "2b157c78c123bf27e621568fd919582419cedcbcd220486898ff9f05190bbf4e",
+    "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-sysMonitor-SD.tex": "93da9fe60b71957baf94301326dc819557f28932befd82df51beaa34acaee76d",
+    "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateValidation-SD.tex": "6c830e2e3bd7e83beb745c4b62893c5696b1da79de1904a36d47631c686c615a",
+    "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-SD.tex": "4ed4cedc39a3096f7864f729cdfa343e02925c4d14be9ae327ea078a0cdaee43",
+    "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateSigning-SD.tex": "7ea01eb787a7d6c5788c1cc0248ce9bbd076b80d2e78984ba288a5ae7d09f31b",
+    "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysDD.tex": "a70d27b4f64310730f691b52889ac48be8f1ed729a997fb282651d1c2f4bc276",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-SysD.tex": "1b82f05e88a839f1e2c6ce2c67c231e27364ce4dadc5e338de469f0f2cda6dcd",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerExecutor-HTTP-IDD.tex": "d86364e74ec7c862d617cfc8097197a5f08e32f164027334837abaae0348585e",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex": "b6167afd25502c38436974d052e972de8fee08cd2464d7eee8f82332234f819b",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerSession-HTTP-IDD.tex": "e7fa420a37d3b02b800dceb529180d12c1fd7e849f6f233f9f7631f35430cef0",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-generalManagement-HTTP-IDD.tex": "e6fefefd9e49f97cd99e5dcf02589e989df5c0ffdac35c5e5655c3680823ec42",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-sysMonitor-AMQP-IDD.tex": "9f3eb44aef486b71d5fa13251e775e451db54dade77480dfe4615b4a3baab51a",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerExecutor-SD.tex": "fc72b9f8665e2744111f385666120677c7acb446557cb968bf643b656b033dee",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-SD.tex": "b49b49a454aac059ee0afb8cd8797ef335af4ec44b2aeafb1520144a41ae77bb",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerSession-SD.tex": "a11d652539ed190f16255a8caffa79849f9a1de25c11b281ea5e3fc299a74165",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-generalManagement-SD.tex": "ccb123caeae11f6113582863c2dd0bd92d67deeb1aa691265cfae1d351c97aef",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-sysMonitor-SD.tex": "9797c7fd137d6eece3380c48101bedf81262bba912bef319675848aa037c0f76",
+    "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-SysDD.tex": "28b4fd9fac4f21587d95f6c9a181cdd602b94d1f1f7404bdbb205b6bbc99c734",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-SysD.tex": "5c1469b60ba09b18742c95dbe54ce9c7050adc6b58bccfdc02c1870dca96e857",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configuration-HTTP-IDD.tex": "552c57bb2003e998d58346f3407967ba139965ae90740e1ac025625800276f59",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationManagement-HTTP-IDD.tex": "310c74ac7a6fa870b33e573aaf31166c56965656dc2f7ae27e75d6093e7480d3",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationProxy-HTTP-IDD.tex": "525e3d044caaaa2b3d85282edb7ed853e24bbedcc6e7a2723a66610ae64bd825",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-generalManagement-HTTP-IDD.tex": "e10070253760aae15c93bc87c9b120185c2811b0f85dca9302624d12efd0c86c",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-sysMonitor-AMQP-IDD.tex": "96a927496a5c68d0e41f0396ad8edb0c22d81675241b88a6fcaa7262b1e4d19b",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationManagement-SD.tex": "8aff7c885c4a7d853e09891fdf2d27bea0e236c32e0b514c5a5aaa57303f0783",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-generalManagement-SD.tex": "e9bf9cd8ff3c70b92d1177921e08e1f4784b53037160e669b3d1d3ca98c56147",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configuration-SD.tex": "d39791180b5187aeb02b13ae119ed976217b51ae8edad4cd4616f4fc0354c26c",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-sysMonitor-SD.tex": "476338d34c33bf1bc8257942d9258cff6c682715a905c7d237d0ae25ea516c6b",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationProxy-SD.tex": "b7f6109acf11863701a47a7796443dc2776e29d58c77b30badc94b4d606de4f1",
+    "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-SysDD.tex": "06768581464950003b1c644035cf6bd6b9d0357f8f9b74a02e5443718b3f71b8",
+    "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-SysD.tex": "7cfd9ae37788a568af6141130cc2fe1ccf3ea8295b05948a86c1f0970d14e5f4",
+    "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataHistorian-HTTP-IDD.tex": "76f22143a1b814b8bed30e2e673603d089569f4dcb9b2f929d37d0f49857f6d6",
+    "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataProxy-HTTP-IDD.tex": "d91597391d5fc2c06f8b79190751b2c2af5ebe72bc90291dad3a344d00eed7f6",
+    "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-sysMonitor-AMQP-IDD.tex": "e0f1085cccc5858995e775b241e16b77baed57588089c0a364d45466bc542252",
+    "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataProxy-SD.tex": "6b5885cb718a8292f84e9b6f68e310fb7cc8817411fac4960f6ecb8b8a5c8819",
+    "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataHistorian-SD.tex": "3ed973848c49e2bc2e2d82a019e62a3815330337e42f9ab99eb835a2d04d9f94",
+    "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-sysMonitor-SD.tex": "7161e32db6ef44d5e1d34db77bb5d0781c5e51f597b383828f8494e1e81b8c17",
+    "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-SysDD.tex": "3003df7ae5a4d689def1b5a49723e5dbad994365b990ba10e74755d53661c264",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-SysD.tex": "8fe8377d5dd3cb46f8dc915f64bfffc3e6135aa4f9a1b7553fb9b3a85d492687",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-HTTP-IDD.tex": "17ba98b62dacd497681b482f3cffde1a77477faa73a60f2937fa0f238fa574d7",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-MQTT-IDD.tex": "963ed8689ca00adce55d393552d5d560e8bd19fee8ba97516af4b584fbbdc9c5",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-HTTP-IDD.tex": "ccb24042165dcca75e28133fa09f82089e340ccb304b03bca146d5b91b0f7df7",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-MQTT-IDD.tex": "95f4d2b22b1adc54f52cb626068098b4322295f9ca7a102310fa0f46bef9467a",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-HTTP-IDD.tex": "f0b472b78594fd43c1ec28582757e87c4612a542da04e7bd8fd580be3ab87c58",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-MQTT-IDD.tex": "97e0fc7ccfc1a965a880ca05e47a2fec4d088fc205c1a6e6cfa9c87528ea37ce",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-sysMonitor-AMQP-IDD.tex": "fb039a97c6267a77e36b7f98d40bad5209f2e35d0a9a5107a4506ba91f4bb9a4",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-SD.tex": "8f6511a20aa16ed11a4de6efa81f7ab13e42454cfbd679f39cbcab1fadbb66ed",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-SD.tex": "ded03a7122f467df880afff909da5966ef390d19d62f54b795daf3f368740858",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-SD.tex": "107578f49b2169b58c4e92059512431561847d9d3cc8b88a42c10989846989cd",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-sysMonitor-SD.tex": "46893c6e39ed0b53beadcafc4077634fbd701878264d36ad875edd32d367b921",
+    "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-SysDD.tex": "b1e99d4ecc2788a0c71641e940c9714e4f9df92aaf746789420b91e0b0d21183",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-SysD.tex": "f7a3f8c1f2238b438f66861dbe081a8ed460c091ea990f8197fa2e44eb8fa06a",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventHandlerManagement-HTTP-IDD.tex": "5d919a8555b833404f6f4ea0bc0ea3c4375aa6b69bb7d43c4ca46b9acee6d8ae",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventPublish-HTTP-IDD.tex": "e4be54b4429fb24b9314b12794bdfd4bb4c8b98abd69c2b8db8ee475ff4d857b",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventSubscription-HTTP-IDD.tex": "9b99a83678a621a1030cf908ad0c28aa95d065ff95e24be8c0b950dca5449207",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-generalManagement-HTTP-IDD.tex": "777eaf8ad56d490d7182d7c0238def2d870206708b4db7a51687ea673b9f15c7",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-sysMonitor-AMQP-IDD.tex": "43a5c466cbe749d0837f329b5528bd5486357feabe96fd0109c51a8f7fc4aa0f",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventSubscription-SD.tex": "4feaf4ed7c2dfdabc8a14f2f45d319403f1e2bc29a077111380e8a91fb09244a",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventPublish-SD.tex": "63f8dce0f51c874bf79b7fcfbdfb6445a51046cc2b415cc127c21cc220e720e2",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-generalManagement-SD.tex": "f50de753dab8d6e29f29558c1a24e24ceff4c2e8fcf3f94e3f916ea63cf29eee",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-sysMonitor-SD.tex": "a61330fb6108f3ce38e8422c3cf1d60156cad1c125ebf97f412d7d2daf98ff2f",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventHandlerManagement-SD.tex": "311a39ed5107e580282f2c774c48071250061e8985f517d9ed2fd998c19d20d9",
+    "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-SysDD.tex": "9897ab6aab3747c7f69a1f28504166b3ef6ce9fdb9960502059e31bf44c7fe0a",
+    "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysD.tex": "95717debba0d1128f490bc2ad14aad6b8674c4ff9e8e93372efedc023fe54ea3",
+    "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelConnection-HTTP-IDD.tex": "d2670d6e5b54ebec235a157c145a70f6ed345c2e8e431e0438668428810b4291",
+    "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelKey-HTTP-IDD.tex": "16421db9fa977d025de425cf3d1755d54d764af3c46134b27702c46e0c53cb4a",
+    "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelManagement-HTTP-IDD.tex": "1b46e97be431dbf2e67d55192584a9135f0df0fc729bc7c58eedc59a6a1014ef",
+    "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-sysMonitor-AMQP-IDD.tex": "fd1638f5522c97a55546b143b874ff7781519d7b6f8d42f5b8f1c4c341e7ad5d",
+    "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelConnection-SD.tex": "4c211efa8c6e383e03d993a08563f608c8a76331513bd07825d02eeb2b9210b3",
+    "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelManagement-SD.tex": "8ad47ef2f13da734272c9461747ca2dd469108e7eb4d191fd19e7c9ca8d1694f",
+    "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelKey-SD.tex": "188d01919e37c777ff35a28386401354edf9108bce0e6b052695fdd2c8e7f970",
+    "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-sysMonitor-SD.tex": "180d05f1082493b234a1ba8510a0e5121c032608a212bcc18f2aa5a39958d424",
+    "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysDD.tex": "8cfde4e7c20664db32fa86a3b832d7004bd5bd330bb660118563eacfc0d0b78c",
+    "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysD.tex": "7d9e8db6e926fced560b258e924f6684547fe1557866214a983e6ff401ffb209",
+    "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-gatekeeperManagement-HTTP-IDD.tex": "af23728b419df5e2a347f2e0f73f3f3d652b346c6dc148dc626cbd76dbbaa933",
+    "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-globalServiceDiscovery-HTTP-IDD.tex": "122d7d4cb80d507615aadc691e8703a80e9e25641795025675ceec0b42af6789",
+    "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-interCloudNegotiation-HTTP-IDD.tex": "a1d8b44ad5c8a754176ee697708c4eb5d8ba8b35a243b49aee82d9a89c634c17",
+    "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-sysMonitor-AMQP-IDD.tex": "ed6b4387a3df68a77971d30b6107001e8a27b1941e87eb6d3ac047b5412bf980",
+    "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-gatekeeperManagement-SD.tex": "17b59ce71f611fbdc564f6b62478a3eaef473959d1c0dab9258c022eb56994bf",
+    "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-globalServiceDiscovery-SD.tex": "df514b99da27900b7407b59da2bfad196a5c4ea2b2ffc7f35994744d8cedc870",
+    "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-sysMonitor-SD.tex": "bc40a458a29d682fc4ed5001ed1f62212e63715f936a9e32ee8faa66045dfd53",
+    "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-interCloudNegotiation-SD.tex": "cf25ad6f6747d9e633ef7927077c46dd1f268008ba584bedc7815660727e5143",
+    "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysDD.tex": "f46ab23a73e749e41af7433cb95e4049237b0b379d23534b5eacb38abb47879e",
+    "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-SysD.tex": "1ea0ef4dd4e63bbebf28996bcaf7891b0b5cd453031c4284dec273e2151ae04b",
+    "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex": "d4f2af8c0d22d8cb983971e8a95f8d4c60739fd87b5988bffb29c2c554fb0088",
+    "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-sysMonitor-AMQP-IDD.tex": "d0e59ea76099e732e9a62ab0a8d780aecea8742d8c50cca3b8a9092668dc38ad",
+    "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-sysMonitor-SD.tex": "fc0f69841d1ecbe7be6b62b9ead255634b2e44c3f49a7585db27918794817186",
+    "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-SD.tex": "e601aacd4ebc6e562822c8a219f48311f0f3d05e18230a6fc30be77e2cbca2f2",
+    "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-SysDD.tex": "0148314e3fe1e6a8bbda5a7eb1e8dac8ee86028ecaae77fa65946094d5ac774b",
+    "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-SysD.tex": "7a59ed18916bfc9ab8c5eff75d5c98e5e2c323275fbfb32adbdf204be38427fd",
+    "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-generalManagement-HTTP-IDD.tex": "10d336c6f52473aab240bc9ed7a101cb58fc1a5f64952990c3ceeaccc1a634b6",
+    "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboarding-HTTP-IDD.tex": "dd9fd2546ad650a9d6802d14b26b0430aefe23cd286d5e80920bcadb56cba571",
+    "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboardingManagement-HTTP-IDD.tex": "a3b4255db58c2cd858a04c3cd157d5d9e034deaddbf30e5e0a8268cd7c496e0c",
+    "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-sysMonitor-AMQP-IDD.tex": "be2400b45da9a058bfc721b15ad1afacad6939a458d2f618a49654e74c7981df",
+    "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboardingManagement-SD.tex": "474e24606f6529dcf25cb31db6248ec618e67039d8442b6c6bab5d717b3c870a",
+    "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboarding-SD.tex": "2e66537b26ce2f0c107eab702df10a86e3f4ee2ceee1f9945538a00a74c7b8b6",
+    "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-generalManagement-SD.tex": "24492b18d5f9f7497f087df766278259696d198fbbd98d5a8bc47c2b39a90805",
+    "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-sysMonitor-SD.tex": "4e7342105a15dea27ea7b4ff68806ba9c33471e40d06ef061d27cef4ed294534",
+    "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-SysDD.tex": "4d6bc490fd2617b2ace1b252573aaac2c8b072612380c0b19ac1b7f24e76337a",
+    "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-SysD.tex": "0c761758e7ce282c96d460aa68ddad6dece26e4ed22379312cab93fb346cb961",
+    "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-generalManagement-HTTP-IDD.tex": "de7f958ad9d46dae7566450ffe3387e044a03a9ae7710016c98a8c221501e28e",
+    "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-HTTP-IDD.tex": "a7ea09bcc43f50bb30f44569b44057835a1fad82c3116b891da4980efffb1715",
+    "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionMonitor-HTTP-IDD.tex": "ab228eefaa85b4e3129f69ff26b92295db4a74f3eb67d11d672e3d3a94d1a16b",
+    "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-sysMonitor-AMQP-IDD.tex": "e4463dd18ab55d1a19d4a7982c5564892c362fede07a51a5b877cf5a648ed01a",
+    "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-generalManagement-SD.tex": "146a9fa0dbfe8611d63905041a7d50f21f65309f41e20d09e46e5e6f704908a7",
+    "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionMonitor-SD.tex": "38348b94116eaefdebcc90590bc2dace0f9778c36ccc5bf30f1333ade672a406",
+    "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-sysMonitor-SD.tex": "89e128ad8517d5d8dc72f2b9c7999e610ee39ded3f1a71f46ab30ca2824b94c2",
+    "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-SD.tex": "9a8bd24e79154bef143389a5affa3c7d6badb8249eb11fcbf06aaf732749f118",
+    "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-SysDD.tex": "ccd9b6fe8e45f78e921506be04b842c944f2b164cf951a5880008f0a1ef2f2c1",
+    "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysD.tex": "345844441d4ed92064becab0d82353af021650d048685024571d8b8c7d1c643e",
+    "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitor-AMQP-IDD.tex": "194400c287bfa9ccf756ec043f9a025dcbcce747ff1f4f7870419fc3a9c272fa",
+    "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorData-MQTT-IDD.tex": "0019390bfdf39a54e084985169f92a8211a27dc6dc30d4703835aa0f1d5ce4fd",
+    "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorHistory-HTTP-IDD.tex": "9ad78e213e81cf26da216529a3cce9e8a994edaf0143afd0ee6a0d06b1105aed",
+    "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-HTTP-IDD.tex": "f1ccd10c0864bfa95c2af96132b89b9da1dabfb73296231976696deaf0ffe173",
+    "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorData-SD.tex": "5fa81241311d7f9118aa300a495c42a13d60208dc8b33b2b124661b4f069be28",
+    "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-SD.tex": "b1ff863240747ab0accf9df20fb2a7249a8847cc177239aefd685089f9ab7a99",
+    "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorHistory-SD.tex": "7472ad5dee95ed15c6b91e1b24464938ab07a235138bdd748d8a410e99c2136a",
+    "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitor-SD.tex": "37dbe0964f77466156e200fbd54fb18d4768193b840cdcee40c9bfafe7388cf2",
+    "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysDD.tex": "1b48227e34870d6a5bdd34ff3e8b880e13667ba9e39c4ef73fe683832702b2b4",
+    "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-SysD.tex": "666fa91ca6ffe2331e62cf24e5a009e900d60550770f9cb4a8acb5aee86d7a57",
+    "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-generalManagement-HTTP-IDD.tex": "0f5c97ed65d75a8dd96eff92d676e7ded885f0ae145238946d44ba9d65100371",
+    "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-sysMonitor-AMQP-IDD.tex": "28e874d3941941bab9a1ecb4a8a31a437841b6b3e80d0fe829262644603ca549",
+    "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-time-HTTP-IDD.tex": "b32495cfdf93764de1be48646d51c7e2e5feafaeebc85431cbf2cb9d30d126bb",
+    "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-sysMonitor-SD.tex": "4d1149f424a4cebe62a98b39ce14031f7acf7d84e21eda6c4868a3211605ddbb",
+    "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-generalManagement-SD.tex": "ab85dd012eda4196284af4ce709b8d39ed3043c10054cc07b373788a248e03ee",
+    "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-time-SD.tex": "9d922554fe2844d20690d565d9c1e8df145562ea310c1cdb4b6f9bd74f0f66ea",
+    "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-SysDD.tex": "d281bdf6d4d4b66513b3d7f616423a084265d090090c758c8888bd1777dd312d",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-SysD.tex": "3281f923f29d007436e44296faee3ffb74aa0e9c30c11049f5658e6920434ada",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-HTTP-IDD.tex": "a543b57247c2594dc0cce8ee6fc175b811a6d9a9ac1d21fe1ffcd49836737ec4",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-MQTT-IDD.tex": "31c720b6a6691ce5808e176df202c7c3ea09dae89b3550ec1a999b2793ae73b9",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-sysMonitor-AMQP-IDD.tex": "22b0c9668df6fbb8191a2d64fdad8f28bf9f62d173a34630f4c25eebe09dcd8f",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-HTTP-IDD.tex": "2eec5973cd029ea353ed4958937307bff4f4d472e8c33419919806a663277617",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-MQTT-IDD.tex": "20b78ac267b8c2b2b15bae04217995ed55af21964ff379f97adc9b65e6cefbfb",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-HTTP-IDD.tex": "7a9f57b5d065336f0834225552a02ce70eb77e8e100be43011060bac98cd6ecc",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-MQTT-IDD.tex": "e9a9bf93cd8ae066599c449eee8e06b0d806bc2f31b2f84ce70425b4f42dc8fa",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-HTTP-IDD.tex": "1de7d0f358ae473d9ff8430a298e4b27a839382ee520ae8938e5f37a9db72fa0",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-MQTT-IDD.tex": "7d787c5a9ae6401fc3626debf85fd8ede298e04f5b1eef1fb009ffa6bb8a2e0b",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-SD.tex": "73d6470f1f8b9fc0bc97bb275cb8cca020d97778efdc3e6b4303b5f9bb03972f",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-SD.tex": "180533503b8b5cf649e130b0a00ead53314b3bc20a541d9aefa40b22c9776e16",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-SD.tex": "f4d0fb4b48d071675f9acb0352e8e09d72c32199c568cb71c48a0772eb8ecc7a",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-SD.tex": "55b99fefb6870f5331f3a6dec98c92fbd31e4ac511c27f449d0eeccbfc81bdd1",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-sysMonitor-SD.tex": "9352c2761dd9b961c1158eaa0ebec7593981da8b17b95a221e123235a1ae102b",
+    "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-SysDD.tex": "d7c5e74bc41c0a14ac898faea2bb9a937ccd601e5c11606a0c24e87da4260119",
+    "ah5-core-java-spring/serviceregistry/target/arrowhead-serviceregistry-5.2.2.jar": "a7cf70345c5fb8b5edb0ac18b6f42478307384a73c320428b930035b7b417e2d",
+    "../Arrowhead/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-sysMonitor-AMQP-IDD.tex": "773a184e0ff1b383c5bd411ec742009ddef16c8723d0e2183471e45cc9e59837",
+    "../Arrowhead/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-SysD.tex": "08e1188389c937c44dc081b46092ee5a8e153c04c64241347ef2ba1e7b2a2440",
+    "ah5-core-java-spring/authentication/target/arrowhead-authentication-5.2.2.jar": "85fefe41d8c7ae9b107802a414bcd6fdc9712d2ef95420538a5b9fc3254920f1",
+    "../Arrowhead/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-sysMonitor-AMQP-IDD.tex": "1d703a714c442312b4920f3b5669e0bbb2662b0701a0d3f3ac8c6d422896e2fa",
+    "../Arrowhead/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-SysD.tex": "4045ae4648b23b550fb81e57a784e2b432154aea30b88e9881c77598f92a6c44",
+    "ah5-core-java-spring/consumer-authorization/target/arrowhead-consumer-authorization-5.2.2.jar": "3a0900659d6b5729b5d972a7ee7fe45c5b9953efdfdc795a3450c870176de093",
+    "../Arrowhead/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-sysMonitor-AMQP-IDD.tex": "28e34cab3dc829533c1090e95a7d3764e056512be2d0f101ce942215eef10ee8",
+    "../Arrowhead/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-SysD.tex": "717d60c71cadbfdd3a100b1fd0535c4ac4f3245a46b87698675120fa721abe88",
+    "ah5-core-java-spring/serviceorchestration-dynamic/target/arrowhead-serviceorchestration-dynamic-5.2.2.jar": "e834b6526e94ed2494e8ee1b1f181e8362ddf03f216886d8d84617f05c7eb5ad",
+    "../Arrowhead/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex": "dd48bc83a36096e107718dd7de58726ef95a62e66b5b8751219a2fdc92843eab",
+    "../Arrowhead/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-SysD.tex": "2cc6860d53c1a7edf9a3d362c4f41a36c8ce77b2b6c3555a6cb7f5303cc20448",
+    "ah5-core-java-spring/serviceorchestration-simple/target/arrowhead-serviceorchestration-simple-5.2.2.jar": "633e7006d53e16f965d93e4d030a3ce83c8e16a78bc15bfd4786dd8a37783b89",
+    "../Arrowhead/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex": "b152725842a28cec67a2e02923ee50b508f800b7c32114e1d724cadfa5e53a7c",
+    "../Arrowhead/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-SysD.tex": "07b3cbcad4b9eb143a37b2d461a2ae5dda76fe2ab1bcc75ec03c34aa213cd998"
+  },
+  "systems": [
+    {
+      "name": "ServiceRegistry",
+      "group": "Core",
+      "services": 6,
+      "consumedDependencies": [],
+      "unregisteredEndpoints": [
+        {
+          "class": "MonitorAPI",
+          "method": "GET",
+          "path": "/serviceregistry/monitor/echo",
+          "javaMethod": "echoService",
+          "summary": "Returns an echo message with the purpose of testing the service availability",
+          "requestBody": null,
+          "queryParams": [],
+          "pathVars": [],
+          "response": "String",
+          "status": null,
+          "codes": [
+            "OK",
+            "UNAUTHORIZED",
+            "INTERNAL_SERVER_ERROR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Authentication",
+      "group": "Core",
+      "services": 4,
+      "consumedDependencies": [],
+      "unregisteredEndpoints": [
+        {
+          "class": "MonitorAPI",
+          "method": "GET",
+          "path": "/authentication/monitor/echo",
+          "javaMethod": "echoService",
+          "summary": "Returns an echo message with the purpose of testing the service availability",
+          "requestBody": null,
+          "queryParams": [],
+          "pathVars": [],
+          "response": "String",
+          "status": null,
+          "codes": [
+            "OK",
+            "INTERNAL_SERVER_ERROR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ConsumerAuthorization",
+      "group": "Core",
+      "services": 6,
+      "consumedDependencies": [],
+      "unregisteredEndpoints": [
+        {
+          "class": "MonitorAPI",
+          "method": "GET",
+          "path": "/consumerauthorization/monitor/echo",
+          "javaMethod": "echoService",
+          "summary": "Returns an echo message with the purpose of testing the service availability",
+          "requestBody": null,
+          "queryParams": [],
+          "pathVars": [],
+          "response": "String",
+          "status": null,
+          "codes": [
+            "OK",
+            "UNAUTHORIZED",
+            "INTERNAL_SERVER_ERROR"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "DynamicServiceOrchestration",
+      "group": "Core",
+      "services": 7,
+      "consumedDependencies": [],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "SimpleStoreServiceOrchestration",
+      "group": "Core",
+      "services": 6,
+      "consumedDependencies": [],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "AIGym",
+      "group": "Support",
+      "services": 2,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "ConsumerAuthorization",
+        "DynamicServiceOrchestration",
+        "ServiceRegistry",
+        "SysMonitor"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "Blacklist",
+      "group": "Support",
+      "services": 4,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "ConsumerAuthorization",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "CertificateAuthority",
+      "group": "Support",
+      "services": 4,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "Choreographer",
+      "group": "Support",
+      "services": 5,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "ConsumerAuthorization",
+        "DynamicServiceOrchestration",
+        "Executors",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "Configuration",
+      "group": "Support",
+      "services": 5,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "ConsumerAuthorization",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "DataManager",
+      "group": "Support",
+      "services": 3,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "ConsumerAuthorization",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "DeviceQoSEvaluator",
+      "group": "Support",
+      "services": 4,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "Blacklist",
+        "ConsumerAuthorization",
+        "Device agents",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "EventHandler",
+      "group": "Support",
+      "services": 5,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "ConsumerAuthorization",
+        "ServiceRegistry",
+        "Subscribers"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "GateTunnel",
+      "group": "Support",
+      "services": 4,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "Providers",
+        "Relay (MQTT)",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "Gatekeeper",
+      "group": "Support",
+      "services": 4,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "ConsumerAuthorization",
+        "GateTunnel",
+        "Relay (MQTT)",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "LocalCloudManager",
+      "group": "Support",
+      "services": 2,
+      "consumedDependencies": [
+        "Authentication",
+        "ConsumerAuthorization",
+        "DataManager",
+        "Docker proxy",
+        "DynamicServiceOrchestration",
+        "Gatekeeper, GateTunnel",
+        "PlantDescriptionEngine",
+        "ServiceRegistry",
+        "SimpleStoreServiceOrchestration",
+        "SysMonitor"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "Onboarding",
+      "group": "Support",
+      "services": 4,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "Blacklist",
+        "CertificateAuthority",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "PlantDescriptionEngine",
+      "group": "Support",
+      "services": 4,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "ConsumerAuthorization",
+        "DynamicServiceOrchestration",
+        "ServiceRegistry",
+        "SysMonitor"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "SysMonitor",
+      "group": "Support",
+      "services": 4,
+      "consumedDependencies": [
+        "AMQP broker",
+        "Authentication",
+        "ConsumerAuthorization",
+        "DynamicServiceOrchestration",
+        "MQTT broker",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "TimeManager",
+      "group": "Support",
+      "services": 3,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "ConsumerAuthorization",
+        "NTP servers",
+        "ServiceRegistry"
+      ],
+      "unregisteredEndpoints": []
+    },
+    {
+      "name": "TranslationManager",
+      "group": "Support",
+      "services": 5,
+      "consumedDependencies": [
+        "AMQP broker (SysMonitor)",
+        "Authentication",
+        "Blacklist",
+        "ConsumerAuthorization",
+        "ServiceRegistry",
+        "Translators"
+      ],
+      "unregisteredEndpoints": []
+    }
+  ],
+  "operations": [
+    {
+      "system": "ServiceRegistry",
+      "service": "deviceDiscovery",
+      "protocol": "http",
+      "operation": "register",
+      "method": "POST",
+      "path": "/serviceregistry/device-discovery/register",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "deviceDiscovery",
+      "protocol": "http",
+      "operation": "lookup",
+      "method": "POST",
+      "path": "/serviceregistry/device-discovery/lookup",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "deviceDiscovery",
+      "protocol": "http",
+      "operation": "revoke",
+      "method": "DELETE",
+      "path": "/serviceregistry/device-discovery/revoke/{name}",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "deviceDiscovery",
+      "protocol": "mqtt",
+      "operation": "register",
+      "method": null,
+      "path": "arrowhead/serviceregistry/device-discovery/register",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "deviceDiscovery",
+      "protocol": "mqtt",
+      "operation": "lookup",
+      "method": null,
+      "path": "arrowhead/serviceregistry/device-discovery/lookup",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "deviceDiscovery",
+      "protocol": "mqtt",
+      "operation": "revoke",
+      "method": null,
+      "path": "arrowhead/serviceregistry/device-discovery/revoke",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "systemDiscovery",
+      "protocol": "http",
+      "operation": "register",
+      "method": "POST",
+      "path": "/serviceregistry/system-discovery/register",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "systemDiscovery",
+      "protocol": "http",
+      "operation": "lookup",
+      "method": "POST",
+      "path": "/serviceregistry/system-discovery/lookup",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "systemDiscovery",
+      "protocol": "http",
+      "operation": "revoke",
+      "method": "DELETE",
+      "path": "/serviceregistry/system-discovery/revoke",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "systemDiscovery",
+      "protocol": "mqtt",
+      "operation": "register",
+      "method": null,
+      "path": "arrowhead/serviceregistry/system-discovery/register",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "systemDiscovery",
+      "protocol": "mqtt",
+      "operation": "lookup",
+      "method": null,
+      "path": "arrowhead/serviceregistry/system-discovery/lookup",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "systemDiscovery",
+      "protocol": "mqtt",
+      "operation": "revoke",
+      "method": null,
+      "path": "arrowhead/serviceregistry/system-discovery/revoke",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceDiscovery",
+      "protocol": "http",
+      "operation": "register",
+      "method": "POST",
+      "path": "/serviceregistry/service-discovery/register",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceDiscovery",
+      "protocol": "http",
+      "operation": "lookup",
+      "method": "POST",
+      "path": "/serviceregistry/service-discovery/lookup",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceDiscovery",
+      "protocol": "http",
+      "operation": "revoke",
+      "method": "DELETE",
+      "path": "/serviceregistry/service-discovery/revoke/{instanceId}",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceDiscovery",
+      "protocol": "mqtt",
+      "operation": "register",
+      "method": null,
+      "path": "arrowhead/serviceregistry/service-discovery/register",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceDiscovery",
+      "protocol": "mqtt",
+      "operation": "lookup",
+      "method": null,
+      "path": "arrowhead/serviceregistry/service-discovery/lookup",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceDiscovery",
+      "protocol": "mqtt",
+      "operation": "revoke",
+      "method": null,
+      "path": "arrowhead/serviceregistry/service-discovery/revoke",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/serviceregistry/general/mgmt/logs",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/serviceregistry/general/mgmt/get-config",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-log",
+      "method": null,
+      "path": "arrowhead/serviceregistry/general/management/get-log",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-config",
+      "method": null,
+      "path": "arrowhead/serviceregistry/general/management/get-config",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "device-query",
+      "method": "POST",
+      "path": "/serviceregistry/mgmt/devices/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "device-create",
+      "method": "POST",
+      "path": "/serviceregistry/mgmt/devices",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "device-update",
+      "method": "PUT",
+      "path": "/serviceregistry/mgmt/devices",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "device-remove",
+      "method": "DELETE",
+      "path": "/serviceregistry/mgmt/devices",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "system-query",
+      "method": "POST",
+      "path": "/serviceregistry/mgmt/systems/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "system-create",
+      "method": "POST",
+      "path": "/serviceregistry/mgmt/systems",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "system-update",
+      "method": "PUT",
+      "path": "/serviceregistry/mgmt/systems",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "system-remove",
+      "method": "DELETE",
+      "path": "/serviceregistry/mgmt/systems",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "service-definition-query",
+      "method": "POST",
+      "path": "/serviceregistry/mgmt/service-definitions/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "service-definition-create",
+      "method": "POST",
+      "path": "/serviceregistry/mgmt/service-definitions",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "service-definition-remove",
+      "method": "DELETE",
+      "path": "/serviceregistry/mgmt/service-definitions",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "service-query",
+      "method": "POST",
+      "path": "/serviceregistry/mgmt/service-instances/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "service-create",
+      "method": "POST",
+      "path": "/serviceregistry/mgmt/service-instances",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "service-update",
+      "method": "PUT",
+      "path": "/serviceregistry/mgmt/service-instances",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "service-remove",
+      "method": "DELETE",
+      "path": "/serviceregistry/mgmt/service-instances",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "interface-template-query",
+      "method": "POST",
+      "path": "/serviceregistry/mgmt/interface-templates/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "interface-template-create",
+      "method": "POST",
+      "path": "/serviceregistry/mgmt/interface-templates",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "http",
+      "operation": "interface-template-remove",
+      "method": "DELETE",
+      "path": "/serviceregistry/mgmt/interface-templates",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "device-query",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/device-query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "device-create",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/device-create",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "device-update",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/device-update",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "device-remove",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/device-remove",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "system-query",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/system-query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "system-create",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/system-create",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "system-update",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/system-update",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "system-remove",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/system-remove",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "service-definition-query",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/service-definition-query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "service-definition-create",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/service-definition-create",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "service-definition-remove",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/service-definition-remove",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "service-query",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/service-query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "service-create",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/service-create",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "service-update",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/service-update",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "service-remove",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/service-remove",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "interface-template-query",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/interface-template-query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "interface-template-create",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/interface-template-create",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "serviceRegistryManagement",
+      "protocol": "mqtt",
+      "operation": "interface-template-remove",
+      "method": null,
+      "path": "arrowhead/serviceregistry/management/interface-template-remove",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.ServiceRegistry.ServiceRegistry.echo",
+      "source": "../Arrowhead/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.ServiceRegistry.ServiceRegistry.power",
+      "source": "../Arrowhead/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "ServiceRegistry",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.ServiceRegistry.ServiceRegistry.status",
+      "source": "../Arrowhead/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Authentication",
+      "service": "identity",
+      "protocol": "http",
+      "operation": "identity-login",
+      "method": "POST",
+      "path": "/authentication/identity/login",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identity",
+      "protocol": "http",
+      "operation": "identity-logout",
+      "method": "POST",
+      "path": "/authentication/identity/logout",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identity",
+      "protocol": "http",
+      "operation": "identity-change-credentials",
+      "method": "POST",
+      "path": "/authentication/identity/change",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identity",
+      "protocol": "http",
+      "operation": "identity-verify",
+      "method": "GET",
+      "path": "/authentication/identity/verify/{token}",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identity",
+      "protocol": "mqtt",
+      "operation": "identity-login",
+      "method": null,
+      "path": "arrowhead/authentication/identity/identity-login",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identity",
+      "protocol": "mqtt",
+      "operation": "identity-logout",
+      "method": null,
+      "path": "arrowhead/authentication/identity/identity-logout",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identity",
+      "protocol": "mqtt",
+      "operation": "identity-change-credentials",
+      "method": null,
+      "path": "arrowhead/authentication/identity/identity-change-credentials",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identity",
+      "protocol": "mqtt",
+      "operation": "identity-verify",
+      "method": null,
+      "path": "arrowhead/authentication/identity/identity-verify",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "http",
+      "operation": "identity-mgmt-create",
+      "method": "POST",
+      "path": "/authentication/mgmt/identities",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "http",
+      "operation": "identity-mgmt-update",
+      "method": "PUT",
+      "path": "/authentication/mgmt/identities",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "http",
+      "operation": "identity-mgmt-remove",
+      "method": "DELETE",
+      "path": "/authentication/mgmt/identities",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "http",
+      "operation": "identity-mgmt-query",
+      "method": "POST",
+      "path": "/authentication/mgmt/identities/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "http",
+      "operation": "identity-mgmt-session-close",
+      "method": "DELETE",
+      "path": "/authentication/mgmt/sessions",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "http",
+      "operation": "identity-mgmt-session-query",
+      "method": "POST",
+      "path": "/authentication/mgmt/sessions",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "mqtt",
+      "operation": "identity-mgmt-create",
+      "method": null,
+      "path": "arrowhead/authentication/identity/management/identity-mgmt-create",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "mqtt",
+      "operation": "identity-mgmt-update",
+      "method": null,
+      "path": "arrowhead/authentication/identity/management/identity-mgmt-update",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "mqtt",
+      "operation": "identity-mgmt-remove",
+      "method": null,
+      "path": "arrowhead/authentication/identity/management/identity-mgmt-remove",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "mqtt",
+      "operation": "identity-mgmt-query",
+      "method": null,
+      "path": "arrowhead/authentication/identity/management/identity-mgmt-query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "mqtt",
+      "operation": "identity-mgmt-session-close",
+      "method": null,
+      "path": "arrowhead/authentication/identity/management/identity-mgmt-session-close",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "identityManagement",
+      "protocol": "mqtt",
+      "operation": "identity-mgmt-session-query",
+      "method": null,
+      "path": "arrowhead/authentication/identity/management/identity-mgmt-session-query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/authentication/general/mgmt/logs",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/authentication/general/mgmt/get-config",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-log",
+      "method": null,
+      "path": "arrowhead/authentication/general/management/get-log",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-config",
+      "method": null,
+      "path": "arrowhead/authentication/general/management/get-config",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "Authentication",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Authentication.Authentication.echo",
+      "source": "../Arrowhead/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Authentication",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Authentication.Authentication.power",
+      "source": "../Arrowhead/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Authentication",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Authentication.Authentication.status",
+      "source": "../Arrowhead/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorization",
+      "protocol": "http",
+      "operation": "grant",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization/grant",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorization",
+      "protocol": "http",
+      "operation": "revoke",
+      "method": "DELETE",
+      "path": "/consumerauthorization/authorization/revoke/{instanceId}",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorization",
+      "protocol": "http",
+      "operation": "lookup",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization/lookup",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorization",
+      "protocol": "http",
+      "operation": "verify",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization/verify",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorization",
+      "protocol": "mqtt",
+      "operation": "grant",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization/grant",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorization",
+      "protocol": "mqtt",
+      "operation": "revoke",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization/revoke",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorization",
+      "protocol": "mqtt",
+      "operation": "lookup",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization/lookup",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorization",
+      "protocol": "mqtt",
+      "operation": "verify",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization/verify",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationToken",
+      "protocol": "http",
+      "operation": "generate",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization-token/generate",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationToken",
+      "protocol": "http",
+      "operation": "verify",
+      "method": "GET",
+      "path": "/consumerauthorization/authorization-token/token/verify/{token}",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationToken",
+      "protocol": "http",
+      "operation": "get-public-key",
+      "method": "GET",
+      "path": "/consumerauthorization/authorization-token/public-key",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationToken",
+      "protocol": "http",
+      "operation": "register-encryption-key",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization-token/encryption-key",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationToken",
+      "protocol": "http",
+      "operation": "unregister-encryption-key",
+      "method": "DELETE",
+      "path": "/consumerauthorization/authorization-token/encryption-key",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationToken",
+      "protocol": "mqtt",
+      "operation": "generate",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization-token/generate",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationToken",
+      "protocol": "mqtt",
+      "operation": "verify",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization-token/verify",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationToken",
+      "protocol": "mqtt",
+      "operation": "get-public-key",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization-token/get-public-key",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationToken",
+      "protocol": "mqtt",
+      "operation": "register-encryption-key",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization-token/register-encryption-key",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationToken",
+      "protocol": "mqtt",
+      "operation": "unregister-encryption-key",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization-token/unregister-encryption-key",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationManagement",
+      "protocol": "http",
+      "operation": "grant-policies",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization/mgmt/grant",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationManagement",
+      "protocol": "http",
+      "operation": "revoke-policies",
+      "method": "DELETE",
+      "path": "/consumerauthorization/authorization/mgmt/revoke",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationManagement",
+      "protocol": "http",
+      "operation": "query-policies",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization/mgmt/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationManagement",
+      "protocol": "http",
+      "operation": "check-policies",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization/mgmt/check",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationManagement",
+      "protocol": "mqtt",
+      "operation": "grant-policies",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization/management/grant-policies",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationManagement",
+      "protocol": "mqtt",
+      "operation": "revoke-policies",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization/management/revoke-policies",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationManagement",
+      "protocol": "mqtt",
+      "operation": "query-policies",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization/management/query-policies",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationManagement",
+      "protocol": "mqtt",
+      "operation": "check-policies",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization/management/check-policies",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationTokenManagement",
+      "protocol": "http",
+      "operation": "generate-tokens",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization/mgmt/token/generate",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationTokenManagement",
+      "protocol": "http",
+      "operation": "query-tokens",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization/mgmt/token/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationTokenManagement",
+      "protocol": "http",
+      "operation": "revoke-tokens",
+      "method": "DELETE",
+      "path": "/consumerauthorization/authorization/mgmt/token/revoke",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationTokenManagement",
+      "protocol": "http",
+      "operation": "add-encryption-keys",
+      "method": "POST",
+      "path": "/consumerauthorization/authorization/mgmt/token/encryption-key",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationTokenManagement",
+      "protocol": "http",
+      "operation": "remove-encryption-keys",
+      "method": "DELETE",
+      "path": "/consumerauthorization/authorization/mgmt/token/encryption-key",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationTokenManagement",
+      "protocol": "mqtt",
+      "operation": "generate-tokens",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization-token/management/generate-tokens",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationTokenManagement",
+      "protocol": "mqtt",
+      "operation": "query-tokens",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization-token/management/query-tokens",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationTokenManagement",
+      "protocol": "mqtt",
+      "operation": "revoke-tokens",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization-token/management/revoke-tokens",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationTokenManagement",
+      "protocol": "mqtt",
+      "operation": "add-encryption-keys",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization-token/management/add-encryption-keys",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "authorizationTokenManagement",
+      "protocol": "mqtt",
+      "operation": "remove-encryption-keys",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/authorization-token/management/remove-encryption-keys",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/consumerauthorization/general/mgmt/logs",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/consumerauthorization/general/mgmt/get-config",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-log",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/general/management/get-log",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-config",
+      "method": null,
+      "path": "arrowhead/consumer-authorization/general/management/get-config",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.ConsumerAuthorization.ConsumerAuthorization.echo",
+      "source": "../Arrowhead/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.ConsumerAuthorization.ConsumerAuthorization.power",
+      "source": "../Arrowhead/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "ConsumerAuthorization",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.ConsumerAuthorization.ConsumerAuthorization.status",
+      "source": "../Arrowhead/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/serviceorchestration/general/mgmt/logs",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/serviceorchestration/general/mgmt/get-config",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-log",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/general/management/get-log",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-config",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/general/management/get-config",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "http",
+      "operation": "pull",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/pull",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "http",
+      "operation": "subscribe",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/subscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "http",
+      "operation": "unsubscribe",
+      "method": "DELETE",
+      "path": "/serviceorchestration/orchestration/unsubscribe/{id}",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "mqtt",
+      "operation": "pull",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/pull",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "mqtt",
+      "operation": "subscribe",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/subscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "mqtt",
+      "operation": "unsubscribe",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/unsubscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "http",
+      "operation": "subscribe",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/push/subscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "http",
+      "operation": "unsubscribe",
+      "method": "DELETE",
+      "path": "/serviceorchestration/orchestration/mgmt/push/unsubscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "http",
+      "operation": "trigger",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/push/trigger",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/push/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "mqtt",
+      "operation": "subscribe",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/push/subscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "mqtt",
+      "operation": "trigger",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/push/trigger",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "mqtt",
+      "operation": "unsubscribe",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/push/unsubscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "mqtt",
+      "operation": "query",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/push/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationLockManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/lock/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationLockManagement",
+      "protocol": "http",
+      "operation": "remove",
+      "method": "DELETE",
+      "path": "/serviceorchestration/orchestration/mgmt/lock/remove/{owner}",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationLockManagement",
+      "protocol": "http",
+      "operation": "create",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/lock/create",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationLockManagement",
+      "protocol": "mqtt",
+      "operation": "create",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/lock/create",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationLockManagement",
+      "protocol": "mqtt",
+      "operation": "query",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/lock/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationLockManagement",
+      "protocol": "mqtt",
+      "operation": "remove",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/lock/remove",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationHistoryManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/history/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationHistoryManagement",
+      "protocol": "mqtt",
+      "operation": "query",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/history/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationPlantManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/serviceorchestration/mgmt/plant-rules/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "serviceOrchestrationPlantManagement",
+      "protocol": "http",
+      "operation": "replace",
+      "method": "PUT",
+      "path": "/serviceorchestration/mgmt/plant-rules/replace",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.DynamicServiceOrchestration.DynamicServiceOrchestration.echo",
+      "source": "../Arrowhead/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.DynamicServiceOrchestration.DynamicServiceOrchestration.power",
+      "source": "../Arrowhead/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "DynamicServiceOrchestration",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.DynamicServiceOrchestration.DynamicServiceOrchestration.status",
+      "source": "../Arrowhead/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/serviceorchestration/general/mgmt/logs",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/serviceorchestration/general/mgmt/get-config",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-log",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/general/management/get-log",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-config",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/general/management/get-config",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "http",
+      "operation": "pull",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/pull",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "http",
+      "operation": "subscribe",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/subscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "http",
+      "operation": "unsubscribe",
+      "method": "DELETE",
+      "path": "/serviceorchestration/orchestration/unsubscribe/{id}",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "mqtt",
+      "operation": "pull",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/pull",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "mqtt",
+      "operation": "subscribe",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/subscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestration",
+      "protocol": "mqtt",
+      "operation": "unsubscribe",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/unsubscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationSimpleStoreManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/simple-store/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationSimpleStoreManagement",
+      "protocol": "http",
+      "operation": "remove",
+      "method": "DELETE",
+      "path": "/serviceorchestration/orchestration/mgmt/simple-store/remove",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationSimpleStoreManagement",
+      "protocol": "http",
+      "operation": "create",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/simple-store/create",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationSimpleStoreManagement",
+      "protocol": "http",
+      "operation": "modify-priorities",
+      "method": "PUT",
+      "path": "/serviceorchestration/orchestration/mgmt/simple-store/modify-priorities",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationSimpleStoreManagement",
+      "protocol": "mqtt",
+      "operation": "create",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/store/create",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationSimpleStoreManagement",
+      "protocol": "mqtt",
+      "operation": "query",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/store/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationSimpleStoreManagement",
+      "protocol": "mqtt",
+      "operation": "remove",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/store/remove",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationSimpleStoreManagement",
+      "protocol": "mqtt",
+      "operation": "modify-priorities",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/store/modify-priorities",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "http",
+      "operation": "subscribe",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/push/subscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "http",
+      "operation": "unsubscribe",
+      "method": "DELETE",
+      "path": "/serviceorchestration/orchestration/mgmt/push/unsubscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "http",
+      "operation": "trigger",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/push/trigger",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/push/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "mqtt",
+      "operation": "subscribe",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/push/subscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "mqtt",
+      "operation": "trigger",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/push/trigger",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "mqtt",
+      "operation": "unsubscribe",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/push/unsubscribe",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationPushManagement",
+      "protocol": "mqtt",
+      "operation": "query",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/push/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationHistoryManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/serviceorchestration/orchestration/mgmt/history/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "serviceOrchestrationHistoryManagement",
+      "protocol": "mqtt",
+      "operation": "query",
+      "method": null,
+      "path": "arrowhead/serviceorchestration/orchestration/management/history/query",
+      "source": "ah5-core-java-spring/documentation-tools/model.json"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.SimpleStoreServiceOrchestration.SimpleStoreServiceOrchestration.echo",
+      "source": "../Arrowhead/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.SimpleStoreServiceOrchestration.SimpleStoreServiceOrchestration.power",
+      "source": "../Arrowhead/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "SimpleStoreServiceOrchestration",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.SimpleStoreServiceOrchestration.SimpleStoreServiceOrchestration.status",
+      "source": "../Arrowhead/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "AIGym",
+      "service": "aiGym",
+      "protocol": "http",
+      "operation": "status",
+      "method": "GET",
+      "path": "/aigym/status",
+      "source": "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-aiGym-HTTP-IDD.tex"
+    },
+    {
+      "system": "AIGym",
+      "service": "aiGym",
+      "protocol": "http",
+      "operation": "add-sample",
+      "method": "POST",
+      "path": "/aigym/samples",
+      "source": "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-aiGym-HTTP-IDD.tex"
+    },
+    {
+      "system": "AIGym",
+      "service": "aiGym",
+      "protocol": "http",
+      "operation": "predict",
+      "method": "POST",
+      "path": "/aigym/predict",
+      "source": "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-aiGym-HTTP-IDD.tex"
+    },
+    {
+      "system": "AIGym",
+      "service": "aiGym",
+      "protocol": "http",
+      "operation": "observations",
+      "method": "GET",
+      "path": "/aigym/observations",
+      "source": "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-aiGym-HTTP-IDD.tex"
+    },
+    {
+      "system": "AIGym",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.AIGym.AIGym.echo",
+      "source": "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "AIGym",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.AIGym.AIGym.power",
+      "source": "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "AIGym",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.AIGym.AIGym.status",
+      "source": "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "AIGym",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "trainingSample",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.AIGym.AIGym.trainingSample",
+      "source": "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "AIGym",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "inference",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.AIGym.AIGym.inference",
+      "source": "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "blacklistDiscovery",
+      "protocol": "http",
+      "operation": "check",
+      "method": "GET",
+      "path": "/blacklist/check/\\fparam{{systemName}}",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-HTTP-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "blacklistDiscovery",
+      "protocol": "http",
+      "operation": "lookup",
+      "method": "GET",
+      "path": "/blacklist/lookup",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-HTTP-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "blacklistDiscovery",
+      "protocol": "mqtt",
+      "operation": "check",
+      "method": "PUBLISH",
+      "path": "arrowhead/blacklist/check",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-MQTT-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "blacklistDiscovery",
+      "protocol": "mqtt",
+      "operation": "lookup",
+      "method": "PUBLISH",
+      "path": "arrowhead/blacklist/lookup",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-MQTT-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "blacklistManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/blacklist/mgmt/query",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "blacklistManagement",
+      "protocol": "http",
+      "operation": "create",
+      "method": "POST",
+      "path": "/blacklist/mgmt/create",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "blacklistManagement",
+      "protocol": "http",
+      "operation": "remove",
+      "method": "DELETE",
+      "path": "/blacklist/mgmt/remove?names=\\fparam{{names}}",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "blacklistManagement",
+      "protocol": "mqtt",
+      "operation": "create",
+      "method": "PUBLISH",
+      "path": "arrowhead/blacklist/management/create",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "blacklistManagement",
+      "protocol": "mqtt",
+      "operation": "query",
+      "method": "PUBLISH",
+      "path": "arrowhead/blacklist/management/query",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "blacklistManagement",
+      "protocol": "mqtt",
+      "operation": "remove",
+      "method": "PUBLISH",
+      "path": "arrowhead/blacklist/management/remove",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/blacklist/general/mgmt/logs",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/blacklist/general/mgmt/get-config?keys=\\fparam{{keys}}",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-log",
+      "method": "PUBLISH",
+      "path": "arrowhead/blacklist/general/management/get-log",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-config",
+      "method": "PUBLISH",
+      "path": "arrowhead/blacklist/general/management/get-config",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Blacklist.Blacklist.echo",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Blacklist.Blacklist.power",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Blacklist",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Blacklist.Blacklist.status",
+      "source": "ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "certificateAuthorityManagement",
+      "protocol": "http",
+      "operation": "list-certificates",
+      "method": "GET",
+      "path": "/certificate-authority/mgmt/certificates",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "certificateAuthorityManagement",
+      "protocol": "http",
+      "operation": "revoke-certificate",
+      "method": "DELETE",
+      "path": "/certificate-authority/mgmt/certificates/\\fparam{{id}}",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "certificateAuthorityManagement",
+      "protocol": "http",
+      "operation": "revoke-certificate-by-content",
+      "method": "POST",
+      "path": "/certificate-authority/mgmt/revocations",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "certificateAuthorityManagement",
+      "protocol": "http",
+      "operation": "list-keys",
+      "method": "GET",
+      "path": "/certificate-authority/mgmt/keys",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "certificateAuthorityManagement",
+      "protocol": "http",
+      "operation": "add-key",
+      "method": "PUT",
+      "path": "/certificate-authority/mgmt/keys",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "certificateAuthorityManagement",
+      "protocol": "http",
+      "operation": "delete-key",
+      "method": "DELETE",
+      "path": "/certificate-authority/mgmt/keys/\\fparam{{id}}",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "certificateSigning",
+      "protocol": "http",
+      "operation": "sign",
+      "method": "POST",
+      "path": "/certificate-authority/sign",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateSigning-HTTP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "certificateValidation",
+      "protocol": "http",
+      "operation": "check-certificate",
+      "method": "POST",
+      "path": "/certificate-authority/checkCertificate",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateValidation-HTTP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "certificateValidation",
+      "protocol": "http",
+      "operation": "check-trusted-key",
+      "method": "POST",
+      "path": "/certificate-authority/checkTrustedKey",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateValidation-HTTP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "certificateValidation",
+      "protocol": "http",
+      "operation": "get-crl",
+      "method": "GET",
+      "path": "/certificate-authority/crl",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateValidation-HTTP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.CertificateAuthority.CertificateAuthority.echo",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.CertificateAuthority.CertificateAuthority.power",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "CertificateAuthority",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.CertificateAuthority.CertificateAuthority.status",
+      "source": "ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerExecutor",
+      "protocol": "http",
+      "operation": "register",
+      "method": "POST",
+      "path": "/choreographer/executor/register",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerExecutor-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerExecutor",
+      "protocol": "http",
+      "operation": "unregister",
+      "method": "DELETE",
+      "path": "/choreographer/executor/unregister",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerExecutor-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerExecutor",
+      "protocol": "http",
+      "operation": "notify-step-done",
+      "method": "POST",
+      "path": "/choreographer/executor/notify-step-done",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerExecutor-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "query-plans",
+      "method": "GET",
+      "path": "/choreographer/mgmt/plans?page=\\fparam{{page}}\\&size=\\fparam{{size}}\\&direction=\\fparam{{direction}}\\&sortField=\\fparam{{sortField}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "get-plan",
+      "method": "GET",
+      "path": "/choreographer/mgmt/plans/\\fparam{{id}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "create-plan",
+      "method": "POST",
+      "path": "/choreographer/mgmt/plans",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "remove-plan",
+      "method": "DELETE",
+      "path": "/choreographer/mgmt/plans/\\fparam{{id}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "check-plan",
+      "method": "GET",
+      "path": "/choreographer/mgmt/plans/\\fparam{{id}}/check?allowInterCloud=\\fparam{{allowInterCloud}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "start-sessions",
+      "method": "POST",
+      "path": "/choreographer/mgmt/sessions/start",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "abort-session",
+      "method": "DELETE",
+      "path": "/choreographer/mgmt/sessions/\\fparam{{id}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "query-sessions",
+      "method": "GET",
+      "path": "/choreographer/mgmt/sessions?page=\\fparam{{page}}\\&size=\\fparam{{size}}\\&direction=\\fparam{{direction}}\\&sortField=\\fparam{{sortField}}\\&planId=\\fparam{{planId}}\\&status=\\fparam{{status}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "query-session-steps",
+      "method": "GET",
+      "path": "/choreographer/mgmt/session-steps?page=\\fparam{{page}}\\&size=\\fparam{{size}}\\&direction=\\fparam{{direction}}\\&sortField=\\fparam{{sortField}}\\&sessionId=\\fparam{{sessionId}}\\&status=\\fparam{{status}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "query-worklog",
+      "method": "GET",
+      "path": "/choreographer/mgmt/worklog?page=\\fparam{{page}}\\&size=\\fparam{{size}}\\&direction=\\fparam{{direction}}\\&sortField=\\fparam{{sortField}}\\&sessionId=\\fparam{{sessionId}}\\&planName=\\fparam{{planName}}\\&actionName=\\fparam{{actionName}}\\&stepName=\\fparam{{stepName}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "query-executors",
+      "method": "GET",
+      "path": "/choreographer/mgmt/executors?page=\\fparam{{page}}\\&size=\\fparam{{size}}\\&direction=\\fparam{{direction}}\\&sortField=\\fparam{{sortField}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "get-executor",
+      "method": "GET",
+      "path": "/choreographer/mgmt/executors/\\fparam{{id}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "create-executor",
+      "method": "POST",
+      "path": "/choreographer/mgmt/executors",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerManagement",
+      "protocol": "http",
+      "operation": "remove-executor",
+      "method": "DELETE",
+      "path": "/choreographer/mgmt/executors/\\fparam{{id}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerSession",
+      "protocol": "http",
+      "operation": "start-session",
+      "method": "POST",
+      "path": "/choreographer/session/start",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerSession-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "choreographerSession",
+      "protocol": "http",
+      "operation": "abort-session",
+      "method": "DELETE",
+      "path": "/choreographer/session/abort/\\fparam{{id}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerSession-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/choreographer/general/mgmt/logs",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/choreographer/general/mgmt/get-config?keys=\\fparam{{keys}}",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Choreographer.Choreographer.echo",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Choreographer.Choreographer.power",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Choreographer",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Choreographer.Choreographer.status",
+      "source": "ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "configuration",
+      "protocol": "http",
+      "operation": "get-configuration",
+      "method": "GET",
+      "path": "/configuration/config/\\fparam{{systemName}}",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configuration-HTTP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "configuration",
+      "protocol": "http",
+      "operation": "get-raw-configuration",
+      "method": "GET",
+      "path": "/configuration/config/raw/\\fparam{{systemName}}",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configuration-HTTP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "configurationManagement",
+      "protocol": "http",
+      "operation": "list-configurations",
+      "method": "GET",
+      "path": "/configuration/mgmt/config",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "configurationManagement",
+      "protocol": "http",
+      "operation": "store-configuration",
+      "method": "PUT",
+      "path": "/configuration/mgmt/config/\\fparam{{systemName}}",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "configurationManagement",
+      "protocol": "http",
+      "operation": "remove-configuration",
+      "method": "DELETE",
+      "path": "/configuration/mgmt/config/\\fparam{{systemName}}",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "configurationProxy",
+      "protocol": "http",
+      "operation": "get-configuration",
+      "method": "GET",
+      "path": "/configuration/proxy/config/\\fparam{{systemName}}",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationProxy-HTTP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "configurationProxy",
+      "protocol": "http",
+      "operation": "store-configuration",
+      "method": "PUT",
+      "path": "/configuration/proxy/save-config",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationProxy-HTTP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/configuration/general/mgmt/logs",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/configuration/general/mgmt/get-config?keys=\\fparam{{keys}}",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Configuration.Configuration.echo",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Configuration.Configuration.power",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Configuration",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Configuration.Configuration.status",
+      "source": "ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "dataHistorian",
+      "protocol": "http",
+      "operation": "list-systems",
+      "method": "GET",
+      "path": "/datamanager/data-historian/systems",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataHistorian-HTTP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "dataHistorian",
+      "protocol": "http",
+      "operation": "list-services",
+      "method": "GET",
+      "path": "/datamanager/data-historian/systems/\\fparam{{systemName}}/services",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataHistorian-HTTP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "dataHistorian",
+      "protocol": "http",
+      "operation": "get-data",
+      "method": "GET",
+      "path": "/datamanager/data-historian/systems/\\fparam{{systemName}}/services/\\fparam{{serviceName}}/data?from=\\fparam{{from}}\\&to=\\fparam{{to}}\\&count=\\fparam{{count}}\\&signals=\\fparam{{signals}}\\&signalCount=\\fparam{{signalCount}}",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataHistorian-HTTP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "dataHistorian",
+      "protocol": "http",
+      "operation": "put-data",
+      "method": "PUT",
+      "path": "/datamanager/data-historian/systems/\\fparam{{systemName}}/services/\\fparam{{serviceName}}/data",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataHistorian-HTTP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "dataProxy",
+      "protocol": "http",
+      "operation": "list-systems",
+      "method": "GET",
+      "path": "/datamanager/data-proxy/systems",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataProxy-HTTP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "dataProxy",
+      "protocol": "http",
+      "operation": "list-services",
+      "method": "GET",
+      "path": "/datamanager/data-proxy/systems/\\fparam{{systemName}}/services",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataProxy-HTTP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "dataProxy",
+      "protocol": "http",
+      "operation": "get-data",
+      "method": "GET",
+      "path": "/datamanager/data-proxy/systems/\\fparam{{systemName}}/services/\\fparam{{serviceName}}/data",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataProxy-HTTP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "dataProxy",
+      "protocol": "http",
+      "operation": "put-data",
+      "method": "PUT",
+      "path": "/datamanager/data-proxy/systems/\\fparam{{systemName}}/services/\\fparam{{serviceName}}/data",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataProxy-HTTP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.DataManager.DataManager.echo",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.DataManager.DataManager.power",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "DataManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.DataManager.DataManager.status",
+      "source": "ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "deviceQualityDataManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/deviceqosevaluator/mgmt/query",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "deviceQualityDataManagement",
+      "protocol": "http",
+      "operation": "reload",
+      "method": "POST",
+      "path": "/deviceqosevaluator/mgmt/reload",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "deviceQualityDataManagement",
+      "protocol": "mqtt",
+      "operation": "query",
+      "method": "PUBLISH",
+      "path": "arrowhead/deviceqosevaluator/management/query",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "deviceQualityDataManagement",
+      "protocol": "mqtt",
+      "operation": "reload",
+      "method": "PUBLISH",
+      "path": "arrowhead/deviceqosevaluator/management/reload",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/deviceqosevaluator/general/mgmt/logs",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/deviceqosevaluator/general/mgmt/get-config?keys=\\fparam{{keys}}",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-log",
+      "method": "PUBLISH",
+      "path": "arrowhead/deviceqosevaluator/general/management/get-log",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-config",
+      "method": "PUBLISH",
+      "path": "arrowhead/deviceqosevaluator/general/management/get-config",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "qualityEvaluation",
+      "protocol": "http",
+      "operation": "filter",
+      "method": "POST",
+      "path": "/deviceqosevaluator/qualityevaluation/filter",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-HTTP-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "qualityEvaluation",
+      "protocol": "http",
+      "operation": "sort",
+      "method": "POST",
+      "path": "/deviceqosevaluator/qualityevaluation/sort",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-HTTP-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "qualityEvaluation",
+      "protocol": "mqtt",
+      "operation": "filter",
+      "method": "PUBLISH",
+      "path": "arrowhead/deviceqosevaluator/qualityevaluation/filter",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-MQTT-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "qualityEvaluation",
+      "protocol": "mqtt",
+      "operation": "sort",
+      "method": "PUBLISH",
+      "path": "arrowhead/deviceqosevaluator/qualityevaluation/sort",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-MQTT-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.DeviceQoSEvaluator.DeviceQoSEvaluator.echo",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.DeviceQoSEvaluator.DeviceQoSEvaluator.power",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "DeviceQoSEvaluator",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.DeviceQoSEvaluator.DeviceQoSEvaluator.status",
+      "source": "ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "eventHandlerManagement",
+      "protocol": "http",
+      "operation": "query-subscriptions",
+      "method": "GET",
+      "path": "/eventhandler/management/subscriptions?page=\\fparam{{page}}\\&size=\\fparam{{size}}\\&direction=\\fparam{{direction}}\\&sortField=\\fparam{{sortField}}",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventHandlerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "eventHandlerManagement",
+      "protocol": "http",
+      "operation": "update-subscription",
+      "method": "PUT",
+      "path": "/eventhandler/management/subscriptions/\\fparam{{subscriptionId}}",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventHandlerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "eventHandlerManagement",
+      "protocol": "http",
+      "operation": "remove-subscription",
+      "method": "DELETE",
+      "path": "/eventhandler/management/subscriptions/\\fparam{{subscriptionId}}",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventHandlerManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "eventPublish",
+      "protocol": "http",
+      "operation": "publish",
+      "method": "POST",
+      "path": "/eventhandler/event-publish/publish",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventPublish-HTTP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "eventSubscription",
+      "protocol": "http",
+      "operation": "subscribe",
+      "method": "POST",
+      "path": "/eventhandler/event-subscription/subscribe",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventSubscription-HTTP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "eventSubscription",
+      "protocol": "http",
+      "operation": "unsubscribe",
+      "method": "DELETE",
+      "path": "/eventhandler/event-subscription/unsubscribe/\\fparam{{subscriptionId}}",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventSubscription-HTTP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/eventhandler/general/mgmt/logs",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/eventhandler/general/mgmt/get-config?keys=\\fparam{{keys}}",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.EventHandler.EventHandler.echo",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.EventHandler.EventHandler.power",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "EventHandler",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.EventHandler.EventHandler.status",
+      "source": "ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "gateTunnelConnection",
+      "protocol": "http",
+      "operation": "connect-provider",
+      "method": "POST",
+      "path": "/gatetunnel/connect_provider",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelConnection-HTTP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "gateTunnelConnection",
+      "protocol": "http",
+      "operation": "connect-consumer",
+      "method": "POST",
+      "path": "/gatetunnel/connect_consumer",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelConnection-HTTP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "gateTunnelConnection",
+      "protocol": "http",
+      "operation": "close-sessions",
+      "method": "POST",
+      "path": "/gatetunnel/close_sessions",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelConnection-HTTP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "gateTunnelConnection",
+      "protocol": "http",
+      "operation": "open-provider-session",
+      "method": "POST",
+      "path": "/gatetunnel/intercloud/provider",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelConnection-HTTP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "gateTunnelConnection",
+      "protocol": "http",
+      "operation": "open-consumer-session",
+      "method": "POST",
+      "path": "/gatetunnel/intercloud/consumer",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelConnection-HTTP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "gateTunnelKey",
+      "protocol": "http",
+      "operation": "public-key",
+      "method": "GET",
+      "path": "/gatetunnel/publickey",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelKey-HTTP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "gateTunnelManagement",
+      "protocol": "http",
+      "operation": "sessions",
+      "method": "GET",
+      "path": "/gatetunnel/mgmt/sessions?limit=\\fparam{{limit}}",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "gateTunnelManagement",
+      "protocol": "http",
+      "operation": "close",
+      "method": "POST",
+      "path": "/gatetunnel/mgmt/sessions/close",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "gateTunnelManagement",
+      "protocol": "http",
+      "operation": "status",
+      "method": "GET",
+      "path": "/gatetunnel/mgmt/status",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.GateTunnel.GateTunnel.echo",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.GateTunnel.GateTunnel.power",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "GateTunnel",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.GateTunnel.GateTunnel.status",
+      "source": "ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Gatekeeper",
+      "service": "gatekeeperManagement",
+      "protocol": "http",
+      "operation": "clouds",
+      "method": "GET",
+      "path": "/gatekeeper/mgmt/clouds",
+      "source": "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-gatekeeperManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Gatekeeper",
+      "service": "gatekeeperManagement",
+      "protocol": "http",
+      "operation": "relays",
+      "method": "GET",
+      "path": "/gatekeeper/mgmt/relays",
+      "source": "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-gatekeeperManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Gatekeeper",
+      "service": "gatekeeperManagement",
+      "protocol": "http",
+      "operation": "status",
+      "method": "GET",
+      "path": "/gatekeeper/mgmt/status",
+      "source": "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-gatekeeperManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Gatekeeper",
+      "service": "globalServiceDiscovery",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/gatekeeper/init_gsd",
+      "source": "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-globalServiceDiscovery-HTTP-IDD.tex"
+    },
+    {
+      "system": "Gatekeeper",
+      "service": "globalServiceDiscovery",
+      "protocol": "http",
+      "operation": "multi-query",
+      "method": "POST",
+      "path": "/gatekeeper/init_multi_gsd",
+      "source": "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-globalServiceDiscovery-HTTP-IDD.tex"
+    },
+    {
+      "system": "Gatekeeper",
+      "service": "interCloudNegotiation",
+      "protocol": "http",
+      "operation": "negotiate",
+      "method": "POST",
+      "path": "/gatekeeper/init_icn",
+      "source": "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-interCloudNegotiation-HTTP-IDD.tex"
+    },
+    {
+      "system": "Gatekeeper",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Gatekeeper.Gatekeeper.echo",
+      "source": "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Gatekeeper",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Gatekeeper.Gatekeeper.power",
+      "source": "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Gatekeeper",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Gatekeeper.Gatekeeper.status",
+      "source": "ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "session",
+      "method": "GET",
+      "path": "/api/session",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "login",
+      "method": "POST",
+      "path": "/api/session",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "logout",
+      "method": "DELETE",
+      "path": "/api/session",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "overview",
+      "method": "GET",
+      "path": "/api/overview",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "serviceRegistryManagement",
+      "method": "GET",
+      "path": "/api/service-registry-management",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "dataManager",
+      "method": "GET",
+      "path": "/api/datamanager?limit=\\fparam{{limit}}",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "consumers",
+      "method": "GET",
+      "path": "/api/consumers",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "interCloud",
+      "method": "GET",
+      "path": "/api/intercloud",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "sysMonitorHistory",
+      "method": "GET",
+      "path": "/api/sysmonitor?system=\\fparam{{system}}\\&limit=\\fparam{{limit}}",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "sysMonitorSubscriptions",
+      "method": "GET",
+      "path": "/api/sysmonitor/subscriptions",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "subscribeSysMonitor",
+      "method": "PUT",
+      "path": "/api/sysmonitor/subscriptions",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "unsubscribeSysMonitor",
+      "method": "DELETE",
+      "path": "/api/sysmonitor/subscriptions",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "plantDescriptions",
+      "method": "GET",
+      "path": "/api/plantdescriptions",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "createPlantDescription",
+      "method": "POST",
+      "path": "/api/plantdescriptions",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "replacePlantDescription",
+      "method": "PUT",
+      "path": "/api/plantdescriptions",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "updatePlantDescription",
+      "method": "PATCH",
+      "path": "/api/plantdescriptions",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "removePlantDescription",
+      "method": "DELETE",
+      "path": "/api/plantdescriptions",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "orchestrationRules",
+      "method": "GET",
+      "path": "/api/orchestration/rules",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "createOrchestrationRule",
+      "method": "POST",
+      "path": "/api/orchestration/rules",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "removeOrchestrationRule",
+      "method": "DELETE",
+      "path": "/api/orchestration/rules",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "logs",
+      "method": "GET",
+      "path": "/api/logs?service=\\fparam{{service}}\\&tail=\\fparam{{tail}}",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "localCloudManagement",
+      "protocol": "http",
+      "operation": "lifecycle",
+      "method": "POST",
+      "path": "/api/containers",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.LocalCloudManager.LocalCloudManager.echo",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.LocalCloudManager.LocalCloudManager.power",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "LocalCloudManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.LocalCloudManager.LocalCloudManager.status",
+      "source": "ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/onboarding/general/mgmt/logs",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/onboarding/general/mgmt/get-config?keys=\\fparam{{keys}}",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "onboarding",
+      "protocol": "http",
+      "operation": "onboard-with-name",
+      "method": "POST",
+      "path": "/onboarding/certificate/name",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboarding-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "onboarding",
+      "protocol": "http",
+      "operation": "onboard-with-csr",
+      "method": "POST",
+      "path": "/onboarding/certificate/csr",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboarding-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "onboarding",
+      "protocol": "http",
+      "operation": "onboard-device",
+      "method": "POST",
+      "path": "/onboarding/device",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboarding-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "onboarding",
+      "protocol": "http",
+      "operation": "onboard-system",
+      "method": "POST",
+      "path": "/onboarding/system",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboarding-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "onboarding",
+      "protocol": "http",
+      "operation": "offboard-device",
+      "method": "POST",
+      "path": "/onboarding/device/offboard",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboarding-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "onboardingManagement",
+      "protocol": "http",
+      "operation": "query-enrollments",
+      "method": "GET",
+      "path": "/onboarding/mgmt/enrollments",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboardingManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "onboardingManagement",
+      "protocol": "http",
+      "operation": "get-enrollment",
+      "method": "GET",
+      "path": "/onboarding/mgmt/enrollments/\\fparam{{deviceName}}",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboardingManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "onboardingManagement",
+      "protocol": "http",
+      "operation": "approve-device",
+      "method": "PUT",
+      "path": "/onboarding/mgmt/enrollments/\\fparam{{deviceName}}",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboardingManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "onboardingManagement",
+      "protocol": "http",
+      "operation": "offboard-device",
+      "method": "POST",
+      "path": "/onboarding/mgmt/enrollments/\\fparam{{deviceName}}/offboard",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboardingManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "onboardingManagement",
+      "protocol": "http",
+      "operation": "remove-enrollment",
+      "method": "DELETE",
+      "path": "/onboarding/mgmt/enrollments/\\fparam{{deviceName}}",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboardingManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Onboarding.Onboarding.echo",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Onboarding.Onboarding.power",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "Onboarding",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.Onboarding.Onboarding.status",
+      "source": "ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/plantdescriptionengine/general/mgmt/logs",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/plantdescriptionengine/general/mgmt/get-config?keys=\\fparam{{keys}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "GET",
+      "path": "/plantdescriptionengine/mgmt/plant-descriptions?page=\\fparam{{page}}\\&size=\\fparam{{size}}\\&direction=\\fparam{{direction}}\\&sort_field={sort_field}\\&active=\\fparam{{active}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionManagement",
+      "protocol": "http",
+      "operation": "get",
+      "method": "GET",
+      "path": "/plantdescriptionengine/mgmt/plant-descriptions/\\fparam{{id}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionManagement",
+      "protocol": "http",
+      "operation": "create",
+      "method": "POST",
+      "path": "/plantdescriptionengine/mgmt/plant-descriptions",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionManagement",
+      "protocol": "http",
+      "operation": "replace",
+      "method": "PUT",
+      "path": "/plantdescriptionengine/mgmt/plant-descriptions/\\fparam{{id}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionManagement",
+      "protocol": "http",
+      "operation": "update",
+      "method": "PATCH",
+      "path": "/plantdescriptionengine/mgmt/plant-descriptions/\\fparam{{id}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionManagement",
+      "protocol": "http",
+      "operation": "remove",
+      "method": "DELETE",
+      "path": "/plantdescriptionengine/mgmt/plant-descriptions/\\fparam{{id}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionMonitor",
+      "protocol": "http",
+      "operation": "query-plant-descriptions",
+      "method": "GET",
+      "path": "/plantdescriptionengine/monitor/plant-descriptions?page=\\fparam{{page}}\\&size=\\fparam{{size}}\\&direction=\\fparam{{direction}}\\&sort_field={sort_field}\\&active=\\fparam{{active}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionMonitor-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionMonitor",
+      "protocol": "http",
+      "operation": "get-plant-description",
+      "method": "GET",
+      "path": "/plantdescriptionengine/monitor/plant-descriptions/\\fparam{{id}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionMonitor-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionMonitor",
+      "protocol": "http",
+      "operation": "query-alarms",
+      "method": "GET",
+      "path": "/plantdescriptionengine/monitor/alarms?page=\\fparam{{page}}\\&size=\\fparam{{size}}\\&direction=\\fparam{{direction}}\\&sort_field={sort_field}\\&system_name={system_name}\\&severity=\\fparam{{severity}}\\&acknowledged=\\fparam{{acknowledged}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionMonitor-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionMonitor",
+      "protocol": "http",
+      "operation": "get-alarm",
+      "method": "GET",
+      "path": "/plantdescriptionengine/monitor/alarms/\\fparam{{id}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionMonitor-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "plantDescriptionMonitor",
+      "protocol": "http",
+      "operation": "acknowledge-alarm",
+      "method": "PATCH",
+      "path": "/plantdescriptionengine/monitor/alarms/\\fparam{{id}}",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionMonitor-HTTP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.PlantDescriptionEngine.PlantDescriptionEngine.echo",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.PlantDescriptionEngine.PlantDescriptionEngine.power",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "PlantDescriptionEngine",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.PlantDescriptionEngine.PlantDescriptionEngine.status",
+      "source": "ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.SysMonitor.SysMonitor.echo",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.SysMonitor.SysMonitor.power",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.SysMonitor.SysMonitor.status",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitorData",
+      "protocol": "mqtt",
+      "operation": "subscribe",
+      "method": "SUBSCRIBE",
+      "path": "<baseTopic>/<observationType>/<providerSystem>",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorData-MQTT-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitorHistory",
+      "protocol": "http",
+      "operation": "list-systems",
+      "method": "GET",
+      "path": "/sysmonitor/history/systems",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorHistory-HTTP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitorHistory",
+      "protocol": "http",
+      "operation": "query",
+      "method": "GET",
+      "path": "/sysmonitor/history/systems/\\fparam{{systemName}}/observations?type=\\fparam{{type}}\\&from=\\fparam{{from}}\\&to=\\fparam{{to}}\\&count=\\fparam{{count}}",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorHistory-HTTP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitorHistory",
+      "protocol": "http",
+      "operation": "latest",
+      "method": "GET",
+      "path": "/sysmonitor/history/systems/\\fparam{{systemName}}/latest",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorHistory-HTTP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitorManagement",
+      "protocol": "http",
+      "operation": "status",
+      "method": "GET",
+      "path": "/sysmonitor/management/status",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitorManagement",
+      "protocol": "http",
+      "operation": "providers",
+      "method": "GET",
+      "path": "/sysmonitor/management/providers",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitorManagement",
+      "protocol": "http",
+      "operation": "subscriptions",
+      "method": "GET",
+      "path": "/sysmonitor/management/subscriptions",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitorManagement",
+      "protocol": "http",
+      "operation": "subscribe",
+      "method": "PUT",
+      "path": "/sysmonitor/management/subscriptions/\\fparam{{providerSystem}}",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitorManagement",
+      "protocol": "http",
+      "operation": "unsubscribe",
+      "method": "DELETE",
+      "path": "/sysmonitor/management/subscriptions/\\fparam{{providerSystem}}",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "SysMonitor",
+      "service": "sysMonitorManagement",
+      "protocol": "http",
+      "operation": "reconcile",
+      "method": "POST",
+      "path": "/sysmonitor/management/reconcile",
+      "source": "ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "TimeManager",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/timemanager/general/mgmt/logs",
+      "source": "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "TimeManager",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/timemanager/general/mgmt/get-config?keys=\\fparam{{keys}}",
+      "source": "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "TimeManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.TimeManager.TimeManager.echo",
+      "source": "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "TimeManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.TimeManager.TimeManager.power",
+      "source": "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "TimeManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.TimeManager.TimeManager.status",
+      "source": "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "TimeManager",
+      "service": "time",
+      "protocol": "http",
+      "operation": "get-time",
+      "method": "GET",
+      "path": "/timemanager/time",
+      "source": "ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-time-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-log",
+      "method": "POST",
+      "path": "/translation/general/mgmt/logs",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "generalManagement",
+      "protocol": "http",
+      "operation": "get-config",
+      "method": "GET",
+      "path": "/translation/general/mgmt/get-config?keys=\\fparam{{keys}}",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-log",
+      "method": "PUBLISH",
+      "path": "arrowhead/translation/general/management/get-log",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "generalManagement",
+      "protocol": "mqtt",
+      "operation": "get-config",
+      "method": "PUBLISH",
+      "path": "arrowhead/translation/general/management/get-config",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "echo",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.TranslationManager.TranslationManager.echo",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "power",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.TranslationManager.TranslationManager.power",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "sysMonitor",
+      "protocol": "amqp",
+      "operation": "status",
+      "method": "PUBLISH",
+      "path": "<Cloud>.sysmonitor.TranslationManager.TranslationManager.status",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-sysMonitor-AMQP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridge",
+      "protocol": "http",
+      "operation": "discovery",
+      "method": "POST",
+      "path": "/translation/bridge/discovery",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridge",
+      "protocol": "http",
+      "operation": "negotiation",
+      "method": "POST",
+      "path": "/translation/bridge/negotiation",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridge",
+      "protocol": "http",
+      "operation": "abort",
+      "method": "DELETE",
+      "path": "/translation/bridge/abort/\\fparam{{bridgeId}}",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridge",
+      "protocol": "mqtt",
+      "operation": "discovery",
+      "method": "PUBLISH",
+      "path": "arrowhead/translation/bridge/discovery",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-MQTT-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridge",
+      "protocol": "mqtt",
+      "operation": "negotiation",
+      "method": "PUBLISH",
+      "path": "arrowhead/translation/bridge/negotiation",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-MQTT-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridge",
+      "protocol": "mqtt",
+      "operation": "abort",
+      "method": "PUBLISH",
+      "path": "arrowhead/translation/bridge/abort",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-MQTT-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridgeManagement",
+      "protocol": "http",
+      "operation": "discovery",
+      "method": "POST",
+      "path": "/translation/bridge/mgmt/discovery",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridgeManagement",
+      "protocol": "http",
+      "operation": "negotiation",
+      "method": "POST",
+      "path": "/translation/bridge/mgmt/negotiation",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridgeManagement",
+      "protocol": "http",
+      "operation": "abort",
+      "method": "DELETE",
+      "path": "/translation/bridge/mgmt/abort?ids=\\fparam{{ids}}",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridgeManagement",
+      "protocol": "http",
+      "operation": "query",
+      "method": "POST",
+      "path": "/translation/bridge/mgmt/query",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridgeManagement",
+      "protocol": "mqtt",
+      "operation": "discovery",
+      "method": "PUBLISH",
+      "path": "arrowhead/translation/bridge/management/discovery",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridgeManagement",
+      "protocol": "mqtt",
+      "operation": "negotiation",
+      "method": "PUBLISH",
+      "path": "arrowhead/translation/bridge/management/negotiation",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridgeManagement",
+      "protocol": "mqtt",
+      "operation": "abort",
+      "method": "PUBLISH",
+      "path": "arrowhead/translation/bridge/management/abort",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationBridgeManagement",
+      "protocol": "mqtt",
+      "operation": "query",
+      "method": "PUBLISH",
+      "path": "arrowhead/translation/bridge/management/query",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-MQTT-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationReport",
+      "protocol": "http",
+      "operation": "report",
+      "method": "POST",
+      "path": "/translation/event/report",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-HTTP-IDD.tex"
+    },
+    {
+      "system": "TranslationManager",
+      "service": "translationReport",
+      "protocol": "mqtt",
+      "operation": "report",
+      "method": "PUBLISH",
+      "path": "arrowhead/translation/event/report",
+      "source": "ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-MQTT-IDD.tex"
+    }
+  ]
+}

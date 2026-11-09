@@ -1,0 +1,69 @@
+eventhandler-1  | Arrowhead EventHandler 5.2.2
+eventhandler-1  | 
+eventhandler-1  | 2026-10-25 10:54:33.375  INFO e5a56ed49a5e --- [           main] e.a.e.EventHandlerMain                   : Starting EventHandlerMain v5.2.2 using Java 21.0.12.1 with PID 1 (/app/app.jar started by ? in /app)
+eventhandler-1  | 2026-10-25 10:54:33.378  INFO e5a56ed49a5e --- [           main] e.a.e.EventHandlerMain                   : No active profile set, falling back to 1 default profile: "default"
+eventhandler-1  | 2026-10-25 10:54:34.451  INFO e5a56ed49a5e --- [           main] .c.s.CrlRevocationConfig$$SpringCGLIB$$0 : Client certificates are checked against the CRL [/crl/ca.crl]
+eventhandler-1  | 2026-10-25 10:54:34.515  INFO e5a56ed49a5e --- [           main] e.a.e.s.EventHandlerAuthorizationFilter  : EventHandlerAuthorizationFilter is active
+eventhandler-1  | 2026-10-25 10:54:34.730  INFO e5a56ed49a5e --- [           main] e.a.c.c.HttpCollectorDriver              : Service collector mode: ORCHESTRATION, ServiceRegistry lookup only for [serviceDiscovery, systemDiscovery, deviceDiscovery, serviceRegistryManagement, generalManagement, identity, serviceOrchestration]
+eventhandler-1  | 2026-10-25 10:54:34.736  INFO e5a56ed49a5e --- [           main] e.a.c.h.f.a.OutsourcedFilter             : OutsourcedFilter is active
+eventhandler-1  | 2026-10-25 10:54:34.739  INFO e5a56ed49a5e --- [           main] e.a.c.h.f.a.ManagementServiceFilter      : ManagementServiceFilter is active
+eventhandler-1  | 2026-10-25 10:54:35.223  WARN e5a56ed49a5e --- [           main] o.h.d.Dialect                            : HHH000511: The 8.4.11 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.4.0. Check the community dialects project for available legacy versions.
+eventhandler-1  | 2026-10-25 10:54:35.848  INFO e5a56ed49a5e --- [           main] .q.OutsourcedLoginConfig$$SpringCGLIB$$0 : Login job (to authentication server) is initialized.
+eventhandler-1  | 2026-10-25 10:54:35.875  INFO e5a56ed49a5e --- [           main] e.a.c.s.SysMonitorPublisher              : sysMonitor publisher enabled on arrowhead TestCloud.sysmonitor.EventHandler.EventHandler
+eventhandler-1  | 2026-10-25 10:54:35.904  WARN e5a56ed49a5e --- [nitor-publisher] e.a.c.s.SysMonitorPublisher              : sysMonitor publication failed: Connection refused
+eventhandler-1  | 2026-10-25 10:54:36.020  WARN e5a56ed49a5e --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+eventhandler-1  | 2026-10-25 10:54:36.443  INFO e5a56ed49a5e --- [           main] .e.i.EventHandlerApplicationInitListener : System name: EventHandler
+eventhandler-1  | 2026-10-25 10:54:36.443  INFO e5a56ed49a5e --- [           main] .e.i.EventHandlerApplicationInitListener : System port: 8455
+eventhandler-1  | 2026-10-25 10:54:36.443  INFO e5a56ed49a5e --- [           main] .e.i.EventHandlerApplicationInitListener : SSL mode: ENABLED
+eventhandler-1  | 2026-10-25 10:54:36.443  INFO e5a56ed49a5e --- [           main] .e.i.EventHandlerApplicationInitListener : Authentication policy: OUTSOURCED
+eventhandler-1  | 2026-10-25 10:54:36.757  INFO e5a56ed49a5e --- [eduler_Worker-1] e.a.c.q.OutsourcedLoginJob               : (Re-)Login is successful
+eventhandler-1  | 2026-10-25 10:54:39.458  INFO e5a56ed49a5e --- [           main] .e.i.EventHandlerApplicationInitListener : ServiceRegistry is accessible...
+eventhandler-1  | 2026-10-25 10:54:39.548  INFO e5a56ed49a5e --- [           main] .e.i.EventHandlerApplicationInitListener : System EventHandler published 5 service(s)
+eventhandler-1  | 2026-10-25 10:54:39.558  INFO e5a56ed49a5e --- [           main] e.a.e.EventHandlerMain                   : Started EventHandlerMain in 6.368 seconds (process running for 6.911)
+eventhandler-db-1  | 2026-10-25 10:54:26+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+eventhandler-db-1  | 2026-10-25 10:54:27+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+eventhandler-db-1  | 2026-10-25 10:54:27+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.4.11-1.el9 started.
+eventhandler-db-1  | 2026-10-25 10:54:27+00:00 [Note] [Entrypoint]: Initializing database files
+eventhandler-db-1  | 2026-10-25T10:54:27.209602Z 0 [System] [MY-015017] [Server] MySQL Server Initialization - start.
+eventhandler-db-1  | 2026-10-25T10:54:27.210679Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.4.11) initializing of server in progress as process 82
+eventhandler-db-1  | 2026-10-25T10:54:27.216115Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+eventhandler-db-1  | 2026-10-25T10:54:27.300225Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+eventhandler-db-1  | 2026-10-25T10:54:27.623225Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+eventhandler-db-1  | 2026-10-25T10:54:29.102544Z 0 [System] [MY-015018] [Server] MySQL Server Initialization - end.
+eventhandler-db-1  | 2026-10-25 10:54:29+00:00 [Note] [Entrypoint]: Database files initialized
+eventhandler-db-1  | 2026-10-25 10:54:29+00:00 [Note] [Entrypoint]: Starting temporary server
+eventhandler-db-1  | 2026-10-25T10:54:29.133984Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+eventhandler-db-1  | 2026-10-25T10:54:29.288547Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 127
+eventhandler-db-1  | 2026-10-25T10:54:29.296323Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+eventhandler-db-1  | 2026-10-25T10:54:29.372610Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+eventhandler-db-1  | 2026-10-25T10:54:29.506187Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+eventhandler-db-1  | 2026-10-25T10:54:29.506230Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+eventhandler-db-1  | 2026-10-25T10:54:29.507259Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+eventhandler-db-1  | 2026-10-25T10:54:29.514784Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+eventhandler-db-1  | 2026-10-25T10:54:29.514831Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+eventhandler-db-1  | 2026-10-25 10:54:29+00:00 [Note] [Entrypoint]: Temporary server started.
+eventhandler-db-1  | '/var/lib/mysql/mysql.sock' -> '/var/run/mysqld/mysqld.sock'
+eventhandler-db-1  | 2026-10-25 10:54:30+00:00 [Note] [Entrypoint]: Creating database ah_eventhandler
+eventhandler-db-1  | 2026-10-25 10:54:30+00:00 [Note] [Entrypoint]: Creating user eventhandler
+eventhandler-db-1  | 2026-10-25 10:54:30+00:00 [Note] [Entrypoint]: Giving user eventhandler access to schema ah_eventhandler
+eventhandler-db-1  | 
+eventhandler-db-1  | 2026-10-25 10:54:30+00:00 [Note] [Entrypoint]: /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/10-schema.sql
+eventhandler-db-1  | 
+eventhandler-db-1  | 
+eventhandler-db-1  | 2026-10-25 10:54:30+00:00 [Note] [Entrypoint]: Stopping temporary server
+eventhandler-db-1  | 2026-10-25T10:54:30.290688Z 14 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.4.11).
+eventhandler-db-1  | 2026-10-25T10:54:30.985242Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.4.11)  MySQL Community Server - GPL.
+eventhandler-db-1  | 2026-10-25T10:54:30.985259Z 0 [System] [MY-015016] [Server] MySQL Server - end.
+eventhandler-db-1  | 2026-10-25 10:54:31+00:00 [Note] [Entrypoint]: Temporary server stopped
+eventhandler-db-1  | 
+eventhandler-db-1  | 2026-10-25 10:54:31+00:00 [Note] [Entrypoint]: MySQL init process done. Ready for start up.
+eventhandler-db-1  | 
+eventhandler-db-1  | 2026-10-25T10:54:31.301099Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+eventhandler-db-1  | 2026-10-25T10:54:31.458226Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.4.11) starting as process 1
+eventhandler-db-1  | 2026-10-25T10:54:31.461929Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+eventhandler-db-1  | 2026-10-25T10:54:31.539852Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+eventhandler-db-1  | 2026-10-25T10:54:31.664496Z 0 [Warning] [MY-010068] [Server] CA certificate /tls/ca.crt is self signed.
+eventhandler-db-1  | 2026-10-25T10:54:31.664538Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+eventhandler-db-1  | 2026-10-25T10:54:31.667292Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+eventhandler-db-1  | 2026-10-25T10:54:31.676306Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.4.11'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+eventhandler-db-1  | 2026-10-25T10:54:31.676303Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock

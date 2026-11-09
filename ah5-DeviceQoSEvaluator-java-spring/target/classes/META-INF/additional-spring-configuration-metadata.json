@@ -1,0 +1,132 @@
+{"properties": [
+  {
+    "name": "service.registry.address",
+    "type": "java.lang.String",
+    "description": "A description for 'service.registry.address'"
+  },
+  {
+    "name": "service.registry.port",
+    "type": "java.lang.Integer",
+    "description": "A description for 'service.registry.port'"
+  },
+  {
+    "name": "mqtt.api.enabled",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'mqtt.api.enabled'"
+  },
+  {
+    "name": "mqtt.broker.address",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.broker.address'"
+  },
+  {
+    "name": "mqtt.broker.port",
+    "type": "java.lang.Integer",
+    "description": "A description for 'mqtt.broker.port'"
+  },
+  {
+    "name": "mqtt.client.password",
+    "type": "java.lang.String",
+    "description": "A description for 'mqtt.client.password'"
+  },
+  {
+    "name": "domain.name",
+    "type": "java.lang.String",
+    "description": "A description for 'domain.name'"
+  },
+  {
+    "name": "authentication.policy",
+    "type": "eu.arrowhead.common.http.filter.authentication.AuthenticationPolicy",
+    "description": "A description for 'authentication.policy'"
+  },
+  {
+    "name": "enable.management.filter",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.management.filter'"
+  },
+  {
+    "name": "management.policy",
+    "type": "eu.arrowhead.common.http.filter.authorization.ManagementPolicy",
+    "description": "A description for 'management.policy'"
+  },
+  {
+    "name": "management.whitelist",
+    "type": "java.util.List",
+    "description": "A description for 'management.whitelist'"
+  },
+  {
+    "name": "enable.blacklist.filter",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'enable.blacklist.filter'"
+  },
+  {
+    "name": "force.blacklist.filter",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'force.blacklist.filter'"
+  },
+  {
+    "name": "blacklist.check.exclude.list",
+    "type": "java.util.List",
+    "description": "A description for 'blacklist.check.exclude.list'"
+  },
+  {
+    "name": "max.page.size",
+    "type": "java.lang.Integer",
+    "description": "A description for 'max.page.size'"
+  },
+  {
+    "name": "normalization.mode",
+    "type": "eu.arrowhead.common.service.normalization.NormalizationMode",
+    "description": "A description for 'normalization.mode'"
+  },
+  {
+    "name": "measurement.organizer.job.interval",
+    "type": "java.lang.Long",
+    "description": "A description for 'measurement.organizer.job.interval'"
+  },
+  {
+    "name": "rtt.measurement.job.interval",
+    "type": "java.lang.Long",
+    "description": "A description for 'rtt.measurement.job.interval'"
+  },
+  {
+    "name": "rtt.measurement.timeout",
+    "type": "java.lang.Long",
+    "description": "A description for 'rtt.measurement.timeout'"
+  },
+  {
+    "name": "augmented.measurement.job.interval",
+    "type": "java.lang.Long",
+    "description": "A description for 'augmented.measurement.job.interval'"
+  },
+  {
+    "name": "evaluation.time.window",
+    "type": "java.lang.Long",
+    "description": "A description for 'evaluation.time.window'"
+  },
+  {
+    "name": "cleaning.job.interval",
+    "type": "java.lang.Long",
+    "description": "A description for 'cleaning.job.interval'"
+  },
+  {
+    "name": "raw.measurement.data.max.age",
+    "type": "java.lang.Integer",
+    "description": "A description for 'raw.measurement.data.max.age'"
+  },
+  {
+    "name": "inactive.device.max.age",
+    "type": "java.lang.Integer",
+    "description": "A description for 'inactive.device.max.age'"
+  },
+  {
+    "name": "disable.hostname.verifier",
+    "type": "java.lang.Boolean",
+    "description": "A description for 'disable.hostname.verifier'"
+  },
+  {
+    "name": "org.quartz.threadPool.threadCount",
+    "type": "java.lang.Integer",
+    "description": "A description for 'org.quartz.threadPool.threadCount'"
+  }
+]}

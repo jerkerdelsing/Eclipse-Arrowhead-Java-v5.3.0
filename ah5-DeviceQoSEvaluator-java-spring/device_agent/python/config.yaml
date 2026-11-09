@@ -1,0 +1,8 @@
+measurements:
+  cpu_total_load:
+    enabled: true
+  ram_used:
+    enabled: true
+  network_load:
+    enabled: true
+    link_address: <ip address of the device to be measure>

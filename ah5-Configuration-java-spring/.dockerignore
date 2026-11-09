@@ -1,0 +1,7 @@
+target
+.git
+.env
+security
+documentation
+**/target
+**/.DS_Store

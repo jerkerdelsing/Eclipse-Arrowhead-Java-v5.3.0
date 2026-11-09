@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-25",
+  "source": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/EA-fork",
+  "destination": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead",
+  "java_systems": 15,
+  "verified_source_build_config_jar_files": 4160,
+  "sysdd_pairs": 15,
+  "reviewed_updated_pdf_hashes_verified": 12,
+  "gsosdd": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead/roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2/GSoSDD_Arrowhead_Support_Systems_5.2.tex",
+  "new_test_run": false,
+  "prior_verification": "all-support-2026-10-25/summary.json",
+  "non_java_exception": "LocalCloudManager: Node.js/nginx; own deployment; no Java JAR"
+}

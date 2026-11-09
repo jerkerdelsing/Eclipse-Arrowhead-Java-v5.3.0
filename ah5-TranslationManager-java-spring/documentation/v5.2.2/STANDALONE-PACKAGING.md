@@ -1,0 +1,1 @@
+Current packaging is maintained in this folder. Source facts: pom.xml, vendor/ (where present), Dockerfile, config/, compose.yaml and DEPLOYMENT.md. Rebuild the SysDD locally with latexmk. Do not overwrite these changes using the original combined-tree documentation generator.

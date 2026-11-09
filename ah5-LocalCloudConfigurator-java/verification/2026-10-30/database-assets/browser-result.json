@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checks": [
+    "default graph has four core microsystems plus one infrastructure component and integrated private databases; no SimpleOrchestration",
+    "microsystem and infrastructure selection projects dependencies; optional SimpleOrchestration and undo/redo work",
+    "graphical component positioning edits the persistent design layout",
+    "design and node positions persist in Java service; revision checks reject stale edits",
+    "reopening a saved design restores selections and graphical positions",
+    "core and necessary infrastructure stops are protected; console action guards remain enforced",
+    "reviewed graphical plan executes a real signed ColonyOS verification workflow successfully",
+    "desktop/mobile layout works without page overflow or browser errors; existing SimpleOrchestration stays running",
+    "graphical design deletion leaves runtime services unchanged",
+    "temporary test designs removed"
+  ],
+  "fixturesRemoved": true
+}
