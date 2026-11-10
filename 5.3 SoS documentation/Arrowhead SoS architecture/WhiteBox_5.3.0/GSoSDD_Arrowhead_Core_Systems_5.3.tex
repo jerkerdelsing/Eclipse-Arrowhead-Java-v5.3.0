@@ -79,7 +79,7 @@
 \ArrowheadType{Generic System of Systems Design Description}
 \ArrowheadTypeShort{GSoSDD}
 \ArrowheadVersion{5.3.0}
-\ArrowheadDate{2026-11-03}
+\ArrowheadDate{2026-11-10}
 \ArrowheadAuthor{Jerker Delsing}
 \ArrowheadStatus{DRAFT}
 \ArrowheadContact{jerker.delsing@ltu.se}
@@ -757,6 +757,10 @@ local-cloud startup.
 
 
 
+\def\ArrowheadCoreNetworkDeployment{1}
+\input{sections/network-deployment}
+
+\newpage
 \section{Microsystem White-Box Descriptions}
 \label{sec:systems}
 
@@ -1702,7 +1706,8 @@ change only when they are rebuilt from the primary tree and redeployed.
 11 & 2026-10-30 & 1.1 & Updated primary Java/Go/Rust packaging and evidence limits, four-core configuration default, graphical engineering tools and integrated private database ownership. & Codex (draft) \\ \hline
 12 & 2026-11-04 & 1.2 & Harmonizing with architecture fundamentals,
                         details cleaning. & Jerker Delsing \\ \hline
-13 & 2026-11-07 & 1.3 & Resolved observations 1--6 of Section~\ref{sec:issues} in the primary Java reference: library source and version check, SimpleStore image port, monitoring alignment, startup and packaging security checks, restricted-discovery combinations, tested provider-side inter-cloud authorisation. & Claude (draft) \\ \hline\end{longtable}
+13 & 2026-11-07 & 1.3 & Resolved observations 1--6 of Section~\ref{sec:issues} in the primary Java reference: library source and version check, SimpleStore image port, monitoring alignment, startup and packaging security checks, restricted-discovery combinations, tested provider-side inter-cloud authorisation. & Claude (draft) \\ \hline14 & 2026-11-10 & 1.4 & Network deployment from Arrowhead-5.2 Papyrus: segment/endpoint mapping, restricted flows and commissioning evidence; model definitions distinguished from deployment decisions. & Codex (draft) \\ \hline
+\end{longtable}
 \normalsize
 
 \subsection{Quality Assurance}

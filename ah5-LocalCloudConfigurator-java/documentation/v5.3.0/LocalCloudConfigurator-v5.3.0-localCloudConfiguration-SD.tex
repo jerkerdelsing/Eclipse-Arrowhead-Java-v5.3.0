@@ -1,0 +1,406 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{localCloudConfiguration}
+\ArrowheadServiceID{localCloudConfiguration}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service, version 1.0.0, produced by the LocalCloudConfigurator support system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service, which lets a consumer read the component catalog and the runtime state of a local cloud, keep designs, review plans and apply them. It is produced by the LocalCloudConfigurator system \cite{lcc-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{lcc-localCloudConfiguration-http-idd}.
+
+\subsection{Significant Prior Art}
+
+The operations are those of the earlier operator API of the Java LocalCloudConfigurator (paths below \texttt{/api}), now offered as an Arrowhead service.
+
+\subsection{How This Service Is Meant to Be Used}
+
+LocalCloudManager, the consumer, shows the catalog and the live status in its graphical editor, saves designs, asks for a plan, shows it to the operator and applies it by its hash after confirmation; it then follows the deployment step by step.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Every operation needs an authenticated caller and Sysop, the configurator's whitelist or a ConsumerAuthorization grant of that operation. A plan is applied only while its hash matches a plan built afresh; one deployment runs at a time. Saving or deleting a design never changes the runtime. Completed steps of a failed deployment remain applied.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the operations of the \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service.
+Each subsection names an abstract operation, an input type and an output type, in that order.
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=7cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{localCloudConfiguration}
+        \nodepart{second} \texttt{catalog}\\ \texttt{status}\\ \texttt{plan}\\ \texttt{submit-deployment}\\ \texttt{get-deployment}\\ \texttt{list-configurations}\\ \texttt{create-configuration}\\ \texttt{get-configuration}\\ \texttt{update-configuration}\\ \texttt{remove-configuration}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+\osubsection{catalog}{}{\mref{Catalog}}
+
+The component catalog of the cloud.
+
+\osubsection{status}{}{\mref{Status}}
+
+Running Compose services and the state (\texttt{running}, \texttt{partial}, \texttt{stopped}) of each component (cached 2 s).
+
+\osubsection{plan}{\mref{PlanRequest}}{\mref{PlanResponse}}
+
+Builds a plan against the current runtime; returns it with its hash.
+
+\osubsection{submit-deployment}{\mref{ApplyRequest}}{\mref{DeploymentAccepted}}
+
+Applies a reviewed plan if its hash still matches a fresh plan and no other deployment is running.
+
+\osubsection{get-deployment}{\pref{Identifier}}{\mref{Deployment}}
+
+State and step results of a submitted deployment (identifier appended to the path); the report is stored.
+
+\osubsection{list-configurations}{}{\mref{ConfigurationList}}
+
+Saved designs (up to 1000), sorted by name.
+
+\osubsection{create-configuration}{\mref{ConfigurationDraft}}{\mref{Configuration}}
+
+Saves a new design (revision 1).
+
+\osubsection{get-configuration}{\pref{Identifier}}{\mref{Configuration}}
+
+One saved design.
+
+\osubsection{update-configuration}{\mref{ConfigurationDraft}}{\mref{Configuration}}
+
+Replaces a design when \texttt{expectedRevision} matches; the revision is incremented.
+
+\osubsection{remove-configuration}{\mref{RevisionCheck}}{\mref{Removal}}
+
+Deletes a design when \texttt{expectedRevision} matches; the runtime is unchanged.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service are listed in alphabetic order.
+
+\msubsection{struct}{ApplyRequest}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+systems & \pref{List}$<$\pref{Name}$>$ & Selected components. \\ \hline
+remove & \pref{List}$<$\pref{Name}$>$ & Components to stop. \\ \hline
+reapply & \pref{Boolean} & Rerun setup of running components. \\ \hline
+smoke & \pref{Boolean} & Add the verification step. \\ \hline
+expectedPlanHash & \pref{String} & Hash of the reviewed plan (409 if it no longer matches). \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{Catalog}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+cloud & \pref{Name} & Local cloud. \\ \hline
+composeProject & \pref{Name} & Compose project. \\ \hline
+colony & \pref{Name} & ColonyOS colony (legacy backend). \\ \hline
+executorType & \pref{Name} & ColonyOS executor type. \\ \hline
+defaults & \pref{List}$<$\pref{Name}$>$ & Default core components. \\ \hline
+smoke & \pref{List}$<$\pref{Name}$>$ & Verification operations (\texttt{verify-localcloud}). \\ \hline
+systems & \pref{List}$<$\mref{Component}$>$ & Components. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{Component}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Name} & Component identifier. \\ \hline
+name & \pref{String} & Display name. \\ \hline
+kind & \pref{String} & \texttt{core}, \texttt{support}, \texttt{application} or \texttt{infrastructure}. \\ \hline
+services & \pref{List}$<$\pref{Name}$>$ & Compose services, databases first. \\ \hline
+internalAssets & \pref{List}$<$\pref{Name}$>$ & Owned databases. \\ \hline
+requires & \pref{List}$<$\pref{Name}$>$ & Dependencies. \\ \hline
+provision & \pref{List}$<$\pref{String}$>$ & Provisioning scripts. \\ \hline
+policies & \pref{List}$<$\pref{String}$>$ & Policy scripts. \\ \hline
+protected & \pref{Boolean} & Cannot be stopped. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{Configuration}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Identifier} & UUID. \\ \hline
+name & \pref{String} & 1--200 characters. \\ \hline
+systems & \pref{List}$<$\pref{Name}$>$ & Defaults first, then the selection (databases mapped to their host). \\ \hline
+remove & \pref{List}$<$\pref{Name}$>$ & Components marked for stopping. \\ \hline
+reapply & \pref{Boolean} &  \\ \hline
+smoke & \pref{Boolean} &  \\ \hline
+layout & \pref{Object}$<$\mref{Point}$>$ & Positions by component. \\ \hline
+revision & \pref{Number} & Incremented on every update. \\ \hline
+updatedAt & \pref{DateTime} & Time of the last change. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{ConfigurationDraft}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{String} & 1--200 characters. \\ \hline
+systems & \pref{List}$<$\pref{Name}$>$ &  \\ \hline
+remove & \pref{List}$<$\pref{Name}$>$ &  \\ \hline
+reapply & \pref{Boolean} &  \\ \hline
+smoke & \pref{Boolean} &  \\ \hline
+layout & \pref{Object}$<$\mref{Point}$>$ & At most 200 positions. \\ \hline
+expectedRevision & \pref{Number} & Required for \oref{update-configuration}. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{ConfigurationList}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\mref{Configuration}$>$ & Saved designs. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{Deployment}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Identifier} & Deployment identifier. \\ \hline
+state & \pref{String} & \texttt{running}, \texttt{success} or \texttt{failed} (ColonyOS: also \texttt{waiting}). \\ \hline
+steps & \pref{List}$<$\mref{StepState}$>$ & One entry per plan step. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{DeploymentAccepted}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Identifier} & Deployment identifier (empty when there was nothing to do). \\ \hline
+plan & \mref{Plan} & The applied plan. \\ \hline
+state & \pref{String} & \texttt{submitted}, or \texttt{success} when the plan had no steps. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{Plan}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+cloud & \pref{Name} & Local cloud. \\ \hline
+catalogHash & \pref{String} & SHA-256 of the catalog. \\ \hline
+systems & \pref{List}$<$\pref{Name}$>$ & Components in dependency order. \\ \hline
+steps & \pref{List}$<$\mref{Step}$>$ & Ordered steps. \\ \hline
+notes & \pref{List}$<$\pref{String}$>$ & For example \texttt{"TimeManager: already running"}. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{PlanRequest}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+systems & \pref{List}$<$\pref{Name}$>$ & Selected components (at most 200). \\ \hline
+remove & \pref{List}$<$\pref{Name}$>$ & Components to stop (at most 200). \\ \hline
+reapply & \pref{Boolean} &  \\ \hline
+smoke & \pref{Boolean} &  \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{PlanResponse}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+plan & \mref{Plan} & The plan. \\ \hline
+hash & \pref{String} & SHA-256 of the plan. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{Point}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+x & \pref{Number} & 0--10000. \\ \hline
+y & \pref{Number} & 0--10000. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{Removal}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+removed & \pref{Identifier} & Removed design. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{RevisionCheck}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+expectedRevision & \pref{Number} & Current revision. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{Status}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+cloud & \pref{Name} & Local cloud. \\ \hline
+running & \pref{List}$<$\pref{Name}$>$ & Running Compose services. \\ \hline
+systems & \pref{List}$<$\pref{Object}$>$ & \texttt{id} and \texttt{state} per component. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{Step}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+kind & \pref{String} & \texttt{provision}, \texttt{up}, \texttt{policy}, \texttt{stop} or \texttt{smoke}. \\ \hline
+target & \pref{String} & Script, Compose service or verification. \\ \hline
+system & \pref{Name} & Owning component (absent for \texttt{smoke}). \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{StepState}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.6cm} | >{\raggedright\arraybackslash\small}p{4.4cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+node & \pref{String} & Step identifier (\texttt{s1}, \ldots). \\ \hline
+processId & \pref{String} & ColonyOS process (empty for the worker). \\ \hline
+kind & \pref{String} & Step kind. \\ \hline
+target & \pref{String} & Step target. \\ \hline
+state & \pref{String} & \texttt{waiting}, \texttt{running}, \texttt{success} or \texttt{failed}. \\ \hline
+errors & \pref{List}$<$\pref{String}$>$ & Redacted errors. \\ \hline
+output & \pref{String} & Redacted, bounded command output. \\ \hline
+\end{tabularx}
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record. \\ \hline
+\pdef{List} & An ordered collection of items of one type. \\ \hline
+\pdef{Name} & A string identifier, human and machine readable. \\ \hline
+\pdef{Number} & A number. \\ \hline
+\pdef{Object} & A structured value. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-11-09 & 5.2.2 & Document created for the \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service of the Java-Spring LocalCloudConfigurator. & Claude Opus 5.5 (draft) \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

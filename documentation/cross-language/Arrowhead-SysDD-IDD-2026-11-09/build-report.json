@@ -1,0 +1,926 @@
+{
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-AIGym-go/documentation/AIGym/AIGym-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-AIGym-go/documentation/AIGym/AIGym-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-AIGym-go/documentation/AIGym/AIGym-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-AIGym-go/documentation/AIGym/AIGym-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-Blacklist-go/documentation/Blacklist/Blacklist-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-Blacklist-go/documentation/Blacklist/Blacklist-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-Blacklist-go/documentation/Blacklist/Blacklist-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-Blacklist-go/documentation/Blacklist/Blacklist-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/documentation/CertificateAuthority/CertificateAuthority-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/documentation/CertificateAuthority/CertificateAuthority-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/documentation/CertificateAuthority/CertificateAuthority-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/documentation/CertificateAuthority/CertificateAuthority-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-Choreographer-go/documentation/Choreographer/Choreographer-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-Choreographer-go/documentation/Choreographer/Choreographer-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-Choreographer-go/documentation/Choreographer/Choreographer-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-Choreographer-go/documentation/Choreographer/Choreographer-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-Configuration-go/documentation/Configuration/Configuration-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-Configuration-go/documentation/Configuration/Configuration-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-Configuration-go/documentation/Configuration/Configuration-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-Configuration-go/documentation/Configuration/Configuration-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-DataManager-go/documentation/DataManager/DataManager-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-DataManager-go/documentation/DataManager/DataManager-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-DataManager-go/documentation/DataManager/DataManager-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-DataManager-go/documentation/DataManager/DataManager-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-EventHandler-go/documentation/EventHandler/EventHandler-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-EventHandler-go/documentation/EventHandler/EventHandler-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-EventHandler-go/documentation/EventHandler/EventHandler-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-EventHandler-go/documentation/EventHandler/EventHandler-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-GateTunnel-go/documentation/GateTunnel/GateTunnel-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-GateTunnel-go/documentation/GateTunnel/GateTunnel-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-GateTunnel-go/documentation/GateTunnel/GateTunnel-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-GateTunnel-go/documentation/GateTunnel/GateTunnel-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-Gatekeeper-go/documentation/Gatekeeper/Gatekeeper-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-Gatekeeper-go/documentation/Gatekeeper/Gatekeeper-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-Gatekeeper-go/documentation/Gatekeeper/Gatekeeper-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-Gatekeeper-go/documentation/Gatekeeper/Gatekeeper-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-localCloudManagement-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-localCloudManagement-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-monitor-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-monitor-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-Onboarding-go/documentation/Onboarding/Onboarding-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-Onboarding-go/documentation/Onboarding/Onboarding-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-Onboarding-go/documentation/Onboarding/Onboarding-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-Onboarding-go/documentation/Onboarding/Onboarding-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/documentation/PlantDescriptionEngine/PlantDescriptionEngine-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/documentation/PlantDescriptionEngine/PlantDescriptionEngine-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/documentation/PlantDescriptionEngine/PlantDescriptionEngine-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/documentation/PlantDescriptionEngine/PlantDescriptionEngine-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-SysMonitor-go/documentation/SysMonitor/SysMonitor-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-SysMonitor-go/documentation/SysMonitor/SysMonitor-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-SysMonitor-go/documentation/SysMonitor/SysMonitor-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-SysMonitor-go/documentation/SysMonitor/SysMonitor-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-TimeManager-go/documentation/TimeManager/TimeManager-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-TimeManager-go/documentation/TimeManager/TimeManager-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-TimeManager-go/documentation/TimeManager/TimeManager-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-TimeManager-go/documentation/TimeManager/TimeManager-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-TranslationManager-go/documentation/TranslationManager/TranslationManager-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-TranslationManager-go/documentation/TranslationManager/TranslationManager-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-TranslationManager-go/documentation/TranslationManager/TranslationManager-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-TranslationManager-go/documentation/TranslationManager/TranslationManager-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/service-design/DynamicServiceOrchestration-PlantManagement-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/service-design/DynamicServiceOrchestration-PlantManagement-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/service-design/DynamicServiceOrchestration-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/service-design/DynamicServiceOrchestration-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-aiGym-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-aiGym-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateSigning-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateSigning-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateValidation-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateValidation-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerExecutor-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerExecutor-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerSession-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerSession-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configuration-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configuration-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationProxy-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationProxy-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataHistorian-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataHistorian-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataProxy-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataProxy-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventHandlerManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventHandlerManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventPublish-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventPublish-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventSubscription-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventSubscription-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelConnection-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelConnection-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelKey-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelKey-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-gatekeeperManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-gatekeeperManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-globalServiceDiscovery-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-globalServiceDiscovery-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-interCloudNegotiation-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-interCloudNegotiation-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-graphDataHistorian-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-graphDataHistorian-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-graphDataProxy-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-graphDataProxy-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/LocalCloudConfigurator-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/LocalCloudConfigurator-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/LocalCloudConfigurator-v5.2.2-localCloudConfiguration-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/LocalCloudConfigurator-v5.2.2-localCloudConfiguration-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/LocalCloudConfigurator-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/LocalCloudConfigurator-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboarding-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboarding-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboardingManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboardingManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionMonitor-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionMonitor-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorData-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorData-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorHistory-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorHistory-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-time-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-time-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-generalManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-generalManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identity-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identity-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identity-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identity-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identityManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identityManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identityManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identityManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorization-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorization-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorization-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorization-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationToken-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationToken-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationToken-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationToken-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationTokenManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationTokenManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationTokenManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationTokenManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-generalManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-generalManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-generalManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-generalManagement-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestration-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestration-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestration-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestration-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationLockManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationLockManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationLockManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationLockManagement-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationPlantManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationPlantManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-HTTP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-MQTT-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-generalManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-generalManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestration-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestration-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestration-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestration-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationSimpleStoreManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationSimpleStoreManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationSimpleStoreManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationSimpleStoreManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-SysDD.pdf",
+    "status": "existing primary PDF newer than its LaTeX source"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-deviceDiscovery-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-deviceDiscovery-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-deviceDiscovery-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-deviceDiscovery-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-generalManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-generalManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-generalManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-generalManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceDiscovery-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceDiscovery-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceDiscovery-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceDiscovery-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceRegistryManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceRegistryManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceRegistryManagement-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceRegistryManagement-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-sysMonitor-AMQP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-sysMonitor-AMQP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-systemDiscovery-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-systemDiscovery-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-systemDiscovery-MQTT-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-systemDiscovery-MQTT-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/Authentication/Authentication-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/Authentication/Authentication-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/Authentication/Authentication-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/Authentication/Authentication-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ConsumerAuthorization/ConsumerAuthorization-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ConsumerAuthorization/ConsumerAuthorization-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ConsumerAuthorization/ConsumerAuthorization-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ConsumerAuthorization/ConsumerAuthorization-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/DynamicServiceOrchestration/DynamicServiceOrchestration-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/DynamicServiceOrchestration/DynamicServiceOrchestration-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/DynamicServiceOrchestration/DynamicServiceOrchestration-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/DynamicServiceOrchestration/DynamicServiceOrchestration-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ServiceRegistry/ServiceRegistry-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ServiceRegistry/ServiceRegistry-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ServiceRegistry/ServiceRegistry-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ServiceRegistry/ServiceRegistry-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-core-rust/documentation/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/AIGym/AIGym-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/AIGym/AIGym-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/AIGym/AIGym-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/AIGym/AIGym-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Blacklist/Blacklist-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Blacklist/Blacklist-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Blacklist/Blacklist-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Blacklist/Blacklist-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/CertificateAuthority/CertificateAuthority-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/CertificateAuthority/CertificateAuthority-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/CertificateAuthority/CertificateAuthority-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/CertificateAuthority/CertificateAuthority-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Choreographer/Choreographer-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Choreographer/Choreographer-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Choreographer/Choreographer-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Choreographer/Choreographer-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Configuration/Configuration-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Configuration/Configuration-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Configuration/Configuration-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Configuration/Configuration-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DataManager/DataManager-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DataManager/DataManager-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DataManager/DataManager-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DataManager/DataManager-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/EventHandler/EventHandler-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/EventHandler/EventHandler-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/EventHandler/EventHandler-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/EventHandler/EventHandler-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/GateTunnel/GateTunnel-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/GateTunnel/GateTunnel-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/GateTunnel/GateTunnel-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/GateTunnel/GateTunnel-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Gatekeeper/Gatekeeper-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Gatekeeper/Gatekeeper-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Gatekeeper/Gatekeeper-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Gatekeeper/Gatekeeper-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Rust-v5.2.2-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Rust-v5.2.2-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Rust-v5.2.2-localCloudManagement-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Rust-v5.2.2-localCloudManagement-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Rust-v5.2.2-monitor-HTTP-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Rust-v5.2.2-monitor-HTTP-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Onboarding/Onboarding-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Onboarding/Onboarding-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Onboarding/Onboarding-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Onboarding/Onboarding-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/PlantDescriptionEngine/PlantDescriptionEngine-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/PlantDescriptionEngine/PlantDescriptionEngine-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/PlantDescriptionEngine/PlantDescriptionEngine-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/PlantDescriptionEngine/PlantDescriptionEngine-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/SysMonitor/SysMonitor-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/SysMonitor/SysMonitor-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/SysMonitor/SysMonitor-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/SysMonitor/SysMonitor-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TimeManager/TimeManager-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TimeManager/TimeManager-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TimeManager/TimeManager-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TimeManager/TimeManager-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TranslationManager/TranslationManager-HTTPS-IDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TranslationManager/TranslationManager-HTTPS-IDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  },
+  "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TranslationManager/TranslationManager-SysDD.tex": {
+    "pdf": "sources/Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TranslationManager/TranslationManager-SysDD.pdf",
+    "status": "compiled from primary LaTeX source in scratch directory"
+  }
+}

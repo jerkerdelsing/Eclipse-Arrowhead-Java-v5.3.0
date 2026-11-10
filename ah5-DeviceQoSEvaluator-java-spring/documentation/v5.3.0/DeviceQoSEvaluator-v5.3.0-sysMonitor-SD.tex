@@ -1,0 +1,218 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{sysMonitor}
+\ArrowheadServiceID{sysMonitor}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the native \texttt{sysMonitor} service, version 1.0.0, produced by the DeviceQoSEvaluator support system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{sysMonitor} service, which provides native operational telemetry of the Device\allowbreak{}Qo\allowbreak{}SEvaluator system: periodic \texttt{echo}, \texttt{power} and \texttt{status} observations published to the local cloud's AMQP broker.
+The service is produced by DeviceQoSEvaluator \cite{dqe-sysd}; its concrete interface is the AMQP IDD \cite{dqe-sysMonitor-amqp-idd}.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+
+\subsection{Significant Prior Art}
+
+Arrowhead 4.x and upstream 5.2.2 had an HTTP \texttt{monitor}/\texttt{echo} endpoint. In this workspace the telemetry follows SysMonitor-AMQP-IDD-5.2.2; the HTTP liveness endpoint is not registered.
+
+\subsection{How This Service Is Meant to Be Used}
+
+The SysMonitor support system subscribes to the observations (selected with \texttt{sys\allowbreak{}Monitor\allowbreak{}Management}) and keeps the history; LocalCloudManager shows it.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+The observations describe the process, not the correctness of its answers. The service is offered only with \texttt{sysmonitor.\allowbreak{}enabled=\allowbreak{}true}. Delivery is publisher-confirmed but not end-to-end acknowledged by SysMonitor.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+The \texttt{sysMonitor} service is a publishing service: the producer publishes one observation per operation (observation type) every publication interval (default 30 s); consumers receive them through the broker. Each operation has no input and the output \mref{Observation}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{sysMonitor}
+        \nodepart{second} \texttt{echo}\\ \texttt{power}\\ \texttt{status}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{sysMonitor} service and its observation types.}
+  \label{fig:SD}
+\end{figure}
+
+\osubsection{echo}{}{\mref{Observation}}
+
+Liveness: \texttt{status} (\texttt{alive} or \texttt{degraded}), \texttt{uptimeSeconds} and a \texttt{detail} text; quality \texttt{good} or \texttt{uncertain}.
+
+\osubsection{power}{}{\mref{Observation}}
+
+Power supply: \texttt{supplyType=\allowbreak{}line}, \texttt{state=\allowbreak{}available}; unit \texttt{1}.
+
+\osubsection{status}{}{\mref{Observation}}
+
+Process state: \texttt{state=\allowbreak{}running}, \texttt{health} (\texttt{healthy}/\texttt{degraded}) and \texttt{serviceCount}, the number of registered services.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+\msubsection{struct}{Observation}
+
+One observation.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.25cm} | p{3.5cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+schemaVersion & \pref{Version} & Version of the observation schema, \texttt{1.0}. \\ \hline
+observationId & \pref{Identifier} & Unique identifier of the observation. \\ \hline
+providerSystem & \pref{Name} & The publishing system. \\ \hline
+serviceInstance & \pref{Name} & The service instance (default the system name). \\ \hline
+observationType & \pref{Name} & \texttt{echo}, \texttt{power}, \texttt{status}. \\ \hline
+sourceTime & \pref{DateTime} & Time of the observation. \\ \hline
+sequence & \pref{Number} & Sequence number per publisher. \\ \hline
+value & \pref{Metadata} & The observed value (per operation). \\ \hline
+unit & \pref{Name} & Unit of the value, if any. \\ \hline
+quality & \pref{Name} & \texttt{good} or \texttt{uncertain}. \\ \hline
+metadata & \pref{Metadata} & \texttt{publisherMode=native}. \\ \hline
+\end{tabularx}
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+\noindent\begin{tabularx}{\textwidth}{| p{3cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{Metadata} & A set of key-value pairs with arbitrary, possibly nested values. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{Version} & Specifies a version, semantic versioning \texttt{major.minor.patch}. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & 5.2.2 & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

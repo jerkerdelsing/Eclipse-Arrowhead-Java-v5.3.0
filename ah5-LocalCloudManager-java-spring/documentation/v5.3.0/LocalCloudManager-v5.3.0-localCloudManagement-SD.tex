@@ -1,0 +1,517 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{localCloudManagement}
+\ArrowheadServiceID{localCloudManagement}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} service, version 1.0.0, produced by the LocalCloudManager support system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} service, which provides the operator console API of the local cloud: overview, registry and data views, orchestration rules, consumers, inter-cloud state, sysMonitor history and subscriptions, plant descriptions, logs and container lifecycle.
+It is produced by the LocalCloudManager system \cite{lcm-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{lcm-localCloudManagement-http-idd}.
+
+\subsection{Significant Prior Art}
+
+New in this workspace.
+
+\subsection{How This Service Is Meant to Be Used}
+
+The browser console, served by LocalCloudManager on its console connector (8490, host loopback), calls the operations after the operator has logged in with the console password. Arrowhead systems call the same operations on the Arrowhead connector (8491) with their certificate and identity token. Each view is assembled on request from the providing systems with LocalCloudManager\'s own identity.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Registered with \texttt{generic\_\allowbreak{}https} and policy \texttt{CERT\_\allowbreak{}AUTH} on the Arrowhead connector: there a caller needs its client certificate and an identity token of the same system, and the operation is allowed for Sysop, the systems of \texttt{lcm.\allowbreak{}api.\allowbreak{}whitelist} and systems with a ConsumerAuthorization grant of the operation. On the console connector the console session authenticates instead; \texttt{session}, \texttt{login} and \texttt{logout} exist only there and are not registered. Changing requests need \texttt{X-\allowbreak{}Arrowhead-\allowbreak{}Action:\allowbreak{} confirm} (428 otherwise). The registered operation names are camelCase, which deviates from the kebab-case convention of ARROWHEAD-NAMING.md.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{localCloudManagement}
+        \nodepart{second} \texttt{session}\\ \texttt{login}\\ \texttt{logout}\\ \texttt{overview}\\ \texttt{service\allowbreak{}Registry\allowbreak{}Management}\\ \texttt{dataManager}\\ \texttt{consumers}\\ \texttt{interCloud}\\ \texttt{sysMonitorHistory}\\ \texttt{sys\allowbreak{}Monitor\allowbreak{}Subscriptions}\\ \texttt{subscribe\allowbreak{}Sys\allowbreak{}Monitor}\\ \texttt{unsubscribe\allowbreak{}Sys\allowbreak{}Monitor}\\ \texttt{plantDescriptions}\\ \texttt{create\allowbreak{}Plant\allowbreak{}Description}\\ \texttt{replace\allowbreak{}Plant\allowbreak{}Description}\\ \texttt{update\allowbreak{}Plant\allowbreak{}Description}\\ \texttt{remove\allowbreak{}Plant\allowbreak{}Description}\\ \texttt{orchestrationRules}\\ \texttt{create\allowbreak{}Orchestration\allowbreak{}Rule}\\ \texttt{remove\allowbreak{}Orchestration\allowbreak{}Rule}\\ \texttt{logs}\\ \texttt{lifecycle}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{session}{}{\mref{Session}}
+
+Returns whether the console session is valid (no session needed; console connector only, not registered).
+
+\osubsection{login}{\mref{Login}}{}
+
+Logs in with the console password; sets the HttpOnly, SameSite=Strict session cookie (console connector only, not registered).
+
+\osubsection{logout}{}{}
+
+Ends the console session (console connector only, not registered).
+
+\osubsection{overview}{}{\mref{View}}
+
+Overview: containers, registered systems, brokers, sysMonitor flows, activity.
+
+\osubsection{serviceRegistryManagement}{}{\mref{View}}
+
+Registry inventory: devices, systems, services and interface templates.
+
+\osubsection{dataManager}{}{\mref{View}}
+
+DataManager historian streams and recent records.
+
+\osubsection{consumers}{}{\mref{View}}
+
+Per provider service, the authorized and the orchestrated consumers.
+
+\osubsection{interCloud}{}{\mref{View}}
+
+Relay connection, Gatekeeper and GateTunnel sessions.
+
+\osubsection{sysMonitorHistory}{}{\mref{View}}
+
+Monitored systems and their history.
+
+\osubsection{sysMonitorSubscriptions}{}{\mref{View}}
+
+SysMonitor providers, subscriptions and intake state.
+
+\osubsection{subscribeSysMonitor}{\mref[Sys\allowbreak{}Monitor\allowbreak{}Subscription\allowbreak{}Request]{SysMonitorSubscriptionRequest}}{\mref{View}}
+
+Sets the SysMonitor subscription of a provider (appended to the path).
+
+\osubsection{unsubscribeSysMonitor}{\pref{Name}}{}
+
+Removes the SysMonitor subscription of a provider.
+
+\osubsection{plantDescriptions}{}{\mref{View}}
+
+Plant descriptions with the registered systems and services offered as choices.
+
+\osubsection{createPlantDescription}{\mref{PlantDescription}}{\mref{PlantDescription}}
+
+Creates a plant description in the Plant\allowbreak{}Description\allowbreak{}Engine.
+
+\osubsection{replacePlantDescription}{\mref{PlantDescription}}{\mref{PlantDescription}}
+
+Replaces a plant description (identifier appended).
+
+\osubsection{updatePlantDescription}{\mref{PlantDescription}}{\mref{PlantDescription}}
+
+Updates a plant description (identifier appended).
+
+\osubsection{removePlantDescription}{\pref{Identifier}}{}
+
+Removes a plant description (identifier appended).
+
+\osubsection{orchestrationRules}{}{\mref{View}}
+
+SimpleStore rules and the dynamic orchestrations of Dynamic\allowbreak{}Service\allowbreak{}Orchestration.
+
+\osubsection{createOrchestrationRule}{\mref{OrchestrationRule}}{\mref{View}}
+
+Creates a SimpleStore rule.
+
+\osubsection{removeOrchestrationRule}{\pref{Identifier}}{}
+
+Removes a SimpleStore rule (identifier appended).
+
+\osubsection{logs}{}{\mref{LogLines}}
+
+Log lines of a container of the cloud.
+
+\osubsection{lifecycle}{\pref{String}}{\mref{LifecycleResult}}
+
+Starts, stops or restarts a managed container: \texttt{POST /\allowbreak{}api/\allowbreak{}containers/\allowbreak{}\textless{}service\textgreater{}/\allowbreak{}\textless{}action\textgreater{}}.
+
+\subsection*{Console operations outside the registered operation list}
+
+The console API also offers the following operations. They are not part of the \texttt{operations} property registered in the ServiceRegistry (the console is their consumer); they are served on both connectors with the same access rules as the registered operations (on the Arrowhead connector only for Sysop and \texttt{lcm.\allowbreak{}api.\allowbreak{}whitelist}, since no grant can name them) and, for changes, need the confirmation header.
+
+\osubsection{features}{}{\mref{Features}}
+
+Which optional console views are enabled.
+
+\osubsection{authorizationPolicies}{}{\mref{PolicyView}}
+
+Local-cloud management policies of Consumer\allowbreak{}Authorization (editable) and provider-owned local policies (read-only).
+
+\osubsection{grantAuthorizationPolicy}{\mref{PolicyChange}}{\mref{ManagementPolicy}}
+
+Grants a local management policy, or replaces the policy of the same provider and target when \texttt{expected} matches the stored one. Provider and service must be registered in the local cloud; policy types are \texttt{ALL}, \texttt{WHITELIST} and \texttt{BLACKLIST}.
+
+\osubsection{revokeAuthorizationPolicy}{\mref{PolicyChange}}{\mref{Removal}}
+
+Revokes a local management policy (instance identifier appended to the path) when \texttt{expected} matches the stored policy.
+
+\osubsection{changeOrchestrationRulePriority}{\mref{RulePriorityChange}}{\mref{View}}
+
+Changes the priority of a SimpleStore rule (identifier appended) with SimpleStore \texttt{modify-\allowbreak{}priorities}, or by create and remove when \texttt{ORCHESTRATION\_\allowbreak{}PRIORITY\_\allowbreak{}MODE=replace}.
+
+\osubsection{sosConfigurations}{}{\mref{View}}
+
+SoS compositions (plant descriptions of the Plant\allowbreak{}Description\allowbreak{}Engine); one composition when its identifier is appended.
+
+\osubsection{createSoS}{\mref{SoSChange}}{\mref{PlantDescription}}
+
+Stores a validated SoS composition (unique systems and ports, required-to-provided connections, included compositions without cycles).
+
+\osubsection{replaceSoS}{\mref{SoSChange}}{\mref{PlantDescription}}
+
+Replaces an SoS composition (identifier appended) when \texttt{expected} matches the stored one.
+
+\osubsection{removeSoS}{\mref{SoSChange}}{\mref{Removal}}
+
+Removes an SoS composition (identifier appended) when \texttt{expected} matches the stored one.
+
+\osubsection{localCloudConfiguration}{\pref{String}}{\mref{View}}
+
+Local-cloud configuration view (404 when \texttt{lcm.\allowbreak{}local-\allowbreak{}cloud-\allowbreak{}configuration.\allowbreak{}enabled=\allowbreak{}false}): the route below \texttt{/api/\allowbreak{}localcloud} selects one operation of the \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service of LocalCloudConfigurator \cite{lcc-localCloudConfiguration-sd}, which is consumed through orchestration with LocalCloudManager\'s certificate and identity token: \texttt{GET} of \texttt{/catalog}, \texttt{/status}, \texttt{/configurations}, \texttt{/configurations/\{uuid\}} and \texttt{/deployments/\{id\}}; \texttt{POST} of \texttt{/plan}, \texttt{/deployments} and \texttt{/configurations}; \texttt{PUT} and \texttt{DELETE} of \texttt{/configurations/\{uuid\}}. Status and body of the configurator are returned unchanged; other routes are 404.
+
+\osubsection{chipletFloorplans}{\pref{String}}{\mref{View}}
+
+Chiplet floorplan view when \texttt{lcm.\allowbreak{}chiplet-\allowbreak{}floorplans.\allowbreak{}enabled=\allowbreak{}true} (404 otherwise), through orchestrated Chiplet\allowbreak{}Floorplan\allowbreak{}Generator services: \texttt{GET} list (\texttt{page}, \texttt{size} up to 200), \texttt{/library} and \texttt{/\{id\}}; \texttt{POST} create (stored inactive, 201) and \texttt{POST /check-network}; \texttt{PUT /\{id\}} with \texttt{expectedUpdatedAt} (409 when changed); \texttt{DELETE /\{id\}}. Bodies carry \texttt{floorplan} with 1--64 chiplets and at most 1024 links.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{LifecycleResult}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+service & \pref{String} & Compose service. \\ \hline
+action & \pref{String} & \texttt{start}, \texttt{stop} or \texttt{restart}. \\ \hline
+accepted & \pref{Boolean} & Forwarded to the Docker proxy. \\ \hline
+at & \pref{String} & Time of the action. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{LogLines}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+service & \pref{String} & Compose service. \\ \hline
+lines & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Log lines (\texttt{tail} latest). \\ \hline
+collected\allowbreak{}At & \pref{DateTime} & Collection time. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Login}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+password & \pref{String} & Console password (JSON only; 204 on success, 401 wrong, 429 locked). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationRule}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+consumer & \pref{Name} & Consumer system. \\ \hline
+service\allowbreak{}Instance\allowbreak{}Id & \pref{Identifier} & Service instance. \\ \hline
+priority & \pref{Number} & Priority (1 highest). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlantDescription}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+* & \pref{Object} & Plant description as in Plant\allowbreak{}Description\allowbreak{}Engine \texttt{plant\allowbreak{}Description\allowbreak{}Management}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Session}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+authenticated & \pref{Boolean} & Whether the request carries a valid console session. \\ \hline
+configured & \pref{Boolean} & Whether a console password is configured. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SysMonitorSubscriptionRequest}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+observation\allowbreak{}Types & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Types to receive, \texttt{*} for all. \\ \hline
+enabled & \pref{Boolean} & Default true. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{View}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+* & \pref{Object} & View document assembled from the providing systems; a failing source is reported in the document instead of failing the request. \\ \hline
+\end{tabularx}
+
+
+
+
+\msubsection{struct}{Features}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+localCloudConfiguration & \pref{Boolean} & Local-cloud configuration view enabled. \\ \hline
+chipletFloorplans & \pref{Boolean} & Chiplet floorplan view enabled. \\ \hline
+managerName & \pref{Name} & LocalCloudManager, or ChipletLocalCloudManager with floorplans. \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{ManagementPolicy}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+instanceId & \pref{Identifier} & Policy instance (assigned by Consumer\allowbreak{}Authorization). \\ \hline
+provider & \pref{Name} & Registered local provider. \\ \hline
+targetType & \pref{String} & \texttt{SERVICE\_DEF} or \texttt{EVENT\_TYPE}. \\ \hline
+target & \pref{Name} & Service definition or event type. \\ \hline
+description & \pref{String} & At most 1000 characters. \\ \hline
+defaultPolicy & \pref{Object} & \texttt{policyType} (\texttt{ALL}, \texttt{WHITELIST}, \texttt{BLACKLIST}) and \texttt{policyList} of local system names. \\ \hline
+scopedPolicies & \pref{Object} & Per operation, a policy like \texttt{defaultPolicy} (at most 100). \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{PolicyChange}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+policy & \mref{ManagementPolicy} & Policy to grant (POST). \\ \hline
+expected & \mref{ManagementPolicy} & Stored policy as last read; required to replace or revoke. \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{PolicyView}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List} & Editable local management policies. \\ \hline
+readOnlyEntries & \pref{List} & Provider-owned local policies. \\ \hline
+collectedAt & \pref{DateTime} & Collection time. \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{Removal}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+removed & \pref{Object} & Identifier of, or \texttt{true} for, the removed entry. \\ \hline
+id & \pref{Identifier} & Removed policy (policies only). \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{RulePriorityChange}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+priority & \pref{Number} & New priority, 1 to 2147483647. \\ \hline
+expected & \mref{OrchestrationRule} & Rule as last read (409 if changed, 428 if missing). \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{SoSChange}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+configuration & \pref{Object} & SoS model: \texttt{plantDescription} (name), \texttt{active}, \texttt{include}, \texttt{systems} with ports, \texttt{connections}. \\ \hline
+expected & \pref{Object} & Stored composition as last read (replace and remove). \\ \hline
+activationConfirmed & \pref{Boolean} & Must be \texttt{true} to save an active composition (428 otherwise). \\ \hline
+\end{tabularx}
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{Object} & Any structured value. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & 5.2.2 & Checked against the primary Java source tree (Eclipse-Arrowhead-java): console operations outside the registered list (features, authorization policies, rule priority, SoS, local-cloud configuration, chiplet floorplans) added; information model extended. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & 5.2.2 & Java-Spring implementation: registered as \texttt{generic\_\allowbreak{}https}/\texttt{CERT\_\allowbreak{}AUTH} on the Arrowhead connector with identity, whitelist and grant checks; session, login and logout console-only; local-cloud configuration through the orchestrated \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service. & Claude Opus 5.5 (draft) \\ \hline
+4 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

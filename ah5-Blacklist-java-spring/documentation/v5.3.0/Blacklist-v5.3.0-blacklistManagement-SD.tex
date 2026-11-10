@@ -1,0 +1,305 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{blacklistManagement}
+\ArrowheadServiceID{blacklistManagement}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{blacklist\allowbreak{}Management} service, version 1.0.0, produced by the Blacklist support system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{blacklist\allowbreak{}Management} service, which provides operator management of the blacklist: adding systems with a reason and expiry, querying entries and inactivating them.
+It is produced by the Blacklist system \cite{bl-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interfaces are specified in the HTTP/TLS/JSON IDD \cite{bl-blacklistManagement-http-idd} and the MQTT/TLS/JSON IDD \cite{bl-blacklistManagement-mqtt-idd}.
+
+\subsection{Significant Prior Art}
+
+New in Arrowhead 5.
+
+\subsection{How This Service Is Meant to Be Used}
+
+Operators, the onboarding procedure (off-boarded systems are blacklisted) and security tooling add entries with \texttt{create}, inspect them with \texttt{query} and lift them with \texttt{remove}.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Entries are inactivated, not deleted, so the history is kept. Access follows the management policy of the Blacklist.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{blacklist\allowbreak{}Management} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{blacklistManagement}
+        \nodepart{second} \texttt{query}\\ \texttt{create}\\ \texttt{remove}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{blacklist\allowbreak{}Management} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{query}{\mref{BlacklistQueryRequest}}{\mref[Blacklist\allowbreak{}Entry\allowbreak{}List\allowbreak{}Response]{BlacklistEntryListResponse}}
+
+Returns a page of entries matching the filter.
+
+\osubsection{create}{\mref[Blacklist\allowbreak{}Create\allowbreak{}List\allowbreak{}Request]{BlacklistCreateListRequest}}{\mref[Blacklist\allowbreak{}Entry\allowbreak{}List\allowbreak{}Response]{BlacklistEntryListResponse}}
+
+Adds blacklist entries with reason and optional expiry.
+
+\osubsection{remove}{\pref{List}$<$\allowbreak{}\pref{Name}$>$}{}
+
+Inactivates the entries of the named systems.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{blacklist\allowbreak{}Management} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{BlacklistCreateListRequest}
+
+Entries to add to the blacklist.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entities & \pref{List}$<$\allowbreak{}\mref{BlacklistCreateRequest}$>$ & Entries to create. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{BlacklistCreateRequest}
+
+One system to blacklist.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+system\allowbreak{}Name & \pref{Name} & System to blacklist. \\ \hline
+expires\allowbreak{}At & \pref{DateTime} & UTC expiry time; no value means no expiry. \\ \hline
+reason & \pref{String} & Reason of the blacklisting. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{BlacklistEntry}
+
+A blacklist entry.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+system\allowbreak{}Name & \pref{Name} & The blacklisted system. \\ \hline
+created\allowbreak{}By & \pref{Name} & System that created the entry. \\ \hline
+revoked\allowbreak{}By & \pref{String} & System that inactivated the entry, if any. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+reason & \pref{String} & Reason of the blacklisting. \\ \hline
+expires\allowbreak{}At & \pref{DateTime} & Expiry of the entry; no value means permanent. \\ \hline
+active & \pref{Boolean} & Whether the entry is in force. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{BlacklistEntryListResponse}
+
+List of blacklist entries.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{BlacklistEntry}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{BlacklistQueryRequest}
+
+Paged filter for blacklist entries.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+pagination & \mref{Page} & Paging and sorting of the result. \\ \hline
+system\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{Name}$>$ & System names to match. \\ \hline
+mode & \pref{String} & Which entries to return: \texttt{ALL}, \texttt{ACTIVES} or \texttt{INACTIVES}. \\ \hline
+issuers & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Systems that created the entries. \\ \hline
+revokers & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Systems that inactivated the entries. \\ \hline
+reason & \pref{String} & Reason of the blacklisting. \\ \hline
+alives\allowbreak{}At & \pref{DateTime} & Only entries in force at this time. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Page}
+
+Paging and sorting; all fields optional.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+page & \pref{Number} & Zero-based page number. \\ \hline
+size & \pref{Number} & Number of records per page (at most \texttt{max.\allowbreak{}page.\allowbreak{}size}, default 1000). \\ \hline
+direction & \pref{String} & Sort direction, \texttt{ASC} or \texttt{DESC}. \\ \hline
+sort\allowbreak{}Field & \pref{String} & Field to sort by. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & 5.2.2 & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

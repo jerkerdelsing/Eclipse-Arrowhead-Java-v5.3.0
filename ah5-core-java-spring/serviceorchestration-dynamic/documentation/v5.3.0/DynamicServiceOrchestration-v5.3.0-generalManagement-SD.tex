@@ -1,0 +1,286 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{generalManagement}
+\ArrowheadServiceID{generalManagement}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{generalManagement} service, version 1.0.0, produced by the DynamicServiceOrchestration core system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{generalManagement} service, which provides general management of the Dynamic\allowbreak{}Service\allowbreak{}Orchestration system: reading its log entries and its configuration.
+It is produced by the DynamicServiceOrchestration system \cite{dso-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{dso-generalManagement-http-idd}. The MQTT binding is specified in the MQTT/TLS/JSON IDD \cite{dso-generalManagement-mqtt-idd}.
+
+\subsection{Significant Prior Art}
+
+New in Arrowhead 5; every 5.x core system offers it.
+
+\subsection{How This Service Is Meant to Be Used}
+
+Operators and LocalCloudManager read recent log entries (stored in the system's database) with \texttt{get-\allowbreak{}log} and the effective configuration with \texttt{get-\allowbreak{}config}.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Access is governed by the management policy of Dynamic\allowbreak{}Service\allowbreak{}Orchestration. \texttt{get-\allowbreak{}config} returns only non-secret configuration keys.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{generalManagement} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{generalManagement}
+        \nodepart{second} \texttt{get-\allowbreak{}log}\\ \texttt{get-\allowbreak{}config}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{generalManagement} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{get-log}{\mref{LogRequest}}{\mref{LogEntryListResponse}}
+
+Returns a page of the system's log entries matching the filter.
+
+\osubsection{get-config}{}{\mref{KeyValues}}
+
+Returns the effective values of the requested configuration keys. Only the public keys of the system are answered; other keys, including all secrets, are ignored.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{generalManagement} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{KeyValues}
+
+Configuration values of the system.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+map & \pref{Map}$<$\allowbreak{}\pref{String}, \pref{String}$>$ & The configuration keys and values; secrets are not returned. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{LogEntry}
+
+One log entry.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+log\allowbreak{}Id & \pref{Identifier} & Identifier of the log entry. \\ \hline
+entry\allowbreak{}Date & \pref{DateTime} & UTC time of the log entry. \\ \hline
+logger & \pref{String} & Logger (Java class) that wrote the entry; as filter, its name. \\ \hline
+severity & \pref{String} & Log level, e.g. \texttt{INFO}, \texttt{WARN}, \texttt{ERROR}; as filter, the minimum level. \\ \hline
+message & \pref{String} & Text of the log entry or status message of the job. \\ \hline
+exception & \pref{String} & Stack trace or exception text of the log entry, if any. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{LogEntryListResponse}
+
+List of log entries.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{LogEntry}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{LogRequest}
+
+Paged filter for the log entries stored in the system's database.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+pagination & \mref{Page} & Paging and sorting of the result. \\ \hline
+from & \pref{DateTime} & Return entries from this UTC time. \\ \hline
+to & \pref{DateTime} & Return entries until this UTC time. \\ \hline
+severity & \pref{String} & Minimum log level to return. \\ \hline
+logger & \pref{String} & Logger (Java class) that wrote the entry; as filter, its name. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Page}
+
+Paging and sorting; all fields optional.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+page & \pref{Number} & Zero-based page number. \\ \hline
+size & \pref{Number} & Number of records per page (at most \texttt{max.\allowbreak{}page.\allowbreak{}size}, default 1000). \\ \hline
+direction & \pref{String} & Sort direction, \texttt{ASC} or \texttt{DESC}. \\ \hline
+sort\allowbreak{}Field & \pref{String} & Field to sort by. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Map} & A set of key-value pairs. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

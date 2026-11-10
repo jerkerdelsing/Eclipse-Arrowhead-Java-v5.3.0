@@ -1,0 +1,62 @@
+\section{Network Deployment}
+\label{sec:network-deployment}
+\subsection{From network contracts to a deployable topology}
+The deployment view realises the intra-cloud, inter-cloud and DMZ interface contracts defined by the \prop{Network} model in \prop{Arrowhead-5.2.uml} \cite{arrowhead52NetworkModel20261110}. It follows the GSoSD Network Architecture section: the model supplies contract/specialisation structure and Ethernet/WiFi examples, whereas the deployment must supply devices, address plans, routes, service bindings and enforcement points. No actual VLAN, subnet, firewall or device allocation is asserted by importing the library.
+
+The source's \prop{GenericIntraCloudNetwork-DesignDescription} refines the intra-cloud contract with an Ethernet-typed port. \prop{GenericIntercloudNetwork} refines the inter-cloud contract with a WiFi-typed port. \prop{GenericIntracloudNetworkDMX} refines the DMZ contract with an Ethernet-typed port. These ports subset their generic full-port interfaces; their 802.3/802.11a names describe the model examples rather than a mandatory physical layout. The source DMX spelling is not interpreted as a separate bearer.
+
+\ifdefined\ArrowheadCoreNetworkDeployment
+This Core deployment must first establish the local paths to \sys{ServiceRegistry}, \sys{Authentication}, \sys{ConsumerAuthorization} and the selected orchestration implementation. An authorised discovery/orchestration result is useful only when the intended consumer can reach the advertised provider interface. The Core does not replace routing and does not proxy ordinary application traffic.
+\else
+This Support deployment adds only the segments and flows required by the selected support services. Local monitoring, engineering, onboarding and inter-cloud federation have different dependencies. Gatekeeper/GateTunnel and a DMZ are needed only when the chosen federation design calls for them; deploying a local historian or monitor does not by itself require a federation relay.
+\fi
+
+\subsection{Reference placement and network separation}
+Figure~\ref{fig:network-deployment-model} gives an explicit reference interpretation of the library, not a record of a running cloud. An intra-cloud segment can be a physical LAN, a routed/segmented LAN or an isolated virtual/container network. The \prop{Device} model contains a generic device design, but it does not allocate the network classifiers to an actual host inventory. The deployment therefore records which hosts run which processes and which interfaces attach them to the selected segments.
+
+Externally exposed federation endpoints may be placed on a controlled DMZ segment and given only the internal paths needed by their Gatekeeper/GateTunnel roles. A deployment without a separate DMZ must document how an equivalent boundary is enforced. The model does not specify that a component is dual-homed, nor does an interface classifier automatically configure forwarding between its host interfaces.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/network-deployment-model}
+\caption{Reference network deployment derived from the model's interface roles. Segments, boundary placement and enforcement are deployment refinements. Private stores remain assets of their owner microsystems; the figure grants no public database or management access.}
+\label{fig:network-deployment-model}
+\end{figure}
+\FloatBarrier
+
+\subsection{Endpoint, address and port plan}
+For every selected interface the deployment record identifies its owning microsystem, process/host, network attachment, bind address/listening port, advertised address/port, transport and expected peer identity. Listening and advertised endpoints may differ behind host/container port publication or NAT; test the advertised endpoint from the consumer's network, not only from the provider host. Keep name resolution and certificate SAN/peer-identity checks consistent with that endpoint.
+
+Use the port allocation in Section~\ref{sec:ports} together with the actual primary implementation and its per-system deployment configuration. Framework-system ports, broker ports and dynamically allocated session/callback endpoints have different scopes. Where the established cloud-index scheme is used, record host mappings and test collisions in the shared address namespace; do not blindly shift every internal listener or treat every broker as part of the 8000--8999 block. Do not open the whole allocation block merely to avoid defining the required flows.
+
+Ethernet/WiFi configuration is a bearer decision. The service binding separately selects HTTPS, MQTT over TLS, AMQP over TLS or another implemented protected transport. \prop{ProtocolKind}'s HTTP defaults and its CoAP/Websocket/DDS/Other alternatives are not evidence of unencrypted production operation or implementation support. Keep the existing telemetry and federation wire contracts unchanged when mapping them onto a segment.
+
+\subsection{Allowed communication paths}
+\begin{longtable}{|P{3.1cm}|P{4.2cm}|P{6.3cm}|}\hline
+\rowcolor{gray!20} Initiator and destination & Allowed purpose / binding & Boundary requirement \\\hline\endhead
+Members to Core APIs & Registration, identity, authorisation and selected orchestration over the implemented protected API. & Reachable bootstrap endpoints; authenticated identities and required operation grants. No peer-cloud access to internal Core management by default. \\\hline
+Consumer to provider & Direct application/support calls to the discovered/orchestrated interface, or explicit approved callbacks. & The returned address must be reachable from that consumer. Validate provider identity and consumer authority independently of routing. \\\hline
+Publishers or consumers to local brokers & Native monitoring or other selected publish/subscribe contracts. & Separate configured broker endpoints, certificate identities and exchange/topic ACLs. A subscription grants no unrelated management or federation access. \\\hline
+\sys{Gatekeeper} / \sys{GateTunnel} to peer or relay & Discovery, negotiation and negotiated session traffic of the chosen inter-cloud binding. & Restrict DMZ/external flows to declared peers, relay endpoints and session policy; retain the cloud's internal authorisation checks. \\\hline
+Approved operators/engineering clients to management & Only the configured management or console connector and its selected operations. & A browser console session and an Arrowhead system identity are distinct. No blanket external exposure of management, runtime-control or database interfaces. \\\hline
+Microsystem to owned store & Private persistence connection inside its deployment boundary. & Store connectivity belongs to the owning system; no direct application-consumer or remote-cloud database route is implied. \\\hline
+\end{longtable}
+
+\subsection{Deployment configuration and operational evidence}
+Record the selected physical/virtual segments and, where used, VLAN/VRF identifiers, routes, firewall/ACL directions, NAT/host mappings, DNS names and the equipment/host ownership. Record the implemented TLS/identity profile, trust distribution and revocation enforcement points. Network isolation supplements authentication and authorisation; it cannot replace them. Provision any required name/time/credential-management dependencies explicitly without inferring them from a model connector.
+
+In a container deployment, distinguish a private Compose/virtual network from a port published on a host interface. A private database network or a loopback-only operator console must not become publicly routable because the host also serves a federation endpoint. The selected primary Java, Go or Rust implementation supplies its actual defaults, startup checks and supported transports; a library port or a similarly named process does not prove that all variants provide the same security or protocol behavior.
+
+The existing dated reference-deployment discussion in Section~\ref{sec:java-deployment} remains a separate example. This network plan neither refreshes that runtime inventory nor claims that its historical images, routes or permissions have been changed. New deployment evidence must identify the exact source/build, effective configuration and observed endpoints.
+
+\subsection{Commissioning and failure checks}
+Before accepting a network realisation:
+\begin{enumerate}
+\item Verify each deployed network role against its model contract, host/interface allocation and effective address/port configuration. Record which DMZ/bearer refinements were selected and why.
+\item Exercise bootstrap and authorised direct consumption from the intended consumer network, including advertised endpoints, required callbacks and configured broker paths. A local health request alone is insufficient.
+\item Check that unapproved external, peer-cloud and management paths are refused. Test incorrect or untrusted peer identities and absent/denied authorisation separately from transport reachability; check revocation only at the enforcement points actually provided by the selected profile.
+\item For selected federation, establish and close a session through the permitted peer/relay path; confirm that unrelated Core, management and store endpoints remain inaccessible across the boundary.
+\item Interrupt an intra-cloud, DMZ or inter-cloud path and observe the documented timeouts/recovery. Verify restored reachability and security before resuming dependent exchanges; no redundant path or availability guarantee follows merely from the network class names.
+\item Keep the endpoint/route/ACL observations and negative checks with the deployment record. Distinguish link/routing failure, TLS identity failure, authorisation refusal and application failure in that evidence.
+\end{enumerate}
+These are acceptance obligations for a deployment, not tests executed by the documentation update. No production address, firewall rule, network device or running cloud is changed here.

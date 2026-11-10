@@ -1,0 +1,505 @@
+[
+  {
+    "system": "Authentication",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.3.0",
+    "documents": [
+      "Authentication-v5.3.0-SysD.tex",
+      "Authentication-v5.3.0-SysDD.tex",
+      "Authentication-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "Authentication-v5.3.0-generalManagement-MQTT-IDD.tex",
+      "Authentication-v5.3.0-generalManagement-SD.tex",
+      "Authentication-v5.3.0-identity-HTTP-IDD.tex",
+      "Authentication-v5.3.0-identity-MQTT-IDD.tex",
+      "Authentication-v5.3.0-identity-SD.tex",
+      "Authentication-v5.3.0-identityManagement-HTTP-IDD.tex",
+      "Authentication-v5.3.0-identityManagement-MQTT-IDD.tex",
+      "Authentication-v5.3.0-identityManagement-SD.tex",
+      "Authentication-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "Authentication-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "ConsumerAuthorization",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.3.0",
+    "documents": [
+      "ConsumerAuthorization-v5.3.0-SysD.tex",
+      "ConsumerAuthorization-v5.3.0-SysDD.tex",
+      "ConsumerAuthorization-v5.3.0-authorization-HTTP-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-authorization-MQTT-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-authorization-SD.tex",
+      "ConsumerAuthorization-v5.3.0-authorizationManagement-HTTP-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-authorizationManagement-MQTT-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-authorizationManagement-SD.tex",
+      "ConsumerAuthorization-v5.3.0-authorizationToken-HTTP-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-authorizationToken-MQTT-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-authorizationToken-SD.tex",
+      "ConsumerAuthorization-v5.3.0-authorizationTokenManagement-HTTP-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-authorizationTokenManagement-MQTT-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-authorizationTokenManagement-SD.tex",
+      "ConsumerAuthorization-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-generalManagement-MQTT-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-generalManagement-SD.tex",
+      "ConsumerAuthorization-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "ConsumerAuthorization-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "DynamicServiceOrchestration",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.3.0",
+    "documents": [
+      "DynamicServiceOrchestration-v5.3.0-SysD.tex",
+      "DynamicServiceOrchestration-v5.3.0-SysDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-generalManagement-MQTT-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-generalManagement-SD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestration-HTTP-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestration-MQTT-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestration-SD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationHistoryManagement-HTTP-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationHistoryManagement-MQTT-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationHistoryManagement-SD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationLockManagement-HTTP-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationLockManagement-MQTT-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationLockManagement-SD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationPlantManagement-HTTP-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationPlantManagement-SD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationPushManagement-HTTP-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationPushManagement-MQTT-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-serviceOrchestrationPushManagement-SD.tex",
+      "DynamicServiceOrchestration-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "DynamicServiceOrchestration-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "SimpleStoreServiceOrchestration",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.3.0",
+    "documents": [
+      "SimpleStoreServiceOrchestration-v5.3.0-SysD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-SysDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-generalManagement-MQTT-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-generalManagement-SD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestration-HTTP-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestration-MQTT-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestration-SD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestrationHistoryManagement-HTTP-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestrationHistoryManagement-MQTT-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestrationHistoryManagement-SD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestrationPushManagement-HTTP-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestrationPushManagement-MQTT-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestrationPushManagement-SD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestrationSimpleStoreManagement-HTTP-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestrationSimpleStoreManagement-MQTT-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-serviceOrchestrationSimpleStoreManagement-SD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "SimpleStoreServiceOrchestration-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "ServiceRegistry",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.3.0",
+    "documents": [
+      "ServiceRegistry-v5.3.0-SysD.tex",
+      "ServiceRegistry-v5.3.0-SysDD.tex",
+      "ServiceRegistry-v5.3.0-deviceDiscovery-HTTP-IDD.tex",
+      "ServiceRegistry-v5.3.0-deviceDiscovery-MQTT-IDD.tex",
+      "ServiceRegistry-v5.3.0-deviceDiscovery-SD.tex",
+      "ServiceRegistry-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "ServiceRegistry-v5.3.0-generalManagement-MQTT-IDD.tex",
+      "ServiceRegistry-v5.3.0-generalManagement-SD.tex",
+      "ServiceRegistry-v5.3.0-serviceDiscovery-HTTP-IDD.tex",
+      "ServiceRegistry-v5.3.0-serviceDiscovery-MQTT-IDD.tex",
+      "ServiceRegistry-v5.3.0-serviceDiscovery-SD.tex",
+      "ServiceRegistry-v5.3.0-serviceRegistryManagement-HTTP-IDD.tex",
+      "ServiceRegistry-v5.3.0-serviceRegistryManagement-MQTT-IDD.tex",
+      "ServiceRegistry-v5.3.0-serviceRegistryManagement-SD.tex",
+      "ServiceRegistry-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "ServiceRegistry-v5.3.0-sysMonitor-SD.tex",
+      "ServiceRegistry-v5.3.0-systemDiscovery-HTTP-IDD.tex",
+      "ServiceRegistry-v5.3.0-systemDiscovery-MQTT-IDD.tex",
+      "ServiceRegistry-v5.3.0-systemDiscovery-SD.tex"
+    ]
+  },
+  {
+    "system": "Gatekeeper",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.3.0",
+    "documents": [
+      "Gatekeeper-v5.3.0-SysD.tex",
+      "Gatekeeper-v5.3.0-SysDD.tex",
+      "Gatekeeper-v5.3.0-gatekeeperManagement-HTTP-IDD.tex",
+      "Gatekeeper-v5.3.0-gatekeeperManagement-SD.tex",
+      "Gatekeeper-v5.3.0-globalServiceDiscovery-HTTP-IDD.tex",
+      "Gatekeeper-v5.3.0-globalServiceDiscovery-SD.tex",
+      "Gatekeeper-v5.3.0-interCloudNegotiation-HTTP-IDD.tex",
+      "Gatekeeper-v5.3.0-interCloudNegotiation-SD.tex",
+      "Gatekeeper-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "Gatekeeper-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "Configuration",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.3.0",
+    "documents": [
+      "Configuration-v5.3.0-SysD.tex",
+      "Configuration-v5.3.0-SysDD.tex",
+      "Configuration-v5.3.0-configuration-HTTP-IDD.tex",
+      "Configuration-v5.3.0-configuration-SD.tex",
+      "Configuration-v5.3.0-configurationManagement-HTTP-IDD.tex",
+      "Configuration-v5.3.0-configurationManagement-SD.tex",
+      "Configuration-v5.3.0-configurationProxy-HTTP-IDD.tex",
+      "Configuration-v5.3.0-configurationProxy-SD.tex",
+      "Configuration-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "Configuration-v5.3.0-generalManagement-SD.tex",
+      "Configuration-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "Configuration-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "CertificateAuthority",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.3.0",
+    "documents": [
+      "CertificateAuthority-v5.3.0-SysD.tex",
+      "CertificateAuthority-v5.3.0-SysDD.tex",
+      "CertificateAuthority-v5.3.0-certificateAuthorityManagement-HTTP-IDD.tex",
+      "CertificateAuthority-v5.3.0-certificateAuthorityManagement-SD.tex",
+      "CertificateAuthority-v5.3.0-certificateSigning-HTTP-IDD.tex",
+      "CertificateAuthority-v5.3.0-certificateSigning-SD.tex",
+      "CertificateAuthority-v5.3.0-certificateValidation-HTTP-IDD.tex",
+      "CertificateAuthority-v5.3.0-certificateValidation-SD.tex",
+      "CertificateAuthority-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "CertificateAuthority-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "DataManager",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.3.0",
+    "documents": [
+      "DataManager-v5.3.0-SysD.tex",
+      "DataManager-v5.3.0-SysDD.tex",
+      "DataManager-v5.3.0-dataHistorian-HTTP-IDD.tex",
+      "DataManager-v5.3.0-dataHistorian-SD.tex",
+      "DataManager-v5.3.0-dataProxy-HTTP-IDD.tex",
+      "DataManager-v5.3.0-dataProxy-SD.tex",
+      "DataManager-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "DataManager-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "TranslationManager",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.3.0",
+    "documents": [
+      "TranslationManager-v5.3.0-SysD.tex",
+      "TranslationManager-v5.3.0-SysDD.tex",
+      "TranslationManager-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "TranslationManager-v5.3.0-generalManagement-MQTT-IDD.tex",
+      "TranslationManager-v5.3.0-generalManagement-SD.tex",
+      "TranslationManager-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "TranslationManager-v5.3.0-sysMonitor-SD.tex",
+      "TranslationManager-v5.3.0-translationBridge-HTTP-IDD.tex",
+      "TranslationManager-v5.3.0-translationBridge-MQTT-IDD.tex",
+      "TranslationManager-v5.3.0-translationBridge-SD.tex",
+      "TranslationManager-v5.3.0-translationBridgeManagement-HTTP-IDD.tex",
+      "TranslationManager-v5.3.0-translationBridgeManagement-MQTT-IDD.tex",
+      "TranslationManager-v5.3.0-translationBridgeManagement-SD.tex",
+      "TranslationManager-v5.3.0-translationReport-HTTP-IDD.tex",
+      "TranslationManager-v5.3.0-translationReport-MQTT-IDD.tex",
+      "TranslationManager-v5.3.0-translationReport-SD.tex"
+    ]
+  },
+  {
+    "system": "TimeManager",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.3.0",
+    "documents": [
+      "TimeManager-v5.3.0-SysD.tex",
+      "TimeManager-v5.3.0-SysDD.tex",
+      "TimeManager-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "TimeManager-v5.3.0-generalManagement-SD.tex",
+      "TimeManager-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "TimeManager-v5.3.0-sysMonitor-SD.tex",
+      "TimeManager-v5.3.0-time-HTTP-IDD.tex",
+      "TimeManager-v5.3.0-time-SD.tex"
+    ]
+  },
+  {
+    "system": "LocalCloudConfigurator",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.3.0",
+    "documents": [
+      "LocalCloudConfigurator-v5.3.0-SysD.tex",
+      "LocalCloudConfigurator-v5.3.0-SysDD.tex",
+      "LocalCloudConfigurator-v5.3.0-localCloudConfiguration-HTTP-IDD.tex",
+      "LocalCloudConfigurator-v5.3.0-localCloudConfiguration-SD.tex",
+      "LocalCloudConfigurator-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "LocalCloudConfigurator-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "GateTunnel",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.3.0",
+    "documents": [
+      "GateTunnel-v5.3.0-SysD.tex",
+      "GateTunnel-v5.3.0-SysDD.tex",
+      "GateTunnel-v5.3.0-gateTunnelConnection-HTTP-IDD.tex",
+      "GateTunnel-v5.3.0-gateTunnelConnection-SD.tex",
+      "GateTunnel-v5.3.0-gateTunnelKey-HTTP-IDD.tex",
+      "GateTunnel-v5.3.0-gateTunnelKey-SD.tex",
+      "GateTunnel-v5.3.0-gateTunnelManagement-HTTP-IDD.tex",
+      "GateTunnel-v5.3.0-gateTunnelManagement-SD.tex",
+      "GateTunnel-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "GateTunnel-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "DeviceQoSEvaluator",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.3.0",
+    "documents": [
+      "DeviceQoSEvaluator-v5.3.0-SysD.tex",
+      "DeviceQoSEvaluator-v5.3.0-SysDD.tex",
+      "DeviceQoSEvaluator-v5.3.0-deviceQualityDataManagement-HTTP-IDD.tex",
+      "DeviceQoSEvaluator-v5.3.0-deviceQualityDataManagement-MQTT-IDD.tex",
+      "DeviceQoSEvaluator-v5.3.0-deviceQualityDataManagement-SD.tex",
+      "DeviceQoSEvaluator-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "DeviceQoSEvaluator-v5.3.0-generalManagement-MQTT-IDD.tex",
+      "DeviceQoSEvaluator-v5.3.0-generalManagement-SD.tex",
+      "DeviceQoSEvaluator-v5.3.0-qualityEvaluation-HTTP-IDD.tex",
+      "DeviceQoSEvaluator-v5.3.0-qualityEvaluation-MQTT-IDD.tex",
+      "DeviceQoSEvaluator-v5.3.0-qualityEvaluation-SD.tex",
+      "DeviceQoSEvaluator-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "DeviceQoSEvaluator-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "Onboarding",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.3.0",
+    "documents": [
+      "Onboarding-v5.3.0-SysD.tex",
+      "Onboarding-v5.3.0-SysDD.tex",
+      "Onboarding-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "Onboarding-v5.3.0-generalManagement-SD.tex",
+      "Onboarding-v5.3.0-onboarding-HTTP-IDD.tex",
+      "Onboarding-v5.3.0-onboarding-SD.tex",
+      "Onboarding-v5.3.0-onboardingManagement-HTTP-IDD.tex",
+      "Onboarding-v5.3.0-onboardingManagement-SD.tex",
+      "Onboarding-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "Onboarding-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "LocalCloudManager",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.3.0",
+    "documents": [
+      "LocalCloudManager-v5.3.0-SysD.tex",
+      "LocalCloudManager-v5.3.0-SysDD.tex",
+      "LocalCloudManager-v5.3.0-localCloudManagement-HTTP-IDD.tex",
+      "LocalCloudManager-v5.3.0-localCloudManagement-SD.tex",
+      "LocalCloudManager-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "LocalCloudManager-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "GraphDBManager",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.3.0",
+    "documents": [
+      "GraphDBManager-v5.3.0-SysD.tex",
+      "GraphDBManager-v5.3.0-SysDD.tex",
+      "GraphDBManager-v5.3.0-graphDataHistorian-HTTP-IDD.tex",
+      "GraphDBManager-v5.3.0-graphDataHistorian-SD.tex",
+      "GraphDBManager-v5.3.0-graphDataProxy-HTTP-IDD.tex",
+      "GraphDBManager-v5.3.0-graphDataProxy-SD.tex",
+      "GraphDBManager-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "GraphDBManager-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "SysMonitor",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.3.0",
+    "documents": [
+      "SysMonitor-v5.3.0-SysD.tex",
+      "SysMonitor-v5.3.0-SysDD.tex",
+      "SysMonitor-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "SysMonitor-v5.3.0-sysMonitor-SD.tex",
+      "SysMonitor-v5.3.0-sysMonitorData-MQTT-IDD.tex",
+      "SysMonitor-v5.3.0-sysMonitorData-SD.tex",
+      "SysMonitor-v5.3.0-sysMonitorHistory-HTTP-IDD.tex",
+      "SysMonitor-v5.3.0-sysMonitorHistory-SD.tex",
+      "SysMonitor-v5.3.0-sysMonitorManagement-HTTP-IDD.tex",
+      "SysMonitor-v5.3.0-sysMonitorManagement-SD.tex"
+    ]
+  },
+  {
+    "system": "EventHandler",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.3.0",
+    "documents": [
+      "EventHandler-v5.3.0-SysD.tex",
+      "EventHandler-v5.3.0-SysDD.tex",
+      "EventHandler-v5.3.0-eventHandlerManagement-HTTP-IDD.tex",
+      "EventHandler-v5.3.0-eventHandlerManagement-SD.tex",
+      "EventHandler-v5.3.0-eventPublish-HTTP-IDD.tex",
+      "EventHandler-v5.3.0-eventPublish-SD.tex",
+      "EventHandler-v5.3.0-eventSubscription-HTTP-IDD.tex",
+      "EventHandler-v5.3.0-eventSubscription-SD.tex",
+      "EventHandler-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "EventHandler-v5.3.0-generalManagement-SD.tex",
+      "EventHandler-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "EventHandler-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "PlantDescriptionEngine",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.3.0",
+    "documents": [
+      "PlantDescriptionEngine-v5.3.0-SysD.tex",
+      "PlantDescriptionEngine-v5.3.0-SysDD.tex",
+      "PlantDescriptionEngine-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "PlantDescriptionEngine-v5.3.0-generalManagement-SD.tex",
+      "PlantDescriptionEngine-v5.3.0-plantDescriptionManagement-HTTP-IDD.tex",
+      "PlantDescriptionEngine-v5.3.0-plantDescriptionManagement-SD.tex",
+      "PlantDescriptionEngine-v5.3.0-plantDescriptionMonitor-HTTP-IDD.tex",
+      "PlantDescriptionEngine-v5.3.0-plantDescriptionMonitor-SD.tex",
+      "PlantDescriptionEngine-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "PlantDescriptionEngine-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "Choreographer",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.3.0",
+    "documents": [
+      "Choreographer-v5.3.0-SysD.tex",
+      "Choreographer-v5.3.0-SysDD.tex",
+      "Choreographer-v5.3.0-choreographerExecutor-HTTP-IDD.tex",
+      "Choreographer-v5.3.0-choreographerExecutor-SD.tex",
+      "Choreographer-v5.3.0-choreographerManagement-HTTP-IDD.tex",
+      "Choreographer-v5.3.0-choreographerManagement-SD.tex",
+      "Choreographer-v5.3.0-choreographerSession-HTTP-IDD.tex",
+      "Choreographer-v5.3.0-choreographerSession-SD.tex",
+      "Choreographer-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "Choreographer-v5.3.0-generalManagement-SD.tex",
+      "Choreographer-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "Choreographer-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "AIGym",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.3.0",
+    "documents": [
+      "AIGym-v5.3.0-SysD.tex",
+      "AIGym-v5.3.0-SysDD.tex",
+      "AIGym-v5.3.0-aiGym-HTTP-IDD.tex",
+      "AIGym-v5.3.0-aiGym-SD.tex",
+      "AIGym-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "AIGym-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "Blacklist",
+    "language": "Java",
+    "old": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.3.0",
+    "documents": [
+      "Blacklist-v5.3.0-SysD.tex",
+      "Blacklist-v5.3.0-SysDD.tex",
+      "Blacklist-v5.3.0-blacklistDiscovery-HTTP-IDD.tex",
+      "Blacklist-v5.3.0-blacklistDiscovery-MQTT-IDD.tex",
+      "Blacklist-v5.3.0-blacklistDiscovery-SD.tex",
+      "Blacklist-v5.3.0-blacklistManagement-HTTP-IDD.tex",
+      "Blacklist-v5.3.0-blacklistManagement-MQTT-IDD.tex",
+      "Blacklist-v5.3.0-blacklistManagement-SD.tex",
+      "Blacklist-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "Blacklist-v5.3.0-generalManagement-MQTT-IDD.tex",
+      "Blacklist-v5.3.0-generalManagement-SD.tex",
+      "Blacklist-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "Blacklist-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "LocalCloudManager",
+    "language": "Go",
+    "old": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2",
+    "target": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/v5.3.0",
+    "documents": [
+      "LocalCloudManager-Go-v5.3.0-Catalogue.tex",
+      "LocalCloudManager-Go-v5.3.0-SysD.tex",
+      "LocalCloudManager-Go-v5.3.0-SysDD.tex",
+      "LocalCloudManager-Go-v5.3.0-localCloudManagement-HTTPS-IDD.tex",
+      "LocalCloudManager-Go-v5.3.0-localCloudManagement-SD.tex",
+      "LocalCloudManager-Go-v5.3.0-monitor-HTTPS-IDD.tex",
+      "LocalCloudManager-Go-v5.3.0-monitor-SD.tex",
+      "LocalCloudManager-Go-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "LocalCloudManager-Go-v5.3.0-sysMonitor-SD.tex"
+    ]
+  },
+  {
+    "system": "LocalCloudManager",
+    "language": "Rust",
+    "old": "Eclipse-Arrowhead-rust/ah5-LocalCloudManager-rust/documentation/v5.2.2",
+    "target": "Eclipse-Arrowhead-rust/ah5-LocalCloudManager-rust/documentation/v5.3.0",
+    "documents": [
+      "LocalCloudManager-Rust-v5.3.0-Catalogue.tex",
+      "LocalCloudManager-Rust-v5.3.0-SysD.tex",
+      "LocalCloudManager-Rust-v5.3.0-SysDD.tex",
+      "LocalCloudManager-Rust-v5.3.0-localCloudManagement-HTTP-IDD.tex",
+      "LocalCloudManager-Rust-v5.3.0-localCloudManagement-SD.tex",
+      "LocalCloudManager-Rust-v5.3.0-monitor-HTTP-IDD.tex",
+      "LocalCloudManager-Rust-v5.3.0-monitor-SD.tex"
+    ]
+  },
+  {
+    "system": "SoSConfigurator",
+    "language": "Java",
+    "old": null,
+    "target": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/documentation/v5.3.0",
+    "documents": [
+      "SoSConfigurator-v5.3.0-SysD.tex",
+      "SoSConfigurator-v5.3.0-SysDD.tex",
+      "SoSConfigurator-v5.3.0-generalManagement-HTTP-IDD.tex",
+      "SoSConfigurator-v5.3.0-generalManagement-SD.tex",
+      "SoSConfigurator-v5.3.0-sosConfiguration-HTTP-IDD.tex",
+      "SoSConfigurator-v5.3.0-sosConfiguration-SD.tex",
+      "SoSConfigurator-v5.3.0-sysMonitor-AMQP-IDD.tex",
+      "SoSConfigurator-v5.3.0-sysMonitor-SD.tex"
+    ]
+  }
+]

@@ -1,0 +1,249 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{Authentication}
+\ArrowheadType{System Description}
+\ArrowheadTypeShort{SysD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the Authentication core system of the Eclipse Arrowhead framework (documentation edition 5.3.0), as implemented in Java Spring in \texttt{ah5-core-java-spring/authentication}, including the local extensions of this workspace.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the Authentication system. Authentication is the identity provider of an Arrowhead 5 local cloud. It stores the identities of the systems with their credentials and sysop flag, lets systems log in and out, and issues and verifies the identity tokens with which systems authenticate towards each other.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small, >=Stealth]
+    \node[draw=ArrowheadBlue, very thick, minimum width=4.2cm, minimum height=2.2cm, align=center, fill=ArrowheadBlue!10] (s)
+      {\guillemotleft{}System\guillemotright{}\\\textbf{Authentication}};
+    \node[draw=ArrowheadTeal, rectangle, align=left, left=1.3cm of s, text width=4.6cm, inner sep=5pt] (p)
+      {\textbf{Produced services}\\ \texttt{identity}\\ \texttt{identityManagement}\\ \texttt{generalManagement}\\ \texttt{sysMonitor}};
+    \node[draw=ArrowheadOrange, rectangle, align=left, right=1.3cm of s, text width=4.6cm, inner sep=5pt] (c)
+      {\textbf{Consumed}\\ AMQP broker (SysMonitor)\\ ConsumerAuthorization\\ ServiceRegistry};
+    \draw[->, thick, ArrowheadTeal] (s) -- (p);
+    \draw[->, thick, ArrowheadOrange] (s) -- (c);
+  \end{tikzpicture}
+  \caption{SysML-style block view of Authentication with its produced and consumed services.}
+  \label{fig:system}
+\end{figure}
+
+The rest of this document is organized as follows.
+In Section \ref{sec:prior_art}, we reference major prior art capabilities of the system.
+In Section \ref{sec:use}, we describe the intended usage of the system.
+In Section \ref{sec:properties}, we describe fundamental properties provided by the system.
+In Section \ref{sec:delimitations}, we describe delimitations of capabilities of the system.
+In Section \ref{sec:services}, we describe the abstract service functions consumed or produced by the system.
+In Section \ref{sec:security}, we describe the security capabilities of the system.
+
+\newpage
+
+\subsection{Significant Prior Art}
+\label{sec:prior_art}
+
+Arrowhead 4.x relied on X.509 client certificates alone. Arrowhead 5 introduces Authentication with pluggable authentication methods (password is implemented) and identity tokens; certificate-based authentication remains available to the other systems.
+
+\subsection{How This System Is Meant to Be Used}
+\label{sec:use}
+
+An operator (or the onboarding procedure) creates the identity of a system with \texttt{identityManagement}. The system logs in with \texttt{identity.\allowbreak{}identity-\allowbreak{}login}, sends the token in the \texttt{Authorization} header of its requests, and renews it before expiry. Providers verify the token with \texttt{identity-\allowbreak{}verify} or, if they hold the Authentication secret key, by checking the \texttt{AUTHENTICATOR-\allowbreak{}KEY} locally.
+
+\subsection{System functionalities and properties}
+\label{sec:properties}
+
+\subsubsection{Functional properties of the system}
+
+\begin{itemize}
+  \item Password authentication of systems (method \texttt{PASSWORD}), with hashed password storage.
+  \item Issue, verify and revoke identity tokens; one active session per system.
+  \item Change of credentials by the system itself.
+  \item Management of identities and sessions; sysop flag for system operators.
+  \item Periodic removal of expired sessions (\texttt{cleaner.\allowbreak{}job.\allowbreak{}interval}).
+  \item Binding of login, logout and credential change, and of every token use, to the client certificate of the same system (local extension).
+\end{itemize}
+
+\subsubsection{Configuration of system properties}
+
+The system is configured with Spring properties (\texttt{application.properties}, overridden by environment variables in the container deployment). The properties that shape its behaviour are:
+
+\noindent\begin{longtable}{| p{5.4cm} | p{3.4cm} | p{6.4cm} |} \hline
+\rowcolor{gray!33} Property & Default & Meaning \\ \hline \endhead
+\texttt{server.\allowbreak{}port} & 8444 & HTTPS port. \\ \hline
+\texttt{authentication.\allowbreak{}policy} & internal & Must stay \texttt{internal}: Authentication checks tokens in its own database. \\ \hline
+\texttt{arrowhead.\allowbreak{}security.\allowbreak{}profile} & secure & \texttt{development} selects the isolated development exception; never set in a deployment. \\ \hline
+\texttt{authentication.\allowbreak{}secret.\allowbreak{}key} & (per-cloud secret) & Key with which Authentication signs its own requests (\texttt{AUTHENTICATOR-\allowbreak{}KEY}). \\ \hline
+\texttt{identity.\allowbreak{}token.\allowbreak{}duration} & 300 & Token lifetime in seconds (built-in default 600). \\ \hline
+\texttt{cleaner.\allowbreak{}job.\allowbreak{}interval} & 60000 & Session cleaner interval in ms. \\ \hline
+\texttt{management.\allowbreak{}policy} / \texttt{management.\allowbreak{}whitelist} & authorization & Access to \texttt{identityManagement} and \texttt{generalManagement}. \\ \hline
+\texttt{http.\allowbreak{}collector.\allowbreak{}bootstrap.\allowbreak{}services} & \ldots{}, authorization & Services looked up directly in the ServiceRegistry (local). \\ \hline
+\texttt{normalization.\allowbreak{}mode} & extended & Name normalization. \\ \hline
+\texttt{mqtt.\allowbreak{}api.\allowbreak{}enabled} & false & Offer the MQTT interfaces. \\ \hline
+\texttt{sysmonitor.\allowbreak{}enabled} & false & Publish native sysMonitor observations (test cloud: true). \\ \hline
+\texttt{arrowhead.\allowbreak{}ssl.\allowbreak{}crl-\allowbreak{}file} & (unset) & CRL checked for every client certificate (local). \\ \hline
+\end{longtable}
+
+Secrets (database, keystore and identity passwords, secret keys) have no usable defaults; in the test clouds they are per-cloud secrets mounted as files.
+
+\subsubsection{Data stored by the system}
+
+Identities (system name, sysop flag, authentication method, creator and update data), password hashes, active sessions with token and expiry, and the log entries (database \texttt{ah\_\allowbreak{}authentication}).
+
+\subsubsection{Non functional properties}
+
+Every authenticated request in the cloud depends on a valid token; with \texttt{outsourced} providers each token is verified once per request unless checked with the secret key. Tokens are short-lived (300 s), which limits the effect of a stolen token.
+
+\subsubsection{Stateful or stateless}
+
+Stateful: identities and sessions are persistent; a restart keeps the sessions valid until they expire.
+
+\subsection{Important Delimitations}
+\label{sec:delimitations}
+
+Authentication does not authorize: the sysop flag is the only privilege it records. It does not issue certificates. Only the password method is implemented. Because one session is kept per system, a second login of the same system invalidates the token of the first.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+This section describes the produced and consumed services. Each produced service is specified by an SD document and one IDD document per interface.
+
+\subsection{Produced services}
+
+\noindent\begin{longtable}{| p{5.3cm} | p{1.3cm} | p{2.6cm} | p{1.6cm} | p{3.6cm} |} \hline
+\rowcolor{gray!33} Service & Version & Interfaces & SD & IDD \\ \hline \endhead
+\texttt{identity} & 1.0.0 & HTTP(S), MQTT(S) & \cite{auth-identity-sd} & \cite{auth-identity-http-idd}, \cite{auth-identity-mqtt-idd} \\ \hline
+\texttt{identityManagement} & 1.0.0 & HTTP(S), MQTT(S) & \cite{auth-identityManagement-sd} & \cite{auth-identityManagement-http-idd}, \cite{auth-identityManagement-mqtt-idd} \\ \hline
+\texttt{generalManagement} & 1.0.0 & HTTP(S), MQTT(S) & \cite{auth-generalManagement-sd} & \cite{auth-generalManagement-http-idd}, \cite{auth-generalManagement-mqtt-idd} \\ \hline
+\texttt{sysMonitor} & 1.0.0 & AMQP(S) & \cite{auth-sysMonitor-sd} & \cite{auth-sysMonitor-amqp-idd} \\ \hline
+\end{longtable}
+
+The HTTP interfaces are always offered, the MQTT interfaces with \texttt{mqtt.api.enabled=true} and the AMQP \texttt{sysMonitor} interface with \texttt{sysmonitor.enabled=true}. Upstream 5.2.2 also answers \texttt{GET <base>/monitor/echo} on some systems; this endpoint is not registered as a service.
+
+\subsection{Consumed services}
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{2.9cm} | >{\raggedright\arraybackslash}p{3.1cm} | >{\raggedright\arraybackslash}p{2.5cm} | p{3.6cm} | >{\raggedright\arraybackslash}p{2.9cm} |} \hline
+\rowcolor{gray!33} Provider & Service & Operations & Use & Condition \\ \hline \endhead
+ServiceRegistry & serviceDiscovery & register, revoke, lookup & Registration of its services; lookup of core services (bootstrap services). & always \\ \hline
+Consumer\allowbreak{}Authorization & authorization & verify & Management filter decisions (looked up in the ServiceRegistry, local configuration). & \texttt{management.\allowbreak{}policy=\allowbreak{}authorization} \\ \hline
+AMQP broker (SysMonitor) & sysMonitor (publisher) & echo, power, status & Own observations. & \texttt{sysmonitor.\allowbreak{}enabled=\allowbreak{}true} \\ \hline
+\end{longtable}
+
+Except for the bootstrap services (\texttt{http.collector.bootstrap.services}), which are looked up in the ServiceRegistry, the system reaches other systems' services through DynamicServiceOrchestration (\texttt{http.collector.mode=ORCHESTRATION}, results cached for \texttt{http.collector.orchestration.ttl} = 300 s); every such call needs a ConsumerAuthorization grant.
+
+\newpage
+
+\section{Security}
+\label{sec:security}
+
+The default is the Arrowhead secure mode with HTTPS and X.509 certificates following the Arrowhead certificate profile (\texttt{<System>.<Cloud>.<Organization>.arrowhead.eu}). Certificates not issued under the cloud CA are refused by the TLS handshake. The Arrowhead-test-cloud-java deployment runs the secure mode.
+
+The packaged \texttt{application.properties} is a development sample that disables TLS and declares identities. The system refuses to start with it, or with any other effective configuration that sets \texttt{server.ssl.enabled=false}, \texttt{authentication.policy=declared}, \texttt{service.authorization.enabled=false} or, while monitoring is on, \texttt{sysmonitor.ssl.enabled=false}. The check runs before the system accepts a connection. Only an explicit \texttt{arrowhead.security.profile=development} lets such a system start, for an isolated test, and it then logs a non-conformance warning.
+
+\subsection{Security model}
+
+\begin{itemize}
+  \item \textbf{Protocols:} HTTPS (TLS 1.3 and 1.2) with mandatory client certificates (\texttt{server.ssl.client-auth=need}); MQTT over TLS; AMQP over TLS for \texttt{sysMonitor}.
+  \item \textbf{Data protection:} transport encryption by TLS; the database connection uses TLS with server verification in the test cloud. Secrets are kept out of the container environment (Compose file secrets).
+  \item \textbf{System authentication:} by the authentication policy: \texttt{certificate} (client certificate CN), \texttt{outsourced} (identity token verified with Authentication), \texttt{internal} (Authentication only) or \texttt{declared} (insecure). In this workspace an identity token is accepted only together with the client certificate of the system it was issued to (token-to-certificate binding), and every client certificate is checked against the cloud CA's CRL when \texttt{arrowhead.ssl.crl-file} is set (fail closed).
+  \item \textbf{Authorization of produced services:} management services are protected by the management filter (\texttt{management.policy}: \texttt{SYSOP\_ONLY}, \texttt{WHITELIST} or \texttt{AUTHORIZATION} via ConsumerAuthorization); an optional blacklist filter refuses blacklisted requesters. Sysop identities bypass the management filter.
+  \item Authentication uses the \texttt{internal} authentication policy: a requester's token is looked up in its own session table. Over HTTPS a system can only log in, log out or change credentials as the system named by its client certificate, and every token must be presented with the certificate of the system it belongs to. Passwords are stored only as hashes.
+\end{itemize}
+
+For the Arrowhead certificate profile see github.com/eclipse-arrowhead/documentation.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-11-07 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

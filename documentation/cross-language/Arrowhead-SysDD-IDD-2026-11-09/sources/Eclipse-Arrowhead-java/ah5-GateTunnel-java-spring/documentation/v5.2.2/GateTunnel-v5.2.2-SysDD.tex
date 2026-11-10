@@ -1,0 +1,207 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{GateTunnel}
+\ArrowheadType{System Design Description}
+\ArrowheadTypeShort{SysDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the design and implementation of the GateTunnel support system of Arrowhead 5.2.2 (\texttt{ah5-GateTunnel-java-spring}).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the GateTunnel system implementation, which realizes the GateTunnel SysD \cite{gt-sysd}. GateTunnel carries the inter-cloud service calls negotiated by the Gatekeepers: a consumer session listens locally and forwards each request over the relay to the provider cloud's GateTunnel, which calls the provider.
+In Section \ref{Implementation}, we describe implementation details of the system.
+
+\newpage
+
+\section{Implementation}
+\label{Implementation}
+
+This implementation realizes the GateTunnel SysD in \texttt{ah5-\allowbreak{}GateTunnel-\allowbreak{}java-\allowbreak{}spring}. It follows the Arrowhead Java-Spring system pattern of the support systems (as Blacklist and EventHandler). The Java sources, the private copy of the Arrowhead common library (\texttt{vendor/\allowbreak{}}), tests, images and deployment definition are owned by this folder. The earlier native implementation (JDK \texttt{HttpsServer}, SQLite, package \texttt{eu.\allowbreak{}arrowhead.\allowbreak{}port}) has been replaced; the wire contracts are unchanged. \texttt{legacy/\allowbreak{}} preserves an older implementation and is excluded from the build.
+
+\subsection{Implementation language and tools}
+\begin{itemize}
+\item Java 21, Spring Boot 3.4 (web, security, data JPA, Quartz), the vendored Arrowhead common library (common-utils, data-transfer-objects), Bouncy Castle, Eclipse Paho MQTT v3 (relay client) and the RabbitMQ AMQP client (sysMonitor). Maven builds the Spring Boot JAR \texttt{arrowhead-\allowbreak{}gatetunnel-\allowbreak{}5.2.2.jar}; the POM inherits only the Spring Boot parent.
+\item Storage: a private MySQL 8.4 schema \texttt{ah\_\allowbreak{}gatetunnel} through JPA (MariaDB driver, \texttt{sslMode=verify-full}, \texttt{ddl-auto=validate}).
+\end{itemize}
+
+\subsection{Functional properties implementation}
+
+The package \texttt{eu.\allowbreak{}arrowhead.\allowbreak{}gatetunnel} holds the following components:
+
+\noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
+\rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
+\texttt{GateTunnel\allowbreak{}SystemInfo}, \texttt{init/} & Registered system and services; at start, the system certificate must be \texttt{GateTunnel.<cloud>.<organisation>.arrowhead.eu} with profile \texttt{sy}. Registration itself is done by the common \texttt{ApplicationInitListener}. \\ \hline
+\texttt{api/\allowbreak{}http/} & Controllers of gateTunnelConnection, gateTunnelKey, gateTunnelManagement, generalManagement, echo and liveness. Each path is served under \texttt{/gatetunnel}, \texttt{/gateway} and without base path. \\ \hline
+\texttt{security/\allowbreak{}GateTunnel\allowbreak{}Caller\allowbreak{}Filter} & Caller rules after the common authentication filter: certificate profile \texttt{sy}/\texttt{op}; management paths for LocalCloudManager and Sysop; other operations for Gatekeeper, DynamicServiceOrchestration, SimpleStoreServiceOrchestration, LocalCloudManager and Sysop; inter-cloud sessions for the local Gatekeeper only. \\ \hline
+\texttt{service/\allowbreak{}InterCloud\allowbreak{}Session\allowbreak{}Service} & Inter-cloud relay sessions (in memory): provider side executes relayed requests within the negotiated operations; consumer side runs a mutual-TLS tunnel listener per session in the pool 8200--8299 and forwards over the relay. Ported verbatim in behaviour from 5.2.2. \\ \hline
+\texttt{service/\allowbreak{}Session\allowbreak{}Security}, \texttt{PeerNames}, \texttt{validation/\allowbreak{}Operation\allowbreak{}Scope} & AH-GT-1 key exchange, sealing and replay window; explicit cross-organisation bindings; scope of a relayed request. Byte-for-byte compatible with the Go and Rust GateTunnels. \\ \hline
+\texttt{service/\allowbreak{}Relay\allowbreak{}Client} & Paho MQTT client with the GateTunnel's own relay identity (\texttt{RELAY\_\allowbreak{}*}); topics \texttt{arrowhead/\allowbreak{}relay/\allowbreak{}<cloud>/\allowbreak{}gatetunnel/\allowbreak{}in/\allowbreak{}<sender CN>/\allowbreak{}<id>}. \\ \hline
+\texttt{service/\allowbreak{}Provider\allowbreak{}Client} & Calls the negotiated provider with the own identity token, pinned to the provider's certificate CN, renewing a refused token once. \\ \hline
+\texttt{service/\allowbreak{}Control\allowbreak{}Session\allowbreak{}Service}, \texttt{jpa/} & 4.x-compatible control sessions (control port pool 8000--8099). \\ \hline
+\texttt{service/\allowbreak{}GateTunnel\allowbreak{}Jobs} & Scheduled relay (re)connection (10 s) and session expiry (60 s). \\ \hline
+\end{longtable}
+
+\subsubsection{Data handled and stored}
+
+Storage: MySQL schema \texttt{ah\_\allowbreak{}gatetunnel}:
+
+\noindent\begin{longtable}{| p{6.4cm} | p{8.8cm} |} \hline
+\rowcolor{gray!33} Tables & Content \\ \hline \endhead
+\texttt{session} & Control sessions: session and queue identifiers, peer name, service definition, reserved port, state, parties as JSON. Closed sessions are removed after \texttt{SESSION\_\allowbreak{}MAX\_\allowbreak{}AGE\_\allowbreak{}SECONDS}, which frees their ports. \\ \hline
+\texttt{logs} & Log entries (Log4j2 JDBC appender), read by generalManagement \texttt{get-log}. \\ \hline
+\end{longtable}
+
+Inter-cloud sessions and their keys are kept in memory only. The interfaces exchange JSON objects; their structure is specified in the IDD documents. Error responses use the Arrowhead error body with the 5.2.2 status codes.
+
+\subsection{Non functional properties implementation}
+
+\subsubsection{Security}
+
+The web server requires client certificates (PKCS12 key and trust stores) and checks them against the cloud CA's CRL. The common \texttt{OutsourcedFilter} verifies the identity token with Authentication and binds it to the client certificate; the caller filter then applies the rules above. Tunnel listeners and provider calls use the same identity and CRL outside the web server. \texttt{SecurityProfileGuard} refuses a configuration below the secure profile. The database account has data-manipulation privileges only.
+
+\subsubsection{Power management}
+
+None; the system is a server process without power states. The \texttt{sysMonitor} \texttt{power} observation always reports line supply.
+
+\subsubsection{Internal monitoring}
+
+Logs go to stdout, a log file and the \texttt{logs} table. The common \texttt{SysMonitorPublisher} publishes the \texttt{sysMonitor} observations; the health contribution is \texttt{degraded} while the relay link is down.
+
+\subsubsection{Configuration}
+
+\texttt{config/\allowbreak{}application.\allowbreak{}properties}; the 5.2.2 environment names (\texttt{LOCAL\_\allowbreak{}CLOUD}, \texttt{ADVERTISED\_\allowbreak{}ADDRESS}, \texttt{NEIGHBOR\_\allowbreak{}CLOUDS}, \texttt{FEDERATION\_\allowbreak{}*}, \texttt{RELAY\_\allowbreak{}*}, port pools, session times) are placeholders in it. Secrets are Compose secrets read through \texttt{configtree:/\allowbreak{}run/\allowbreak{}secrets/}.
+
+\subsection{Deployment}
+
+The local \texttt{Dockerfile} builds this folder and runs \texttt{arrowhead-\allowbreak{}gatetunnel-\allowbreak{}standalone:5.2.2} as UID 10001 with a read-only root filesystem. \texttt{compose.yaml} adds \texttt{gatetunnel-\allowbreak{}db} (MySQL 8.4.11, TLS required, internal network; \texttt{deployment/\allowbreak{}database/\allowbreak{}init.sql} and \texttt{least-\allowbreak{}privilege.sh}) and joins an operator-selected cloud network. The API uses port 8453; the health check is a TCP probe of it (the former plain-HTTP health port 8481 is gone). Certificates and credentials are mounted individually. Existing test-cloud deployments are not changed by this packaging.
+
+ServiceRegistry is the bootstrap endpoint; Authentication and the orchestrator are found through it. Federation requires the organisation MQTT relay, configured neighbours, the relay identity and organisation trust. The Compose default is AH-GT-1 with explicit legacy-mTLS compatibility; peers must agree, and there is never a silent downgrade.
+
+\subsubsection{Ownership and build boundary}
+The Arrowhead common library is a private vendored source copy (\texttt{vendor/\allowbreak{}PROVENANCE.json}); security fixes must be propagated to every vendored copy. There is no shared runtime process, database or Maven parent besides Spring Boot's. Build with Java 21 and \texttt{mvn -\allowbreak{}B clean verify} (\texttt{scripts/\allowbreak{}verify.sh} also checks the JAR contents), or with the local Docker build.
+
+\subsection{Local modifications}
+\label{sec:local}
+
+Notes on this implementation in the workspace:
+\begin{itemize}
+  \item Java-Spring port of the native implementation; inter-cloud sessions for Dynamic\allowbreak{}Service\allowbreak{}Orchestration (local extension).
+  \item Services registered with version \texttt{5.\allowbreak{}2.\allowbreak{}2}; generalManagement adds \texttt{get-log} and \texttt{get-config}.
+  \item \texttt{/health} now requires an identity token; unprefixed path aliases are served.
+\end{itemize}
+
+\subsection{Verification}
+
+JUnit tests: the AH-GT-1 reference vector (key exchange, key derivation, sealing, replay), peer names, operation scope, TLS pinning and token renewal, the refused insecure start, and a MockMvc contract test of every served path and method through the real authentication filter. Integration tests against containers: the application against a fresh database container (schema validated with DML-only grants), and an AH-GT-1 round trip between two relay identities over an MQTT broker with mutual TLS. A live federation run with the Go and Rust GateTunnels has not been repeated for the Spring build.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+The implementation of the services is based on the SD and IDD documents referenced below.
+
+\noindent\begin{longtable}{| p{5.4cm} | p{2.2cm} | p{2.2cm} | p{4.8cm} |} \hline
+\rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
+\texttt{gate\allowbreak{}Tunnel\allowbreak{}Connection} & \cite{gt-sysd} & \cite{gt-gateTunnelConnection-sd} & \cite{gt-gateTunnelConnection-http-idd} \\ \hline
+\texttt{gateTunnelKey} & \cite{gt-sysd} & \cite{gt-gateTunnelKey-sd} & \cite{gt-gateTunnelKey-http-idd} \\ \hline
+\texttt{gate\allowbreak{}Tunnel\allowbreak{}Management} & \cite{gt-sysd} & \cite{gt-gateTunnelManagement-sd} & \cite{gt-gateTunnelManagement-http-idd} \\ \hline
+\texttt{sysMonitor} & \cite{gt-sysd} & \cite{gt-sysMonitor-sd} & \cite{gt-sysMonitor-amqp-idd} \\ \hline
+&&& \\ \hline
+\rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
+serviceDiscovery & \cite{core-sr-sysd} & \cite{core-sr-serviceDiscovery-sd} & -- \\ \hline
+identity & \cite{core-auth-sysd} & \cite{core-auth-identity-sd} & -- \\ \hline
+inter-cloud messages & Relay (MQTT) & -- & -- \\ \hline
+negotiated service & Providers & -- & -- \\ \hline
+sysMonitor (publisher) & AMQP broker (SysMonitor) & -- & -- \\ \hline
+\end{longtable}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-25 & \arrowversion & Independent Java build, private helpers and state, per-system deployment and configuration. & Codex (draft) \\ \hline
+3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+4 & 2026-11-08 & \arrowversion & Implementation sections updated for the Java-Spring port (common library, MySQL via JPA, Spring beans for the relay and AH-GT-1); contracts unchanged. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

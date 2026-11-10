@@ -1,0 +1,19 @@
+% Reference deployment interpretation; not an exported Papyrus allocation diagram.
+\begin{tikzpicture}[font=\small,
+ nd/.style={draw=black!75,rounded corners=2pt,align=center,minimum width=3.5cm,minimum height=1.05cm},
+ nl/.style={<->,>=Stealth,thick}]
+\node[nd,fill=white] (core) at (-4.5,2.0) {Core API endpoints\\and owned state};
+\node[nd,fill=AHSysMLApplication] (app) at (0,2.0) {Application endpoints};
+\node[nd,fill=AHSysMLSupport] (support) at (4.5,2.0) {Selected support APIs\\and local brokers};
+\node[nd,fill=AHSysMLInfrastructure,minimum width=12.6cm,minimum height=0.8cm] (lan) at (0,0.45) {Intra-cloud segment / virtual network: selected routes and endpoint identities};
+\foreach \n in {core,app,support}{\draw[nl] (\n.south) -- (\n.south |- lan.north);}
+\node[nd,fill=AHSysMLSupport] (gk) at (-3.2,-1.55) {Gatekeeper\\Discovery / negotiation};
+\node[nd,fill=AHSysMLSupport] (gt) at (3.2,-1.55) {GateTunnel\\Negotiated session path};
+\draw[nl] (gk.north) -- (gk.north |- lan.south);\draw[nl] (gt.north) -- (gt.north |- lan.south);
+\begin{scope}[on background layer]
+\node[draw=black!65,dashed,rounded corners=3pt,fit=(gk)(gt),inner sep=4mm] {};
+\end{scope}
+\node[font=\footnotesize,align=center,text width=5.4cm] at (0,-3.0) {DMZ / controlled boundary segment\\if selected by the deployment};
+\node[nd,fill=AHSysMLInfrastructure,minimum width=8cm,minimum height=1.15cm] (ext) at (0,-4.05) {External inter-cloud segment\\Configured peer/relay and its selected secure transport};
+\draw[nl] (gk.south) -- (gk.south |- ext.north);\draw[nl] (gt.south) -- (gt.south |- ext.north);
+\end{tikzpicture}

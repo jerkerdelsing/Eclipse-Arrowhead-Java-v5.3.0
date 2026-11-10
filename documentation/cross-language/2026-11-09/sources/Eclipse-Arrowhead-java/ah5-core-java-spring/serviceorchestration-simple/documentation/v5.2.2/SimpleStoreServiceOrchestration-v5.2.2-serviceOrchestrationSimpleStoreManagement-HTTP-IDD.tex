@@ -1,0 +1,475 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}%
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{serviceOrchestrationSimpleStoreManagement HTTP/TLS/JSON}
+\ArrowheadServiceID{serviceOrchestrationSimpleStoreManagement}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-22}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the HTTP/1.1 protocol with TLS payload security and JSON payload encoding variant of the \texttt{service\allowbreak{}Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Management} service of the SimpleStoreServiceOrchestration system.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{service\allowbreak{}Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Management} service interface of the SimpleStoreServiceOrchestration system, which provides operator management of the orchestration store: the static rules telling which service instance a consumer shall use, with priorities.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & HTTP & 1.1 \cite{rfc9112} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{service\allowbreak{}Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Management} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{serviceOrchestrationSimpleStoreManagement -- Service Description} document \cite{ssso-serviceOrchestrationSimpleStoreManagement-sd}.
+For further details about how this service is meant to be used, please consult that document.
+
+The rest of this document describes how to realize the \texttt{service\allowbreak{}Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Management} service
+interface in detail. Both in terms of its operations (Section \ref{sec:operations}) and its information model (Section \ref{sec:model}).
+
+\subsection{Interface registration}
+
+The service is registered in the ServiceRegistry with the interface template \texttt{generic\_\allowbreak{}https} (\texttt{generic\_\allowbreak{}http} when TLS is disabled), access port 8442 and base path \texttt{/\allowbreak{}serviceorchestration/\allowbreak{}orchestration/\allowbreak{}mgmt/\allowbreak{}simple-\allowbreak{}store}. The \texttt{operations} property of the interface lists the operations below with their method and path relative to the base path (path parameters are placeholders such as \texttt{\{id\}} that the consumer fills in):
+
+\noindent\begin{longtable}{| p{5.2cm} | p{1.6cm} | p{8.4cm} |} \hline
+\rowcolor{gray!33} Operation & Method & Path \\ \hline \endhead
+\texttt{query} & POST & \texttt{/\allowbreak{}query} \\ \hline
+\texttt{remove} & DELETE & \texttt{/\allowbreak{}remove} \\ \hline
+\texttt{create} & POST & \texttt{/\allowbreak{}create} \\ \hline
+\texttt{modify-\allowbreak{}priorities} & PUT & \texttt{/\allowbreak{}modify-\allowbreak{}priorities} \\ \hline
+\end{longtable}
+
+\newpage
+
+\section{Service Operations}
+\label{sec:operations}
+
+The interfaces of the \texttt{service\allowbreak{}Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Management} service, its operations, data models and implementation are provided below.
+In particular, each subsection first names the HTTP method and path used to call the operation, after which it names the abstract operation from the \texttt{service\allowbreak{}Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Management} SD document, as well as input and output types.
+
+All operations require the requester's identity, presented according to the provider's authentication policy: the client certificate (mutual TLS) and, with the \texttt{outsourced} policy, \texttt{Authorization: Bearer IDENTITY-TOKEN//<token>}; systems holding the Authentication secret key send \texttt{Bearer AUTHENTICATOR-KEY//<system>//<hash>}, and with the \texttt{declared} policy \texttt{Bearer SYSTEM//<system>} is sent. Request and response bodies are \texttt{application/json}.
+Errors are answered with an \mref{ErrorMessage} body and the status codes \texttt{400 Bad Request} (invalid parameter), \texttt{401 Unauthorized} (missing or invalid identity), \texttt{403 Forbidden} (not permitted, e.g. by the management or blacklist filter), \texttt{404 Not Found}, \texttt{408 Request Timeout}, \texttt{423 Locked}, \texttt{500 Internal Server Error} and \texttt{503 Service Unavailable} (a system it depends on failed).
+
+\osubsection{query}{POST}{/\allowbreak{}serviceorchestration/\allowbreak{}orchestration/\allowbreak{}mgmt/\allowbreak{}simple-store/\allowbreak{}query}{\mref[Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Query\allowbreak{}Request]{OrchestrationSimpleStoreQueryRequest}}{\mref[Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}List\allowbreak{}Response]{OrchestrationSimpleStoreListResponse}}
+
+Returns a page of store entries matching the filter.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:query},caption={An \oref{query} invocation.}]
+POST /serviceorchestration/orchestration/mgmt/simple-store/query HTTP/1.1
+Host: serviceorchestration-simple:8442
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "pagination": {
+    "page": 0,
+    "size": 10,
+    "direction": "ASC",
+    "sortField": "createdAt"
+  },
+  "ids": [
+    "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  ],
+  "consumerNames": [
+    "string"
+  ],
+  "serviceDefinitions": [
+    "temperatureReading"
+  ],
+  "serviceInstanceIds": [
+    "TemperatureSensor|temperatureReading|1.0.0"
+  ],
+  "minPriority": 1,
+  "maxPriority": 10,
+  "createdBy": "Sysop"
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:query-resp},caption={An \oref{query} response.}]
+{
+  "entries": [
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "consumer": "TemperatureDisplay",
+      "serviceDefinition": "temperatureReading",
+      "serviceInstanceId": "TemperatureSensor|temperatureReading|1.0.0",
+      "priority": 1,
+      "createdBy": "Sysop",
+      "updatedBy": "Sysop",
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{remove}{DELETE}{/\allowbreak{}serviceorchestration/\allowbreak{}orchestration/\allowbreak{}mgmt/\allowbreak{}simple-store/\allowbreak{}remove?uuids=\fparam{\{uuids\}}}{\pref{Array}$<$\allowbreak{}\pref{String}$>$}{}
+
+Removes store entries by identifier.
+
+Query parameters: \fparam{uuids} (List\textless{}String\textgreater{}, required). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:remove},caption={An \oref{remove} invocation.}]
+DELETE /serviceorchestration/orchestration/mgmt/simple-store/remove?uuids=<uuids> HTTP/1.1
+Host: serviceorchestration-simple:8442
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\osubsection{create}{POST}{/\allowbreak{}serviceorchestration/\allowbreak{}orchestration/\allowbreak{}mgmt/\allowbreak{}simple-store/\allowbreak{}create}{\mref[Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}List\allowbreak{}Request]{OrchestrationSimpleStoreListRequest}}{\mref[Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}List\allowbreak{}Response]{OrchestrationSimpleStoreListResponse}}
+
+Creates store entries; the service definition is taken from the instance identifier.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:create},caption={An \oref{create} invocation.}]
+POST /serviceorchestration/orchestration/mgmt/simple-store/create HTTP/1.1
+Host: serviceorchestration-simple:8442
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "candidates": [
+    {
+      "consumer": "TemperatureDisplay",
+      "serviceInstanceId": "TemperatureSensor|temperatureReading|1.0.0",
+      "priority": 1
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:create-resp},caption={An \oref{create} response.}]
+{
+  "entries": [
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "consumer": "TemperatureDisplay",
+      "serviceDefinition": "temperatureReading",
+      "serviceInstanceId": "TemperatureSensor|temperatureReading|1.0.0",
+      "priority": 1,
+      "createdBy": "Sysop",
+      "updatedBy": "Sysop",
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{modify-priorities}{PUT}{/\allowbreak{}serviceorchestration/\allowbreak{}orchestration/\allowbreak{}mgmt/\allowbreak{}simple-store/\allowbreak{}modify-priorities}{\mref{PriorityRequest}}{\mref[Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}List\allowbreak{}Response]{OrchestrationSimpleStoreListResponse}}
+
+Changes the priorities of store entries.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:modify-priorities},caption={An \oref{modify-priorities} invocation.}]
+PUT /serviceorchestration/orchestration/mgmt/simple-store/modify-priorities HTTP/1.1
+Host: serviceorchestration-simple:8442
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "3fa85f64-5717-4562-b3fc-2c963f66afa6": 2
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:modify-priorities-resp},caption={An \oref{modify-priorities} response.}]
+{
+  "entries": [
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "consumer": "TemperatureDisplay",
+      "serviceDefinition": "temperatureReading",
+      "serviceInstanceId": "TemperatureSensor|temperatureReading|1.0.0",
+      "priority": 1,
+      "createdBy": "Sysop",
+      "updatedBy": "Sysop",
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+Here, all data objects that can be part of the service calls associated with this service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is meant to denote a JSON \pref{Object} that must contain certain fields, or names, with values conforming to explicitly named types.
+Fields that are not needed may be omitted or \texttt{null} in requests; empty fields are omitted in responses.
+As a complement to the primary types defined in this section, there is also a list of secondary types in Section \ref{sec:model:primitives}, which are used to represent things like hashes, identifiers and texts.
+
+\msubsection{struct}{ErrorMessage}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"error\allowbreak{}Message" & \pref{String} &  \\ \hline
+"error\allowbreak{}Code" & \pref{Number} &  \\ \hline
+"exception\allowbreak{}Type" & \pref{ExceptionType} &  \\ \hline
+"origin" & \pref{String} &  \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSimpleStoreListRequest}
+
+Store entries to create.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"candidates" & \pref{Array}$<$\allowbreak{}\mref[Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Request]{OrchestrationSimpleStoreRequest}$>$ & Store entries to create. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSimpleStoreListResponse}
+
+List of store entries.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref[Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Response]{OrchestrationSimpleStoreResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSimpleStoreQueryRequest}
+
+Paged filter for store entries.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"pagination" & \mref{Page} & Paging and sorting of the result. \\ \hline
+"ids" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Store entry identifiers (UUID) to match. \\ \hline
+"consumer\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Consumer system names to match. \\ \hline
+"service\allowbreak{}Definitions" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Service definition names to match. \\ \hline
+"service\allowbreak{}Instance\allowbreak{}Ids" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Service instance identifiers to match. \\ \hline
+"min\allowbreak{}Priority" & \pref{Number} & Lower bound of the priority. \\ \hline
+"max\allowbreak{}Priority" & \pref{Number} & Upper bound of the priority. \\ \hline
+"created\allowbreak{}By" & \pref{String} & Creator system to match. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSimpleStoreRequest}
+
+One orchestration rule: consumer, service instance and priority.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"consumer" & \pref{String} & Consumer system the rule applies to. \\ \hline
+"service\allowbreak{}Instance\allowbreak{}Id" & \pref{String} & Service instance offered to the consumer. \\ \hline
+"priority" & \pref{Number} & Priority of the rule; 1 is the highest. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSimpleStoreResponse}
+
+A stored orchestration rule.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"id" & \pref{String} & Identifier (UUID) of the store entry. \\ \hline
+"consumer" & \pref{String} & Name of the consumer system. \\ \hline
+"service\allowbreak{}Definition" & \pref{String} & Service definition name. \\ \hline
+"service\allowbreak{}Instance\allowbreak{}Id" & \pref{String} & Service instance identifier \texttt{\textless{}System\textgreater{}\textbar{}\allowbreak{}\textless{}service\allowbreak{}Definition\textgreater{}\textbar{}\allowbreak{}\textless{}version\textgreater{}}. \\ \hline
+"priority" & \pref{Number} & Priority of the entry; 1 is the highest. \\ \hline
+"created\allowbreak{}By" & \pref{String} & Name of the system that created the record. \\ \hline
+"updated\allowbreak{}By" & \pref{String} & Name of the system that changed the record last. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Page}
+
+Paging and sorting; all fields optional.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"page" & \pref{Number} & Zero-based page number. \\ \hline
+"size" & \pref{Number} & Number of records per page (at most \texttt{max.\allowbreak{}page.\allowbreak{}size}, default 1000). \\ \hline
+"direction" & \pref{String} & Sort direction, \texttt{ASC} or \texttt{DESC}. \\ \hline
+"sort\allowbreak{}Field" & \pref{String} & Field to sort by. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PriorityRequest}
+
+A JSON object mapping store entry identifiers (UUID) to new priorities, e.g. \texttt{\{"123e4567-\allowbreak{}e89b-\allowbreak{}12d3-\allowbreak{}a456-\allowbreak{}426614174000": 5\}}.
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+As all messages are encoded using the JSON format \cite{rfc8259}, the following primitive constructs, part of that standard, become available.
+Note that the official standard is defined in terms of parsing rules, while this list only concerns syntactic information.
+Furthermore, the \pref{Object} and \pref{Array} types are given optional generic type parameters, which are used in this document to signify when pair values or elements are expected to conform to certain types.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Array} & A JSON Array \cite{rfc8259}; \pref{Array}$<$A$>$ has elements of type A. \\ \hline
+\pdef{DateTime} & JSON String with an ISO 8601 UTC timestamp, e.g. \texttt{2026-10-22T12:00:00Z}. \\ \hline
+\pdef{ExceptionType} & One of \texttt{ARROWHEAD}, \texttt{INVALID\_\allowbreak{}PARAMETER}, \texttt{AUTH}, \texttt{FORBIDDEN}, \texttt{DATA\_\allowbreak{}NOT\_\allowbreak{}FOUND}, \texttt{TIMEOUT}, \texttt{LOCKED}, \texttt{INTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR}, \texttt{EXTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR} (JSON String). \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

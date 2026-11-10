@@ -1,0 +1,233 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{LocalCloudConfigurator}
+\ArrowheadType{System Design Description}
+\ArrowheadTypeShort{SysDD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the implementation of the LocalCloudConfigurator support system of the Eclipse Arrowhead framework (documentation edition 5.3.0) in \texttt{ah5-LocalCloudConfigurator-java} of the primary Java source tree (\texttt{Eclipse-Arrowhead-java}).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the LocalCloudConfigurator system implementation, which realizes the LocalCloudConfigurator SysD \cite{lcc-sysd}.
+In Section \ref{Implementation}, we describe implementation details of the system.
+
+\newpage
+
+\section{Implementation}
+\label{Implementation}
+
+The implementation is located in \texttt{ah5-LocalCloudConfigurator-java} (artifact \texttt{arrowhead-\allowbreak{}localcloudconfigurator}, \texttt{localcloudconfigurator.\allowbreak{}jar}). The same JAR runs as the Arrowhead system (\texttt{serve}, default), as the host worker (\texttt{worker}) and as the retained command-line tools (\texttt{keygen}, \texttt{register}, \texttt{executor}, \texttt{plan}).
+
+\subsection{Implementation language and tools}
+\begin{itemize}
+\item Java 21, Spring Boot 3.4 (Web, Security, Data JPA, Quartz), Log4j2 with the JDBC log table, MariaDB driver, BouncyCastle (ColonyOS signatures).
+\item Eclipse Arrowhead common library as a private vendored source copy (\texttt{vendor/}).
+\item Storage: MySQL 8.4 (private schema \texttt{ah\_\allowbreak{}localcloudconfigurator}); the host worker uses files.
+\item Host worker: non-web Spring application with the JDK \texttt{HttpsServer}.
+\end{itemize}
+
+\subsection{Functional properties implementation}
+
+Package \texttt{eu.\allowbreak{}arrowhead.\allowbreak{}localcloudconfigurator}:
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{5.4cm} | >{\raggedright\arraybackslash}p{9.8cm} |} \hline
+\rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
+\texttt{Local\allowbreak{}Cloud\allowbreak{}Configurator\allowbreak{}Main} & Command dispatch: Arrowhead system, \texttt{worker} (non-web application), tools. \\ \hline
+\texttt{Local\allowbreak{}Cloud\allowbreak{}Configurator\allowbreak{}SystemInfo} & System \texttt{LocalCloudConfigurator}; services \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} and \texttt{general\allowbreak{}Management}. \\ \hline
+\texttt{Catalog} & Loads and validates the catalog (names, ownership of databases, scripts, dependency cycles, defaults); dependency closure, protected components, catalog hash. \\ \hline
+\texttt{Planner} & Plans: defaults and selection with dependencies in order, provision, start, policy, explicit stops in reverse order, optional verification; plan hash. \\ \hline
+\texttt{Runner} & Runs one step after checking it against the catalog (owner, kind, script, catalog hash, protected components, running dependents, database order); \texttt{docker compose} argument lists; output bounded and redacted. \\ \hline
+\texttt{DirectBackend} & Worker execution: one deployment at a time on a single thread, results written atomically after every step, state-directory lock, interrupted deployments marked failed at start-up and never replayed. \\ \hline
+\texttt{CloudColony}, \texttt{colony/} & Legacy ColonyOS backend: signed RPC, chained \texttt{lcc.\allowbreak{}step} workflows, \texttt{lcc.\allowbreak{}status}. \\ \hline
+\texttt{service/\allowbreak{}Deployment\allowbreak{}Coordinator} & Status, plan and serialized apply with the plan-hash check and the active-deployment guard; shared by the API (JPA store) and the worker (file store). \\ \hline
+\texttt{service/\allowbreak{}Configuration\allowbreak{}Service} & Saved designs with validation and revision checks. \\ \hline
+\texttt{service/\allowbreak{}WorkerClient}, \texttt{tls/\allowbreak{}MutualTls} & API side of the worker connection: mutual TLS with peer-name pinning and the CRL. \\ \hline
+\texttt{service/\allowbreak{}BackendConfig}, \texttt{ColonyBackend} & Catalog bean and backend selection (\texttt{lcc.\allowbreak{}backend}). \\ \hline
+\texttt{jpa/} & Entities \texttt{SavedConfiguration} (\texttt{configuration}), \texttt{Deployment}, \texttt{ActiveDeployment}, \texttt{Logs}; \texttt{JpaDeploymentStore}. \\ \hline
+\texttt{api/\allowbreak{}http/} & \texttt{LocalCloudConfigurationAPI} (strict JSON, 64 KiB, native status codes and error bodies), \texttt{GeneralManagementAPI}, response headers. \\ \hline
+\texttt{security/} & \texttt{ConfiguratorAccessFilter} and \texttt{ConfiguratorAuthorizationService}: Sysop, whitelist or ConsumerAuthorization grant per operation. \\ \hline
+\texttt{worker/} & \texttt{WorkerApplication} (beans of the worker) and \texttt{WorkerServer} (loopback HTTPS, client authentication required). \\ \hline
+\end{longtable}
+
+\subsubsection{Database}
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{3.4cm} | >{\raggedright\arraybackslash}p{11.8cm} |} \hline
+\rowcolor{gray!33} Table & Columns \\ \hline \endhead
+\texttt{configuration} & \texttt{id} (UUID), \texttt{name}, \texttt{systems}, \texttt{removals}, \texttt{layout} (JSON text), \texttt{reapply}, \texttt{smoke}, \texttt{revision}, \texttt{updated\_\allowbreak{}at}. \\ \hline
+\texttt{deployment} & \texttt{id}, \texttt{plan}, \texttt{request} (JSON text), \texttt{state}, \texttt{result} (last reported state and steps), \texttt{submitted\_\allowbreak{}at}, \texttt{updated\_\allowbreak{}at}. \\ \hline
+\texttt{active\_\allowbreak{}deployment} & At most one row (\texttt{id} 1): \texttt{deployment\_\allowbreak{}id} of the deployment that blocks new ones until the backend reports \texttt{success} or \texttt{failed}. \\ \hline
+\texttt{logs} & Log4j2 JDBC appender (\texttt{general\allowbreak{}Management} \texttt{get-\allowbreak{}log}). \\ \hline
+\end{longtable}
+
+\texttt{deployment/\allowbreak{}database/\allowbreak{}init.\allowbreak{}sql} creates the schema; \texttt{least-\allowbreak{}privilege.\allowbreak{}sh} restricts the application account to SELECT, INSERT, UPDATE and DELETE. Hibernate validates the schema at start-up.
+
+\subsubsection{Host worker}
+
+The worker is started as \texttt{java -jar localcloudconfigurator.jar worker -{}-lcc.\ldots} by a per-user launchd service installed with \texttt{scripts/\allowbreak{}install-\allowbreak{}direct.\allowbreak{}py} (RunAtLoad, KeepAlive). It does not register in the ServiceRegistry; it is the configurator's local agent. Properties:
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{5.4cm} | >{\raggedright\arraybackslash}p{9.8cm} |} \hline
+\rowcolor{gray!33} Property & Meaning \\ \hline \endhead
+\texttt{lcc.\allowbreak{}worker.\allowbreak{}address}, \texttt{lcc.\allowbreak{}worker.\allowbreak{}port} & 127.0.0.1, 8493; a non-loopback address is refused at start-up. \\ \hline
+\texttt{lcc.\allowbreak{}worker.\allowbreak{}ssl.\allowbreak{}key-\allowbreak{}store}, \texttt{trust-\allowbreak{}store}, \texttt{*-\allowbreak{}password} & Worker certificate \texttt{LocalCloudConfiguratorWorker} (PKCS12), cloud truststore; passwords from a 0600 config tree. \\ \hline
+\texttt{lcc.\allowbreak{}worker.\allowbreak{}ssl.\allowbreak{}crl-\allowbreak{}file} & Cloud CRL for client certificates (optional, recommended). \\ \hline
+\texttt{lcc.\allowbreak{}worker.\allowbreak{}allowed-\allowbreak{}clients} & \texttt{LocalCloudConfigurator}. \\ \hline
+\texttt{lcc.\allowbreak{}worker.\allowbreak{}cloud-\allowbreak{}dir}, \texttt{lcc.\allowbreak{}worker.\allowbreak{}docker} & Cloud view (\texttt{compose.\allowbreak{}yaml}, \texttt{scripts}, \texttt{.env}), Docker CLI. \\ \hline
+\texttt{lcc.\allowbreak{}worker.\allowbreak{}state}, \texttt{lcc.\allowbreak{}catalog.\allowbreak{}file} & File state (\texttt{active-\allowbreak{}deployment.\allowbreak{}json}, \texttt{deployments/}, \texttt{workflows/}), the worker's own catalog copy. \\ \hline
+\end{longtable}
+
+Worker interface (HTTPS, client certificate required, JSON as in the IDD \cite{lcc-localCloudConfiguration-http-idd}):
+
+\noindent\begin{longtable}{| p{1.6cm} | p{5.2cm} | >{\raggedright\arraybackslash}p{8.0cm} |} \hline
+\rowcolor{gray!33} Method & Path & Behaviour \\ \hline \endhead
+GET & \texttt{/healthz} & \texttt{\{"status": "ok", "executionBackend": "direct"\}}. \\ \hline
+GET & \texttt{/api/\allowbreak{}status} & Running Compose services and component states. \\ \hline
+POST & \texttt{/api/\allowbreak{}plan} & Plan for a request against the worker's catalog. \\ \hline
+POST & \texttt{/api/\allowbreak{}deployments} & Reviewed selection with \texttt{expectedPlanHash}; the worker rebuilds the plan and refuses a different hash (409); 202 with a \texttt{local-\allowbreak{}<uuid>} identifier. \\ \hline
+GET & \texttt{/api/\allowbreak{}deployments/\allowbreak{}\{id\}} & State and step results of a worker deployment. \\ \hline
+\end{longtable}
+
+\subsection{Non functional properties implementation}
+
+\subsubsection{Security}
+
+Mutual TLS on 8492 and to the worker (SysD, Section Security); outsourced authentication and the access filter for every operation; security profile guard; DML-only database account; read-only root filesystem.
+
+\subsubsection{Power management}
+
+None. The \texttt{sysMonitor} \texttt{power} observation always reports line supply.
+
+\subsubsection{Internal monitoring}
+
+Logs to the console, a rolling file and the \texttt{logs} table; the worker logs to the console (launchd log files). sysMonitor observations every 30 s.
+
+\subsubsection{Configuration}
+
+Spring properties (SysD), secrets from \texttt{configtree:\allowbreak{}/\allowbreak{}run/\allowbreak{}secrets/}.
+
+\subsection{Deployment}
+
+\texttt{compose.yaml} (project \texttt{ah5-\allowbreak{}localcloudconfigurator}) runs \texttt{localcloudconfigurator} (image \texttt{arrowhead-\allowbreak{}localcloudconfigurator-\allowbreak{}standalone:\allowbreak{}5.2.2}, UID 10001, read-only root filesystem, port 8492 on the host's loopback by default, \texttt{host.\allowbreak{}docker.\allowbreak{}internal} mapped to the host) and \texttt{localcloudconfigurator-\allowbreak{}db} (MySQL 8.4.11 with TLS, internal network). \texttt{scripts/\allowbreak{}deploy.\allowbreak{}sh} puts both services into a cloud's Compose file and installs the worker; it changes a deployed cloud and is run only by an operator.
+
+\subsection{Verification}
+
+\texttt{mvn clean verify}: catalog, planner and runner tests; direct backend (persistence, no replay, single worker); deployment coordinator (guard across restarts, stale hash); a full-application MockMvc test of every \texttt{/api} route with identity and grant checks, size limit and strict JSON; a plan-to-deployment run against a worker over mutual TLS and refusal of a missing, foreign, wrongly named or revoked certificate; the security profile test. A gated test validates the schema against a fresh MySQL 8.4.11 container and checks the DML-only grants.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+\noindent\begin{longtable}{| p{5.4cm} | p{2.2cm} | p{2.2cm} | p{4.8cm} |} \hline
+\rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
+\texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} & \cite{lcc-sysd} & \cite{lcc-localCloudConfiguration-sd} & \cite{lcc-localCloudConfiguration-http-idd} \\ \hline
+\texttt{sysMonitor} & \cite{lcc-sysd} & \cite{lcc-sysMonitor-sd} & \cite{lcc-sysMonitor-amqp-idd} \\ \hline
+\texttt{general\allowbreak{}Management} & \cite{lcc-sysd} & -- & -- \\ \hline
+&&& \\ \hline
+\rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
+system\allowbreak{}Discovery, service\allowbreak{}Discovery & \cite{core-sr-sysd} & \cite{core-sr-serviceDiscovery-sd} & -- \\ \hline
+identity & \cite{core-auth-sysd} & \cite{core-auth-identity-sd} & -- \\ \hline
+authorization (verify) & \cite{core-ca-sysd} & -- & -- \\ \hline
+\end{longtable}
+
+
+\section{Go and Rust implementation variants}
+\subsection{Go implementation}
+Primary system folder: \path|Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go|.\par
+The system owns its Go module, launcher and build configuration. Use the per-system \path|Makefile| and \path|go.mod|; the containing Go tree is the build source, not a historical Arrowhead copy. This is a native operator API/UI using \path|net/http| and ColonyOS. The \path|/api| routes require an operator bearer token, not an Arrowhead identity token. It is a distinct binding from the Java support-system wrapper. \path|Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/internal/api/api.go| records the handlers.
+\paragraph{Listening port.} serve listens on 127.0.0.1:8095 by default. Override with -listen host:port, SERVER\_PORT=N or -server.port N; the port overrides keep the -listen host.
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+\subsection{Rust implementation}
+No Rust implementation folder for LocalCloudConfigurator is present in the designated primary Rust tree. There is no port-specific executable, service binding or parity claim in this edition. A future port needs its own build, state model, security and interface qualification.
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-11-09 & 5.2.2 & Document created for the Java-Spring implementation: components, database, host worker (non-web Spring application, loopback 8493, mutual TLS, not registered), deployment and verification. & Claude Opus 5.5 (draft) \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

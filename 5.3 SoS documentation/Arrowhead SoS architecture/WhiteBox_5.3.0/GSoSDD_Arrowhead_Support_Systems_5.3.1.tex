@@ -79,7 +79,7 @@
 \ArrowheadType{Generic System of Systems Design Description}
 \ArrowheadTypeShort{GSoSDD}
 \ArrowheadVersion{5.3.1}
-\ArrowheadDate{2026-10-30}
+\ArrowheadDate{2026-11-10}
 \ArrowheadAuthor{Jerker Delsing}
 \ArrowheadStatus{DRAFT}
 \ArrowheadContact{jerker.delsing@ltu.se}
@@ -115,7 +115,7 @@
     \sys{DeviceQoSEvaluator} -- and the twelve active project support systems migrated from Arrowhead 4.6 to
     the 5.2.2 baseline plus three monitor and management systems:
     LocalCloudManager, LocalCloudConfigurator and SoSConfigurator (with subsequent
-    primary-source packaging described in Section~\ref{sec:baseline-20261030}):
+    primary-source packaging described in Section~\ref{sec:independent-support}):
     \sys{PlantDescriptionEngine}, \sys{Choreographer}, \sys{Configuration},
     \sys{CertificateAuthority}, \sys{Onboarding}, \sys{EventHandler}, \sys{DataManager},
     \sys{TimeManager}, \sys{SysMonitor}, \sys{AIGym},
@@ -484,7 +484,7 @@ sessions. \sys{TimeManager} keeps only logs.
 \sys{PlantDescriptionEngine} & 8432 & Java 21, Spring Boot & MariaDB \prop{ah_plantdescriptionengine} & 4.6 PlantDescriptionEngine \\\hline
 \sys{Choreographer} & 8457 & Java 21, Spring Boot & MariaDB \texttt{ah\_choreographer} & 4.6 Choreographer (core) \\\hline
 \sys{Configuration} & 8459 & Java 21, Spring Boot & MariaDB \texttt{ah\_configuration} & 4.6 Configuration (core) \\\hline
-\sys{CertificateAuthority} & 8448 & Java 21, Spring Boot, Bouncy Castle & MySQL \texttt{ah\_certificate\_authority} & 4.6 Certificate Authority \\\hline
+\sys{CertificateAuthority} & 8448 & Java 21, Spring Boot, Bouncy Castle & MySQL \prop{ah_certificate_authority} & 4.6 Certificate Authority \\\hline
 \sys{Onboarding} & 8435 & Java 21, Spring Boot 3.4.9 & MariaDB \texttt{ah\_onboarding} (enrolments, logs) & 4.6.2 Onboarding controller; procedure of \cite{bicaku2018} \\\hline
 \sys{EventHandler} & 8455 & Java 21, Spring Boot & MariaDB \texttt{ah\_eventhandler} & 4.6 EventHandler (core) \\\hline
 \sys{DataManager} & 8461 & Java 21, Spring Boot & MariaDB \texttt{ah\_datamanager} & 4.6 DataManager \\\hline
@@ -495,7 +495,7 @@ sessions. \sys{TimeManager} keeps only logs.
 \sys{Gatekeeper} & 8449 & Java 21, Spring Boot, MQTT relay client & MySQL \texttt{ah\_gatekeeper} & 4.6 Gatekeeper \\\hline
 \sys{GateTunnel} & 8453 & Java 21, Spring Boot, MQTT relay client & MySQL \texttt{ah\_gatetunnel} & 4.6 Gateway \\\hline
 \sys{LocalCloudManager} & 8491 (console 8490) & Java 21, Spring Boot; separate Docker proxy & none & Workspace (formerly Node.js/nginx) \\\hline
-\sys{LocalCloudConfigurator} & 8492 (host worker 8493) & Java 21, Spring Boot & MySQL \texttt{ah\_localcloudconfigurator} & Workspace (port of the Go LocalCloudConfigurator) \\\hline
+\sys{LocalCloudConfigurator} & 8492 (host worker 8493) & Java 21, Spring Boot & MySQL \prop{ah_localcloudconfigurator} & Workspace (port of the Go LocalCloudConfigurator) \\\hline
 \sys{SoSConfigurator} & 8494 (console 8495) & Java 21, Spring Boot, ColonyOS client & MySQL \texttt{ah\_sosconfigurator} & Workspace \\\hline
 \caption{Inventory of the 5.2 support systems (canonical ports, Section~\ref{sec:ports}). $^U$ = upstream v5.2.2 release.}
 \label{tab:inventory}
@@ -769,6 +769,9 @@ monitoring, while PDE can read monitoring history as well as manage DSO plant
 scopes. These paths retain each provider's own authentication and authorisation
 checks after orchestration.
 
+\input{sections/network-deployment}
+
+\newpage
 \section{Support System White-Box Descriptions}
 \label{sec:systems}
 
@@ -1846,6 +1849,7 @@ still documents missing MQTT service APIs and remaining QoS/translation pipeline
 14 & 2026-11-08 & 0.14 & Database privileges narrowed in the Java source scripts and Compose database images; security model and open issue updated. & Claude (draft) \\ \hline
 15 & 2026-11-08 & 0.15 & Native Java systems paragraph made a subsubsection of the implementation patterns; duplicated packaging statements replaced by a reference to the independent deployment section. & Claude (draft) \\ \hline
 16 & 2026-11-09 & 0.16 & All support systems Java-Spring: CertificateAuthority, Gatekeeper, GateTunnel, SysMonitor, LocalCloudManager, LocalCloudConfigurator and SoSConfigurator converted (MySQL storage, unchanged contracts); inventory, implementation patterns, independent deployments, consoles and port allocation (8492--8495) updated. & Claude (draft) \\ \hline
+17 & 2026-11-10 & 0.17 & Network deployment from Arrowhead-5.2 Papyrus: segment/endpoint mapping, restricted flows and commissioning evidence; model definitions distinguished from deployment decisions. & Codex (draft) \\ \hline
 \end{longtable}
 \normalsize
 

@@ -50,6 +50,11 @@ public final class DeviceQoSEvaluatorConstants {
 	public static final String AUGMENTED_MEASUREMENT_JOB_INTERVAL = "augmented.measurement.job.interval";
 	public static final String $AUGMENTED_MEASUREMENT_JOB_INTERVAL_WD = "${" + AUGMENTED_MEASUREMENT_JOB_INTERVAL + ":" + DeviceQoSEvaluatorDefaults.AUGMENTED_MEASUEREMENT_JOB_INTERVAL_DEFAULT + "}";
 	public static final int AUGMENTED_MEASUREMENT_JOB_INTERVAL_MIN_VALUE = 5; // sec
+	// Device agent channel (2026-11-09): mutual TLS by default; plain HTTP only with the development exception
+	public static final String DEVICE_AGENT_SSL_ENABLED = "device.agent.ssl.enabled";
+	public static final String $DEVICE_AGENT_SSL_ENABLED_WD = "${" + DEVICE_AGENT_SSL_ENABLED + ":" + DeviceQoSEvaluatorDefaults.DEVICE_AGENT_SSL_ENABLED_DEFAULT + "}";
+	public static final String DEVICE_AGENT_PORT = "device.agent.port";
+	public static final String $DEVICE_AGENT_PORT_WD = "${" + DEVICE_AGENT_PORT + ":" + DeviceQoSEvaluatorDefaults.DEVICE_AGENT_PORT_DEFAULT + "}";
 	public static final String EVALUATION_TIME_WINDOW = "evaluation.time.window";
 	public static final String $EVALUATION_TIME_WINDOW_WD = "${" + EVALUATION_TIME_WINDOW + ":" + DeviceQoSEvaluatorDefaults.EVALUATION_TIME_WINDOW_DEFAULT + "}";
 	public static final String CLEANING_JOB_INTERVAL = "cleaning.job.interval";
@@ -88,7 +93,7 @@ public final class DeviceQoSEvaluatorConstants {
 
 	// Measurement related
 
-	public static final int AUGMENTED_MEASUREMENT_PORT = 59473;
+	public static final int AUGMENTED_MEASUREMENT_PORT = Integer.parseInt(DeviceQoSEvaluatorDefaults.DEVICE_AGENT_PORT_DEFAULT);
 	public static final List<Double> NO_MEASUREMENT_VALUES = List.of(-1d, -1d, -1d, -1d, -1d);
 
 	//=================================================================================================

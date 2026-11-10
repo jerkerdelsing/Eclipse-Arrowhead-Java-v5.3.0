@@ -1,0 +1,211 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{DeviceQoSEvaluator}
+\ArrowheadType{System Design Description}
+\ArrowheadTypeShort{SysDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the design and implementation of the DeviceQoSEvaluator support system of Arrowhead 5.2.2 (\texttt{ah5-DeviceQoSEvaluator-java-spring}).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the DeviceQoSEvaluator system implementation, which realizes the DeviceQoSEvaluator SysD \cite{dqe-sysd}. Device\allowbreak{}Qo\allowbreak{}SEvaluator measures the devices that host the systems of the local cloud (round-trip time; CPU, memory and network load through device agents), keeps aggregated statistics and evaluates candidate providers for Dynamic\allowbreak{}Service\allowbreak{}Orchestration.
+In Section \ref{Implementation}, we describe implementation details of the system.
+
+\newpage
+
+\section{Implementation}
+\label{Implementation}
+
+This implementation is based on the SysD document DeviceQoSEvaluator \cite{dqe-sysd} and is located in \texttt{ah5-DeviceQoSEvaluator-java-spring}.
+
+\subsection{Implementation language and tools}
+\begin{itemize}
+\item Java 21, Spring Boot 3.4.9, Arrowhead common library 5.2.2 (private source under \texttt{vendor/}), Log4j 2; MariaDB Connector/J against MySQL 8.4 with TLS in the standalone deployment.
+\item Database \texttt{ah\_\allowbreak{}device\_\allowbreak{}qos\_\allowbreak{}evaluator} on MySQL 8.4 (MariaDB Connector/J, TLS with server verification in the standalone deployment), schema validated by Hibernate; SQL scripts in \texttt{src/\allowbreak{}main/\allowbreak{}resources/\allowbreak{}database}. Stateless request processing; scheduled jobs use Quartz.
+\end{itemize}
+
+\subsection{Independent source and build ownership}
+The project folder owns its application source, Maven build, tests, executable JAR, Dockerfile, configuration and Compose definition. No source or image is taken from a sibling support folder or JavaSupportRuntime. Build with Java 21 and \texttt{mvn -B clean verify}; a populated external Maven dependency cache permits offline builds.
+
+Arrowhead common utilities and DTOs are private source copies in \texttt{vendor/}, compiled into this system by the local Maven POM. No Arrowhead common/core parent or separately installed Arrowhead library is needed. Upstream POMs, licenses and source hashes are retained for provenance. Security updates must be propagated and tested in every affected copy. Third-party dependencies remain ordinary Maven libraries.
+
+The packaged artifact is \texttt{arrowhead-\allowbreak{}device-\allowbreak{}qos-\allowbreak{}evaluator-5.2.2.jar}. The image builds and tests this folder only; the system has a fixed application main class.
+
+\subsection{Functional properties implementation}
+
+The following components implement the system:
+
+\noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
+\rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
+\texttt{api.\allowbreak{}http,\allowbreak{} api.\allowbreak{}mqtt} & Controllers and topic handlers. \\ \hline
+\texttt{engine} & Measurement and statistics engines, device-system map. \\ \hline
+\texttt{driver} & RTT and augmented measurement drivers. \\ \hline
+\texttt{jpa,\allowbreak{} quartz} & Entities and measurement jobs. \\ \hline
+\end{longtable}
+
+Every request passes the common filter chain: authentication filter (\texttt{authentication.\allowbreak{}policy}), optional blacklist filter, management filter (management services), the system's authorization filter where present, then the controller, validation and normalization, the service logic and the database service.
+
+\subsubsection{Data handled and stored}
+
+Storage \texttt{ah\_\allowbreak{}device\_\allowbreak{}qos\_\allowbreak{}evaluator}:
+
+\noindent\begin{longtable}{| p{6.4cm} | p{8.8cm} |} \hline
+\rowcolor{gray!33} Tables & Content \\ \hline \endhead
+\texttt{device,\allowbreak{} system\_\allowbreak{}} & Measured devices and their systems. \\ \hline
+\texttt{stat\_\allowbreak{}round\_\allowbreak{}trip\_\allowbreak{}time,\allowbreak{} stat\_\allowbreak{}cpu\_\allowbreak{}total\_\allowbreak{}load,\allowbreak{} stat\_\allowbreak{}memory\_\allowbreak{}used,\allowbreak{} stat\_\allowbreak{}net\_\allowbreak{}egress\_\allowbreak{}load,\allowbreak{} stat\_\allowbreak{}net\_\allowbreak{}ingress\_\allowbreak{}load} & Aggregated statistics. \\ \hline
+\texttt{logs} & Log entries. \\ \hline
+\end{longtable}
+
+The data models of the interfaces are Java records (of \texttt{eu.arrowhead.dto} in the common library, or of the module); the IDD documents name them without the \texttt{DTO} suffix. The records used by this system are: \texttt{KeyValuesDTO}, \texttt{LogEntryDTO}, \texttt{Log\allowbreak{}Entry\allowbreak{}List\allowbreak{}Response\allowbreak{}DTO}, \texttt{LogRequestDTO}, \texttt{PageDTO}, \texttt{Qo\allowbreak{}SDevice\allowbreak{}Stat\allowbreak{}Query\allowbreak{}Request\allowbreak{}DTO}, \texttt{Qo\allowbreak{}SDevice\allowbreak{}Stat\allowbreak{}Query\allowbreak{}Response\allowbreak{}DTO}, \texttt{Qo\allowbreak{}SDevice\allowbreak{}Stat\allowbreak{}Record\allowbreak{}DTO}, \texttt{Qo\allowbreak{}SEvaluation\allowbreak{}Filter\allowbreak{}Response\allowbreak{}DTO}, \texttt{Qo\allowbreak{}SEvaluation\allowbreak{}Request\allowbreak{}DTO}, \texttt{Qo\allowbreak{}SEvaluation\allowbreak{}Sort\allowbreak{}Response\allowbreak{}DTO}.
+
+\subsection{Non functional properties implementation}
+
+\subsubsection{Security}
+
+TLS and client authentication are configured with the Spring \texttt{server.\allowbreak{}ssl.\allowbreak{}*} properties (PKCS\#12 keystore and truststore, \texttt{client-\allowbreak{}auth=\allowbreak{}need}). The common library's filters implement the authentication policies; \texttt{Token\allowbreak{}Certificate\allowbreak{}Binding} binds identity tokens to the client certificate and \texttt{Crl\allowbreak{}Revocation\allowbreak{}Config} enables CRL checking.
+
+\subsubsection{Power management}
+
+None; the system is a server process without power states. The \texttt{sysMonitor} \texttt{power} observation always reports line supply.
+
+\subsubsection{Internal monitoring}
+
+Log4j 2 logs to stdout and files; log entries are also written to the \texttt{logs} table and served by \texttt{general\allowbreak{}Management.\allowbreak{}get-\allowbreak{}log}. The common library's \texttt{Sys\allowbreak{}Monitor\allowbreak{}Publisher} publishes \texttt{echo}, \texttt{power} and \texttt{status} every 30 s.
+
+\subsubsection{Configuration}
+
+Configuration is read from \texttt{application.\allowbreak{}properties} and environment variables (Spring relaxed binding); secrets come from files through \texttt{SPRING\_\allowbreak{}CONFIG\_\allowbreak{}IMPORT=\allowbreak{}configtree:\allowbreak{}/\allowbreak{}run/\allowbreak{}secrets/\allowbreak{}}. The properties are listed in the SysD; \texttt{general\allowbreak{}Management.\allowbreak{}get-\allowbreak{}config} returns the public ones.
+
+\subsection{Deployment}
+
+The local \texttt{compose.yaml} selects only this support system and its private MySQL database. It joins an operator-selected external cloud network; it does not start core systems or another support system. Copy \texttt{.env.example}, provision this system's own identity and credential files, validate the Compose definition, then run \texttt{docker compose up -d --build} from this folder. The image uses the secure external \texttt{config/application.properties}, mutual TLS, outsourced authentication, certificate/token binding and a mounted CRL. Secrets are read through Spring's file configuration tree. The app runs as UID 10001 with a read-only root filesystem and bounded non-executable temporary/log storage.
+
+The database image initializes this system's own schema on an empty project-owned volume, reads independent random user/root passwords from files and uses a dedicated internal network. It has no host port. The application verifies the database TLS certificate against its public DB CA. The DB key and CA signing key are never mounted into the application. Distinct Compose project names, host ports and private subnets are required for multiple deployments. Existing volumes require explicit migration/backup handling; ordinary shutdown preserves them.
+
+Registry, Authentication, DSO, ConsumerAuthorization and required brokers/providers remain network dependencies. Independent deployment does not remove those service contracts. The listener health check is only a liveness check; inspect successful application startup, registration and authenticated service access before acceptance. The local \texttt{DEPLOYMENT.md} supplies the complete procedure. The previously recorded live-cloud deployment is historical baseline evidence; the new packaging does not change a live cloud.
+
+\subsection{Local modifications}
+\label{sec:local}
+
+Notes on this implementation in the workspace:
+\begin{itemize}
+  \item Native \texttt{sysMonitor} publisher replaces the HTTP \texttt{monitor} service.
+  \item Token-to-certificate binding and CRL checking; MariaDB driver.
+\end{itemize}
+
+\subsection{Verification}
+
+Independent folder-only Maven builds run the project's JUnit suite. Artifact inspection checks the system main/source and absence of JavaSupportRuntime or other support-system implementations. Images and project-local Compose definitions are tested with private disposable state and generated test identities. Spring startup and authenticated HTTPS requests use isolated mutual-TLS core-service fixtures; missing-token and missing-certificate requests are refused. The distribution verification report records exact results and limitations. Broker, NTP and inter-cloud acceptance remain separate from deployment/startup validation.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+The implementation of the services is based on the SD and IDD documents referenced below.
+
+\noindent\begin{longtable}{| p{5.4cm} | p{2.2cm} | p{2.2cm} | p{4.8cm} |} \hline
+\rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
+\texttt{qualityEvaluation} & \cite{dqe-sysd} & \cite{dqe-qualityEvaluation-sd} & \cite{dqe-qualityEvaluation-http-idd}, \cite{dqe-qualityEvaluation-mqtt-idd} \\ \hline
+\texttt{device\allowbreak{}Quality\allowbreak{}Data\allowbreak{}Management} & \cite{dqe-sysd} & \cite{dqe-deviceQualityDataManagement-sd} & \cite{dqe-deviceQualityDataManagement-http-idd}, \cite{dqe-deviceQualityDataManagement-mqtt-idd} \\ \hline
+\texttt{generalManagement} & \cite{dqe-sysd} & \cite{dqe-generalManagement-sd} & \cite{dqe-generalManagement-http-idd}, \cite{dqe-generalManagement-mqtt-idd} \\ \hline
+\texttt{sysMonitor} & \cite{dqe-sysd} & \cite{dqe-sysMonitor-sd} & \cite{dqe-sysMonitor-amqp-idd} \\ \hline
+&&& \\ \hline
+\rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
+systemDiscovery, serviceDiscovery & \cite{core-sr-sysd} & \cite{core-sr-systemDiscovery-sd} & -- \\ \hline
+service\allowbreak{}Registry\allowbreak{}Management & \cite{core-sr-sysd} & \cite{core-sr-serviceRegistryManagement-sd} & -- \\ \hline
+identity & \cite{core-auth-sysd} & \cite{core-auth-identity-sd} & -- \\ \hline
+authorization & \cite{core-ca-sysd} & \cite{core-ca-authorization-sd} & -- \\ \hline
+blacklist\allowbreak{}Discovery & \cite{bl-sysd} & \cite{bl-blacklistDiscovery-sd} & -- \\ \hline
+device metrics & Device agents & -- & -- \\ \hline
+sysMonitor (publisher) & AMQP broker (SysMonitor) & -- & -- \\ \hline
+\end{longtable}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-25 & \arrowversion & Self-contained build, private library source, configuration, images, database and isolated deployment verification. & Codex (draft) \\ \hline
+3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

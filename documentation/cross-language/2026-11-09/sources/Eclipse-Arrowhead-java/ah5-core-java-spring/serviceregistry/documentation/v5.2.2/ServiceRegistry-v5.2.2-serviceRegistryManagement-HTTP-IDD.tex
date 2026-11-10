@@ -1,0 +1,1635 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}%
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{serviceRegistryManagement HTTP/TLS/JSON}
+\ArrowheadServiceID{serviceRegistryManagement}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-22}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the HTTP/1.1 protocol with TLS payload security and JSON payload encoding variant of the \texttt{service\allowbreak{}Registry\allowbreak{}Management} service of the ServiceRegistry system.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{service\allowbreak{}Registry\allowbreak{}Management} service interface of the ServiceRegistry system, which provides operator management of the whole ServiceRegistry content: devices, systems, service definitions, service instances and interface templates.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & HTTP & 1.1 \cite{rfc9112} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{service\allowbreak{}Registry\allowbreak{}Management} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{serviceRegistryManagement -- Service Description} document \cite{sr-serviceRegistryManagement-sd}.
+For further details about how this service is meant to be used, please consult that document.
+
+The rest of this document describes how to realize the \texttt{service\allowbreak{}Registry\allowbreak{}Management} service
+interface in detail. Both in terms of its operations (Section \ref{sec:operations}) and its information model (Section \ref{sec:model}).
+
+\subsection{Interface registration}
+
+The service is registered in the ServiceRegistry with the interface template \texttt{generic\_\allowbreak{}https} (\texttt{generic\_\allowbreak{}http} when TLS is disabled), access port 8443 and base path \texttt{/\allowbreak{}serviceregistry/\allowbreak{}mgmt}. The \texttt{operations} property of the interface lists the operations below with their method and path relative to the base path (path parameters are placeholders such as \texttt{\{id\}} that the consumer fills in):
+
+\noindent\begin{longtable}{| p{5.2cm} | p{1.6cm} | p{8.4cm} |} \hline
+\rowcolor{gray!33} Operation & Method & Path \\ \hline \endhead
+\texttt{device-\allowbreak{}query} & POST & \texttt{/\allowbreak{}devices/\allowbreak{}query} \\ \hline
+\texttt{device-\allowbreak{}create} & POST & \texttt{/\allowbreak{}devices} \\ \hline
+\texttt{device-\allowbreak{}update} & PUT & \texttt{/\allowbreak{}devices} \\ \hline
+\texttt{device-\allowbreak{}remove} & DELETE & \texttt{/\allowbreak{}devices} \\ \hline
+\texttt{system-\allowbreak{}query} & POST & \texttt{/\allowbreak{}systems/\allowbreak{}query} \\ \hline
+\texttt{system-\allowbreak{}create} & POST & \texttt{/\allowbreak{}systems} \\ \hline
+\texttt{system-\allowbreak{}update} & PUT & \texttt{/\allowbreak{}systems} \\ \hline
+\texttt{system-\allowbreak{}remove} & DELETE & \texttt{/\allowbreak{}systems} \\ \hline
+\texttt{service-\allowbreak{}definition-\allowbreak{}query} & POST & \texttt{/\allowbreak{}service-\allowbreak{}definitions/\allowbreak{}query} \\ \hline
+\texttt{service-\allowbreak{}definition-\allowbreak{}create} & POST & \texttt{/\allowbreak{}service-\allowbreak{}definitions} \\ \hline
+\texttt{service-\allowbreak{}definition-\allowbreak{}remove} & DELETE & \texttt{/\allowbreak{}service-\allowbreak{}definitions} \\ \hline
+\texttt{service-\allowbreak{}query} & POST & \texttt{/\allowbreak{}service-\allowbreak{}instances/\allowbreak{}query} \\ \hline
+\texttt{service-\allowbreak{}create} & POST & \texttt{/\allowbreak{}service-\allowbreak{}instances} \\ \hline
+\texttt{service-\allowbreak{}update} & PUT & \texttt{/\allowbreak{}service-\allowbreak{}instances} \\ \hline
+\texttt{service-\allowbreak{}remove} & DELETE & \texttt{/\allowbreak{}service-\allowbreak{}instances} \\ \hline
+\texttt{interface-\allowbreak{}template-\allowbreak{}query} & POST & \texttt{/\allowbreak{}interface-\allowbreak{}templates/\allowbreak{}query} \\ \hline
+\texttt{interface-\allowbreak{}template-\allowbreak{}create} & POST & \texttt{/\allowbreak{}interface-\allowbreak{}templates} \\ \hline
+\texttt{interface-\allowbreak{}template-\allowbreak{}remove} & DELETE & \texttt{/\allowbreak{}interface-\allowbreak{}templates} \\ \hline
+\end{longtable}
+
+\newpage
+
+\section{Service Operations}
+\label{sec:operations}
+
+The interfaces of the \texttt{service\allowbreak{}Registry\allowbreak{}Management} service, its operations, data models and implementation are provided below.
+In particular, each subsection first names the HTTP method and path used to call the operation, after which it names the abstract operation from the \texttt{service\allowbreak{}Registry\allowbreak{}Management} SD document, as well as input and output types.
+
+All operations require the requester's identity, presented according to the provider's authentication policy: the client certificate (mutual TLS) and, with the \texttt{outsourced} policy, \texttt{Authorization: Bearer IDENTITY-TOKEN//<token>}; systems holding the Authentication secret key send \texttt{Bearer AUTHENTICATOR-KEY//<system>//<hash>}, and with the \texttt{declared} policy \texttt{Bearer SYSTEM//<system>} is sent. Request and response bodies are \texttt{application/json}.
+Errors are answered with an \mref{ErrorMessage} body and the status codes \texttt{400 Bad Request} (invalid parameter), \texttt{401 Unauthorized} (missing or invalid identity), \texttt{403 Forbidden} (not permitted, e.g. by the management or blacklist filter), \texttt{404 Not Found}, \texttt{408 Request Timeout}, \texttt{423 Locked}, \texttt{500 Internal Server Error} and \texttt{503 Service Unavailable} (a system it depends on failed).
+
+\osubsection{device-query}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}devices/\allowbreak{}query}{\mref{DeviceQueryRequest}}{\mref{DeviceListResponse}}
+
+Returns a page of devices matching the filter.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:device-query},caption={An \oref{device-query} invocation.}]
+POST /serviceregistry/mgmt/devices/query HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "pagination": {
+    "page": 0,
+    "size": 10,
+    "direction": "ASC",
+    "sortField": "createdAt"
+  },
+  "deviceNames": [
+    "Raspberry1"
+  ],
+  "addresses": [
+    "string"
+  ],
+  "addressType": "IPV4",
+  "metadataRequirementList": [
+    {
+      "unit": "celsius"
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:device-query-resp},caption={An \oref{device-query} response.}]
+{
+  "entries": [
+    {
+      "name": "Raspberry1",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "addresses": [
+        {
+          "type": "IPV4",
+          "address": "192.168.0.10"
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{device-create}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}devices}{\mref{DeviceListRequest}}{\mref{DeviceListResponse}}
+
+Creates devices.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:device-create},caption={An \oref{device-create} invocation.}]
+POST /serviceregistry/mgmt/devices HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "devices": [
+    {
+      "name": "Raspberry1",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "addresses": [
+        "string"
+      ]
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:device-create-resp},caption={An \oref{device-create} response.}]
+{
+  "entries": [
+    {
+      "name": "Raspberry1",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "addresses": [
+        {
+          "type": "IPV4",
+          "address": "192.168.0.10"
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{device-update}{PUT}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}devices}{\mref{DeviceListRequest}}{\mref{DeviceListResponse}}
+
+Updates the metadata and addresses of devices.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:device-update},caption={An \oref{device-update} invocation.}]
+PUT /serviceregistry/mgmt/devices HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "devices": [
+    {
+      "name": "Raspberry1",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "addresses": [
+        "string"
+      ]
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:device-update-resp},caption={An \oref{device-update} response.}]
+{
+  "entries": [
+    {
+      "name": "Raspberry1",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "addresses": [
+        {
+          "type": "IPV4",
+          "address": "192.168.0.10"
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{device-remove}{DELETE}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}devices?names=\fparam{\{names\}}}{\pref{Array}$<$\allowbreak{}\pref{String}$>$}{}
+
+Removes devices by name.
+
+Query parameters: \fparam{names} (List\textless{}String\textgreater{}, required). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:device-remove},caption={An \oref{device-remove} invocation.}]
+DELETE /serviceregistry/mgmt/devices?names=<names> HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\osubsection{system-query}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}systems/\allowbreak{}query?verbose=\fparam{\{verbose\}}}{\mref{SystemQueryRequest}}{\mref{SystemListResponse}}
+
+Returns a page of systems matching the filter.
+
+Query parameters: \fparam{verbose} (boolean, optional, default \texttt{false}). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:system-query},caption={An \oref{system-query} invocation.}]
+POST /serviceregistry/mgmt/systems/query?verbose=<verbose> HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "pagination": {
+    "page": 0,
+    "size": 10,
+    "direction": "ASC",
+    "sortField": "createdAt"
+  },
+  "systemNames": [
+    "TemperatureSensor"
+  ],
+  "addresses": [
+    "string"
+  ],
+  "addressType": "IPV4",
+  "metadataRequirementList": [
+    {
+      "unit": "celsius"
+    }
+  ],
+  "versions": [
+    "1.0.0"
+  ],
+  "deviceNames": [
+    "Raspberry1"
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:system-query-resp},caption={An \oref{system-query} response.}]
+{
+  "entries": [
+    {
+      "name": "TemperatureSensor",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "version": "1.0.0",
+      "addresses": [
+        {
+          "type": "IPV4",
+          "address": "192.168.0.10"
+        }
+      ],
+      "device": {
+        "name": "Raspberry1",
+        "metadata": {
+          "location": "hall-1"
+        },
+        "addresses": [
+          {}
+        ],
+        "createdAt": "2026-10-22T12:00:00Z",
+        "updatedAt": "2026-10-22T12:00:00Z"
+      },
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{system-create}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}systems}{\mref{SystemListRequest}}{\mref{SystemListResponse}}
+
+Creates systems on behalf of others.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:system-create},caption={An \oref{system-create} invocation.}]
+POST /serviceregistry/mgmt/systems HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "systems": [
+    {
+      "name": "TemperatureSensor",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "version": "1.0.0",
+      "addresses": [
+        "string"
+      ],
+      "deviceName": "Raspberry1"
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:system-create-resp},caption={An \oref{system-create} response.}]
+{
+  "entries": [
+    {
+      "name": "TemperatureSensor",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "version": "1.0.0",
+      "addresses": [
+        {
+          "type": "IPV4",
+          "address": "192.168.0.10"
+        }
+      ],
+      "device": {
+        "name": "Raspberry1",
+        "metadata": {
+          "location": "hall-1"
+        },
+        "addresses": [
+          {}
+        ],
+        "createdAt": "2026-10-22T12:00:00Z",
+        "updatedAt": "2026-10-22T12:00:00Z"
+      },
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{system-update}{PUT}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}systems}{\mref{SystemListRequest}}{\mref{SystemListResponse}}
+
+Updates systems.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:system-update},caption={An \oref{system-update} invocation.}]
+PUT /serviceregistry/mgmt/systems HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "systems": [
+    {
+      "name": "TemperatureSensor",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "version": "1.0.0",
+      "addresses": [
+        "string"
+      ],
+      "deviceName": "Raspberry1"
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:system-update-resp},caption={An \oref{system-update} response.}]
+{
+  "entries": [
+    {
+      "name": "TemperatureSensor",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "version": "1.0.0",
+      "addresses": [
+        {
+          "type": "IPV4",
+          "address": "192.168.0.10"
+        }
+      ],
+      "device": {
+        "name": "Raspberry1",
+        "metadata": {
+          "location": "hall-1"
+        },
+        "addresses": [
+          {}
+        ],
+        "createdAt": "2026-10-22T12:00:00Z",
+        "updatedAt": "2026-10-22T12:00:00Z"
+      },
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{system-remove}{DELETE}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}systems?names=\fparam{\{names\}}}{\pref{Array}$<$\allowbreak{}\pref{String}$>$}{}
+
+Removes systems by name, with their service instances.
+
+Query parameters: \fparam{names} (List\textless{}String\textgreater{}, required). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:system-remove},caption={An \oref{system-remove} invocation.}]
+DELETE /serviceregistry/mgmt/systems?names=<names> HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\osubsection{service-definition-query}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}service-definitions/\allowbreak{}query}{\mref{Page}}{\mref[Service\allowbreak{}Definition\allowbreak{}List\allowbreak{}Response]{ServiceDefinitionListResponse}}
+
+Returns a page of service definitions.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:service-definition-query},caption={An \oref{service-definition-query} invocation.}]
+POST /serviceregistry/mgmt/service-definitions/query HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "page": 0,
+  "size": 10,
+  "direction": "ASC",
+  "sortField": "createdAt"
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:service-definition-query-resp},caption={An \oref{service-definition-query} response.}]
+{
+  "entries": [
+    {
+      "name": "temperatureReading",
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{service-definition-create}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}service-definitions}{\mref[Service\allowbreak{}Definition\allowbreak{}List\allowbreak{}Request]{ServiceDefinitionListRequest}}{\mref[Service\allowbreak{}Definition\allowbreak{}List\allowbreak{}Response]{ServiceDefinitionListResponse}}
+
+Creates service definitions.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:service-definition-create},caption={An \oref{service-definition-create} invocation.}]
+POST /serviceregistry/mgmt/service-definitions HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "serviceDefinitionNames": [
+    "temperatureReading"
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:service-definition-create-resp},caption={An \oref{service-definition-create} response.}]
+{
+  "entries": [
+    {
+      "name": "temperatureReading",
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{service-definition-remove}{DELETE}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}service-definitions?names=\fparam{\{names\}}}{\pref{Array}$<$\allowbreak{}\pref{String}$>$}{}
+
+Removes service definitions by name, with their service instances.
+
+Query parameters: \fparam{names} (List\textless{}String\textgreater{}, required). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:service-definition-remove},caption={An \oref{service-definition-remove} invocation.}]
+DELETE /serviceregistry/mgmt/service-definitions?names=<names> HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\osubsection{service-query}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}service-instances/\allowbreak{}query?verbose=\fparam{\{verbose\}}}{\mref[Service\allowbreak{}Instance\allowbreak{}Query\allowbreak{}Request]{ServiceInstanceQueryRequest}}{\mref[Service\allowbreak{}Instance\allowbreak{}List\allowbreak{}Response]{ServiceInstanceListResponse}}
+
+Returns a page of service instances matching the filter, regardless of the discovery policy.
+
+Query parameters: \fparam{verbose} (boolean, optional, default \texttt{false}). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:service-query},caption={An \oref{service-query} invocation.}]
+POST /serviceregistry/mgmt/service-instances/query?verbose=<verbose> HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "pagination": {
+    "page": 0,
+    "size": 10,
+    "direction": "ASC",
+    "sortField": "createdAt"
+  },
+  "instanceIds": [
+    "TemperatureSensor|temperatureReading|1.0.0"
+  ],
+  "providerNames": [
+    "TemperatureSensor"
+  ],
+  "serviceDefinitionNames": [
+    "temperatureReading"
+  ],
+  "versions": [
+    "1.0.0"
+  ],
+  "alivesAt": "2026-10-22T12:00:00Z",
+  "metadataRequirementsList": [
+    {
+      "unit": "celsius"
+    }
+  ],
+  "addressTypes": [
+    "IPV4"
+  ],
+  "interfaceTemplateNames": [
+    "string"
+  ],
+  "interfacePropertyRequirementsList": [
+    {
+      "unit": "celsius"
+    }
+  ],
+  "policies": [
+    "string"
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:service-query-resp},caption={An \oref{service-query} response.}]
+{
+  "entries": [
+    {
+      "instanceId": "TemperatureSensor|temperatureReading|1.0.0",
+      "provider": {
+        "name": "TemperatureSensor",
+        "metadata": {
+          "location": "hall-1"
+        },
+        "version": "1.0.0",
+        "addresses": [
+          {}
+        ],
+        "device": {
+          "name": "Raspberry1",
+          "metadata": {
+            "location": "hall-1"
+          },
+          "addresses": [
+            {}
+          ],
+          "createdAt": "2026-10-22T12:00:00Z",
+          "updatedAt": "2026-10-22T12:00:00Z"
+        },
+        "createdAt": "2026-10-22T12:00:00Z",
+        "updatedAt": "2026-10-22T12:00:00Z"
+      },
+      "serviceDefinition": {
+        "name": "temperatureReading",
+        "createdAt": "2026-10-22T12:00:00Z",
+        "updatedAt": "2026-10-22T12:00:00Z"
+      },
+      "version": "1.0.0",
+      "expiresAt": "2026-10-22T12:00:00Z",
+      "metadata": {
+        "unit": "celsius"
+      },
+      "interfaces": [
+        {
+          "templateName": "generic_https",
+          "protocol": "https",
+          "policy": "CERT_AUTH",
+          "properties": {
+            "accessAddresses": [
+              "192.168.0.10"
+            ],
+            "accessPort": 8080,
+            "basePath": "/temperature",
+            "operations": {
+              "read": {
+                "method": "GET",
+                "path": "/read"
+              }
+            }
+          }
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{service-create}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}service-instances}{\mref[Service\allowbreak{}Instance\allowbreak{}Create\allowbreak{}List\allowbreak{}Request]{ServiceInstanceCreateListRequest}}{\mref[Service\allowbreak{}Instance\allowbreak{}List\allowbreak{}Response]{ServiceInstanceListResponse}}
+
+Creates service instances on behalf of providers. The reservation of core and support service definitions applies.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:service-create},caption={An \oref{service-create} invocation.}]
+POST /serviceregistry/mgmt/service-instances HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "instances": [
+    {
+      "systemName": "TemperatureSensor",
+      "serviceDefinitionName": "temperatureReading",
+      "version": "1.0.0",
+      "expiresAt": "2026-10-22T12:00:00Z",
+      "metadata": {
+        "unit": "celsius"
+      },
+      "interfaces": [
+        {
+          "templateName": "generic_https",
+          "protocol": "https",
+          "policy": "CERT_AUTH",
+          "properties": {
+            "accessAddresses": [
+              "192.168.0.10"
+            ],
+            "accessPort": 8080,
+            "basePath": "/temperature",
+            "operations": {
+              "read": {
+                "method": "GET",
+                "path": "/read"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:service-create-resp},caption={An \oref{service-create} response.}]
+{
+  "entries": [
+    {
+      "instanceId": "TemperatureSensor|temperatureReading|1.0.0",
+      "provider": {
+        "name": "TemperatureSensor",
+        "metadata": {
+          "location": "hall-1"
+        },
+        "version": "1.0.0",
+        "addresses": [
+          {}
+        ],
+        "device": {
+          "name": "Raspberry1",
+          "metadata": {
+            "location": "hall-1"
+          },
+          "addresses": [
+            {}
+          ],
+          "createdAt": "2026-10-22T12:00:00Z",
+          "updatedAt": "2026-10-22T12:00:00Z"
+        },
+        "createdAt": "2026-10-22T12:00:00Z",
+        "updatedAt": "2026-10-22T12:00:00Z"
+      },
+      "serviceDefinition": {
+        "name": "temperatureReading",
+        "createdAt": "2026-10-22T12:00:00Z",
+        "updatedAt": "2026-10-22T12:00:00Z"
+      },
+      "version": "1.0.0",
+      "expiresAt": "2026-10-22T12:00:00Z",
+      "metadata": {
+        "unit": "celsius"
+      },
+      "interfaces": [
+        {
+          "templateName": "generic_https",
+          "protocol": "https",
+          "policy": "CERT_AUTH",
+          "properties": {
+            "accessAddresses": [
+              "192.168.0.10"
+            ],
+            "accessPort": 8080,
+            "basePath": "/temperature",
+            "operations": {
+              "read": {
+                "method": "GET",
+                "path": "/read"
+              }
+            }
+          }
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{service-update}{PUT}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}service-instances}{\mref[Service\allowbreak{}Instance\allowbreak{}Update\allowbreak{}List\allowbreak{}Request]{ServiceInstanceUpdateListRequest}}{\mref[Service\allowbreak{}Instance\allowbreak{}List\allowbreak{}Response]{ServiceInstanceListResponse}}
+
+Updates the expiry, metadata and interfaces of service instances.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:service-update},caption={An \oref{service-update} invocation.}]
+PUT /serviceregistry/mgmt/service-instances HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "instances": [
+    {
+      "instanceId": "TemperatureSensor|temperatureReading|1.0.0",
+      "expiresAt": "2026-10-22T12:00:00Z",
+      "metadata": {
+        "unit": "celsius"
+      },
+      "interfaces": [
+        {
+          "templateName": "generic_https",
+          "protocol": "https",
+          "policy": "CERT_AUTH",
+          "properties": {
+            "accessAddresses": [
+              "192.168.0.10"
+            ],
+            "accessPort": 8080,
+            "basePath": "/temperature",
+            "operations": {
+              "read": {
+                "method": "GET",
+                "path": "/read"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:service-update-resp},caption={An \oref{service-update} response.}]
+{
+  "entries": [
+    {
+      "instanceId": "TemperatureSensor|temperatureReading|1.0.0",
+      "provider": {
+        "name": "TemperatureSensor",
+        "metadata": {
+          "location": "hall-1"
+        },
+        "version": "1.0.0",
+        "addresses": [
+          {}
+        ],
+        "device": {
+          "name": "Raspberry1",
+          "metadata": {
+            "location": "hall-1"
+          },
+          "addresses": [
+            {}
+          ],
+          "createdAt": "2026-10-22T12:00:00Z",
+          "updatedAt": "2026-10-22T12:00:00Z"
+        },
+        "createdAt": "2026-10-22T12:00:00Z",
+        "updatedAt": "2026-10-22T12:00:00Z"
+      },
+      "serviceDefinition": {
+        "name": "temperatureReading",
+        "createdAt": "2026-10-22T12:00:00Z",
+        "updatedAt": "2026-10-22T12:00:00Z"
+      },
+      "version": "1.0.0",
+      "expiresAt": "2026-10-22T12:00:00Z",
+      "metadata": {
+        "unit": "celsius"
+      },
+      "interfaces": [
+        {
+          "templateName": "generic_https",
+          "protocol": "https",
+          "policy": "CERT_AUTH",
+          "properties": {
+            "accessAddresses": [
+              "192.168.0.10"
+            ],
+            "accessPort": 8080,
+            "basePath": "/temperature",
+            "operations": {
+              "read": {
+                "method": "GET",
+                "path": "/read"
+              }
+            }
+          }
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{service-remove}{DELETE}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}service-instances?serviceInstances=\fparam{\{serviceInstances\}}}{\pref{Array}$<$\allowbreak{}\pref{String}$>$}{}
+
+Removes service instances by identifier.
+
+Query parameters: \fparam{serviceInstances} (List\textless{}String\textgreater{}, required). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:service-remove},caption={An \oref{service-remove} invocation.}]
+DELETE /serviceregistry/mgmt/service-instances?serviceInstances=<serviceInstances> HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\osubsection{interface-template-query}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}interface-templates/\allowbreak{}query}{\mref[Service\allowbreak{}Interface\allowbreak{}Template\allowbreak{}Query\allowbreak{}Request]{ServiceInterfaceTemplateQueryRequest}}{\mref[Service\allowbreak{}Interface\allowbreak{}Template\allowbreak{}List\allowbreak{}Response]{ServiceInterfaceTemplateListResponse}}
+
+Returns a page of interface templates.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:interface-template-query},caption={An \oref{interface-template-query} invocation.}]
+POST /serviceregistry/mgmt/interface-templates/query HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "pagination": {
+    "page": 0,
+    "size": 10,
+    "direction": "ASC",
+    "sortField": "createdAt"
+  },
+  "templateNames": [
+    "generic_https"
+  ],
+  "protocols": [
+    "https"
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:interface-template-query-resp},caption={An \oref{interface-template-query} response.}]
+{
+  "entries": [
+    {
+      "name": "generic_https",
+      "protocol": "https",
+      "propertyRequirements": [
+        {
+          "name": "accessPort",
+          "mandatory": true,
+          "validator": "PORT",
+          "validatorParams": [
+            "string"
+          ]
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{interface-template-create}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}interface-templates}{\mref[Service\allowbreak{}Interface\allowbreak{}Template\allowbreak{}List\allowbreak{}Request]{ServiceInterfaceTemplateListRequest}}{\mref[Service\allowbreak{}Interface\allowbreak{}Template\allowbreak{}List\allowbreak{}Response]{ServiceInterfaceTemplateListResponse}}
+
+Creates interface templates with their property rules.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:interface-template-create},caption={An \oref{interface-template-create} invocation.}]
+POST /serviceregistry/mgmt/interface-templates HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "interfaceTemplates": [
+    {
+      "name": "generic_https",
+      "protocol": "https",
+      "propertyRequirements": [
+        {
+          "name": "accessPort",
+          "mandatory": true,
+          "validator": "PORT",
+          "validatorParams": [
+            "string"
+          ]
+        }
+      ]
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:interface-template-create-resp},caption={An \oref{interface-template-create} response.}]
+{
+  "entries": [
+    {
+      "name": "generic_https",
+      "protocol": "https",
+      "propertyRequirements": [
+        {
+          "name": "accessPort",
+          "mandatory": true,
+          "validator": "PORT",
+          "validatorParams": [
+            "string"
+          ]
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{interface-template-remove}{DELETE}{/\allowbreak{}serviceregistry/\allowbreak{}mgmt/\allowbreak{}interface-templates?names=\fparam{\{names\}}}{\pref{Array}$<$\allowbreak{}\pref{String}$>$}{}
+
+Removes interface templates by name.
+
+Query parameters: \fparam{names} (List\textless{}String\textgreater{}, required). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:interface-template-remove},caption={An \oref{interface-template-remove} invocation.}]
+DELETE /serviceregistry/mgmt/interface-templates?names=<names> HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+Here, all data objects that can be part of the service calls associated with this service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is meant to denote a JSON \pref{Object} that must contain certain fields, or names, with values conforming to explicitly named types.
+Fields that are not needed may be omitted or \texttt{null} in requests; empty fields are omitted in responses.
+As a complement to the primary types defined in this section, there is also a list of secondary types in Section \ref{sec:model:primitives}, which are used to represent things like hashes, identifiers and texts.
+
+\msubsection{struct}{Address}
+
+A network address with its type.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"type" & \pref{String} & Address type: \texttt{HOSTNAME}, \texttt{IPV4}, \texttt{IPV6} or \texttt{MAC}. \\ \hline
+"address" & \pref{String} & One network address (host name, IPv4, IPv6 or MAC address). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceListRequest}
+
+Devices to create or update.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"devices" & \pref{Array}$<$\allowbreak{}\mref{DeviceRequest}$>$ & Devices to create or update. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceListResponse}
+
+List of devices.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref{DeviceResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceQueryRequest}
+
+Paged filter for devices.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"pagination" & \mref{Page} & Paging and sorting of the result. \\ \hline
+"device\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Device names to match. \\ \hline
+"addresses" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Network addresses of the entity. \\ \hline
+"address\allowbreak{}Type" & \pref{String} & Address type filter: \texttt{HOSTNAME}, \texttt{IPV4}, \texttt{IPV6} or \texttt{MAC}. \\ \hline
+"metadata\allowbreak{}Requirement\allowbreak{}List" & \pref{Array}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Metadata requirements; each map is one alternative. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceRequest}
+
+A device and its addresses.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Device name, PascalCase. \\ \hline
+"metadata" & \pref{Object} & Free-form metadata (JSON object). \\ \hline
+"addresses" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Network addresses of the entity. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceResponse}
+
+A registered device.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Device name. \\ \hline
+"metadata" & \pref{Object} & Free-form metadata (JSON object). \\ \hline
+"addresses" & \pref{Array}$<$\allowbreak{}\mref{Address}$>$ & Network addresses with their types. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ErrorMessage}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"error\allowbreak{}Message" & \pref{String} &  \\ \hline
+"error\allowbreak{}Code" & \pref{Number} &  \\ \hline
+"exception\allowbreak{}Type" & \pref{ExceptionType} &  \\ \hline
+"origin" & \pref{String} &  \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{MetadataRequirement}
+
+A JSON object of metadata requirements: each key is a metadata path (dot notation), each value the required value or an operator object such as \texttt{\{"op": "LESS\_\allowbreak{}THAN",\allowbreak{} "value": 10\}}.
+
+
+
+\msubsection{struct}{Page}
+
+Paging and sorting; all fields optional.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"page" & \pref{Number} & Zero-based page number. \\ \hline
+"size" & \pref{Number} & Number of records per page (at most \texttt{max.\allowbreak{}page.\allowbreak{}size}, default 1000). \\ \hline
+"direction" & \pref{String} & Sort direction, \texttt{ASC} or \texttt{DESC}. \\ \hline
+"sort\allowbreak{}Field" & \pref{String} & Field to sort by. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceDefinitionListRequest}
+
+Service definitions to create.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"service\allowbreak{}Definition\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Service definition names. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceDefinitionListResponse}
+
+List of service definitions.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref[Service\allowbreak{}Definition\allowbreak{}Response]{ServiceDefinitionResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceDefinitionResponse}
+
+A service definition.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Service definition name. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceCreateListRequest}
+
+Service instances to create on behalf of providers.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"instances" & \pref{Array}$<$\allowbreak{}\mref{ServiceInstanceRequest}$>$ & Service instances to create or update. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceInterfaceRequest}
+
+One interface of a service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"template\allowbreak{}Name" & \pref{String} & Name of the interface template, snake\_case (e.g. \texttt{generic\_\allowbreak{}https}). \\ \hline
+"protocol" & \pref{String} & Protocol of the interface, e.g. \texttt{http}, \texttt{https}, \texttt{mqtt}, \texttt{mqtts}. \\ \hline
+"policy" & \pref{String} & Security policy of the interface (\texttt{NONE}, \texttt{CERT\_\allowbreak{}AUTH}, token policies). \\ \hline
+"properties" & \pref{Object} & Interface properties defined by the template, e.g. \texttt{accessAddresses}, \texttt{accessPort}, \texttt{basePath}, \texttt{operations}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceInterfaceResponse}
+
+One interface of a service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"template\allowbreak{}Name" & \pref{String} & Name of the interface template, snake\_case (e.g. \texttt{generic\_\allowbreak{}https}). \\ \hline
+"protocol" & \pref{String} & Protocol of the interface, e.g. \texttt{http}, \texttt{https}, \texttt{mqtt}, \texttt{mqtts}. \\ \hline
+"policy" & \pref{String} & Security policy of the interface: \texttt{NONE}, \texttt{CERT\_\allowbreak{}AUTH} or one of the token policies. \\ \hline
+"properties" & \pref{Object} & Interface properties defined by the template, e.g. \texttt{accessAddresses}, \texttt{accessPort}, \texttt{basePath}, \texttt{operations}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceListResponse}
+
+List of service instances.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref{ServiceInstanceResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceQueryRequest}
+
+Paged filter for service instances.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"pagination" & \mref{Page} & Paging and sorting of the result. \\ \hline
+"instance\allowbreak{}Ids" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Instance identifiers to match. \\ \hline
+"provider\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Provider system names to match. \\ \hline
+"service\allowbreak{}Definition\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Service definition names. \\ \hline
+"versions" & \pref{Array}$<$\allowbreak{}\pref{Version}$>$ & Service versions to match. \\ \hline
+"alives\allowbreak{}At" & \pref{DateTime} & Only instances that are still registered (not expired) at this UTC time are matched. \\ \hline
+"metadata\allowbreak{}Requirements\allowbreak{}List" & \pref{Array}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Requirements on the service instance metadata; each map is one alternative. \\ \hline
+"address\allowbreak{}Types" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Address types the interfaces must offer (\texttt{HOSTNAME}, \texttt{IPV4}, \texttt{IPV6}, \texttt{MAC}). \\ \hline
+"interface\allowbreak{}Template\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Accepted interface templates, e.g. \texttt{generic\_\allowbreak{}https}. \\ \hline
+"interface\allowbreak{}Property\allowbreak{}Requirements\allowbreak{}List" & \pref{Array}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Requirements on the interface properties; each map is one alternative. \\ \hline
+"policies" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Interface security policies to match, e.g. \texttt{CERT\_\allowbreak{}AUTH}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceRequest}
+
+A service instance and its provider.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"system\allowbreak{}Name" & \pref{String} & Name of the provider system. \\ \hline
+"service\allowbreak{}Definition\allowbreak{}Name" & \pref{String} & Service definition name, camelCase (e.g. \texttt{temperatureReading}). \\ \hline
+"version" & \pref{Version} & Version of the service instance (default \texttt{1.\allowbreak{}0.\allowbreak{}0}). \\ \hline
+"expires\allowbreak{}At" & \pref{DateTime} & UTC expiry time; no value means no expiry. \\ \hline
+"metadata" & \pref{Object} & Free-form metadata (JSON object). \\ \hline
+"interfaces" & \pref{Array}$<$\allowbreak{}\mref[Service\allowbreak{}Instance\allowbreak{}Interface\allowbreak{}Request]{ServiceInstanceInterfaceRequest}$>$ & Service interfaces offered by the instance. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceResponse}
+
+A registered service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"instance\allowbreak{}Id" & \pref{String} & Service instance identifier \texttt{\textless{}System\textgreater{}\textbar{}\allowbreak{}\textless{}service\allowbreak{}Definition\textgreater{}\textbar{}\allowbreak{}\textless{}version\textgreater{}}, or policy instance identifier. \\ \hline
+"provider" & \mref{SystemResponse} & The provider system. \\ \hline
+"service\allowbreak{}Definition" & \mref[Service\allowbreak{}Definition\allowbreak{}Response]{ServiceDefinitionResponse} & The service definition. \\ \hline
+"version" & \pref{Version} & Version of the service instance. \\ \hline
+"expires\allowbreak{}At" & \pref{DateTime} & UTC expiry time; no value means no expiry. \\ \hline
+"metadata" & \pref{Object} & Free-form metadata (JSON object). \\ \hline
+"interfaces" & \pref{Array}$<$\allowbreak{}\mref[Service\allowbreak{}Instance\allowbreak{}Interface\allowbreak{}Response]{ServiceInstanceInterfaceResponse}$>$ & Service interfaces offered by the instance. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceUpdateListRequest}
+
+Service instances to update.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"instances" & \pref{Array}$<$\allowbreak{}\mref[Service\allowbreak{}Instance\allowbreak{}Update\allowbreak{}Request]{ServiceInstanceUpdateRequest}$>$ & Service instances to create or update. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceUpdateRequest}
+
+Changes to one service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"instance\allowbreak{}Id" & \pref{String} & Instance to update. \\ \hline
+"expires\allowbreak{}At" & \pref{DateTime} & UTC expiry time; no value means no expiry. \\ \hline
+"metadata" & \pref{Object} & Free-form metadata (JSON object). \\ \hline
+"interfaces" & \pref{Array}$<$\allowbreak{}\mref[Service\allowbreak{}Instance\allowbreak{}Interface\allowbreak{}Request]{ServiceInstanceInterfaceRequest}$>$ & Service interfaces offered by the instance. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInterfaceTemplateListRequest}
+
+Interface templates to create.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"interface\allowbreak{}Templates" & \pref{Array}$<$\allowbreak{}\mref[Service\allowbreak{}Interface\allowbreak{}Template\allowbreak{}Request]{ServiceInterfaceTemplateRequest}$>$ & Interface templates to create. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInterfaceTemplateListResponse}
+
+List of interface templates.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref[Service\allowbreak{}Interface\allowbreak{}Template\allowbreak{}Response]{ServiceInterfaceTemplateResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInterfaceTemplateProperty}
+
+Rule for one interface property.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Name of the interface property. \\ \hline
+"mandatory" & \pref{Boolean} & Whether the property must be present in every interface of this template. \\ \hline
+"validator" & \pref{String} & Validator of the value, e.g. \texttt{PORT}, \texttt{NOT\_\allowbreak{}EMPTY\_\allowbreak{}ADDRESS\_\allowbreak{}LIST}, \texttt{HTTP\_\allowbreak{}OPERATIONS}. \\ \hline
+"validator\allowbreak{}Params" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Parameters of the validator. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInterfaceTemplateQueryRequest}
+
+Paged filter for interface templates.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"pagination" & \mref{Page} & Paging and sorting of the result. \\ \hline
+"template\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Interface template names to match. \\ \hline
+"protocols" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Protocols to match. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInterfaceTemplateRequest}
+
+An interface template.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Template name, snake\_case. \\ \hline
+"protocol" & \pref{String} & Protocol of interfaces of this template. \\ \hline
+"property\allowbreak{}Requirements" & \pref{Array}$<$\allowbreak{}\mref[Service\allowbreak{}Interface\allowbreak{}Template\allowbreak{}Property]{ServiceInterfaceTemplateProperty}$>$ & Property rules of the template. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInterfaceTemplateResponse}
+
+A stored interface template.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Template name. \\ \hline
+"protocol" & \pref{String} & Protocol of the interface, e.g. \texttt{http}, \texttt{https}, \texttt{mqtt}, \texttt{mqtts}. \\ \hline
+"property\allowbreak{}Requirements" & \pref{Array}$<$\allowbreak{}\mref[Service\allowbreak{}Interface\allowbreak{}Template\allowbreak{}Property]{ServiceInterfaceTemplateProperty}$>$ & Property rules of the template. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemListRequest}
+
+Systems to create or update.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"systems" & \pref{Array}$<$\allowbreak{}\mref{SystemRequest}$>$ & Systems to create or update. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemListResponse}
+
+List of systems.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref{SystemResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemQueryRequest}
+
+Paged filter for systems.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"pagination" & \mref{Page} & Paging and sorting of the result. \\ \hline
+"system\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & System names to match. \\ \hline
+"addresses" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Network addresses of the entity. \\ \hline
+"address\allowbreak{}Type" & \pref{String} & Address type filter: \texttt{HOSTNAME}, \texttt{IPV4}, \texttt{IPV6} or \texttt{MAC}. \\ \hline
+"metadata\allowbreak{}Requirement\allowbreak{}List" & \pref{Array}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Metadata requirements; each map is one alternative. \\ \hline
+"versions" & \pref{Array}$<$\allowbreak{}\pref{Version}$>$ & System versions to match. \\ \hline
+"device\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Device names to match. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemRequest}
+
+A system on behalf of which an operator registers.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & System name, PascalCase. \\ \hline
+"metadata" & \pref{Object} & Free-form metadata (JSON object). \\ \hline
+"version" & \pref{Version} & Version of the system. \\ \hline
+"addresses" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Network addresses of the entity. \\ \hline
+"device\allowbreak{}Name" & \pref{String} & Name of the device hosting the system. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemResponse}
+
+A registered system.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & System name. \\ \hline
+"metadata" & \pref{Object} & Free-form metadata (JSON object). \\ \hline
+"version" & \pref{Version} & Version of the system. \\ \hline
+"addresses" & \pref{Array}$<$\allowbreak{}\mref{Address}$>$ & Network addresses with their types. \\ \hline
+"device" & \mref{DeviceResponse} & The device hosting the system, if registered. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+As all messages are encoded using the JSON format \cite{rfc8259}, the following primitive constructs, part of that standard, become available.
+Note that the official standard is defined in terms of parsing rules, while this list only concerns syntactic information.
+Furthermore, the \pref{Object} and \pref{Array} types are given optional generic type parameters, which are used in this document to signify when pair values or elements are expected to conform to certain types.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Array} & A JSON Array \cite{rfc8259}; \pref{Array}$<$A$>$ has elements of type A. \\ \hline
+\pdef{Boolean} & JSON Boolean, \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & JSON String with an ISO 8601 UTC timestamp, e.g. \texttt{2026-10-22T12:00:00Z}. \\ \hline
+\pdef{ExceptionType} & One of \texttt{ARROWHEAD}, \texttt{INVALID\_\allowbreak{}PARAMETER}, \texttt{AUTH}, \texttt{FORBIDDEN}, \texttt{DATA\_\allowbreak{}NOT\_\allowbreak{}FOUND}, \texttt{TIMEOUT}, \texttt{LOCKED}, \texttt{INTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR}, \texttt{EXTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR} (JSON String). \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\pdef{Version} & JSON String, semantic version \texttt{major.minor.patch}. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

@@ -1,3 +1,5 @@
+> **Superseded as current documentation — 10 November 2026.** See [Documentation-V5.3.0.md](Documentation-V5.3.0.md) for the consolidated overview, retained shared follow-up and links to the maintained per-microsystem LaTeX/PDF editions. The original text below is retained as historical evidence; its dated implementation, availability and release statements are not current guidance.
+
 # Upstream alignment for the 5.3 reference
 
 This list records what the primary Java tree changes compared with the released Eclipse Arrowhead 5.2.2 components. Each item is fixed here. None is released upstream, and nothing has been submitted upstream from this list.

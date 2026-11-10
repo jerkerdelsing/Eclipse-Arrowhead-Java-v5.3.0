@@ -1,0 +1,290 @@
+[
+  {
+    "file": "core/Authentication/Authentication-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "58fbf1fe533f9633ff2d80546f88d8505eee910c5cc597f17a6d03f1a6dc406f"
+  },
+  {
+    "file": "core/Authentication/Authentication-IDD.pdf",
+    "pages": 75,
+    "go_and_rust_sections": true,
+    "sha256": "fc03f8579ffe655f87c6521690c251f3c5ab293da57ae0952eb7049812dc72b6"
+  },
+  {
+    "file": "core/ConsumerAuthorization/ConsumerAuthorization-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "7398ab6f5679e65840a432d10cf7d9de7e15807422e2f6347c7cad16d645d45f"
+  },
+  {
+    "file": "core/ConsumerAuthorization/ConsumerAuthorization-IDD.pdf",
+    "pages": 131,
+    "go_and_rust_sections": true,
+    "sha256": "20e73a64720dc292c31861a6ad8bc82f0253ffc52fae565396a2b70bd57dfa63"
+  },
+  {
+    "file": "core/DynamicServiceOrchestration/DynamicServiceOrchestration-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "c399ff0501fadab19edb03d522050265bd0c321f57c97b8090632b937b98c554"
+  },
+  {
+    "file": "core/DynamicServiceOrchestration/DynamicServiceOrchestration-IDD.pdf",
+    "pages": 135,
+    "go_and_rust_sections": true,
+    "sha256": "cb5353363df50941f64f7b33ba7404a9982903c5ffbf6a306652d3458f6ee34a"
+  },
+  {
+    "file": "core/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "8f8e31b083269c398574085130b8572ecb193fbaaf19d471adbbd441c2a9bc58"
+  },
+  {
+    "file": "core/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration-IDD.pdf",
+    "pages": 129,
+    "go_and_rust_sections": true,
+    "sha256": "b0139dd020090d9d792b0937f041c8cc15fcf4acc389e522c780543fea60cb22"
+  },
+  {
+    "file": "core/ServiceRegistry/ServiceRegistry-SysDD.pdf",
+    "pages": 15,
+    "go_and_rust_sections": true,
+    "sha256": "6dbb3aeb33176a903bd2c6f1606563f7b1843bc95916463626c2445e24199d54"
+  },
+  {
+    "file": "core/ServiceRegistry/ServiceRegistry-IDD.pdf",
+    "pages": 156,
+    "go_and_rust_sections": true,
+    "sha256": "16173c68e8e9cc27e3fbc2e0b5769b857ea7157eb1b41f27f2a92959c616fc08"
+  },
+  {
+    "file": "support/AIGym/AIGym-SysDD.pdf",
+    "pages": 15,
+    "go_and_rust_sections": true,
+    "sha256": "3e5007f0115e62e9b64492741ff34eafa5c3673f49a8d12f1e864fbf29dd7a48"
+  },
+  {
+    "file": "support/AIGym/AIGym-IDD.pdf",
+    "pages": 23,
+    "go_and_rust_sections": true,
+    "sha256": "05d038d5ba2807d7c39f2f1c363189779dcec072c389c39ad3eaa7cca94e3781"
+  },
+  {
+    "file": "support/Blacklist/Blacklist-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "384e7e1cd41e765270121e043320ce758d74d64411e7ab357dba586e3003f67c"
+  },
+  {
+    "file": "support/Blacklist/Blacklist-IDD.pdf",
+    "pages": 70,
+    "go_and_rust_sections": true,
+    "sha256": "73efb9d292c4d3d62e999f8fce9330fd772a5b9a0427f9d0eca23c144384cafb"
+  },
+  {
+    "file": "support/CertificateAuthority/CertificateAuthority-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "e81ef59fbeb2b05c6ab3c8e836b28cb1b8b20e97b8df24901fe4b28ecbb81b96"
+  },
+  {
+    "file": "support/CertificateAuthority/CertificateAuthority-IDD.pdf",
+    "pages": 41,
+    "go_and_rust_sections": true,
+    "sha256": "2b4d57e80fcce9a08a2fda0ee536474f04249ec8e474a407bad6ac3e9d0f3237"
+  },
+  {
+    "file": "support/Choreographer/Choreographer-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "dd081741de759c216625a28c5b83254ab0d183c763831463604c42285c5d01da"
+  },
+  {
+    "file": "support/Choreographer/Choreographer-IDD.pdf",
+    "pages": 64,
+    "go_and_rust_sections": true,
+    "sha256": "45a4b0da48ec0428e68d62a0ba8f1f24dbe0c452ed453e9f5c23601e5cd123c7"
+  },
+  {
+    "file": "support/Configuration/Configuration-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "b7bc45796b93f9684cdcdae80336f261bd37235e5453e5191bc5896436030a47"
+  },
+  {
+    "file": "support/Configuration/Configuration-IDD.pdf",
+    "pages": 49,
+    "go_and_rust_sections": true,
+    "sha256": "93f10da5624c0b3c76a8e197b1f2e15c3b80897050f6069dbdeb75ae850e5599"
+  },
+  {
+    "file": "support/DataManager/DataManager-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "d17707c9811916d0f2d14762eca5403640a9b9f056b10211eb531db175c791df"
+  },
+  {
+    "file": "support/DataManager/DataManager-IDD.pdf",
+    "pages": 34,
+    "go_and_rust_sections": true,
+    "sha256": "d3d4789a808b3c79c70a8d01b571f76c433f240609cbb0998e682d3b19d8a64b"
+  },
+  {
+    "file": "support/DeviceQoSEvaluator/DeviceQoSEvaluator-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "ec771c65c0dd0032a645d9be864cd0ffeb733be0089f996adeb9648ae01963ba"
+  },
+  {
+    "file": "support/DeviceQoSEvaluator/DeviceQoSEvaluator-IDD.pdf",
+    "pages": 69,
+    "go_and_rust_sections": true,
+    "sha256": "0cd844cb224947c7175318f620c47215b9f1c5062f333bcc2efa8d9bb829a005"
+  },
+  {
+    "file": "support/EventHandler/EventHandler-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "987810154ae74a25aed01e61fab78521165d5f1c520434b9b1a551022abcdfe8"
+  },
+  {
+    "file": "support/EventHandler/EventHandler-IDD.pdf",
+    "pages": 49,
+    "go_and_rust_sections": true,
+    "sha256": "df5b7efd6edc3c27198424c093ac646ab2487b4da3225402211bf0b4fa6f8dcc"
+  },
+  {
+    "file": "support/GateTunnel/GateTunnel-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "e99c31c60665d5c8ddab9cdd023d2df71272da06e6d92d5fe32936a9422d0e99"
+  },
+  {
+    "file": "support/GateTunnel/GateTunnel-IDD.pdf",
+    "pages": 39,
+    "go_and_rust_sections": true,
+    "sha256": "ca00d94600341de5cad3109f76f7f3127ae865f0ca2d135233ea49056826e76e"
+  },
+  {
+    "file": "support/Gatekeeper/Gatekeeper-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "f1b8c9208871fc64348ea4b23410b2f1c0b9d335ef329aebf83062ba29ee9bc6"
+  },
+  {
+    "file": "support/Gatekeeper/Gatekeeper-IDD.pdf",
+    "pages": 39,
+    "go_and_rust_sections": true,
+    "sha256": "75f9e0eeac9d910f71a20ef85dcc5db0eec93806e98e7e8335cfcbcf975a2117"
+  },
+  {
+    "file": "support/GraphDBManager/GraphDBManager-SysDD.pdf",
+    "pages": 10,
+    "go_and_rust_sections": true,
+    "sha256": "3e508a43d489bba730b643170c1bb8d0187049bea853532c86bb472bb4c87233"
+  },
+  {
+    "file": "support/GraphDBManager/GraphDBManager-IDD.pdf",
+    "pages": 30,
+    "go_and_rust_sections": true,
+    "sha256": "08d90369822b793faa8be11187dc1951d3fa1d3d712cded5ba50ebc1017c521b"
+  },
+  {
+    "file": "support/LocalCloudConfigurator/LocalCloudConfigurator-SysDD.pdf",
+    "pages": 11,
+    "go_and_rust_sections": true,
+    "sha256": "f46c11bc1eae3f5b17ff6630f17d81540c4ed648d777edd1ee1a2383c2a2db27"
+  },
+  {
+    "file": "support/LocalCloudConfigurator/LocalCloudConfigurator-IDD.pdf",
+    "pages": 26,
+    "go_and_rust_sections": true,
+    "sha256": "801875c25457eb724682aaca7730d626f1f079c1f9664675a5980a284f499b54"
+  },
+  {
+    "file": "support/LocalCloudManager/LocalCloudManager-SysDD.pdf",
+    "pages": 20,
+    "go_and_rust_sections": true,
+    "sha256": "3fd287c3e67a4bc7d2e178667263c8bbc814676567a7cfa7df176df5ae1c11c3"
+  },
+  {
+    "file": "support/LocalCloudManager/LocalCloudManager-IDD.pdf",
+    "pages": 51,
+    "go_and_rust_sections": true,
+    "sha256": "ef0f9c37c9ee870065e7ca7f89bfb39508ddc2002e5d0abfde031b8ab40a5593"
+  },
+  {
+    "file": "support/Onboarding/Onboarding-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "1f566c95d75af7c181e9cb137e30fdd645ce247e602b51d529163c926bb57054"
+  },
+  {
+    "file": "support/Onboarding/Onboarding-IDD.pdf",
+    "pages": 51,
+    "go_and_rust_sections": true,
+    "sha256": "561971e563abf8511046aa3877ccbaa9ab398415ac043dc853569caee3c09e37"
+  },
+  {
+    "file": "support/PlantDescriptionEngine/PlantDescriptionEngine-SysDD.pdf",
+    "pages": 17,
+    "go_and_rust_sections": true,
+    "sha256": "32e21b68dd04992c0e3a0962d3f2745c3c939c3c3ce0f3529860b1e3d6cab074"
+  },
+  {
+    "file": "support/PlantDescriptionEngine/PlantDescriptionEngine-IDD.pdf",
+    "pages": 52,
+    "go_and_rust_sections": true,
+    "sha256": "70d7f0ed5d61681f3f8fc93690d887b5951a2f8a0790d63443cf591a84526237"
+  },
+  {
+    "file": "support/SoSConfigurator/SoSConfigurator-SysDD.pdf",
+    "pages": 2,
+    "go_and_rust_sections": true,
+    "sha256": "d2f48f2a5fbaa80a9bfcb8cb941d62c0074d584f7bef4eae65a3bc98354f0ff6"
+  },
+  {
+    "file": "support/SoSConfigurator/SoSConfigurator-IDD.pdf",
+    "pages": 2,
+    "go_and_rust_sections": true,
+    "sha256": "1e8ee00e088e0eb39702d7306ca6b60efa578c4fe6f1e52871e5011fda831d1c"
+  },
+  {
+    "file": "support/SysMonitor/SysMonitor-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "a2e3be0d6a1d58aacfd2057240b49a678783b77549e6f84748fb726ffd3c70b1"
+  },
+  {
+    "file": "support/SysMonitor/SysMonitor-IDD.pdf",
+    "pages": 39,
+    "go_and_rust_sections": true,
+    "sha256": "0d6b6d852a8f6ed3b46becf9e076bffd585c413992f7643d4481e08f3b2388ec"
+  },
+  {
+    "file": "support/TimeManager/TimeManager-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "3f32adae5654bd63456ca8fd175805fc8c038cb0b15fd363acaf1ac3e8d50fd0"
+  },
+  {
+    "file": "support/TimeManager/TimeManager-IDD.pdf",
+    "pages": 31,
+    "go_and_rust_sections": true,
+    "sha256": "144ec19c9c38376e4cc7326a0b8e272255793632c7b3979044aa7808fb0aa0f3"
+  },
+  {
+    "file": "support/TranslationManager/TranslationManager-SysDD.pdf",
+    "pages": 16,
+    "go_and_rust_sections": true,
+    "sha256": "1a91cb7eba84a8075279a283ad10de9028b69d220260d25fc24dfb398faaf64c"
+  },
+  {
+    "file": "support/TranslationManager/TranslationManager-IDD.pdf",
+    "pages": 106,
+    "go_and_rust_sections": true,
+    "sha256": "56dfad170c79a815497af03335586ec3ae0d77c63b9373910e8742a3619f7bed"
+  }
+]

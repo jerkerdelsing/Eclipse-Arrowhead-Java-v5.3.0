@@ -1,0 +1,258 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{ServiceRegistry}
+\ArrowheadType{System Description}
+\ArrowheadTypeShort{SysD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the ServiceRegistry core system of the Eclipse Arrowhead framework (documentation edition 5.3.0), as implemented in Java Spring in \texttt{ah5-core-java-spring/serviceregistry}, including the local extensions of this workspace.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the ServiceRegistry system. The ServiceRegistry is the first core system of an Arrowhead local cloud. It keeps the authoritative register of the devices, systems and service instances of the cloud and of the interface templates that describe how services are reached. Every other system registers itself and its services there and finds the core services through it; orchestrators use it to discover candidate providers.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small, >=Stealth]
+    \node[draw=ArrowheadBlue, very thick, minimum width=4.2cm, minimum height=2.2cm, align=center, fill=ArrowheadBlue!10] (s)
+      {\guillemotleft{}System\guillemotright{}\\\textbf{ServiceRegistry}};
+    \node[draw=ArrowheadTeal, rectangle, align=left, left=1.3cm of s, text width=4.6cm, inner sep=5pt] (p)
+      {\textbf{Produced services}\\ \texttt{deviceDiscovery}\\ \texttt{systemDiscovery}\\ \texttt{serviceDiscovery}\\ \texttt{service\allowbreak{}Registry\allowbreak{}Management}\\ \texttt{generalManagement}\\ \texttt{sysMonitor}};
+    \node[draw=ArrowheadOrange, rectangle, align=left, right=1.3cm of s, text width=4.6cm, inner sep=5pt] (c)
+      {\textbf{Consumed}\\ AMQP broker (SysMonitor)\\ Authentication\\ Blacklist\\ ConsumerAuthorization};
+    \draw[->, thick, ArrowheadTeal] (s) -- (p);
+    \draw[->, thick, ArrowheadOrange] (s) -- (c);
+  \end{tikzpicture}
+  \caption{SysML-style block view of ServiceRegistry with its produced and consumed services.}
+  \label{fig:system}
+\end{figure}
+
+The rest of this document is organized as follows.
+In Section \ref{sec:prior_art}, we reference major prior art capabilities of the system.
+In Section \ref{sec:use}, we describe the intended usage of the system.
+In Section \ref{sec:properties}, we describe fundamental properties provided by the system.
+In Section \ref{sec:delimitations}, we describe delimitations of capabilities of the system.
+In Section \ref{sec:services}, we describe the abstract service functions consumed or produced by the system.
+In Section \ref{sec:security}, we describe the security capabilities of the system.
+
+\newpage
+
+\subsection{Significant Prior Art}
+\label{sec:prior_art}
+
+The ServiceRegistry continues the Arrowhead 4.x ServiceRegistry (with the 4.4 DeviceRegistry and SystemRegistry). Arrowhead 5 adds devices as first-class entries, interface templates with typed properties, service instance identifiers \texttt{\textless{}System\textgreater{}\textbar{}\allowbreak{}\textless{}service\allowbreak{}Definition\textgreater{}\textbar{}\allowbreak{}\textless{}version\textgreater{}}, metadata requirements with operators, and a restricted discovery policy that leaves orchestration as the normal way to find providers.
+
+\subsection{How This System Is Meant to Be Used}
+\label{sec:use}
+
+At start-up every system calls \texttt{system\allowbreak{}Discovery.\allowbreak{}register} and \texttt{service\allowbreak{}Discovery.\allowbreak{}register}. Systems that need a core service (identity, service\allowbreak{}Orchestration, authorization, \ldots{}) look it up with \texttt{service\allowbreak{}Discovery.\allowbreak{}lookup}; these services carry the metadata \texttt{unrestricted\allowbreak{}Discovery=\allowbreak{}true}. All other services are found through an orchestrator. Operators and management systems maintain the register with \texttt{service\allowbreak{}Registry\allowbreak{}Management}.
+
+\subsection{System functionalities and properties}
+\label{sec:properties}
+
+\subsubsection{Functional properties of the system}
+
+\begin{itemize}
+  \item Register, look up and revoke devices, systems and service instances.
+  \item Validate interfaces against interface templates and their property validators; maintain templates.
+  \item Expire service instances at their \texttt{expiresAt} time.
+  \item Restrict direct service discovery to sysops and the systems in \texttt{service.\allowbreak{}discovery.\allowbreak{}direct.\allowbreak{}access} (policy \texttt{restricted}).
+  \item Refuse registrations of reserved core and support service definitions by other systems than their owners (local extension, finding J9).
+  \item Register additional ingress interfaces for its own services (\texttt{service.\allowbreak{}registry.\allowbreak{}extra.\allowbreak{}interfaces}, local extension) and honour \texttt{service.\allowbreak{}interface.\allowbreak{}policy} for them.
+\end{itemize}
+
+\subsubsection{Configuration of system properties}
+
+The system is configured with Spring properties (\texttt{application.properties}, overridden by environment variables in the container deployment). The properties that shape its behaviour are:
+
+\noindent\begin{longtable}{| p{5.4cm} | p{3.4cm} | p{6.4cm} |} \hline
+\rowcolor{gray!33} Property & Default & Meaning \\ \hline \endhead
+\texttt{server.\allowbreak{}port} & 8443 & HTTPS port. \\ \hline
+\texttt{authentication.\allowbreak{}policy} & declared & \texttt{declared}, \texttt{certificate} or \texttt{outsourced} (test cloud: \texttt{outsourced}). \\ \hline
+\texttt{arrowhead.\allowbreak{}security.\allowbreak{}profile} & secure & \texttt{development} selects the isolated development exception; never set in a deployment. \\ \hline
+\texttt{management.\allowbreak{}policy} / \texttt{management.\allowbreak{}whitelist} & authorization & Access to \texttt{service\allowbreak{}Registry\allowbreak{}Management} and \texttt{generalManagement}. \\ \hline
+\texttt{service.\allowbreak{}discovery.\allowbreak{}policy} & restricted & \texttt{open} or \texttt{restricted} direct lookup. \\ \hline
+\texttt{service.\allowbreak{}discovery.\allowbreak{}direct.\allowbreak{}access} & Dynamic\allowbreak{}Service\allowbreak{}Orchestration, \ldots{} & Systems with unrestricted lookup. \\ \hline
+\texttt{service.\allowbreak{}discovery.\allowbreak{}interface.\allowbreak{}policy} & restricted & \texttt{restricted}, \texttt{extendable} or \texttt{open} handling of unknown templates. \\ \hline
+\texttt{discovery.\allowbreak{}verbose} & true & Whether lookups may include system and device details. \\ \hline
+\texttt{allow.\allowbreak{}self.\allowbreak{}addressing} / \texttt{allow.\allowbreak{}non.\allowbreak{}routable.\allowbreak{}addressing} & true / false & Address validation. \\ \hline
+\texttt{service.\allowbreak{}address.\allowbreak{}alias} & address, \ldots{} & Interface property keys that hold addresses. \\ \hline
+\texttt{service.\allowbreak{}definition.\allowbreak{}reserved} & (built in) & Overrides of the reserved service definitions (local). \\ \hline
+\texttt{service.\allowbreak{}interface.\allowbreak{}policy} & (from authentication policy) & Security policy of the own interfaces; default \texttt{CERT\_\allowbreak{}AUTH} behind TLS, \texttt{NONE} for declared identities or without TLS (local). \\ \hline
+\texttt{service.\allowbreak{}registry.\allowbreak{}extra.\allowbreak{}interfaces} & [] & Additional interfaces of the own services (local). \\ \hline
+\texttt{enable.\allowbreak{}blacklist.\allowbreak{}filter} / \texttt{force.\allowbreak{}blacklist.\allowbreak{}filter} & false / true & Blacklist check of requesters. \\ \hline
+\texttt{normalization.\allowbreak{}mode} & extended & Name normalization (\texttt{simple} or \texttt{extended}). \\ \hline
+\texttt{mqtt.\allowbreak{}api.\allowbreak{}enabled} & false & Offer the MQTT interfaces. \\ \hline
+\texttt{sysmonitor.\allowbreak{}enabled} & false & Publish native sysMonitor observations (test cloud: true). \\ \hline
+\texttt{arrowhead.\allowbreak{}ssl.\allowbreak{}crl-\allowbreak{}file} & (unset) & CRL checked for every client certificate (local, finding J4). \\ \hline
+\end{longtable}
+
+Secrets (database, keystore and identity passwords, secret keys) have no usable defaults; in the test clouds they are per-cloud secrets mounted as files.
+
+\subsubsection{Data stored by the system}
+
+Devices and their addresses, systems and their addresses and device assignment, service definitions, service instances with metadata and interfaces, interface templates with property rules, and the system's log entries (MariaDB/MySQL database \texttt{ah\_\allowbreak{}serviceregistry}).
+
+\subsubsection{Non functional properties}
+
+The ServiceRegistry is on the critical path of every start-up and orchestration; it is a single instance per cloud in this deployment. Lookups are database queries without caching. Requests are limited to \texttt{max.\allowbreak{}page.\allowbreak{}size} records per page.
+
+\subsubsection{Stateful or stateless}
+
+Stateful: all records are persistent in the database; the service itself keeps no session state.
+
+\subsection{Important Delimitations}
+\label{sec:delimitations}
+
+The ServiceRegistry does not verify that a registered service is reachable, does not authorize consumption and does not orchestrate. It trusts the identity established by its authentication policy. Its own services are registered directly into its database at start-up, not through the HTTP API.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+This section describes the produced and consumed services. Each produced service is specified by an SD document and one IDD document per interface.
+
+\subsection{Produced services}
+
+\noindent\begin{longtable}{| p{5.3cm} | p{1.3cm} | p{2.6cm} | p{1.6cm} | p{3.6cm} |} \hline
+\rowcolor{gray!33} Service & Version & Interfaces & SD & IDD \\ \hline \endhead
+\texttt{deviceDiscovery} & 1.0.0 & HTTP(S), MQTT(S) & \cite{sr-deviceDiscovery-sd} & \cite{sr-deviceDiscovery-http-idd}, \cite{sr-deviceDiscovery-mqtt-idd} \\ \hline
+\texttt{systemDiscovery} & 1.0.0 & HTTP(S), MQTT(S) & \cite{sr-systemDiscovery-sd} & \cite{sr-systemDiscovery-http-idd}, \cite{sr-systemDiscovery-mqtt-idd} \\ \hline
+\texttt{serviceDiscovery} & 1.0.0 & HTTP(S), MQTT(S) & \cite{sr-serviceDiscovery-sd} & \cite{sr-serviceDiscovery-http-idd}, \cite{sr-serviceDiscovery-mqtt-idd} \\ \hline
+\texttt{service\allowbreak{}Registry\allowbreak{}Management} & 1.0.0 & HTTP(S), MQTT(S) & \cite{sr-serviceRegistryManagement-sd} & \cite{sr-serviceRegistryManagement-http-idd}, \cite{sr-serviceRegistryManagement-mqtt-idd} \\ \hline
+\texttt{generalManagement} & 1.0.0 & HTTP(S), MQTT(S) & \cite{sr-generalManagement-sd} & \cite{sr-generalManagement-http-idd}, \cite{sr-generalManagement-mqtt-idd} \\ \hline
+\texttt{sysMonitor} & 1.0.0 & AMQP(S) & \cite{sr-sysMonitor-sd} & \cite{sr-sysMonitor-amqp-idd} \\ \hline
+\end{longtable}
+
+The HTTP interfaces are always offered, the MQTT interfaces with \texttt{mqtt.api.enabled=true} and the AMQP \texttt{sysMonitor} interface with \texttt{sysmonitor.enabled=true}. Upstream 5.2.2 also answers \texttt{GET <base>/monitor/echo} on some systems; this endpoint is not registered as a service.
+
+\subsection{Consumed services}
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{2.9cm} | >{\raggedright\arraybackslash}p{3.1cm} | >{\raggedright\arraybackslash}p{2.5cm} | p{3.6cm} | >{\raggedright\arraybackslash}p{2.9cm} |} \hline
+\rowcolor{gray!33} Provider & Service & Operations & Use & Condition \\ \hline \endhead
+Authentication & identity & identity-login, identity-verify & Own identity token; verification of requester tokens (Authentication's secret key is configured, so most tokens are checked locally). & \texttt{authentication.\allowbreak{}policy=\allowbreak{}outsourced} \\ \hline
+Consumer\allowbreak{}Authorization & authorization & verify & Management filter decisions. & \texttt{management.\allowbreak{}policy=\allowbreak{}authorization} \\ \hline
+Blacklist & blacklist\allowbreak{}Discovery & check & Blacklist filter. & \texttt{enable.\allowbreak{}blacklist.\allowbreak{}filter=\allowbreak{}true} \\ \hline
+AMQP broker (SysMonitor) & sysMonitor (publisher) & echo, power, status & Own observations. & \texttt{sysmonitor.\allowbreak{}enabled=\allowbreak{}true} \\ \hline
+\end{longtable}
+
+Except for the bootstrap services (\texttt{http.collector.bootstrap.services}), which are looked up in the ServiceRegistry, the system reaches other systems' services through DynamicServiceOrchestration (\texttt{http.collector.mode=ORCHESTRATION}, results cached for \texttt{http.collector.orchestration.ttl} = 300 s); every such call needs a ConsumerAuthorization grant.
+
+\newpage
+
+\section{Security}
+\label{sec:security}
+
+The default is the Arrowhead secure mode with HTTPS and X.509 certificates following the Arrowhead certificate profile (\texttt{<System>.<Cloud>.<Organization>.arrowhead.eu}). Certificates not issued under the cloud CA are refused by the TLS handshake. The Arrowhead-test-cloud-java deployment runs the secure mode.
+
+The packaged \texttt{application.properties} is a development sample that disables TLS and declares identities. The system refuses to start with it, or with any other effective configuration that sets \texttt{server.ssl.enabled=false}, \texttt{authentication.policy=declared}, \texttt{service.authorization.enabled=false} or, while monitoring is on, \texttt{sysmonitor.ssl.enabled=false}. The check runs before the system accepts a connection. Only an explicit \texttt{arrowhead.security.profile=development} lets such a system start, for an isolated test, and it then logs a non-conformance warning.
+
+\subsection{Security model}
+
+\begin{itemize}
+  \item \textbf{Protocols:} HTTPS (TLS 1.3 and 1.2) with mandatory client certificates (\texttt{server.ssl.client-auth=need}); MQTT over TLS; AMQP over TLS for \texttt{sysMonitor}.
+  \item \textbf{Data protection:} transport encryption by TLS; the database connection uses TLS with server verification in the test cloud. Secrets are kept out of the container environment (Compose file secrets).
+  \item \textbf{System authentication:} by the authentication policy: \texttt{certificate} (client certificate CN), \texttt{outsourced} (identity token verified with Authentication), \texttt{internal} (Authentication only) or \texttt{declared} (insecure). In this workspace an identity token is accepted only together with the client certificate of the system it was issued to (token-to-certificate binding), and every client certificate is checked against the cloud CA's CRL when \texttt{arrowhead.ssl.crl-file} is set (fail closed).
+  \item \textbf{Authorization of produced services:} management services are protected by the management filter (\texttt{management.policy}: \texttt{SYSOP\_ONLY}, \texttt{WHITELIST} or \texttt{AUTHORIZATION} via ConsumerAuthorization); an optional blacklist filter refuses blacklisted requesters. Sysop identities bypass the management filter.
+  \item Under \texttt{restricted} discovery, a requester that is neither a sysop nor in \texttt{service.\allowbreak{}discovery.\allowbreak{}direct.\allowbreak{}access} only sees services flagged \texttt{unrestricted\allowbreak{}Discovery}; other instances are omitted from the result without an error. A system that resolves Simple\allowbreak{}Store\allowbreak{}Service\allowbreak{}Orchestration results with \texttt{lookup}, and a Gatekeeper that provides services to other clouds, must therefore be listed. The service definitions of the core and support systems can only be registered by their owners (403 otherwise).
+\end{itemize}
+
+For the Arrowhead certificate profile see github.com/eclipse-arrowhead/documentation.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-11-07 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

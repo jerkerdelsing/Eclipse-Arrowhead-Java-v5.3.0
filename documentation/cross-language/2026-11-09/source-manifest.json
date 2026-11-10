@@ -1,0 +1,2430 @@
+[
+  {
+    "path": "Eclipse-Arrowhead-go/LISTENING-PORTS.md",
+    "sha256": "7b77c4c3d695a090f50ee26eae837ae22d7d5bf3a83c54b393db3f7cb958a468"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-AIGym-go/DEPLOYMENT.md",
+    "sha256": "a23806b58e2611188c8004f1f0354260b65cfcbc1205dc393e42c017c550b21b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-AIGym-go/Makefile",
+    "sha256": "563712c1acbfe4456d3f6fa2f227a0f4859248e2861a48874291856e98e3cb4f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-AIGym-go/README.md",
+    "sha256": "eaee91b8e31c0782a88449eb22e280bbc2017e000b66fd7352bf35feb3e54c1b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-AIGym-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-AIGym-go/documentation/AIGym/AIGym-HTTPS-IDD.tex",
+    "sha256": "c1d3e3e4b7e77dafbd2135b1170414486d4c74a81f08ffbefa51f3ab0da6c10b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-AIGym-go/documentation/AIGym/AIGym-SysDD.tex",
+    "sha256": "5931c106746273cac7ba3155e3f2e7c5e45ed7ec615445f0dfb07f77fb1c798b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-AIGym-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-AIGym-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-AIGym-go/go.mod",
+    "sha256": "d10fc725290a154b9d49009da2146a0e57166be47b3c55ee7bc96e0fff4a00dc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Blacklist-go/DEPLOYMENT.md",
+    "sha256": "9f59be66abac465335b2c1d915e4a76dec7a5a9d4f102fd1b2bd21541b20ea5d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Blacklist-go/Makefile",
+    "sha256": "65a87c6edb109b746a2184dc4f0e98fa8a5136ae1bb038ff253b02711b3a3e94"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Blacklist-go/README.md",
+    "sha256": "66534e80235ab85fbd036d4eb3e84f5355a22e8f870bc2f072c2047a21fcf1c6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Blacklist-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Blacklist-go/documentation/Blacklist/Blacklist-HTTPS-IDD.tex",
+    "sha256": "356382745bdc091f4b4efdc5f5f48f5a94f1a1f78f13bcff7f8b176c53bc6321"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Blacklist-go/documentation/Blacklist/Blacklist-SysDD.tex",
+    "sha256": "4edddfcaf453bba609f3172f874e8fc9230c5b129915bbee703ebd4ae4720e6e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Blacklist-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Blacklist-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Blacklist-go/go.mod",
+    "sha256": "41f0ee61bef83f9f73662340cb6683763e37120942993810eed69e88be1b0652"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/DEPLOYMENT.md",
+    "sha256": "96c00931919572e0a8c10564de701ea7d7a62adbb56d1042563a1f136bd692d7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/Makefile",
+    "sha256": "b59892dee998ea692db30292503b72abbcccd3c924d324037b1c26127c78a5f3"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/README.md",
+    "sha256": "784bb267b32b547a53bc9ab4eff76906e332b838fa8bf42cf9195b2cc26f79c8"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/documentation/CertificateAuthority/CertificateAuthority-HTTPS-IDD.tex",
+    "sha256": "cfe52550cd6c0414a0b61ba3dfabba32a162ea7b6c29c91e36b814de695932e7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/documentation/CertificateAuthority/CertificateAuthority-SysDD.tex",
+    "sha256": "f4253a38f585dd2012e6aed26473b00d9a8ccee100fb8576188394f076c41903"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-CertificateAuthority-go/go.mod",
+    "sha256": "4e7b3a0dbf2a075b8a2d28708b7353571af3cf5706a8687b14ff45dd593f1e8b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Choreographer-go/DEPLOYMENT.md",
+    "sha256": "3672da3299514a8d853c4d6a210fa95f9d4de71dbc5f9619575125857bca531e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Choreographer-go/Makefile",
+    "sha256": "2c4517917ac1a0143fc7cc7d0766b8a1655acd08fe9d98794f82f6511e149881"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Choreographer-go/README.md",
+    "sha256": "233fa311de0ef4a397e59759bfed63cab99dd4d54a783bbba79ecd43d8dd76fb"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Choreographer-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Choreographer-go/documentation/Choreographer/Choreographer-HTTPS-IDD.tex",
+    "sha256": "c220a7f8069bf08edd871a44bfed84e050d071a38aee814a4a479476bcb0e5b4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Choreographer-go/documentation/Choreographer/Choreographer-SysDD.tex",
+    "sha256": "6dd1720bc4abe4222b545e5e05414162b16e24efdcc11de3f13635c199771f2a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Choreographer-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Choreographer-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Choreographer-go/go.mod",
+    "sha256": "f1097eb1e59272bdb9116b86599232f0d4b2542a9d140482dc89bd10ac0173e9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Configuration-go/DEPLOYMENT.md",
+    "sha256": "b6aebc89a31ac172a0032de74b868058e7bd21f1953d91953e745339ec0f99a0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Configuration-go/Makefile",
+    "sha256": "c262d4d0d03c487e9b3bf2cc108d6226321a20c849063b1bf5c3f31b5ade6179"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Configuration-go/README.md",
+    "sha256": "4422692f80eec5a2ac72b6ce02174a6aacfc1265c20bc5dcd7e38ed8c1a37157"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Configuration-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Configuration-go/documentation/Configuration/Configuration-HTTPS-IDD.tex",
+    "sha256": "15b349d32a87ca6fb49f5681232eb6cfaf19136a5f62132cecfb9903602b3116"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Configuration-go/documentation/Configuration/Configuration-SysDD.tex",
+    "sha256": "110ebcb2c0a5a8227bead1f7ff90c7359fe899716a820ff5f57fbc8bf59344cb"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Configuration-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Configuration-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Configuration-go/go.mod",
+    "sha256": "1f41472c6fd324fb8e058bc121ce883c1715fd44d65c74f2d3cb38a3bd599739"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DataManager-go/DEPLOYMENT.md",
+    "sha256": "b538515fb4302c2e89ca4b6e68b4a104c13e5f39d25a9fb48968523d0440867c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DataManager-go/Makefile",
+    "sha256": "bb1a45251d9a5db683ea7ffdd18dc37cfa9cf921adf03b79a5527b1611098549"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DataManager-go/README.md",
+    "sha256": "cdcb6084fe2b3b65f65b91a726871d05f797fd9ae43a2d212afa1f6010da2131"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DataManager-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DataManager-go/documentation/DataManager/DataManager-HTTPS-IDD.tex",
+    "sha256": "f701c2f7237ba24adbb4748db6b7439ee84e3259fb1040d3ebc9b88c2ebc12d4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DataManager-go/documentation/DataManager/DataManager-SysDD.tex",
+    "sha256": "1ba95f64ced69581bad668b8dfe87b792ab4e69f88744c3de40c0fd673afe633"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DataManager-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DataManager-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DataManager-go/go.mod",
+    "sha256": "86aeb54fe261ed76fb20c2f834fcae8f10ca54fedb12f9b4f06fe4158a97fd99"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/DEPLOYMENT.md",
+    "sha256": "f54fbe5b622bcedda2391121d723961c339bcbe13d6d399f057cc3e2d2583105"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/Makefile",
+    "sha256": "3f39933c8c7eeea5cedd9786426a5f6d7d745b869c02ac7de754616adf5f41c0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/README.md",
+    "sha256": "72338840eac1d8e71cbc08a867159b90cb05dd2a76a4b7ef3664658a4d2595ab"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-HTTPS-IDD.tex",
+    "sha256": "c0ff9fbbebad86fdabe1585255375c1a6d48e36fcb6197286a397c3cded6be48"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-SysDD.tex",
+    "sha256": "e2b3338fe20a663acda64ea07f648ee758b84ad325a84648e06321a599637882"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-DeviceQoSEvaluator-go/go.mod",
+    "sha256": "2e7940ad76a5e31c4ab91c0ff1c67fc21d04eaf3446d11e5ba34f8be0e85f123"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-EventHandler-go/DEPLOYMENT.md",
+    "sha256": "e4b535d83e9e335ddfb1ae2b14aab23e8a4587a0d8d5e1e81dd967ffaf05d833"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-EventHandler-go/Makefile",
+    "sha256": "e5549976628e0848e0b523e97003dd829223ffc38fb21936535c6f9f2e20a07b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-EventHandler-go/README.md",
+    "sha256": "0333e695a483131cfb2640b19bedd65f17a0da87cef3be81380dae03c2a862a3"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-EventHandler-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-EventHandler-go/documentation/EventHandler/EventHandler-HTTPS-IDD.tex",
+    "sha256": "b952cec9365658dca49a900761003783229798cf1a25b54085f3d4cae911a749"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-EventHandler-go/documentation/EventHandler/EventHandler-SysDD.tex",
+    "sha256": "b650ea5b2d1458a8cb12adaffbf25db446ec9a5c3268735fdcb6877ab18cfa48"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-EventHandler-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-EventHandler-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-EventHandler-go/go.mod",
+    "sha256": "b9b8037801e24aae7df8fe0d444d8e78dba47a2d2c8216593fe8ad9a21056ca9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-GateTunnel-go/DEPLOYMENT.md",
+    "sha256": "139ec2d05757e93fd4f267f0e46d233c691046341e29e39b417eaf8bed98c317"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-GateTunnel-go/Makefile",
+    "sha256": "9b0af2ef0f096a1c0fc1df0d9ca196e3e91da76567c3256a8fe090a26f8535f2"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-GateTunnel-go/README.md",
+    "sha256": "8dd8e6b1a010dee54881c768b84431e69148e4b5f1d053eaffb0d4d26426a5a9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-GateTunnel-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-GateTunnel-go/documentation/GateTunnel/GateTunnel-HTTPS-IDD.tex",
+    "sha256": "58a63ec4d3df74509c474a8beca4f4219dfae4a4eeb056eb6536544bef7c1345"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-GateTunnel-go/documentation/GateTunnel/GateTunnel-SysDD.tex",
+    "sha256": "9feaa3c63f442f3b8f7c77a551c8cd9e54fd36983b1f8fc2e85df17a4f3e6234"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-GateTunnel-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-GateTunnel-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-GateTunnel-go/go.mod",
+    "sha256": "8c4bfc750b93b584424a56c79573e9b4d7fcb0d5e50e432392183edba2b3f48a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Gatekeeper-go/DEPLOYMENT.md",
+    "sha256": "fed2bfd87e60b6ea66b16d8543fd1193b5f004f8a8004fa997b0db502431181a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Gatekeeper-go/Makefile",
+    "sha256": "f106fe49082622329a969127e6da327fac83497b84c71950b8588c4d29b3d209"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Gatekeeper-go/README.md",
+    "sha256": "8ff0ce33efd07bea280c05c5b416420521498e49c60a3ad77b8888a1b4c24b89"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Gatekeeper-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Gatekeeper-go/documentation/Gatekeeper/Gatekeeper-HTTPS-IDD.tex",
+    "sha256": "6d5dec355e71945ca0a3389c8f4938753fc53037688129493d45f3c215c63f26"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Gatekeeper-go/documentation/Gatekeeper/Gatekeeper-SysDD.tex",
+    "sha256": "683773ba4b61e432ac742de5e185f915f013dac4bc1b951004128272b0a3af0c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Gatekeeper-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Gatekeeper-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Gatekeeper-go/go.mod",
+    "sha256": "bcedff32c38d4c599b5b9208077ff7d391b6c8dff03b44688e172713838043da"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/DEPLOYMENT.md",
+    "sha256": "908aa536dcdbaf355012ddbd6475a6b730c6ce88a61ec8def0dbfa0a8d9cf90a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/Makefile",
+    "sha256": "75a98f366adeb004fb5213b60330a79cbd1ac43d84d9c011199deca5c86e2ad5"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/README.md",
+    "sha256": "200301a090b3bceb0fad107a8aa5afc8e715a0235a696e04151cf958ab44a2e9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/go.mod",
+    "sha256": "306c54cc312027b0452b1630fdc916f1c410558aa02ad3c9f0fd0cbf80f2d9b4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/internal/api/api.go",
+    "sha256": "638eae4f17a8d81b71e7980427cbe2f0635d134a0cba61b995d5fd6efac78fef"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/internal/catalog/catalog.go",
+    "sha256": "46bc82c1acd5a2c558698176e1a9317e23b56f296049fa2eceb0402ce6bc1a5b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/internal/colony/colony.go",
+    "sha256": "d6d42e5d294dd5c2fc4af2f83cd9c9be8b4c5fe025b16439d4149122634ae5eb"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/internal/colony/setup.go",
+    "sha256": "981d99ad9d94dc7cb142e5f1cbdb8ac58582674ffec8b86f383607a3797222db"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/internal/planner/planner.go",
+    "sha256": "9918abb2d6bd188d684348305e02ed0b786c12c83a3a4f2a9843f44053f2a9d2"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudConfigurator-go/internal/runner/runner.go",
+    "sha256": "6d9e87991217313c001ed7ba1847181185ee75468a0f2e96bdd301572cb99f8e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/DEPLOYMENT.md",
+    "sha256": "c5aaf215e5ae45c9b34d3ee89cfc27acb5650a59b2214628c245695dff39fa6e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/Makefile",
+    "sha256": "967f6024890f1316b5e8135feb0d560843760fe50fe8fe606973c5d895a95a32"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/README.md",
+    "sha256": "8d6a9b39442ee5cba58d8ee8090ec96f4c8326311888a27a6ab6af93cf4a6e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/UPSTREAM-README.md",
+    "sha256": "d7b5c27d932198030149f3c92f42f6a16900747a0f016ddccce625eef810cfb6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-SysDD.tex",
+    "sha256": "43f9cb5a72dba74ade8b0979cc8155b5e021e18f2f47954854bdd0cf50dd5606"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-localCloudManagement-HTTPS-IDD.tex",
+    "sha256": "a695ac6ba2670a9a51ad209e84da830293843ccfb0b94119e42c11f2b4414bf1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-monitor-HTTPS-IDD.tex",
+    "sha256": "8a16bc532e973a81dc2d2def0a6ffaca5f5ce40f5ebf121237e23bd5b8827a0d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Go-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "43337d537cc0522935fd4337164f05439b54717f4c65dd53fbe3b33015eb1640"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-LocalCloudManager-go/go.mod",
+    "sha256": "13de6eb55c6bae7ce064b09fdb7ecee1bddc42a36e1b742068d71abd0cb00a1d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Onboarding-go/DEPLOYMENT.md",
+    "sha256": "bf660fda64a73d8d4d7298d4a6addc0fc3abca084752b5fd27f4b0195c4a729e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Onboarding-go/Makefile",
+    "sha256": "8d91d0c1044ca0b3d3aee9a9eb5b71da8b7a0d69e2ad8b3942c089b1e99814c6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Onboarding-go/README.md",
+    "sha256": "2f80b939445afed97264a3f4a23ec3a3639e4ae4651963d29d906b0db47f9d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Onboarding-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Onboarding-go/documentation/Onboarding/Onboarding-HTTPS-IDD.tex",
+    "sha256": "b0d46e2996fee6900ab729df7fa1e963871f7966b00de882e204438a07fe3c71"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Onboarding-go/documentation/Onboarding/Onboarding-SysDD.tex",
+    "sha256": "d0b07a058d8aad40444e9846559484874641bef02f717b77ebfdba8ba75f9d0e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Onboarding-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Onboarding-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-Onboarding-go/go.mod",
+    "sha256": "a1c161c3cddbf2bbebc8f06d98d243113d5115e2e25688c6f1ded81ffc433580"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/DEPLOYMENT.md",
+    "sha256": "abff931608ab98fa3f7b50a2bfa74ce7c436ba245e0a35e1ec779c87c923ff4d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/Makefile",
+    "sha256": "3c007e82f3c24139fb9156aaa9c5e7f48887187933ed8f15ce563cdc2d1de767"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/README.md",
+    "sha256": "b84fe94d71f4b3b15ac378888f416b8415c5844f37a5a1ddf86ff05ca43a622b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/documentation/PlantDescriptionEngine/PlantDescriptionEngine-HTTPS-IDD.tex",
+    "sha256": "f818393e184865119095c1bdcb730c47676d8ad205a653779e4df206ba0b1634"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/documentation/PlantDescriptionEngine/PlantDescriptionEngine-SysDD.tex",
+    "sha256": "2db6e6bc0377219d244178ebb366d0c90bead9d0176114d8b6b448258ea14225"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-PlantDescriptionEngine-go/go.mod",
+    "sha256": "94000ce067e0e4b4946d9893a2dc8c68c2767f4f32227db562117eb40d83ac25"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-SysMonitor-go/DEPLOYMENT.md",
+    "sha256": "0e96c8837d0e249bb45af088d9a41123febe273ad8f9e49c2c0862db8c694ce9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-SysMonitor-go/Makefile",
+    "sha256": "67863130f4fb055495686ea9f044f6d61a3697f52b9ad66eb8800feea2f869c2"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-SysMonitor-go/README.md",
+    "sha256": "f7f1357014ac7ec9d6be566ca9f5f9f95efee7a2945dfcc70c9c76ccc1482e51"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-SysMonitor-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-SysMonitor-go/documentation/SysMonitor/SysMonitor-HTTPS-IDD.tex",
+    "sha256": "922a6d4d6485dcba8f3cf9a4c1ae8f0211e02e4938c46307cad97b375d90e865"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-SysMonitor-go/documentation/SysMonitor/SysMonitor-SysDD.tex",
+    "sha256": "bc74af0f1be5bcec588c16b03995010b86e44d67c46c58189f0dd16fea9a410f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-SysMonitor-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-SysMonitor-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-SysMonitor-go/go.mod",
+    "sha256": "f02613e7b00c2c655bbbcc2783b35e8240d7865de3a64746106ae941ca06b7cf"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TimeManager-go/DEPLOYMENT.md",
+    "sha256": "8108d666c2bc66802d31a2faa87a4dbf35425cbf23f7655cdceccd05003098fe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TimeManager-go/Makefile",
+    "sha256": "9b1eecd80aca5b2292190c48e4aaf568c97835fa9b932effef63b78485a3d8e4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TimeManager-go/README.md",
+    "sha256": "008086b8e1936f088b6197fb9d4a631ce99addf2944b2dbf9c372a8dca4f91e7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TimeManager-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TimeManager-go/documentation/TimeManager/TimeManager-HTTPS-IDD.tex",
+    "sha256": "1183c22c33291c89161c77f7ccdad115f4868f47dcc869a2d9ba5dab71f95aee"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TimeManager-go/documentation/TimeManager/TimeManager-SysDD.tex",
+    "sha256": "bd84bc1c9edae742e2f8cd585a1ddfaa7df5ca3788cea2ba6c44f8c1b90bfa31"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TimeManager-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TimeManager-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TimeManager-go/go.mod",
+    "sha256": "dd1e520c93ee4401e85bdea567648ba3801f48cd019c920861a7ef44cfb34e8d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TranslationManager-go/DEPLOYMENT.md",
+    "sha256": "00a8bd09a955e4143c4ad2f9bf7dd0bbc3164b572b9260fe574bffe87ccb64d0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TranslationManager-go/Makefile",
+    "sha256": "e84b2367c2c90affcc6c40bab29b9dfb21b0646d57f4d8f2a60a9f11aa4e2f9a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TranslationManager-go/README.md",
+    "sha256": "b7b4b80fc90573889a2934338e9858ba00b41e4d69bb89ccf582d401e9a52e49"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TranslationManager-go/UPSTREAM-README.md",
+    "sha256": "54b888b211c3306b3aca6bf93671695d927b3fcce7cbeb565d431a6a67504bfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TranslationManager-go/documentation/TranslationManager/TranslationManager-HTTPS-IDD.tex",
+    "sha256": "2a12191864bf302c74921b5735243cc8458eec9920774b9633174d472b0ca2ac"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TranslationManager-go/documentation/TranslationManager/TranslationManager-SysDD.tex",
+    "sha256": "5dffd843b3d9d855ff64bc4bba6b6c3d9b57507d9c56cbe02c0e7f9016e364de"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TranslationManager-go/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TranslationManager-go/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-TranslationManager-go/go.mod",
+    "sha256": "d8b8ce4d6dae2de6b568ca53dcda1cdfa895964118a075097041c4e206e98187"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/DEPLOYMENT.md",
+    "sha256": "1b465ae4f05ee543cd7ef59ac01be7b9cddde0bdd7e2b41eb7a5cf7edb169a55"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/Makefile",
+    "sha256": "15e286d735fd7627ad4f811867b2b766299d297cfbddb24d8d6dbdc662e2ff99"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/README.md",
+    "sha256": "6292fe242d9b0b0addc6a0f5cf84649669be9fb1732a920f12bd5e85cdb6d5b2"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/UPSTREAM-README.md",
+    "sha256": "914801efc28f2ae8ba2d561c4954247b44427de801635b5d98de17ccaf84a4cd"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/contracts.json",
+    "sha256": "c8693acd651b0667243155015aca93952e45b5815330c11a06722bc6bf2836c7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/documentation/COMPATIBILITY.md",
+    "sha256": "763b3549f189855b3300373efcc5c71cfe3e898da58ad377fd448f50b15531a9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/documentation/OPERATIONS.md",
+    "sha256": "d3f2bf7ed28e832b25b2b51eb4323aeb4fce4a664646464243f0a48db01d7860"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/documentation/PDE-DSO.md",
+    "sha256": "c45d065d60aaa59dfe58b87d8ca5679b50ee5e95bce67311f4bc930f24ae829a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/documentation/SECURITY.md",
+    "sha256": "4ea79ac4b95443397d620a334d35477e38e248bde978136e368b478d1bb5ca10"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/documentation/SOURCE-MAP.md",
+    "sha256": "5e276351730c9f3da8256078baaec461878903e70734c9fe406a9ef144887916"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/documentation/VERIFICATION.md",
+    "sha256": "a617aadc4df4e107675207fcca69a0c3c52783905927cb65093577536fc24710"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/authentication/go.mod",
+    "sha256": "4b8a5e80c547d74b81f2738a5777be78b0172f55f3571b662eee4bc59ae043e2"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/DEPLOYMENT.md",
+    "sha256": "6395cc03ee2060533c10284f34520a02dca732f9e4b5b1fbb795b6a03a7012a5"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/Makefile",
+    "sha256": "3708bc47e7b13b6fe2ea450963402400b9a328015f01c3428b83466550eb9ae3"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/README.md",
+    "sha256": "ad18a16b372af5b89fb9c8c89810366ceb49f64d876e75eb03c0a56652947f6c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/UPSTREAM-README.md",
+    "sha256": "914801efc28f2ae8ba2d561c4954247b44427de801635b5d98de17ccaf84a4cd"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/contracts.json",
+    "sha256": "c8693acd651b0667243155015aca93952e45b5815330c11a06722bc6bf2836c7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/documentation/COMPATIBILITY.md",
+    "sha256": "763b3549f189855b3300373efcc5c71cfe3e898da58ad377fd448f50b15531a9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/documentation/OPERATIONS.md",
+    "sha256": "d3f2bf7ed28e832b25b2b51eb4323aeb4fce4a664646464243f0a48db01d7860"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/documentation/PDE-DSO.md",
+    "sha256": "c45d065d60aaa59dfe58b87d8ca5679b50ee5e95bce67311f4bc930f24ae829a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/documentation/SECURITY.md",
+    "sha256": "4ea79ac4b95443397d620a334d35477e38e248bde978136e368b478d1bb5ca10"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/documentation/SOURCE-MAP.md",
+    "sha256": "5e276351730c9f3da8256078baaec461878903e70734c9fe406a9ef144887916"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/documentation/VERIFICATION.md",
+    "sha256": "a617aadc4df4e107675207fcca69a0c3c52783905927cb65093577536fc24710"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/go.mod",
+    "sha256": "b85cfd1a94a5f8d1a2ab388ba6756fcc1bcfcebdd78129db535100793e88cd28"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/DEPLOYMENT.md",
+    "sha256": "a729c76806d25fd4b0920d00bd33b90f855ccfb13b7252a3b14d5b7c35e42af0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/Makefile",
+    "sha256": "98428780f2d66771855c4a57bb3d0b42a3417f81c8d210fcaeaab073a7b210df"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/README.md",
+    "sha256": "f9e0b2c6ecaa6a1f3c266ac306b5e80f09811d72efd77bc773f6ec8a210f83dc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/UPSTREAM-README.md",
+    "sha256": "914801efc28f2ae8ba2d561c4954247b44427de801635b5d98de17ccaf84a4cd"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/contracts.json",
+    "sha256": "c8693acd651b0667243155015aca93952e45b5815330c11a06722bc6bf2836c7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/COMPATIBILITY.md",
+    "sha256": "763b3549f189855b3300373efcc5c71cfe3e898da58ad377fd448f50b15531a9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/OPERATIONS.md",
+    "sha256": "d3f2bf7ed28e832b25b2b51eb4323aeb4fce4a664646464243f0a48db01d7860"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/PDE-DSO.md",
+    "sha256": "c45d065d60aaa59dfe58b87d8ca5679b50ee5e95bce67311f4bc930f24ae829a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/SECURITY.md",
+    "sha256": "4ea79ac4b95443397d620a334d35477e38e248bde978136e368b478d1bb5ca10"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/SOURCE-MAP.md",
+    "sha256": "5e276351730c9f3da8256078baaec461878903e70734c9fe406a9ef144887916"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/VERIFICATION.md",
+    "sha256": "a617aadc4df4e107675207fcca69a0c3c52783905927cb65093577536fc24710"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/service-design/DynamicServiceOrchestration-PlantManagement-HTTPS-IDD.tex",
+    "sha256": "16816727ab35b108d2ac69fb24052f6630c7283741ad458d995e335137977d6a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/service-design/DynamicServiceOrchestration-SysDD.tex",
+    "sha256": "b9e76903dd4f11284141f0f43252086400bdb316587169132fa2b1d736e8a29e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/service-design/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/documentation/service-design/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-dynamic/go.mod",
+    "sha256": "1fb4c5fd11553b0917459b2004258546bc02242de0584c09163317aaa407be84"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/DEPLOYMENT.md",
+    "sha256": "3e430f9f84dbdd37aecc730b1b96f10dd3c1ddd10f8cd87996f157c5ae1f0288"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/Makefile",
+    "sha256": "78b6dc20250dc4c7a794591e77e01258791522c0f5fbc305ebf4fb7b1eb955df"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/README.md",
+    "sha256": "40cee44368209c86c404002c426f9365783e0ba894cbdd287f18bd3b9d47fc89"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/UPSTREAM-README.md",
+    "sha256": "914801efc28f2ae8ba2d561c4954247b44427de801635b5d98de17ccaf84a4cd"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/contracts.json",
+    "sha256": "c8693acd651b0667243155015aca93952e45b5815330c11a06722bc6bf2836c7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/documentation/COMPATIBILITY.md",
+    "sha256": "763b3549f189855b3300373efcc5c71cfe3e898da58ad377fd448f50b15531a9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/documentation/OPERATIONS.md",
+    "sha256": "d3f2bf7ed28e832b25b2b51eb4323aeb4fce4a664646464243f0a48db01d7860"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/documentation/PDE-DSO.md",
+    "sha256": "c45d065d60aaa59dfe58b87d8ca5679b50ee5e95bce67311f4bc930f24ae829a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/documentation/SECURITY.md",
+    "sha256": "4ea79ac4b95443397d620a334d35477e38e248bde978136e368b478d1bb5ca10"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/documentation/SOURCE-MAP.md",
+    "sha256": "5e276351730c9f3da8256078baaec461878903e70734c9fe406a9ef144887916"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/documentation/VERIFICATION.md",
+    "sha256": "a617aadc4df4e107675207fcca69a0c3c52783905927cb65093577536fc24710"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/go.mod",
+    "sha256": "56cd58db8a5db393d884f3bfca2ee245e776943bba81489725a0fb844f9f6f50"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/DEPLOYMENT.md",
+    "sha256": "635343de6e495b79b9ae8e0d59b4e6480886f38024e2afcf9ebd142cb89dfefa"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/Makefile",
+    "sha256": "3d20434062752978bce49223b9c496e30a52834d8f5d0102395c6c5ea2dab1b7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/README.md",
+    "sha256": "9af1d4d01ea36f01588e5a4cdc84221166223ad85792a891aaafdd88c0279625"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/UPSTREAM-README.md",
+    "sha256": "414d2f693a567d8ca4cd92a68990fd44521796ae2ce73c8027cc7cc0d9131510"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/auth.go",
+    "sha256": "9086f4dbba5852ec27f06e73850e9f5dbee1a9d0c895ae8cde34f0a1d03ebb2a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/config.go",
+    "sha256": "73fd38b040fd57c0aaf2243ab1ccb0d06bb20a01941c7fed0db3c18442793de1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/go.mod",
+    "sha256": "b34c09dd8de0e98eff67ab8f690bee7242b7b54017f74f4f4c0bd93cbe9fc55b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/handlers.go",
+    "sha256": "4b66451500f5b5a5a2bc1036e816a66916a35603c5e451a297fdf4cebd372b69"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/model.go",
+    "sha256": "49163903b3b61ebf04c31288f6bf1e5d5aaa95a24b4aabc5d1c4af025ca9b44f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/sysmonitor.go",
+    "sha256": "02615f51d72c9b9965f3c52c289d5357c4138a6f6492dd8599b3cf5c31c2a6b2"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/documentation/core/COMPATIBILITY.md",
+    "sha256": "763b3549f189855b3300373efcc5c71cfe3e898da58ad377fd448f50b15531a9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-go/documentation/support/COMPATIBILITY.md",
+    "sha256": "9dfd8f5040ba04b0732bd0b12f13f08a739cb088f17b50b01414f417c5f122da"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/LISTENING-PORTS.md",
+    "sha256": "b6952ab3a4c90c172b0e8ab8d0af374a83e464faee98addc81f79ddef02f4d94"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/DEPLOYMENT.md",
+    "sha256": "1c34216923f220071e5f024b4d3038f5f59106a3df460a831cfb2c533bd3f574"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/README.md",
+    "sha256": "141335142e0924657a1fc44ea8610a030b2223a585d9b3d3c7aeeaed1d286e24"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-SysDD.tex",
+    "sha256": "84634d34b66423ebd595561e82dd06f97f99641cc071e20e716be1898c8811ba"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-aiGym-HTTP-IDD.tex",
+    "sha256": "6e52eef663dfd3948e3946ec299498312a6d72e71f50472b94be053c7228e147"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "b1194624f6bfea13d68816cdc0dc15c6fa03b310da2eb9163afd74d63bf2f8bd"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-AIGym-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/DEPLOYMENT.md",
+    "sha256": "7c9c8bdb4da30efbe7b10011d1b98816c71494e8324e97c6156c55e517cceb1e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/README.md",
+    "sha256": "afe3e2c2341bc2c1c341ab3f9e806dcbacefa61080166ba3c0dc0dc95320b988"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-SysDD.tex",
+    "sha256": "1b504ed8267226326c9649ff460922d20fea979770ef9c81915843929dfb8735"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-HTTP-IDD.tex",
+    "sha256": "77e9a4bb912649779a95cb260cec686ea31507e870e2c095f9616d2b81c63b58"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistDiscovery-MQTT-IDD.tex",
+    "sha256": "deca58406feabdca96364b14f04c7d702f9c3cc3aa8d949e8850e3f1e284d10d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-HTTP-IDD.tex",
+    "sha256": "ca8942e6c08f29c3bc507fe7a942c68db322f2dfe2d31b733756a747da2ae1e4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-blacklistManagement-MQTT-IDD.tex",
+    "sha256": "ac09dfc175cb60f655af50158d7fc31f5c0726099563300af087cb2e578a3f2b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "6d22fb4d24fa4640a82b9d10983b9156f38c8a07798b31791d58283b990a038e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-generalManagement-MQTT-IDD.tex",
+    "sha256": "3805a605f8bed7e7e646976e2ff906309e395cbd602e6396d61d8229d02682b2"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "b91ef4563eedbd88d04729a9e9814f853e3279f43a7ff9c5740c11e760ff3098"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Blacklist-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/DEPLOYMENT.md",
+    "sha256": "ff4aca19a5e8242700cfc91bde46aa040238ecb9acd052c3580a304fbad8f86a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/README.md",
+    "sha256": "eb3c82ea33672eb0b02eff9becf4e8172358e973976e60d60a562bfebea787db"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysDD.tex",
+    "sha256": "6a7eac3ec192f42bb1964d3ae6cb8e1e7c7aee3d6b6c40996b3ffd56c212571d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateAuthorityManagement-HTTP-IDD.tex",
+    "sha256": "32224205a3113315e35e874660defb17984621143d21b0e2a4dccfcb7bdbe53d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateSigning-HTTP-IDD.tex",
+    "sha256": "690a273e65c75b9f30d6ffb420e32680bfcfe83a0a540f030855828d82be6408"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-certificateValidation-HTTP-IDD.tex",
+    "sha256": "94f6789ae17533da1eb8e121a3b1f7f780196cf2c2454e11d8d17037292e6588"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "23ebb00b1bdef7ae3abdd183b3d59118a86cafc4501eefde72b88c536e1fc741"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "408a65ca0b5ef8036d6452e73dd3a94aacafa3dee54a0bc9194e4d67760c2853"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-CertificateAuthority-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/DEPLOYMENT.md",
+    "sha256": "c743e53b112e62da8dd9936c49834997c76bb1911266645d5900fa42021850ae"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/README.md",
+    "sha256": "15a90a64ffb1b1b2011c60a841be4dc3effa047179b6a81f030179fbabab6916"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-SysDD.tex",
+    "sha256": "30dc985515127bc17c55a2b0d50adefb610270e2eb9c0534335b704a588297ba"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerExecutor-HTTP-IDD.tex",
+    "sha256": "9d7a0ea0f61569a1dc174cf7576518e5c9ad899c08162f317da89a4499e365bd"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerManagement-HTTP-IDD.tex",
+    "sha256": "92550825094c2bc2dcc26d98a2a363c2a49a6bc99a4e96487aa1fc22fa3dc15f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-choreographerSession-HTTP-IDD.tex",
+    "sha256": "21b51de00ba74d3815bd26870e6cd4030881fd5675fb07f58331336a0e65be85"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "cc3f8ef4afbd9d735e33ab996171c87ad5433eb4dedd5be1e733a7d8420dd8b5"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "0852512ce9f2b00f83193cddc5d4f754bb25717d44219227e0cfcf7c689395e7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Choreographer-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/DEPLOYMENT.md",
+    "sha256": "a7d95b52cf6b84292a27fa3664095eaeac3a8ace265519fa6a7606550bd10757"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/README.md",
+    "sha256": "21c5fc0001fa3eaa9ca9954d3b497c0c48e87e02f0b49241afd4a93cfc00e44d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-SysDD.tex",
+    "sha256": "40fe359fbfad2da9e1270ddc1df70fb763b2b5273cd0a28f9a59ef53b1df257b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configuration-HTTP-IDD.tex",
+    "sha256": "df7098f6554e67338951bd2e1bad332a5cb65aa6272f06ce4b4c238e3fc997bc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationManagement-HTTP-IDD.tex",
+    "sha256": "4b294cc3c8c1f7a642eb347c9914a7c079dcf009e630a0be1cf3295a9fa3cee0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-configurationProxy-HTTP-IDD.tex",
+    "sha256": "2fd22410f50b245d76cca0beede4fc7db3087902b4d97709cc797830f79b839e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "a70da8ccea953d70e894d0ccb805902f2eaaaac704536302eb303af08d3aa80d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "5af2d01fcc3ace33ef964a1d91ff20b7e62a4ba37c15528483138e2fca75b714"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Configuration-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/DEPLOYMENT.md",
+    "sha256": "f030bec46beb3bf4b7b2c0cf671d26324f8aa7cf83ca23de87436b86b62beb60"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/README.md",
+    "sha256": "bb9be535f1ca884f4a1eb651533a38fe8bc3ba1b4c0037b6b5226fa268ce3d61"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-SysDD.tex",
+    "sha256": "6a051e62040c17a9cfd45cef2405e5e1c48e6d786f5fdda1465a0276d5580807"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataHistorian-HTTP-IDD.tex",
+    "sha256": "8743d0039264d222f9f94a5d51a0805f69caa8abb0634314f27ce54b7a0e8a62"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-dataProxy-HTTP-IDD.tex",
+    "sha256": "1dca16601130c14d71a30117eb8d6512803d6847fec8d33b399a8bb95facf54a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "bc2aa30e1d568f700d046df3270f2cee54889b3f7412b135fbc56423109a2f8d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DataManager-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/DEPLOYMENT.md",
+    "sha256": "956898e1baad1160d1f214c1f9c16ee32d53dc594389e29298b779eac5a82465"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/README.md",
+    "sha256": "37bf1b685aeb7ec88151265829c837655ac20805bb60e7b2ba8f38e513be29ce"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-SysDD.tex",
+    "sha256": "d18575e3545ff6831e1dbefc1d4602238dcef514ce0eba6e59af860189f7d90e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-HTTP-IDD.tex",
+    "sha256": "af9efbcf7190c1bdf5a4a325048e2c040d82bf5e5b6fb9047de4145a7c3eff4d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-deviceQualityDataManagement-MQTT-IDD.tex",
+    "sha256": "aa0b1100ed70298f037bfd70a1f910f278be97d14145fbe34edbc27d916bf2fc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "027b68a1284cb9a39b27b5cde2714df19016968defa940ccb8694e4be42f8bde"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-generalManagement-MQTT-IDD.tex",
+    "sha256": "32b893637059be482dcdd9b7d08d2183ba500c15708c8a2fc7740df393611128"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-HTTP-IDD.tex",
+    "sha256": "86895562e3b62b44e63ab5120d256039c288d214969cd634bddaf2e7648c6b15"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-qualityEvaluation-MQTT-IDD.tex",
+    "sha256": "59800d26d67a348bb4e8bac2b6213d0528deb8dbc5b5bbdff49fde73c6911776"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "17e74873d500a3ce989c1abe7ba427133e24849d07ff42e2088f9f4b83ed0317"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/DEPLOYMENT.md",
+    "sha256": "f57b6f565c3bf9a1a38b10de6aa38105d70ac53efce2079db5e2820078c8bf8c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/README.md",
+    "sha256": "d9263a177fa383f5c5374121cdab83524752c680874a11180cbed143564c32c5"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-SysDD.tex",
+    "sha256": "16b000888a358079385e8b2830f52dd1f30fcd95cf794e9d6ee503c38fa523b9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventHandlerManagement-HTTP-IDD.tex",
+    "sha256": "f39a4c9bed5f829757eda3a2a4d7a52486c09eb663fd4a23e614b124eced304e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventPublish-HTTP-IDD.tex",
+    "sha256": "1a9b6e9c68a10062a9157615fbd443b075c7f1fc687cc4b410ca21371e6c5f8d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-eventSubscription-HTTP-IDD.tex",
+    "sha256": "d10f1dd74e4209d459038b1efdf00227579b1440667ebb2f21b713e2081ad6cb"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "ee24c2c3c28a38c312092a0c9fa15b43512af78de8062779a3df14cf7ad1ad58"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "de78948f71d511a989c375cf2048792fb1bbf9089e0aa86b2912eb5c2fd54dfe"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-EventHandler-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/DEPLOYMENT.md",
+    "sha256": "db8d1a2fc4bef13d9fbc5f4b47d34e789b3f40f101bf22b691e0819373136ce7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/Makefile",
+    "sha256": "825807ec834b91876dcb0fbfe59167180d3e30ee015383cb5a3e796085ba0810"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/README.md",
+    "sha256": "630c6e24a18b3cdaa334d6e90e981742be59efb4365a30dd9372dd8499914fb4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysDD.tex",
+    "sha256": "0c118aa7bf05acf3f4c1aa0a82e29b5543b76599ebde6cbdf3171177149431b1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelConnection-HTTP-IDD.tex",
+    "sha256": "66ba0e52d3af4c4c08e06a1bc84ec01430c07d97fabba1fb2db360d8cb02f1ed"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelKey-HTTP-IDD.tex",
+    "sha256": "be38f81b3575cf9d13abaf8e48ef5b422a29dd1a8cdd7ad2d34ca6bd0e95674a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-gateTunnelManagement-HTTP-IDD.tex",
+    "sha256": "69afd50fa89be452ec44b9d6f68826dadb26d75cc750bf48918274d6ae00363f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "38858cd8a44f9879faa93c27232c4f5c6305038d8d3586b15e181f565997a4f0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "408a65ca0b5ef8036d6452e73dd3a94aacafa3dee54a0bc9194e4d67760c2853"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GateTunnel-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/DEPLOYMENT.md",
+    "sha256": "af3ac72790642c465ed2f6aa3f8cd363eadc185068721122bf994e915fc2cce7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/Makefile",
+    "sha256": "552f71692a9d55ad6451a899eff1f506b45a2064a2d0d46a4143ef8cb99284df"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/README.md",
+    "sha256": "234373fffde67298a3b678de0cbacd590c88965e0897c04e0bbb6c9465a18221"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysDD.tex",
+    "sha256": "e64d52dbabd5b7c74d6a9bc988f72fac4584b681f336a9f7296a80194b3072b6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-gatekeeperManagement-HTTP-IDD.tex",
+    "sha256": "d72bc9e4d4cfaefe33fa2c743d49a65f77fbfbd713a5949643175e7f3695dd5b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-globalServiceDiscovery-HTTP-IDD.tex",
+    "sha256": "73a201da8d2e8535ed9fce1a8e3bc6b58385608f1ab841c1a89c1adb6a023604"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-interCloudNegotiation-HTTP-IDD.tex",
+    "sha256": "0618395df2295dce184cacc381cf276948500a37af564d03ab3b35f7535a65a6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "ac19c59f5d60ede483ca8f2f678c76ba37d96d5f704781981d81f9cd1c8b7a31"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "408a65ca0b5ef8036d6452e73dd3a94aacafa3dee54a0bc9194e4d67760c2853"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Gatekeeper-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/Makefile",
+    "sha256": "b518a42530e9024aa4e8d84bf8262c974d67c3baf69f8dc699c9b902819f0b36"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/README.md",
+    "sha256": "71b4cbd720a590d3c80bcd877b1075b07f76406cc938589f5f902307bc5e2856"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-SysDD.tex",
+    "sha256": "f10da7ebd612430ad902a592071450189898a6e2040932bab7507937526a6732"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-graphDataHistorian-HTTP-IDD.tex",
+    "sha256": "e1da0a55f9e9127bb18f9bf5c927ae9cf83635b831c0d73d41e95a7aee444d9d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-graphDataProxy-HTTP-IDD.tex",
+    "sha256": "4bc24ce79300fb3c3b8a00eaa7c12245536729570f587393c7cca17993e2e203"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/GraphDBManager-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "6f220c00ce9308784b436000e78a181d720bf61976e234ce634b3037384660f1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "f06645292f600b30cb6c3b8b1398d4affa5fa53f5954eb578ab0cc2e5fe3e598"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-GraphDBManager-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/DEPLOYMENT.md",
+    "sha256": "dafd3c7fcd0d4acde270885807a9eff03a2b7c257995ac21e4d76a6f4919da6e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/Makefile",
+    "sha256": "be980045cf462d275a4a3eb59f7321681ee875a6f790f18fd29ddecb15da4951"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/README.md",
+    "sha256": "de4d2e547fe7e90d4fd80db828afb93925626b741be1f4def5afd10924d22ca1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/LocalCloudConfigurator-v5.2.2-SysDD.tex",
+    "sha256": "503986a2621efa56e0e5d1822eb011831016178e58dde7051c40ec7f8f723e58"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/LocalCloudConfigurator-v5.2.2-localCloudConfiguration-HTTP-IDD.tex",
+    "sha256": "3a2964eb86a34b9940e238c22bab8db604b5f918220efe1f05d99401755aa357"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/LocalCloudConfigurator-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "205a24a2d418fd9558c419614428141164f5e82133f06d4eb542b0836bfed79f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/bibliography.bib",
+    "sha256": "94dfa81bee2f18973e955c48ada7bdf0f6d24f2a3f0a470e50e69959da95605c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/DEPLOYMENT.md",
+    "sha256": "198bbb57040b00fa0d9030d7dcbd4223f454d66f0b60f363919f597ba914f0a4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/Makefile",
+    "sha256": "2004f36b0326d2755e18cc21748486cf0b619646e25a2ce3f68cf0432308bab7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/README.md",
+    "sha256": "222aa17c97ae0ad1251b531529ee3470e34f7b9e06d2744f2476e9673251c708"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-SysDD.tex",
+    "sha256": "e835300ba063b360679a21d886bd5bb7ce9cdd6d74cd3d48f7c2a6ad89bda8d7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-localCloudManagement-HTTP-IDD.tex",
+    "sha256": "6a7ef23400bba1fc396e609808654c88918d457a6fc737ca268adf375f559a65"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/LocalCloudManager-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "ffea0e9e162475ecb0115c331ecfc25e22dbf58b11db2002bfbcc008b7a73ec4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "94dfa81bee2f18973e955c48ada7bdf0f6d24f2a3f0a470e50e69959da95605c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-LocalCloudManager-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/DEPLOYMENT.md",
+    "sha256": "247d0b86deeca2eca2e99894f3517021bcfffef9f39e16c32dc55cfaa1ee21c5"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/README.md",
+    "sha256": "57467f24f651869a20fb5d217d178f15779640308ec574da04791d31d90b24b0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-SysDD.tex",
+    "sha256": "1e2152bf6f498ceee00a5e3e02d653286843f43a6d027b6e6b959d2b4099913c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "ab57ab9b2d5c9ea0e83d7a5db5ce1afc2e72fc1f146bf043d96e22374299894c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboarding-HTTP-IDD.tex",
+    "sha256": "e45495177189d652514dd6d7e48ebff9a8aab6cf0be2ef25693a92e48f816bb8"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-onboardingManagement-HTTP-IDD.tex",
+    "sha256": "7709035b4b5368d4540ab212a81b83ceff559c70ab572b01c93932fa2872be96"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "4e686b2b212750ee87372f93f6d7cb211690b6aa08718cd7369147abfad78f89"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-Onboarding-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/DEPLOYMENT.md",
+    "sha256": "e36be44eac98c47a3510a0bff294f98dc791e69d8b80e7f1d34795544915f812"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/README.md",
+    "sha256": "75e2ab7fc4bfb0aa2e39c89a1bd0679b5ece74f5ac32f587596e8ebfd860144d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-SysDD.tex",
+    "sha256": "5da91b7255b2921965c987c2ce8fbca26cff8f57809315ae497ded46b71cc121"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "6ab5fc09399ac92eb9b45e608f4de52eaf4f77c001b4fcc8cc7a5a00dc62eff7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionManagement-HTTP-IDD.tex",
+    "sha256": "5f7e19830ab8ff2ca65ecd462286ea2cc17669af57c54d26239682628674d45b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-plantDescriptionMonitor-HTTP-IDD.tex",
+    "sha256": "6c25d70931c5a12349f631cc926fe879a3d597290ed6b531c79a61dec34e7035"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "6be5891be29b57f3e9ac8af782fe36add0b08bd291a9106be26fcb75076fd340"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/DEPLOYMENT.md",
+    "sha256": "03717d30793d59ff316c1d6393907b06ad7be2de6be1faf827dd0805352f9674"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/Makefile",
+    "sha256": "b68c69d296b0e0f8458399a87716cbb6fe501a3f968b01372773fe4728cbba74"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/README.md",
+    "sha256": "38a179b1f92b86892f5954d4110706237b1e4e5cf8187acf28ff4861d018e063"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/Json.java",
+    "sha256": "6fdc43d2e41f79a30326543d3637434f13ba08c0d6e135d7569247d58991e2e1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/SoSConfiguratorConstants.java",
+    "sha256": "b69cde1a47a43591aeb19890df39dda2baf0a9630b011c3adf8715fcd27eccff"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/SoSConfiguratorDefaults.java",
+    "sha256": "d84f8c6b6651978a2cb9a4fc72acd62e8bbad9cbe1ccf2b7becc1e8dbde9dfc7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/SoSConfiguratorMain.java",
+    "sha256": "7c9c0c7ad769ee2507f32ed82bc88defdccb46f2db270790d01cd34783bc104f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/SoSConfiguratorSystemInfo.java",
+    "sha256": "9d09451224e1e07676f3fa184ac8ae33ff8ac324abb93d49b3957590729ad8ea"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/api/http/GeneralManagementAPI.java",
+    "sha256": "93dcbb1628cc684cd74c02b5104401ffadfbe2359e08b969ee33161a719050cd"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/api/http/SosConfigurationAPI.java",
+    "sha256": "c4b5af51368a19fe232e7e7fc9915e1d69128e1cfd581bdd5390ab1ec8196cf0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/catalog/Catalog.java",
+    "sha256": "3d1cd148204dfd201ed0982516f730ea7c21ef677919043e44fbd7da8154c2c1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/cli/SosCli.java",
+    "sha256": "bbcf8b37a276fe061fe26d27de8cc0869c289cb81c821dc87cf18c9cb4899a1a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/colony/ColonyClient.java",
+    "sha256": "0c8809e4ab50c057deca6fa93de1411116885b6e39478aaa9954b91190fd64fc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/colony/ColonyCrypto.java",
+    "sha256": "73943264921f0032f8bfc57397a2c5e4a4e675c2c8235e924c32fc49256c693c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/colony/SosColony.java",
+    "sha256": "65ff1cef57ba81c1ba4d3da6a9c1fd74a4169bcb89263ec7c00dc42114001e00"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/console/ConsoleAuth.java",
+    "sha256": "2e56b0bd5ed846d19bd0e7c1fc8a9bfdc2f8a51d9a978c1be16a9ebe3c0816a2"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/console/ConsoleConnectorConfig.java",
+    "sha256": "03fe4344eba8a9a20b7f84ca0133ed36e7880e7de088ab64f8fa1c5bf3237a96"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/console/ConsoleController.java",
+    "sha256": "67f8afcd4c7cc78ff271598dee3f2ac4b626042d2122dfe3e3f2f30a88d032c1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/console/ConsoleFilter.java",
+    "sha256": "cadd711c076e442088894767f39aaa54d95495f6874820231005694165679126"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/console/ConsolePasswordHash.java",
+    "sha256": "1068d59919be547649af1ffe37d295591697f30ea35777636c0b830259f88adc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/executor/ExecutorApplication.java",
+    "sha256": "5b43820ece694c547496355e1fb34943ee7f8a3d6695e52bf4818e71b6e8f012"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/init/SoSConfiguratorApplicationInitListener.java",
+    "sha256": "7e557f688b48f062b76671ba0d0201a26242781dd915de4ad6790f955a74f579"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/jpa/entity/Logs.java",
+    "sha256": "5a7916561d4a81ec9ad4f366d9f3cd027c0a06b847fbe844b731fe936bd559ae"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/jpa/entity/SosDeployment.java",
+    "sha256": "0ccdf6bf4dbca39e841a3bd2dac268a6a2a2791a39dd5164352ef9760b133a5c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/jpa/repository/LogsRepository.java",
+    "sha256": "8d6ef68aac30eec04c84db1176675603e3aa2359a649db4ce54039ab1e946799"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/jpa/repository/SosDeploymentRepository.java",
+    "sha256": "5aaa6bb4a80690a35b00ba02202074a6ff28769642bc4695db4da0739e40339f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/planner/Planner.java",
+    "sha256": "601d1396595eb1c79ef0b037ca6436983105253e60816c3a14558e26bfd5606e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/policy/PolicyEngine.java",
+    "sha256": "fd90e3844e5693a5f7ef89c8eb532cc60a76f1d101a12f961f4a749ea425dafc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/policy/SosRequest.java",
+    "sha256": "9d0ff916df459bb91c40e0cf95a9e9bf24655140bd14541f7642dbe048cf57f7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/runner/StepRunner.java",
+    "sha256": "a8b370e28e88e7df611fb4da70b6439d031ca8a6ec255cc6f3648a7ce5d84cfc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/security/SosAccessFilter.java",
+    "sha256": "eb7fee70343c15392b754bbfab890e306131902a4e042b27a0b3ce8a3b85487a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/security/SosAuthorizationService.java",
+    "sha256": "6f80a5f48d922922fa8e314577f9e23f9391aab4009007a5d98103c72f6fb522"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/security/SosSecurityConfig.java",
+    "sha256": "9580750bbf06b499e2e9ad88e65cb2936b20201a7f08ab93834533bc59f3bf89"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/service/CatalogConfig.java",
+    "sha256": "caceccc84a913c4dc0468c66032bb2a376168d30220663dadbabb6c74d023e20"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/service/ColonySosBackend.java",
+    "sha256": "abfe0f5ac7b9862c503fe525c2e37282aa446d6999f5911e4c2e31bdcf0c1d04"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/service/SosBackend.java",
+    "sha256": "d4995ff0c0ebc0fb40f0f371b61f5e15a691749078eed53b076bbcd44fb70217"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/service/SosConfigurationService.java",
+    "sha256": "d8fed583fb8ab93dfc37191c8a97709e3130198c6c4b9ba95a3500a4e8e8b76c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SoSConfigurator-java/src/main/java/eu/arrowhead/sosconfigurator/swagger/SwaggerConfig.java",
+    "sha256": "1a54341736cd27005519a3d27025ed5faa422c7deda5cffb642bd372da2161c6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/DEPLOYMENT.md",
+    "sha256": "f958e5697f5edccc63f732ca4d365326c65ca86a47723cbda3f793bb3042159a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/README.md",
+    "sha256": "be7814b7cb0a6d54506c44c307760840f9e04605594e4440045138491349ed2d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysDD.tex",
+    "sha256": "2082374fc9ecc4dd3de30d52964d7c908866b29ccbf9bf488ec8f5afe80b07fb"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "963bb809ea3d8bb74dd74ebba34a7658f6331ef03098ce8d89ccc6ce4d61cf2c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorData-MQTT-IDD.tex",
+    "sha256": "a417833a4584ec0a4084a29c6bba28de1de27cce5ba60649165d7b1f94627184"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorHistory-HTTP-IDD.tex",
+    "sha256": "7d6e954ef60ea633b2ee63e164a8937904f0eb3787bf0e7129de16fde307f40d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-sysMonitorManagement-HTTP-IDD.tex",
+    "sha256": "b8ac8f03ef2695b83384f753dfd86b54dbbfae7dce810cba55c5430f9079118d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "408a65ca0b5ef8036d6452e73dd3a94aacafa3dee54a0bc9194e4d67760c2853"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-SysMonitor-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/DEPLOYMENT.md",
+    "sha256": "7e097bb0819a2a0fdd04b38755ddb0ef8bb6baa9b38e89d5a00b89227e75026b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/README.md",
+    "sha256": "8637f7bdb28addeca1548f87b82595b1590da6307ba7e83fc75a7131affd6f1e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-SysDD.tex",
+    "sha256": "dff33449c2ae8f399e266bdb700983b4f20bc4c19f6b618d28eebb7fe8593738"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "0141c39239be9daed8b2c7c454f309109cc8c9840e23f073559799cc72b0b8da"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "5333620143b8e07695e871eb3b8231b38f8b6685f1e8cc1a01c977b58b6251db"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-time-HTTP-IDD.tex",
+    "sha256": "bad5ac0597eaa77691fab580009c6ee975ffecead10187befb1b340eda897601"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TimeManager-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/DEPLOYMENT.md",
+    "sha256": "dd374fbffb53e2766043982bf64185ac0340cf763d5fca6d8373849b671b227b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/Makefile",
+    "sha256": "fd15a09a53bf86a141e0f3a894510590ac432f8cfd63aa54e7e1a30b67ffa769"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/README.md",
+    "sha256": "78144afeaf45305a006950f7438f7095ab821603c2dbfcd3fa6211bc5cd4609f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-SysDD.tex",
+    "sha256": "325e10dab8832dac15296e755b6f760cec735ef4618416131e033aba7a1b1ffc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "9c14f75ae5d28b5031624fecd6fb385d8ee3c25c1fed9f348787b2854105809e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-generalManagement-MQTT-IDD.tex",
+    "sha256": "7a0ac6f104d527d3d6b3f879ad42dd845791824b5d427168e113fdb53352f0f8"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "a58162014a683499b513d1612dc6c9260a9910b0c999e67c2468571116a1ac2c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-HTTP-IDD.tex",
+    "sha256": "606bcb557ee1d190a12f422ac274f8080283280b25bb0888efe6641166216d50"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridge-MQTT-IDD.tex",
+    "sha256": "620d58f29c0251ebb575582edba651dc2ee8da987861cfa3212a32b06dfbefa0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-HTTP-IDD.tex",
+    "sha256": "1c1a04cb5e1a3c835d5c37d0a8571cabe8e7717b554cc77ba39e07fd146a782f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationBridgeManagement-MQTT-IDD.tex",
+    "sha256": "eee0ec6acafad6aea81ab55150065bdb9a9b4681d6cacca084840a6bbd0df775"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-HTTP-IDD.tex",
+    "sha256": "d4036b20d5d7747bc04e435581d9f76bb1119e4a976b6f1d08b0ff31187c48e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-translationReport-MQTT-IDD.tex",
+    "sha256": "225c8d63636d6a1a95f2233036253116ce9011b28d3dc09c98a2ec50cebecbb4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/bibliography.bib",
+    "sha256": "2d9dc4ad8171f6b96d013fd9b3dd5bb0c56646a5875f74228a30671ce6805e2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-TranslationManager-java-spring/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-SysDD.tex",
+    "sha256": "9c91de16ab22d81a8af41241a552c3004413bde38b3066bb865a24bc29077383"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "1d5eb134f9df6c43b0a6751f3a27fb1c9a556ea134d10e9302f07bbf63211c61"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-generalManagement-MQTT-IDD.tex",
+    "sha256": "c2d282999dbe0901ecbd3bd5b104c0c5cb64960fd67f1747fe6f4088f7bba93e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identity-HTTP-IDD.tex",
+    "sha256": "374187c071d217066429c2afa3b5629a5dd80832fc90bad4e2e3ec8841a497b8"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identity-MQTT-IDD.tex",
+    "sha256": "7e6b5218b74e2a8517546658554897b3ab640aa384341656691411796ef4eb7d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identityManagement-HTTP-IDD.tex",
+    "sha256": "8f4187214ecdbda4173a274cebfcb05a7a174307e99c3238ae1fea1246524cd4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-identityManagement-MQTT-IDD.tex",
+    "sha256": "fd2482d9b26b67f050e28bd2b6ca76ed84891c22697bd87be85e54d13c0ad19c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/Authentication-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "1d703a714c442312b4920f3b5669e0bbb2662b0701a0d3f3ac8c6d422896e2fa"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/bibliography.bib",
+    "sha256": "c19688e32e1a69715634294a1bb755d4df838a39358c48053e62bcc8ec50b5e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/authentication/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-SysDD.tex",
+    "sha256": "32504f7c8069fe7b61f8cdb08ea5cbaf9f920afb6972c3e6485dcd647fdb7a7b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorization-HTTP-IDD.tex",
+    "sha256": "c36b9c2a8c72927ff0383e6c5c82308a9eb052b43a5eb7238a4b2b5b84f4e8e0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorization-MQTT-IDD.tex",
+    "sha256": "c4dbf21f9cbdd821a15210992a9a260686d836d05cbd15774a556ade9759526b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationManagement-HTTP-IDD.tex",
+    "sha256": "40084d07c0c273ed713c3b095b86550bb822b50a55e6033e61f4cd406fda78dc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationManagement-MQTT-IDD.tex",
+    "sha256": "92eaeeb667be5e0dcaf8e0a545d19f5283341fd79fc6a851121405c500a4a62f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationToken-HTTP-IDD.tex",
+    "sha256": "7857f34b4fd0fd5f927538a1727aebdd52754d141966038c6b11d02f88877c1c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationToken-MQTT-IDD.tex",
+    "sha256": "4671bbb23f28d3a1f443318ec140163ba414c4441e82809953ffc67b27c3d19e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationTokenManagement-HTTP-IDD.tex",
+    "sha256": "2a76556e43456af81effe3fb9593a489b84cfd6b6ea6f1df7dab90c5c9092784"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-authorizationTokenManagement-MQTT-IDD.tex",
+    "sha256": "a469ac79d33398ef17502be8d23ccc042123b4250c66b1e006142d57288af042"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "678e4d1a70f219bde58a8052bb6aa592b226f012727bc6f5b69cbab8150ff14c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-generalManagement-MQTT-IDD.tex",
+    "sha256": "b6108dba0582173ebef49bd38a9f7328e098547756c20c48069a9b39382106bc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/ConsumerAuthorization-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "28e34cab3dc829533c1090e95a7d3764e056512be2d0f101ce942215eef10ee8"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/bibliography.bib",
+    "sha256": "c19688e32e1a69715634294a1bb755d4df838a39358c48053e62bcc8ec50b5e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/consumer-authorization/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-SysDD.tex",
+    "sha256": "e940ecae241a5ed3e9fc9575a8c0896112e7b2134530e47fd3fc554a5f40fb4d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "fe9cfdacc2f79054588d54b8ac3e6f3266deca6047052ff8f49b23f698b8a8c3"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-generalManagement-MQTT-IDD.tex",
+    "sha256": "4ad23e85b68ed7d1b5ecd6c2a834fa9efaa12cc815457b2620c584d9bb4ec36b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestration-HTTP-IDD.tex",
+    "sha256": "bfde055fbec31b03cbd9f97963951f2b2006979fbd28841e3a67c1a6a76ece36"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestration-MQTT-IDD.tex",
+    "sha256": "a448a440bd6111c029f9c359af8c8eb4ac7af51b26db15abe37892c1b6ad3635"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-HTTP-IDD.tex",
+    "sha256": "ed2b328b3f735345524a0160442f5634ff1bccab13096525de50f84f695fca7b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-MQTT-IDD.tex",
+    "sha256": "96b33c9ad557c91c5eccefae88ab7e791c466094f3638fdb85140ba3f1df6f38"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationLockManagement-HTTP-IDD.tex",
+    "sha256": "0b9c6cf653b359d386d4a30d66fc3496ca0369764d6f0320aef87d27c2ce8f78"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationLockManagement-MQTT-IDD.tex",
+    "sha256": "47091f44075ecdaab2354d699b06e93fffe25daaa38f8224ee6fc66ec19090d0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationPlantManagement-HTTP-IDD.tex",
+    "sha256": "2b77109d9a57b85d9e1f71ff1f80a3068d3e1dfe7d28f73ad32afeacb5d807b3"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-HTTP-IDD.tex",
+    "sha256": "78e1e7b008f53f9b7d41a86dba46b5b2a4280308e105949e084c6fd546a9cd98"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-MQTT-IDD.tex",
+    "sha256": "1b9f7afb4372848cfa91e3f9be2afee42b6190aeff0ee13f4f6838edb0fe4e87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/DynamicServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "dd48bc83a36096e107718dd7de58726ef95a62e66b5b8751219a2fdc92843eab"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/bibliography.bib",
+    "sha256": "c19688e32e1a69715634294a1bb755d4df838a39358c48053e62bcc8ec50b5e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-dynamic/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-SysDD.tex",
+    "sha256": "2aeb15c975354b03d6866909cbbe27615a9093a01e73d17d02107057e902e913"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "f881a13d4b41ed950f5928a1aadd6060bbc6bae8e742a995c389a1ecd92ca5e8"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-generalManagement-MQTT-IDD.tex",
+    "sha256": "2147b20aac3b84bf59e269caef81d414c95c14dc4f1b58c652bf94f84871dca0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestration-HTTP-IDD.tex",
+    "sha256": "7efa71b5fba349e52071a36f300658885d69989516aab09089620ac2cff5f33f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestration-MQTT-IDD.tex",
+    "sha256": "4ec2d8e11e41aa801ccbfb0269058d231a2c7c88f897fbd2f9e5e1e9a6562505"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-HTTP-IDD.tex",
+    "sha256": "1267760cd513317eb1209dbe8173a300b64d8ed615d688212e4fa732689d7b0c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationHistoryManagement-MQTT-IDD.tex",
+    "sha256": "ad88d0efb71c5379f5823012ae8ea6fa9aa2ec29443c8f20a995db253b35097c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-HTTP-IDD.tex",
+    "sha256": "2db86b03b50e62ca0b008206e464ec2956086588e5283b6a8f07fac948a6998c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationPushManagement-MQTT-IDD.tex",
+    "sha256": "8c8714eac62d2e4883a8b018d28cde4cd03c37f0a3809a620f25939525c006d2"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationSimpleStoreManagement-HTTP-IDD.tex",
+    "sha256": "8aa565c59d145157ba257f26190240041e7363ba018eae353122951cfff4b4b8"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-serviceOrchestrationSimpleStoreManagement-MQTT-IDD.tex",
+    "sha256": "29fac5b3700c532f161389de82b2e7b2eb2b97a9338b2b117324669e07ed6ae1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/SimpleStoreServiceOrchestration-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "b152725842a28cec67a2e02923ee50b508f800b7c32114e1d724cadfa5e53a7c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/bibliography.bib",
+    "sha256": "c19688e32e1a69715634294a1bb755d4df838a39358c48053e62bcc8ec50b5e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceorchestration-simple/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-SysDD.tex",
+    "sha256": "0a0cfe79b523239497c7697b480f785dedad7bb21daae2408afe17598043d005"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-deviceDiscovery-HTTP-IDD.tex",
+    "sha256": "99a80b128b48d1e56eefb461b6bd9f22fbb73ea99d55b19c17c41a4ff67526a9"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-deviceDiscovery-MQTT-IDD.tex",
+    "sha256": "fb7d2a06f37194a37dc6712689ad974da80baea0f1c407f9e8c3398df99e29f7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-generalManagement-HTTP-IDD.tex",
+    "sha256": "7cce4d408f36db5b7ef55a4f6e4aaf051960b143b56289f5a91c1e65311fa9e0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-generalManagement-MQTT-IDD.tex",
+    "sha256": "a863695e3b16da96cfa6f2c89f095f4ae1895f762c3616aabfac759c734c6c5f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceDiscovery-HTTP-IDD.tex",
+    "sha256": "c5ae74880a41d7cd6a6259162dd2ff44b35e6f76d6e35d2a5874ccdb9cb89f07"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceDiscovery-MQTT-IDD.tex",
+    "sha256": "7e4432101c3db45d1c73418748af13a7d4e1db8a155119594637d82e8bf8ea99"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceRegistryManagement-HTTP-IDD.tex",
+    "sha256": "466d5abef4f228027f0780baa7af4edc6c461bda575f6e7a7182e3079afc082d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-serviceRegistryManagement-MQTT-IDD.tex",
+    "sha256": "9cca36b14c3ae6d88dc7ceee4c405dd325cdda3a5d03be55b45d89947fb824a3"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-sysMonitor-AMQP-IDD.tex",
+    "sha256": "773a184e0ff1b383c5bd411ec742009ddef16c8723d0e2183471e45cc9e59837"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-systemDiscovery-HTTP-IDD.tex",
+    "sha256": "01d478f9d251f12e8cc5e0d490ff6a450222e9d15d620e192146446bb7d60c2f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/ServiceRegistry-v5.2.2-systemDiscovery-MQTT-IDD.tex",
+    "sha256": "33ce6b228701638c68fdc26b9508f152b7053a28068697c48241994a3406f439"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/bibliography.bib",
+    "sha256": "c19688e32e1a69715634294a1bb755d4df838a39358c48053e62bcc8ec50b5e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-java/ah5-core-java-spring/serviceregistry/documentation/v5.2.2/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/LISTENING-PORTS.md",
+    "sha256": "26546704f9219ad5f628739a1479ce0fa165f87dcdec9813f5031df2bc092dfb"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-AIGym-rust/README.md",
+    "sha256": "dd6f8ba0168d062bb7983ac542c9050e4895564edd0b00eae4782085c0973385"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-Blacklist-rust/README.md",
+    "sha256": "a82c35e78844aae1f7ce2a41f7b5f0c44069ad610ca542eaac62809c7ab8c2d1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-CertificateAuthority-rust/README.md",
+    "sha256": "dd8a1f15e6a0aa8ec5d61a55c3111be3e87e75c686bb0ea7600fca9b1e45eeca"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-Choreographer-rust/README.md",
+    "sha256": "0bb3ee961ac3da98fb2ebc9aea580e4ad271a458211a7b165eb6b2147fb598f3"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-Configuration-rust/README.md",
+    "sha256": "e87b6d2b65fb36be82744bfc0fa5cae57e15a84bc0d472119ad61193cde86438"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-DataManager-rust/README.md",
+    "sha256": "0696cb6848bea5f1b14227d9e8088c700f8f682b4a84f53c4327ec1fff54349f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-DeviceQoSEvaluator-rust/README.md",
+    "sha256": "1da6277dcf3b5b27a45a5693f44a144894991cb501ff42ee9d53a14389f65b94"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-EventHandler-rust/README.md",
+    "sha256": "ce0e27049080f5e72e0dfa92f0877de5741775b3d57c7334fa565b4fe98de1d4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-GateTunnel-rust/README.md",
+    "sha256": "8c3e6b41d4ae705663e42052309de563ab5ea95a09897ad09af422d985ec244c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-Gatekeeper-rust/README.md",
+    "sha256": "ba32a886f94b37065a4dbba1c53bb46952cc52f932315a9db0d0fc6f01b95921"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-LocalCloudManager-rust/Cargo.toml",
+    "sha256": "b3fb3a9f2e659438e778456b1ec4c06f5283d3d04d330e46328935f2890feb47"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-LocalCloudManager-rust/Makefile",
+    "sha256": "7d6258661b4709eea135b9f2976cfe792cf73ed7318cd7e4f0656a83a09de564"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-LocalCloudManager-rust/README.md",
+    "sha256": "080c9acaa5e7c61e01dbf385480b917c3de6dedb397083ac29121444d3f7181a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-Onboarding-rust/README.md",
+    "sha256": "9c0b47d981336fe26066dd4a549e0c711d8fd2eebc0e877b9f2d5b7b649965da"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-PlantDescriptionEngine-rust/README.md",
+    "sha256": "95ff900e1cf94e0568918350d243ae5780fe83126053908f797d42ce70086848"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-SysMonitor-rust/README.md",
+    "sha256": "ea9de698f4a31045505d74bec37d4714a55a00ac10ceced9c9cc36bfcf1ca1b7"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-TimeManager-rust/README.md",
+    "sha256": "3df721a57289f1b9024c3a9143e449bf5469def036bafe8f7e894b24016c6d22"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-TranslationManager-rust/README.md",
+    "sha256": "95bc3ceaf9c764e88d46d00ac45a863f5450ebe89e784deca72425c13a6b8156"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/authentication/README.md",
+    "sha256": "b2fdce3014c4c6bb1265dce8132bbe9293eb3ecce6095fbc03990c14cd2b02fb"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/consumer-authorization/README.md",
+    "sha256": "f66003d444f823713e60a4c1d3667eb1f0f1d65aa708ae6f5a6746df1081f01c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/Authentication/Authentication-HTTPS-IDD.tex",
+    "sha256": "c55ba1128527e08446f26f795ab1bd720011518495f55e728ba13de7730aab21"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/Authentication/Authentication-SysDD.tex",
+    "sha256": "cb805d9b2e17b3eb8bf0bf49839c52f3aa12e1532b4aa8d238a120877f151a0c"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ConsumerAuthorization/ConsumerAuthorization-HTTPS-IDD.tex",
+    "sha256": "78662e77df2b5ca7f39db4b42300b2ee8516cda4db49d0afb5cae7fa7539ab45"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ConsumerAuthorization/ConsumerAuthorization-SysDD.tex",
+    "sha256": "af34c82eaeb681a30e22e7164b57ce543335a54c345da70c560cb45e848bc401"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/DynamicServiceOrchestration/DynamicServiceOrchestration-HTTPS-IDD.tex",
+    "sha256": "1a8512c1e9aaac8f808da772f22d83b3559defa1b7a810592ec6e621c750636b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/DynamicServiceOrchestration/DynamicServiceOrchestration-SysDD.tex",
+    "sha256": "561a9d19d2c6d6abe601bbf08d0dd699568d49644ee457f007a542fb65964a54"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ServiceRegistry/ServiceRegistry-HTTPS-IDD.tex",
+    "sha256": "5c1031a480bd93d05e46cea155147a23660e9b1b63b60852c110ec45f8d88467"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ServiceRegistry/ServiceRegistry-SysDD.tex",
+    "sha256": "c072cc764e2dfb2765748449b69157909fedb23df6b0db850b6eb3b58557d45b"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration-HTTPS-IDD.tex",
+    "sha256": "c38932809efbedf43e3349042a63d399086061c9b16b661ccd1fef40f77af610"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration-SysDD.tex",
+    "sha256": "af134d1a31f678d44cd48b8f5553fcdd0fdba9bb6cb7ebf34250ef7b62732fb4"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/serviceorchestration-dynamic/README.md",
+    "sha256": "73c7e50fb684a80d6d37698b9d9ff2cea83e22de72d30d5003a70ac790c43169"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/serviceorchestration-simple/README.md",
+    "sha256": "868bbea6ef434f9d4b974e22b53d36287461fb1d610c5916135ba67c00eb02d2"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-core-rust/serviceregistry/README.md",
+    "sha256": "05d2b1bf7174adf112324b75dadc1f3aec79a3cdbd22b2a06bbd6db5b4da249a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/COMPATIBILITY.md",
+    "sha256": "50d0d6b1815d4b5510c3d79ef46e59795e5f21ccb10c5e3fa6a7a808338b4970"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/AIGym/AIGym-HTTPS-IDD.tex",
+    "sha256": "ee2abfca04ce59e782503ff020923c8ec0087b8ee2b539fb2871ba6b269fd331"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/AIGym/AIGym-SysDD.tex",
+    "sha256": "619dccb0773516dc2d91763d6d1aa14e07d2dd9622bdd0c1d17842d317746d77"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Blacklist/Blacklist-HTTPS-IDD.tex",
+    "sha256": "3abd26cd462ec813f5df805014f97cc3a69a01bdd88151eda99072d3d6e295f3"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Blacklist/Blacklist-SysDD.tex",
+    "sha256": "9f79625b3edcb2d9a5d2e3ab1dabc61789e228aa328c58c8fe5b9a346b940169"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/CertificateAuthority/CertificateAuthority-HTTPS-IDD.tex",
+    "sha256": "25703bbe8b95110a60c96fa267b527137e2e3772471022880147cf0d095c780f"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/CertificateAuthority/CertificateAuthority-SysDD.tex",
+    "sha256": "a3e19f72bd5e59b03bbf7a5a04941798efedb3732de189978e8a2daf6b380673"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Choreographer/Choreographer-HTTPS-IDD.tex",
+    "sha256": "32cec57cff9c23c1699c9ff3623719b46d6c1568f9f5517b8253c07c77bc64a8"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Choreographer/Choreographer-SysDD.tex",
+    "sha256": "dcda1be88f1326e848aa2835221b86618014aa5976159f49a812fdf7849ba2aa"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Configuration/Configuration-HTTPS-IDD.tex",
+    "sha256": "8f9cdeff80589b25b6fbb7be72ed7a3aa6ea4f511c209dfa780adc75156cb368"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Configuration/Configuration-SysDD.tex",
+    "sha256": "d876603588ec464d1782293c2a5142927a765dc6d1d48bfd25c1d97e25beae96"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DataManager/DataManager-HTTPS-IDD.tex",
+    "sha256": "372087eaaae27446beb2fcaca8121699d24ce50df524cce85517b297a650c180"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DataManager/DataManager-SysDD.tex",
+    "sha256": "a41f644c3b5a035c648a7120be792197fb35d9e330747134fcdb6b65e9b991cf"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-HTTPS-IDD.tex",
+    "sha256": "aa6e2286eeb91d545e1334aad910efb2fcdcb061a590fbc250718da00408a353"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/DeviceQoSEvaluator/DeviceQoSEvaluator-SysDD.tex",
+    "sha256": "437a5edf75eb23ab60632f154c4d3ce899d5bd4ded2d39602d957bcb6e1f29c1"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/EventHandler/EventHandler-HTTPS-IDD.tex",
+    "sha256": "3e3c53511299a37649813720e8117602165b728a8b74d79f1fff68d79eaf2991"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/EventHandler/EventHandler-SysDD.tex",
+    "sha256": "f586d36d4f3cb14c8398d6888431b0ea36b9f988fb1a29d86f17698fdd169fc8"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/GateTunnel/GateTunnel-HTTPS-IDD.tex",
+    "sha256": "f3aec1229868c6b142cac00a1c2a4e8001394a4bc2f95831fe52cee0dbf7100a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/GateTunnel/GateTunnel-SysDD.tex",
+    "sha256": "9b78923a7a892b12d299048d7010be9d7cf1b0b77a6e38f8c2c18611b6959970"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Gatekeeper/Gatekeeper-HTTPS-IDD.tex",
+    "sha256": "84180cc7013e754ba6984551ef14791bf7824b0c282a282411126497189188dc"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Gatekeeper/Gatekeeper-SysDD.tex",
+    "sha256": "7942fe316d1c44c2d53aabbfa51f637146acc5edd33137efeba6315ec23d3d8a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Rust-v5.2.2-SysDD.tex",
+    "sha256": "bed68debeb759402ffe906e6cebc9ec2a9e018dc163173d49ff24c192a1ad6a0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Rust-v5.2.2-localCloudManagement-HTTP-IDD.tex",
+    "sha256": "ad5790c295629f69f0fef3c660a266a8a66dacc97cd15c0b6cd0073ea3c60d49"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/LocalCloudManager/v5.2.2/LocalCloudManager-Rust-v5.2.2-monitor-HTTP-IDD.tex",
+    "sha256": "8f1a5a9a2650f8c94bd7bfd21948ace6596694bbe1e72fcb35a1dc416ccb4155"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Onboarding/Onboarding-HTTPS-IDD.tex",
+    "sha256": "f5c7fcd21d51360baab4708347416c680189bef52f3814fb0a62ee3fa6fe1611"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Onboarding/Onboarding-SysDD.tex",
+    "sha256": "50849cab2e6007f90e9dc4efa85d334025cf240acdd30dfd740c47d214d0bb3a"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/PlantDescriptionEngine/PlantDescriptionEngine-HTTPS-IDD.tex",
+    "sha256": "e1a4992b29422d9bc7a0994d518b639745b3cd7584726bd695b0e8005063b43e"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/PlantDescriptionEngine/PlantDescriptionEngine-SysDD.tex",
+    "sha256": "41bdd98eb2cc3d1dfe2ae1bdacf0e8865cee2107b5fc1eecd7e513b92fbebfad"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/SysMonitor/SysMonitor-HTTPS-IDD.tex",
+    "sha256": "39fd93e8acecfd220faac042ddfb366822f459bed83d475272e5760c8b76306d"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/SysMonitor/SysMonitor-SysDD.tex",
+    "sha256": "4de306894ae77d04d4d85489c7c8ff3252b24d3dd1b936b20b5038d1b9d799e0"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TimeManager/TimeManager-HTTPS-IDD.tex",
+    "sha256": "b8bfdcd3a439687dfa38600a625661d984402d089efdf94511a06d480d520146"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TimeManager/TimeManager-SysDD.tex",
+    "sha256": "fcc3d83a7ce3aecc6a19b1ed91ed1e4b56af6ea351ac3535aed816c50beca5cb"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TranslationManager/TranslationManager-HTTPS-IDD.tex",
+    "sha256": "26c041d237eb86dea4707b4caa106f91709b425b4c8de3119a44a4d9c64e7411"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TranslationManager/TranslationManager-SysDD.tex",
+    "sha256": "2049492b326b9a6c747d941d2ec38b8da5f41e0619036ce819cab5e499ccff87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/arrowhead.cls",
+    "sha256": "12f944684f877fc66135b159a4c7ae8375b6d93578a582857be831a233d08d87"
+  },
+  {
+    "path": "Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/figures/arrowhead_logo.pdf",
+    "sha256": "7c35f5216cadb4e69bbb9acac7bb99b0e9a46ec0a5242733c09c69143fd539e6"
+  },
+  {
+    "path": "PRIMARY-SOURCES.md",
+    "sha256": "e96c467eeacdf54a18eec35f9b3e51087f6d1135cbfa23ee12edc54729f3242a"
+  }
+]

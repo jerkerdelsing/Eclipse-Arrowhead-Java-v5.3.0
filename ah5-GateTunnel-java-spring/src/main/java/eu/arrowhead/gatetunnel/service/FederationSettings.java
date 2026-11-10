@@ -9,6 +9,7 @@
  *******************************************************************************/
 package eu.arrowhead.gatetunnel.service;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -45,6 +46,7 @@ public class FederationSettings {
 	private final String relayKey;
 	private final String relayCaCert;
 	private final String crlFile;
+	private final List<String> relayCrlFiles;
 
 	//=================================================================================================
 	// methods
@@ -70,7 +72,8 @@ public class FederationSettings {
 			@Value("${" + GateTunnelConstants.RELAY_CHAIN_CERT + ":" + GateTunnelDefaults.GATETUNNEL_RELAY_CHAIN_CERT_DEFAULT + "}") final String relayChainCert,
 			@Value("${" + GateTunnelConstants.RELAY_KEY + ":" + GateTunnelDefaults.GATETUNNEL_RELAY_KEY_DEFAULT + "}") final String relayKey,
 			@Value("${" + GateTunnelConstants.RELAY_CA_CERT + ":" + GateTunnelDefaults.GATETUNNEL_RELAY_CA_CERT_DEFAULT + "}") final String relayCaCert,
-			@Value("${" + GateTunnelConstants.CRL_FILE + ":}") final String crlFile) {
+			@Value("${" + GateTunnelConstants.CRL_FILE + ":}") final String crlFile,
+			@Value("${" + GateTunnelConstants.RELAY_CRL_FILES + ":}") final String relayCrlFiles) {
 		if (!Set.of(GateTunnelConstants.PROFILE_LEGACY_MTLS, GateTunnelConstants.PROFILE_AH_GT_1).contains(profile)) {
 			throw new IllegalArgumentException("Unsupported federation profile");
 		}
@@ -97,6 +100,7 @@ public class FederationSettings {
 		this.relayKey = relayKey;
 		this.relayCaCert = relayCaCert;
 		this.crlFile = crlFile;
+		this.relayCrlFiles = List.copyOf(Wire.csv(relayCrlFiles == null ? "" : relayCrlFiles));
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -216,5 +220,10 @@ public class FederationSettings {
 	//-------------------------------------------------------------------------------------------------
 	public String getCrlFile() {
 		return crlFile;
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	public List<String> getRelayCrlFiles() {
+		return relayCrlFiles;
 	}
 }

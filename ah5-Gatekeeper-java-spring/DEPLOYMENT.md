@@ -29,7 +29,7 @@ With Java 21 and Maven 3.9, run `mvn -B clean verify` here. `scripts/verify.sh` 
 | `db-ca.crt`, `db.crt`, `db.key` | MySQL server TLS (`sslMode=verify-full` from Gatekeeper) |
 | `gatekeeper-relay-chain.crt`, `gatekeeper-relay.key` | organisation-signed relay identity (PEM), separate from the system certificate |
 | `org-ca.crt` | organisation trust for the relay broker |
-| `org-ca.crl` | CRL of the organisation CA: the relay's server certificate is checked against it, fail closed (renew before its nextUpdate) |
+| `org-crl/org-ca.crl` | CRL of the organisation CA: the relay's server certificate is checked against it, fail closed (renew before its nextUpdate). Mounted as the directory `org-crl` (SOS-5, 2026-11-10): the CRL is replaced by rename, which a single-file mount loses |
 
 4. Run `docker compose config --quiet`, then `docker compose up -d --build`.
 

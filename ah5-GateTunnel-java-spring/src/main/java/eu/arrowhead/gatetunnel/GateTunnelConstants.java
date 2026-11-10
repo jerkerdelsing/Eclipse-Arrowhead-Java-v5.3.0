@@ -105,6 +105,8 @@ public final class GateTunnelConstants {
 	public static final String RELAY_CHAIN_CERT = "gatetunnel.relay.chain.cert";
 	public static final String RELAY_KEY = "gatetunnel.relay.key";
 	public static final String RELAY_CA_CERT = "gatetunnel.relay.ca.cert";
+	// AH-GT-1 peer revocation (SOS-4): comma-separated CRL files of the organization CA and every peer cloud CA
+	public static final String RELAY_CRL_FILES = "gatetunnel.relay.crl.files";
 	public static final String CRL_FILE = "arrowhead.ssl.crl-file";
 
 	//=================================================================================================

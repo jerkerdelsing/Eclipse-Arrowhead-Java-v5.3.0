@@ -121,6 +121,24 @@ public class SecurityProfileGuardTest {
 
 	//-------------------------------------------------------------------------------------------------
 	@Test
+	public void testPlainDeviceAgentChannelIsRefused() {
+		environment.setProperty("device.agent.ssl.enabled", "false");
+
+		final IllegalStateException ex = assertThrows(IllegalStateException.class, () -> guard.enforce());
+
+		assertTrue(ex.getMessage().contains("device.agent.ssl.enabled=false"));
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void testSecureDeviceAgentChannelStarts() {
+		environment.setProperty("device.agent.ssl.enabled", "true");
+
+		assertDoesNotThrow(() -> guard.enforce());
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
 	public void testAllDeviationsAreReported() {
 		environment.setProperty("server.ssl.enabled", "false");
 		environment.setProperty("authentication.policy", "declared");

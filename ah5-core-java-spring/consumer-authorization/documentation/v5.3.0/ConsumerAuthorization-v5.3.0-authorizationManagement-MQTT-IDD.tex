@@ -1,0 +1,570 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}%
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{authorizationManagement MQTT/TLS/JSON}
+\ArrowheadServiceID{authorizationManagement}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the MQTT protocol with TLS payload security and JSON payload encoding variant of the \texttt{authorization\allowbreak{}Management} service of the ConsumerAuthorization system.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{authorization\allowbreak{}Management} service interface of the ConsumerAuthorization system over MQTT, which provides operator management of authorization policies at the management level, and bulk evaluation of authorization questions.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & MQTT & 3.1.1 \cite{mqtt311} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{authorization\allowbreak{}Management} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{authorizationManagement -- Service Description} document \cite{ca-authorizationManagement-sd}.
+The operations, their semantics and the data models are the same as in the HTTP/TLS/JSON IDD \cite{ca-authorizationManagement-http-idd}; this document specifies the MQTT binding.
+
+The MQTT interface is offered only when the system runs with \texttt{mqtt.api.enabled=true}; it is then registered with the interface template \texttt{generic\_\allowbreak{}mqtts} (\texttt{generic\_\allowbreak{}mqtt} without TLS), the broker address and port (\texttt{mqtt.\allowbreak{}broker.\allowbreak{}address}, \texttt{mqtt.\allowbreak{}broker.\allowbreak{}port}) and the base topic \texttt{arrowhead/\allowbreak{}consumer-\allowbreak{}authorization/\allowbreak{}authorization/\allowbreak{}management/\allowbreak{}}. In the Arrowhead-test-cloud-java deployment the MQTT interfaces of the core systems are disabled.
+
+\newpage
+
+\section{Service Operations}
+\label{sec:operations}
+
+The provider subscribes to one topic per operation, the base topic followed by the operation name:
+
+\noindent\begin{longtable}{| p{5cm} | p{10.4cm} |} \hline
+\rowcolor{gray!33} Operation & Request topic \\ \hline \endhead
+\texttt{grant-\allowbreak{}policies} & \texttt{arrowhead/\allowbreak{}consumer-\allowbreak{}authorization/\allowbreak{}authorization/\allowbreak{}management/\allowbreak{}grant-\allowbreak{}policies} \\ \hline
+\texttt{revoke-\allowbreak{}policies} & \texttt{arrowhead/\allowbreak{}consumer-\allowbreak{}authorization/\allowbreak{}authorization/\allowbreak{}management/\allowbreak{}revoke-\allowbreak{}policies} \\ \hline
+\texttt{query-\allowbreak{}policies} & \texttt{arrowhead/\allowbreak{}consumer-\allowbreak{}authorization/\allowbreak{}authorization/\allowbreak{}management/\allowbreak{}query-\allowbreak{}policies} \\ \hline
+\texttt{check-\allowbreak{}policies} & \texttt{arrowhead/\allowbreak{}consumer-\allowbreak{}authorization/\allowbreak{}authorization/\allowbreak{}management/\allowbreak{}check-\allowbreak{}policies} \\ \hline
+\end{longtable}
+
+A consumer publishes a request envelope (\mref{MqttRequestTemplate}) to the topic and receives the answer (\mref{MqttResponseTemplate}) on its own \texttt{responseTopic}. The \texttt{authentication} field carries the requester's identity according to the provider's authentication policy: \texttt{IDENTITY-TOKEN//<token>} (outsourced or internal policy), \texttt{SYSTEM//<name>} (declared policy) or the requester's X.509 certificate (certificate policy). The \texttt{status} of the response uses the HTTP status code numbers (200, 201, 204, 400, 401, 403, 404, 408, 423, 500, 503); on error the payload is an \mref{ErrorMessage}.
+
+\begin{lstlisting}[caption={Request envelope.}]
+{
+  "traceId": "a1b2c3",
+  "authentication": "IDENTITY-TOKEN//<token>",
+  "responseTopic": "arrowhead/response/TemperatureDisplay/a1b2c3",
+  "qosRequirement": 1,
+  "params": {},
+  "payload": {}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Response envelope.}]
+{
+  "status": 200,
+  "traceId": "a1b2c3",
+  "receiver": "TemperatureDisplay",
+  "payload": {}
+}
+\end{lstlisting}
+
+\osubsection{grant-policies}{PUBLISH}{\texttt{arrowhead/\allowbreak{}consumer-\allowbreak{}authorization/\allowbreak{}authorization/\allowbreak{}management/\allowbreak{}grant-\allowbreak{}policies}}{\mref[Authorization\allowbreak{}Mgmt\allowbreak{}Grant\allowbreak{}List\allowbreak{}Request]{AuthorizationMgmtGrantListRequest}}{\mref[Authorization\allowbreak{}Policy\allowbreak{}List\allowbreak{}Response]{AuthorizationPolicyListResponse}}
+
+Creates management-level policies for the given providers and targets.
+
+\begin{lstlisting}[caption={Payload of an \oref{grant-policies} request.}]
+{
+  "list": [
+    {
+      "cloud": "LOCAL",
+      "provider": "TemperatureSensor",
+      "targetType": "SERVICE_DEF",
+      "target": "temperatureReading",
+      "description": "Display may read",
+      "defaultPolicy": {
+        "policyType": "WHITELIST",
+        "policyList": [
+          "TemperatureDisplay"
+        ],
+        "policyMetadataRequirement": {
+          "unit": "celsius"
+        }
+      },
+      "scopedPolicies": {
+        "read": {
+          "policyType": "ALL"
+        }
+      }
+    }
+  ]
+}
+\end{lstlisting}
+
+\osubsection{revoke-policies}{PUBLISH}{\texttt{arrowhead/\allowbreak{}consumer-\allowbreak{}authorization/\allowbreak{}authorization/\allowbreak{}management/\allowbreak{}revoke-\allowbreak{}policies}}{\pref{Array}$<$\allowbreak{}\pref{String}$>$}{}
+
+Removes policies by instance identifier.
+
+\begin{lstlisting}[caption={Payload of an \oref{revoke-policies} request.}]
+[
+  "TemperatureSensor|temperatureReading|1.0.0"
+]
+\end{lstlisting}
+
+\osubsection{query-policies}{PUBLISH}{\texttt{arrowhead/\allowbreak{}consumer-\allowbreak{}authorization/\allowbreak{}authorization/\allowbreak{}management/\allowbreak{}query-\allowbreak{}policies}}{\mref[Authorization\allowbreak{}Query\allowbreak{}Request]{AuthorizationQueryRequest}}{\mref[Authorization\allowbreak{}Policy\allowbreak{}List\allowbreak{}Response]{AuthorizationPolicyListResponse}}
+
+Returns a page of policies of either level matching the filter.
+
+\begin{lstlisting}[caption={Payload of an \oref{query-policies} request.}]
+{
+  "pagination": {
+    "page": 0,
+    "size": 10,
+    "direction": "ASC",
+    "sortField": "createdAt"
+  },
+  "level": "MGMT",
+  "providers": [
+    "TemperatureSensor"
+  ],
+  "instanceIds": [
+    "TemperatureSensor|temperatureReading|1.0.0"
+  ],
+  "cloudIdentifiers": [
+    "string"
+  ],
+  "targetNames": [
+    "string"
+  ],
+  "targetType": "SERVICE_DEF"
+}
+\end{lstlisting}
+
+\osubsection{check-policies}{PUBLISH}{\texttt{arrowhead/\allowbreak{}consumer-\allowbreak{}authorization/\allowbreak{}authorization/\allowbreak{}management/\allowbreak{}check-\allowbreak{}policies}}{\mref[Authorization\allowbreak{}Verify\allowbreak{}List\allowbreak{}Request]{AuthorizationVerifyListRequest}}{\mref[Authorization\allowbreak{}Verify\allowbreak{}List\allowbreak{}Response]{AuthorizationVerifyListResponse}}
+
+Evaluates a list of authorization questions and returns the answer for each.
+
+\begin{lstlisting}[caption={Payload of an \oref{check-policies} request.}]
+{
+  "list": [
+    {
+      "provider": "TemperatureSensor",
+      "consumer": "TemperatureDisplay",
+      "cloud": "LOCAL",
+      "targetType": "SERVICE_DEF",
+      "target": "temperatureReading",
+      "scope": "read"
+    }
+  ]
+}
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+Here, all data objects that can be part of the service calls associated with this service are listed in alphabetic order.
+Each \textit{struct} denotes a JSON \pref{Object} with the named fields; fields that are not needed may be omitted.
+
+\msubsection{struct}{MqttRequestTemplate}
+
+The request envelope.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.25cm} | p{3.5cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"traceId" & \pref{String} & Identifier chosen by the requester, returned in the response. \\ \hline
+"authentication" & \pref{String} & Identity of the requester (see Section \ref{sec:operations}). \\ \hline
+"responseTopic" & \pref{String} & Topic on which the response is published. \\ \hline
+"qosRequirement" & \pref{Number} & MQTT QoS of the response (0, 1 or 2). \\ \hline
+"params" & \pref{Object}$<$\pref{String}$>$ & Optional parameters (the query parameters of the HTTP binding). \\ \hline
+"payload" & \pref{Object} & The operation input. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{MqttResponseTemplate}
+
+The response envelope.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.25cm} | p{3.5cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"status" & \pref{Number} & Status code. \\ \hline
+"traceId" & \pref{String} & The trace identifier of the request. \\ \hline
+"receiver" & \pref{String} & Name of the requester. \\ \hline
+"payload" & \pref{Object} & The operation output, or an \mref{ErrorMessage}. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{ErrorMessage}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"error\allowbreak{}Message" & \pref{String} &  \\ \hline
+"error\allowbreak{}Code" & \pref{Number} &  \\ \hline
+"exception\allowbreak{}Type" & \pref{ExceptionType} &  \\ \hline
+"origin" & \pref{String} &  \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationMgmtGrantListRequest}
+
+Management-level policies to create.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"list" & \pref{Array}$<$\allowbreak{}\mref[Authorization\allowbreak{}Mgmt\allowbreak{}Grant\allowbreak{}Request]{AuthorizationMgmtGrantRequest}$>$ & The list of request items. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationMgmtGrantRequest}
+
+A management-level authorization policy for one provider and target.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"cloud" & \pref{String} & Cloud identifier of the consumer cloud the policy applies to; \texttt{LOCAL} for the own cloud. \\ \hline
+"provider" & \pref{String} & Provider system the policy is set for. \\ \hline
+"target\allowbreak{}Type" & \pref{String} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+"target" & \pref{String} & Target of the policy or token: a service definition or event type. \\ \hline
+"description" & \pref{String} & Free-text description. \\ \hline
+"default\allowbreak{}Policy" & \mref[Authorization\allowbreak{}Policy\allowbreak{}Request]{AuthorizationPolicyRequest} & Policy that applies to all operations without a scoped policy. \\ \hline
+"scoped\allowbreak{}Policies" & \pref{Object}$<$\allowbreak{}\mref[Authorization\allowbreak{}Policy\allowbreak{}Request]{AuthorizationPolicyRequest}$>$ & Policies for individual operations, keyed by operation name. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationPolicy}
+
+One policy rule.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"policy\allowbreak{}Type" & \pref{AuthorizationPolicyType} & Policy type: \texttt{ALL}, \texttt{WHITELIST}, \texttt{BLACKLIST} or \texttt{SYS\_\allowbreak{}METADATA}. \\ \hline
+"policy\allowbreak{}List" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & System names of the white- or blacklist. \\ \hline
+"policy\allowbreak{}Metadata\allowbreak{}Requirement" & \mref{MetadataRequirement} & Metadata the consumer system must have (\texttt{SYS\_\allowbreak{}METADATA}). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationPolicyListResponse}
+
+List of authorization policies.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref[Authorization\allowbreak{}Policy\allowbreak{}Response]{AuthorizationPolicyResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationPolicyRequest}
+
+One policy rule.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"policy\allowbreak{}Type" & \pref{String} & Policy type: \texttt{ALL}, \texttt{WHITELIST}, \texttt{BLACKLIST} or \texttt{SYS\_\allowbreak{}METADATA}. \\ \hline
+"policy\allowbreak{}List" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & System names of the white- or blacklist. \\ \hline
+"policy\allowbreak{}Metadata\allowbreak{}Requirement" & \mref{MetadataRequirement} & Metadata the consumer system must have (\texttt{SYS\_\allowbreak{}METADATA}). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationPolicyResponse}
+
+A stored authorization policy.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"instance\allowbreak{}Id" & \pref{String} & Policy instance identifier \texttt{\textless{}MGMT or PR\textgreater{}\textbar{}\allowbreak{}\textless{}cloud\textgreater{}\textbar{}\allowbreak{}\textless{}provider\textgreater{}\textbar{}\allowbreak{}\textless{}target\allowbreak{}Type\textgreater{}\textbar{}\allowbreak{}\textless{}target\textgreater{}}. \\ \hline
+"level" & \pref{AuthorizationLevel} & Policy level: \texttt{MGMT} (set by an operator) or \texttt{PROVIDER} (set by the provider itself). \\ \hline
+"cloud" & \pref{String} & Cloud identifier of the consumer cloud the policy applies to; \texttt{LOCAL} for the own cloud. \\ \hline
+"provider" & \pref{String} & Provider system the policy protects. \\ \hline
+"target\allowbreak{}Type" & \pref{AuthorizationTargetType} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+"target" & \pref{String} & Target of the policy or token: a service definition or event type. \\ \hline
+"description" & \pref{String} & Free-text description. \\ \hline
+"default\allowbreak{}Policy" & \mref{AuthorizationPolicy} & Policy that applies to all operations without a scoped policy. \\ \hline
+"scoped\allowbreak{}Policies" & \pref{Object}$<$\allowbreak{}\mref{AuthorizationPolicy}$>$ & Policies for individual operations, keyed by operation name. \\ \hline
+"created\allowbreak{}By" & \pref{String} & Name of the system that created the record. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationQueryRequest}
+
+Filter for authorization policies.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"pagination" & \mref{Page} & Paging and sorting of the result. \\ \hline
+"level" & \pref{String} & Policy level to match, \texttt{MGMT} or \texttt{PROVIDER}. \\ \hline
+"providers" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Provider system names to match. \\ \hline
+"instance\allowbreak{}Ids" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Policy instance identifiers to match. \\ \hline
+"cloud\allowbreak{}Identifiers" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Cloud identifiers to match. \\ \hline
+"target\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Target names to match. \\ \hline
+"target\allowbreak{}Type" & \pref{String} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationVerifyListRequest}
+
+Authorization checks to evaluate.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"list" & \pref{Array}$<$\allowbreak{}\mref[Authorization\allowbreak{}Verify\allowbreak{}Request]{AuthorizationVerifyRequest}$>$ & The list of request items. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationVerifyListResponse}
+
+Results of authorization checks.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref[Authorization\allowbreak{}Verify\allowbreak{}Response]{AuthorizationVerifyResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationVerifyRequest}
+
+One authorization question: may the consumer use the target (operation) of the provider?
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"provider" & \pref{String} & Provider system; for \texttt{verify} defaults to the requester. \\ \hline
+"consumer" & \pref{String} & Consumer system; for \texttt{verify} defaults to the requester. \\ \hline
+"cloud" & \pref{String} & Cloud of the consumer, \texttt{LOCAL} by default. \\ \hline
+"target\allowbreak{}Type" & \pref{String} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+"target" & \pref{String} & Target of the policy or token: a service definition or event type. \\ \hline
+"scope" & \pref{String} & Operation to check; empty checks the default policy. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationVerifyResponse}
+
+The answer to one authorization question.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"provider" & \pref{String} & Name of the provider system. \\ \hline
+"consumer" & \pref{String} & Name of the consumer system. \\ \hline
+"cloud" & \pref{String} & Cloud of the consumer. \\ \hline
+"target\allowbreak{}Type" & \pref{AuthorizationTargetType} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+"target" & \pref{String} & Target of the policy or token: a service definition or event type. \\ \hline
+"scope" & \pref{String} & The checked operation. \\ \hline
+"granted" & \pref{Boolean} & Result of the check: true when the consumer is authorized. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{MetadataRequirement}
+
+A JSON object of metadata requirements: each key is a metadata path (dot notation), each value the required value or an operator object such as \texttt{\{"op": "LESS\_\allowbreak{}THAN",\allowbreak{} "value": 10\}}.
+
+
+
+\msubsection{struct}{Page}
+
+Paging and sorting; all fields optional.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"page" & \pref{Number} & Zero-based page number. \\ \hline
+"size" & \pref{Number} & Number of records per page (at most \texttt{max.\allowbreak{}page.\allowbreak{}size}, default 1000). \\ \hline
+"direction" & \pref{String} & Sort direction, \texttt{ASC} or \texttt{DESC}. \\ \hline
+"sort\allowbreak{}Field" & \pref{String} & Field to sort by. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+As all messages are encoded using the JSON format \cite{rfc8259}, the following primitive constructs, part of that standard, become available.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Array} & A JSON Array \cite{rfc8259}; \pref{Array}$<$A$>$ has elements of type A. \\ \hline
+\pdef{AuthorizationLevel} & One of \texttt{MGMT}, \texttt{PROVIDER} (JSON String). \\ \hline
+\pdef{AuthorizationPolicyType} & One of \texttt{ALL}, \texttt{WHITELIST}, \texttt{BLACKLIST}, \texttt{SYS\_\allowbreak{}METADATA} (JSON String). \\ \hline
+\pdef{AuthorizationTargetType} & One of \texttt{SERVICE\_\allowbreak{}DEF}, \texttt{EVENT\_\allowbreak{}TYPE} (JSON String). \\ \hline
+\pdef{Boolean} & JSON Boolean, \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & JSON String with an ISO 8601 UTC timestamp, e.g. \texttt{2026-10-22T12:00:00Z}. \\ \hline
+\pdef{ExceptionType} & One of \texttt{ARROWHEAD}, \texttt{INVALID\_\allowbreak{}PARAMETER}, \texttt{AUTH}, \texttt{FORBIDDEN}, \texttt{DATA\_\allowbreak{}NOT\_\allowbreak{}FOUND}, \texttt{TIMEOUT}, \texttt{LOCKED}, \texttt{INTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR}, \texttt{EXTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR} (JSON String). \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\section{Go and Rust implementation variants}
+\subsection{Go implementation}
+Primary system folder: \path|Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization|.\par
+The system owns its Go module, launcher and build configuration. Use the per-system \path|Makefile| and \path|go.mod|; the containing Go tree is the build source, not a historical Arrowhead copy. Ordinary native roles use independent identities and JSON snapshot state rather than the Java database. Do not assume Java SQL migration, clustering or identical transaction/retry semantics. The registry has its own configuration and optional native AMQP monitor; other roles must be checked against their own registrations.
+\paragraph{Listening port.} Built-in default 127.0.0.1:8445 (Arrowhead default). The shipped config.json sets "listen": "0.0.0.0:8445". Override with "listen" in the configuration file, SERVER\_PORT=N or -server.port N; the port overrides keep the configured host.
+Native design/route evidence: \path|Eclipse-Arrowhead-go/ah5-core-go/consumer-authorization/documentation|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+\subsection{Rust implementation}
+Primary system folder: \path|Eclipse-Arrowhead-rust/ah5-core-rust/consumer-authorization|.\par
+The per-system entry point is built by the \path|arrowhead-core-rust| crate. Build from the primary Rust workspace with the applicable package/binary selection. Documentation links can resolve into the shared core/support catalogue. Independent process identity and state remain required.\par
+The ordinary native profile uses Tokio/Axum and rustls with peer-identity checks and independent locked JSON state. Network effects are not distributed database transactions. The precise trust, CRL reload and persistence guarantees are those of the native profile, not the Java implementation.\par
+Native design/route evidence: \path|Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ConsumerAuthorization|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

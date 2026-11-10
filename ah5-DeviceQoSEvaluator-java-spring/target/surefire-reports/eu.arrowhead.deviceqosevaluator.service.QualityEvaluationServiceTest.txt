@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: eu.arrowhead.deviceqosevaluator.service.QualityEvaluationServiceTest
 -------------------------------------------------------------------------------
-Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.217 s -- in eu.arrowhead.deviceqosevaluator.service.QualityEvaluationServiceTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.281 s -- in eu.arrowhead.deviceqosevaluator.service.QualityEvaluationServiceTest

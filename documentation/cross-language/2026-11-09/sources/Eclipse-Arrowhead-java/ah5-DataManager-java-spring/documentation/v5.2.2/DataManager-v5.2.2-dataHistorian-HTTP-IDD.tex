@@ -1,0 +1,380 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{dataHistorian HTTP/TLS/JSON}
+\ArrowheadServiceID{dataHistorian}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the HTTP/1.1 protocol with TLS payload security and JSON payload encoding variant of the \texttt{dataHistorian} service of the DataManager system.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{dataHistorian} service interface of the DataManager system, which provides persistent storage and query of SenML time series per system and service.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & HTTP & 1.1 \cite{rfc9112} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{dataHistorian} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{dataHistorian -- Service Description} document \cite{dm-dataHistorian-sd}.
+For further details about how this service is meant to be used, please consult that document.
+
+The rest of this document describes how to realize the \texttt{dataHistorian} service
+interface in detail. Both in terms of its operations (Section \ref{sec:operations}) and its information model (Section \ref{sec:model}).
+
+\subsection{Interface registration}
+
+The service is registered in the ServiceRegistry with the interface template \texttt{generic\_\allowbreak{}https}, policy \texttt{CERT\_\allowbreak{}AUTH}, access address \texttt{datamanager}, port 8461 and base path \texttt{/\allowbreak{}datamanager/\allowbreak{}data-\allowbreak{}historian}. The \texttt{operations} property of the interface lists the operations below with their method and path relative to the base path (path parameters are placeholders such as \texttt{\{id\}} that the consumer fills in):
+
+\noindent\begin{longtable}{| p{5.2cm} | p{1.6cm} | p{8.4cm} |} \hline
+\rowcolor{gray!33} Operation & Method & Path \\ \hline \endhead
+\texttt{list-\allowbreak{}systems} & GET & \texttt{/\allowbreak{}systems} \\ \hline
+\texttt{list-\allowbreak{}services} & GET & \texttt{/\allowbreak{}systems/\allowbreak{}\{system\allowbreak{}Name\}/\allowbreak{}services} \\ \hline
+\texttt{get-\allowbreak{}data} & GET & \texttt{/\allowbreak{}systems/\allowbreak{}\{system\allowbreak{}Name\}/\allowbreak{}services/\allowbreak{}\{service\allowbreak{}Name\}/\allowbreak{}data} \\ \hline
+\texttt{put-\allowbreak{}data} & PUT & \texttt{/\allowbreak{}systems/\allowbreak{}\{system\allowbreak{}Name\}/\allowbreak{}services/\allowbreak{}\{service\allowbreak{}Name\}/\allowbreak{}data} \\ \hline
+\end{longtable}
+
+\newpage
+
+\section{Service Operations}
+\label{sec:operations}
+
+The interfaces of the \texttt{dataHistorian} service, its operations, data models and implementation are provided below.
+In particular, each subsection first names the HTTP method and path used to call the operation, after which it names the abstract operation from the \texttt{dataHistorian} SD document, as well as input and output types.
+
+All operations require the requester's identity, presented according to the provider's authentication policy: the client certificate (mutual TLS) and, with the \texttt{outsourced} policy, \texttt{Authorization: Bearer IDENTITY-TOKEN//<token>}; systems holding the Authentication secret key send \texttt{Bearer AUTHENTICATOR-KEY//<system>//<hash>}, and with the \texttt{declared} policy \texttt{Bearer SYSTEM//<system>} is sent. Request and response bodies are \texttt{application/json} unless stated otherwise.
+Errors are answered with an \mref{ErrorMessage} body and the status codes \texttt{400 Bad Request} (invalid parameter), \texttt{401 Unauthorized} (missing or invalid identity), \texttt{403 Forbidden} (not permitted, e.g. by the management, authorization or blacklist filter), \texttt{404 Not Found}, \texttt{408 Request Timeout}, \texttt{423 Locked}, \texttt{500 Internal Server Error} and \texttt{503 Service Unavailable} (a system it depends on failed).
+
+\osubsection{list-systems}{GET}{/\allowbreak{}datamanager/\allowbreak{}data-historian/\allowbreak{}systems}{}{\mref{SystemListResponse}}
+
+Returns the systems with stored data.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:list-systems},caption={An \oref{list-systems} invocation.}]
+GET /datamanager/data-historian/systems HTTP/1.1
+Host: datamanager:8461
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:list-systems-resp},caption={An \oref{list-systems} response.}]
+{
+  "systems": [
+    "string"
+  ]
+}
+\end{lstlisting}
+
+\osubsection{list-services}{GET}{/\allowbreak{}datamanager/\allowbreak{}data-historian/\allowbreak{}systems/\allowbreak{}\fparam{\{systemName\}}/\allowbreak{}services}{\pref{String}}{\mref{ServiceListResponse}}
+
+Returns the services of a system with stored data.
+
+Path parameter: \fparam{systemName}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:list-services},caption={An \oref{list-services} invocation.}]
+GET /datamanager/data-historian/systems/<systemName>/services HTTP/1.1
+Host: datamanager:8461
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:list-services-resp},caption={An \oref{list-services} response.}]
+{
+  "services": [
+    "string"
+  ]
+}
+\end{lstlisting}
+
+\osubsection{get-data}{GET}{/\allowbreak{}datamanager/\allowbreak{}data-historian/\allowbreak{}systems/\allowbreak{}\fparam{\{systemName\}}/\allowbreak{}services/\allowbreak{}\fparam{\{serviceName\}}/\allowbreak{}data?\allowbreak{}from=\fparam{\{from\}}\allowbreak{}\&to=\fparam{\{to\}}\allowbreak{}\&count=\fparam{\{count\}}\allowbreak{}\&signals=\fparam{\{signals\}}\allowbreak{}\&signalCount=\fparam{\{signalCount\}}}{\pref{String}}{\pref{Array}$<$\allowbreak{}\mref{SenMLRecord}$>$}
+
+Returns stored SenML records of the system and service, newest first, limited by the query parameters.
+
+Path parameter: \fparam{systemName}, \fparam{serviceName}.
+
+Query parameters: \fparam{from} (Double, optional); \fparam{to} (Double, optional); \fparam{count} (Integer, optional); \fparam{signals} (List\textless{}String\textgreater{}, optional); \fparam{signalCount} (Integer, optional). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:get-data},caption={An \oref{get-data} invocation.}]
+GET /datamanager/data-historian/systems/<systemName>/services/<serviceName>/data?from=<from>&to=<to>&count=<count>&signals=<signals>&signalCount=<signalCount> HTTP/1.1
+Host: datamanager:8461
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:get-data-resp},caption={An \oref{get-data} response.}]
+[
+  {
+    "bn": "TemperatureSensor/",
+    "bt": 1792670400.0,
+    "bu": "string",
+    "n": "temperature",
+    "u": "Cel",
+    "v": 21.5,
+    "vs": 21.5,
+    "vb": true,
+    "vd": "string",
+    "t": 0.0
+  }
+]
+\end{lstlisting}
+
+\osubsection{put-data}{PUT}{/\allowbreak{}datamanager/\allowbreak{}data-historian/\allowbreak{}systems/\allowbreak{}\fparam{\{systemName\}}/\allowbreak{}services/\allowbreak{}\fparam{\{serviceName\}}/\allowbreak{}data}{\pref{Array}$<$\allowbreak{}\mref{SenMLRecord}$>$}{}
+
+Appends SenML records for the system and service.
+
+Path parameter: \fparam{systemName}, \fparam{serviceName}.
+
+A successful call returns \texttt{204 No Content}.
+
+\begin{lstlisting}[label={lst:put-data},caption={An \oref{put-data} invocation.}]
+PUT /datamanager/data-historian/systems/<systemName>/services/<serviceName>/data HTTP/1.1
+Host: datamanager:8461
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+[
+  {
+    "bn": "TemperatureSensor/",
+    "bt": 1792670400.0,
+    "bu": "string",
+    "n": "temperature",
+    "u": "Cel",
+    "v": 21.5,
+    "vs": 21.5,
+    "vb": true,
+    "vd": "string",
+    "t": 0.0
+  }
+]
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+Here, all data objects that can be part of the service calls associated with this service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is meant to denote a JSON \pref{Object} that must contain certain fields, or names, with values conforming to explicitly named types.
+Fields that are not needed may be omitted or \texttt{null} in requests; empty fields are omitted in responses.
+As a complement to the primary types defined in this section, there is also a list of secondary types in Section \ref{sec:model:primitives}, which are used to represent things like hashes, identifiers and texts.
+
+\msubsection{struct}{ErrorMessage}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"error\allowbreak{}Message" & \pref{String} & Error text, if the event is an error. \\ \hline
+"error\allowbreak{}Code" & \pref{Number} &  \\ \hline
+"exception\allowbreak{}Type" & \pref{ExceptionType} &  \\ \hline
+"origin" & \pref{String} &  \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SenMLRecord}
+
+A SenML record (RFC 8428); a message is a JSON array of records.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"bn" & \pref{String} & SenML base name. \\ \hline
+"bt" & \pref{Object} & SenML base time (seconds). \\ \hline
+"bu" & \pref{String} & SenML base unit. \\ \hline
+"bv" & \pref{Object} & SenML base value. \\ \hline
+"bs" & \pref{Object} & SenML base sum. \\ \hline
+"bver" & \pref{Object} & SenML base version. \\ \hline
+"n" & \pref{String} & SenML name. \\ \hline
+"u" & \pref{String} & SenML unit. \\ \hline
+"v" & \pref{Object} & SenML numeric value. \\ \hline
+"vs" & \pref{String} & SenML string value. \\ \hline
+"vb" & \pref{Boolean} & SenML Boolean value. \\ \hline
+"vd" & \pref{String} & SenML data value (Base64). \\ \hline
+"s" & \pref{Object} & SenML sum. \\ \hline
+"t" & \pref{Object} & SenML time (seconds, relative to the base time). \\ \hline
+"ut" & \pref{Object} & SenML update time (seconds). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceListResponse}
+
+Service names with data of a system.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"services" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Service names with stored data. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemListResponse}
+
+List of systems.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"systems" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & System names with stored data. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+As all messages are encoded using the JSON format \cite{rfc8259}, the following primitive constructs, part of that standard, become available.
+Note that the official standard is defined in terms of parsing rules, while this list only concerns syntactic information.
+Furthermore, the \pref{Object} and \pref{Array} types are given optional generic type parameters, which are used in this document to signify when pair values or elements are expected to conform to certain types.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Array} & A JSON Array \cite{rfc8259}; \pref{Array}$<$A$>$ has elements of type A. \\ \hline
+\pdef{Boolean} & JSON Boolean, \texttt{true} or \texttt{false}. \\ \hline
+\pdef{ExceptionType} & One of \texttt{ARROWHEAD}, \texttt{INVALID\_\allowbreak{}PARAMETER}, \texttt{AUTH}, \texttt{FORBIDDEN}, \texttt{DATA\_\allowbreak{}NOT\_\allowbreak{}FOUND}, \texttt{TIMEOUT}, \texttt{LOCKED}, \texttt{INTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR}, \texttt{EXTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR} (JSON String). \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

@@ -1,0 +1,307 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{serviceOrchestrationLockManagement}
+\ArrowheadServiceID{serviceOrchestrationLockManagement}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{service\allowbreak{}Orchestration\allowbreak{}Lock\allowbreak{}Management} service, version 1.0.0, produced by the DynamicServiceOrchestration core system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{service\allowbreak{}Orchestration\allowbreak{}Lock\allowbreak{}Management} service, which provides operator management of orchestration locks, the exclusive reservations of service instances.
+It is produced by the DynamicServiceOrchestration system \cite{dso-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{dso-serviceOrchestrationLockManagement-http-idd}. The MQTT binding is specified in the MQTT/TLS/JSON IDD \cite{dso-serviceOrchestrationLockManagement-mqtt-idd}.
+
+\subsection{Significant Prior Art}
+
+New in Arrowhead 5.
+
+\subsection{How This Service Is Meant to Be Used}
+
+When a consumer requests exclusivity (\texttt{exclusivity\allowbreak{}Duration}), Dynamic\allowbreak{}Service\allowbreak{}Orchestration locks the chosen instance for it. Operators can also create locks, query them and remove them.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Only providers whose service instance metadata allows exclusivity can be reserved. Locks expire and are removed by the cleaner job.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{service\allowbreak{}Orchestration\allowbreak{}Lock\allowbreak{}Management} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{serviceOrchestrationLockManagement}
+        \nodepart{second} \texttt{query}\\ \texttt{remove}\\ \texttt{create}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{service\allowbreak{}Orchestration\allowbreak{}Lock\allowbreak{}Management} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{query}{\mref[Orchestration\allowbreak{}Lock\allowbreak{}Query\allowbreak{}Request]{OrchestrationLockQueryRequest}}{\mref[Orchestration\allowbreak{}Lock\allowbreak{}List\allowbreak{}Response]{OrchestrationLockListResponse}}
+
+Returns a page of locks matching the filter.
+
+\osubsection{remove}{\pref{Name}}{}
+
+Removes the locks of an owner on the given service instances.
+
+\osubsection{create}{\mref[Orchestration\allowbreak{}Lock\allowbreak{}List\allowbreak{}Request]{OrchestrationLockListRequest}}{\mref[Orchestration\allowbreak{}Lock\allowbreak{}List\allowbreak{}Response]{OrchestrationLockListResponse}}
+
+Creates locks on service instances for owners.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{service\allowbreak{}Orchestration\allowbreak{}Lock\allowbreak{}Management} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{OrchestrationLockListRequest}
+
+Locks to create.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+locks & \pref{List}$<$\allowbreak{}\mref{OrchestrationLockRequest}$>$ & Locks to create. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationLockListResponse}
+
+List of orchestration locks.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref[Orchestration\allowbreak{}Lock\allowbreak{}Response]{OrchestrationLockResponse}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationLockQueryRequest}
+
+Paged filter for orchestration locks.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+pagination & \mref{Page} & Paging and sorting of the result. \\ \hline
+ids & \pref{List}$<$\allowbreak{}\pref{Number}$>$ & Lock identifiers to match. \\ \hline
+orchestration\allowbreak{}Job\allowbreak{}Ids & \pref{List}$<$\allowbreak{}\pref{Identifier}$>$ & Orchestration job identifiers to match. \\ \hline
+service\allowbreak{}Instance\allowbreak{}Ids & \pref{List}$<$\allowbreak{}\pref{Identifier}$>$ & Service instance identifiers to match. \\ \hline
+owners & \pref{List}$<$\allowbreak{}\pref{Name}$>$ & Lock owner names to match. \\ \hline
+expires\allowbreak{}Before & \pref{DateTime} & Upper bound of the expiry time. \\ \hline
+expires\allowbreak{}After & \pref{DateTime} & Lower bound of the expiry time. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationLockRequest}
+
+Exclusive reservation of a service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+service\allowbreak{}Instance\allowbreak{}Id & \pref{Identifier} & Service instance identifier \texttt{\textless{}System\textgreater{}\textbar{}\allowbreak{}\textless{}service\allowbreak{}Definition\textgreater{}\textbar{}\allowbreak{}\textless{}version\textgreater{}}. \\ \hline
+owner & \pref{Name} & System for which the instance is locked. \\ \hline
+expires\allowbreak{}At & \pref{DateTime} & UTC expiry of the lock. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationLockResponse}
+
+A lock on a service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Number} & Identifier of the lock. \\ \hline
+orchestration\allowbreak{}Job\allowbreak{}Id & \pref{Identifier} & Orchestration job that created the lock. \\ \hline
+service\allowbreak{}Instance\allowbreak{}Id & \pref{Identifier} & Service instance identifier \texttt{\textless{}System\textgreater{}\textbar{}\allowbreak{}\textless{}service\allowbreak{}Definition\textgreater{}\textbar{}\allowbreak{}\textless{}version\textgreater{}}. \\ \hline
+owner & \pref{Name} & Name of the system owning the lock. \\ \hline
+expires\allowbreak{}At & \pref{DateTime} & UTC expiry of the lock. \\ \hline
+temporary & \pref{Boolean} & True for a lock held only during an orchestration. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Page}
+
+Paging and sorting; all fields optional.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+page & \pref{Number} & Zero-based page number. \\ \hline
+size & \pref{Number} & Number of records per page (at most \texttt{max.\allowbreak{}page.\allowbreak{}size}, default 1000). \\ \hline
+direction & \pref{String} & Sort direction, \texttt{ASC} or \texttt{DESC}. \\ \hline
+sort\allowbreak{}Field & \pref{String} & Field to sort by. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

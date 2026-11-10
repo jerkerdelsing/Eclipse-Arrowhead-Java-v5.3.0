@@ -32,7 +32,7 @@ services:
       RELAY_CHAIN_CERT: /certs/gatekeeper-relay-chain.crt
       RELAY_KEY: /certs/gatekeeper-relay.key
       RELAY_CA_CERT: /certs/org-ca.crt
-      RELAY_CRL_FILE: /certs/org-ca.crl
+      RELAY_CRL_FILE: /org-crl/org-ca.crl
     secrets:
       - source: store-password
         target: ah.store-password
@@ -79,8 +79,9 @@ services:
         bind: {create_host_path: false}
       # CRL of the organisation CA: revocation of the relay's server certificate (fail closed)
       - type: bind
-        source: ${ORGANIZATION_CRL_FILE:-./security/org-ca.crl}
-        target: /certs/org-ca.crl
+        # a directory (public files only): the CRL is replaced by rename, which a single-file mount loses (SOS-5)
+        source: ${ORGANIZATION_CRL_DIRECTORY:-./security/org-crl}
+        target: /org-crl
         read_only: true
         bind: {create_host_path: false}
     networks:

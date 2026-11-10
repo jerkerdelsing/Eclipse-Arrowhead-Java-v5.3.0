@@ -1,0 +1,292 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{sysMonitor AMQP/TLS/JSON}
+\ArrowheadServiceID{sysMonitor}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the AMQP 0-9-1 protocol with TLS payload security and JSON payload encoding variant of the \texttt{sysMonitor} service of the Blacklist system (SysMonitor-AMQP-IDD-5.2.2).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the AMQP binding of the native \texttt{sysMonitor} service of Blacklist.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & AMQP & 0-9-1 \cite{amqp091} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{sysMonitor} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{sysMonitor -- Service Description} document \cite{bl-sysMonitor-sd}.
+
+\subsection{Interface registration}
+
+With \texttt{sysmonitor.enabled=true}, Blacklist registers the service at start-up with interface template \texttt{generic\_\allowbreak{}amqps} (protocol \texttt{amqps}, policy \texttt{CERT\_\allowbreak{}AUTH}; \texttt{generic\_\allowbreak{}amqp} without TLS) and the following properties and metadata:
+
+\begin{lstlisting}[caption={Registered service instance (TestCloud).}]
+{
+  "serviceDefinitionName": "sysMonitor",
+  "version": "1.0.0",
+  "metadata": {
+    "contract": "SysMonitor-AMQP-IDD-5.2.2",
+    "schemaVersion": "1.0",
+    "publisherMode": "native",
+    "observationTypes": [
+      "echo",
+      "power",
+      "status"
+    ],
+    "delivery": "persistent, publisher-confirmed"
+  },
+  "interfaces": [
+    {
+      "templateName": "generic_amqps",
+      "protocol": "amqps",
+      "policy": "CERT_AUTH",
+      "properties": {
+        "accessAddresses": [
+          "amqp-broker"
+        ],
+        "accessPort": 5671,
+        "exchange": "arrowhead",
+        "baseRoutingKey": "TestCloud.sysmonitor.Blacklist.Blacklist",
+        "operations": [
+          "echo",
+          "power",
+          "status"
+        ]
+      }
+    }
+  ]
+}
+\end{lstlisting}
+
+\section{Service Operations}
+\label{sec:operations}
+
+The publisher is the \texttt{Sys\allowbreak{}Monitor\allowbreak{}Publisher} of the common library, configured with \texttt{sysmonitor.\allowbreak{}broker.\allowbreak{}address}, \texttt{sysmonitor.\allowbreak{}broker.\allowbreak{}port}, \texttt{sysmonitor.\allowbreak{}local.\allowbreak{}cloud} (default: from the system certificate), \texttt{sysmonitor.\allowbreak{}publish.\allowbreak{}interval} and \texttt{sysmonitor.\allowbreak{}ssl.\allowbreak{}*} (default: the \texttt{server.\allowbreak{}ssl} stores). The publisher connects to the broker (default \texttt{amqp-\allowbreak{}broker}, port 5671) with TLS, verifies the broker host name and authenticates with its X.509 system certificate (SASL \texttt{EXTERNAL}; the certificate CN is the broker user name). Every publication interval it publishes each observation to the topic exchange \texttt{arrowhead} with the routing key \texttt{<baseRoutingKey>.<operation>}, where the base routing key is \texttt{<Cloud>.sysmonitor.<System>.<serviceInstance>}. Messages are persistent (delivery mode 2), \texttt{application/json}, carry the observation identifier as message id, and are publisher-confirmed (timeout 5 s); a failed cycle is retried with a new connection at the next interval. The broker's topic permissions allow the system to publish only below its own base routing key.
+
+\osubsection{echo}{PUBLISH}{\texttt{\textless{}Cloud\textgreater{}.\allowbreak{}sysmonitor.\allowbreak{}Blacklist.\allowbreak{}Blacklist.\allowbreak{}echo}}{}{\mref{Observation}}
+
+Liveness: \texttt{status} (\texttt{alive} or \texttt{degraded}), \texttt{uptimeSeconds} and a \texttt{detail} text; quality \texttt{good} or \texttt{uncertain}.
+
+\osubsection{power}{PUBLISH}{\texttt{\textless{}Cloud\textgreater{}.\allowbreak{}sysmonitor.\allowbreak{}Blacklist.\allowbreak{}Blacklist.\allowbreak{}power}}{}{\mref{Observation}}
+
+Power supply: \texttt{supplyType=\allowbreak{}line}, \texttt{state=\allowbreak{}available}; unit \texttt{1}.
+
+\osubsection{status}{PUBLISH}{\texttt{\textless{}Cloud\textgreater{}.\allowbreak{}sysmonitor.\allowbreak{}Blacklist.\allowbreak{}Blacklist.\allowbreak{}status}}{}{\mref{Observation}}
+
+Process state: \texttt{state=\allowbreak{}running}, \texttt{health} (\texttt{healthy}/\texttt{degraded}) and \texttt{serviceCount}, the number of registered services.
+
+\begin{lstlisting}[caption={An \oref{echo} observation.}]
+{
+  "schemaVersion": "1.0",
+  "observationId": "Blacklist-echo-1792670400000-42",
+  "providerSystem": "Blacklist",
+  "serviceInstance": "Blacklist",
+  "observationType": "echo",
+  "sourceTime": "2026-10-22T12:00:00.000Z",
+  "sequence": 42,
+  "value": {
+    "status": "alive",
+    "uptimeSeconds": 3600,
+    "detail": "Blacklist is running"
+  },
+  "quality": "good",
+  "metadata": {
+    "publisherMode": "native"
+  }
+}
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+\msubsection{struct}{Observation}
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.25cm} | p{3.5cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"schemaVersion" & \pref{String} & \texttt{1.0}. \\ \hline
+"observationId" & \pref{String} & \texttt{<System>-<type>-<epoch ms>-<sequence>}. \\ \hline
+"providerSystem" & \pref{String} & The publishing system. \\ \hline
+"serviceInstance" & \pref{String} & Service instance, default the system name. \\ \hline
+"observationType" & \pref{String} & \texttt{echo}, \texttt{power}, \texttt{status}. \\ \hline
+"sourceTime" & \pref{String} & ISO 8601 UTC time with milliseconds. \\ \hline
+"sequence" & \pref{Number} & Sequence number per publisher. \\ \hline
+"value" & \pref{Object} & Observed value, see the operations. \\ \hline
+"unit" & \pref{String} & \texttt{1} for \texttt{power} and \texttt{status}; absent for \texttt{echo}. \\ \hline
+"quality" & \pref{String} & \texttt{good} or \texttt{uncertain}. \\ \hline
+"metadata" & \pref{Object} & \texttt{\{"publisherMode": "native"\}}. \\ \hline
+\end{tabularx}
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+\noindent\begin{tabularx}{\textwidth}{| p{3cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\section{Go and Rust implementation variants}
+\subsection{Go implementation}
+Primary system folder: \path|Eclipse-Arrowhead-go/ah5-Blacklist-go|.\par
+The system owns its Go module, launcher and build configuration. Use the per-system \path|Makefile| and \path|go.mod|; the containing Go tree is the build source, not a historical Arrowhead copy. Ordinary native roles use independent identities and JSON snapshot state rather than the Java database. Do not assume Java SQL migration, clustering or identical transaction/retry semantics. The registry has its own configuration and optional native AMQP monitor; other roles must be checked against their own registrations.
+\paragraph{Listening port.} Built-in default 127.0.0.1:8464 (Arrowhead default). The shipped config.json, compose.yaml and Dockerfile use the same port on all interfaces ("listen": "0.0.0.0:8464"; 8540--8555 layout before 2026-11-09). Override with "listen" in the configuration file, SERVER\_PORT=N or -server.port N; the port overrides keep the configured host.
+\paragraph{Native behavior and outstanding work.} Create/query/revoke, active-time checks, lookup. Golden tests for normalization, historical reactivation and query-mode edge cases. These are the boundaries recorded by the native compatibility document; later implementation changes still require direct qualification.
+Native design/route evidence: \path|Eclipse-Arrowhead-go/ah5-Blacklist-go/documentation/Blacklist|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+\subsection{Rust implementation}
+Primary system folder: \path|Eclipse-Arrowhead-rust/ah5-Blacklist-rust|.\par
+The per-system entry point is declared as a binary of \path|arrowhead-support-rust| in \path|ah5-support-runtime-rust/Cargo.toml|. Build from the primary Rust workspace with the applicable package/binary selection. Documentation links can resolve into the shared core/support catalogue. Independent process identity and state remain required.\par
+The ordinary native profile uses Tokio/Axum and rustls with peer-identity checks and independent locked JSON state. Network effects are not distributed database transactions. The precise trust, CRL reload and persistence guarantees are those of the native profile, not the Java implementation.\par
+\paragraph{Listening port.} Default 127.0.0.1:8464 (Arrowhead default, role blacklist). Override with "listen": "host:port" in the configuration, SERVER\_PORT=N or --server.port N; the port overrides keep the configured host.
+\paragraph{Native behavior and outstanding work.} Create/revoke, expiry/check/lookup, filtered queries. Full normalization and historical query parity. These are the boundaries recorded by the native compatibility document; later implementation changes still require direct qualification.
+Native design/route evidence: \path|Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/Blacklist|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & 5.2.2 & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

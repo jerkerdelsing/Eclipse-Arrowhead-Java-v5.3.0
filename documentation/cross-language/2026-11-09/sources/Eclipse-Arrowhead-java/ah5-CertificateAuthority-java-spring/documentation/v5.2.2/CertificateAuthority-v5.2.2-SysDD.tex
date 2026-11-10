@@ -1,0 +1,204 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{CertificateAuthority}
+\ArrowheadType{System Design Description}
+\ArrowheadTypeShort{SysDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the design and implementation of the CertificateAuthority support system of Arrowhead 5.2.2 (\texttt{ah5-CertificateAuthority-java-spring}).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the CertificateAuthority system implementation, which realizes the CertificateAuthority SysD \cite{cau-sysd}. The Certificate\allowbreak{}Authority is the local-cloud CA: it signs certificates under the Arrowhead profiles (onboarding, device, system, operator), validates certificates and trusted keys, keeps the certificate register and publishes the CRL.
+In Section \ref{Implementation}, we describe implementation details of the system.
+
+\newpage
+
+\section{Implementation}
+\label{Implementation}
+
+This implementation realizes the CertificateAuthority SysD in \texttt{ah5-\allowbreak{}CertificateAuthority-\allowbreak{}java-\allowbreak{}spring}. Since 8~November~2026 it follows the Arrowhead Java-Spring pattern of the other support systems (for example Blacklist and TimeManager). The sources, a private copy of the Arrowhead common library (\texttt{vendor/}), tests, images and the deployment definition are owned by this folder. The earlier native implementation (JDK \texttt{HttpsServer}, SQLite) is no longer built; \texttt{legacy/} keeps the older history.
+
+\subsection{Implementation language and tools}
+\begin{itemize}
+\item Java 21, Spring Boot 3.4, the Arrowhead common library (private source copy), Bouncy Castle for X.509, Hibernate/JPA with the MariaDB driver, Log4j2. Maven produces \texttt{arrowhead-\allowbreak{}certificate-\allowbreak{}authority-\allowbreak{}5.2.2.jar}; the entry point is \texttt{Certificate\allowbreak{}Authority\allowbreak{}Main}.
+\item Storage: a private MySQL schema \texttt{ah\_\allowbreak{}certificate\_\allowbreak{}authority} in the system's own database container.
+\end{itemize}
+
+\subsection{Functional properties implementation}
+
+The following components implement the system:
+
+\noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
+\rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
+\texttt{Certificate\allowbreak{}Authority\allowbreak{}SystemInfo} & System and service models (registered by the common \texttt{Application\allowbreak{}Init\allowbreak{}Listener} with \texttt{CERT\_AUTH} interfaces). \\ \hline
+\texttt{Certificate\allowbreak{}Authority\allowbreak{}API}, \texttt{General\allowbreak{}Management\allowbreak{}API} & HTTP operations; every path is served with and without the base path \texttt{/certificate-authority}. \\ \hline
+\texttt{Certificate\allowbreak{}Signing\allowbreak{}Service} & \texttt{sign}: CSR checks, caller profiles, reserved names, name ownership, validity limits, certificate issuing with \texttt{ca=false}. \\ \hline
+\texttt{Certificate\allowbreak{}Validation\allowbreak{}Service} & \texttt{check-certificate}, \texttt{check-trusted-key}. \\ \hline
+\texttt{Certificate\allowbreak{}Management\allowbreak{}Service} & Certificate register, revocation (by id or content), trusted keys. \\ \hline
+\texttt{Crl\allowbreak{}Service} & CRL generation (\texttt{get-crl}), publication of \texttt{<crl.dir>/ca.crl} after each revocation and periodically. \\ \hline
+\texttt{Caller\allowbreak{}Profile\allowbreak{}Filter} & Admits only system (\texttt{sy}) and operator (\texttt{op}) client certificates. \\ \hline
+\texttt{Certificate\allowbreak{}Authority\allowbreak{}Status\allowbreak{}Service} & \texttt{status} document and the sysMonitor echo detail. \\ \hline
+\end{longtable}
+
+Every request passes the common filter chain: the outsourced authentication filter verifies the identity token with Authentication and binds it to the client certificate; \texttt{Caller\allowbreak{}Profile\allowbreak{}Filter} checks the certificate profile; the management filter admits Sysop, CertificateAuthority and Onboarding to \texttt{/mgmt/} paths. The services then apply the CA's identity rules: Onboarding, Sysop and CertificateAuthority may sign (with profile limits), Sysop and CertificateAuthority manage, and Onboarding may revoke only the certificates it requested. The Blacklist filter is not used, so the CA keeps working while Blacklist is unavailable.
+
+\subsubsection{Data handled and stored}
+
+Schema \texttt{ah\_\allowbreak{}certificate\_\allowbreak{}authority}:
+
+\noindent\begin{longtable}{| p{6.4cm} | p{8.8cm} |} \hline
+\rowcolor{gray!33} Tables & Content \\ \hline \endhead
+\texttt{issued\_\allowbreak{}certificate} & Certificate register: serial number, common name, requesting identity, validity, revocation time, PEM. \\ \hline
+\texttt{trusted\_\allowbreak{}key} & Trusted public keys with validity; a SHA-256 of the PEM keeps them unique. \\ \hline
+\texttt{logs} & Operational log entries (\texttt{get-log}). \\ \hline
+\end{longtable}
+
+The management responses keep the field names of the native implementation (for example \texttt{serial\_number}, \texttt{revoked\_at}). \texttt{scripts/\allowbreak{}migrate-\allowbreak{}sqlite-\allowbreak{}to-\allowbreak{}mysql.py} imports a native SQLite store, keeping the ids.
+
+\subsection{Non functional properties implementation}
+
+\subsubsection{Security}
+
+The HTTPS server requires TLS~1.2/1.3 with client certificates, checks them against the cloud CRL (\texttt{arrowhead.ssl.crl-file}) and accepts only certificate-bound identity tokens. The common \texttt{Security\allowbreak{}Profile\allowbreak{}Guard} refuses to start with TLS disabled or declared identities unless a development profile is selected explicitly. The issuer certificate and signing key are PEM files mounted read-only; only this system mounts the key. The database account holds data-manipulation privileges on its own schema only. Errors use the Arrowhead \texttt{ErrorMessageDTO}.
+
+\subsubsection{Power management}
+
+None; the system is a server process without power states. The \texttt{sysMonitor} \texttt{power} observation always reports line supply.
+
+\subsubsection{Internal monitoring}
+
+Logs go to stdout, a rolling file and the \texttt{logs} table. The common \texttt{SysMonitor\allowbreak{}Publisher} publishes echo, power and status every 30\,s with the routing key \texttt{<cloud>.sysmonitor.\allowbreak{}CertificateAuthority.\allowbreak{}certificateAuthority}; the echo detail carries the certificate counts.
+
+\subsubsection{Configuration}
+
+Configuration is \texttt{config/\allowbreak{}application.\allowbreak{}properties}, with environment placeholders for the cloud name, organization, registry, broker and CRL timing; secrets come from \texttt{/run/secrets} (\texttt{configtree}). The CA-specific keys are \texttt{ca.certificate.file}, \texttt{ca.key.file}, \texttt{crl.dir}, \texttt{crl.validity.hours}, \texttt{crl.refresh.seconds}, \texttt{cert.validity.days}, \texttt{onboarding.cert.validity.hours} and \texttt{reserved.names}.
+
+\subsection{Deployment}
+
+The local \texttt{Dockerfile} builds only this folder and runs \texttt{arrowhead-\allowbreak{}certificate-\allowbreak{}authority-\allowbreak{}standalone:5.2.2}. \texttt{compose.yaml} adds the private database \texttt{certificate-\allowbreak{}authority-\allowbreak{}db} (MySQL~8.4, TLS required, internal network, no host port). Its init script creates the schema and restricts the application account to \texttt{SELECT, INSERT, UPDATE, DELETE}. The HTTPS API uses port 8448. The application runs as UID 10001 with a read-only root filesystem; only the CRL output directory is writable. This packaging is supplied for operator deployment; existing test-cloud deployments are not changed by it.
+
+ServiceRegistry is the bootstrap endpoint; Authentication and DynamicServiceOrchestration are looked up there. AMQPS monitoring is a network dependency. The CRL output directory must be distributed to the other systems of the cloud by the operator.
+
+\subsection{Local modifications}
+\label{sec:local}
+
+Notes on this implementation in the workspace:
+\begin{itemize}
+  \item Native Java port (2026-10-16) of the Python CA; Java-Spring implementation (2026-11-08).
+  \item Reserved names; LocalCloudManager no longer signs (J6); CRL publication (H3).
+  \item Since the Spring implementation, every operation (including \texttt{check-certificate}, \texttt{get-crl} and \texttt{/health}) needs a certificate-bound identity token, and \texttt{generalManagement} adds \texttt{get-log} and \texttt{get-config}.
+\end{itemize}
+
+\subsection{Verification}
+
+The JUnit tests cover the signing rules, revocation, CRL content and publication, certificate and trusted-key validation, the caller profile check, and every 5.2.2 route with and without the base path. An end-to-end test runs the whole application (filters, controllers, JPA) against a fresh MySQL schema created by the deployment init script with the restricted account. Startup with the development sample is refused by the security profile guard. A run in a live cloud with Onboarding is not part of this verification.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+The implementation of the services is based on the SD and IDD documents referenced below.
+
+\noindent\begin{longtable}{| p{5.4cm} | p{2.2cm} | p{2.2cm} | p{4.8cm} |} \hline
+\rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
+\texttt{certificateSigning} & \cite{cau-sysd} & \cite{cau-certificateSigning-sd} & \cite{cau-certificateSigning-http-idd} \\ \hline
+\texttt{certificate\allowbreak{}Validation} & \cite{cau-sysd} & \cite{cau-certificateValidation-sd} & \cite{cau-certificateValidation-http-idd} \\ \hline
+\texttt{certificate\allowbreak{}Authority\allowbreak{}Management} & \cite{cau-sysd} & \cite{cau-certificateAuthorityManagement-sd} & \cite{cau-certificateAuthorityManagement-http-idd} \\ \hline
+\texttt{sysMonitor} & \cite{cau-sysd} & \cite{cau-sysMonitor-sd} & \cite{cau-sysMonitor-amqp-idd} \\ \hline
+&&& \\ \hline
+\rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
+systemDiscovery, serviceDiscovery & \cite{core-sr-sysd} & \cite{core-sr-systemDiscovery-sd} & -- \\ \hline
+identity & \cite{core-auth-sysd} & \cite{core-auth-identity-sd} & -- \\ \hline
+sysMonitor (publisher) & AMQP broker (SysMonitor) & -- & -- \\ \hline
+\end{longtable}
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-25 & \arrowversion & Independent Java build, private helpers and state, per-system deployment and configuration. & Codex (draft) \\ \hline
+3 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+4 & 2026-11-08 & \arrowversion & Java-Spring implementation: common library, filter chain, JPA on a private MySQL schema, migration from SQLite. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

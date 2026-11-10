@@ -1,0 +1,344 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{authorization}
+\ArrowheadServiceID{authorization}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{authorization} service, version 1.0.0, produced by the ConsumerAuthorization core system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{authorization} service, which provides provider-level authorization policies: a provider declares which consumers may use its service (or event type), and any system can ask whether a consumer is authorized.
+It is produced by the ConsumerAuthorization system \cite{ca-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{ca-authorization-http-idd}. The MQTT binding is specified in the MQTT/TLS/JSON IDD \cite{ca-authorization-mqtt-idd}.
+
+\subsection{Significant Prior Art}
+
+Successor of the Arrowhead 4.x Authorization \texttt{intracloud} rules. In 5.x a policy has a default rule and optional per-operation (scoped) rules, each \texttt{ALL}, \texttt{WHITELIST}, \texttt{BLACKLIST} or \texttt{SYS\_\allowbreak{}METADATA}.
+
+\subsection{How This Service Is Meant to Be Used}
+
+A provider calls \texttt{grant} to publish the policy of one of its services and \texttt{revoke} to remove it; \texttt{lookup} lists its own policies. Orchestrators and providers call \texttt{verify} to evaluate a consumer request against the policies.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+A provider can only set policies for itself (level \texttt{PROVIDER}). Management-level policies (level \texttt{MGMT}), set through \texttt{authorization\allowbreak{}Management}, take precedence: provider policies are only evaluated when no management policy applies. The service does not enforce anything; enforcement is done by the orchestrator (which only returns authorized providers) and by providers that check tokens.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{authorization} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{authorization}
+        \nodepart{second} \texttt{grant}\\ \texttt{revoke}\\ \texttt{lookup}\\ \texttt{verify}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{authorization} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{grant}{\mref[Authorization\allowbreak{}Grant\allowbreak{}Request]{AuthorizationGrantRequest}}{\mref[Authorization\allowbreak{}Policy\allowbreak{}Response]{AuthorizationPolicyResponse}}
+
+Creates or replaces the provider-level policy of the requesting provider for one target. Returns 201 for a new policy, 200 if an identical one exists.
+
+\osubsection{revoke}{\pref{Identifier}}{}
+
+Removes a provider-level policy of the requester by instance identifier. Returns 200 if removed, 204 if it did not exist.
+
+\osubsection{lookup}{\mref[Authorization\allowbreak{}Lookup\allowbreak{}Request]{AuthorizationLookupRequest}}{\mref[Authorization\allowbreak{}Policy\allowbreak{}List\allowbreak{}Response]{AuthorizationPolicyListResponse}}
+
+Returns the requester's provider-level policies matching the filter.
+
+\osubsection{verify}{\mref[Authorization\allowbreak{}Verify\allowbreak{}Request]{AuthorizationVerifyRequest}}{\pref{Boolean}}
+
+Evaluates whether the consumer may use the target (and operation) of the provider: management-level policies first, provider-level policies if none applies; no applicable policy means denied. Returns a boolean.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{authorization} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{AuthorizationGrantRequest}
+
+A provider-level authorization policy that the provider sets for its own service.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+cloud & \pref{Name} & Cloud identifier of the consumer cloud the policy applies to; \texttt{LOCAL} for the own cloud. \\ \hline
+target\allowbreak{}Type & \pref{String} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+target & \pref{Name} & Service definition (or event type) the policy protects. \\ \hline
+description & \pref{String} & Free-text description. \\ \hline
+default\allowbreak{}Policy & \mref[Authorization\allowbreak{}Policy\allowbreak{}Request]{AuthorizationPolicyRequest} & Policy that applies to all operations without a scoped policy. \\ \hline
+scoped\allowbreak{}Policies & \pref{Map}$<$\allowbreak{}\pref{String}, \mref[Authorization\allowbreak{}Policy\allowbreak{}Request]{AuthorizationPolicyRequest}$>$ & Policies for individual operations, keyed by operation name. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationLookupRequest}
+
+Filter for the requester's own provider-level policies.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+instance\allowbreak{}Ids & \pref{List}$<$\allowbreak{}\pref{Identifier}$>$ & Policy instance identifiers to match. \\ \hline
+cloud\allowbreak{}Identifiers & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Cloud identifiers to match. \\ \hline
+target\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Target names to match. \\ \hline
+target\allowbreak{}Type & \pref{String} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationPolicy}
+
+One policy rule.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+policy\allowbreak{}Type & \pref{AuthorizationPolicyType} & Policy type: \texttt{ALL}, \texttt{WHITELIST}, \texttt{BLACKLIST} or \texttt{SYS\_\allowbreak{}METADATA}. \\ \hline
+policy\allowbreak{}List & \pref{List}$<$\allowbreak{}\pref{String}$>$ & System names of the white- or blacklist. \\ \hline
+policy\allowbreak{}Metadata\allowbreak{}Requirement & \mref{MetadataRequirement} & Metadata the consumer system must have (\texttt{SYS\_\allowbreak{}METADATA}). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationPolicyListResponse}
+
+List of authorization policies.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref[Authorization\allowbreak{}Policy\allowbreak{}Response]{AuthorizationPolicyResponse}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationPolicyRequest}
+
+One policy rule.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+policy\allowbreak{}Type & \pref{String} & Policy type: \texttt{ALL}, \texttt{WHITELIST}, \texttt{BLACKLIST} or \texttt{SYS\_\allowbreak{}METADATA}. \\ \hline
+policy\allowbreak{}List & \pref{List}$<$\allowbreak{}\pref{String}$>$ & System names of the white- or blacklist. \\ \hline
+policy\allowbreak{}Metadata\allowbreak{}Requirement & \mref{MetadataRequirement} & Metadata the consumer system must have (\texttt{SYS\_\allowbreak{}METADATA}). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationPolicyResponse}
+
+A stored authorization policy.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+instance\allowbreak{}Id & \pref{Identifier} & Policy instance identifier \texttt{\textless{}MGMT or PR\textgreater{}\textbar{}\allowbreak{}\textless{}cloud\textgreater{}\textbar{}\allowbreak{}\textless{}provider\textgreater{}\textbar{}\allowbreak{}\textless{}target\allowbreak{}Type\textgreater{}\textbar{}\allowbreak{}\textless{}target\textgreater{}}. \\ \hline
+level & \pref{AuthorizationLevel} & Policy level: \texttt{MGMT} (set by an operator) or \texttt{PROVIDER} (set by the provider itself). \\ \hline
+cloud & \pref{Name} & Cloud identifier of the consumer cloud the policy applies to; \texttt{LOCAL} for the own cloud. \\ \hline
+provider & \pref{Name} & Provider system the policy protects. \\ \hline
+target\allowbreak{}Type & \pref{AuthorizationTargetType} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+target & \pref{Name} & Target of the policy or token: a service definition or event type. \\ \hline
+description & \pref{String} & Free-text description. \\ \hline
+default\allowbreak{}Policy & \mref{AuthorizationPolicy} & Policy that applies to all operations without a scoped policy. \\ \hline
+scoped\allowbreak{}Policies & \pref{Map}$<$\allowbreak{}\pref{String}, \mref{AuthorizationPolicy}$>$ & Policies for individual operations, keyed by operation name. \\ \hline
+created\allowbreak{}By & \pref{Name} & Name of the system that created the record. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{AuthorizationVerifyRequest}
+
+One authorization question: may the consumer use the target (operation) of the provider?
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+provider & \pref{Name} & Provider system; for \texttt{verify} defaults to the requester. \\ \hline
+consumer & \pref{Name} & Consumer system; for \texttt{verify} defaults to the requester. \\ \hline
+cloud & \pref{Name} & Cloud of the consumer, \texttt{LOCAL} by default. \\ \hline
+target\allowbreak{}Type & \pref{String} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+target & \pref{Name} & Target of the policy or token: a service definition or event type. \\ \hline
+scope & \pref{Name} & Operation to check; empty checks the default policy. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{MetadataRequirement}
+
+A JSON object of metadata requirements: each key is a metadata path (dot notation), each value the required value or an operator object such as \texttt{\{"op": "LESS\_\allowbreak{}THAN",\allowbreak{} "value": 10\}}.
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{AuthorizationLevel} & One of \texttt{MGMT}, \texttt{PROVIDER}. \\ \hline
+\pdef{AuthorizationPolicyType} & One of \texttt{ALL}, \texttt{WHITELIST}, \texttt{BLACKLIST}, \texttt{SYS\_\allowbreak{}METADATA}. \\ \hline
+\pdef{AuthorizationTargetType} & One of \texttt{SERVICE\_\allowbreak{}DEF}, \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Map} & A set of key-value pairs. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

@@ -1,0 +1,577 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}%
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{serviceOrchestration HTTP/TLS/JSON}
+\ArrowheadServiceID{serviceOrchestration}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-22}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the HTTP/1.1 protocol with TLS payload security and JSON payload encoding variant of the \texttt{service\allowbreak{}Orchestration} service of the SimpleStoreServiceOrchestration system.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{service\allowbreak{}Orchestration} service interface of the SimpleStoreServiceOrchestration system, which provides service orchestration: a consumer asks which provider it should use for a service, and receives the matching, authorized providers with the interfaces to call.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & HTTP & 1.1 \cite{rfc9112} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{service\allowbreak{}Orchestration} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{serviceOrchestration -- Service Description} document \cite{ssso-serviceOrchestration-sd}.
+For further details about how this service is meant to be used, please consult that document.
+
+The rest of this document describes how to realize the \texttt{service\allowbreak{}Orchestration} service
+interface in detail. Both in terms of its operations (Section \ref{sec:operations}) and its information model (Section \ref{sec:model}).
+
+\subsection{Interface registration}
+
+The service is registered in the ServiceRegistry with the interface template \texttt{generic\_\allowbreak{}https} (\texttt{generic\_\allowbreak{}http} when TLS is disabled), access port 8442 and base path \texttt{/\allowbreak{}serviceorchestration/\allowbreak{}orchestration}. The \texttt{operations} property of the interface lists the operations below with their method and path relative to the base path (path parameters are placeholders such as \texttt{\{id\}} that the consumer fills in):
+
+\noindent\begin{longtable}{| p{5.2cm} | p{1.6cm} | p{8.4cm} |} \hline
+\rowcolor{gray!33} Operation & Method & Path \\ \hline \endhead
+\texttt{pull} & POST & \texttt{/\allowbreak{}pull} \\ \hline
+\texttt{subscribe} & POST & \texttt{/\allowbreak{}subscribe} \\ \hline
+\texttt{unsubscribe} & DELETE & \texttt{/\allowbreak{}unsubscribe/\allowbreak{}\{id\}} \\ \hline
+\end{longtable}
+
+\newpage
+
+\section{Service Operations}
+\label{sec:operations}
+
+The interfaces of the \texttt{service\allowbreak{}Orchestration} service, its operations, data models and implementation are provided below.
+In particular, each subsection first names the HTTP method and path used to call the operation, after which it names the abstract operation from the \texttt{service\allowbreak{}Orchestration} SD document, as well as input and output types.
+
+All operations require the requester's identity, presented according to the provider's authentication policy: the client certificate (mutual TLS) and, with the \texttt{outsourced} policy, \texttt{Authorization: Bearer IDENTITY-TOKEN//<token>}; systems holding the Authentication secret key send \texttt{Bearer AUTHENTICATOR-KEY//<system>//<hash>}, and with the \texttt{declared} policy \texttt{Bearer SYSTEM//<system>} is sent. Request and response bodies are \texttt{application/json}.
+Errors are answered with an \mref{ErrorMessage} body and the status codes \texttt{400 Bad Request} (invalid parameter), \texttt{401 Unauthorized} (missing or invalid identity), \texttt{403 Forbidden} (not permitted, e.g. by the management or blacklist filter), \texttt{404 Not Found}, \texttt{408 Request Timeout}, \texttt{423 Locked}, \texttt{500 Internal Server Error} and \texttt{503 Service Unavailable} (a system it depends on failed).
+
+\osubsection{pull}{POST}{/\allowbreak{}serviceorchestration/\allowbreak{}orchestration/\allowbreak{}pull}{\mref{OrchestrationRequest}}{\mref{OrchestrationResponse}}
+
+Returns the store entries of the requester for the requested service definition in priority order; preferred providers first (\texttt{ONLY\_\allowbreak{}PREFERRED}: only them); with \texttt{MATCHMAKING} only the best entry per service definition.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:pull},caption={An \oref{pull} invocation.}]
+POST /serviceorchestration/orchestration/pull HTTP/1.1
+Host: serviceorchestration-simple:8442
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "serviceRequirement": {
+    "serviceDefinition": "temperatureReading",
+    "operations": [
+      "FILTER"
+    ],
+    "versions": [
+      "1.0.0"
+    ],
+    "alivesAt": "2026-10-22T12:00:00Z",
+    "metadataRequirements": [
+      {
+        "unit": "celsius"
+      }
+    ],
+    "interfaceTemplateNames": [
+      "string"
+    ],
+    "interfaceAddressTypes": [
+      "string"
+    ],
+    "interfacePropertyRequirements": [
+      {
+        "unit": "celsius"
+      }
+    ],
+    "securityPolicies": [
+      "string"
+    ],
+    "preferredProviders": [
+      "string"
+    ]
+  },
+  "orchestrationFlags": {
+    "MATCHMAKING": true
+  },
+  "qualityRequirements": [
+    {
+      "type": "PING",
+      "operation": "FILTER",
+      "requirements": {
+        "maxLatency": 100
+      }
+    }
+  ],
+  "exclusivityDuration": 60
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:pull-resp},caption={An \oref{pull} response.}]
+{
+  "results": [
+    {
+      "serviceInstanceId": "TemperatureSensor|temperatureReading|1.0.0",
+      "cloudIdentitifer": "LOCAL",
+      "providerName": "TemperatureSensor",
+      "serviceDefinitition": "temperatureReading",
+      "version": "1.0.0",
+      "aliveUntil": "string",
+      "exclusiveUntil": "string",
+      "metadata": {
+        "unit": "celsius"
+      },
+      "interfaces": [
+        {
+          "templateName": "generic_https",
+          "protocol": "https",
+          "policy": "CERT_AUTH",
+          "properties": {
+            "accessAddresses": [
+              "192.168.0.10"
+            ],
+            "accessPort": 8080,
+            "basePath": "/temperature",
+            "operations": {
+              "read": {
+                "method": "GET",
+                "path": "/read"
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "warnings": [
+    "string"
+  ]
+}
+\end{lstlisting}
+
+\osubsection{subscribe}{POST}{/\allowbreak{}serviceorchestration/\allowbreak{}orchestration/\allowbreak{}subscribe?trigger=\fparam{\{trigger\}}}{\mref[Orchestration\allowbreak{}Subscription\allowbreak{}Request]{OrchestrationSubscriptionRequest}}{\pref{String}}
+
+Creates (or replaces) a push subscription of the requester for itself; with \texttt{trigger=\allowbreak{}true} the orchestration is executed and pushed immediately. Returns the subscription identifier, 201 for a new subscription.
+
+Query parameters: \fparam{trigger} (Boolean, optional, default \texttt{false}). List values are repeated or comma-separated.
+
+A successful call returns \texttt{201 Created} for a new entry, \texttt{200 OK} if an identical entry already existed with the output in the body.
+
+\begin{lstlisting}[label={lst:subscribe},caption={An \oref{subscribe} invocation.}]
+POST /serviceorchestration/orchestration/subscribe?trigger=<trigger> HTTP/1.1
+Host: serviceorchestration-simple:8442
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "targetSystemName": "TemperatureDisplay",
+  "orchestrationRequest": {
+    "serviceRequirement": {
+      "serviceDefinition": "temperatureReading",
+      "operations": [
+        "FILTER"
+      ],
+      "versions": [
+        "1.0.0"
+      ],
+      "alivesAt": "2026-10-22T12:00:00Z",
+      "metadataRequirements": [
+        {
+          "unit": "celsius"
+        }
+      ],
+      "interfaceTemplateNames": [
+        "string"
+      ],
+      "interfaceAddressTypes": [
+        "string"
+      ],
+      "interfacePropertyRequirements": [
+        {
+          "unit": "celsius"
+        }
+      ],
+      "securityPolicies": [
+        "string"
+      ],
+      "preferredProviders": [
+        "string"
+      ]
+    },
+    "orchestrationFlags": {
+      "MATCHMAKING": true
+    },
+    "qualityRequirements": [
+      {
+        "type": "PING",
+        "operation": "FILTER",
+        "requirements": {
+          "maxLatency": 100
+        }
+      }
+    ],
+    "exclusivityDuration": 60
+  },
+  "notifyInterface": {
+    "protocol": "HTTPS",
+    "properties": {
+      "address": "192.168.0.20",
+      "port": "8080",
+      "method": "POST",
+      "path": "/orchestration/notify"
+    }
+  },
+  "duration": 3600
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:subscribe-resp},caption={An \oref{subscribe} response.}]
+"string"
+\end{lstlisting}
+
+\osubsection{unsubscribe}{DELETE}{/\allowbreak{}serviceorchestration/\allowbreak{}orchestration/\allowbreak{}unsubscribe/\allowbreak{}\fparam{\{id\}}}{\pref{String}}{}
+
+Removes a subscription of the requester. Returns 200 if removed, 204 if it did not exist.
+
+Path parameter: \fparam{id}.
+
+A successful call returns \texttt{200 OK} if the entry was removed, \texttt{204 No Content} if there was nothing to remove.
+
+\begin{lstlisting}[label={lst:unsubscribe},caption={An \oref{unsubscribe} invocation.}]
+DELETE /serviceorchestration/orchestration/unsubscribe/<id> HTTP/1.1
+Host: serviceorchestration-simple:8442
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+Here, all data objects that can be part of the service calls associated with this service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is meant to denote a JSON \pref{Object} that must contain certain fields, or names, with values conforming to explicitly named types.
+Fields that are not needed may be omitted or \texttt{null} in requests; empty fields are omitted in responses.
+As a complement to the primary types defined in this section, there is also a list of secondary types in Section \ref{sec:model:primitives}, which are used to represent things like hashes, identifiers and texts.
+
+\msubsection{struct}{AuthorizationTokenGenerationResponse}
+
+A generated token.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"token\allowbreak{}Type" & \pref{AuthorizationTokenType} & Token type: \texttt{TIME\_\allowbreak{}LIMITED\_\allowbreak{}TOKEN}, \texttt{USAGE\_\allowbreak{}LIMITED\_\allowbreak{}TOKEN}, \texttt{SELF\_\allowbreak{}CONTAINED\_\allowbreak{}TOKEN} or \texttt{TRANSLATION\_\allowbreak{}BRIDGE\_\allowbreak{}TOKEN}. \\ \hline
+"target\allowbreak{}Type" & \pref{AuthorizationTargetType} & Target type: \texttt{SERVICE\_\allowbreak{}DEF} or \texttt{EVENT\_\allowbreak{}TYPE}. \\ \hline
+"token" & \pref{String} & The token (opaque string, Base64 or JSON Web Token). \\ \hline
+"usage\allowbreak{}Limit" & \pref{Number} & Number of allowed uses (usage-limited tokens). \\ \hline
+"expires\allowbreak{}At" & \pref{DateTime} & UTC expiry of time-limited tokens. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ErrorMessage}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"error\allowbreak{}Message" & \pref{String} &  \\ \hline
+"error\allowbreak{}Code" & \pref{Number} &  \\ \hline
+"exception\allowbreak{}Type" & \pref{ExceptionType} &  \\ \hline
+"origin" & \pref{String} &  \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{MetadataRequirement}
+
+A JSON object of metadata requirements: each key is a metadata path (dot notation), each value the required value or an operator object such as \texttt{\{"op": "LESS\_\allowbreak{}THAN",\allowbreak{} "value": 10\}}.
+
+
+
+\msubsection{struct}{OrchestrationNotifyInterface}
+
+Notification endpoint of push orchestration.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"protocol" & \pref{String} & Protocol of the notification: \texttt{HTTP}, \texttt{HTTPS}, \texttt{MQTT} or \texttt{MQTTS}. \\ \hline
+"properties" & \pref{Object}$<$\allowbreak{}\pref{String}$>$ & For HTTP(S) \texttt{address}, \texttt{port}, \texttt{method}, \texttt{path}; for MQTT(S) \texttt{topic} (and broker \texttt{address}, \texttt{port}). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationRequest}
+
+An orchestration request.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"service\allowbreak{}Requirement" & \mref[Orchestration\allowbreak{}Service\allowbreak{}Requirement]{OrchestrationServiceRequirement} & Requirements on the service the consumer wants to use. \\ \hline
+"orchestration\allowbreak{}Flags" & \pref{Object}$<$\allowbreak{}\pref{Boolean}$>$ & Orchestration flags, e.g. \texttt{MATCHMAKING}, \texttt{ONLY\_\allowbreak{}PREFERRED}, \texttt{ALLOW\_\allowbreak{}INTERCLOUD}. \\ \hline
+"quality\allowbreak{}Requirements" & \pref{Array}$<$\allowbreak{}\mref{QoSRequirement}$>$ & Quality-of-service requirements (evaluated by Device\allowbreak{}Qo\allowbreak{}SEvaluator). \\ \hline
+"exclusivity\allowbreak{}Duration" & \pref{Number} & Requested exclusive reservation of the provider in seconds. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationResponse}
+
+The orchestration result.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"results" & \pref{Array}$<$\allowbreak{}\mref{OrchestrationResult}$>$ & The orchestration results, best first. \\ \hline
+"warnings" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Warnings of the orchestration, e.g. \texttt{autoMatchmaking}, \texttt{notExclusive}, \texttt{interCloud}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationResult}
+
+One provider of the requested service.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"service\allowbreak{}Instance\allowbreak{}Id" & \pref{String} & Service instance identifier \texttt{\textless{}System\textgreater{}\textbar{}\allowbreak{}\textless{}service\allowbreak{}Definition\textgreater{}\textbar{}\allowbreak{}\textless{}version\textgreater{}}. \\ \hline
+"cloud\allowbreak{}Identitifer" & \pref{String} & Cloud identifier of the provider (\texttt{LOCAL} for the own cloud). The JSON name keeps the upstream spelling. \\ \hline
+"provider\allowbreak{}Name" & \pref{String} & Name of the provider system. \\ \hline
+"service\allowbreak{}Definitition" & \pref{String} & Service definition name. The JSON name keeps the upstream spelling. \\ \hline
+"version" & \pref{Version} & Version of the service instance. \\ \hline
+"alive\allowbreak{}Until" & \pref{String} & Time until which the service instance is registered (its expiry), if any. \\ \hline
+"exclusive\allowbreak{}Until" & \pref{String} & Time until which the instance is reserved exclusively for the consumer, if reserved. \\ \hline
+"metadata" & \pref{Object} & Metadata of the service instance. \\ \hline
+"interfaces" & \pref{Array}$<$\allowbreak{}\mref[Service\allowbreak{}Instance\allowbreak{}Interface\allowbreak{}Response]{ServiceInstanceInterfaceResponse}$>$ & Interfaces the consumer can use (only matching ones). \\ \hline
+"authorization\allowbreak{}Tokens" & \pref{Object}$<$\allowbreak{}\pref{Object}$<$\allowbreak{}\mref[Authorization\allowbreak{}Token\allowbreak{}Generation\allowbreak{}Response]{AuthorizationTokenGenerationResponse}$>$$>$ & Authorization tokens generated for the consumer, per interface template and operation. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationServiceRequirement}
+
+Requirements on the requested service.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"service\allowbreak{}Definition" & \pref{String} & Service definition name. \\ \hline
+"operations" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Service operations the consumer wants to use. \\ \hline
+"versions" & \pref{Array}$<$\allowbreak{}\pref{Version}$>$ & Accepted service versions. \\ \hline
+"alives\allowbreak{}At" & \pref{DateTime} & Only instances that are still registered (not expired) at this UTC time are matched. \\ \hline
+"metadata\allowbreak{}Requirements" & \pref{Array}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Requirements on the service instance metadata; each map is one alternative. \\ \hline
+"interface\allowbreak{}Template\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Accepted interface templates, e.g. \texttt{generic\_\allowbreak{}https}. \\ \hline
+"interface\allowbreak{}Address\allowbreak{}Types" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Address types the provider interface must offer. \\ \hline
+"interface\allowbreak{}Property\allowbreak{}Requirements" & \pref{Array}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Requirements on the interface properties; each map is one alternative. \\ \hline
+"security\allowbreak{}Policies" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Accepted interface security policies. \\ \hline
+"preferred\allowbreak{}Providers" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Provider systems to prefer. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationSubscriptionRequest}
+
+A push orchestration subscription.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"target\allowbreak{}System\allowbreak{}Name" & \pref{String} & Consumer system; default the requester. \\ \hline
+"orchestration\allowbreak{}Request" & \mref{OrchestrationRequest} & The orchestration request executed for the subscription. \\ \hline
+"notify\allowbreak{}Interface" & \mref[Orchestration\allowbreak{}Notify\allowbreak{}Interface]{OrchestrationNotifyInterface} & Where and how the orchestration result is pushed to the target system. \\ \hline
+"duration" & \pref{Number} & Requested lifetime of the subscription in seconds; no value means unlimited. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{QoSRequirement}
+
+One quality-of-service requirement.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"type" & \pref{String} & Type of the QoS evaluation, as known by Device\allowbreak{}Qo\allowbreak{}SEvaluator. \\ \hline
+"operation" & \pref{String} & QoS operation: \texttt{FILTER} or \texttt{SORT}. \\ \hline
+"requirements" & \pref{Object} & Parameters of the QoS requirement. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceInterfaceResponse}
+
+One interface of a service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"template\allowbreak{}Name" & \pref{String} & Name of the interface template, snake\_case (e.g. \texttt{generic\_\allowbreak{}https}). \\ \hline
+"protocol" & \pref{String} & Protocol of the interface, e.g. \texttt{http}, \texttt{https}, \texttt{mqtt}, \texttt{mqtts}. \\ \hline
+"policy" & \pref{String} & Security policy of the interface: \texttt{NONE}, \texttt{CERT\_\allowbreak{}AUTH} or one of the token policies. \\ \hline
+"properties" & \pref{Object} & Interface properties defined by the template, e.g. \texttt{accessAddresses}, \texttt{accessPort}, \texttt{basePath}, \texttt{operations}. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+As all messages are encoded using the JSON format \cite{rfc8259}, the following primitive constructs, part of that standard, become available.
+Note that the official standard is defined in terms of parsing rules, while this list only concerns syntactic information.
+Furthermore, the \pref{Object} and \pref{Array} types are given optional generic type parameters, which are used in this document to signify when pair values or elements are expected to conform to certain types.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Array} & A JSON Array \cite{rfc8259}; \pref{Array}$<$A$>$ has elements of type A. \\ \hline
+\pdef{AuthorizationTargetType} & One of \texttt{SERVICE\_\allowbreak{}DEF}, \texttt{EVENT\_\allowbreak{}TYPE} (JSON String). \\ \hline
+\pdef{AuthorizationTokenType} & One of \texttt{TIME\_\allowbreak{}LIMITED\_\allowbreak{}TOKEN}, \texttt{USAGE\_\allowbreak{}LIMITED\_\allowbreak{}TOKEN}, \texttt{SELF\_\allowbreak{}CONTAINED\_\allowbreak{}TOKEN}, \texttt{TRANSLATION\_\allowbreak{}BRIDGE\_\allowbreak{}TOKEN} (JSON String). \\ \hline
+\pdef{Boolean} & JSON Boolean, \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & JSON String with an ISO 8601 UTC timestamp, e.g. \texttt{2026-10-22T12:00:00Z}. \\ \hline
+\pdef{ExceptionType} & One of \texttt{ARROWHEAD}, \texttt{INVALID\_\allowbreak{}PARAMETER}, \texttt{AUTH}, \texttt{FORBIDDEN}, \texttt{DATA\_\allowbreak{}NOT\_\allowbreak{}FOUND}, \texttt{TIMEOUT}, \texttt{LOCKED}, \texttt{INTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR}, \texttt{EXTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR} (JSON String). \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\pdef{Version} & JSON String, semantic version \texttt{major.minor.patch}. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

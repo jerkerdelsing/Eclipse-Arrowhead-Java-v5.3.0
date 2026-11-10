@@ -1,0 +1,298 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{onboardingManagement}
+\ArrowheadServiceID{onboardingManagement}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{onboarding\allowbreak{}Management} service, version 1.0.0, produced by the Onboarding support system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{onboarding\allowbreak{}Management} service, which provides operator approval and management of device enrollments.
+It is produced by the Onboarding system \cite{onb-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{onb-onboardingManagement-http-idd}.
+
+\subsection{Significant Prior Art}
+
+Replaces the v4 shared-secret enrollment.
+
+\subsection{How This Service Is Meant to Be Used}
+
+An operator approves a device with \texttt{approve-\allowbreak{}device} (bootstrap-certificate fingerprint and the systems it may onboard), inspects enrollments, off-boards a device or removes the enrollment.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Needs an operator identity token bound to the operator certificate. An approval lists 1 to 32 system names for the device; reserved names (core, support and operator systems, configurable with \texttt{ONBOARDING\_\allowbreak{}RESERVED\_\allowbreak{}NAMES}) are refused.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{onboarding\allowbreak{}Management} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{onboardingManagement}
+        \nodepart{second} \texttt{query-\allowbreak{}enrollments}\\ \texttt{get-\allowbreak{}enrollment}\\ \texttt{approve-\allowbreak{}device}\\ \texttt{offboard-\allowbreak{}device}\\ \texttt{remove-\allowbreak{}enrollment}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{onboarding\allowbreak{}Management} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{query-enrollments}{}{\mref{EnrollmentList}}
+
+Returns all enrollments.
+
+\osubsection{get-enrollment}{\pref{Name}}{\mref{EnrollmentView}}
+
+Returns the enrollment of a device.
+
+\osubsection{approve-device}{\mref{EnrollmentRequest}}{\mref{EnrollmentView}}
+
+Approves a device: bootstrap-certificate fingerprint and the systems it may onboard.
+
+\osubsection{offboard-device}{\pref{Name}}{\mref{OffboardingReport}}
+
+Off-boards a device on behalf of the operator (as \texttt{onboarding.\allowbreak{}offboard-\allowbreak{}device}).
+
+\osubsection{remove-enrollment}{\pref{Name}}{\mref{OffboardingReport}}
+
+Off-boards the device and removes its enrollment.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{onboarding\allowbreak{}Management} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{EnrollmentList}
+
+List of enrollments.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{EnrollmentView}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Number of enrollments. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{EnrollmentRequest}
+
+Operator approval of a device.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+bootstrap\allowbreak{}Fingerprint & \pref{String} & SHA-256 fingerprint of the approved bootstrap certificate. \\ \hline
+systems & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Systems the device may onboard. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{EnrollmentView}
+
+An enrollment (approved device).
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+device\allowbreak{}Name & \pref{Name} & Name of the device hosting the system. \\ \hline
+bootstrap\allowbreak{}Fingerprint & \pref{String} & SHA-256 fingerprint of the approved bootstrap certificate. \\ \hline
+approved\allowbreak{}Systems & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Systems the operator approved for the device. \\ \hline
+state & \pref{String} & Enrollment state: \texttt{APPROVED}, \texttt{DEVICE\_\allowbreak{}REGISTERED} or \texttt{OFFBOARDED}. \\ \hline
+device\allowbreak{}Certificate\allowbreak{}Id & \pref{Number} & Certificate\allowbreak{}Authority record of the device certificate. \\ \hline
+device\allowbreak{}Certificate\allowbreak{}Expires\allowbreak{}At & \pref{DateTime} & Expiry of the device certificate. \\ \hline
+systems & \pref{List}$<$\allowbreak{}\mref{SystemEnrollmentView}$>$ & Systems onboarded for the device. \\ \hline
+approved\allowbreak{}By & \pref{String} & Operator who approved the device. \\ \hline
+approved\allowbreak{}At & \pref{DateTime} & Time of the approval. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+last\allowbreak{}Message & \pref{String} & Last status message of the enrollment. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OffboardingReport}
+
+Outcome of an off-boarding.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+device\allowbreak{}Name & \pref{Name} & The off-boarded device. \\ \hline
+completed & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Off-boarding steps that succeeded. \\ \hline
+failed & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Off-boarding steps that failed. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemEnrollmentView}
+
+A system onboarded for a device.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+system\allowbreak{}Name & \pref{Name} & Name of the system, PascalCase (e.g. \texttt{TemperatureSensor}). \\ \hline
+certificate\allowbreak{}Id & \pref{Number} & Certificate\allowbreak{}Authority record of the system certificate. \\ \hline
+certificate\allowbreak{}Expires\allowbreak{}At & \pref{DateTime} & Expiry of the system certificate. \\ \hline
+issued\allowbreak{}At & \pref{DateTime} & Time the certificate was issued. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & 5.2.2 & Checked against the primary Java source tree (Eclipse-Arrowhead-java): approval limits (1 to 32 systems, reserved names) added. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

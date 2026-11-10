@@ -1,0 +1,386 @@
+[
+  {
+    "system": "Authentication",
+    "kind": "core",
+    "type": "SysDD",
+    "file": "core/Authentication/Authentication-SysDD.pdf",
+    "pages": 16,
+    "appendices": 2
+  },
+  {
+    "system": "Authentication",
+    "kind": "core",
+    "type": "IDD",
+    "file": "core/Authentication/Authentication-IDD.pdf",
+    "pages": 75,
+    "appendices": 8
+  },
+  {
+    "system": "ConsumerAuthorization",
+    "kind": "core",
+    "type": "SysDD",
+    "file": "core/ConsumerAuthorization/ConsumerAuthorization-SysDD.pdf",
+    "pages": 16,
+    "appendices": 2
+  },
+  {
+    "system": "ConsumerAuthorization",
+    "kind": "core",
+    "type": "IDD",
+    "file": "core/ConsumerAuthorization/ConsumerAuthorization-IDD.pdf",
+    "pages": 131,
+    "appendices": 12
+  },
+  {
+    "system": "DynamicServiceOrchestration",
+    "kind": "core",
+    "type": "SysDD",
+    "file": "core/DynamicServiceOrchestration/DynamicServiceOrchestration-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "DynamicServiceOrchestration",
+    "kind": "core",
+    "type": "IDD",
+    "file": "core/DynamicServiceOrchestration/DynamicServiceOrchestration-IDD.pdf",
+    "pages": 135,
+    "appendices": 14
+  },
+  {
+    "system": "SimpleStoreServiceOrchestration",
+    "kind": "core",
+    "type": "SysDD",
+    "file": "core/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration-SysDD.pdf",
+    "pages": 16,
+    "appendices": 2
+  },
+  {
+    "system": "SimpleStoreServiceOrchestration",
+    "kind": "core",
+    "type": "IDD",
+    "file": "core/SimpleStoreServiceOrchestration/SimpleStoreServiceOrchestration-IDD.pdf",
+    "pages": 129,
+    "appendices": 12
+  },
+  {
+    "system": "ServiceRegistry",
+    "kind": "core",
+    "type": "SysDD",
+    "file": "core/ServiceRegistry/ServiceRegistry-SysDD.pdf",
+    "pages": 15,
+    "appendices": 2
+  },
+  {
+    "system": "ServiceRegistry",
+    "kind": "core",
+    "type": "IDD",
+    "file": "core/ServiceRegistry/ServiceRegistry-IDD.pdf",
+    "pages": 156,
+    "appendices": 12
+  },
+  {
+    "system": "AIGym",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/AIGym/AIGym-SysDD.pdf",
+    "pages": 15,
+    "appendices": 3
+  },
+  {
+    "system": "AIGym",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/AIGym/AIGym-IDD.pdf",
+    "pages": 23,
+    "appendices": 4
+  },
+  {
+    "system": "Blacklist",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/Blacklist/Blacklist-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "Blacklist",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/Blacklist/Blacklist-IDD.pdf",
+    "pages": 70,
+    "appendices": 9
+  },
+  {
+    "system": "CertificateAuthority",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/CertificateAuthority/CertificateAuthority-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "CertificateAuthority",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/CertificateAuthority/CertificateAuthority-IDD.pdf",
+    "pages": 41,
+    "appendices": 6
+  },
+  {
+    "system": "Choreographer",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/Choreographer/Choreographer-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "Choreographer",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/Choreographer/Choreographer-IDD.pdf",
+    "pages": 64,
+    "appendices": 7
+  },
+  {
+    "system": "Configuration",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/Configuration/Configuration-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "Configuration",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/Configuration/Configuration-IDD.pdf",
+    "pages": 49,
+    "appendices": 7
+  },
+  {
+    "system": "DataManager",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/DataManager/DataManager-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "DataManager",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/DataManager/DataManager-IDD.pdf",
+    "pages": 34,
+    "appendices": 5
+  },
+  {
+    "system": "DeviceQoSEvaluator",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/DeviceQoSEvaluator/DeviceQoSEvaluator-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "DeviceQoSEvaluator",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/DeviceQoSEvaluator/DeviceQoSEvaluator-IDD.pdf",
+    "pages": 69,
+    "appendices": 9
+  },
+  {
+    "system": "EventHandler",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/EventHandler/EventHandler-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "EventHandler",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/EventHandler/EventHandler-IDD.pdf",
+    "pages": 49,
+    "appendices": 7
+  },
+  {
+    "system": "GateTunnel",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/GateTunnel/GateTunnel-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "GateTunnel",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/GateTunnel/GateTunnel-IDD.pdf",
+    "pages": 39,
+    "appendices": 6
+  },
+  {
+    "system": "Gatekeeper",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/Gatekeeper/Gatekeeper-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "Gatekeeper",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/Gatekeeper/Gatekeeper-IDD.pdf",
+    "pages": 39,
+    "appendices": 6
+  },
+  {
+    "system": "GraphDBManager",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/GraphDBManager/GraphDBManager-SysDD.pdf",
+    "pages": 10,
+    "appendices": 1
+  },
+  {
+    "system": "GraphDBManager",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/GraphDBManager/GraphDBManager-IDD.pdf",
+    "pages": 30,
+    "appendices": 3
+  },
+  {
+    "system": "LocalCloudConfigurator",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/LocalCloudConfigurator/LocalCloudConfigurator-SysDD.pdf",
+    "pages": 11,
+    "appendices": 1
+  },
+  {
+    "system": "LocalCloudConfigurator",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/LocalCloudConfigurator/LocalCloudConfigurator-IDD.pdf",
+    "pages": 26,
+    "appendices": 2
+  },
+  {
+    "system": "LocalCloudManager",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/LocalCloudManager/LocalCloudManager-SysDD.pdf",
+    "pages": 20,
+    "appendices": 3
+  },
+  {
+    "system": "LocalCloudManager",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/LocalCloudManager/LocalCloudManager-IDD.pdf",
+    "pages": 51,
+    "appendices": 7
+  },
+  {
+    "system": "Onboarding",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/Onboarding/Onboarding-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "Onboarding",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/Onboarding/Onboarding-IDD.pdf",
+    "pages": 51,
+    "appendices": 6
+  },
+  {
+    "system": "PlantDescriptionEngine",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/PlantDescriptionEngine/PlantDescriptionEngine-SysDD.pdf",
+    "pages": 17,
+    "appendices": 3
+  },
+  {
+    "system": "PlantDescriptionEngine",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/PlantDescriptionEngine/PlantDescriptionEngine-IDD.pdf",
+    "pages": 52,
+    "appendices": 6
+  },
+  {
+    "system": "SoSConfigurator",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/SoSConfigurator/SoSConfigurator-SysDD.pdf",
+    "pages": 2,
+    "appendices": 0
+  },
+  {
+    "system": "SoSConfigurator",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/SoSConfigurator/SoSConfigurator-IDD.pdf",
+    "pages": 2,
+    "appendices": 0
+  },
+  {
+    "system": "SysMonitor",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/SysMonitor/SysMonitor-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "SysMonitor",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/SysMonitor/SysMonitor-IDD.pdf",
+    "pages": 39,
+    "appendices": 6
+  },
+  {
+    "system": "TimeManager",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/TimeManager/TimeManager-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "TimeManager",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/TimeManager/TimeManager-IDD.pdf",
+    "pages": 31,
+    "appendices": 5
+  },
+  {
+    "system": "TranslationManager",
+    "kind": "support",
+    "type": "SysDD",
+    "file": "support/TranslationManager/TranslationManager-SysDD.pdf",
+    "pages": 16,
+    "appendices": 3
+  },
+  {
+    "system": "TranslationManager",
+    "kind": "support",
+    "type": "IDD",
+    "file": "support/TranslationManager/TranslationManager-IDD.pdf",
+    "pages": 106,
+    "appendices": 11
+  }
+]

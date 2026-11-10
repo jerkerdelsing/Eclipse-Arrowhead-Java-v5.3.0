@@ -1,0 +1,1222 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.07\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{localCloudManagement HTTP/TLS/JSON}
+\ArrowheadServiceID{localCloudManagement}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the HTTP/1.1 protocol with TLS payload security and JSON payload encoding variant of the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} service of the LocalCloudManager system.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} service interface of the LocalCloudManager system, which provides the operator console API of the local cloud: overview, registry and data views, orchestration rules, consumers, inter-cloud state, sysMonitor history and subscriptions, plant descriptions, logs and container lifecycle.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & HTTP & 1.1 \cite{rfc9112} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{localCloudManagement -- Service Description} document \cite{lcm-localCloudManagement-sd}.
+For further details about how this service is meant to be used, please consult that document.
+
+The rest of this document describes how to realize the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} service
+interface in detail. Both in terms of its operations (Section \ref{sec:operations}) and its information model (Section \ref{sec:model}).
+
+\subsection{Interface registration}
+
+LocalCloudManager listens on two connectors. The Arrowhead connector (port 8491, HTTPS with mutual TLS) is registered in the ServiceRegistry with the interface template \texttt{generic\_\allowbreak{}https} and policy \texttt{CERT\_\allowbreak{}AUTH}, base path \texttt{/\allowbreak{}api}. The console connector (port 8490, plain HTTP, published on the host's loopback address only) serves the browser console with the same routes plus the console-only ones; it is not registered. The \texttt{operations} property lists the operations below with their method and path relative to the base path (path values are appended to the registered path):
+
+\noindent\begin{longtable}{| p{5.2cm} | p{1.6cm} | p{8.4cm} |} \hline
+\rowcolor{gray!33} Operation & Method & Path \\ \hline \endhead
+\texttt{overview} & GET & \texttt{/\allowbreak{}overview} \\ \hline
+\texttt{service\allowbreak{}Registry\allowbreak{}Management} & GET & \texttt{/\allowbreak{}service-\allowbreak{}registry-\allowbreak{}management} \\ \hline
+\texttt{dataManager} & GET & \texttt{/\allowbreak{}datamanager} \\ \hline
+\texttt{consumers} & GET & \texttt{/\allowbreak{}consumers} \\ \hline
+\texttt{interCloud} & GET & \texttt{/\allowbreak{}intercloud} \\ \hline
+\texttt{sysMonitorHistory} & GET & \texttt{/\allowbreak{}sysmonitor} \\ \hline
+\texttt{sys\allowbreak{}Monitor\allowbreak{}Subscriptions} & GET & \texttt{/\allowbreak{}sysmonitor/\allowbreak{}subscriptions} \\ \hline
+\texttt{subscribe\allowbreak{}Sys\allowbreak{}Monitor} & PUT & \texttt{/\allowbreak{}sysmonitor/\allowbreak{}subscriptions} \\ \hline
+\texttt{unsubscribe\allowbreak{}Sys\allowbreak{}Monitor} & DELETE & \texttt{/\allowbreak{}sysmonitor/\allowbreak{}subscriptions} \\ \hline
+\texttt{plantDescriptions} & GET & \texttt{/\allowbreak{}plantdescriptions} \\ \hline
+\texttt{create\allowbreak{}Plant\allowbreak{}Description} & POST & \texttt{/\allowbreak{}plantdescriptions} \\ \hline
+\texttt{replace\allowbreak{}Plant\allowbreak{}Description} & PUT & \texttt{/\allowbreak{}plantdescriptions} \\ \hline
+\texttt{update\allowbreak{}Plant\allowbreak{}Description} & PATCH & \texttt{/\allowbreak{}plantdescriptions} \\ \hline
+\texttt{remove\allowbreak{}Plant\allowbreak{}Description} & DELETE & \texttt{/\allowbreak{}plantdescriptions} \\ \hline
+\texttt{orchestrationRules} & GET & \texttt{/\allowbreak{}orchestration/\allowbreak{}rules} \\ \hline
+\texttt{create\allowbreak{}Orchestration\allowbreak{}Rule} & POST & \texttt{/\allowbreak{}orchestration/\allowbreak{}rules} \\ \hline
+\texttt{remove\allowbreak{}Orchestration\allowbreak{}Rule} & DELETE & \texttt{/\allowbreak{}orchestration/\allowbreak{}rules} \\ \hline
+\texttt{logs} & GET & \texttt{/\allowbreak{}logs} \\ \hline
+\texttt{lifecycle} & POST & \texttt{/\allowbreak{}containers} \\ \hline
+\end{longtable}
+
+\texttt{general\allowbreak{}Management} is registered separately (base path \texttt{/\allowbreak{}localcloudmanager/\allowbreak{}general/\allowbreak{}mgmt}, operation \texttt{get-\allowbreak{}config}, \texttt{GET /\allowbreak{}get-\allowbreak{}config?\allowbreak{}keys=\ldots}, Sysop only).
+
+\subsection{Access}
+
+\textbf{Arrowhead connector (8491).} A request needs the caller's client certificate and \texttt{Authorization:\allowbreak{} Bearer IDENTITY-\allowbreak{}TOKEN/\allowbreak{}/\allowbreak{}<token>} of the same system (common outsourced authentication filter; 401 otherwise, with the common error body \texttt{\{"errorMessage", "errorCode", "exceptionType", "origin"\}}). A registered operation is allowed for Sysop, the systems of \texttt{lcm.\allowbreak{}api.\allowbreak{}whitelist} and systems with a ConsumerAuthorization grant of the operation (403 otherwise); other \texttt{/api} paths only for Sysop and the whitelist. The console-only paths (\texttt{/api/\allowbreak{}session}, \texttt{/health}, the UI) are 404 there.
+
+\begin{lstlisting}[label={lst:arrowhead},caption={An invocation on the Arrowhead connector.}]
+GET /api/overview HTTP/1.1
+Host: cloud-monitor-api:8491
+Authorization: Bearer IDENTITY-TOKEN//<identity token>
+\end{lstlisting}
+
+\textbf{Console connector (8490).} \texttt{Host} and \texttt{Origin} must be allowed console names (403 \texttt{"Host or Origin is not an allowed console address"}; Origin \texttt{null} is refused); with a configured proxy secret, \texttt{/api} requests must carry \texttt{X-\allowbreak{}Console-\allowbreak{}Proxy} (403 \texttt{"Not forwarded by the console"}); without a configured password every \texttt{/api} request is 503. Every \texttt{/api} route except \texttt{/api/\allowbreak{}session} needs the session cookie \texttt{ah\_\allowbreak{}console} (401 \texttt{"Console login required"}). Other paths serve the static console (\texttt{index.html} for unknown paths). Responses carry \texttt{X-\allowbreak{}Frame-\allowbreak{}Options:\allowbreak{} DENY}, \texttt{Content-\allowbreak{}Security-\allowbreak{}Policy:\allowbreak{} frame-\allowbreak{}ancestors 'none'}, \texttt{X-\allowbreak{}Content-\allowbreak{}Type-\allowbreak{}Options:\allowbreak{} nosniff} and \texttt{Referrer-\allowbreak{}Policy:\allowbreak{} no-\allowbreak{}referrer}.
+
+\newpage
+
+\section{Service Operations}
+\label{sec:operations}
+
+The interfaces of the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} service, its operations, data models and implementation are provided below.
+In particular, each subsection first names the HTTP method and path used to call the operation, after which it names the abstract operation from the \texttt{local\allowbreak{}Cloud\allowbreak{}Management} SD document, as well as input and output types. The examples use the console connector; on the Arrowhead connector the same request carries the identity token instead of the cookie.
+
+For \texttt{POST}, \texttt{PUT}, \texttt{PATCH} and \texttt{DELETE} the header \texttt{X-Arrowhead-Action: confirm} is required (428 \texttt{"Missing action confirmation header"}). Request bodies are \texttt{application/json} and at most 64 KiB (larger: 500 \texttt{"Request body is too large"}; malformed: 500 \texttt{"Invalid JSON body"}); an empty body counts as \texttt{\{\}}. Responses are \texttt{application/json} with \texttt{Cache-Control: no-store}.
+Errors of the routes are answered with \texttt{\{"error": "<text>"\}} and the status codes \texttt{400 Bad Request} (invalid input), \texttt{401 Unauthorized}, \texttt{403 Forbidden}, \texttt{404 Not Found} (\texttt{"Not found"} for an unknown route), \texttt{405 Method Not Allowed}, \texttt{409 Conflict} (stored entry changed since it was read), \texttt{415 Unsupported Media Type} (login without JSON), \texttt{428 Precondition Required}, \texttt{429 Too Many Requests} (login locked), \texttt{500 Internal Server Error}, \texttt{502 Bad Gateway} (a provider request failed) and \texttt{503 Service Unavailable} (no authorized provider found by orchestration, or no console password). An error of a provider is passed on with the provider's status and error message.
+
+\osubsection{session}{GET}{/\allowbreak{}api/\allowbreak{}session}{}{\mref{Session}}
+
+Whether the request carries a valid console session (no session needed). Console connector only.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:session},caption={An \oref{session} invocation.}]
+GET /api/session HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:session-resp},caption={An \oref{session} response.}]
+{
+  "authenticated": true,
+  "configured": true
+}
+\end{lstlisting}
+
+\osubsection{login}{POST}{/\allowbreak{}api/\allowbreak{}session}{\mref{Login}}{}
+
+Logs in with the console password. The body must be \texttt{application/json} (415 otherwise). On success the response sets \texttt{ah\_console=<token>; HttpOnly; SameSite=Strict; Path=/; Max-Age=28800}. A wrong password is 401 \texttt{\{"error": "Wrong password"\}}; a locked client is 429 with \texttt{Retry-After} and \texttt{\{"error": "Too many failed logins; try again later"\}}. Other methods on this path are 405. Console connector only.
+
+A successful call returns \texttt{204 No Content}.
+
+\begin{lstlisting}[label={lst:login},caption={An \oref{login} invocation.}]
+POST /api/session HTTP/1.1
+Host: 127.0.0.1:8490
+Content-Type: application/json
+
+{
+  "password": "<console password>"
+}
+\end{lstlisting}
+
+\osubsection{logout}{DELETE}{/\allowbreak{}api/\allowbreak{}session}{}{\mref{Session}}
+
+Ends the console session; the response clears the cookie (\texttt{Max-Age=0}). Console connector only.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:logout},caption={An \oref{logout} invocation.}]
+DELETE /api/session HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:logout-resp},caption={An \oref{logout} response.}]
+{
+  "authenticated": false
+}
+\end{lstlisting}
+
+\osubsection{health}{GET}{/\allowbreak{}health}{}{\mref{Health}}
+
+Liveness and ServiceRegistry registration state; no session needed. Console connector only (404 on the Arrowhead connector).
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:health},caption={An \oref{health} invocation.}]
+GET /health HTTP/1.1
+Host: 127.0.0.1:8490
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:health-resp},caption={An \oref{health} response.}]
+{
+  "status": "ok",
+  "system": "LocalCloudManager",
+  "registration": {
+    "registered": true,
+    "instanceId": "LocalCloudManager|generalManagement|1.0.0",
+    "instanceIds": ["LocalCloudManager|generalManagement|1.0.0",
+      "LocalCloudManager|localCloudManagement|1.0.0"],
+    "error": null,
+    "checkedAt": "2026-11-09T10:00:00.000Z"
+  }
+}
+\end{lstlisting}
+
+\osubsection{features}{GET}{/\allowbreak{}api/\allowbreak{}features}{}{\mref{Features}}
+
+Which optional console views are enabled (not registered).
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:features},caption={An \oref{features} invocation.}]
+GET /api/features HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:features-resp},caption={An \oref{features} response.}]
+{
+  "localCloudConfiguration": true,
+  "chipletFloorplans": false,
+  "managerName": "LocalCloudManager"
+}
+\end{lstlisting}
+
+\osubsection{overview}{GET}{/\allowbreak{}api/\allowbreak{}overview}{}{\mref{View}}
+
+Overview: containers of the managed Compose project (Docker proxy), ServiceRegistry inventory with runtime state, registry management, naming check, CRL validity, brokers and sysMonitor flows, the last 60 samples and the registration state. A failing source is reported in \texttt{errors} and the corresponding \texttt{cloud} flag.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:overview},caption={An \oref{overview} invocation.}]
+GET /api/overview HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:overview-resp},caption={An \oref{overview} response.}]
+{
+  "collectedAt": "2026-11-09T10:00:00.000Z",
+  "cloud": {"name": "arrowhead-v52-test-cloud", "release": "5.2.2",
+            "registryReachable": true, "dockerReachable": true},
+  "summary": {"at": "...", "running": 21, "containers": 23,
+              "registeredSystems": 19, "registeredServices": 64,
+              "unhealthy": 0, "incidents": 0, "unregisteredServices": []},
+  "devices": [ ... ], "systems": [ ... ], "services": [ ... ],
+  "registryManagement": { ... },
+  "naming": {"valid": true, "violations": []},
+  "revocation": {"thisUpdate": "...", "nextUpdate": "...",
+                 "hoursRemaining": 70, "state": "ok"},
+  "infrastructure": [ ... ], "orchestrations": [ ... ],
+  "containers": [{"id": "0123456789ab", "name": "...", "service": "sysmonitor",
+                  "displayName": "SysMonitor", "image": "...",
+                  "state": "running", "status": "Up 2 hours (healthy)",
+                  "health": "healthy", "created": "...", "managed": true}],
+  "history": [ ... ],
+  "registration": { ... },
+  "errors": {"docker": null, "arrowhead": null, "naming": null}
+}
+\end{lstlisting}
+
+\osubsection{serviceRegistryManagement}{GET}{/\allowbreak{}api/\allowbreak{}service-registry-management}{}{\mref{View}}
+
+Registry inventory grouped by device: systems with their services and runtime state, runtime-only containers and a summary.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:serviceRegistryManagement},caption={An \oref{serviceRegistryManagement} invocation.}]
+GET /api/service-registry-management HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:serviceRegistryManagement-resp},caption={An \oref{serviceRegistryManagement} response.}]
+{
+  "collectedAt": "...",
+  "cloud": { ... },
+  "devices": [{"name": "Device1", "addresses": ["10.0.0.1"], "metadata": {},
+               "registered": true, "systems": [ ... ],
+               "deployed": true, "serviceCount": 5}],
+  "runtimeOnly": [ ... ],
+  "summary": {"registeredDevices": 1, "deployedDevices": 1,
+              "registeredSystems": 19, "deployedSystems": 18,
+              "registeredServices": 64, "deployedServices": 60,
+              "runtimeOnly": 0},
+  "errors": { ... }
+}
+\end{lstlisting}
+
+\osubsection{dataManager}{GET}{/\allowbreak{}api/\allowbreak{}datamanager?\allowbreak{}limit=\fparam{\{limit\}}}{}{\mref{View}}
+
+DataManager \texttt{dataHistorian} records of all systems and services (latest \texttt{limit} entries, 1 to 1000, default 240), the latest entry per measurement and numeric series.
+
+Parameters: \fparam{limit}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:dataManager},caption={An \oref{dataManager} invocation.}]
+GET /api/datamanager?limit=240 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:dataManager-resp},caption={An \oref{dataManager} response.}]
+{
+  "collectedAt": "...",
+  "count": 1,
+  "latest": [{"id": "RandomDataProducer|randomNumberProducer|urn:...:value|1000",
+              "name": "urn:arrowhead:rdp:value", "time": 1000, "unit": null,
+              "value": {"v": 42}, "record": { ... },
+              "system": "RandomDataProducer", "service": "randomNumberProducer"}],
+  "entries": [ ... ],
+  "series": [{"name": "urn:arrowhead:rdp:value",
+              "points": [{"time": 1000, "value": 42, "unit": null}],
+              "system": "RandomDataProducer", "service": "randomNumberProducer",
+              "sourceCloud": null,
+              "label": "RandomDataProducer . value - local"}]
+}
+\end{lstlisting}
+
+\osubsection{consumers}{GET}{/\allowbreak{}api/\allowbreak{}consumers}{}{\mref{View}}
+
+Per provider service, the authorized consumers (ConsumerAuthorization policies) and the orchestrated consumers (DSO history, GateTunnel sessions, SimpleStore rules, DSO plant rules).
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:consumers},caption={An \oref{consumers} invocation.}]
+GET /api/consumers HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:consumers-resp},caption={An \oref{consumers} response.}]
+{
+  "collectedAt": "...",
+  "localCloud": "TestCloud",
+  "errors": [],
+  "rows": [{"provider": "ServiceRegistry", "serviceDefinition": "temperature",
+           "providerCloud": "TestCloud",
+           "authorized": [{"consumerCloud": "TestCloud", "level": "MGMT",
+                           "consumers": "Consumer", "scoped": []}],
+           "orchestrated": [{"consumer": "Consumer", "consumerCloud": "TestCloud",
+                             "via": "SimpleStore rule (priority 1)"}]}]
+}
+\end{lstlisting}
+
+\osubsection{interCloud}{GET}{/\allowbreak{}api/\allowbreak{}intercloud}{}{\mref{View}}
+
+Neighbour clouds, relay links of Gatekeeper and GateTunnel, GateTunnel sessions and the inter-cloud publishing of RandomDataProducer.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:interCloud},caption={An \oref{interCloud} invocation.}]
+GET /api/intercloud HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:interCloud-resp},caption={An \oref{interCloud} response.}]
+{
+  "collectedAt": "...",
+  "localCloud": "TestCloud",
+  "neighbourClouds": ["GoCloud|Company"],
+  "neighbourError": null,
+  "relay": {"gatekeeper": {"connected": true}, "gatetunnel": {"connected": true}},
+  "sessions": {"sessions": []},
+  "producer": {"status": "publishing"}
+}
+\end{lstlisting}
+
+\osubsection{sysMonitorHistory}{GET}{/\allowbreak{}api/\allowbreak{}sysmonitor?\allowbreak{}system=\fparam{\{system\}}\&limit=\fparam{\{limit\}}}{}{\mref{View}}
+
+Systems known to SysMonitor (\texttt{sysMonitorHistory}) with their latest observations, and the observations of one system (\texttt{system}, default the first; \texttt{limit} 1 to 1000, default 120).
+
+Parameters: \fparam{system}, \fparam{limit}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:sysMonitorHistory},caption={An \oref{sysMonitorHistory} invocation.}]
+GET /api/sysmonitor?system=DataManager&limit=120 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:sysMonitorHistory-resp},caption={An \oref{sysMonitorHistory} response.}]
+{
+  "collectedAt": "...",
+  "retentionDays": 7,
+  "storedObservations": 3,
+  "systems": [{"systemName": "DataManager", "observationCount": 3,
+               "latest": {"echo": {"status": "alive"}}}],
+  "selectedSystem": "DataManager",
+  "observations": [ ... ]
+}
+\end{lstlisting}
+
+\osubsection{sysMonitorSubscriptions}{GET}{/\allowbreak{}api/\allowbreak{}sysmonitor/\allowbreak{}subscriptions}{}{\mref{View}}
+
+SysMonitor providers, subscriptions and AMQP intake state (\texttt{sysMonitorManagement}).
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:sysMonitorSubscriptions},caption={An \oref{sysMonitorSubscriptions} invocation.}]
+GET /api/sysmonitor/subscriptions HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:sysMonitorSubscriptions-resp},caption={An \oref{sysMonitorSubscriptions} response.}]
+{
+  "collectedAt": "...",
+  "defaultSubscription": ["echo"],
+  "providers": [{"systemName": "DataManager"}],
+  "subscriptions": [],
+  "intake": {"connected": true}
+}
+\end{lstlisting}
+
+\osubsection{subscribeSysMonitor}{PUT}{/\allowbreak{}api/\allowbreak{}sysmonitor/\allowbreak{}subscriptions/\allowbreak{}\fparam{\{system\}}}{\mref{SysMonitorSubscriptionRequest}}{\mref{View}}
+
+Sets the SysMonitor subscription of a provider system (\texttt{[A-Za-z0-9\_-]+}); \texttt{enabled} defaults to true. The response is SysMonitor's.
+
+Parameters: \fparam{system}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:subscribeSysMonitor},caption={An \oref{subscribeSysMonitor} invocation.}]
+PUT /api/sysmonitor/subscriptions/DataManager HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "observationTypes": ["echo", "status"],
+  "enabled": true
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:subscribeSysMonitor-resp},caption={An \oref{subscribeSysMonitor} response.}]
+{
+  "systemName": "DataManager",
+  "enabled": true
+}
+\end{lstlisting}
+
+\osubsection{unsubscribeSysMonitor}{DELETE}{/\allowbreak{}api/\allowbreak{}sysmonitor/\allowbreak{}subscriptions/\allowbreak{}\fparam{\{system\}}}{}{\mref{Removal}}
+
+Removes the SysMonitor subscription of a provider system.
+
+Parameters: \fparam{system}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:unsubscribeSysMonitor},caption={An \oref{unsubscribeSysMonitor} invocation.}]
+DELETE /api/sysmonitor/subscriptions/DataManager HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:unsubscribeSysMonitor-resp},caption={An \oref{unsubscribeSysMonitor} response.}]
+{
+  "removed": "DataManager"
+}
+\end{lstlisting}
+
+\osubsection{plantDescriptions}{GET}{/\allowbreak{}api/\allowbreak{}plantdescriptions}{}{\mref{View}}
+
+Plant descriptions (first 200) with the registered systems and services offered as choices; \texttt{registryError} when the inventory failed.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:plantDescriptions},caption={An \oref{plantDescriptions} invocation.}]
+GET /api/plantdescriptions HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:plantDescriptions-resp},caption={An \oref{plantDescriptions} response.}]
+{
+  "collectedAt": "...",
+  "entries": [{"id": 1, "plantDescription": "test", "active": false, ... }],
+  "count": 1,
+  "systems": ["Consumer", "ServiceRegistry"],
+  "services": [{"provider": "ServiceRegistry", "serviceDefinition": "temperature",
+                "interfaces": ["generic_https"]}],
+  "registryError": null
+}
+\end{lstlisting}
+
+\osubsection{createPlantDescription}{POST}{/\allowbreak{}api/\allowbreak{}plantdescriptions}{\mref{PlantDescription}}{\mref{PlantDescription}}
+
+Creates a plant description in the Plant\allowbreak{}Description\allowbreak{}Engine; the body is forwarded.
+
+A successful call returns \texttt{201 Created} with the output in the body.
+
+\begin{lstlisting}[label={lst:createPlantDescription},caption={An \oref{createPlantDescription} invocation.}]
+POST /api/plantdescriptions HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "plantDescription": "Line 1",
+  "active": false,
+  "include": [],
+  "systems": [],
+  "connections": []
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:createPlantDescription-resp},caption={An \oref{createPlantDescription} response.}]
+{
+  "id": 2,
+  "plantDescription": "Line 1",
+  ...
+}
+\end{lstlisting}
+
+\osubsection{replacePlantDescription}{PUT}{/\allowbreak{}api/\allowbreak{}plantdescriptions/\allowbreak{}\fparam{\{id\}}}{\mref{PlantDescription}}{\mref{PlantDescription}}
+
+Replaces a plant description (numeric identifier; 404 without one).
+
+Parameters: \fparam{id}.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:replacePlantDescription},caption={An \oref{replacePlantDescription} invocation.}]
+PUT /api/plantdescriptions/2 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{ ... }
+\end{lstlisting}
+
+\osubsection{updatePlantDescription}{PATCH}{/\allowbreak{}api/\allowbreak{}plantdescriptions/\allowbreak{}\fparam{\{id\}}}{\mref{PlantDescription}}{\mref{PlantDescription}}
+
+Updates a plant description.
+
+Parameters: \fparam{id}.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:updatePlantDescription},caption={An \oref{updatePlantDescription} invocation.}]
+PATCH /api/plantdescriptions/2 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "active": true
+}
+\end{lstlisting}
+
+\osubsection{removePlantDescription}{DELETE}{/\allowbreak{}api/\allowbreak{}plantdescriptions/\allowbreak{}\fparam{\{id\}}}{}{\mref{Removal}}
+
+Removes a plant description.
+
+Parameters: \fparam{id}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:removePlantDescription},caption={An \oref{removePlantDescription} invocation.}]
+DELETE /api/plantdescriptions/2 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:removePlantDescription-resp},caption={An \oref{removePlantDescription} response.}]
+{
+  "removed": 2
+}
+\end{lstlisting}
+
+\osubsection{authorizationPolicies}{GET}{/\allowbreak{}api/\allowbreak{}orchestration/\allowbreak{}policies}{}{\mref{PolicyView}}
+
+Local-cloud management policies of Consumer\allowbreak{}Authorization (editable) and provider-owned local policies (read-only); not registered.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:authorizationPolicies},caption={An \oref{authorizationPolicies} invocation.}]
+GET /api/orchestration/policies HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:authorizationPolicies-resp},caption={An \oref{authorizationPolicies} response.}]
+{
+  "entries": [ ... ],
+  "readOnlyEntries": [ ... ],
+  "collectedAt": "..."
+}
+\end{lstlisting}
+
+\osubsection{grantAuthorizationPolicy}{POST}{/\allowbreak{}api/\allowbreak{}orchestration/\allowbreak{}policies}{\mref{PolicyChange}}{\mref{ManagementPolicy}}
+
+Grants a local management policy (201), or replaces the stored policy of the same provider and target when \texttt{expected} matches it (200). 400 for an invalid policy, 409 for an unregistered provider or service, a policy that exists without \texttt{expected}, a changed policy or duplicate targets, 502 when a replacement could not complete.
+
+A successful call returns \texttt{201 Created or 200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:grantAuthorizationPolicy},caption={An \oref{grantAuthorizationPolicy} invocation.}]
+POST /api/orchestration/policies HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "policy": {"provider": "ServiceRegistry", "targetType": "SERVICE_DEF",
+             "target": "temperature",
+             "defaultPolicy": {"policyType": "WHITELIST",
+                               "policyList": ["Consumer"]}},
+  "expected": null
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:grantAuthorizationPolicy-resp},caption={An \oref{grantAuthorizationPolicy} response.}]
+{
+  "instanceId": "MGMT|LOCAL|ServiceRegistry|SERVICE_DEF|temperature",
+  ...
+}
+\end{lstlisting}
+
+\osubsection{revokeAuthorizationPolicy}{DELETE}{/\allowbreak{}api/\allowbreak{}orchestration/\allowbreak{}policies/\allowbreak{}\fparam{\{instanceId\}}}{\mref{PolicyChange}}{\mref{Removal}}
+
+Revokes a local management policy (URL-encoded instance identifier) when \texttt{expected} matches the stored policy: 404 unknown, 428 without \texttt{expected}, 409 changed.
+
+Parameters: \fparam{instanceId}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:revokeAuthorizationPolicy},caption={An \oref{revokeAuthorizationPolicy} invocation.}]
+DELETE /api/orchestration/policies/MGMT%7CLOCAL%7CServiceRegistry%7CSERVICE_DEF%7Ctemperature HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "expected": { ... }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:revokeAuthorizationPolicy-resp},caption={An \oref{revokeAuthorizationPolicy} response.}]
+{
+  "removed": true,
+  "id": "MGMT|LOCAL|ServiceRegistry|SERVICE_DEF|temperature"
+}
+\end{lstlisting}
+
+\osubsection{orchestrationRules}{GET}{/\allowbreak{}api/\allowbreak{}orchestration/\allowbreak{}rules}{}{\mref{View}}
+
+SimpleStore rules of the registered consumers, the orchestration catalog (producers with their interoperable consumers) and the aggregated DynamicServiceOrchestration history.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:orchestrationRules},caption={An \oref{orchestrationRules} invocation.}]
+GET /api/orchestration/rules HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:orchestrationRules-resp},caption={An \oref{orchestrationRules} response.}]
+{
+  "catalog": {"producers": [{"instanceId": "ServiceRegistry|temperature|1.0.0",
+                              "provider": "ServiceRegistry",
+                              "serviceDefinition": "temperature",
+                              "version": "1.0.0", "interfaces": [ ... ],
+                              "compatibleConsumers": ["Consumer"]}],
+              "consumers": [{"name": "Consumer", "version": null, "x509": true,
+                             "interfaceTemplates": ["generic_https"]}]},
+  "rules": [{"id": "123e4567-...", "consumer": "Consumer",
+             "serviceInstanceId": "ServiceRegistry|temperature|1.0.0", "priority": 1}],
+  "count": 1,
+  "dynamic": [{"consumer": "Consumer", "serviceDefinition": "temperature",
+               "count": 1, "kind": "local",
+               "providers": [{"provider": "ServiceRegistry", "cloud": null}], ... }],
+  "dynamicError": null,
+  "collectedAt": "..."
+}
+\end{lstlisting}
+
+\osubsection{createOrchestrationRule}{POST}{/\allowbreak{}api/\allowbreak{}orchestration/\allowbreak{}rules}{\mref{OrchestrationRule}}{\mref{View}}
+
+Creates a SimpleStore rule after checking that the producer is still offered and the consumer is interoperable with it (400 invalid, 409 stale or incompatible). The response is SimpleStore's.
+
+A successful call returns \texttt{201 Created}.
+
+\begin{lstlisting}[label={lst:createOrchestrationRule},caption={An \oref{createOrchestrationRule} invocation.}]
+POST /api/orchestration/rules HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "consumer": "Consumer",
+  "serviceInstanceId": "ServiceRegistry|temperature|1.0.0",
+  "priority": 1
+}
+\end{lstlisting}
+
+\osubsection{changeOrchestrationRulePriority}{PUT}{/\allowbreak{}api/\allowbreak{}orchestration/\allowbreak{}rules/\allowbreak{}\fparam{\{id\}}}{\mref{RulePriorityChange}}{\mref{View}}
+
+Changes the priority of a SimpleStore rule with \texttt{modify-priorities}, or by create and remove when \texttt{lcm.orchestration-priority-mode=replace} (not registered).
+
+Parameters: \fparam{id}.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:changeOrchestrationRulePriority},caption={An \oref{changeOrchestrationRulePriority} invocation.}]
+PUT /api/orchestration/rules/123e4567-e89b-12d3-a456-426614174000 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "priority": 2,
+  "expected": {"consumer": "Consumer",
+               "serviceInstanceId": "ServiceRegistry|temperature|1.0.0",
+               "priority": 1}
+}
+\end{lstlisting}
+
+\osubsection{removeOrchestrationRule}{DELETE}{/\allowbreak{}api/\allowbreak{}orchestration/\allowbreak{}rules/\allowbreak{}\fparam{\{id\}}}{}{\mref{Removal}}
+
+Removes a SimpleStore rule (UUID; 400 for another identifier).
+
+Parameters: \fparam{id}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:removeOrchestrationRule},caption={An \oref{removeOrchestrationRule} invocation.}]
+DELETE /api/orchestration/rules/123e4567-e89b-12d3-a456-426614174000 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:removeOrchestrationRule-resp},caption={An \oref{removeOrchestrationRule} response.}]
+{
+  "id": "123e4567-e89b-12d3-a456-426614174000",
+  "removed": true,
+  "at": "..."
+}
+\end{lstlisting}
+
+\osubsection{logs}{GET}{/\allowbreak{}api/\allowbreak{}logs?\allowbreak{}service=\fparam{\{service\}}\&tail=\fparam{\{tail\}}}{}{\mref{LogLines}}
+
+The last \texttt{tail} (1 to 500, default 150) log lines of a container of the managed project, through the Docker proxy (404 for an unknown service).
+
+Parameters: \fparam{service}, \fparam{tail}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:logs},caption={An \oref{logs} invocation.}]
+GET /api/logs?service=sysmonitor&tail=150 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:logs-resp},caption={An \oref{logs} response.}]
+{
+  "service": "sysmonitor",
+  "lines": ["2026-11-09T10:00:00.000000000Z ..."],
+  "collectedAt": "..."
+}
+\end{lstlisting}
+
+\osubsection{lifecycle}{POST}{/\allowbreak{}api/\allowbreak{}containers/\allowbreak{}\fparam{\{service\}}/\allowbreak{}\fparam{\{action\}}}{}{\mref{LifecycleResult}}
+
+Starts, stops or restarts (\texttt{start}, \texttt{stop}, \texttt{restart}) a container of a service in \texttt{lcm.managed-services} through the Docker proxy: 403 outside the allowlist, 404 unknown service.
+
+Parameters: \fparam{service}, \fparam{action}.
+
+A successful call returns \texttt{202 Accepted} with the output in the body.
+
+\begin{lstlisting}[label={lst:lifecycle},caption={An \oref{lifecycle} invocation.}]
+POST /api/containers/sysmonitor/restart HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:lifecycle-resp},caption={An \oref{lifecycle} response.}]
+{
+  "service": "sysmonitor",
+  "action": "restart",
+  "accepted": true,
+  "at": "..."
+}
+\end{lstlisting}
+
+\osubsection{sosConfigurations}{GET}{/\allowbreak{}api/\allowbreak{}sos}{}{\mref{View}}
+
+SoS compositions (all plant descriptions, up to 2000), shaped like \oref{plantDescriptions}; \texttt{/api/sos/\{id\}} returns one composition (404 \texttt{"SoS not found"}); another path is 404 \texttt{"Unknown SoS operation"}. Not registered.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:sosConfigurations},caption={An \oref{sosConfigurations} invocation.}]
+GET /api/sos HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\osubsection{createSoS}{POST}{/\allowbreak{}api/\allowbreak{}sos}{\mref{SoSChange}}{\mref{PlantDescription}}
+
+Stores a validated SoS composition (400 with the validation messages; 428 for an active composition without \texttt{activationConfirmed}).
+
+A successful call returns \texttt{201 Created}.
+
+\begin{lstlisting}[label={lst:createSoS},caption={An \oref{createSoS} invocation.}]
+POST /api/sos HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "configuration": {"plantDescription": "Line 1", "active": false,
+                    "include": [], "systems": [], "connections": []}
+}
+\end{lstlisting}
+
+\osubsection{replaceSoS}{PUT}{/\allowbreak{}api/\allowbreak{}sos/\allowbreak{}\fparam{\{id\}}}{\mref{SoSChange}}{\mref{PlantDescription}}
+
+Replaces an SoS composition when \texttt{expected} matches the stored one (409 otherwise; 400 when it includes itself).
+
+Parameters: \fparam{id}.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:replaceSoS},caption={An \oref{replaceSoS} invocation.}]
+PUT /api/sos/1 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "configuration": { ... },
+  "expected": {"id": 1, "updatedAt": "...", ... }
+}
+\end{lstlisting}
+
+\osubsection{removeSoS}{DELETE}{/\allowbreak{}api/\allowbreak{}sos/\allowbreak{}\fparam{\{id\}}}{\mref{SoSChange}}{\mref{Removal}}
+
+Removes an SoS composition when \texttt{expected} matches the stored one.
+
+Parameters: \fparam{id}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:removeSoS},caption={An \oref{removeSoS} invocation.}]
+DELETE /api/sos/1 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "expected": { ... }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:removeSoS-resp},caption={An \oref{removeSoS} response.}]
+{
+  "removed": 1
+}
+\end{lstlisting}
+
+\osubsection{localCloudConfiguration}{GET}{/\allowbreak{}api/\allowbreak{}localcloud/\allowbreak{}\fparam{\{route\}}}{\pref{Object}}{\mref{View}}
+
+Local-cloud configuration (404 \texttt{"Local cloud configurator is not enabled"} when switched off). The route selects one operation of \texttt{localCloudConfiguration} of LocalCloudConfigurator \cite{lcc-localCloudConfiguration-http-idd}, consumed through orchestration; the request body is forwarded and status and body are returned unchanged. Other routes are 404 \texttt{"Unknown local cloud configuration operation"}.
+
+Parameters: \fparam{route}.
+
+A successful call returns \texttt{the configurator's status} with the output in the body.
+
+\begin{lstlisting}[label={lst:localCloudConfiguration},caption={An \oref{localCloudConfiguration} invocation.}]
+POST /api/localcloud/plan HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+X-Arrowhead-Action: confirm
+Content-Type: application/json
+
+{
+  "systems": ["timemanager"],
+  "remove": [],
+  "reapply": false,
+  "smoke": true
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:localCloudConfiguration-resp},caption={An \oref{localCloudConfiguration} response.}]
+{
+  "plan": {"cloud": "TestCloud", "catalogHash": "...", "systems": [ ... ],
+           "steps": [ ... ], "notes": [ ... ]},
+  "hash": "..."
+}
+\end{lstlisting}
+
+\osubsection{chipletFloorplans}{GET}{/\allowbreak{}api/\allowbreak{}chiplet/\allowbreak{}floorplans}{\pref{Object}}{\mref{View}}
+
+Chiplet floorplan view when \texttt{lcm.chiplet-floorplans.enabled=true} (404 otherwise), through orchestrated Chiplet\allowbreak{}Floorplan\allowbreak{}Generator services: \texttt{GET} list (\texttt{page}, \texttt{size} up to 200), \texttt{/library} and \texttt{/\{id\}}; \texttt{POST} create (stored inactive, 201) and \texttt{POST /check-network}; \texttt{PUT /\{id\}} with \texttt{expectedUpdatedAt} (409 when changed); \texttt{DELETE /\{id\}}. Bodies carry \texttt{floorplan} with 1--64 chiplets and at most 1024 links. Not registered.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:chipletFloorplans},caption={An \oref{chipletFloorplans} invocation.}]
+GET /api/chiplet/floorplans?page=0&size=200 HTTP/1.1
+Host: 127.0.0.1:8490
+Cookie: ah_console=<session>
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+Here, all data objects that can be part of the service calls associated with this service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is meant to denote a JSON \pref{Object} that must contain certain fields, or names, with values conforming to explicitly named types.
+Fields that are not needed may be omitted or \texttt{null} in requests; empty fields are omitted in responses.
+As a complement to the primary types defined in this section, there is also a list of secondary types in Section \ref{sec:model:primitives}, which are used to represent things like hashes, identifiers and texts.
+
+\msubsection{struct}{LifecycleResult}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"service" & \pref{String} & Compose service. \\ \hline
+"action" & \pref{String} & \texttt{start}, \texttt{stop} or \texttt{restart}. \\ \hline
+"accepted" & \pref{Boolean} & Forwarded to the Docker proxy. \\ \hline
+"at" & \pref{String} & Time of the action. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{LogLines}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"service" & \pref{String} & Compose service. \\ \hline
+"lines" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Log lines (\texttt{tail} latest). \\ \hline
+"collected\allowbreak{}At" & \pref{DateTime} & Collection time. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Health}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+status & \pref{String} & \texttt{ok}. \\ \hline
+system & \pref{Name} & \texttt{LocalCloudManager}. \\ \hline
+registration & \pref{Object} & \texttt{registered}, \texttt{instanceId}, \texttt{instanceIds}, \texttt{error}, \texttt{checkedAt}. \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{Login}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"password" & \pref{String} & Console password (JSON only; 204 on success, 401 wrong, 429 locked). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OrchestrationRule}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"consumer" & \pref{String} & Consumer system. \\ \hline
+"service\allowbreak{}Instance\allowbreak{}Id" & \pref{String} & Service instance. \\ \hline
+"priority" & \pref{Number} & Priority (1 highest). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlantDescription}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"*" & \pref{Object} & Plant description as in Plant\allowbreak{}Description\allowbreak{}Engine \texttt{plant\allowbreak{}Description\allowbreak{}Management}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Session}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"authenticated" & \pref{Boolean} & Whether the request carries a valid console session. \\ \hline
+"configured" & \pref{Boolean} & Whether a console password is configured. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SysMonitorSubscriptionRequest}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"observation\allowbreak{}Types" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Types to receive, \texttt{*} for all. \\ \hline
+"enabled" & \pref{Boolean} & Default true. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{View}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"*" & \pref{Object} & View document assembled from the providing systems; a failing source is reported in the document instead of failing the request. \\ \hline
+\end{tabularx}
+
+
+
+
+\msubsection{struct}{Features}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"localCloudConfiguration" & \pref{Boolean} & Local-cloud configuration view enabled. \\ \hline
+"chipletFloorplans" & \pref{Boolean} & Chiplet floorplan view enabled. \\ \hline
+"managerName" & \pref{String} & LocalCloudManager, or ChipletLocalCloudManager with floorplans. \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{ManagementPolicy}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"instanceId" & \pref{String} & Policy instance (assigned by Consumer\allowbreak{}Authorization). \\ \hline
+"provider" & \pref{String} & Registered local provider. \\ \hline
+"targetType" & \pref{String} & \texttt{SERVICE\_DEF} or \texttt{EVENT\_TYPE}. \\ \hline
+"target" & \pref{String} & Service definition or event type. \\ \hline
+"description" & \pref{String} & At most 1000 characters. \\ \hline
+"defaultPolicy" & \pref{Object} & \texttt{policyType} (\texttt{ALL}, \texttt{WHITELIST}, \texttt{BLACKLIST}) and \texttt{policyList} of local system names. \\ \hline
+"scopedPolicies" & \pref{Object} & Per operation, a policy like \texttt{defaultPolicy} (at most 100). \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{PolicyChange}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"policy" & \mref{ManagementPolicy} & Policy to grant (POST). \\ \hline
+"expected" & \mref{ManagementPolicy} & Stored policy as last read; required to replace or revoke. \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{PolicyView}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array} & Editable local management policies. \\ \hline
+"readOnlyEntries" & \pref{Array} & Provider-owned local policies. \\ \hline
+"collectedAt" & \pref{DateTime} & Collection time. \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{Removal}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"removed" & \pref{Object} & Identifier of, or \texttt{true} for, the removed entry. \\ \hline
+"id" & \pref{String} & Removed policy (policies only). \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{RulePriorityChange}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"priority" & \pref{Number} & New priority, 1 to 2147483647. \\ \hline
+"expected" & \mref{OrchestrationRule} & Rule as last read (409 if changed, 428 if missing). \\ \hline
+\end{tabularx}
+
+
+\msubsection{struct}{SoSChange}
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"configuration" & \pref{Object} & SoS model: \texttt{plantDescription} (name), \texttt{active}, \texttt{include}, \texttt{systems} with ports, \texttt{connections}. \\ \hline
+"expected" & \pref{Object} & Stored composition as last read (replace and remove). \\ \hline
+"activationConfirmed" & \pref{Boolean} & Must be \texttt{true} to save an active composition (428 otherwise). \\ \hline
+\end{tabularx}
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+As all messages are encoded using the JSON format \cite{rfc8259}, the following primitive constructs, part of that standard, become available.
+Note that the official standard is defined in terms of parsing rules, while this list only concerns syntactic information.
+Furthermore, the \pref{Object} and \pref{Array} types are given optional generic type parameters, which are used in this document to signify when pair values or elements are expected to conform to certain types.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Array} & A JSON Array \cite{rfc8259}; \pref{Array}$<$A$>$ has elements of type A. \\ \hline
+\pdef{Boolean} & JSON Boolean, \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & JSON String with an ISO 8601 UTC timestamp, e.g. \texttt{2026-10-22T12:00:00Z}. \\ \hline
+\pdef{Name} & JSON String, an Arrowhead system name. \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): console operations outside the registered list (features, authorization policies, rule priority, SoS, local-cloud configuration, chiplet floorplans) added; success responses of logout, unsubscribeSysMonitor, removePlantDescription and removeOrchestrationRule corrected; error codes completed. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & \arrowversion & Java-Spring implementation: Arrowhead connector 8491 (\texttt{generic\_\allowbreak{}https}, \texttt{CERT\_\allowbreak{}AUTH}, identity token, grant check) and console connector 8490 (session cookie, Host/Origin, proxy secret); every route with method, path, status codes and JSON from the controller; session operations console-only; \texttt{/health}; local-cloud configuration through the orchestrated \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration} service. Node.js/nginx descriptions removed. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

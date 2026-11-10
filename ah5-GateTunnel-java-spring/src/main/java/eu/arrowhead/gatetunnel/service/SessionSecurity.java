@@ -33,6 +33,7 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.cert.PKIXParameters;
 import java.security.cert.TrustAnchor;
+import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.security.spec.MGF1ParameterSpec;
 import java.security.spec.PSSParameterSpec;
@@ -40,6 +41,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HexFormat;
 import java.util.LinkedHashMap;
@@ -67,6 +69,10 @@ import eu.arrowhead.gatetunnel.security.TlsSupport;
 // is then sealed (AAD = protocol, session, direction, sequence); requests carry a sequence number and a timestamp, so
 // duplicates and stale messages are refused, and a reply must carry the sequence number of its request. The relay sees
 // only ciphertext; the ephemeral keys give forward secrecy.
+//
+// Revocation (security finding SOS-4, 2026-11-10): after the path validates, the relay certificate must not be listed by
+// a current CRL of its cloud CA, and the cross-certificate not by a current CRL of the organization CA. The CRL files
+// (gatetunnel.relay.crl.files) are read again for every key exchange; a missing, forged or out-of-date CRL refuses it.
 public class SessionSecurity {
 
 	//=================================================================================================
@@ -84,15 +90,80 @@ public class SessionSecurity {
 	private final PrivateKey key;
 	private final String chainPem;
 	private final X509Certificate orgCa;
+	private final RevocationCheck revocation;
 
 	//=================================================================================================
 	// methods
 
 	//-------------------------------------------------------------------------------------------------
-	public SessionSecurity(final Path keyFile, final Path chainFile, final Path orgCaFile) throws Exception {
+	// The CRL files must name at least one file; each must hold readable CRLs at start.
+	public SessionSecurity(final Path keyFile, final Path chainFile, final Path orgCaFile, final List<Path> crlFiles) throws Exception {
+		this(keyFile, chainFile, orgCaFile, crlRevocation(crlFiles));
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	// With another revocation check (tests whose fixture PKI has no CA keys). A null check refuses every peer.
+	public SessionSecurity(final Path keyFile, final Path chainFile, final Path orgCaFile, final RevocationCheck revocation) throws Exception {
 		this.key = TlsSupport.key(keyFile);
 		this.chainPem = Files.readString(chainFile);
 		this.orgCa = TlsSupport.cert(orgCaFile);
+		this.revocation = revocation;
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	public static RevocationCheck crlRevocation(final List<Path> crlFiles) throws Exception {
+		if (crlFiles == null || crlFiles.isEmpty()) {
+			throw new IllegalArgumentException("AH-GT-1 needs the CRL files of the organization CA and the peer cloud CAs");
+		}
+		final List<Path> files = List.copyOf(crlFiles);
+		for (final Path file : files) {
+			if (crls(file).isEmpty()) {
+				throw new IllegalArgumentException("No CRL in " + file);
+			}
+		}
+
+		return (certificate, issuer) -> {
+			final List<X509CRL> all = new ArrayList<>();
+			for (final Path file : files) {
+				try {
+					all.addAll(crls(file));
+				} catch (final Exception ex) {
+					throw new SecurityError("CRL file " + file + " is unreadable", ex);
+				}
+			}
+			checkRevocation(certificate, issuer, all, new Date());
+		};
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	// The certificate must not be listed by any current CRL that the issuer signed, and at least one such CRL must exist.
+	public static void checkRevocation(final X509Certificate certificate, final X509Certificate issuer, final List<X509CRL> crls, final Date now) throws SecurityError {
+		boolean signed = false;
+		boolean current = false;
+		for (final X509CRL crl : crls) {
+			if (!crl.getIssuerX500Principal().equals(issuer.getSubjectX500Principal())) {
+				continue;
+			}
+			try {
+				crl.verify(issuer.getPublicKey());
+			} catch (final Exception ex) {
+				continue;
+			}
+			signed = true;
+			if (crl.getThisUpdate().after(now) || crl.getNextUpdate() == null || crl.getNextUpdate().before(now)) {
+				continue;
+			}
+			current = true;
+			if (crl.isRevoked(certificate)) {
+				throw new SecurityError("peer certificate " + TlsSupport.cn(certificate) + " is revoked");
+			}
+		}
+		if (!signed) {
+			throw new SecurityError("no CRL of " + TlsSupport.cn(issuer) + " is configured");
+		}
+		if (!current) {
+			throw new SecurityError("the CRL of " + TlsSupport.cn(issuer) + " is out of date");
+		}
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -133,6 +204,11 @@ public class SessionSecurity {
 			}
 
 			final X509Certificate leaf = certificates.getFirst();
+			if (revocation == null) {
+				throw new SecurityError("no revocation check is configured");
+			}
+			revocation.check(leaf, certificates.get(1));
+			revocation.check(certificates.get(1), orgCa);
 			if (leaf.getBasicConstraints() >= 0) {
 				throw new SecurityError("peer relay certificate must not be a CA");
 			}
@@ -278,6 +354,19 @@ public class SessionSecurity {
 	// assistant methods
 
 	//-------------------------------------------------------------------------------------------------
+	// PEM (one or more CRLs) or DER.
+	private static List<X509CRL> crls(final Path file) throws Exception {
+		final List<X509CRL> out = new ArrayList<>();
+		try (var in = new ByteArrayInputStream(Files.readAllBytes(file))) {
+			for (final var crl : CertificateFactory.getInstance("X.509").generateCRLs(in)) {
+				out.add((X509CRL) crl);
+			}
+		}
+
+		return out;
+	}
+
+	//-------------------------------------------------------------------------------------------------
 	private static Signature pss() throws Exception {
 		final Signature signature = Signature.getInstance("RSASSA-PSS");
 		signature.setParameter(new PSSParameterSpec("SHA-256", "MGF1", MGF1ParameterSpec.SHA256, PSS_SALT, 1));
@@ -300,6 +389,12 @@ public class SessionSecurity {
 		public SecurityError(final String message, final Throwable cause) {
 			super(message, cause);
 		}
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@FunctionalInterface
+	public interface RevocationCheck {
+		void check(X509Certificate certificate, X509Certificate issuer) throws SecurityError;
 	}
 
 	//-------------------------------------------------------------------------------------------------

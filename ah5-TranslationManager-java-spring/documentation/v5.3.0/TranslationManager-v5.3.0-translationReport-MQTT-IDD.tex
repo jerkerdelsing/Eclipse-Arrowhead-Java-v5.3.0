@@ -1,0 +1,307 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{translationReport MQTT/TLS/JSON}
+\ArrowheadServiceID{translationReport}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the MQTT protocol with TLS payload security and JSON payload encoding variant of the \texttt{translationReport} service of the TranslationManager system.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{translationReport} service interface of the TranslationManager system over MQTT, which provides event reports of translators about the bridges they serve (use, internal close, errors).
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & MQTT & 3.1.1 \cite{mqtt311} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{translationReport} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{translationReport -- Service Description} document \cite{tm-translationReport-sd}.
+The operations, their semantics and the data models are the same as in the HTTP/TLS/JSON IDD \cite{tm-translationReport-http-idd}; this document specifies the MQTT binding.
+
+The MQTT interface is offered only when the system runs with \texttt{mqtt.api.enabled=true}; it is then registered with the interface template \texttt{generic\_\allowbreak{}mqtts} (\texttt{generic\_\allowbreak{}mqtt} without TLS), the broker address and port (\texttt{mqtt.\allowbreak{}broker.\allowbreak{}address}, \texttt{mqtt.\allowbreak{}broker.\allowbreak{}port}) and the base topic \texttt{arrowhead/\allowbreak{}translation/\allowbreak{}event/\allowbreak{}}. The standalone deployment sets \texttt{mqtt.\allowbreak{}api.\allowbreak{}enabled=\allowbreak{}false}, so the MQTT interfaces are not registered there.
+
+\newpage
+
+\section{Service Operations}
+\label{sec:operations}
+
+The provider subscribes to one topic per operation, the base topic followed by the operation name:
+
+\noindent\begin{longtable}{| p{5cm} | p{10.4cm} |} \hline
+\rowcolor{gray!33} Operation & Request topic \\ \hline \endhead
+\texttt{report} & \texttt{arrowhead/\allowbreak{}translation/\allowbreak{}event/\allowbreak{}report} \\ \hline
+\end{longtable}
+
+A consumer publishes a request envelope (\mref{MqttRequestTemplate}) to the topic and receives the answer (\mref{MqttResponseTemplate}) on its own \texttt{responseTopic}. The \texttt{authentication} field carries the requester's identity according to the provider's authentication policy: \texttt{IDENTITY-TOKEN//<token>} (outsourced or internal policy), \texttt{SYSTEM//<name>} (declared policy) or the requester's X.509 certificate (certificate policy). The \texttt{status} of the response uses the HTTP status code numbers (200, 201, 204, 400, 401, 403, 404, 408, 423, 500, 503); on error the payload is an \mref{ErrorMessage}.
+
+\begin{lstlisting}[caption={Request envelope.}]
+{
+  "traceId": "a1b2c3",
+  "authentication": "IDENTITY-TOKEN//<token>",
+  "responseTopic": "arrowhead/response/TemperatureDisplay/a1b2c3",
+  "qosRequirement": 1,
+  "params": {},
+  "payload": {}
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption={Response envelope.}]
+{
+  "status": 200,
+  "traceId": "a1b2c3",
+  "receiver": "TemperatureDisplay",
+  "payload": {}
+}
+\end{lstlisting}
+
+\osubsection{report}{PUBLISH}{\texttt{arrowhead/\allowbreak{}translation/\allowbreak{}event/\allowbreak{}report}}{\mref{TranslationReportRequest}}{}
+
+Reports an event of a bridge (\texttt{USED}, \texttt{INTERNAL\_\allowbreak{}CLOSED}, \texttt{INTERNAL\_\allowbreak{}ERROR}, \texttt{EXTERNAL\_\allowbreak{}ERROR}).
+
+\begin{lstlisting}[caption={Payload of an \oref{report} request.}]
+{
+  "bridgeId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "timestamp": "string",
+  "state": "USED",
+  "errorMessage": "string"
+}
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+Here, all data objects that can be part of the service calls associated with this service are listed in alphabetic order.
+Each \textit{struct} denotes a JSON \pref{Object} with the named fields; fields that are not needed may be omitted.
+
+\msubsection{struct}{MqttRequestTemplate}
+
+The request envelope.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.25cm} | p{3.5cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"traceId" & \pref{String} & Identifier chosen by the requester, returned in the response. \\ \hline
+"authentication" & \pref{String} & Identity of the requester (see Section \ref{sec:operations}). \\ \hline
+"responseTopic" & \pref{String} & Topic on which the response is published. \\ \hline
+"qosRequirement" & \pref{Number} & MQTT QoS of the response (0, 1 or 2). \\ \hline
+"params" & \pref{Object}$<$\pref{String}$>$ & Optional parameters (the query parameters of the HTTP binding). \\ \hline
+"payload" & \pref{Object} & The operation input. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{MqttResponseTemplate}
+
+The response envelope.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.25cm} | p{3.5cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"status" & \pref{Number} & Status code. \\ \hline
+"traceId" & \pref{String} & The trace identifier of the request. \\ \hline
+"receiver" & \pref{String} & Name of the requester. \\ \hline
+"payload" & \pref{Object} & The operation output, or an \mref{ErrorMessage}. \\ \hline
+\end{tabularx}
+
+\msubsection{struct}{ErrorMessage}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"error\allowbreak{}Message" & \pref{String} & Error text, if the event is an error. \\ \hline
+"error\allowbreak{}Code" & \pref{Number} &  \\ \hline
+"exception\allowbreak{}Type" & \pref{ExceptionType} &  \\ \hline
+"origin" & \pref{String} &  \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{TranslationReportRequest}
+
+Event reported by a translator about a bridge.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"bridge\allowbreak{}Id" & \pref{String} & Identifier (UUID) of the translation bridge. \\ \hline
+"timestamp" & \pref{String} & Time of the event, ISO 8601 UTC. \\ \hline
+"state" & \pref{String} & Event: \texttt{USED}, \texttt{INTERNAL\_\allowbreak{}CLOSED}, \texttt{INTERNAL\_\allowbreak{}ERROR} or \texttt{EXTERNAL\_\allowbreak{}ERROR}. \\ \hline
+"error\allowbreak{}Message" & \pref{String} & Error text, if the event is an error. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+As all messages are encoded using the JSON format \cite{rfc8259}, the following primitive constructs, part of that standard, become available.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{ExceptionType} & One of \texttt{ARROWHEAD}, \texttt{INVALID\_\allowbreak{}PARAMETER}, \texttt{AUTH}, \texttt{FORBIDDEN}, \texttt{DATA\_\allowbreak{}NOT\_\allowbreak{}FOUND}, \texttt{TIMEOUT}, \texttt{LOCKED}, \texttt{INTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR}, \texttt{EXTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR} (JSON String). \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\section{Go and Rust implementation variants}
+\subsection{Go implementation}
+Primary system folder: \path|Eclipse-Arrowhead-go/ah5-TranslationManager-go|.\par
+The system owns its Go module, launcher and build configuration. Use the per-system \path|Makefile| and \path|go.mod|; the containing Go tree is the build source, not a historical Arrowhead copy. Ordinary native roles use independent identities and JSON snapshot state rather than the Java database. Do not assume Java SQL migration, clustering or identical transaction/retry semantics. The registry has its own configuration and optional native AMQP monitor; other roles must be checked against their own registrations.
+\paragraph{Listening port.} Built-in default 127.0.0.1:8465 (Arrowhead default). The shipped config.json, compose.yaml and Dockerfile use the same port on all interfaces ("listen": "0.0.0.0:8465"; 8540--8555 layout before 2026-11-09). Override with "listen" in the configuration file, SERVER\_PORT=N or -server.port N; the port overrides keep the configured host.
+\paragraph{Native behavior and outstanding work.} Port of the Java TranslatorBridgeEngine (2026-10-24): registry discovery of interface translators (interfaceBridgeManagement), data model translators (dataModelTranslation) and factories (dataModelTranslatorFactoryControl); check-targets / initialize-bridge / abort-bridge; Java bridge statuses, transitions, reports, query and 8-hour cleanup; consumer and management APIs. Translators with TOKEN\_AUTH interfaceBridgeManagement policies are not selected; custom translator configuration (TODO in Java) not sent; first-match matchmaking. These are the boundaries recorded by the native compatibility document; later implementation changes still require direct qualification.
+Native design/route evidence: \path|Eclipse-Arrowhead-go/ah5-TranslationManager-go/documentation/TranslationManager|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+\subsection{Rust implementation}
+Primary system folder: \path|Eclipse-Arrowhead-rust/ah5-TranslationManager-rust|.\par
+The per-system entry point is declared as a binary of \path|arrowhead-support-rust| in \path|ah5-support-runtime-rust/Cargo.toml|. Build from the primary Rust workspace with the applicable package/binary selection. Documentation links can resolve into the shared core/support catalogue. Independent process identity and state remain required.\par
+The ordinary native profile uses Tokio/Axum and rustls with peer-identity checks and independent locked JSON state. Network effects are not distributed database transactions. The precise trust, CRL reload and persistence guarantees are those of the native profile, not the Java implementation.\par
+\paragraph{Listening port.} Default 127.0.0.1:8465 (Arrowhead default, role translationmanager). Override with "listen": "host:port" in the configuration, SERVER\_PORT=N or --server.port N; the port overrides keep the configured host.
+\paragraph{Native behavior and outstanding work.} Durable bridge lifecycle through pinned HTTPS InterfaceTranslator adapter. Java translator chaining/native conversion/discovery; absent adapter returns503; uncertain effects require reconciliation. These are the boundaries recorded by the native compatibility document; later implementation changes still require direct qualification.
+Native design/route evidence: \path|Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TranslationManager|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & 5.2.2 & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated; missing primitive definitions added. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

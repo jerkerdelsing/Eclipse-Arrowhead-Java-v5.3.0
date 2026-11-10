@@ -41,6 +41,7 @@ import eu.arrowhead.gatetunnel.service.InterCloudSessionService;
 import eu.arrowhead.gatetunnel.service.ProviderClient;
 import eu.arrowhead.gatetunnel.service.RelayClient;
 import eu.arrowhead.gatetunnel.service.SessionSecurity;
+import eu.arrowhead.gatetunnel.service.SessionSecurityTest;
 
 // AH-GT-1 over a real relay broker (MQTT over mutual TLS): the GoCloud GateTunnel (provider side, the Spring service with
 // its relay bean) and the TestCloud GateTunnel's consumer half, each with its own relay identity. The consumer half is
@@ -77,7 +78,7 @@ public class RelayRoundTripTest {
 	private static FederationSettings settings(final String cloud, final String neighbor) {
 		return new FederationSettings(cloud, "Company", "ah-gt-1", neighbor, "", "gatetunnel", 43200, 3600, 120, 8200, 8299, 8000, 8099,
 				System.getProperty("gt.it.relay.host"), Integer.parseInt(System.getProperty("gt.it.relay.port", "8883")),
-				DIR.resolve(cloud + "-relay-chain.crt").toString(), DIR.resolve(cloud + "-relay.key").toString(), System.getProperty("gt.it.relay.ca"), "");
+				DIR.resolve(cloud + "-relay-chain.crt").toString(), DIR.resolve(cloud + "-relay.key").toString(), System.getProperty("gt.it.relay.ca"), "", "");
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -99,7 +100,7 @@ public class RelayRoundTripTest {
 		final ProviderClient providerClient = mock(ProviderClient.class);
 		final byte[] providerBody = "{\"stored\":true}".getBytes(StandardCharsets.UTF_8);
 		when(providerClient.call(eq("DataManager"), any(), eq("PUT"), any(), any(), any())).thenReturn(new ProviderClient.Response(201, providerBody, "application/json"));
-		final SessionSecurity goSecurity = new SessionSecurity(DIR.resolve("GoCloud-relay.key"), DIR.resolve("GoCloud-relay-chain.crt"), DIR.resolve("org-ca.crt"));
+		final SessionSecurity goSecurity = new SessionSecurity(DIR.resolve("GoCloud-relay.key"), DIR.resolve("GoCloud-relay-chain.crt"), DIR.resolve("org-ca.crt"), SessionSecurityTest.NO_CRL);
 		@SuppressWarnings("unchecked")
 		final ObjectProvider<SessionSecurity> goProvider = mock(ObjectProvider.class);
 		when(goProvider.getIfAvailable()).thenReturn(goSecurity);
@@ -110,7 +111,7 @@ public class RelayRoundTripTest {
 		final FederationSettings testSettings = settings("TestCloud", "GoCloud");
 		consumerRelay = new RelayClient(testSettings);
 		consumerRelay.bind(testSettings::trustedPeer, (peer, message) -> m("accepted", false, "error", "consumer side"));
-		final SessionSecurity testSecurity = new SessionSecurity(DIR.resolve("TestCloud-relay.key"), DIR.resolve("TestCloud-relay-chain.crt"), DIR.resolve("org-ca.crt"));
+		final SessionSecurity testSecurity = new SessionSecurity(DIR.resolve("TestCloud-relay.key"), DIR.resolve("TestCloud-relay-chain.crt"), DIR.resolve("org-ca.crt"), SessionSecurityTest.NO_CRL);
 
 		awaitConnected(providerRelay);
 		awaitConnected(consumerRelay);

@@ -35,6 +35,9 @@ services:
       RELAY_CHAIN_CERT: /certs/gatetunnel-relay-chain.crt
       RELAY_KEY: /certs/gatetunnel-relay.key
       RELAY_CA_CERT: /certs/org-ca.crt
+      # AH-GT-1 peer revocation (SOS-4), mandatory: the organization CA's CRL and the CA CRL of every peer cloud, e.g.
+      # /org-crl/org-ca.crl,/peer-crl/GoCloud/ca.crl. A peer whose CA has no current CRL here is refused.
+      RELAY_CRL_FILES: ${RELAY_CRL_FILES:-/org-crl/org-ca.crl}
       MIN_TUNNEL_PORT: "${MIN_TUNNEL_PORT:-8000}"
       MAX_TUNNEL_PORT: "${MAX_TUNNEL_PORT:-8099}"
       INTERCLOUD_MIN_PORT: "${INTERCLOUD_MIN_PORT:-8200}"
@@ -82,6 +85,18 @@ services:
       - type: bind
         source: ${ORGANIZATION_CA_FILE:-./security/org-ca.crt}
         target: /certs/org-ca.crt
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        # a directory (public files only): the CRL is replaced by rename, which a single-file mount loses (SOS-5)
+        source: ${ORGANIZATION_CRL_DIRECTORY:-./security/org-crl}
+        target: /org-crl
+        read_only: true
+        bind: {create_host_path: false}
+      # the peer clouds' CA CRLs (one subdirectory per cloud)
+      - type: bind
+        source: ${PEER_CRL_DIRECTORY:-./security/peer-crl}
+        target: /peer-crl
         read_only: true
         bind: {create_host_path: false}
     networks:

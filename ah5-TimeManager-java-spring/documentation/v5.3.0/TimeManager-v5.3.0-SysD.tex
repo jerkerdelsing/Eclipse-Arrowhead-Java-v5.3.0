@@ -1,0 +1,244 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{TimeManager}
+\ArrowheadType{System Description}
+\ArrowheadTypeShort{SysD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the TimeManager support system of the Eclipse Arrowhead framework (documentation edition 5.3.0), as implemented in \texttt{ah5-TimeManager-java-spring} of the primary Java source tree (\texttt{Eclipse-Arrowhead-java}) and deployed with the standalone Compose definition of that folder.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the TimeManager system. TimeManager gives the local cloud the current time, the configured time zone and an assessment whether the time can be trusted, from periodic SNTP checks against NTP servers.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small, >=Stealth]
+    \node[draw=ArrowheadBlue, very thick, minimum width=4.2cm, minimum height=2.2cm, align=center, fill=ArrowheadBlue!10] (s)
+      {\guillemotleft{}System\guillemotright{}\\\textbf{TimeManager}};
+    \node[draw=ArrowheadTeal, rectangle, align=left, left=1.3cm of s, text width=4.6cm, inner sep=5pt] (p)
+      {\textbf{Produced services}\\ \texttt{time}\\ \texttt{generalManagement}\\ \texttt{sysMonitor}};
+    \node[draw=ArrowheadOrange, rectangle, align=left, right=1.3cm of s, text width=4.6cm, inner sep=5pt] (c)
+      {\textbf{Consumed}\\ AMQP broker (SysMonitor)\\ Authentication\\ ConsumerAuthorization\\ NTP servers\\ ServiceRegistry};
+    \draw[->, thick, ArrowheadTeal] (s) -- (p);
+    \draw[->, thick, ArrowheadOrange] (s) -- (c);
+  \end{tikzpicture}
+  \caption{SysML-style block view of TimeManager with its produced and consumed services.}
+  \label{fig:system}
+\end{figure}
+
+The rest of this document is organized as follows.
+In Section \ref{sec:prior_art}, we reference major prior art capabilities of the system.
+In Section \ref{sec:use}, we describe the intended usage of the system.
+In Section \ref{sec:properties}, we describe fundamental properties provided by the system.
+In Section \ref{sec:delimitations}, we describe delimitations of capabilities of the system.
+In Section \ref{sec:services}, we describe the abstract service functions consumed or produced by the system.
+In Section \ref{sec:security}, we describe the security capabilities of the system.
+
+\newpage
+
+\subsection{Significant Prior Art}
+\label{sec:prior_art}
+
+Successor of the Arrowhead 4.6 TimeManager core system.
+
+\subsection{How This System Is Meant to Be Used}
+\label{sec:use}
+
+Systems call \texttt{time.\allowbreak{}get-\allowbreak{}time}. The time is trusted while the absolute offset to NTP is below \texttt{time.\allowbreak{}offset.\allowbreak{}threshold}.
+
+\subsection{System functionalities and properties}
+\label{sec:properties}
+
+\subsubsection{Functional properties of the system}
+
+\begin{itemize}
+  \item SNTP client (RFC 4330) with a server list and fallback.
+  \item Trust assessment; \texttt{echo} is \texttt{degraded} while untrusted.
+\end{itemize}
+
+\subsubsection{Configuration of system properties}
+
+The system is configured with Spring properties (\texttt{application.properties}, overridden by environment variables in the container deployment). The properties that shape its behaviour are:
+
+\noindent\begin{longtable}{| p{5.4cm} | p{3.4cm} | p{6.4cm} |} \hline
+\rowcolor{gray!33} Property & Default & Meaning \\ \hline \endhead
+\texttt{server.\allowbreak{}port} & 8463 & HTTPS port. \\ \hline
+\texttt{authentication.\allowbreak{}policy} & declared & Standalone deployment: \texttt{outsourced} with Authentication identity tokens and mutual TLS. \\ \hline
+\texttt{management.\allowbreak{}policy} / \texttt{management.\allowbreak{}whitelist} & authorization & Access to the management services. \\ \hline
+\texttt{enable.\allowbreak{}blacklist.\allowbreak{}filter} / \texttt{force.\allowbreak{}blacklist.\allowbreak{}filter} & false / true & Blacklist check of requesters. \\ \hline
+\texttt{service.\allowbreak{}authorization.\allowbreak{}enabled} & false & Per-call Consumer\allowbreak{}Authorization check (\texttt{authorization.\allowbreak{}verify}, cached 30 s, fail closed); standalone deployment: true. \\ \hline
+\texttt{time.\allowbreak{}timezone} & UTC & IANA time zone. \\ \hline
+\texttt{ntp.\allowbreak{}server.\allowbreak{}list} & pool.ntp.org & NTP servers. \\ \hline
+\texttt{time.\allowbreak{}offset.\allowbreak{}threshold} & 5000 & Trust threshold (ms). \\ \hline
+\texttt{ntp.\allowbreak{}check.\allowbreak{}interval} / \texttt{ntp.\allowbreak{}timeout} & 60000 / 10000 & Check interval and timeout (ms). \\ \hline
+\texttt{normalization.\allowbreak{}mode} & extended & Name normalization. \\ \hline
+\texttt{sysmonitor.\allowbreak{}enabled,\allowbreak{} sysmonitor.\allowbreak{}broker.\allowbreak{}*,\allowbreak{} sysmonitor.\allowbreak{}ssl.\allowbreak{}*} & true, amqp-broker:5671, server.ssl stores & Native \texttt{sysMonitor} publisher of the common library. \\ \hline
+\texttt{arrowhead.\allowbreak{}ssl.\allowbreak{}crl-\allowbreak{}file} & (unset) & CRL checked for every client certificate (standalone deployment: \texttt{/\allowbreak{}crl/\allowbreak{}ca.\allowbreak{}crl}). \\ \hline
+\end{longtable}
+
+Secrets (database, keystore and identity passwords, secret keys) have no usable defaults; the standalone deployment reads them from per-deployment Compose file secrets under \texttt{/\allowbreak{}run/\allowbreak{}secrets}.
+
+The standalone deployment of this folder uses \texttt{config/\allowbreak{}application.\allowbreak{}properties} (copied into the image) with \texttt{server.\allowbreak{}port}=8463, \texttt{authentication.\allowbreak{}policy}=\texttt{outsourced}, \texttt{service.\allowbreak{}interface.\allowbreak{}policy}=\texttt{CERT\_AUTH}, \texttt{management.\allowbreak{}policy}=\texttt{sysop-\allowbreak{}only}, \texttt{service.\allowbreak{}authorization.\allowbreak{}enabled}=\texttt{true}, \texttt{mqtt.\allowbreak{}api.\allowbreak{}enabled}=\texttt{false}, \texttt{arrowhead.\allowbreak{}ssl.\allowbreak{}crl-\allowbreak{}file}=\texttt{/\allowbreak{}crl/\allowbreak{}ca.\allowbreak{}crl}; secrets are read from Compose file secrets under \texttt{/\allowbreak{}run/\allowbreak{}secrets} (\texttt{spring.\allowbreak{}config.\allowbreak{}import=\allowbreak{}configtree:\allowbreak{}/\allowbreak{}run/\allowbreak{}secrets/}). \texttt{enable.\allowbreak{}blacklist.\allowbreak{}filter} is not enabled there, so incoming requests are not checked against the Blacklist; blacklisted providers are still removed by Dynamic\allowbreak{}Service\allowbreak{}Orchestration.
+
+\subsubsection{Data stored by the system}
+
+Only log entries (database \texttt{ah\_\allowbreak{}timemanager}).
+
+\subsubsection{Non functional properties}
+
+Needs UDP port 123 to the NTP servers.
+
+\subsubsection{Stateful or stateless}
+
+Stateless apart from the last NTP check.
+
+\subsection{Important Delimitations}
+\label{sec:delimitations}
+
+TimeManager does not set clocks.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+This section describes the produced and consumed services. Each produced service is specified by an SD document and one IDD document per interface.
+
+\subsection{Produced services}
+
+\noindent\begin{longtable}{| p{5.3cm} | p{1.3cm} | p{2.6cm} | p{1.6cm} | p{3.6cm} |} \hline
+\rowcolor{gray!33} Service & Version & Interfaces & SD & IDD \\ \hline \endhead
+\texttt{time} & 1.0.0 & HTTP(S) & \cite{tim-time-sd} & \cite{tim-time-http-idd} \\ \hline
+\texttt{generalManagement} & 1.0.0 & HTTP(S) & \cite{tim-generalManagement-sd} & \cite{tim-generalManagement-http-idd} \\ \hline
+\texttt{sysMonitor} & 1.0.0 & AMQP(S) & \cite{tim-sysMonitor-sd} & \cite{tim-sysMonitor-amqp-idd} \\ \hline
+\end{longtable}
+
+The HTTP interfaces are always offered and the AMQP \texttt{sysMonitor} interface with \texttt{sysmonitor.enabled=true}.
+
+\subsection{Consumed services}
+
+\noindent\begin{longtable}{| >{\raggedright\arraybackslash}p{2.9cm} | >{\raggedright\arraybackslash}p{3.1cm} | >{\raggedright\arraybackslash}p{2.5cm} | p{3.6cm} | >{\raggedright\arraybackslash}p{2.9cm} |} \hline
+\rowcolor{gray!33} Provider & Service & Operations & Use & Condition \\ \hline \endhead
+ServiceRegistry & systemDiscovery, serviceDiscovery & register, revoke, lookup & Registration of the system and its services; lookup of the bootstrap services. & always \\ \hline
+Authentication & identity & identity-login, identity-verify & Own identity token; verification of requester tokens. & \texttt{authentication.\allowbreak{}policy=\allowbreak{}outsourced} \\ \hline
+Consumer\allowbreak{}Authorization & authorization & verify & Per-call authorization of its services. & \texttt{service.\allowbreak{}authorization.\allowbreak{}enabled=\allowbreak{}true} \\ \hline
+NTP servers & SNTP & time query & Clock offset. & always \\ \hline
+AMQP broker (SysMonitor) & sysMonitor (publisher) & echo, power, status & Own observations. & \texttt{sysmonitor.\allowbreak{}enabled=\allowbreak{}true} \\ \hline
+\end{longtable}
+
+Except for the bootstrap services, which are looked up in the ServiceRegistry, the system reaches other systems' services through DynamicServiceOrchestration (\texttt{http.collector.mode=ORCHESTRATION}, results cached for 300 s); every such call needs a ConsumerAuthorization grant.
+
+\newpage
+
+\section{Security}
+\label{sec:security}
+
+The system can run in an insecure mode (\texttt{server.ssl.enabled=false}, plain HTTP, identity declared by the requester) for development, and in the Arrowhead secure mode with HTTPS and X.509 certificates following the Arrowhead certificate profile (\texttt{<System>.<Cloud>.<Organization>.arrowhead.eu}). Certificates not issued under the cloud CA are refused by the TLS handshake. The standalone deployment of this folder (\texttt{config/\allowbreak{}application.\allowbreak{}properties} and \texttt{compose.yaml}) runs the secure mode.
+
+\subsection{Security model}
+
+
+\begin{itemize}
+  \item \textbf{Protocols:} HTTPS (TLS 1.3 and 1.2) with mandatory client certificates; MQTT over TLS; AMQP over TLS for \texttt{sysMonitor}.
+  \item \textbf{Data protection:} transport encryption by TLS; the database connection uses TLS with server verification in the standalone deployment. Secrets are kept out of the container environment (Compose file secrets).
+  \item \textbf{System authentication:} by the authentication policy: \texttt{certificate}, \texttt{outsourced} (identity token verified with Authentication) or \texttt{declared} (insecure); the standalone deployment uses \texttt{outsourced}. An identity token is accepted only together with the client certificate of the system it was issued to (token-to-certificate binding), and every client certificate is checked against the cloud CA's CRL (fail closed).
+  \item \textbf{Authorization of produced services:} management services are protected by the management filter (\texttt{management.policy}: \texttt{SYSOP\_ONLY}, \texttt{WHITELIST} or \texttt{AUTHORIZATION}); with \texttt{service.authorization.enabled=true} ConsumerAuthorization decides each call; an optional blacklist filter refuses blacklisted requesters. Sysop identities bypass the management filter.
+  \item Standalone deployment: \texttt{management.\allowbreak{}policy=\allowbreak{}sysop-\allowbreak{}only}.
+\end{itemize}
+
+For the Arrowhead certificate profile see github.com/eclipse-arrowhead/documentation.
+
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & 5.2.2 & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

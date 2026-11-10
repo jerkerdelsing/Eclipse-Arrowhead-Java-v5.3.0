@@ -12,6 +12,7 @@ Since v5.0, full AA security and encrypted information exchange are the default 
 | `authentication.policy=declared` | The requester states its own name, with no proof. |
 | `service.authorization.enabled=false` | The system does not enforce authorization. |
 | `sysmonitor.ssl.enabled=false` while `sysmonitor.enabled=true` | Monitoring observations would travel unencrypted. |
+| `device.agent.ssl.enabled=false` (DeviceQoSEvaluator) | Device load figures would travel without encryption or authentication, so anyone on the network could read them or forge them and skew how providers are scored. |
 
 The check runs before Spring creates any bean, so the system never opens a port or a database connection. The error lists each setting that caused the refusal.
 
@@ -45,6 +46,8 @@ It checks the packaged configuration of every folder, and also the version, port
 
 ## Limits
 
+- The DeviceQoSEvaluator device agent (`device_agent/python`) is not a Java system and has no guard. It enforces its own default: mutual TLS, a client allow-list and a CRL check, and plain HTTP only on a loopback address.
+- Outbound calls do not check the server certificate against a CRL; only incoming connections do.
 - The guard covers the Java reference tree only. The Go and Rust trees have their own startup behaviour.
 - A running system is not changed until it is rebuilt from this tree and redeployed.
 - A running test cloud that keeps insecure values in `application.properties` and overrides them with environment variables passes, because the guard reads the effective values.

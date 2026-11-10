@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: eu.arrowhead.deviceqosevaluator.quartz.job.AugmentedMeasurementJobTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.086 s -- in eu.arrowhead.deviceqosevaluator.quartz.job.AugmentedMeasurementJobTest
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.131 s -- in eu.arrowhead.deviceqosevaluator.quartz.job.AugmentedMeasurementJobTest

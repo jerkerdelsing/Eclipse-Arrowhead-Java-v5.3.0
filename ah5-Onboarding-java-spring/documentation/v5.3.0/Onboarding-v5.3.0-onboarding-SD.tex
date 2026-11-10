@@ -1,0 +1,453 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{onboarding}
+\ArrowheadServiceID{onboarding}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{onboarding} service, version 1.0.0, produced by the Onboarding support system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{onboarding} service, which provides the Arrowhead onboarding procedure: a device holding only an approved bootstrap certificate obtains its onboarding, device and system certificates and the identities of its systems.
+It is produced by the Onboarding system \cite{onb-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{onb-onboarding-http-idd}.
+
+\subsection{Significant Prior Art}
+
+Follows Bicaku et al., Interacting with the Arrowhead Local Cloud: On-boarding Procedure (2018), and the v4.6.2 onboarding controller.
+
+\subsection{How This Service Is Meant to Be Used}
+
+Step 1: with the bootstrap certificate, \texttt{onboard-\allowbreak{}with-\allowbreak{}csr} (or \texttt{onboard-\allowbreak{}with-\allowbreak{}name}) returns an onboarding certificate (\texttt{on}, at most 24 h). Step 2: with it, \texttt{onboard-\allowbreak{}device} returns the device certificate (\texttt{de}) and registers the device. Step 3: with the device certificate, \texttt{onboard-\allowbreak{}system} returns a system certificate (\texttt{sy}) and identity password for each approved system. The systems then register and orchestrate as usual. \texttt{offboard-\allowbreak{}device} withdraws everything.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Only devices approved with \texttt{onboarding\allowbreak{}Management} (by bootstrap-certificate fingerprint) are accepted, and only the onboarding and device certificates issued last, while the Certificate\allowbreak{}Authority reports them GOOD. Onboarding holds no CA key; the Certificate\allowbreak{}Authority signs. Prefer CSRs: without one Onboarding generates the key and returns it once.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{onboarding} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{onboarding}
+        \nodepart{second} \texttt{onboard-\allowbreak{}with-\allowbreak{}name}\\ \texttt{onboard-\allowbreak{}with-\allowbreak{}csr}\\ \texttt{onboard-\allowbreak{}device}\\ \texttt{onboard-\allowbreak{}system}\\ \texttt{offboard-\allowbreak{}device}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{onboarding} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{onboard-with-name}{\mref{NameRequest}}{\mref{Response}}
+
+Step 1 without CSR: Onboarding generates a key pair and returns the onboarding certificate with its private key (once).
+
+\osubsection{onboard-with-csr}{\mref{CsrRequest}}{\mref{Response}}
+
+Step 1: signs the device's onboarding certificate (\texttt{on}) from its CSR; returns the chain and the registry descriptors.
+
+\osubsection{onboard-device}{\mref{DeviceRequest}}{\mref{DeviceResponse}}
+
+Step 2, with the onboarding certificate: signs the device certificate (\texttt{de}) and registers the device in the ServiceRegistry.
+
+\osubsection{onboard-system}{\mref{SystemRequest}}{\mref{SystemResponse}}
+
+Step 3, with the device certificate: signs the system certificate (\texttt{sy}) of an approved system and creates its Authentication identity; returns the identity password once.
+
+\osubsection{offboard-device}{}{\mref{OffboardingReport}}
+
+With the device certificate: removes the device's systems, identities and registry entries, revokes the certificates and blacklists the systems.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{onboarding} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{Address}
+
+A network address with its type.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+type & \pref{String} & Address type: \texttt{HOSTNAME}, \texttt{IPV4}, \texttt{IPV6} or \texttt{MAC}. \\ \hline
+address & \pref{String} & One network address (host name, IPv4, IPv6 or MAC address). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{CertificateResult}
+
+An issued certificate.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+certificate & \pref{String} & The certificate, Base64 DER. \\ \hline
+certificate\allowbreak{}Format & \pref{String} & Encoding of the certificate, e.g. \texttt{X.\allowbreak{}509}. \\ \hline
+certificate\allowbreak{}Type & \pref{String} & Certificate profile: \texttt{ON\_\allowbreak{}BOARDING}, \texttt{DEVICE} or \texttt{SYSTEM}. \\ \hline
+public\allowbreak{}Key & \pref{String} & Public key, Base64 X.509 Subject\allowbreak{}Public\allowbreak{}Key\allowbreak{}Info. \\ \hline
+private\allowbreak{}Key & \pref{String} & Generated private key (only without a CSR, returned once). \\ \hline
+expires\allowbreak{}At & \pref{DateTime} & UTC expiry time; no value means no expiry. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{CsrRequest}
+
+Onboarding with the device's own key.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+certificate\allowbreak{}Signing\allowbreak{}Request & \pref{String} & PKCS\textbackslash{}\#10 certificate signing request, Base64 DER. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceRequest}
+
+Request of the device certificate.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+certificate\allowbreak{}Signing\allowbreak{}Request & \pref{String} & PKCS\textbackslash{}\#10 certificate signing request, Base64 DER. \\ \hline
+addresses & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Network addresses of the device for the ServiceRegistry. \\ \hline
+metadata & \pref{Metadata} & Device metadata for the ServiceRegistry. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceResponse}
+
+The device certificate and the next step.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+device\allowbreak{}Name & \pref{Name} & The onboarded device. \\ \hline
+certificate\allowbreak{}Chain & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Issued certificate first, then the issuing CA (Base64 DER). \\ \hline
+device\allowbreak{}Certificate & \mref{CertificateResult} & The issued device certificate (\texttt{de}). \\ \hline
+approved\allowbreak{}Systems & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Systems the operator approved for the device. \\ \hline
+next\allowbreak{}Step & \pref{String} & The operation the caller performs next in the onboarding procedure. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceResponseDTO}
+
+A registered device.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & Device name. \\ \hline
+metadata & \pref{Metadata} & Free-form metadata (JSON object). \\ \hline
+addresses & \pref{List}$<$\allowbreak{}\mref{Address}$>$ & Network addresses with their types. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{NameRequest}
+
+Onboarding with a generated key for a name.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+common\allowbreak{}Name & \pref{String} & Common name of the requested certificate, \texttt{\textless{}Name\textgreater{}.\allowbreak{}\textless{}Cloud\textgreater{}.\allowbreak{}\textless{}Organization\textgreater{}.\allowbreak{}arrowhead.\allowbreak{}eu}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{OffboardingReport}
+
+Outcome of an off-boarding.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+device\allowbreak{}Name & \pref{Name} & The off-boarded device. \\ \hline
+completed & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Off-boarding steps that succeeded. \\ \hline
+failed & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Off-boarding steps that failed. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Response}
+
+Result of the first onboarding step.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+certificate\allowbreak{}Chain & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Issued certificate first, then the issuing CA (Base64 DER). \\ \hline
+onboarding\allowbreak{}Certificate & \mref{CertificateResult} & The issued onboarding certificate (\texttt{on}). \\ \hline
+services & \pref{List}$<$\allowbreak{}\mref{ServiceInstanceResponse}$>$ & Service instances of the core services the caller needs next. \\ \hline
+next\allowbreak{}Step & \pref{String} & The operation the caller performs next in the onboarding procedure. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceDefinitionResponse}
+
+A service definition.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & Service definition name. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceInterfaceResponse}
+
+One interface of a service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+template\allowbreak{}Name & \pref{Name} & Name of the interface template, snake\_case (e.g. \texttt{generic\_\allowbreak{}https}). \\ \hline
+protocol & \pref{String} & Protocol of the interface, e.g. \texttt{http}, \texttt{https}, \texttt{mqtt}, \texttt{mqtts}. \\ \hline
+policy & \pref{String} & Security policy of the interface: \texttt{NONE}, \texttt{CERT\_\allowbreak{}AUTH} or one of the token policies. \\ \hline
+properties & \pref{Map}$<$\allowbreak{}\pref{String}, \pref{Object}$>$ & Interface properties defined by the template, e.g. \texttt{accessAddresses}, \texttt{accessPort}, \texttt{basePath}, \texttt{operations}. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ServiceInstanceResponse}
+
+A registered service instance.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+instance\allowbreak{}Id & \pref{Identifier} & Service instance identifier \texttt{\textless{}System\textgreater{}\textbar{}\allowbreak{}\textless{}service\allowbreak{}Definition\textgreater{}\textbar{}\allowbreak{}\textless{}version\textgreater{}}, or policy instance identifier. \\ \hline
+provider & \mref{SystemResponseDTO} & The provider system. \\ \hline
+service\allowbreak{}Definition & \mref[Service\allowbreak{}Definition\allowbreak{}Response]{ServiceDefinitionResponse} & The service definition. \\ \hline
+version & \pref{Version} & Version of the service instance. \\ \hline
+expires\allowbreak{}At & \pref{DateTime} & UTC expiry time; no value means no expiry. \\ \hline
+metadata & \pref{Metadata} & Free-form metadata (JSON object). \\ \hline
+interfaces & \pref{List}$<$\allowbreak{}\mref[Service\allowbreak{}Instance\allowbreak{}Interface\allowbreak{}Response]{ServiceInstanceInterfaceResponse}$>$ & Service interfaces offered by the instance. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemRequest}
+
+Request of a system certificate.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+system\allowbreak{}Name & \pref{Name} & System to onboard; must be approved for the device. \\ \hline
+certificate\allowbreak{}Signing\allowbreak{}Request & \pref{String} & PKCS\textbackslash{}\#10 certificate signing request, Base64 DER. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemResponse}
+
+The system certificate, identity and the next step.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+system\allowbreak{}Name & \pref{Name} & The onboarded system. \\ \hline
+device\allowbreak{}Name & \pref{Name} & Name of the device hosting the system. \\ \hline
+certificate\allowbreak{}Chain & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Issued certificate first, then the issuing CA (Base64 DER). \\ \hline
+system\allowbreak{}Certificate & \mref{CertificateResult} & The issued system certificate (\texttt{sy}). \\ \hline
+authentication\allowbreak{}Method & \pref{String} & Authentication method of the identity, \texttt{PASSWORD}. \\ \hline
+credentials & \pref{Map}$<$\allowbreak{}\pref{String}, \pref{String}$>$ & Identity password of the new Authentication identity (returned once). \\ \hline
+services & \pref{List}$<$\allowbreak{}\mref{ServiceInstanceResponse}$>$ & Service instances of the core services the caller needs next. \\ \hline
+next\allowbreak{}Step & \pref{String} & The operation the caller performs next in the onboarding procedure. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemResponseDTO}
+
+A registered system.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & System name. \\ \hline
+metadata & \pref{Metadata} & Free-form metadata (JSON object). \\ \hline
+version & \pref{Version} & Version of the system. \\ \hline
+addresses & \pref{List}$<$\allowbreak{}\mref{Address}$>$ & Network addresses with their types. \\ \hline
+device & \mref{DeviceResponseDTO} & The device hosting the system, if registered. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Map} & A set of key-value pairs. \\ \hline
+\pdef{Metadata} & A set of key-value pairs with arbitrary, possibly nested values. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Object} & Any structured value. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\pdef{Version} & Specifies a version, semantic versioning \texttt{major.minor.patch}. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & 5.2.2 & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

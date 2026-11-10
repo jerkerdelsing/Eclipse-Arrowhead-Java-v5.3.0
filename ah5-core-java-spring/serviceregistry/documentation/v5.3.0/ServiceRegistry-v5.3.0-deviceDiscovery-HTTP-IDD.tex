@@ -1,0 +1,430 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}%
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{deviceDiscovery HTTP/TLS/JSON}
+\ArrowheadServiceID{deviceDiscovery}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the HTTP/1.1 protocol with TLS payload security and JSON payload encoding variant of the \texttt{deviceDiscovery} service of the ServiceRegistry system.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{deviceDiscovery} service interface of the ServiceRegistry system, which provides registration and lookup of the devices of the local cloud: the physical or virtual hosts, with their network addresses and metadata, on which the systems run.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & HTTP & 1.1 \cite{rfc9112} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{deviceDiscovery} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{deviceDiscovery -- Service Description} document \cite{sr-deviceDiscovery-sd}.
+For further details about how this service is meant to be used, please consult that document.
+
+The rest of this document describes how to realize the \texttt{deviceDiscovery} service
+interface in detail. Both in terms of its operations (Section \ref{sec:operations}) and its information model (Section \ref{sec:model}).
+
+\subsection{Interface registration}
+
+The service is registered in the ServiceRegistry with the interface template \texttt{generic\_\allowbreak{}https} (\texttt{generic\_\allowbreak{}http} when TLS is disabled), access port 8443 and base path \texttt{/\allowbreak{}serviceregistry/\allowbreak{}device-\allowbreak{}discovery}. The \texttt{operations} property of the interface lists the operations below with their method and path relative to the base path (path parameters are placeholders such as \texttt{\{id\}} that the consumer fills in):
+
+\noindent\begin{longtable}{| p{5.2cm} | p{1.6cm} | p{8.4cm} |} \hline
+\rowcolor{gray!33} Operation & Method & Path \\ \hline \endhead
+\texttt{register} & POST & \texttt{/\allowbreak{}register} \\ \hline
+\texttt{lookup} & POST & \texttt{/\allowbreak{}lookup} \\ \hline
+\texttt{revoke} & DELETE & \texttt{/\allowbreak{}revoke/\allowbreak{}\{name\}} \\ \hline
+\end{longtable}
+
+\newpage
+
+\section{Service Operations}
+\label{sec:operations}
+
+The interfaces of the \texttt{deviceDiscovery} service, its operations, data models and implementation are provided below.
+In particular, each subsection first names the HTTP method and path used to call the operation, after which it names the abstract operation from the \texttt{deviceDiscovery} SD document, as well as input and output types.
+
+All operations require the requester's identity, presented according to the provider's authentication policy: the client certificate (mutual TLS) and, with the \texttt{outsourced} policy, \texttt{Authorization: Bearer IDENTITY-TOKEN//<token>}; systems holding the Authentication secret key send \texttt{Bearer AUTHENTICATOR-KEY//<system>//<hash>}, and with the \texttt{declared} policy \texttt{Bearer SYSTEM//<system>} is sent. Request and response bodies are \texttt{application/json}.
+Errors are answered with an \mref{ErrorMessage} body and the status codes \texttt{400 Bad Request} (invalid parameter), \texttt{401 Unauthorized} (missing or invalid identity), \texttt{403 Forbidden} (not permitted, e.g. by the management or blacklist filter), \texttt{404 Not Found}, \texttt{408 Request Timeout}, \texttt{423 Locked}, \texttt{500 Internal Server Error} and \texttt{503 Service Unavailable} (a system it depends on failed).
+
+\osubsection{register}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}device-discovery/\allowbreak{}register}{\mref{DeviceRequest}}{\mref{DeviceResponse}}
+
+Registers a device with its addresses and metadata. If a device with the same name and the same data exists, it is returned unchanged (200); a new device is created (201). A device with the same name and different data is refused.
+
+A successful call returns \texttt{201 Created} for a new entry, \texttt{200 OK} if an identical entry already existed with the output in the body.
+
+\begin{lstlisting}[label={lst:register},caption={An \oref{register} invocation.}]
+POST /serviceregistry/device-discovery/register HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "name": "Raspberry1",
+  "metadata": {
+    "location": "hall-1"
+  },
+  "addresses": [
+    "string"
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:register-resp},caption={An \oref{register} response.}]
+{
+  "name": "Raspberry1",
+  "metadata": {
+    "location": "hall-1"
+  },
+  "addresses": [
+    {
+      "type": "IPV4",
+      "address": "192.168.0.10"
+    }
+  ],
+  "createdAt": "2026-10-22T12:00:00Z",
+  "updatedAt": "2026-10-22T12:00:00Z"
+}
+\end{lstlisting}
+
+\osubsection{lookup}{POST}{/\allowbreak{}serviceregistry/\allowbreak{}device-discovery/\allowbreak{}lookup}{\mref{DeviceLookupRequest}}{\mref{DeviceListResponse}}
+
+Returns the devices matching all given filters; without filters all devices.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:lookup},caption={An \oref{lookup} invocation.}]
+POST /serviceregistry/device-discovery/lookup HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "deviceNames": [
+    "Raspberry1"
+  ],
+  "addresses": [
+    "string"
+  ],
+  "addressType": "IPV4",
+  "metadataRequirementList": [
+    {
+      "unit": "celsius"
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:lookup-resp},caption={An \oref{lookup} response.}]
+{
+  "entries": [
+    {
+      "name": "Raspberry1",
+      "metadata": {
+        "location": "hall-1"
+      },
+      "addresses": [
+        {
+          "type": "IPV4",
+          "address": "192.168.0.10"
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{revoke}{DELETE}{/\allowbreak{}serviceregistry/\allowbreak{}device-discovery/\allowbreak{}revoke/\allowbreak{}\fparam{\{name\}}}{\pref{String}}{}
+
+Removes the named device. Returns 200 if it was removed, 204 if it did not exist, and 423 Locked if systems are still assigned to it.
+
+Path parameter: \fparam{name}.
+
+A successful call returns \texttt{200 OK} if the entry was removed, \texttt{204 No Content} if there was nothing to remove.
+
+\begin{lstlisting}[label={lst:revoke},caption={An \oref{revoke} invocation.}]
+DELETE /serviceregistry/device-discovery/revoke/<name> HTTP/1.1
+Host: serviceregistry:8443
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+Here, all data objects that can be part of the service calls associated with this service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is meant to denote a JSON \pref{Object} that must contain certain fields, or names, with values conforming to explicitly named types.
+Fields that are not needed may be omitted or \texttt{null} in requests; empty fields are omitted in responses.
+As a complement to the primary types defined in this section, there is also a list of secondary types in Section \ref{sec:model:primitives}, which are used to represent things like hashes, identifiers and texts.
+
+\msubsection{struct}{Address}
+
+A network address with its type.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"type" & \pref{String} & Address type: \texttt{HOSTNAME}, \texttt{IPV4}, \texttt{IPV6} or \texttt{MAC}. \\ \hline
+"address" & \pref{String} & One network address (host name, IPv4, IPv6 or MAC address). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceListResponse}
+
+List of devices.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref{DeviceResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceLookupRequest}
+
+Filter for devices; all fields optional, combined with AND.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"device\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Device names to match. \\ \hline
+"addresses" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Network addresses of the entity. \\ \hline
+"address\allowbreak{}Type" & \pref{String} & Address type filter: \texttt{HOSTNAME}, \texttt{IPV4}, \texttt{IPV6} or \texttt{MAC}. \\ \hline
+"metadata\allowbreak{}Requirement\allowbreak{}List" & \pref{Array}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Metadata requirements; each map is one alternative. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceRequest}
+
+A device and its addresses.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Device name, PascalCase. \\ \hline
+"metadata" & \pref{Object} & Free-form metadata (JSON object). \\ \hline
+"addresses" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Network addresses of the entity. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceResponse}
+
+A registered device.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Device name. \\ \hline
+"metadata" & \pref{Object} & Free-form metadata (JSON object). \\ \hline
+"addresses" & \pref{Array}$<$\allowbreak{}\mref{Address}$>$ & Network addresses with their types. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ErrorMessage}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"error\allowbreak{}Message" & \pref{String} &  \\ \hline
+"error\allowbreak{}Code" & \pref{Number} &  \\ \hline
+"exception\allowbreak{}Type" & \pref{ExceptionType} &  \\ \hline
+"origin" & \pref{String} &  \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{MetadataRequirement}
+
+A JSON object of metadata requirements: each key is a metadata path (dot notation), each value the required value or an operator object such as \texttt{\{"op": "LESS\_\allowbreak{}THAN",\allowbreak{} "value": 10\}}.
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+As all messages are encoded using the JSON format \cite{rfc8259}, the following primitive constructs, part of that standard, become available.
+Note that the official standard is defined in terms of parsing rules, while this list only concerns syntactic information.
+Furthermore, the \pref{Object} and \pref{Array} types are given optional generic type parameters, which are used in this document to signify when pair values or elements are expected to conform to certain types.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Array} & A JSON Array \cite{rfc8259}; \pref{Array}$<$A$>$ has elements of type A. \\ \hline
+\pdef{DateTime} & JSON String with an ISO 8601 UTC timestamp, e.g. \texttt{2026-10-22T12:00:00Z}. \\ \hline
+\pdef{ExceptionType} & One of \texttt{ARROWHEAD}, \texttt{INVALID\_\allowbreak{}PARAMETER}, \texttt{AUTH}, \texttt{FORBIDDEN}, \texttt{DATA\_\allowbreak{}NOT\_\allowbreak{}FOUND}, \texttt{TIMEOUT}, \texttt{LOCKED}, \texttt{INTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR}, \texttt{EXTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR} (JSON String). \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\section{Go and Rust implementation variants}
+\subsection{Go implementation}
+Primary system folder: \path|Eclipse-Arrowhead-go/ah5-core-go/serviceregistry|.\par
+The system owns its Go module, launcher and build configuration. Use the per-system \path|Makefile| and \path|go.mod|; the containing Go tree is the build source, not a historical Arrowhead copy. Ordinary native roles use independent identities and JSON snapshot state rather than the Java database. Do not assume Java SQL migration, clustering or identical transaction/retry semantics. The registry has its own configuration and optional native AMQP monitor; other roles must be checked against their own registrations.
+\paragraph{Listening port.} Default 8443 (server.port in application.properties). Override with server.port, SERVER\_PORT=N or -server.port N; the host is server.address.
+The native registry API, outsourced authentication, JSON persistence, optional AMQP telemetry and differences from Java are specified in \path|Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/UPSTREAM-README.md|. It has no MQTT application API according to that profile.
+Native design/route evidence: \path|Eclipse-Arrowhead-go/ah5-core-go/serviceregistry/documentation|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+\subsection{Rust implementation}
+Primary system folder: \path|Eclipse-Arrowhead-rust/ah5-core-rust/serviceregistry|.\par
+The per-system entry point is built by the \path|arrowhead-core-rust| crate. Build from the primary Rust workspace with the applicable package/binary selection. Documentation links can resolve into the shared core/support catalogue. Independent process identity and state remain required.\par
+The ordinary native profile uses Tokio/Axum and rustls with peer-identity checks and independent locked JSON state. Network effects are not distributed database transactions. The precise trust, CRL reload and persistence guarantees are those of the native profile, not the Java implementation.\par
+Native design/route evidence: \path|Eclipse-Arrowhead-rust/ah5-core-rust/documentation/ServiceRegistry|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

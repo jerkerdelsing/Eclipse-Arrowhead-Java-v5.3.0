@@ -1,0 +1,21 @@
+% Model-derived schematic. Boundary placement is an explicit architectural interpretation.
+\begin{tikzpicture}[font=\small,
+ netbox/.style={draw=black!75,rounded corners=2pt,align=center,minimum width=5.3cm,minimum height=1.05cm},
+ netline/.style={<->,>=Stealth,thick},
+ netzone/.style={draw=black!60,dashed,rounded corners=4pt,inner sep=5mm}]
+\node[netbox,fill=white] (a) at (-3.9,1.0) {Local cloud A members\\Core, selected support, applications};
+\node[netbox,fill=AHSysMLInfrastructure] (an) at (-3.9,-0.4) {Intra-cloud network interface};
+\node[netbox,fill=AHSysMLSupport,minimum height=1.3cm] (ab) at (-3.9,-2.15) {Controlled inter-cloud boundary\\Gatekeeper / GateTunnel when selected\\DMZ segment where required};
+\node[netbox,fill=white] (b) at (3.9,1.0) {Local cloud B members\\Core, selected support, applications};
+\node[netbox,fill=AHSysMLInfrastructure] (bn) at (3.9,-0.4) {Intra-cloud network interface};
+\node[netbox,fill=AHSysMLSupport,minimum height=1.3cm] (bb) at (3.9,-2.15) {Controlled inter-cloud boundary\\Gatekeeper / GateTunnel when selected\\DMZ segment where required};
+\draw[netline] (a) -- (an);\draw[netline] (an) -- (ab);
+\draw[netline] (b) -- (bn);\draw[netline] (bn) -- (bb);
+\begin{scope}[on background layer]
+\node[netzone,fit=(a)(an)(ab),label={[font=\small\bfseries]above:Local cloud A}] {};
+\node[netzone,fit=(b)(bn)(bb),label={[font=\small\bfseries]above:Local cloud B}] {};
+\end{scope}
+\node[netbox,fill=AHSysMLInfrastructure,minimum width=8.4cm,minimum height=1.2cm] (inter) at (0,-4.6) {Inter-cloud network interface\\Protected federation/relay endpoints of the selected binding};
+\draw[netline] (ab.south) -- (ab.south |- inter.north);\draw[netline] (bb.south) -- (bb.south |- inter.north);
+\node[align=center,font=\footnotesize,text width=13cm] at (0,-6.05) {Physical/virtual bearer selection and protected service protocols are separate decisions.\\A shared link, subnet or broker does not merge the identities and authorisation domains of two local clouds.};
+\end{tikzpicture}

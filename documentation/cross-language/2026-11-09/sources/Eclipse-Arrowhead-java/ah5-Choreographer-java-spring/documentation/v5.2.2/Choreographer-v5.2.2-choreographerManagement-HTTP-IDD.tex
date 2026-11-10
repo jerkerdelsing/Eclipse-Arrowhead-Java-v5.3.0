@@ -1,0 +1,1129 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{choreographerManagement HTTP/TLS/JSON}
+\ArrowheadServiceID{choreographerManagement}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the HTTP/1.1 protocol with TLS payload security and JSON payload encoding variant of the \texttt{choreographer\allowbreak{}Management} service of the Choreographer system.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{choreographer\allowbreak{}Management} service interface of the Choreographer system, which provides operator management of plans, sessions, session steps, the worklog and executors.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & HTTP & 1.1 \cite{rfc9112} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{choreographer\allowbreak{}Management} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{choreographerManagement -- Service Description} document \cite{cho-choreographerManagement-sd}.
+For further details about how this service is meant to be used, please consult that document.
+
+The rest of this document describes how to realize the \texttt{choreographer\allowbreak{}Management} service
+interface in detail. Both in terms of its operations (Section \ref{sec:operations}) and its information model (Section \ref{sec:model}).
+
+\subsection{Interface registration}
+
+The service is registered in the ServiceRegistry with the interface template \texttt{generic\_\allowbreak{}https}, policy \texttt{CERT\_\allowbreak{}AUTH}, access address \texttt{choreographer}, port 8457 (\texttt{server.\allowbreak{}port}; the standalone deployment registers 8454) and base path \texttt{/\allowbreak{}choreographer/\allowbreak{}mgmt}. The \texttt{operations} property of the interface lists the operations below with their method and path relative to the base path (path parameters are placeholders such as \texttt{\{id\}} that the consumer fills in):
+
+\noindent\begin{longtable}{| p{5.2cm} | p{1.6cm} | p{8.4cm} |} \hline
+\rowcolor{gray!33} Operation & Method & Path \\ \hline \endhead
+\texttt{query-\allowbreak{}plans} & GET & \texttt{/\allowbreak{}plans} \\ \hline
+\texttt{get-\allowbreak{}plan} & GET & \texttt{/\allowbreak{}plans/\allowbreak{}\{id\}} \\ \hline
+\texttt{create-\allowbreak{}plan} & POST & \texttt{/\allowbreak{}plans} \\ \hline
+\texttt{remove-\allowbreak{}plan} & DELETE & \texttt{/\allowbreak{}plans/\allowbreak{}\{id\}} \\ \hline
+\texttt{check-\allowbreak{}plan} & GET & \texttt{/\allowbreak{}plans/\allowbreak{}\{id\}/\allowbreak{}check} \\ \hline
+\texttt{start-\allowbreak{}sessions} & POST & \texttt{/\allowbreak{}sessions/\allowbreak{}start} \\ \hline
+\texttt{abort-\allowbreak{}session} & DELETE & \texttt{/\allowbreak{}sessions/\allowbreak{}\{id\}} \\ \hline
+\texttt{query-\allowbreak{}sessions} & GET & \texttt{/\allowbreak{}sessions} \\ \hline
+\texttt{query-\allowbreak{}session-\allowbreak{}steps} & GET & \texttt{/\allowbreak{}session-\allowbreak{}steps} \\ \hline
+\texttt{query-\allowbreak{}worklog} & GET & \texttt{/\allowbreak{}worklog} \\ \hline
+\texttt{query-\allowbreak{}executors} & GET & \texttt{/\allowbreak{}executors} \\ \hline
+\texttt{get-\allowbreak{}executor} & GET & \texttt{/\allowbreak{}executors/\allowbreak{}\{id\}} \\ \hline
+\texttt{create-\allowbreak{}executor} & POST & \texttt{/\allowbreak{}executors} \\ \hline
+\texttt{remove-\allowbreak{}executor} & DELETE & \texttt{/\allowbreak{}executors/\allowbreak{}\{id\}} \\ \hline
+\end{longtable}
+
+\newpage
+
+\section{Service Operations}
+\label{sec:operations}
+
+The interfaces of the \texttt{choreographer\allowbreak{}Management} service, its operations, data models and implementation are provided below.
+In particular, each subsection first names the HTTP method and path used to call the operation, after which it names the abstract operation from the \texttt{choreographer\allowbreak{}Management} SD document, as well as input and output types.
+
+All operations require the requester's identity, presented according to the provider's authentication policy: the client certificate (mutual TLS) and, with the \texttt{outsourced} policy, \texttt{Authorization: Bearer IDENTITY-TOKEN//<token>}; systems holding the Authentication secret key send \texttt{Bearer AUTHENTICATOR-KEY//<system>//<hash>}, and with the \texttt{declared} policy \texttt{Bearer SYSTEM//<system>} is sent. Request and response bodies are \texttt{application/json} unless stated otherwise.
+Errors are answered with an \mref{ErrorMessage} body and the status codes \texttt{400 Bad Request} (invalid parameter), \texttt{401 Unauthorized} (missing or invalid identity), \texttt{403 Forbidden} (not permitted, e.g. by the management, authorization or blacklist filter), \texttt{404 Not Found}, \texttt{408 Request Timeout}, \texttt{423 Locked}, \texttt{500 Internal Server Error} and \texttt{503 Service Unavailable} (a system it depends on failed).
+
+\osubsection{query-plans}{GET}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}plans?\allowbreak{}page=\fparam{\{page\}}\allowbreak{}\&size=\fparam{\{size\}}\allowbreak{}\&direction=\fparam{\{direction\}}\allowbreak{}\&sortField=\fparam{\{sortField\}}}{}{\mref{PlanListResponse}}
+
+Returns a page of plans.
+
+Query parameters: \fparam{page} (Integer, optional); \fparam{size} (Integer, optional); \fparam{direction} (String, optional); \fparam{sortField} (String, optional). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:query-plans},caption={An \oref{query-plans} invocation.}]
+GET /choreographer/mgmt/plans?page=<page>&size=<size>&direction=<direction>&sortField=<sortField> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:query-plans-resp},caption={An \oref{query-plans} response.}]
+{
+  "entries": [
+    {
+      "id": 42,
+      "name": "TemperatureSensor",
+      "firstActionName": "string",
+      "actions": [
+        {
+          "id": 42,
+          "name": "TemperatureSensor",
+          "firstAction": true,
+          "nextActionName": "string",
+          "firstStepNames": [
+            "string"
+          ],
+          "steps": [
+            {}
+          ],
+          "createdAt": "2026-10-22T12:00:00Z",
+          "updatedAt": "2026-10-22T12:00:00Z"
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{get-plan}{GET}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}plans/\allowbreak{}\fparam{\{id\}}}{\pref{String}}{\mref{PlanResponse}}
+
+Returns a plan.
+
+Path parameter: \fparam{id}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:get-plan},caption={An \oref{get-plan} invocation.}]
+GET /choreographer/mgmt/plans/<id> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:get-plan-resp},caption={An \oref{get-plan} response.}]
+{
+  "id": 42,
+  "name": "TemperatureSensor",
+  "firstActionName": "string",
+  "actions": [
+    {
+      "id": 42,
+      "name": "TemperatureSensor",
+      "firstAction": true,
+      "nextActionName": "string",
+      "firstStepNames": [
+        "string"
+      ],
+      "steps": [
+        {
+          "id": 42,
+          "name": "TemperatureSensor",
+          "serviceDefinition": "temperatureReading",
+          "minVersion": 1,
+          "maxVersion": 1,
+          "quantity": 1,
+          "localCloudOnly": true,
+          "nextStepNames": [
+            "string"
+          ],
+          "createdAt": "2026-10-22T12:00:00Z",
+          "updatedAt": "2026-10-22T12:00:00Z"
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "createdAt": "2026-10-22T12:00:00Z",
+  "updatedAt": "2026-10-22T12:00:00Z"
+}
+\end{lstlisting}
+
+\osubsection{create-plan}{POST}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}plans}{\mref{PlanRequest}}{\mref{PlanResponse}}
+
+Validates and stores a plan (cycles, reachability, transitive reduction).
+
+A successful call returns \texttt{201 Created} with the output in the body.
+
+\begin{lstlisting}[label={lst:create-plan},caption={An \oref{create-plan} invocation.}]
+POST /choreographer/mgmt/plans HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "name": "TemperatureSensor",
+  "firstActionName": "string",
+  "actions": [
+    {
+      "name": "TemperatureSensor",
+      "nextActionName": "string",
+      "firstStepNames": [
+        "string"
+      ],
+      "steps": [
+        {
+          "name": "TemperatureSensor",
+          "quantity": 1,
+          "localCloudOnly": true,
+          "nextStepNames": [
+            "string"
+          ]
+        }
+      ]
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:create-plan-resp},caption={An \oref{create-plan} response.}]
+{
+  "id": 42,
+  "name": "TemperatureSensor",
+  "firstActionName": "string",
+  "actions": [
+    {
+      "id": 42,
+      "name": "TemperatureSensor",
+      "firstAction": true,
+      "nextActionName": "string",
+      "firstStepNames": [
+        "string"
+      ],
+      "steps": [
+        {
+          "id": 42,
+          "name": "TemperatureSensor",
+          "serviceDefinition": "temperatureReading",
+          "minVersion": 1,
+          "maxVersion": 1,
+          "quantity": 1,
+          "localCloudOnly": true,
+          "nextStepNames": [
+            "string"
+          ],
+          "createdAt": "2026-10-22T12:00:00Z",
+          "updatedAt": "2026-10-22T12:00:00Z"
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "createdAt": "2026-10-22T12:00:00Z",
+  "updatedAt": "2026-10-22T12:00:00Z"
+}
+\end{lstlisting}
+
+\osubsection{remove-plan}{DELETE}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}plans/\allowbreak{}\fparam{\{id\}}}{\pref{String}}{}
+
+Removes a plan.
+
+Path parameter: \fparam{id}.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:remove-plan},caption={An \oref{remove-plan} invocation.}]
+DELETE /choreographer/mgmt/plans/<id> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\osubsection{check-plan}{GET}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}plans/\allowbreak{}\fparam{\{id\}}/\allowbreak{}check?\allowbreak{}allowInterCloud=\fparam{\{allowInterCloud\}}}{\pref{String}}{\mref{CheckPlanResponse}}
+
+Checks whether providers and executors exist for every step.
+
+Path parameter: \fparam{id}.
+
+Query parameters: \fparam{allowInterCloud} (boolean, optional, default \texttt{false}). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:check-plan},caption={An \oref{check-plan} invocation.}]
+GET /choreographer/mgmt/plans/<id>/check?allowInterCloud=<allowInterCloud> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:check-plan-resp},caption={An \oref{check-plan} response.}]
+{
+  "planId": 1,
+  "errorMessages": [
+    "string"
+  ],
+  "needInterCloud": true
+}
+\end{lstlisting}
+
+\osubsection{start-sessions}{POST}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}sessions/\allowbreak{}start}{\mref{RunPlanListRequest}}{\mref{RunPlanListResponse}}
+
+Starts sessions of plans by identifier.
+
+A successful call returns \texttt{201 Created} with the output in the body.
+
+\begin{lstlisting}[label={lst:start-sessions},caption={An \oref{start-sessions} invocation.}]
+POST /choreographer/mgmt/sessions/start HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "sessions": [
+    {
+      "planId": 1,
+      "quantity": 1,
+      "allowInterCloud": true,
+      "chooseOptimalExecutor": true,
+      "notifyProtocol": "HTTPS",
+      "notifyAddress": "192.168.0.20",
+      "notifyPort": 8080,
+      "notifyPath": "/notify"
+    }
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:start-sessions-resp},caption={An \oref{start-sessions} response.}]
+{
+  "entries": [
+    {
+      "planId": 1,
+      "sessionId": 1,
+      "quantity": 1,
+      "status": "INITIATED",
+      "errorMessages": [
+        "string"
+      ],
+      "needInterCloud": true
+    }
+  ]
+}
+\end{lstlisting}
+
+\osubsection{abort-session}{DELETE}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}sessions/\allowbreak{}\fparam{\{id\}}}{\pref{String}}{}
+
+Aborts a session.
+
+Path parameter: \fparam{id}.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:abort-session},caption={An \oref{abort-session} invocation.}]
+DELETE /choreographer/mgmt/sessions/<id> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\osubsection{query-sessions}{GET}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}sessions?\allowbreak{}page=\fparam{\{page\}}\allowbreak{}\&size=\fparam{\{size\}}\allowbreak{}\&direction=\fparam{\{direction\}}\allowbreak{}\&sortField=\fparam{\{sortField\}}\allowbreak{}\&planId=\fparam{\{planId\}}\allowbreak{}\&status=\fparam{\{status\}}}{}{\mref{SessionListResponse}}
+
+Returns a page of sessions.
+
+Query parameters: \fparam{page} (Integer, optional); \fparam{size} (Integer, optional); \fparam{direction} (String, optional); \fparam{sortField} (String, optional); \fparam{planId} (Long, optional); \fparam{status} (String, optional). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:query-sessions},caption={An \oref{query-sessions} invocation.}]
+GET /choreographer/mgmt/sessions?page=<page>&size=<size>&direction=<direction>&sortField=<sortField>&planId=<planId>&status=<status> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:query-sessions-resp},caption={An \oref{query-sessions} response.}]
+{
+  "entries": [
+    {
+      "id": 42,
+      "planId": 1,
+      "planName": "fillTank",
+      "status": "INITIATED",
+      "quantityDone": 1,
+      "quantityGoal": 1,
+      "executionNumber": 1,
+      "owner": "TemperatureDisplay",
+      "notifyUri": "https://display:8080/events",
+      "startedAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{query-session-steps}{GET}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}session-steps?\allowbreak{}page=\fparam{\{page\}}\allowbreak{}\&size=\fparam{\{size\}}\allowbreak{}\&direction=\fparam{\{direction\}}\allowbreak{}\&sortField=\fparam{\{sortField\}}\allowbreak{}\&sessionId=\fparam{\{sessionId\}}\allowbreak{}\&status=\fparam{\{status\}}}{}{\mref{SessionStepListResponse}}
+
+Returns a page of session steps.
+
+Query parameters: \fparam{page} (Integer, optional); \fparam{size} (Integer, optional); \fparam{direction} (String, optional); \fparam{sortField} (String, optional); \fparam{sessionId} (Long, optional); \fparam{status} (String, optional). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:query-session-steps},caption={An \oref{query-session-steps} invocation.}]
+GET /choreographer/mgmt/session-steps?page=<page>&size=<size>&direction=<direction>&sortField=<sortField>&sessionId=<sessionId>&status=<status> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:query-session-steps-resp},caption={An \oref{query-session-steps} response.}]
+{
+  "entries": [
+    {
+      "id": 42,
+      "sessionId": 1,
+      "stepId": 1,
+      "planName": "fillTank",
+      "actionName": "string",
+      "stepName": "string",
+      "executorName": "string",
+      "status": "WAITING",
+      "executionNumber": 1,
+      "message": "1 local result: TemperatureSensor",
+      "startedAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{query-worklog}{GET}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}worklog?\allowbreak{}page=\fparam{\{page\}}\allowbreak{}\&size=\fparam{\{size\}}\allowbreak{}\&direction=\fparam{\{direction\}}\allowbreak{}\&sortField=\fparam{\{sortField\}}\allowbreak{}\&sessionId=\fparam{\{sessionId\}}\allowbreak{}\&planName=\fparam{\{planName\}}\allowbreak{}\&actionName=\fparam{\{actionName\}}\allowbreak{}\&stepName=\fparam{\{stepName\}}}{}{\mref{WorklogListResponse}}
+
+Returns a page of worklog entries.
+
+Query parameters: \fparam{page} (Integer, optional); \fparam{size} (Integer, optional); \fparam{direction} (String, optional); \fparam{sortField} (String, optional); \fparam{sessionId} (Long, optional); \fparam{planName} (String, optional); \fparam{actionName} (String, optional); \fparam{stepName} (String, optional). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:query-worklog},caption={An \oref{query-worklog} invocation.}]
+GET /choreographer/mgmt/worklog?page=<page>&size=<size>&direction=<direction>&sortField=<sortField>&sessionId=<sessionId>&planName=<planName>&actionName=<actionName>&stepName=<stepName> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:query-worklog-resp},caption={An \oref{query-worklog} response.}]
+{
+  "entries": [
+    {
+      "id": 42,
+      "entryDate": "2026-10-22T12:00:00Z",
+      "planName": "fillTank",
+      "actionName": "string",
+      "stepName": "string",
+      "sessionId": 1,
+      "executionNumber": 1,
+      "message": "1 local result: TemperatureSensor"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{query-executors}{GET}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}executors?\allowbreak{}page=\fparam{\{page\}}\allowbreak{}\&size=\fparam{\{size\}}\allowbreak{}\&direction=\fparam{\{direction\}}\allowbreak{}\&sortField=\fparam{\{sortField\}}}{}{\mref{ExecutorListResponse}}
+
+Returns a page of executors.
+
+Query parameters: \fparam{page} (Integer, optional); \fparam{size} (Integer, optional); \fparam{direction} (String, optional); \fparam{sortField} (String, optional). List values are repeated or comma-separated.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:query-executors},caption={An \oref{query-executors} invocation.}]
+GET /choreographer/mgmt/executors?page=<page>&size=<size>&direction=<direction>&sortField=<sortField> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:query-executors-resp},caption={An \oref{query-executors} response.}]
+{
+  "entries": [
+    {
+      "id": 42,
+      "name": "TemperatureSensor",
+      "address": "192.168.0.10",
+      "port": 8080,
+      "basePath": "/executor",
+      "serviceDefinitions": [
+        {
+          "serviceDefinitionName": "temperatureReading",
+          "minVersion": 1,
+          "maxVersion": 1
+        }
+      ],
+      "createdAt": "2026-10-22T12:00:00Z",
+      "updatedAt": "2026-10-22T12:00:00Z"
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{get-executor}{GET}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}executors/\allowbreak{}\fparam{\{id\}}}{\pref{String}}{\mref{ExecutorResponse}}
+
+Returns an executor.
+
+Path parameter: \fparam{id}.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:get-executor},caption={An \oref{get-executor} invocation.}]
+GET /choreographer/mgmt/executors/<id> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:get-executor-resp},caption={An \oref{get-executor} response.}]
+{
+  "id": 42,
+  "name": "TemperatureSensor",
+  "address": "192.168.0.10",
+  "port": 8080,
+  "basePath": "/executor",
+  "serviceDefinitions": [
+    {
+      "serviceDefinitionName": "temperatureReading",
+      "minVersion": 1,
+      "maxVersion": 1
+    }
+  ],
+  "createdAt": "2026-10-22T12:00:00Z",
+  "updatedAt": "2026-10-22T12:00:00Z"
+}
+\end{lstlisting}
+
+\osubsection{create-executor}{POST}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}executors}{\mref{ExecutorCreateRequest}}{\mref{ExecutorResponse}}
+
+Registers an executor on behalf of a system.
+
+A successful call returns \texttt{201 Created} with the output in the body.
+
+\begin{lstlisting}[label={lst:create-executor},caption={An \oref{create-executor} invocation.}]
+POST /choreographer/mgmt/executors HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "systemName": "TemperatureSensor",
+  "address": "192.168.0.10",
+  "port": 8080,
+  "basePath": "/executor",
+  "serviceDefinitionName": "temperatureReading",
+  "minVersion": 1,
+  "maxVersion": 1
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:create-executor-resp},caption={An \oref{create-executor} response.}]
+{
+  "id": 42,
+  "name": "TemperatureSensor",
+  "address": "192.168.0.10",
+  "port": 8080,
+  "basePath": "/executor",
+  "serviceDefinitions": [
+    {
+      "serviceDefinitionName": "temperatureReading",
+      "minVersion": 1,
+      "maxVersion": 1
+    }
+  ],
+  "createdAt": "2026-10-22T12:00:00Z",
+  "updatedAt": "2026-10-22T12:00:00Z"
+}
+\end{lstlisting}
+
+\osubsection{remove-executor}{DELETE}{/\allowbreak{}choreographer/\allowbreak{}mgmt/\allowbreak{}executors/\allowbreak{}\fparam{\{id\}}}{\pref{String}}{}
+
+Removes an executor.
+
+Path parameter: \fparam{id}.
+
+A successful call returns \texttt{200 OK}.
+
+\begin{lstlisting}[label={lst:remove-executor},caption={An \oref{remove-executor} invocation.}]
+DELETE /choreographer/mgmt/executors/<id> HTTP/1.1
+Host: choreographer:8457
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+Here, all data objects that can be part of the service calls associated with this service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is meant to denote a JSON \pref{Object} that must contain certain fields, or names, with values conforming to explicitly named types.
+Fields that are not needed may be omitted or \texttt{null} in requests; empty fields are omitted in responses.
+As a complement to the primary types defined in this section, there is also a list of secondary types in Section \ref{sec:model:primitives}, which are used to represent things like hashes, identifiers and texts.
+
+\msubsection{struct}{ActionRequest}
+
+An action of a plan.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Name of the action within the plan. \\ \hline
+"next\allowbreak{}Action\allowbreak{}Name" & \pref{String} & Action executed after this one. \\ \hline
+"first\allowbreak{}Step\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Steps that start the action. \\ \hline
+"steps" & \pref{Array}$<$\allowbreak{}\mref{StepRequest}$>$ & The steps of the action. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ActionResponse}
+
+An action of a plan.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"id" & \pref{Number} & Identifier of the action. \\ \hline
+"name" & \pref{String} & Name of the action within the plan. \\ \hline
+"first\allowbreak{}Action" & \pref{Boolean} & Whether this is the plan's first action. \\ \hline
+"next\allowbreak{}Action\allowbreak{}Name" & \pref{String} & Action executed after this one. \\ \hline
+"first\allowbreak{}Step\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Steps that start the action. \\ \hline
+"steps" & \pref{Array}$<$\allowbreak{}\mref{StepResponse}$>$ & The steps of the action. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{CheckPlanResponse}
+
+Result of checking a plan against the current cloud.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"plan\allowbreak{}Id" & \pref{Number} & The checked plan. \\ \hline
+"error\allowbreak{}Messages" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Problems found in the plan. \\ \hline
+"need\allowbreak{}Inter\allowbreak{}Cloud" & \pref{Boolean} & Whether the plan needs providers in other clouds. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ErrorMessage}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"error\allowbreak{}Message" & \pref{String} & Error text, if the event is an error. \\ \hline
+"error\allowbreak{}Code" & \pref{Number} &  \\ \hline
+"exception\allowbreak{}Type" & \pref{ExceptionType} &  \\ \hline
+"origin" & \pref{String} &  \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ExecutorCreateRequest}
+
+An executor to create on behalf of a system.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"system\allowbreak{}Name" & \pref{String} & Executor system. \\ \hline
+"address" & \pref{String} & One network address (host name, IPv4, IPv6 or MAC address). \\ \hline
+"port" & \pref{Number} & Port of the executor interface. \\ \hline
+"base\allowbreak{}Path" & \pref{String} & Base path of the executor interface. \\ \hline
+"service\allowbreak{}Definition\allowbreak{}Name" & \pref{String} & Service definition the executor can execute steps for. \\ \hline
+"min\allowbreak{}Version" & \pref{Number} & Lowest accepted major version. \\ \hline
+"max\allowbreak{}Version" & \pref{Number} & Highest accepted major version. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ExecutorListResponse}
+
+List of executors.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref{ExecutorResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ExecutorResponse}
+
+A registered executor.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"id" & \pref{Number} & Identifier of the executor. \\ \hline
+"name" & \pref{String} & Executor system. \\ \hline
+"address" & \pref{String} & Address of the executor interface. \\ \hline
+"port" & \pref{Number} & Port of the executor interface. \\ \hline
+"base\allowbreak{}Path" & \pref{String} & Base path of the executor interface. \\ \hline
+"service\allowbreak{}Definitions" & \pref{Array}$<$\allowbreak{}\mref[Executor\allowbreak{}Service\allowbreak{}Definition\allowbreak{}Response]{ExecutorServiceDefinitionResponse}$>$ & Service definitions the executor serves. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ExecutorServiceDefinitionResponse}
+
+A service definition an executor serves.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"service\allowbreak{}Definition\allowbreak{}Name" & \pref{String} & Service definition name, camelCase (e.g. \texttt{temperatureReading}). \\ \hline
+"min\allowbreak{}Version" & \pref{Number} & Lowest accepted major version. \\ \hline
+"max\allowbreak{}Version" & \pref{Number} & Highest accepted major version. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{MetadataRequirement}
+
+A JSON object of metadata requirements: each key is a metadata path (dot notation), each value the required value or an operator object such as \texttt{\{"op":\allowbreak{} "LESS\_\allowbreak{}THAN",\allowbreak{} "value":\allowbreak{} 10\}}.
+
+
+
+\msubsection{struct}{OrchestrationServiceRequirement}
+
+Requirements on the requested service.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"service\allowbreak{}Definition" & \pref{String} & Service definition name. \\ \hline
+"operations" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Service operations the consumer wants to use. \\ \hline
+"versions" & \pref{Array}$<$\allowbreak{}\pref{Version}$>$ & Accepted service versions. \\ \hline
+"alives\allowbreak{}At" & \pref{DateTime} & Only instances that are still registered (not expired) at this UTC time are matched. \\ \hline
+"metadata\allowbreak{}Requirements" & \pref{Array}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Requirements on the service instance metadata; each map is one alternative. \\ \hline
+"interface\allowbreak{}Template\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Accepted interface templates, e.g. \texttt{generic\_\allowbreak{}https}. \\ \hline
+"interface\allowbreak{}Address\allowbreak{}Types" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Address types the provider interface must offer. \\ \hline
+"interface\allowbreak{}Property\allowbreak{}Requirements" & \pref{Array}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Requirements on the interface properties; each map is one alternative. \\ \hline
+"security\allowbreak{}Policies" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Accepted interface security policies. \\ \hline
+"preferred\allowbreak{}Providers" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Provider systems to prefer. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlanListResponse}
+
+List of plans.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref{PlanResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlanRequest}
+
+A plan to create.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Unique plan name. \\ \hline
+"first\allowbreak{}Action\allowbreak{}Name" & \pref{String} & Action the plan starts with. \\ \hline
+"actions" & \pref{Array}$<$\allowbreak{}\mref{ActionRequest}$>$ & The actions of the plan. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlanResponse}
+
+A stored plan.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"id" & \pref{Number} & Identifier of the plan. \\ \hline
+"name" & \pref{String} & Unique plan name. \\ \hline
+"first\allowbreak{}Action\allowbreak{}Name" & \pref{String} & Action the plan starts with. \\ \hline
+"actions" & \pref{Array}$<$\allowbreak{}\mref{ActionResponse}$>$ & The actions of the plan. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{RunPlanListRequest}
+
+Sessions to start by plan identifier.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"sessions" & \pref{Array}$<$\allowbreak{}\mref{RunPlanRequest}$>$ & Sessions to start or return. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{RunPlanListResponse}
+
+Started sessions.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref{RunPlanResponse}$>$ & Matching records of the current page. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{RunPlanRequest}
+
+Start of a session of a plan.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"plan\allowbreak{}Id" & \pref{Number} & Identifier of the plan. \\ \hline
+"quantity" & \pref{Number} & Number of times the plan (or step) is executed. \\ \hline
+"allow\allowbreak{}Inter\allowbreak{}Cloud" & \pref{Boolean} & Allow inter-cloud orchestration for the steps. \\ \hline
+"choose\allowbreak{}Optimal\allowbreak{}Executor" & \pref{Boolean} & Rank the local executors and choose the best one. \\ \hline
+"notify\allowbreak{}Protocol" & \pref{String} & Protocol of session notifications, e.g. \texttt{HTTPS}. \\ \hline
+"notify\allowbreak{}Address" & \pref{String} & Address of session notifications. \\ \hline
+"notify\allowbreak{}Port" & \pref{Number} & Port of session notifications. \\ \hline
+"notify\allowbreak{}Path" & \pref{String} & Path of session notifications. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{RunPlanResponse}
+
+A started (or refused) session.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"plan\allowbreak{}Id" & \pref{Number} & Identifier of the plan. \\ \hline
+"session\allowbreak{}Id" & \pref{Number} & Identifier of the session. \\ \hline
+"quantity" & \pref{Number} & Requested executions. \\ \hline
+"status" & \pref{SessionStatus} & Status of the session. \\ \hline
+"error\allowbreak{}Messages" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Problems found in the plan. \\ \hline
+"need\allowbreak{}Inter\allowbreak{}Cloud" & \pref{Boolean} & Whether the plan needs providers in other clouds. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SessionListResponse}
+
+List of sessions.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref{SessionResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SessionResponse}
+
+A session.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"id" & \pref{Number} & Identifier of the session. \\ \hline
+"plan\allowbreak{}Id" & \pref{Number} & Identifier of the plan. \\ \hline
+"plan\allowbreak{}Name" & \pref{String} & Name of the plan. \\ \hline
+"status" & \pref{SessionStatus} & Session status. \\ \hline
+"quantity\allowbreak{}Done" & \pref{Number} & Executions finished so far. \\ \hline
+"quantity\allowbreak{}Goal" & \pref{Number} & Executions requested. \\ \hline
+"execution\allowbreak{}Number" & \pref{Number} & Number of the current execution. \\ \hline
+"owner" & \pref{String} & System that started the session. \\ \hline
+"notify\allowbreak{}Uri" & \pref{String} & Where session notifications are sent. \\ \hline
+"started\allowbreak{}At" & \pref{DateTime} & UTC time when the job started. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SessionStepListResponse}
+
+List of session steps.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref{SessionStepResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SessionStepResponse}
+
+A step execution of a session.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"id" & \pref{Number} & Identifier of the session step. \\ \hline
+"session\allowbreak{}Id" & \pref{Number} & Identifier of the session. \\ \hline
+"step\allowbreak{}Id" & \pref{Number} & Identifier of the plan step. \\ \hline
+"plan\allowbreak{}Name" & \pref{String} & Name of the plan. \\ \hline
+"action\allowbreak{}Name" & \pref{String} & Name of the action. \\ \hline
+"step\allowbreak{}Name" & \pref{String} & Name of the step. \\ \hline
+"executor\allowbreak{}Name" & \pref{String} & Executor system running the step. \\ \hline
+"status" & \pref{SessionStepStatus} & Status of the session step. \\ \hline
+"execution\allowbreak{}Number" & \pref{Number} & Number of the current execution. \\ \hline
+"message" & \pref{String} & Text of the log entry or status message of the job. \\ \hline
+"started\allowbreak{}At" & \pref{DateTime} & UTC time when the job started. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{StepRequest}
+
+A step of an action.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"name" & \pref{String} & Name of the step within the action. \\ \hline
+"quantity" & \pref{Number} & Number of times the plan (or step) is executed. \\ \hline
+"service\allowbreak{}Requirement" & \mref[Orchestration\allowbreak{}Service\allowbreak{}Requirement]{OrchestrationServiceRequirement} & Orchestration requirement the executor's provider must meet. \\ \hline
+"local\allowbreak{}Cloud\allowbreak{}Only" & \pref{Boolean} & Use only providers of the local cloud. \\ \hline
+"static\allowbreak{}Parameters" & \pref{Object}$<$\allowbreak{}\pref{String}$>$ & Parameters passed to the executor unchanged. \\ \hline
+"next\allowbreak{}Step\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Steps that start when this one has finished. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{StepResponse}
+
+A step of an action.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"id" & \pref{Number} & Identifier of the step. \\ \hline
+"name" & \pref{String} & Name of the step within the action. \\ \hline
+"service\allowbreak{}Definition" & \pref{String} & Service definition of the step's requirement. \\ \hline
+"min\allowbreak{}Version" & \pref{Number} & Lowest major version derived from \texttt{versions}. \\ \hline
+"max\allowbreak{}Version" & \pref{Number} & Highest major version derived from \texttt{versions}. \\ \hline
+"quantity" & \pref{Number} & Number of times the plan (or step) is executed. \\ \hline
+"service\allowbreak{}Requirement" & \mref[Orchestration\allowbreak{}Service\allowbreak{}Requirement]{OrchestrationServiceRequirement} & Orchestration requirement the executor's provider must meet. \\ \hline
+"local\allowbreak{}Cloud\allowbreak{}Only" & \pref{Boolean} & Use only providers of the local cloud. \\ \hline
+"static\allowbreak{}Parameters" & \pref{Object}$<$\allowbreak{}\pref{String}$>$ & Parameters passed to the executor unchanged. \\ \hline
+"next\allowbreak{}Step\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Steps that start when this one has finished. \\ \hline
+"created\allowbreak{}At" & \pref{DateTime} & UTC time of creation. \\ \hline
+"updated\allowbreak{}At" & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{WorklogListResponse}
+
+List of worklog entries.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"entries" & \pref{Array}$<$\allowbreak{}\mref{WorklogResponse}$>$ & Matching records of the current page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{WorklogResponse}
+
+A worklog entry.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"id" & \pref{Number} & Identifier of the worklog entry. \\ \hline
+"entry\allowbreak{}Date" & \pref{DateTime} & UTC time of the log entry. \\ \hline
+"plan\allowbreak{}Name" & \pref{String} & Name of the plan. \\ \hline
+"action\allowbreak{}Name" & \pref{String} & Name of the action. \\ \hline
+"step\allowbreak{}Name" & \pref{String} & Name of the step. \\ \hline
+"session\allowbreak{}Id" & \pref{Number} & Identifier of the session. \\ \hline
+"execution\allowbreak{}Number" & \pref{Number} & Number of the current execution. \\ \hline
+"message" & \pref{String} & Worklog text. \\ \hline
+"exception" & \pref{String} & Stack trace or exception text of the log entry, if any. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+As all messages are encoded using the JSON format \cite{rfc8259}, the following primitive constructs, part of that standard, become available.
+Note that the official standard is defined in terms of parsing rules, while this list only concerns syntactic information.
+Furthermore, the \pref{Object} and \pref{Array} types are given optional generic type parameters, which are used in this document to signify when pair values or elements are expected to conform to certain types.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Array} & A JSON Array \cite{rfc8259}; \pref{Array}$<$A$>$ has elements of type A. \\ \hline
+\pdef{Boolean} & JSON Boolean, \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & JSON String with an ISO 8601 UTC timestamp, e.g. \texttt{2026-10-22T12:00:00Z}. \\ \hline
+\pdef{ExceptionType} & One of \texttt{ARROWHEAD}, \texttt{INVALID\_\allowbreak{}PARAMETER}, \texttt{AUTH}, \texttt{FORBIDDEN}, \texttt{DATA\_\allowbreak{}NOT\_\allowbreak{}FOUND}, \texttt{TIMEOUT}, \texttt{LOCKED}, \texttt{INTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR}, \texttt{EXTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR} (JSON String). \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{SessionStatus} & One of \texttt{INITIATED}, \texttt{RUNNING}, \texttt{ABORTED}, \texttt{DONE} (JSON String). \\ \hline
+\pdef{SessionStepStatus} & One of \texttt{WAITING}, \texttt{RUNNING}, \texttt{ABORTED}, \texttt{DONE} (JSON String). \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\pdef{Version} & JSON String, semantic version \texttt{major.minor.patch}. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

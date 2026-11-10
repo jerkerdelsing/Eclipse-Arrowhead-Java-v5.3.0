@@ -51,6 +51,8 @@ public class SecurityProfileGuard implements BeanFactoryPostProcessor, Environme
 	public static final String PROFILE_DEVELOPMENT = "development";
 
 	private static final String SERVICE_AUTHORIZATION_ENABLED = "service.authorization.enabled";
+	// DeviceQoSEvaluator: mutual TLS to the device agents (augmented measurements); only an explicit false disables it
+	public static final String DEVICE_AGENT_SSL_ENABLED = "device.agent.ssl.enabled";
 
 	private Environment environment;
 
@@ -119,6 +121,10 @@ public class SecurityProfileGuard implements BeanFactoryPostProcessor, Environme
 		final boolean monitorEnabled = environment.getProperty(Constants.SYS_MONITOR_ENABLED, Boolean.class, false);
 		if (monitorEnabled && Boolean.FALSE.equals(environment.getProperty(Constants.SYS_MONITOR_SSL_ENABLED, Boolean.class))) {
 			deviations.add(Constants.SYS_MONITOR_SSL_ENABLED + "=false");
+		}
+
+		if (Boolean.FALSE.equals(environment.getProperty(DEVICE_AGENT_SSL_ENABLED, Boolean.class))) {
+			deviations.add(DEVICE_AGENT_SSL_ENABLED + "=false");
 		}
 
 		return deviations;

@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-10",
+  "model": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/profile-library-sysml/distribution/Papyrus/ArrowheadDSL_2025_v5/EclipseArrowhead-5.0-JD/Arrowhead-5.2.uml",
+  "model_sha256": "d4d0664b01f6c7cc298e3c3b7a4bb0914b89e30488e30a299686ed72e397252e",
+  "notation": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/profile-library-sysml/distribution/Papyrus/ArrowheadDSL_2025_v5/EclipseArrowhead-5.0-JD/Arrowhead-5.2.notation",
+  "notation_sha256": "347623b28ba52622834e0ebd935f974a737102625d6ea8301135739f14dbd477",
+  "classifiers": {
+    "_KR8A8YSmEe-74fVJZfD0CQ": "GenericIntraCloudNetwork-Design",
+    "_KR8A84SmEe-74fVJZfD0CQ": "GenericIntraCloudNetwork-DesignDescription",
+    "_KR8A-YSmEe-74fVJZfD0CQ": "GenericInterCloudNetwork",
+    "_KR8A-4SmEe-74fVJZfD0CQ": "GenericIntercloudNetwork",
+    "_zv-eIIQeEfGdVa7uES4rbQ": "GenericIntracloudNetworkDMZ",
+    "_eVXWsIQeEfGdVa7uES4rbQ": "GenericIntracloudNetworkDMX",
+    "_KR8BCISmEe-74fVJZfD0CQ": "Ethernet",
+    "_KR8BAoSmEe-74fVJZfD0CQ": "WiFi",
+    "_DdSCAITBEe-74fVJZfD0CQ": "ProtocolKind"
+  },
+  "documents": [
+    {
+      "source": "BlackBox_5.3.0/GSoSD-Core-and-Support-Systems-5.3.0.tex",
+      "pdf": "BlackBox_5.3.0/GSoSD-Core-and-Support-Systems-5.3.0.pdf",
+      "pages": 42,
+      "new_section_pages": [
+        9,
+        11
+      ],
+      "source_sha256": "ff811e9e8526dc181246ff9741b02e65b5e776dbd86ab50af81aba2f6d52e53f",
+      "pdf_sha256": "bb59f776e1812d309f516758d29d4fb8aa939be6ffa01abf0c005e612ffae5c0",
+      "warnings": []
+    },
+    {
+      "source": "WhiteBox_5.3.0/GSoSDD_Arrowhead_Core_Systems_5.3.tex",
+      "pdf": "WhiteBox_5.3.0/GSoSDD_Arrowhead_Core_Systems_5.3.pdf",
+      "pages": 39,
+      "new_section_pages": [
+        12,
+        14
+      ],
+      "source_sha256": "e6b17c9267e24c63482dd9f9162e04e4c79907162b510f35761b030fe8d3fb2b",
+      "pdf_sha256": "1aa4b1ffa91f10b0c6d10b31f032b7847bed3f3fc6c5bc5d469f3bcb7cee2beb",
+      "warnings": []
+    },
+    {
+      "source": "WhiteBox_5.3.0/GSoSDD_Arrowhead_Support_Systems_5.3.1.tex",
+      "pdf": "WhiteBox_5.3.0/GSoSDD_Arrowhead_Support_Systems_5.3.1.pdf",
+      "pages": 38,
+      "new_section_pages": [
+        14,
+        16
+      ],
+      "source_sha256": "ae10a7f8dd07dfe8c1d3e2ebb6d7eca4ae15ca7e568c7e001f1cb5fecfa08c9f",
+      "pdf_sha256": "330ebe08483f6247c2b2038c16a23e8ff55845356b8b2f5dd55edf6960cc2468",
+      "warnings": []
+    }
+  ],
+  "build_results": [
+    {
+      "source": "BlackBox_5.3.0/GSoSD-Core-and-Support-Systems-5.3.0.tex",
+      "success": true,
+      "seconds": 3.4,
+      "warnings": []
+    },
+    {
+      "source": "WhiteBox_5.3.0/GSoSDD_Arrowhead_Core_Systems_5.3.tex",
+      "success": true,
+      "seconds": 0.1,
+      "warnings": []
+    },
+    {
+      "source": "WhiteBox_5.3.0/GSoSDD_Arrowhead_Support_Systems_5.3.1.tex",
+      "success": true,
+      "seconds": 0.1,
+      "warnings": []
+    }
+  ]
+}

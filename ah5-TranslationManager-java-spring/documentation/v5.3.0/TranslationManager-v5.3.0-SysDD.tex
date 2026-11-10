@@ -1,0 +1,234 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{TranslationManager}
+\ArrowheadType{System Design Description}
+\ArrowheadTypeShort{SysDD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the design and implementation of the TranslationManager support system of Arrowhead (documentation edition 5.3.0) (\texttt{ah5-TranslationManager-java-spring}).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the TranslationManager system implementation, which realizes the TranslationManager SysD \cite{tm-sysd}. Translation\allowbreak{}Manager enables automatic interface and data-model translation: it finds providers a consumer could use through a translation bridge, builds the bridge with interface and data-model translator systems, and tracks the bridges' use.
+In Section \ref{Implementation}, we describe implementation details of the system.
+
+\newpage
+
+\section{Implementation}
+\label{Implementation}
+
+This implementation is based on the SysD document TranslationManager \cite{tm-sysd} and is located in \texttt{ah5-TranslationManager-java-spring}.
+
+\subsection{Implementation language and tools}
+\begin{itemize}
+\item Java 21, Spring Boot 3.4.9, Arrowhead common library 5.2.2 (private source under \texttt{vendor/}), Log4j 2; MariaDB Connector/J against MySQL 8.4 with TLS in the standalone deployment.
+\item Database \texttt{ah\_\allowbreak{}translation\_\allowbreak{}manager} on MySQL 8.4 (MariaDB Connector/J, TLS with server verification in the standalone deployment), schema validated by Hibernate; SQL scripts in \texttt{src/\allowbreak{}main/\allowbreak{}resources/\allowbreak{}database}. Stateless request processing; scheduled jobs use Quartz.
+\end{itemize}
+
+\subsection{Independent source and build ownership}
+The project folder owns its application source, Maven build, tests, executable JAR, Dockerfile, configuration and Compose definition. No source or image is taken from a sibling support folder or JavaSupportRuntime. Build with Java 21 and \texttt{mvn -B clean verify}; a populated external Maven dependency cache permits offline builds.
+
+Arrowhead common utilities and DTOs are private source copies in \texttt{vendor/}, compiled into this system by the local Maven POM. No Arrowhead common/core parent or separately installed Arrowhead library is needed. Upstream POMs, licenses and source hashes are retained for provenance. Security updates must be propagated and tested in every affected copy. Third-party dependencies remain ordinary Maven libraries.
+
+The packaged artifact is \texttt{arrowhead-\allowbreak{}translation-\allowbreak{}manager-5.2.2.jar}. The image builds and tests this folder only; the system has a fixed application main class.
+
+\subsection{Functional properties implementation}
+
+The following components implement the system:
+
+\noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
+\rowcolor{gray!33} Component & Responsibility \\ \hline \endhead
+\texttt{api.\allowbreak{}http,\allowbreak{} api.\allowbreak{}mqtt} & Controllers and topic handlers of the four services. \\ \hline
+\texttt{service} & Discovery, negotiation, report and management logic. \\ \hline
+\texttt{jpa} & Bridge and log entities. \\ \hline
+\end{longtable}
+
+Every request passes the common filter chain: authentication filter (\texttt{authentication.\allowbreak{}policy}), optional blacklist filter, management filter (management services), the system's authorization filter where present, then the controller, validation and normalization, the service logic and the database service.
+
+\subsubsection{Data handled and stored}
+
+Storage \texttt{ah\_\allowbreak{}translation\_\allowbreak{}manager}:
+
+\noindent\begin{longtable}{| p{6.4cm} | p{8.8cm} |} \hline
+\rowcolor{gray!33} Tables & Content \\ \hline \endhead
+\texttt{bridge\_\allowbreak{}header,\allowbreak{} bridge\_\allowbreak{}discovery,\allowbreak{} bridge\_\allowbreak{}details} & Translation bridges. \\ \hline
+\texttt{logs} & Log entries for \texttt{get-\allowbreak{}log}. \\ \hline
+\end{longtable}
+
+The data models of the interfaces are Java records (of \texttt{eu.arrowhead.dto} in the common library, or of the module); the IDD documents name them without the \texttt{DTO} suffix. The records used by this system are: \texttt{AddressDTO}, \texttt{DeviceResponseDTO}, \texttt{KeyValuesDTO}, \texttt{LogEntryDTO}, \texttt{Log\allowbreak{}Entry\allowbreak{}List\allowbreak{}Response\allowbreak{}DTO}, \texttt{LogRequestDTO}, \texttt{PageDTO}, \texttt{Service\allowbreak{}Definition\allowbreak{}Response\allowbreak{}DTO}, \texttt{Service\allowbreak{}Instance\allowbreak{}Interface\allowbreak{}Response\allowbreak{}DTO}, \texttt{Service\allowbreak{}Instance\allowbreak{}Response\allowbreak{}DTO}, \texttt{SystemResponseDTO}, \texttt{Translation\allowbreak{}Abort\allowbreak{}Mgmt\allowbreak{}Response\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Bridge\allowbreak{}Candidate\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Data\allowbreak{}Model\allowbreak{}Translation\allowbreak{}Data\allowbreak{}Descriptor\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Discovery\allowbreak{}Mgmt\allowbreak{}Request\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Discovery\allowbreak{}Request\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Discovery\allowbreak{}Response\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Interface\allowbreak{}Translation\allowbreak{}Data\allowbreak{}Descriptor\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Negotiation\allowbreak{}Mgmt\allowbreak{}Request\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Negotiation\allowbreak{}Request\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Negotiation\allowbreak{}Response\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Query\allowbreak{}List\allowbreak{}Response\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Query\allowbreak{}Request\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Query\allowbreak{}Response\allowbreak{}DTO}, \texttt{Translation\allowbreak{}Report\allowbreak{}Request\allowbreak{}DTO}.
+
+\subsection{Non functional properties implementation}
+
+\subsubsection{Security}
+
+TLS and client authentication are configured with the Spring \texttt{server.\allowbreak{}ssl.\allowbreak{}*} properties (PKCS\#12 keystore and truststore, \texttt{client-\allowbreak{}auth=\allowbreak{}need}). The common library's filters implement the authentication policies; \texttt{Token\allowbreak{}Certificate\allowbreak{}Binding} binds identity tokens to the client certificate and \texttt{Crl\allowbreak{}Revocation\allowbreak{}Config} enables CRL checking.
+
+\subsubsection{Power management}
+
+None; the system is a server process without power states. The \texttt{sysMonitor} \texttt{power} observation always reports line supply.
+
+\subsubsection{Internal monitoring}
+
+Log4j 2 logs to stdout and files; log entries are also written to the \texttt{logs} table and served by \texttt{general\allowbreak{}Management.\allowbreak{}get-\allowbreak{}log}. The common library's \texttt{Sys\allowbreak{}Monitor\allowbreak{}Publisher} publishes \texttt{echo}, \texttt{power} and \texttt{status} every 30 s.
+
+\subsubsection{Configuration}
+
+Configuration is read from \texttt{application.\allowbreak{}properties} and environment variables (Spring relaxed binding); secrets come from files through \texttt{SPRING\_\allowbreak{}CONFIG\_\allowbreak{}IMPORT=\allowbreak{}configtree:\allowbreak{}/\allowbreak{}run/\allowbreak{}secrets/\allowbreak{}}. The properties are listed in the SysD; \texttt{general\allowbreak{}Management.\allowbreak{}get-\allowbreak{}config} returns the public ones.
+
+\subsection{Deployment}
+
+The local \texttt{compose.yaml} selects only this support system and its private MySQL database. It joins an operator-selected external cloud network; it does not start core systems or another support system. Copy \texttt{.env.example}, provision this system's own identity and credential files, validate the Compose definition, then run \texttt{docker compose up -d --build} from this folder. The image uses the secure external \texttt{config/application.properties}, mutual TLS, outsourced authentication, certificate/token binding and a mounted CRL. Secrets are read through Spring's file configuration tree. The app runs as UID 10001 with a read-only root filesystem and bounded non-executable temporary/log storage.
+
+The database image initializes this system's own schema on an empty project-owned volume, reads independent random user/root passwords from files and uses a dedicated internal network. It has no host port. The application verifies the database TLS certificate against its public DB CA. The DB key and CA signing key are never mounted into the application. Distinct Compose project names, host ports and private subnets are required for multiple deployments. Existing volumes require explicit migration/backup handling; ordinary shutdown preserves them.
+
+Registry, Authentication, DSO, ConsumerAuthorization and required brokers/providers remain network dependencies. Independent deployment does not remove those service contracts. The listener health check is only a liveness check; inspect successful application startup, registration and authenticated service access before acceptance. The local \texttt{DEPLOYMENT.md} supplies the complete procedure. The previously recorded live-cloud deployment is historical baseline evidence; the new packaging does not change a live cloud.
+
+\subsection{Local modifications}
+\label{sec:local}
+
+Notes on this implementation in the workspace:
+\begin{itemize}
+  \item Native \texttt{sysMonitor} publisher replaces the HTTP \texttt{monitor} service.
+  \item Token-to-certificate binding and CRL checking (common library); MariaDB driver.
+\end{itemize}
+
+\subsection{Verification}
+
+Independent folder-only Maven builds run the project's JUnit suite. Artifact inspection checks the system main/source and absence of JavaSupportRuntime or other support-system implementations. Images and project-local Compose definitions are tested with private disposable state and generated test identities. Spring startup and authenticated HTTPS requests use isolated mutual-TLS core-service fixtures; missing-token and missing-certificate requests are refused. The distribution verification report records exact results and limitations. Broker, NTP and inter-cloud acceptance remain separate from deployment/startup validation.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+The implementation of the services is based on the SD and IDD documents referenced below.
+
+\noindent\begin{longtable}{| p{5.4cm} | p{2.2cm} | p{2.2cm} | p{4.8cm} |} \hline
+\rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
+\texttt{translationReport} & \cite{tm-sysd} & \cite{tm-translationReport-sd} & \cite{tm-translationReport-http-idd}, \cite{tm-translationReport-mqtt-idd} \\ \hline
+\texttt{translationBridge} & \cite{tm-sysd} & \cite{tm-translationBridge-sd} & \cite{tm-translationBridge-http-idd}, \cite{tm-translationBridge-mqtt-idd} \\ \hline
+\texttt{translation\allowbreak{}Bridge\allowbreak{}Management} & \cite{tm-sysd} & \cite{tm-translationBridgeManagement-sd} & \cite{tm-translationBridgeManagement-http-idd}, \cite{tm-translationBridgeManagement-mqtt-idd} \\ \hline
+\texttt{generalManagement} & \cite{tm-sysd} & \cite{tm-generalManagement-sd} & \cite{tm-generalManagement-http-idd}, \cite{tm-generalManagement-mqtt-idd} \\ \hline
+\texttt{sysMonitor} & \cite{tm-sysd} & \cite{tm-sysMonitor-sd} & \cite{tm-sysMonitor-amqp-idd} \\ \hline
+&&& \\ \hline
+\rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
+systemDiscovery, serviceDiscovery & \cite{core-sr-sysd} & \cite{core-sr-systemDiscovery-sd} & -- \\ \hline
+identity & \cite{core-auth-sysd} & \cite{core-auth-identity-sd} & -- \\ \hline
+authorization & \cite{core-ca-sysd} & \cite{core-ca-authorization-sd} & -- \\ \hline
+blacklist\allowbreak{}Discovery & \cite{bl-sysd} & \cite{bl-blacklistDiscovery-sd} & -- \\ \hline
+authorization\allowbreak{}Token\allowbreak{}Management & \cite{core-ca-sysd} & \cite{core-ca-authorizationTokenManagement-sd} & -- \\ \hline
+interface and data-model translation services & Translators & -- & -- \\ \hline
+sysMonitor (publisher) & AMQP broker (SysMonitor) & -- & -- \\ \hline
+\end{longtable}
+
+
+\section{Go and Rust implementation variants}
+\subsection{Go implementation}
+Primary system folder: \path|Eclipse-Arrowhead-go/ah5-TranslationManager-go|.\par
+The system owns its Go module, launcher and build configuration. Use the per-system \path|Makefile| and \path|go.mod|; the containing Go tree is the build source, not a historical Arrowhead copy. Ordinary native roles use independent identities and JSON snapshot state rather than the Java database. Do not assume Java SQL migration, clustering or identical transaction/retry semantics. The registry has its own configuration and optional native AMQP monitor; other roles must be checked against their own registrations.
+\paragraph{Listening port.} Built-in default 127.0.0.1:8465 (Arrowhead default). The shipped config.json, compose.yaml and Dockerfile use the same port on all interfaces ("listen": "0.0.0.0:8465"; 8540--8555 layout before 2026-11-09). Override with "listen" in the configuration file, SERVER\_PORT=N or -server.port N; the port overrides keep the configured host.
+\paragraph{Native behavior and outstanding work.} Port of the Java TranslatorBridgeEngine (2026-10-24): registry discovery of interface translators (interfaceBridgeManagement), data model translators (dataModelTranslation) and factories (dataModelTranslatorFactoryControl); check-targets / initialize-bridge / abort-bridge; Java bridge statuses, transitions, reports, query and 8-hour cleanup; consumer and management APIs. Translators with TOKEN\_AUTH interfaceBridgeManagement policies are not selected; custom translator configuration (TODO in Java) not sent; first-match matchmaking. These are the boundaries recorded by the native compatibility document; later implementation changes still require direct qualification.
+Native design/route evidence: \path|Eclipse-Arrowhead-go/ah5-TranslationManager-go/documentation/TranslationManager|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+\subsection{Rust implementation}
+Primary system folder: \path|Eclipse-Arrowhead-rust/ah5-TranslationManager-rust|.\par
+The per-system entry point is declared as a binary of \path|arrowhead-support-rust| in \path|ah5-support-runtime-rust/Cargo.toml|. Build from the primary Rust workspace with the applicable package/binary selection. Documentation links can resolve into the shared core/support catalogue. Independent process identity and state remain required.\par
+The ordinary native profile uses Tokio/Axum and rustls with peer-identity checks and independent locked JSON state. Network effects are not distributed database transactions. The precise trust, CRL reload and persistence guarantees are those of the native profile, not the Java implementation.\par
+\paragraph{Listening port.} Default 127.0.0.1:8465 (Arrowhead default, role translationmanager). Override with "listen": "host:port" in the configuration, SERVER\_PORT=N or --server.port N; the port overrides keep the configured host.
+\paragraph{Native behavior and outstanding work.} Durable bridge lifecycle through pinned HTTPS InterfaceTranslator adapter. Java translator chaining/native conversion/discovery; absent adapter returns503; uncertain effects require reconciliation. These are the boundaries recorded by the native compatibility document; later implementation changes still require direct qualification.
+Native design/route evidence: \path|Eclipse-Arrowhead-rust/ah5-support-runtime-rust/documentation/TranslationManager|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-25 & 5.2.2 & Self-contained build, private library source, configuration, images, database and isolated deployment verification. & Codex (draft) \\ \hline
+3 & 2026-10-30 & 5.2.2 & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+4 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

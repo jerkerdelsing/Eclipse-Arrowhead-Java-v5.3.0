@@ -1,0 +1,230 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{SimpleStoreServiceOrchestration}
+\ArrowheadType{System Design Description}
+\ArrowheadTypeShort{SysDD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the design and implementation of the SimpleStoreServiceOrchestration core system of Arrowhead (documentation edition 5.3.0) in Java Spring (\texttt{ah5-core-java-spring/serviceorchestration-simple}).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the SimpleStoreServiceOrchestration system implementation, which realizes the SimpleStoreServiceOrchestration SysD \cite{ssso-sysd}. Simple\allowbreak{}Store\allowbreak{}Service\allowbreak{}Orchestration orchestrates from a static store: an operator records which service instance each consumer shall use, with a priority, and the orchestrator returns these rules on request. It offers the same \texttt{service\allowbreak{}Orchestration} service as Dynamic\allowbreak{}Service\allowbreak{}Orchestration, plus management of the store.
+In Section \ref{Implementation}, we describe implementation details of the system.
+
+\newpage
+
+\section{Implementation}
+\label{Implementation}
+
+This implementation is based on the SysD document SimpleStoreServiceOrchestration \cite{ssso-sysd}, the upstream Eclipse Arrowhead Java Spring implementation 5.2.2 \cite{ah5java} and the local changes listed in Section \ref{sec:local}.
+
+\subsection{Implementation language and tools}
+\begin{itemize}
+\item Java 21, Spring Boot 3.4.9 (web, security, data JPA, Quartz), springdoc-openapi 2.8 (Swagger UI), Log4j 2.
+\item Maven module \texttt{serviceorchestration-simple} of \texttt{ah5-core-java-spring}; it depends on \texttt{arrowhead-common-utils} and \texttt{arrowhead-data-transfer-objects} 5.2.2 from the local \texttt{ah5-common-java-spring} (Eclipse Paho MQTT v3 1.2.5, RabbitMQ AMQP client 5.22.0).
+\item Database: MariaDB/MySQL (MariaDB Connector/J; MySQL 8.4 server in the test cloud), schema validated by Hibernate (\texttt{ddl-auto=validate}); SQL scripts in \texttt{src/main/resources/database}.
+\item Stateless request processing; all state is in the database. Scheduled jobs use Quartz.
+\end{itemize}
+
+\subsection{Functional properties implementation}
+
+The Java packages below \texttt{eu.arrowhead} implement the system:
+
+\noindent\begin{longtable}{| p{5.6cm} | p{9.6cm} |} \hline
+\rowcolor{gray!33} Package & Responsibility \\ \hline \endhead
+\texttt{api.\allowbreak{}http,\allowbreak{} api.\allowbreak{}mqtt} & Controllers and topic handlers of the five services. \\ \hline
+\texttt{service.\allowbreak{}utils.\allowbreak{}Service\allowbreak{}Orchestration} & Store-based orchestration (priorities, preferred providers, matchmaking). \\ \hline
+\texttt{service.\allowbreak{}thread} & Push orchestration thread and workers. \\ \hline
+\texttt{service,\allowbreak{} service.\allowbreak{}validation,\allowbreak{} service.\allowbreak{}normalization} & Orchestration, store, push and history logic. \\ \hline
+\texttt{jpa,\allowbreak{} quartz} & Store, subscription, job and log entities; cleaner job. \\ \hline
+\end{longtable}
+
+Every request passes the common filter chain: authentication filter (by \texttt{authentication.policy}), optional blacklist filter, management service filter (for management services), then the controller, validation and normalization, the service logic and the database service. The same logic is reachable through the MQTT topic handlers.
+
+\subsubsection{Data handled and stored}
+
+Database \texttt{ah\_serviceorchestration\_simple}:
+
+\noindent\begin{longtable}{| p{6.4cm} | p{8.8cm} |} \hline
+\rowcolor{gray!33} Tables & Content \\ \hline \endhead
+\texttt{orchestration\_\allowbreak{}store} & Store entries: consumer, service definition, instance, priority. \\ \hline
+\texttt{subscription} & Push subscriptions. \\ \hline
+\texttt{orchestration\_\allowbreak{}job} & Pull and push jobs. \\ \hline
+\texttt{logs} & Log entries for \texttt{get-\allowbreak{}log}. \\ \hline
+\end{longtable}
+
+The data models of the interfaces are the Java records of \texttt{eu.arrowhead.dto} (common library); the IDD documents name them without the \texttt{DTO} suffix. The records used by this system are: \texttt{Authorization\allowbreak{}Token\allowbreak{}Generation\allowbreak{}Response\allowbreak{}DTO}, \texttt{KeyValuesDTO}, \texttt{LogEntryDTO}, \texttt{Log\allowbreak{}Entry\allowbreak{}List\allowbreak{}Response\allowbreak{}DTO}, \texttt{LogRequestDTO}, \texttt{Metadata\allowbreak{}Requirement\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}History\allowbreak{}Query\allowbreak{}Request\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}History\allowbreak{}Response\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Job\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Notify\allowbreak{}Interface\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Push\allowbreak{}Job\allowbreak{}List\allowbreak{}Response\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Push\allowbreak{}Trigger\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Request\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Response\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Result\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Service\allowbreak{}Requirement\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}List\allowbreak{}Request\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}List\allowbreak{}Response\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Query\allowbreak{}Request\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Request\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Response\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Subscription\allowbreak{}List\allowbreak{}Request\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Subscription\allowbreak{}List\allowbreak{}Response\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Subscription\allowbreak{}Query\allowbreak{}Request\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Subscription\allowbreak{}Request\allowbreak{}DTO}, \texttt{Orchestration\allowbreak{}Subscription\allowbreak{}Response\allowbreak{}DTO}, \texttt{PageDTO}, \texttt{PriorityRequestDTO}, \texttt{QoSRequirementDTO}, \texttt{Service\allowbreak{}Instance\allowbreak{}Interface\allowbreak{}Response\allowbreak{}DTO}.
+
+\subsection{Non functional properties implementation}
+
+\subsubsection{Security}
+
+TLS and client authentication are configured with the Spring \texttt{server.ssl.*} properties (PKCS\#12 keystore and truststore). The authentication filters of the common library implement the four authentication policies; \texttt{TokenCertificateBinding} binds identity tokens to the client certificate and \texttt{CrlRevocationConfig} enables CRL checking in Tomcat (both local). The private key of the keystore is also used to sign the system's outgoing requests where required.
+
+\subsubsection{Power management}
+
+None; the system is a server process without power states. The \texttt{sysMonitor} \texttt{power} observation always reports line supply.
+
+\subsubsection{Internal monitoring}
+
+Log4j 2 logs to stdout and rolling files; log entries are also written to the \texttt{logs} table and served by \texttt{generalManagement.get-log}. The native \texttt{sysMonitor} publisher (\texttt{eu.arrowhead.common.sysmonitor}) publishes \texttt{echo}, \texttt{power} and \texttt{status} every 30 s.
+
+\subsubsection{Configuration}
+
+Configuration is read from \texttt{application.properties} and environment variables (Spring relaxed binding, e.g. \texttt{SERVICE\_DISCOVERY\_POLICY}); secrets come from files through \texttt{SPRING\_CONFIG\_IMPORT=configtree:/run/secrets/}. The properties are listed in the SysD. \texttt{generalManagement.get-config} returns the public ones.
+
+\subsection{Deployment}
+
+The test cloud (\texttt{Arrowhead-test-cloud-java}) builds the image \texttt{arrowhead-\allowbreak{}serviceorchestration-\allowbreak{}simple:5.\allowbreak{}2.\allowbreak{}2-\allowbreak{}sysmonitor} from the released image \texttt{aitiaiiot/\allowbreak{}arrowhead-\allowbreak{}serviceorchestration-\allowbreak{}simple:5.\allowbreak{}2.\allowbreak{}2} with the locally built \texttt{arrowhead-\allowbreak{}serviceorchestration-\allowbreak{}simple-\allowbreak{}5.\allowbreak{}2.\allowbreak{}2.\allowbreak{}jar} (\texttt{java-patch/Dockerfile}). The container runs read-only with the configuration baked into \texttt{/app/config}, only its keystores mounted, and publishes port 8442 on the loopback address of the host. Its database runs in a separate container.
+
+\subsection{Local modifications}
+\label{sec:local}
+
+Compared to upstream 5.2.2, this workspace changes:
+\begin{itemize}
+  \item Startup is refused when the effective configuration is below the secure profile (\texttt{Security\allowbreak{}Profile\allowbreak{}Guard}).
+  \item Port 8442 instead of 8465.
+  \item The HTTP \texttt{monitor} service was removed; telemetry is the native \texttt{sysMonitor} service.
+  \item Token-to-certificate binding, CRL checking, MariaDB driver.
+\end{itemize}
+
+\subsection{Verification}
+
+The module has 21 JUnit test classes; the regression report set recorded on 2026-10-20 covers 316 tests without failures. Live-cloud smoke tests are a separate verification step; the plant-management migration is not claimed as deployed by this update.
+
+\newpage
+
+\section{Services}
+\label{sec:services}
+
+The implementation of the services is based on the SD and IDD documents referenced below.
+
+\noindent\begin{longtable}{| p{5.4cm} | p{2.2cm} | p{2.2cm} | p{4.8cm} |} \hline
+\rowcolor{gray!33}\textbf{Services produced} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline \endhead
+\texttt{service\allowbreak{}Orchestration} & \cite{ssso-sysd} & \cite{ssso-serviceOrchestration-sd} & \cite{ssso-serviceOrchestration-http-idd}, \cite{ssso-serviceOrchestration-mqtt-idd} \\ \hline
+\texttt{service\allowbreak{}Orchestration\allowbreak{}Simple\allowbreak{}Store\allowbreak{}Management} & \cite{ssso-sysd} & \cite{ssso-serviceOrchestrationSimpleStoreManagement-sd} & \cite{ssso-serviceOrchestrationSimpleStoreManagement-http-idd}, \cite{ssso-serviceOrchestrationSimpleStoreManagement-mqtt-idd} \\ \hline
+\texttt{service\allowbreak{}Orchestration\allowbreak{}Push\allowbreak{}Management} & \cite{ssso-sysd} & \cite{ssso-serviceOrchestrationPushManagement-sd} & \cite{ssso-serviceOrchestrationPushManagement-http-idd}, \cite{ssso-serviceOrchestrationPushManagement-mqtt-idd} \\ \hline
+\texttt{service\allowbreak{}Orchestration\allowbreak{}History\allowbreak{}Management} & \cite{ssso-sysd} & \cite{ssso-serviceOrchestrationHistoryManagement-sd} & \cite{ssso-serviceOrchestrationHistoryManagement-http-idd}, \cite{ssso-serviceOrchestrationHistoryManagement-mqtt-idd} \\ \hline
+\texttt{generalManagement} & \cite{ssso-sysd} & \cite{ssso-generalManagement-sd} & \cite{ssso-generalManagement-http-idd}, \cite{ssso-generalManagement-mqtt-idd} \\ \hline
+\texttt{sysMonitor} & \cite{ssso-sysd} & \cite{ssso-sysMonitor-sd} & \cite{ssso-sysMonitor-amqp-idd} \\ \hline
+&&& \\ \hline
+\rowcolor{gray!33}\textbf{Services consumed} & \textbf{SysD ref} & \textbf{SD ref} & \textbf{IDD ref} \\ \hline
+serviceDiscovery & \cite{sr-sysd} & \cite{sr-serviceDiscovery-sd} & -- \\ \hline
+identity & \cite{auth-sysd} & \cite{auth-identity-sd} & -- \\ \hline
+authorization & \cite{ca-sysd} & \cite{ca-authorization-sd} & -- \\ \hline
+blacklist\allowbreak{}Discovery & Blacklist & -- & -- \\ \hline
+notify interface & Subscribers & -- & -- \\ \hline
+sysMonitor (publisher) & AMQP broker (SysMonitor) & -- & -- \\ \hline
+\end{longtable}
+
+
+\section{Go and Rust implementation variants}
+\subsection{Go implementation}
+Primary system folder: \path|Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple|.\par
+The system owns its Go module, launcher and build configuration. Use the per-system \path|Makefile| and \path|go.mod|; the containing Go tree is the build source, not a historical Arrowhead copy. Ordinary native roles use independent identities and JSON snapshot state rather than the Java database. Do not assume Java SQL migration, clustering or identical transaction/retry semantics. The registry has its own configuration and optional native AMQP monitor; other roles must be checked against their own registrations.
+\paragraph{Listening port.} Built-in default 127.0.0.1:8442 (Arrowhead default). The shipped config.json sets "listen": "0.0.0.0:8442". Override with "listen" in the configuration file, SERVER\_PORT=N or -server.port N; the port overrides keep the configured host.
+Native design/route evidence: \path|Eclipse-Arrowhead-go/ah5-core-go/serviceorchestration-simple/documentation|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+\subsection{Rust implementation}
+Primary system folder: \path|Eclipse-Arrowhead-rust/ah5-core-rust/serviceorchestration-simple|.\par
+The per-system entry point is built by the \path|arrowhead-core-rust| crate. Build from the primary Rust workspace with the applicable package/binary selection. Documentation links can resolve into the shared core/support catalogue. Independent process identity and state remain required.\par
+The ordinary native profile uses Tokio/Axum and rustls with peer-identity checks and independent locked JSON state. Network effects are not distributed database transactions. The precise trust, CRL reload and persistence guarantees are those of the native profile, not the Java implementation.\par
+Native design/route evidence: \path|Eclipse-Arrowhead-rust/ah5-core-rust/documentation/SimpleStoreServiceOrchestration|.\par
+For this Java interface, select only a native transport and operation explicitly implemented and advertised by that port. A matching method/path does not establish DTO, error, authorization, retry or persistence equivalence. Java MQTT/AMQP bindings are not automatically provided by a Go or Rust role. Differential contract and security checks remain necessary before substitution.
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-11-07 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

@@ -1,0 +1,353 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.075\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s}
+}
+%%
+
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{deviceQualityDataManagement HTTP/TLS/JSON}
+\ArrowheadServiceID{deviceQualityDataManagement}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.2.2}
+\ArrowheadDate{2026-10-30}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{RELEASE CANDIDATE}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the HTTP/1.1 protocol with TLS payload security and JSON payload encoding variant of the \texttt{device\allowbreak{}Quality\allowbreak{}Data\allowbreak{}Management} service of the DeviceQoSEvaluator system.
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{device\allowbreak{}Quality\allowbreak{}Data\allowbreak{}Management} service interface of the DeviceQoSEvaluator system, which provides operator access to the stored device statistics and rebuilding of the device-system measurement map.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & HTTP & 1.1 \cite{rfc9112} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{device\allowbreak{}Quality\allowbreak{}Data\allowbreak{}Management} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{deviceQualityDataManagement -- Service Description} document \cite{dqe-deviceQualityDataManagement-sd}.
+For further details about how this service is meant to be used, please consult that document.
+
+The rest of this document describes how to realize the \texttt{device\allowbreak{}Quality\allowbreak{}Data\allowbreak{}Management} service
+interface in detail. Both in terms of its operations (Section \ref{sec:operations}) and its information model (Section \ref{sec:model}).
+
+\subsection{Interface registration}
+
+The service is registered in the ServiceRegistry with the interface template \texttt{generic\_\allowbreak{}https}, policy \texttt{CERT\_\allowbreak{}AUTH}, access address \texttt{device-\allowbreak{}qos-\allowbreak{}evaluator}, port 8472 and base path \texttt{/\allowbreak{}deviceqosevaluator/\allowbreak{}mgmt}. The \texttt{operations} property of the interface lists the operations below with their method and path relative to the base path (path parameters are placeholders such as \texttt{\{id\}} that the consumer fills in):
+
+\noindent\begin{longtable}{| p{5.2cm} | p{1.6cm} | p{8.4cm} |} \hline
+\rowcolor{gray!33} Operation & Method & Path \\ \hline \endhead
+\texttt{query} & POST & \texttt{/\allowbreak{}query} \\ \hline
+\texttt{reload} & POST & \texttt{/\allowbreak{}reload} \\ \hline
+\end{longtable}
+
+\newpage
+
+\section{Service Operations}
+\label{sec:operations}
+
+The interfaces of the \texttt{device\allowbreak{}Quality\allowbreak{}Data\allowbreak{}Management} service, its operations, data models and implementation are provided below.
+In particular, each subsection first names the HTTP method and path used to call the operation, after which it names the abstract operation from the \texttt{device\allowbreak{}Quality\allowbreak{}Data\allowbreak{}Management} SD document, as well as input and output types.
+
+All operations require the requester's identity, presented according to the provider's authentication policy: the client certificate (mutual TLS) and, with the \texttt{outsourced} policy, \texttt{Authorization: Bearer IDENTITY-TOKEN//<token>}; systems holding the Authentication secret key send \texttt{Bearer AUTHENTICATOR-KEY//<system>//<hash>}, and with the \texttt{declared} policy \texttt{Bearer SYSTEM//<system>} is sent. Request and response bodies are \texttt{application/json} unless stated otherwise.
+Errors are answered with an \mref{ErrorMessage} body and the status codes \texttt{400 Bad Request} (invalid parameter), \texttt{401 Unauthorized} (missing or invalid identity), \texttt{403 Forbidden} (not permitted, e.g. by the management, authorization or blacklist filter), \texttt{404 Not Found}, \texttt{408 Request Timeout}, \texttt{423 Locked}, \texttt{500 Internal Server Error} and \texttt{503 Service Unavailable} (a system it depends on failed).
+
+\osubsection{query}{POST}{/\allowbreak{}deviceqosevaluator/\allowbreak{}mgmt/\allowbreak{}query}{\mref[Qo\allowbreak{}SDevice\allowbreak{}Stat\allowbreak{}Query\allowbreak{}Request]{QoSDeviceStatQueryRequest}}{\mref[Qo\allowbreak{}SDevice\allowbreak{}Stat\allowbreak{}Query\allowbreak{}Response]{QoSDeviceStatQueryResponse}}
+
+Returns a page of aggregated statistic records.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:query},caption={An \oref{query} invocation.}]
+POST /deviceqosevaluator/mgmt/query HTTP/1.1
+Host: device-qos-evaluator:8472
+Authorization: Bearer IDENTITY-TOKEN//<token>
+Content-Type: application/json
+
+{
+  "pagination": {
+    "page": 0,
+    "size": 10,
+    "direction": "ASC",
+    "sortField": "createdAt"
+  },
+  "metricGroup": "RTT",
+  "from": "2026-10-22T12:00:00Z",
+  "to": "2026-10-22T12:00:00Z",
+  "aggregation": [
+    "string"
+  ],
+  "systemNames": [
+    "TemperatureSensor"
+  ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:query-resp},caption={An \oref{query} response.}]
+{
+  "records": [
+    {
+      "metricGroup": "RTT",
+      "id": 42,
+      "timestamp": "string",
+      "uuid": "string",
+      "systems": [
+        "string"
+      ]
+    }
+  ],
+  "count": 1
+}
+\end{lstlisting}
+
+\osubsection{reload}{POST}{/\allowbreak{}deviceqosevaluator/\allowbreak{}mgmt/\allowbreak{}reload}{}{\pref{String}}
+
+Rebuilds the device-system measurement map from the ServiceRegistry.
+
+A successful call returns \texttt{200 OK} with the output in the body.
+
+\begin{lstlisting}[label={lst:reload},caption={An \oref{reload} invocation.}]
+POST /deviceqosevaluator/mgmt/reload HTTP/1.1
+Host: device-qos-evaluator:8472
+Authorization: Bearer IDENTITY-TOKEN//<token>
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:reload-resp},caption={An \oref{reload} response.}]
+"string"
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+Here, all data objects that can be part of the service calls associated with this service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is meant to denote a JSON \pref{Object} that must contain certain fields, or names, with values conforming to explicitly named types.
+Fields that are not needed may be omitted or \texttt{null} in requests; empty fields are omitted in responses.
+As a complement to the primary types defined in this section, there is also a list of secondary types in Section \ref{sec:model:primitives}, which are used to represent things like hashes, identifiers and texts.
+
+\msubsection{struct}{ErrorMessage}
+
+
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"error\allowbreak{}Message" & \pref{String} & Error text, if the event is an error. \\ \hline
+"error\allowbreak{}Code" & \pref{Number} &  \\ \hline
+"exception\allowbreak{}Type" & \pref{ExceptionType} &  \\ \hline
+"origin" & \pref{String} &  \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{Page}
+
+Paging and sorting; all fields optional.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"page" & \pref{Number} & Zero-based page number. \\ \hline
+"size" & \pref{Number} & Number of records per page (at most \texttt{max.\allowbreak{}page.\allowbreak{}size}, default 1000). \\ \hline
+"direction" & \pref{String} & Sort direction, \texttt{ASC} or \texttt{DESC}. \\ \hline
+"sort\allowbreak{}Field" & \pref{String} & Field to sort by. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{QoSDeviceStatQueryRequest}
+
+Paged filter for device statistics.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"pagination" & \mref{Page} & Paging and sorting of the result. \\ \hline
+"metric\allowbreak{}Group" & \pref{String} & Metric group: \texttt{RTT}, \texttt{CPU\_\allowbreak{}TOTAL\_\allowbreak{}LOAD}, \texttt{MEMORY\_\allowbreak{}USED}, \texttt{NETWORK\_\allowbreak{}EGRESS\_\allowbreak{}LOAD} or \texttt{NETWORK\_\allowbreak{}INGRESS\_\allowbreak{}LOAD}. \\ \hline
+"from" & \pref{DateTime} & Lower bound of the entry time. \\ \hline
+"to" & \pref{DateTime} & Upper bound of the entry time. \\ \hline
+"aggregation" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Statistics to return (minimum, maximum, mean, median, current). \\ \hline
+"system\allowbreak{}Names" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Systems whose devices are returned. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{QoSDeviceStatQueryResponse}
+
+Device statistic records.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"records" & \pref{Array}$<$\allowbreak{}\mref{QoSDeviceStatRecord}$>$ & Statistic records of the page. \\ \hline
+"count" & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{QoSDeviceStatRecord}
+
+Aggregated measurements of one device in one period.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"metric\allowbreak{}Group" & \pref{String} & Metric group: \texttt{RTT}, \texttt{CPU\_\allowbreak{}TOTAL\_\allowbreak{}LOAD}, \texttt{MEMORY\_\allowbreak{}USED}, \texttt{NETWORK\_\allowbreak{}EGRESS\_\allowbreak{}LOAD} or \texttt{NETWORK\_\allowbreak{}INGRESS\_\allowbreak{}LOAD}. \\ \hline
+"id" & \pref{Number} & Identifier of the record. \\ \hline
+"timestamp" & \pref{String} & End of the aggregation period. \\ \hline
+"uuid" & \pref{String} & Identifier of the measured device. \\ \hline
+"minimum" & \pref{Object} & Minimum value in the period. \\ \hline
+"maximum" & \pref{Object} & Maximum value in the period. \\ \hline
+"mean" & \pref{Object} & Mean value in the period. \\ \hline
+"median" & \pref{Object} & Median value in the period. \\ \hline
+"current" & \pref{Object} & Last measured value. \\ \hline
+"systems" & \pref{Array}$<$\allowbreak{}\pref{String}$>$ & Systems hosted by the device. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+As all messages are encoded using the JSON format \cite{rfc8259}, the following primitive constructs, part of that standard, become available.
+Note that the official standard is defined in terms of parsing rules, while this list only concerns syntactic information.
+Furthermore, the \pref{Object} and \pref{Array} types are given optional generic type parameters, which are used in this document to signify when pair values or elements are expected to conform to certain types.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Array} & A JSON Array \cite{rfc8259}; \pref{Array}$<$A$>$ has elements of type A. \\ \hline
+\pdef{DateTime} & JSON String with an ISO 8601 UTC timestamp, e.g. \texttt{2026-10-22T12:00:00Z}. \\ \hline
+\pdef{ExceptionType} & One of \texttt{ARROWHEAD}, \texttt{INVALID\_\allowbreak{}PARAMETER}, \texttt{AUTH}, \texttt{FORBIDDEN}, \texttt{DATA\_\allowbreak{}NOT\_\allowbreak{}FOUND}, \texttt{TIMEOUT}, \texttt{LOCKED}, \texttt{INTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR}, \texttt{EXTERNAL\_\allowbreak{}SERVER\_\allowbreak{}ERROR} (JSON String). \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & \arrowversion & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & \arrowversion & Checked against the primary Java source tree (Eclipse-Arrowhead-java): services, operations, paths and data models unchanged. & Claude Opus 5.5 (draft) \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

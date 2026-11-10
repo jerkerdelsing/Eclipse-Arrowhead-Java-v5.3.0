@@ -141,8 +141,9 @@ def security():
         check(values.get("server.ssl.enabled") == "true", f"{name}: deployment configuration has no TLS")
         check(values.get("authentication.policy", "").lower() != "declared", f"{name}: deployment configuration declares identities")
         check(values.get("service.authorization.enabled") != "false", f"{name}: deployment configuration disables authorization")
+        check(values.get("device.agent.ssl.enabled", "true").lower() != "false", f"{name}: deployment configuration uses plain HTTP to the device agents")
     development = re.compile(r"(arrowhead\.security\.profile|ARROWHEAD_SECURITY_PROFILE)\s*[=:]\s*\"?development", re.I)
-    plaintext = re.compile(r"(server\.ssl\.enabled|SERVER_SSL_ENABLED)\s*[=:]\s*\"?false", re.I)
+    plaintext = re.compile(r"(server\.ssl\.enabled|SERVER_SSL_ENABLED|device\.agent\.ssl\.enabled|DEVICE_AGENT_SSL_ENABLED)\s*[=:]\s*\"?false", re.I)
     for path in walk({"Dockerfile", "compose.yaml", ".env.example"}):
         text = path.read_text(errors="replace")
         check(not development.search(text), f"{path.relative_to(ROOT)}: selects the development exception")
@@ -153,6 +154,15 @@ def security():
         if path.parts[-2] == "resources":
             uncommented = "\n".join(l for l in path.read_text().splitlines() if not l.lstrip().startswith("#"))
             check(not development.search(uncommented), f"{path.relative_to(ROOT)}: sample pre-selects the development exception")
+
+
+def device_agent():
+    folder = ROOT / "ah5-DeviceQoSEvaluator-java-spring"
+    driver = (folder / "src/main/java/eu/arrowhead/deviceqosevaluator/driver/AugmentedMeasurementDriver.java").read_text()
+    check("Constants.HTTPS" in driver and "httpService.sendRequest" in driver, "DeviceQoSEvaluator: device agent driver is not on the mutual-TLS client")
+    agent = (folder / "device_agent/python/agent_server.py").read_text()
+    check("ssl.CERT_REQUIRED" in agent and "VERIFY_CRL_CHECK_LEAF" in agent and "allowed_clients" in agent, "device agent: no mutual TLS, CRL check or client allow-list")
+    check(properties(folder / "config/application.properties").get("device.agent.ssl.enabled") == "true", "DeviceQoSEvaluator: deployment configuration does not enable device agent TLS")
 
 
 def discovery():
@@ -172,7 +182,7 @@ def intercloud():
     check("providerSideFailsClosedWithoutConsumerAuthorization" in tests, "provider-side authorization has no fail-closed test")
 
 
-for section in [framework_version, ports, monitoring, spring, security, discovery, intercloud]:
+for section in [framework_version, ports, monitoring, spring, security, device_agent, discovery, intercloud]:
     section()
 
 for failure in failures:

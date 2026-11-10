@@ -1,0 +1,62 @@
+\documentclass[a4paper]{arrowhead}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{longtable,booktabs,xurl}
+\setlength{\emergencystretch}{3em}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\begin{document}
+\ArrowheadTitle{SoSConfigurator}
+\ArrowheadType{Interface Design Description: generalManagement HTTP/TLS/JSON}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Documentation maintenance}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{Repository maintainers}
+\ArrowheadFooter{Eclipse Arrowhead}
+\ArrowheadSetup
+\begin{center}
+\vspace*{2cm}
+{\Huge SoSConfigurator\par}
+\vspace{1cm}
+{\Large Interface Design Description: generalManagement HTTP/TLS/JSON\par}
+\vfill
+\begin{abstract}
+Source-based description of the SoSConfigurator support system and its registered services. Documentation edition 5.3.0 retains the implementation and wire versions defined by the current primary source; no runtime upgrade or deployment is implied.
+\end{abstract}
+\end{center}
+\clearpage\tableofcontents\clearpage
+\section{Documentation edition and source scope}
+This is documentation edition 5.3.0, dated 2026-11-09. No earlier \path|documentation/v5.2.2| set exists for this system. These documents were written from the primary Java source and secure configuration; no older system documentation was deleted or changed. Runtime/dependency/service versions remain source-defined: \path|SoSConfiguratorConstants.SYSTEM_VERSION| is 5.2.2 and service versions are 1.0.0. Documentation publication does not upgrade the runtime or deploy an SoS.
+\section{Service definition and contract}
+The system produces \path|generalManagement| version 1.0.0. The secure HTTPS base path is \path|/sosconfigurator/general/mgmt|. This interface is restricted by the common management filter; the secure standalone policy is Sysop-only. Browser console sessions are not a replacement for this management identity.
+\section{Operations and data models}
+\paragraph{get-log.} POST \path|/sosconfigurator/general/mgmt/logs| consumes an optional JSON \path|LogRequestDTO| and returns \path|LogEntryListResponseDTO| with HTTP 200. LogRequestDTO has \path|pagination| (PageDTO), \path|from|, \path|to|, \path|severity| and \path|logger|. PageDTO fields are integer \path|page|, integer \path|size|, string \path|direction| and string \path|sortField|. Validation and defaults are those of the vendored common LogService/LogValidation.
+
+The response has \path|entries| (array of LogEntryDTO) and integer \path|count|. An entry contains strings \path|logId|, \path|entryDate|, \path|logger|, \path|severity|, \path|message| and \path|exception|; the record omits empty values. Count and pagination must not be inferred from array length alone.
+
+\paragraph{get-config.} GET \path|/sosconfigurator/general/mgmt/get-config| accepts optional repeated \path|keys| query parameters and returns \path|KeyValuesDTO| with HTTP 200. KeyValuesDTO contains \path|map|, a string-to-string mapping. It exposes the common/system public configuration keys, not a secret-store export. The system-specific public keys include catalog file, status timeout, API whitelist and console port.
+\section{Security and failure behavior}
+Mutual TLS and the configured identity policy authenticate a secure caller. Common management authorization is applied independently of \path|sosConfiguration| grants. Invalid filters, missing identity, denied management rights and unavailable backing storage are governed by common validation/error handling; these two handlers do not introduce a bespoke SoS planning-error envelope. Response DTO null/empty omission follows the vendored record annotations.
+\section{Security and access model}
+The secure Arrowhead connector uses TLS with client certificates, outsourced identity verification and token-to-certificate binding. \path|SosAccessFilter| permits a \path|sosConfiguration| operation for a verified Sysop, a named \path|sos.api.whitelist| system or a ConsumerAuthorization operation grant. An authenticated identity alone is insufficient. General management remains governed by the common management filter.
+
+The separate console authenticates a browser with a configured scrypt password hash and the \path|ah_sos_console| cookie. It applies Host/Origin checks and session/lockout rules. A console session does not become an Arrowhead identity token. Static UI/session paths are console-only; the Arrowhead connector returns 404 for them. Console handling marks authenticated operator requests so the internal API can execute without pretending to be an mTLS system caller.
+\section{Go and Rust implementation variants}
+\subsection{Go implementation}
+No \path|Eclipse-Arrowhead-go/ah5-SoSConfigurator-go| folder exists in the designated primary Go tree. Go local-cloud systems may be targets of a Java SoSConfigurator only if their catalog and inter-cloud implementation meet the policy and executor checks. This is not a Go implementation of SoSConfigurator.
+\subsection{Rust implementation}
+No \path|Eclipse-Arrowhead-rust/ah5-SoSConfigurator-rust| folder exists in the designated primary Rust tree. The policy rejects a catalogued implementation without the required Gatekeeper/GateTunnel inter-cloud capability; the mere presence of Rust local-cloud roles does not establish eligibility or implement this system.
+\section{Primary source references}
+All source paths below are relative to \path|Eclipse-Arrowhead-java/ah5-SoSConfigurator-java|.
+\begin{itemize}
+\item \path|src/main/java/eu/arrowhead/sosconfigurator/SoSConfiguratorSystemInfo.java| and \path|SoSConfiguratorConstants.java|: registration, names, versions and paths.
+\item \path|api/http/SosConfigurationAPI.java|, \path|api/http/GeneralManagementAPI.java|, \path|policy/SosRequest.java|, \path|catalog/Catalog.java|, \path|planner/Planner.java| and \path|service/SosConfigurationService.java|, under the same Java package: operations, DTOs, planning and persistence.
+\item \path|security/SosAccessFilter.java| and \path|console/ConsoleFilter.java| under that package: caller and connector boundaries.
+\item \path|config/application.properties|, packaged \path|src/main/resources/application.properties| and \path|SoSConfiguratorDefaults.java|: secure overrides versus development/source defaults.
+\item \path|vendor/common-utils| and \path|vendor/data-transfer-objects|: common management, security and native sysMonitor publisher contract.
+\end{itemize}
+\section{Revision history}
+2026-11-09: Initial source-based LaTeX documentation edition 5.3.0. Review draft; document compilation and source traceability checked.
+\end{document}

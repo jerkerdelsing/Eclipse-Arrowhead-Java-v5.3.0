@@ -1,0 +1,43 @@
+\section{Network Architecture}
+\label{sec:network-architecture}
+\subsection{Model basis and architectural scope}
+The network view is derived from the \prop{Network} model in the supplied Papyrus project, specifically \prop{Arrowhead-5.2.uml} and its \prop{Network} diagram in \prop{Arrowhead-5.2.notation} \cite{arrowhead52NetworkModel20261110}. The file name identifies the requested model; the enclosing project directory retains the historical name \prop{EclipseArrowhead-5.0-JD}. Numbered textual SysML exports in that directory are not substituted for this UML source.
+
+The model separates the design contract from its design description for three network roles: intra-cloud connectivity, inter-cloud connectivity and an intra-cloud DMZ. This section carries those roles into the GSoSD black-box architecture. Concrete segments, equipment, routes, addresses and access rules are deployment decisions described in the Core and Support GSoSDDs; the Papyrus model is not an as-deployed network inventory.
+
+\subsection{Network domains and their interfaces}
+\begin{description}
+\item[Intra-cloud network.] \prop{GenericIntraCloudNetwork-Design} exposes \prop{IntracloudNetwork_Interface}. It represents connectivity needed between the constituent microsystems of one local cloud. The corresponding design description specialises that contract and provides a typed \prop{IntracloudNetwork_802.3} port. Core discovery, authentication, authorisation and orchestration exchanges use this connectivity, as do authorised direct application and support-service calls.
+\item[Inter-cloud network.] \prop{GenericInterCloudNetwork} exposes \prop{IntercloudNetwork_Interface}; the separately stereotyped design-description classifier is named \prop{GenericIntercloudNetwork}. It provides the external connectivity used for selected cross-cloud exchanges. Reachability does not confer membership of a peer cloud: each cloud retains its own identity, authorisation and administration boundary. Gatekeeper discovery/negotiation and GateTunnel sessions mediate federation according to the selected service binding; the network does not make every internal service directly public.
+\item[DMZ network.] \prop{GenericIntracloudNetworkDMZ} exposes \prop{IntracloudNetworkDMZ_Interface}. Its design-description specialisation, named \prop{GenericIntracloudNetworkDMX} in the source, supplies the typed \prop{IntercloudNetworkDMZ_802.3} port. The DMX spelling and the port's Intercloud prefix are retained for traceability; they do not define another network technology or a fourth domain. In this architecture the DMZ is a controlled boundary segment where a deployment may place externally reachable federation endpoints. Placement of particular processes or firewall rules is a design refinement, not an allocation supplied by the model.
+\end{description}
+
+\begin{figure}[htbp]
+\centering
+\input{figures/network-architecture-model}
+\caption{Network roles across two local clouds. This model-derived schematic interprets the three interface roles; the optional DMZ placement and the shown system allocation are architectural refinements, not an exported Papyrus deployment.}
+\label{fig:network-architecture-model}
+\end{figure}
+\FloatBarrier
+
+\subsection{Bearers, service protocols and protected exchanges}
+The model's \prop{Ethernet} and \prop{WiFi} classifiers both specialise \prop{Network}. Its concrete port examples bind intra-cloud/DMZ interfaces to Ethernet (802.3) and an inter-cloud interface to WiFi (\prop{IntercloudNetwork_802.11a}). These are examples of realisation, not a rule that all intra-cloud traffic must be wired or all federation must use wireless links. The cloud boundary is an administrative and service-security boundary, not the definition of an Ethernet broadcast domain.
+
+\prop{ProtocolKind} enumerates \prop{HTTP}, \prop{CoAP}, \prop{Websocket}, \prop{MQTT}, \prop{DDS} and \prop{Other}; protocol properties can describe the chosen bindings independently of the bearer. Several model properties default to HTTP. That default is not permission to disable TLS or the Arrowhead v5.0-and-later authentication/authorisation baseline. A protocol name in the enumeration also does not establish that every Java, Go or Rust system implements it. AMQP telemetry already specified by this GSoSD remains a separate supported service binding; its absence as a named enumeration literal does not remove that contract.
+
+For direct consumption, the control plane discovers and authorises an endpoint; the consumer then sends application data to the selected provider. The orchestrator is not the application-data router. Brokered bindings instead use their configured exchange/topic and broker access controls. Local telemetry and an organisation's federation relay may both use brokers, but they have different scope, identities and access rules. Neither a shared bearer nor a common broker authenticates an Arrowhead application by itself.
+
+\subsection{Network obligations and limits of the model}
+A realisation must provide the reachability needed by the selected service interfaces while preserving cloud membership, certificate identity and operation-level authorisation. Only the required local services, management clients, callback recipients and federation endpoints are made reachable across the selected boundaries. An application is not granted private database, management or peer-cloud access merely because routing exists.
+
+The model does not assign subnets, IP versions, DNS records, VLANs, firewall products/rules, NAT mappings, capacity, timing bounds or redundant paths. Those values must be recorded and validated in a deployment design. Shared physical infrastructure and isolated physical infrastructure are both possible realisations; neither topology alone demonstrates conformance, availability or real-time guarantees.
+
+\subsection{Traceability to the Papyrus network model}
+\begin{longtable}{|P{3.2cm}|P{11.0cm}|}\hline
+\rowcolor{gray!20} Model contract / evidence & Source classifier or relationship \\\hline\endhead
+Intra-cloud contract & \prop{GenericIntraCloudNetwork-Design}, XMI \prop{_KR8A8YSmEe-74fVJZfD0CQ}; design description \prop{_KR8A84SmEe-74fVJZfD0CQ} specialises it. \\\hline
+Inter-cloud contract & \prop{GenericInterCloudNetwork}, XMI \prop{_KR8A-YSmEe-74fVJZfD0CQ}; design description \prop{GenericIntercloudNetwork}, XMI \prop{_KR8A-4SmEe-74fVJZfD0CQ}. \\\hline
+DMZ contract & \prop{GenericIntracloudNetworkDMZ}, XMI \prop{_zv-eIIQeEfGdVa7uES4rbQ}; description \prop{GenericIntracloudNetworkDMX}, XMI \prop{_eVXWsIQeEfGdVa7uES4rbQ}. \\\hline
+Bearer and protocol choices & \prop{Ethernet} and \prop{WiFi} specialise \prop{Network}; \prop{ProtocolKind}, XMI \prop{_DdSCAITBEe-74fVJZfD0CQ}, defines the protocol alternatives. \\\hline
+Design versus description & The applied ArrowheadDSL stereotypes distinguish \prop{IntracloudNetworkDesign}, \prop{IntercloudNetworkDesign} and their \prop{DesignDescription} counterparts; typed ports subset the generic full-port contracts. \\\hline
+\end{longtable}

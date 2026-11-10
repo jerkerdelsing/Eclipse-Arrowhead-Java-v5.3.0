@@ -27,6 +27,8 @@ public final class DeviceQoSEvaluatorDefaults extends Defaults {
 	public static final String RTT_MEASUEREMENT_JOB_INTERVAL_DEFAULT = "15"; // sec
 	public static final String RTT_MEASUEREMENT_TIMEOUT_DEFAULT = "5000"; // ms
 	public static final String AUGMENTED_MEASUEREMENT_JOB_INTERVAL_DEFAULT = "15"; // sec
+	public static final String DEVICE_AGENT_SSL_ENABLED_DEFAULT = "true";
+	public static final String DEVICE_AGENT_PORT_DEFAULT = "59473";
 	public static final String EVALUATION_TIME_WINDOW_DEFAULT = "60"; // sec
 	public static final String CLEANING_JOB_INTERVAL_DEFAULT = "60"; // sec
 	public static final String RAW_MEASUREMENT_DATA_MAX_AGE_DEFAULT = "15"; // min

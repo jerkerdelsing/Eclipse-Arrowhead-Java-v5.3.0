@@ -1,3 +1,19 @@
+# DeviceQoSEvaluator device agent configuration (see ReadMe.md).
+server:
+  address: 0.0.0.0        # all interfaces; only with mutual TLS (tls.enabled: false requires a loopback address)
+  port: 59473             # overridden by SERVER_PORT, then by --server.port
+
+# Mutual TLS (default). Relative paths are relative to this file.
+tls:
+  enabled: true
+  certificate: certs/agent.crt   # issued by the cloud CA; its subject alternative names include the device address
+                                 # the DeviceQoSEvaluator uses (IP or DNS name)
+  private_key: certs/agent.key
+  ca: certs/ca.crt               # cloud CA: verifies the DeviceQoSEvaluator's client certificate
+  crl: certs/ca.crl              # cloud CA CRL: missing or expired refuses every client; re-read when it changes
+  allowed_clients:               # certificate common names that may read the measurements
+    - DeviceQoSEvaluator.<cloud>.<organization>.arrowhead.eu
+
 measurements:
   cpu_total_load:
     enabled: true

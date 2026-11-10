@@ -1,0 +1,318 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{adjustbox}
+\AtBeginEnvironment{longtable}{\small}
+\BeforeBeginEnvironment{tikzpicture}{\begin{adjustbox}{max width=\textwidth}}
+\AfterEndEnvironment{tikzpicture}{\end{adjustbox}}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{systemDiscovery}
+\ArrowheadServiceID{systemDiscovery}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{systemDiscovery} service, version 1.0.0, produced by the ServiceRegistry core system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{systemDiscovery} service, which provides registration and lookup of the application, support and core systems of the local cloud, with their addresses, version, metadata and hosting device.
+It is produced by the ServiceRegistry system \cite{sr-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{sr-systemDiscovery-http-idd}. The MQTT binding is specified in the MQTT/TLS/JSON IDD \cite{sr-systemDiscovery-mqtt-idd}.
+
+\subsection{Significant Prior Art}
+
+Corresponds to the system part of the Arrowhead 4.x ServiceRegistry \texttt{register}/\texttt{unregister} operations and the 4.4 SystemRegistry.
+
+\subsection{How This Service Is Meant to Be Used}
+
+A system registers itself with \texttt{register} before it registers services; the system name is taken from its authenticated identity, not from the request. \texttt{revoke} removes the requester and, with it, its service instances. \texttt{lookup} finds systems by name, address, version, device or metadata; it is used by Consumer\allowbreak{}Authorization to evaluate metadata-based policies.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+A system can only register and revoke itself. Registering another system requires \texttt{service\allowbreak{}Registry\allowbreak{}Management}. The service does not authenticate systems; the identity comes from the authentication policy of the ServiceRegistry (certificate, identity token or declared name).
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{systemDiscovery} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{systemDiscovery}
+        \nodepart{second} \texttt{register}\\ \texttt{lookup}\\ \texttt{revoke}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{systemDiscovery} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{register}{\mref{SystemRegisterRequest}}{\mref{SystemResponse}}
+
+Registers the requesting system (name from its identity) with addresses, version, metadata and an optional device. Returns 201 for a new entry, 200 if an identical entry exists; an existing system with different data is refused (400).
+
+\osubsection{lookup}{\mref{SystemLookupRequest}}{\mref{SystemListResponse}}
+
+Returns the systems matching all given filters. With \texttt{verbose=\allowbreak{}true} (and \texttt{discovery.\allowbreak{}verbose} enabled) the device details are included.
+
+Optional parameter: \texttt{verbose}.
+
+\osubsection{revoke}{}{}
+
+Removes the requesting system and its service instances. Returns 200 if removed, 204 if it was not registered.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{systemDiscovery} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{Address}
+
+A network address with its type.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+type & \pref{String} & Address type: \texttt{HOSTNAME}, \texttt{IPV4}, \texttt{IPV6} or \texttt{MAC}. \\ \hline
+address & \pref{String} & One network address (host name, IPv4, IPv6 or MAC address). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{DeviceResponse}
+
+A registered device.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & Device name. \\ \hline
+metadata & \pref{Metadata} & Free-form metadata (JSON object). \\ \hline
+addresses & \pref{List}$<$\allowbreak{}\mref{Address}$>$ & Network addresses with their types. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{MetadataRequirement}
+
+A JSON object of metadata requirements: each key is a metadata path (dot notation), each value the required value or an operator object such as \texttt{\{"op": "LESS\_\allowbreak{}THAN",\allowbreak{} "value": 10\}}.
+
+
+
+\msubsection{struct}{SystemListResponse}
+
+List of systems.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{SystemResponse}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemLookupRequest}
+
+Filter for systems; all fields optional, combined with AND.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+system\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{Name}$>$ & System names to match. \\ \hline
+addresses & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Network addresses of the entity. \\ \hline
+address\allowbreak{}Type & \pref{String} & Address type filter: \texttt{HOSTNAME}, \texttt{IPV4}, \texttt{IPV6} or \texttt{MAC}. \\ \hline
+metadata\allowbreak{}Requirement\allowbreak{}List & \pref{List}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Metadata requirements; each map is one alternative. \\ \hline
+versions & \pref{List}$<$\allowbreak{}\pref{Version}$>$ & System versions to match. \\ \hline
+device\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{Name}$>$ & Device names to match. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemRegisterRequest}
+
+Registers the requesting system; the name is taken from its authenticated identity.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+metadata & \pref{Metadata} & Free-form metadata (JSON object). \\ \hline
+version & \pref{Version} & Version of the system. \\ \hline
+addresses & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Network addresses of the entity. \\ \hline
+device\allowbreak{}Name & \pref{Name} & Name of the device hosting the system. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SystemResponse}
+
+A registered system.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & System name. \\ \hline
+metadata & \pref{Metadata} & Free-form metadata (JSON object). \\ \hline
+version & \pref{Version} & Version of the system. \\ \hline
+addresses & \pref{List}$<$\allowbreak{}\mref{Address}$>$ & Network addresses with their types. \\ \hline
+device & \mref{DeviceResponse} & The device hosting the system, if registered. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Metadata} & A set of key-value pairs with arbitrary, possibly nested values. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\pdef{Version} & Specifies a version, semantic versioning \texttt{major.minor.patch}. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

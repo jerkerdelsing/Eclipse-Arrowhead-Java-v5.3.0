@@ -1,13 +1,11 @@
-# Arrowhead 5.2.2 GSoSD
+# Arrowhead GSoSD 5.3.0
 
-Restored on 26 October 2026 from retained roadmap sources; revised on 30 October to reflect current Java, Go and Rust implementations and integrated database ownership. The current rebuilt PDF is 45 pages.
+The maintained LaTeX source is GSoSD-Core-and-Support-Systems-5.3.0.tex, with its compiled PDF beside it. The Network Architecture section added on 10 November 2026 uses Arrowhead-5.2.uml and the Network diagram of Arrowhead-5.2.notation in the supplied Papyrus EclipseArrowhead-5.0-JD project. It distinguishes library definitions from deployment refinements.
 
-See [implementation update](../../IMPLEMENTATION-UPDATE-2026-10-30.md) for changes, document links and verification evidence.
-
-Build in this folder:
+Build from this folder:
 
 ```sh
-latexmk -pdf -interaction=nonstopmode -halt-on-error GSoSD-Core-and-Support-Systems-5.2.2.tex
+latexmk -pdf -interaction=nonstopmode -halt-on-error GSoSD-Core-and-Support-Systems-5.3.0.tex
 ```
 
-All class, bibliography and figure assets are included. Final build has no unresolved references/citations or overfull boxes. The existing directory spelling and document filenames are preserved.
+Network section and figure sources are in sections/network-architecture.tex and figures/network-architecture-model.tex. The earlier 5.2.2 PDF remains historical material. Model traceability and the corresponding white-box deployment sections are recorded in ../NETWORK-MODEL-UPDATE-2026-11-10.md.

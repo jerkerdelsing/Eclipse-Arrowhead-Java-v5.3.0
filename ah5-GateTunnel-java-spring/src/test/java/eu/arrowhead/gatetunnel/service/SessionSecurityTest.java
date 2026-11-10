@@ -48,6 +48,10 @@ public class SessionSecurityTest {
 	static final String CONSUMER_CN = "GateTunnel.TestCloud.Company.arrowhead.eu";
 	// the vector's timestamps are from its creation
 	static final int VECTOR_SKEW = 1_000_000_000;
+	// the reference vector's PKI has no CA keys left to issue CRLs; revocation is tested with ahgt1/revocation
+	public static final SessionSecurity.RevocationCheck NO_CRL = (certificate, issuer) -> { };
+	static final Path REVOCATION = DIR.resolve("revocation");
+	static final String PEER_CN = "GateTunnel.PeerCloud.Company.arrowhead.eu";
 
 	private Map<String, Object> vector;
 	private SessionSecurity consumer;
@@ -60,8 +64,8 @@ public class SessionSecurityTest {
 	@BeforeEach
 	public void load() throws Exception {
 		vector = obj(parse(Files.readString(DIR.resolve("vector.json"))));
-		consumer = new SessionSecurity(DIR.resolve("TestCloud-relay.key"), DIR.resolve("TestCloud-relay-chain.crt"), DIR.resolve("org-ca.crt"));
-		provider = new SessionSecurity(DIR.resolve("GoCloud-relay.key"), DIR.resolve("GoCloud-relay-chain.crt"), DIR.resolve("org-ca.crt"));
+		consumer = new SessionSecurity(DIR.resolve("TestCloud-relay.key"), DIR.resolve("TestCloud-relay-chain.crt"), DIR.resolve("org-ca.crt"), NO_CRL);
+		provider = new SessionSecurity(DIR.resolve("GoCloud-relay.key"), DIR.resolve("GoCloud-relay-chain.crt"), DIR.resolve("org-ca.crt"), NO_CRL);
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -149,5 +153,48 @@ public class SessionSecurityTest {
 		assertTrue(replay.accept(9));
 		assertFalse(replay.accept(4));
 		assertTrue(replay.accept(6));
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	// SOS-4: the peer's own key exchange verified with the given CRL files of ahgt1/revocation; null if accepted
+	static String verdict(final String... crls) throws Exception {
+		final List<Path> files = java.util.Arrays.stream(crls).map(REVOCATION::resolve).toList();
+		final SessionSecurity peer = new SessionSecurity(REVOCATION.resolve("peer-relay.key"), REVOCATION.resolve("peer-relay-chain.crt"), REVOCATION.resolve("org-ca.crt"), files);
+		final Map<String, Object> session = new LinkedHashMap<>(m("sessionId", "revocation", "providerKey", "k"));
+		final Map<String, Object> exchange = peer.exchange("provider", session);
+		try {
+			peer.verifyPeer(exchange.get("certificateChain"), PEER_CN, exchange.get("signature"), SessionSecurity.transcript("provider", session));
+
+			return null;
+		} catch (final SessionSecurity.SecurityError ex) {
+			return ex.getMessage();
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void peerChainIsCheckedAgainstTheCloudAndOrganizationCrls() throws Exception {
+		assertEquals(null, verdict("peer-ca.crl", "org-ca.crl"));
+		assertEquals("peer certificate GateTunnel.PeerCloud.Company.arrowhead.eu is revoked", verdict("peer-ca-revoked.crl", "org-ca.crl"));
+		assertEquals("peer certificate PeerCloud.Company.arrowhead.eu is revoked", verdict("peer-ca.crl", "org-ca-revoked.crl"));
+		// a revoking CRL wins over an empty one of the same issuer
+		assertEquals("peer certificate GateTunnel.PeerCloud.Company.arrowhead.eu is revoked", verdict("peer-ca.crl", "peer-ca-revoked.crl", "org-ca.crl"));
+		assertEquals("no CRL of PeerCloud.Company.arrowhead.eu is configured", verdict("org-ca.crl"));
+		assertEquals("no CRL of Company.arrowhead.eu is configured", verdict("peer-ca.crl"));
+		assertEquals("no CRL of PeerCloud.Company.arrowhead.eu is configured", verdict("peer-ca-forged.crl", "org-ca.crl"));
+		assertEquals("the CRL of PeerCloud.Company.arrowhead.eu is out of date", verdict("peer-ca-expired.crl", "org-ca.crl"));
+		assertEquals(null, verdict("peer-ca-expired.crl", "peer-ca.crl", "org-ca.crl"));
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void crlFilesAreMandatoryAndAMissingCheckRefusesEveryPeer() throws Exception {
+		assertThrows(IllegalArgumentException.class, () -> SessionSecurity.crlRevocation(List.of()));
+		assertThrows(Exception.class, () -> SessionSecurity.crlRevocation(List.of(REVOCATION.resolve("missing.crl"))));
+		assertThrows(Exception.class, () -> SessionSecurity.crlRevocation(List.of(REVOCATION.resolve("org-ca.crt"))));
+		final SessionSecurity unchecked = new SessionSecurity(REVOCATION.resolve("peer-relay.key"), REVOCATION.resolve("peer-relay-chain.crt"), REVOCATION.resolve("org-ca.crt"), (SessionSecurity.RevocationCheck) null);
+		final Map<String, Object> session = new LinkedHashMap<>(m("sessionId", "revocation", "providerKey", "k"));
+		final Map<String, Object> exchange = unchecked.exchange("provider", session);
+		assertThrows(SessionSecurity.SecurityError.class, () -> unchecked.verifyPeer(exchange.get("certificateChain"), PEER_CN, exchange.get("signature"), SessionSecurity.transcript("provider", session)));
 	}
 }

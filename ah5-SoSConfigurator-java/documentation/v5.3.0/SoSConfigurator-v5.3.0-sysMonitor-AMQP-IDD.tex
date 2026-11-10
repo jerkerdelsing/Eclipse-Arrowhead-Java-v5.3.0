@@ -1,0 +1,273 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+\newcommand{\fparam}[1]{\textit{\textcolor{ArrowheadBlue}{#1}}}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1 \label{sec:model:primitives:#1} \label{sec:model:primitives:#1s}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_idd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[5]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    #2 \textcolor{ArrowheadPurple}{#3} \\
+    \small
+    \hspace*{0.07\textwidth}\begin{minipage}{0.1\textwidth}
+      \vspace*{1mm}
+      Operation: \\
+      \notblank{#4}{Input: \\}{}
+      \notblank{#5}{Output: \\}{}
+    \end{minipage}
+    \begin{minipage}{0.825\textwidth}
+      \vspace*{1mm}
+      \textcolor{ArrowheadBlue}{#1} \\
+      \notblank{#4}{#4 \\}{}
+      \notblank{#5}{#5 \\}{}
+    \end{minipage}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{sysMonitor AMQP/TLS/JSON}
+\ArrowheadServiceID{sysMonitor}
+\ArrowheadType{Interface Design Description}
+\ArrowheadTypeShort{IDD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the AMQP 0-9-1 protocol with TLS payload security and JSON payload encoding variant of the \texttt{sysMonitor} service of the SoSConfigurator system (SysMonitor-AMQP-IDD-5.2.2).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and source scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. No former \path|documentation/v5.2.2| folder exists for SoSConfigurator; this is a new source-based set.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the AMQP binding of the native \texttt{sysMonitor} service of SoSConfigurator.
+
+It's implemented using protocol, encoding as stated in below table:
+\begin{table}[ht!]
+  \centering
+  \begin{tabular}{|l|l|l|}
+    \hline
+    \rowcolor{gray!33} Profile type & Type & Version \\ \hline
+    Transfer protocol & AMQP & 0-9-1 \cite{amqp091} \\ \hline
+    Data encryption & TLS & 1.3 \cite{rfc8446}, 1.2 \cite{rfc5246} \\ \hline
+    Encoding & JSON & RFC 8259 \cite{rfc8259} \\ \hline
+    Compression & N/A & - \\ \hline
+    Semantics & N/A & - \\ \hline
+    Ontology & N/A & - \\ \hline
+  \end{tabular}
+  \caption{Communication and semantics details used for the \texttt{sysMonitor} service interface}
+  \label{tab:comunication_semantics_profile}
+\end{table}
+
+This document provides the Interface Design Description IDD to the \textit{sysMonitor -- Service Description} document \cite{sos-sysMonitor-sd}.
+
+\subsection{Interface registration}
+
+With \texttt{sysmonitor.enabled=true}, the common sysMonitor publisher of SoSConfigurator registers the service at start-up with interface template \texttt{generic\_\allowbreak{}amqps} (protocol \texttt{amqps}, policy \texttt{CERT\_\allowbreak{}AUTH}; \texttt{generic\_\allowbreak{}amqp} without TLS) and the following properties and metadata:
+
+\begin{lstlisting}[caption={Registered service instance (TestCloud).}]
+{
+  "serviceDefinitionName": "sysMonitor",
+  "version": "1.0.0",
+  "metadata": {
+    "contract": "SysMonitor-AMQP-IDD-5.2.2",
+    "schemaVersion": "1.0",
+    "publisherMode": "native",
+    "observationTypes": [
+      "echo",
+      "power",
+      "status"
+    ],
+    "delivery": "persistent, publisher-confirmed"
+  },
+  "interfaces": [
+    {
+      "templateName": "generic_amqps",
+      "protocol": "amqps",
+      "policy": "CERT_AUTH",
+      "properties": {
+        "accessAddresses": [
+          "amqp-broker"
+        ],
+        "accessPort": 5671,
+        "exchange": "arrowhead",
+        "baseRoutingKey": "TestCloud.sysmonitor.SoSConfigurator.SoSConfigurator",
+        "operations": [
+          "echo",
+          "power",
+          "status"
+        ]
+      }
+    }
+  ]
+}
+\end{lstlisting}
+
+\section{Service Operations}
+\label{sec:operations}
+
+The publisher is the \texttt{SysMonitor\allowbreak{}Publisher} of the vendored Eclipse Arrowhead common library (RabbitMQ Java client), configured with the \texttt{sysmonitor.\allowbreak{}*} Spring properties (\texttt{enabled}, \texttt{broker.\allowbreak{}address}, \texttt{broker.\allowbreak{}port}, \texttt{local.\allowbreak{}cloud}, \texttt{service.\allowbreak{}instance}, \texttt{publish.\allowbreak{}interval}, \texttt{ssl.\allowbreak{}*}). The echo reports the default health of the common publisher; \texttt{serviceCount} is the number of services in the system information (2: \texttt{general\allowbreak{}Management} and \texttt{local\allowbreak{}Cloud\allowbreak{}Configuration}). The publisher connects to the broker (default \texttt{amqp-\allowbreak{}broker}, port 5671) with TLS, verifies the broker host name and authenticates with its X.509 system certificate (SASL \texttt{EXTERNAL}; the certificate CN is the broker user name). Every publication interval it publishes each observation to the topic exchange \texttt{arrowhead} with the routing key \texttt{<baseRoutingKey>.<operation>}, where the base routing key is \texttt{<Cloud>.sysmonitor.<System>.<serviceInstance>}. Messages are persistent (delivery mode 2), \texttt{application/json}, carry the observation identifier as message id, and are publisher-confirmed (timeout 5 s); a failed cycle is retried with a new connection at the next interval. The broker's topic permissions allow the system to publish only below its own base routing key.
+
+\osubsection{echo}{PUBLISH}{\texttt{\textless{}Cloud\textgreater{}.\allowbreak{}sysmonitor.\allowbreak{}SoS\allowbreak{}Configurator.\allowbreak{}SoS\allowbreak{}Configurator.\allowbreak{}echo}}{}{\mref{Observation}}
+
+Liveness: \texttt{status} (\texttt{alive} or \texttt{degraded}), \texttt{uptimeSeconds} and a \texttt{detail} text; quality \texttt{good} or \texttt{uncertain}.
+
+\osubsection{power}{PUBLISH}{\texttt{\textless{}Cloud\textgreater{}.\allowbreak{}sysmonitor.\allowbreak{}SoS\allowbreak{}Configurator.\allowbreak{}SoS\allowbreak{}Configurator.\allowbreak{}power}}{}{\mref{Observation}}
+
+Power supply: \texttt{supplyType=\allowbreak{}line}, \texttt{state=\allowbreak{}available}; unit \texttt{1}.
+
+\osubsection{status}{PUBLISH}{\texttt{\textless{}Cloud\textgreater{}.\allowbreak{}sysmonitor.\allowbreak{}SoS\allowbreak{}Configurator.\allowbreak{}SoS\allowbreak{}Configurator.\allowbreak{}status}}{}{\mref{Observation}}
+
+Process state: \texttt{state=\allowbreak{}running}, \texttt{health} (\texttt{healthy}/\texttt{degraded}) and \texttt{serviceCount}, the number of registered services.
+
+\begin{lstlisting}[caption={An \oref{echo} observation.}]
+{
+  "schemaVersion": "1.0",
+  "observationId": "SoSConfigurator-echo-1792670400000-42",
+  "providerSystem": "SoSConfigurator",
+  "serviceInstance": "SoSConfigurator",
+  "observationType": "echo",
+  "sourceTime": "2026-10-22T12:00:00.000Z",
+  "sequence": 42,
+  "value": {
+    "status": "alive",
+    "uptimeSeconds": 3600,
+    "detail": "SoSConfigurator is running"
+  },
+  "quality": "good",
+  "metadata": {
+    "publisherMode": "native"
+  }
+}
+\end{lstlisting}
+
+\newpage
+
+\section{Data Models}
+\label{sec:model}
+
+\msubsection{struct}{Observation}
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.25cm} | p{3.5cm} | X |} \hline
+\rowcolor{gray!33} Object Field & Value Type & Description \\ \hline
+"schemaVersion" & \pref{String} & \texttt{1.0}. \\ \hline
+"observationId" & \pref{String} & \texttt{<System>-<type>-<epoch ms>-<sequence>}. \\ \hline
+"providerSystem" & \pref{String} & The publishing system. \\ \hline
+"serviceInstance" & \pref{String} & Service instance, default the system name. \\ \hline
+"observationType" & \pref{String} & \texttt{echo}, \texttt{power}, \texttt{status}. \\ \hline
+"sourceTime" & \pref{String} & ISO 8601 UTC time with milliseconds. \\ \hline
+"sequence" & \pref{Number} & Sequence number per publisher. \\ \hline
+"value" & \pref{Object} & Observed value, see the operations. \\ \hline
+"unit" & \pref{String} & \texttt{1} for \texttt{power} and \texttt{status}; absent for \texttt{echo}. \\ \hline
+"quality" & \pref{String} & \texttt{good} or \texttt{uncertain}. \\ \hline
+"metadata" & \pref{Object} & \texttt{\{"publisherMode": "native"\}}. \\ \hline
+\end{tabularx}
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+\noindent\begin{tabularx}{\textwidth}{| p{3cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Number} & JSON Number, an integer. \\ \hline
+\pdef{Object} & JSON Object; \pref{Object}$<$A$>$ has string keys and values of type A. \\ \hline
+\pdef{String} & JSON String. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\section{Go and Rust implementation variants}
+\subsection{Go implementation}
+No \path|Eclipse-Arrowhead-go/ah5-SoSConfigurator-go| folder exists in the designated primary Go tree. Go local-cloud systems may be targets of a Java SoSConfigurator only if their catalog and inter-cloud implementation meet the policy and executor checks. This is not a Go implementation of SoSConfigurator.
+\subsection{Rust implementation}
+No \path|Eclipse-Arrowhead-rust/ah5-SoSConfigurator-rust| folder exists in the designated primary Rust tree. The policy rejects a catalogued implementation without the required Gatekeeper/GateTunnel inter-cloud capability; the mere presence of Rust local-cloud roles does not establish eligibility or implement this system.
+
+\section{Primary source references}
+All source paths below are relative to \path|Eclipse-Arrowhead-java/ah5-SoSConfigurator-java|.
+\begin{itemize}
+\item \path|src/main/java/eu/arrowhead/sosconfigurator/SoSConfiguratorSystemInfo.java| and \path|SoSConfiguratorConstants.java|: registration, names, versions and paths.
+\item \path|api/http/SosConfigurationAPI.java|, \path|api/http/GeneralManagementAPI.java|, \path|policy/SosRequest.java|, \path|catalog/Catalog.java|, \path|planner/Planner.java| and \path|service/SosConfigurationService.java|, under the same Java package: operations, DTOs, planning and persistence.
+\item \path|security/SosAccessFilter.java| and \path|console/ConsoleFilter.java| under that package: caller and connector boundaries.
+\item \path|config/application.properties|, packaged \path|src/main/resources/application.properties| and \path|SoSConfiguratorDefaults.java|: secure overrides versus development/source defaults.
+\item \path|vendor/common-utils| and \path|vendor/data-transfer-objects|: common management, security and native sysMonitor publisher contract.
+\end{itemize}
+
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+\section{Revision history}
+2026-11-09: New 5.3.0 SoSConfigurator description using the identical common-library publisher contract.\par
+\end{document}

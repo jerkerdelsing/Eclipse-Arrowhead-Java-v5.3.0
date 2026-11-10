@@ -75,7 +75,7 @@
 \ArrowheadType{Generic System-of-Systems Description}
 \ArrowheadTypeShort{GSoSD}
 \ArrowheadVersion{5.3.0}
-\ArrowheadDate{2026-11-02}
+\ArrowheadDate{2026-11-10}
 \ArrowheadAuthor{Jerker Delsing}
 \ArrowheadStatus{DRAFT}
 \ArrowheadContact{jerker.delsing@ltu.se}
@@ -542,6 +542,9 @@ specification and allocation table are given in the Core GSoSDD \cite{gsosddcore
 
 \newpage
 %% ============================================================================================
+\input{sections/network-architecture}
+
+\newpage
 \section{Core Microsystems}
 \label{sec:microsystems}
 
@@ -2524,7 +2527,7 @@ proposed for discussion in the Roadmap WG:
   \item \textbf{Orchestration backend convergence.} PDE now uses the local DSO managed-rule
         extension, so plant engineering no longer requires SSO beside DSO. Upstream release
         remains to be decided. Go and native Rust implemented and tested the extension
-        on 23 October; wider contract equivalence remains scoped by Section~\ref{sec:interop}.
+        on 23 October; wider contract equivalence remains scoped by the Core and Support GSoSDDs \cite{gsosddcore,gsosddsup}.
   \item \textbf{Management-role separation.} The Java console now requires operator login
         and uses host/origin checks and a constrained Docker proxy. Separating engineering
         from operations remains an architectural question; console mutation rights are not
@@ -2545,7 +2548,7 @@ proposed for discussion in the Roadmap WG:
         operation bindings. In the Java reference the provider-side \sys{Gatekeeper}
         authorises foreign consumers with \svc{authorizationManagement}~\op{check-policies}
         and denies the request if that check fails. Java/Go/Rust functional paths are documented in
-        Section~\ref{sec:interop}; upstream release, exhaustive contract/security review
+        the Core and Support GSoSDDs \cite{gsosddcore,gsosddsup}; upstream release, exhaustive contract/security review
         and organisation-level relay credential lifecycle remain open.
   \item \textbf{Monitoring transport.} \svc{sysMonitor} uses AMQP while \svc{sysMonitorData} and
         other MQTT traffic use the MQTT broker, so a local cloud runs two brokers. Whether
@@ -2617,6 +2620,7 @@ proposed for discussion in the Roadmap WG:
 19 & 2026-10-30 & 2.1 & Updated primary Java/Go/Rust packaging and evidence limits, four-core configuration default, graphical engineering tools and integrated private database ownership. & Codex (draft) \\ \hline
 20 & 2026-11-07 & 2.2 & Updated for the resolved Core GSoSDD observations 1--6: discovery access for atomic orchestration, startup enforcement of the security baseline in the Java reference, provider-side inter-cloud authorisation and the remaining Go and Rust checks. Removed an accidental self-inclusion that stopped the document compiling. & Claude (draft) \\ \hline
 21 & 2026-11-09 & 2.3 & Java reference implementation entirely Java-Spring: the remaining native and Node.js support systems and the configurators converted, with unchanged service contracts. & Claude (draft) \\ \hline
+22 & 2026-11-10 & 2.4 & Network architecture from Arrowhead-5.2 Papyrus: intra-cloud, inter-cloud and DMZ contracts, bearer/protocol separation and model traceability. & Codex (draft) \\ \hline
 \end{longtable}
 \normalsize
 

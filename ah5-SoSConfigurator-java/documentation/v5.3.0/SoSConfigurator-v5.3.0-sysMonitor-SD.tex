@@ -1,0 +1,210 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{sysMonitor}
+\ArrowheadServiceID{sysMonitor}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the native \texttt{sysMonitor} service, version 1.0.0, produced by the SoSConfigurator support system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and source scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. No former \path|documentation/v5.2.2| folder exists for SoSConfigurator; this is a new source-based set.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{sysMonitor} service, which provides native operational telemetry of the SoSConfigurator system: periodic \texttt{echo}, \texttt{power} and \texttt{status} observations published to the local cloud's AMQP broker.
+The service is produced by SoSConfigurator \cite{sos-sysd}; its concrete interface is the AMQP IDD \cite{sos-sysMonitor-amqp-idd}.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+
+\subsection{Significant Prior Art}
+
+Arrowhead 4.x and upstream 5.2.2 had an HTTP \texttt{monitor}/\texttt{echo} endpoint. In this workspace the telemetry follows SysMonitor-AMQP-IDD-5.2.2; the HTTP liveness endpoint is not registered.
+
+\subsection{How This Service Is Meant to Be Used}
+
+The SysMonitor support system subscribes to the observations (selected with \texttt{sys\allowbreak{}Monitor\allowbreak{}Management}) and keeps the history; LocalCloudManager shows it. SoSConfigurator publishes them with the common-library publisher of its Java-Spring implementation; the echo reports the default health of the common publisher.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+The observations describe the process, not the correctness of its answers. The service is offered only with \texttt{sysmonitor.\allowbreak{}enabled=\allowbreak{}true}. Delivery is publisher-confirmed but not end-to-end acknowledged by SysMonitor.
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+The \texttt{sysMonitor} service is a publishing service: the producer publishes one observation per operation (observation type) every publication interval (default 30 s); consumers receive them through the broker. Each operation has no input and the output \mref{Observation}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{sysMonitor}
+        \nodepart{second} \texttt{echo}\\ \texttt{power}\\ \texttt{status}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{sysMonitor} service and its observation types.}
+  \label{fig:SD}
+\end{figure}
+
+\osubsection{echo}{}{\mref{Observation}}
+
+Liveness: \texttt{status} (\texttt{alive} or \texttt{degraded}), \texttt{uptimeSeconds} and a \texttt{detail} text; quality \texttt{good} or \texttt{uncertain}.
+
+\osubsection{power}{}{\mref{Observation}}
+
+Power supply: \texttt{supplyType=\allowbreak{}line}, \texttt{state=\allowbreak{}available}; unit \texttt{1}.
+
+\osubsection{status}{}{\mref{Observation}}
+
+Process state: \texttt{state=\allowbreak{}running}, \texttt{health} (\texttt{healthy}/\texttt{degraded}) and \texttt{serviceCount}, the number of registered services.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+\msubsection{struct}{Observation}
+
+One observation.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.25cm} | p{3.5cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+schemaVersion & \pref{Version} & Version of the observation schema, \texttt{1.0}. \\ \hline
+observationId & \pref{Identifier} & Unique identifier of the observation. \\ \hline
+providerSystem & \pref{Name} & The publishing system. \\ \hline
+serviceInstance & \pref{Name} & The service instance (default the system name). \\ \hline
+observationType & \pref{Name} & \texttt{echo}, \texttt{power}, \texttt{status}. \\ \hline
+sourceTime & \pref{DateTime} & Time of the observation. \\ \hline
+sequence & \pref{Number} & Sequence number per publisher. \\ \hline
+value & \pref{Metadata} & The observed value (per operation). \\ \hline
+unit & \pref{Name} & Unit of the value, if any. \\ \hline
+quality & \pref{Name} & \texttt{good} or \texttt{uncertain}. \\ \hline
+metadata & \pref{Metadata} & \texttt{publisherMode=native}. \\ \hline
+\end{tabularx}
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+\noindent\begin{tabularx}{\textwidth}{| p{3cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{Metadata} & A set of key-value pairs with arbitrary, possibly nested values. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{Version} & Specifies a version, semantic versioning \texttt{major.minor.patch}. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\section{Primary source references}
+All source paths below are relative to \path|Eclipse-Arrowhead-java/ah5-SoSConfigurator-java|.
+\begin{itemize}
+\item \path|src/main/java/eu/arrowhead/sosconfigurator/SoSConfiguratorSystemInfo.java| and \path|SoSConfiguratorConstants.java|: registration, names, versions and paths.
+\item \path|api/http/SosConfigurationAPI.java|, \path|api/http/GeneralManagementAPI.java|, \path|policy/SosRequest.java|, \path|catalog/Catalog.java|, \path|planner/Planner.java| and \path|service/SosConfigurationService.java|, under the same Java package: operations, DTOs, planning and persistence.
+\item \path|security/SosAccessFilter.java| and \path|console/ConsoleFilter.java| under that package: caller and connector boundaries.
+\item \path|config/application.properties|, packaged \path|src/main/resources/application.properties| and \path|SoSConfiguratorDefaults.java|: secure overrides versus development/source defaults.
+\item \path|vendor/common-utils| and \path|vendor/data-transfer-objects|: common management, security and native sysMonitor publisher contract.
+\end{itemize}
+
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+\section{Revision history}
+2026-11-09: New 5.3.0 SoSConfigurator description using the identical common-library publisher contract.\par
+\end{document}

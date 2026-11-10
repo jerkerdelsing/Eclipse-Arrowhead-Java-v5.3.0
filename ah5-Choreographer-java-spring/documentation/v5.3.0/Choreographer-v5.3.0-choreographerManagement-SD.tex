@@ -1,0 +1,650 @@
+\documentclass[a4paper]{arrowhead}
+
+\usepackage[yyyymmdd]{datetime}
+\usepackage{etoolbox}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{multirow}
+\usepackage{longtable}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes.multipart,arrows.meta}
+
+\renewcommand{\dateseparator}{-}
+\setlength{\emergencystretch}{3em}
+\lstset{language=HTTP,breakatwhitespace=false,columns=fullflexible}
+
+%% Special references
+\newcommand{\mref}[2][]{{\textcolor{ArrowheadPurple}{\hyperref[sec:model:#2]{\ifstrempty{#1}{#2}{#1}}}}}
+\newcommand{\oref}[1]{{\textcolor{ArrowheadBlue}{\hyperref[sec:operations:#1]{#1}}}}
+\newcommand{\pdef}[1]{{\textcolor{ArrowheadGrey}{#1\label{sec:model:primitives:#1}\label{sec:model:primitives:#1s}\label{sec:model:primitives:#1es}}}}
+\newcommand{\pref}[1]{{\textcolor{ArrowheadGrey}{\hyperref[sec:model:primitives:#1]{#1}}}}
+
+% as template_sd.tex; the input and output arguments are passed already formatted (\mref or \pref)
+\newrobustcmd\osubsection[3]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}operation \textcolor{ArrowheadBlue}{#1}}
+  \subsection*{
+    \thesubsection\quad
+    operation
+    \textcolor{ArrowheadBlue}{#1}
+    (\notblank{#2}{#2}{})
+    \notblank{#3}{: #3}{}
+  }
+  \label{sec:operations:#1}
+}
+\newrobustcmd\msubsection[2]{
+  \addtocounter{subsection}{1}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1 \textcolor{ArrowheadPurple}{#2}}
+  \subsection*{\thesubsection\quad#1 \textcolor{ArrowheadPurple}{#2}}
+  \label{sec:model:#2} \label{sec:model:#2s} \label{sec:model:#2es}
+}
+%%
+
+\usepackage{xurl}
+\begin{document}
+\sloppy
+
+%% Arrowhead Document Properties
+\ArrowheadTitle{choreographerManagement}
+\ArrowheadServiceID{choreographerManagement}
+\ArrowheadType{Service Description}
+\ArrowheadTypeShort{SD}
+\ArrowheadVersion{5.3.0}
+\ArrowheadDate{2026-11-09}
+\ArrowheadAuthor{Jerker Delsing}
+\ArrowheadStatus{REVIEW DRAFT}
+\ArrowheadContact{jerker.delsing@ltu.se}
+\ArrowheadFooter{\href{www.arrowhead.eu}{www.arrowhead.eu}}
+\ArrowheadSetup
+%%
+
+%% Front Page
+\begin{center}
+  \vspace*{1cm}
+  \huge{\arrowtitle}
+
+  \vspace*{0.2cm}
+  \LARGE{\arrowtype}
+  \vspace*{1cm}
+
+  \Large{Service ID: \textit{"\arrowid"}}
+
+  \vspace*{\fill}
+
+  % Front Page Image
+
+  \vspace*{1cm}
+  \vspace*{\fill}
+
+  % Front Page Abstract
+  \begin{abstract}
+    This document describes the \texttt{choreographer\allowbreak{}Management} service, version 1.0.0, produced by the Choreographer support system of Arrowhead (documentation edition 5.3.0).
+  \end{abstract}
+
+  \vspace*{1cm}
+\end{center}
+
+\newpage
+%%
+
+%% Table of Contents
+\tableofcontents
+\newpage
+%%
+
+\section{Documentation edition and implementation scope}
+This is the 5.3.0 documentation edition, dated 2026-11-09. It carries forward the system and service contracts from the retained 5.2.2 documentation and identifies the current primary implementation sources. The former \path|documentation/v5.2.2| folder is retained unchanged.
+
+Document version 5.3.0 is distinct from executable, dependency, registered system/service and wire-contract versions. Values still defined by the source (including 5.2.2 artefact versions, 1.0.0 service versions and \path|SysMonitor-AMQP-IDD-5.2.2| payload identifiers) are preserved. This documentation update does not change runtime behaviour or establish a new implementation release. Historical verification statements describe the tests recorded in the inherited baseline; this revision validates document compilation and references.
+
+\section{Overview}
+\label{sec:overview}
+
+This document describes the \texttt{choreographer\allowbreak{}Management} service, which provides operator management of plans, sessions, session steps, the worklog and executors.
+It is produced by the Choreographer system \cite{cho-sysd} in service version 1.0.0.
+
+The rest of this document is organized as follows.
+In Section \ref{sec:operations}, we describe the abstract message operations provided by the service.
+In Section \ref{sec:model}, we end the document by presenting the data types used by the mentioned operations.
+The concrete interface is specified in the HTTP/TLS/JSON IDD \cite{cho-choreographerManagement-http-idd}.
+
+\subsection{Significant Prior Art}
+
+Successor of the Arrowhead 4.6 Choreographer management endpoints.
+
+\subsection{How This Service Is Meant to Be Used}
+
+Operators create, check and remove plans, start and abort sessions, follow sessions, steps and the worklog, and manage executors.
+
+\subsection{Important Delimitations and Dependencies}
+\label{sec:delimitations}
+
+Access follows the management policy (standalone deployment: \texttt{sysop-\allowbreak{}only}).
+
+\newpage
+
+\section{Service Interface}
+\label{sec:operations}
+
+This section describes the interfaces to the \texttt{choreographer\allowbreak{}Management} service.
+In particular, each subsection names an abstract operation, an input type and an output type, in that order.
+The input type is named inside parentheses, while the output type is preceded by a colon.
+Input and output types are only denoted when accepted or returned, respectively, by the interface in question.
+
+All abstract data types named in this section are defined in Section \ref{sec:model}.
+
+\begin{figure}[ht!]
+  \centering
+  \begin{tikzpicture}[font=\small]
+    \node[draw=ArrowheadBlue, very thick, rectangle split, rectangle split parts=2, align=center,
+          rectangle split part fill={ArrowheadBlue!12,white}, text width=9cm, inner sep=6pt] (b)
+      {\guillemotleft{}Service\guillemotright{}\\\textbf{choreographerManagement}
+        \nodepart{second} \texttt{query-\allowbreak{}plans}\\ \texttt{get-\allowbreak{}plan}\\ \texttt{create-\allowbreak{}plan}\\ \texttt{remove-\allowbreak{}plan}\\ \texttt{check-\allowbreak{}plan}\\ \texttt{start-\allowbreak{}sessions}\\ \texttt{abort-\allowbreak{}session}\\ \texttt{query-\allowbreak{}sessions}\\ \texttt{query-\allowbreak{}session-\allowbreak{}steps}\\ \texttt{query-\allowbreak{}worklog}\\ \texttt{query-\allowbreak{}executors}\\ \texttt{get-\allowbreak{}executor}\\ \texttt{create-\allowbreak{}executor}\\ \texttt{remove-\allowbreak{}executor}};
+  \end{tikzpicture}
+  \caption{SysML-style block of the \texttt{choreographer\allowbreak{}Management} service and its operations.}
+  \label{fig:SD}
+\end{figure}
+
+The following interface operations are available.
+
+\osubsection{query-plans}{}{\mref{PlanListResponse}}
+
+Returns a page of plans.
+
+\osubsection{get-plan}{\pref{Identifier}}{\mref{PlanResponse}}
+
+Returns a plan.
+
+\osubsection{create-plan}{\mref{PlanRequest}}{\mref{PlanResponse}}
+
+Validates and stores a plan (cycles, reachability, transitive reduction).
+
+\osubsection{remove-plan}{\pref{Identifier}}{}
+
+Removes a plan.
+
+\osubsection{check-plan}{\pref{Identifier}}{\mref{CheckPlanResponse}}
+
+Checks whether providers and executors exist for every step.
+
+\osubsection{start-sessions}{\mref{RunPlanListRequest}}{\mref{RunPlanListResponse}}
+
+Starts sessions of plans by identifier.
+
+\osubsection{abort-session}{\pref{Identifier}}{}
+
+Aborts a session.
+
+\osubsection{query-sessions}{}{\mref{SessionListResponse}}
+
+Returns a page of sessions.
+
+\osubsection{query-session-steps}{}{\mref{SessionStepListResponse}}
+
+Returns a page of session steps.
+
+\osubsection{query-worklog}{}{\mref{WorklogListResponse}}
+
+Returns a page of worklog entries.
+
+\osubsection{query-executors}{}{\mref{ExecutorListResponse}}
+
+Returns a page of executors.
+
+\osubsection{get-executor}{\pref{Identifier}}{\mref{ExecutorResponse}}
+
+Returns an executor.
+
+\osubsection{create-executor}{\mref{ExecutorCreateRequest}}{\mref{ExecutorResponse}}
+
+Registers an executor on behalf of a system.
+
+\osubsection{remove-executor}{\pref{Identifier}}{}
+
+Removes an executor.
+
+\newpage
+
+\section{Information Model}
+\label{sec:model}
+
+Here, all data objects that can be part of the \texttt{choreographer\allowbreak{}Management} service are listed in alphabetic order.
+Note that each subsection, which describes one type of object, begins with the \textit{struct} keyword, which is used to denote a collection of named fields, each with its own data type.
+As a complement to the explicitly defined types in this section, there is also a list of implicit primitive types in Section \ref{sec:model:primitives}, which are used to represent things like hashes and identifiers.
+
+\msubsection{struct}{ActionRequest}
+
+An action of a plan.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & Name of the action within the plan. \\ \hline
+next\allowbreak{}Action\allowbreak{}Name & \pref{String} & Action executed after this one. \\ \hline
+first\allowbreak{}Step\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Steps that start the action. \\ \hline
+steps & \pref{List}$<$\allowbreak{}\mref{StepRequest}$>$ & The steps of the action. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ActionResponse}
+
+An action of a plan.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Number} & Identifier of the action. \\ \hline
+name & \pref{Name} & Name of the action within the plan. \\ \hline
+first\allowbreak{}Action & \pref{Boolean} & Whether this is the plan's first action. \\ \hline
+next\allowbreak{}Action\allowbreak{}Name & \pref{String} & Action executed after this one. \\ \hline
+first\allowbreak{}Step\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Steps that start the action. \\ \hline
+steps & \pref{List}$<$\allowbreak{}\mref{StepResponse}$>$ & The steps of the action. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{CheckPlanResponse}
+
+Result of checking a plan against the current cloud.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+plan\allowbreak{}Id & \pref{Number} & The checked plan. \\ \hline
+error\allowbreak{}Messages & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Problems found in the plan. \\ \hline
+need\allowbreak{}Inter\allowbreak{}Cloud & \pref{Boolean} & Whether the plan needs providers in other clouds. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ExecutorCreateRequest}
+
+An executor to create on behalf of a system.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+system\allowbreak{}Name & \pref{Name} & Executor system. \\ \hline
+address & \pref{String} & One network address (host name, IPv4, IPv6 or MAC address). \\ \hline
+port & \pref{Number} & Port of the executor interface. \\ \hline
+base\allowbreak{}Path & \pref{String} & Base path of the executor interface. \\ \hline
+service\allowbreak{}Definition\allowbreak{}Name & \pref{Name} & Service definition the executor can execute steps for. \\ \hline
+min\allowbreak{}Version & \pref{Number} & Lowest accepted major version. \\ \hline
+max\allowbreak{}Version & \pref{Number} & Highest accepted major version. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ExecutorListResponse}
+
+List of executors.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{ExecutorResponse}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ExecutorResponse}
+
+A registered executor.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Number} & Identifier of the executor. \\ \hline
+name & \pref{Name} & Executor system. \\ \hline
+address & \pref{String} & Address of the executor interface. \\ \hline
+port & \pref{Number} & Port of the executor interface. \\ \hline
+base\allowbreak{}Path & \pref{String} & Base path of the executor interface. \\ \hline
+service\allowbreak{}Definitions & \pref{List}$<$\allowbreak{}\mref[Executor\allowbreak{}Service\allowbreak{}Definition\allowbreak{}Response]{ExecutorServiceDefinitionResponse}$>$ & Service definitions the executor serves. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{ExecutorServiceDefinitionResponse}
+
+A service definition an executor serves.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+service\allowbreak{}Definition\allowbreak{}Name & \pref{Name} & Service definition name, camelCase (e.g. \texttt{temperatureReading}). \\ \hline
+min\allowbreak{}Version & \pref{Number} & Lowest accepted major version. \\ \hline
+max\allowbreak{}Version & \pref{Number} & Highest accepted major version. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{MetadataRequirement}
+
+A JSON object of metadata requirements: each key is a metadata path (dot notation), each value the required value or an operator object such as \texttt{\{"op":\allowbreak{} "LESS\_\allowbreak{}THAN",\allowbreak{} "value":\allowbreak{} 10\}}.
+
+
+
+\msubsection{struct}{OrchestrationServiceRequirement}
+
+Requirements on the requested service.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+service\allowbreak{}Definition & \pref{Name} & Service definition name. \\ \hline
+operations & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Service operations the consumer wants to use. \\ \hline
+versions & \pref{List}$<$\allowbreak{}\pref{Version}$>$ & Accepted service versions. \\ \hline
+alives\allowbreak{}At & \pref{DateTime} & Only instances that are still registered (not expired) at this UTC time are matched. \\ \hline
+metadata\allowbreak{}Requirements & \pref{List}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Requirements on the service instance metadata; each map is one alternative. \\ \hline
+interface\allowbreak{}Template\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Accepted interface templates, e.g. \texttt{generic\_\allowbreak{}https}. \\ \hline
+interface\allowbreak{}Address\allowbreak{}Types & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Address types the provider interface must offer. \\ \hline
+interface\allowbreak{}Property\allowbreak{}Requirements & \pref{List}$<$\allowbreak{}\mref{MetadataRequirement}$>$ & Requirements on the interface properties; each map is one alternative. \\ \hline
+security\allowbreak{}Policies & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Accepted interface security policies. \\ \hline
+preferred\allowbreak{}Providers & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Provider systems to prefer. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlanListResponse}
+
+List of plans.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{PlanResponse}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlanRequest}
+
+A plan to create.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & Unique plan name. \\ \hline
+first\allowbreak{}Action\allowbreak{}Name & \pref{String} & Action the plan starts with. \\ \hline
+actions & \pref{List}$<$\allowbreak{}\mref{ActionRequest}$>$ & The actions of the plan. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{PlanResponse}
+
+A stored plan.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Number} & Identifier of the plan. \\ \hline
+name & \pref{Name} & Unique plan name. \\ \hline
+first\allowbreak{}Action\allowbreak{}Name & \pref{String} & Action the plan starts with. \\ \hline
+actions & \pref{List}$<$\allowbreak{}\mref{ActionResponse}$>$ & The actions of the plan. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{RunPlanListRequest}
+
+Sessions to start by plan identifier.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+sessions & \pref{List}$<$\allowbreak{}\mref{RunPlanRequest}$>$ & Sessions to start or return. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{RunPlanListResponse}
+
+Started sessions.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{RunPlanResponse}$>$ & Matching records of the current page. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{RunPlanRequest}
+
+Start of a session of a plan.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+plan\allowbreak{}Id & \pref{Number} & Identifier of the plan. \\ \hline
+quantity & \pref{Number} & Number of times the plan (or step) is executed. \\ \hline
+allow\allowbreak{}Inter\allowbreak{}Cloud & \pref{Boolean} & Allow inter-cloud orchestration for the steps. \\ \hline
+choose\allowbreak{}Optimal\allowbreak{}Executor & \pref{Boolean} & Rank the local executors and choose the best one. \\ \hline
+notify\allowbreak{}Protocol & \pref{String} & Protocol of session notifications, e.g. \texttt{HTTPS}. \\ \hline
+notify\allowbreak{}Address & \pref{String} & Address of session notifications. \\ \hline
+notify\allowbreak{}Port & \pref{Number} & Port of session notifications. \\ \hline
+notify\allowbreak{}Path & \pref{String} & Path of session notifications. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{RunPlanResponse}
+
+A started (or refused) session.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+plan\allowbreak{}Id & \pref{Number} & Identifier of the plan. \\ \hline
+session\allowbreak{}Id & \pref{Number} & Identifier of the session. \\ \hline
+quantity & \pref{Number} & Requested executions. \\ \hline
+status & \pref{SessionStatus} & Status of the session. \\ \hline
+error\allowbreak{}Messages & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Problems found in the plan. \\ \hline
+need\allowbreak{}Inter\allowbreak{}Cloud & \pref{Boolean} & Whether the plan needs providers in other clouds. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SessionListResponse}
+
+List of sessions.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{SessionResponse}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SessionResponse}
+
+A session.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Number} & Identifier of the session. \\ \hline
+plan\allowbreak{}Id & \pref{Number} & Identifier of the plan. \\ \hline
+plan\allowbreak{}Name & \pref{String} & Name of the plan. \\ \hline
+status & \pref{SessionStatus} & Session status. \\ \hline
+quantity\allowbreak{}Done & \pref{Number} & Executions finished so far. \\ \hline
+quantity\allowbreak{}Goal & \pref{Number} & Executions requested. \\ \hline
+execution\allowbreak{}Number & \pref{Number} & Number of the current execution. \\ \hline
+owner & \pref{Name} & System that started the session. \\ \hline
+notify\allowbreak{}Uri & \pref{String} & Where session notifications are sent. \\ \hline
+started\allowbreak{}At & \pref{DateTime} & UTC time when the job started. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SessionStepListResponse}
+
+List of session steps.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{SessionStepResponse}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{SessionStepResponse}
+
+A step execution of a session.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Number} & Identifier of the session step. \\ \hline
+session\allowbreak{}Id & \pref{Number} & Identifier of the session. \\ \hline
+step\allowbreak{}Id & \pref{Number} & Identifier of the plan step. \\ \hline
+plan\allowbreak{}Name & \pref{String} & Name of the plan. \\ \hline
+action\allowbreak{}Name & \pref{String} & Name of the action. \\ \hline
+step\allowbreak{}Name & \pref{String} & Name of the step. \\ \hline
+executor\allowbreak{}Name & \pref{String} & Executor system running the step. \\ \hline
+status & \pref{SessionStepStatus} & Status of the session step. \\ \hline
+execution\allowbreak{}Number & \pref{Number} & Number of the current execution. \\ \hline
+message & \pref{String} & Text of the log entry or status message of the job. \\ \hline
+started\allowbreak{}At & \pref{DateTime} & UTC time when the job started. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{StepRequest}
+
+A step of an action.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+name & \pref{Name} & Name of the step within the action. \\ \hline
+quantity & \pref{Number} & Number of times the plan (or step) is executed. \\ \hline
+service\allowbreak{}Requirement & \mref[Orchestration\allowbreak{}Service\allowbreak{}Requirement]{OrchestrationServiceRequirement} & Orchestration requirement the executor's provider must meet. \\ \hline
+local\allowbreak{}Cloud\allowbreak{}Only & \pref{Boolean} & Use only providers of the local cloud. \\ \hline
+static\allowbreak{}Parameters & \pref{Map}$<$\allowbreak{}\pref{String}, \pref{String}$>$ & Parameters passed to the executor unchanged. \\ \hline
+next\allowbreak{}Step\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Steps that start when this one has finished. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{StepResponse}
+
+A step of an action.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Number} & Identifier of the step. \\ \hline
+name & \pref{Name} & Name of the step within the action. \\ \hline
+service\allowbreak{}Definition & \pref{Name} & Service definition of the step's requirement. \\ \hline
+min\allowbreak{}Version & \pref{Number} & Lowest major version derived from \texttt{versions}. \\ \hline
+max\allowbreak{}Version & \pref{Number} & Highest major version derived from \texttt{versions}. \\ \hline
+quantity & \pref{Number} & Number of times the plan (or step) is executed. \\ \hline
+service\allowbreak{}Requirement & \mref[Orchestration\allowbreak{}Service\allowbreak{}Requirement]{OrchestrationServiceRequirement} & Orchestration requirement the executor's provider must meet. \\ \hline
+local\allowbreak{}Cloud\allowbreak{}Only & \pref{Boolean} & Use only providers of the local cloud. \\ \hline
+static\allowbreak{}Parameters & \pref{Map}$<$\allowbreak{}\pref{String}, \pref{String}$>$ & Parameters passed to the executor unchanged. \\ \hline
+next\allowbreak{}Step\allowbreak{}Names & \pref{List}$<$\allowbreak{}\pref{String}$>$ & Steps that start when this one has finished. \\ \hline
+created\allowbreak{}At & \pref{DateTime} & UTC time of creation. \\ \hline
+updated\allowbreak{}At & \pref{DateTime} & UTC time of the last change. \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{WorklogListResponse}
+
+List of worklog entries.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+entries & \pref{List}$<$\allowbreak{}\mref{WorklogResponse}$>$ & Matching records of the current page. \\ \hline
+count & \pref{Number} & Total number of matching records (all pages). \\ \hline
+\end{tabularx}
+
+
+
+\msubsection{struct}{WorklogResponse}
+
+A worklog entry.
+
+
+\noindent\begin{tabularx}{\textwidth}{| >{\raggedright\arraybackslash}p{3.9cm} | >{\raggedright\arraybackslash\small}p{5.3cm} | X |} \hline
+\rowcolor{gray!33} Field & Type & Description \\ \hline
+id & \pref{Number} & Identifier of the worklog entry. \\ \hline
+entry\allowbreak{}Date & \pref{DateTime} & UTC time of the log entry. \\ \hline
+plan\allowbreak{}Name & \pref{String} & Name of the plan. \\ \hline
+action\allowbreak{}Name & \pref{String} & Name of the action. \\ \hline
+step\allowbreak{}Name & \pref{String} & Name of the step. \\ \hline
+session\allowbreak{}Id & \pref{Number} & Identifier of the session. \\ \hline
+execution\allowbreak{}Number & \pref{Number} & Number of the current execution. \\ \hline
+message & \pref{String} & Worklog text. \\ \hline
+exception & \pref{String} & Stack trace or exception text of the log entry, if any. \\ \hline
+\end{tabularx}
+
+
+
+\subsection{Primitives}
+\label{sec:model:primitives}
+
+Types and structures mentioned throughout this document that are assumed to be available to implementations of this service.
+The concrete interpretations of each of these types and structures must be provided by any IDD document claiming to implement this service.
+
+\noindent\begin{tabularx}{\textwidth}{| p{4.6cm} | X |} \hline
+\rowcolor{gray!33} Type & Description \\ \hline
+\pdef{Boolean} & One out of \texttt{true} or \texttt{false}. \\ \hline
+\pdef{DateTime} & Pinpoints a specific moment in time (UTC). \\ \hline
+\pdef{Identifier} & A string that identifies a record, e.g. a UUID or a composite identifier. \\ \hline
+\pdef{List} & An \textit{array} of a known number of items, each having type A. \\ \hline
+\pdef{Map} & A set of key-value pairs. \\ \hline
+\pdef{Name} & A string identifier that is intended to be both human and machine-readable. \\ \hline
+\pdef{Number} & An integer number. \\ \hline
+\pdef{SessionStatus} & One of \texttt{INITIATED}, \texttt{RUNNING}, \texttt{ABORTED}, \texttt{DONE}. \\ \hline
+\pdef{SessionStepStatus} & One of \texttt{WAITING}, \texttt{RUNNING}, \texttt{ABORTED}, \texttt{DONE}. \\ \hline
+\pdef{String} & A chain of characters. \\ \hline
+\pdef{Version} & Specifies a version, semantic versioning \texttt{major.minor.patch}. \\ \hline
+\end{tabularx}
+
+\newpage
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\newpage
+
+\section{Revision History}
+\subsection{Amendments}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X | p{4cm} |} \hline
+\rowcolor{gray!33} No. & Date & Version & Subject of Amendments & Author \\ \hline
+
+1 & 2026-10-22 & 5.2.2 & Document created from the Arrowhead LaTeX templates for the 5.2.2 Java Spring implementation, including the local extensions of this workspace. & Jerker Delsing \\ \hline
+2 & 2026-10-30 & 5.2.2 & Checked against the primary Java source tree (Eclipse-Arrowhead-java): standalone deployment, configuration and security statements updated. & Claude Opus 5.5 (draft) \\ \hline
+3 & 2026-11-09 & 5.3.0 & New documentation edition; primary-source references and Go/Rust implementation scope; 5.2.2 retained. & Documentation maintenance \\ \hline
+\end{tabularx}
+
+\subsection{Quality Assurance}
+
+\noindent\begin{tabularx}{\textwidth}{| p{1cm} | p{3cm} | p{2cm} | X |} \hline
+\rowcolor{gray!33} No. & Date & Version & Approved by \\ \hline
+
+1 & & \arrowversion  &  \\ \hline
+
+\end{tabularx}
+
+\end{document}

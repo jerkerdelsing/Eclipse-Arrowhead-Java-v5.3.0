@@ -15,7 +15,7 @@ An updated profile based on a detailed UML metamodel of the Eclipse Arrowhead ar
 ## Reference conformance
 
 - [Secure profile](SECURITY-PROFILE.md): what makes a system refuse to start, and the explicit development exception.
-- [Upstream alignment](documentation/UPSTREAM-ALIGNMENT-5.3.md): the changes in this tree that upstream Eclipse Arrowhead has not released.
+- [Documentation V5.3.0](documentation/Documentation-V5.3.0.md): maintained microsystem editions, validation history and recorded upstream follow-up.
 - `python3 verification/tools/verify_reference_conformance.py`: static checks of version, ports, monitoring, security packaging, discovery and inter-cloud authorization.
 
 ## Local-cloud configuration
