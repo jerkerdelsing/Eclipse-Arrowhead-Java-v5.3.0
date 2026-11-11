@@ -35,6 +35,8 @@ services:
       RELAY_CHAIN_CERT: /certs/gatetunnel-relay-chain.crt
       RELAY_KEY: /certs/gatetunnel-relay.key
       RELAY_CA_CERT: /certs/org-ca.crt
+      # SOS-6: the relay's server certificate is checked against the organisation CRL (fail closed)
+      RELAY_CRL_FILE: /org-crl/org-ca.crl
       # AH-GT-1 peer revocation (SOS-4), mandatory: the organization CA's CRL and the CA CRL of every peer cloud, e.g.
       # /org-crl/org-ca.crl,/peer-crl/GoCloud/ca.crl. A peer whose CA has no current CRL here is refused.
       RELAY_CRL_FILES: ${RELAY_CRL_FILES:-/org-crl/org-ca.crl}

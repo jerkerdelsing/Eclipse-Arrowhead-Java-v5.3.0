@@ -244,8 +244,64 @@ public class FederationServiceTest {
 				m("type", "gsd-request", "consumer", "C", "serviceRequirement", m("serviceDefinition", "temperature"))).get("results"));
 	}
 
+	//-------------------------------------------------------------------------------------------------
+	// SOS-7 (2026-11-10): consumers reach neighbours of another organisation only when this cloud's policy lists them
+	@Test
+	public void gsdSkipsNeighboursOfAnotherOrganisationUnlessListed() throws Exception {
+		when(db.clouds()).thenReturn(List.of(new Cloud("OtherCloud", "Company"), new Cloud("LabCloud", "Lab")));
+		when(relay.request(eq("OtherCloud"), anyMap())).thenReturn(m("cloud", "OtherCloud|Company", "results", List.of(m("providerName", "P"))));
+		when(relay.request(eq("LabCloud"), anyMap())).thenReturn(m("cloud", "LabCloud|Lab", "results", List.of(m("providerName", "L"))));
+
+		final FederationService ownOnly = gatekeeper("legacy-mtls", "LabCloud=Lab", "");
+		Map<String, Object> result = ownOnly.gsd(m("serviceRequirement", m("serviceDefinition", "temperature")), "Consumer");
+		assertEquals(1, result.get("queriedClouds"));
+		assertEquals(List.of(m("providerName", "P", "cloud", "OtherCloud|Company")), result.get("results"));
+		// naming the foreign cloud does not get around the policy
+		result = ownOnly.gsd(m("serviceRequirement", m("serviceDefinition", "temperature"), "targetClouds", List.of("LabCloud")), "Consumer");
+		assertEquals(List.of("LabCloud|Lab"), result.get("refusedClouds"));
+		assertEquals(List.of(), result.get("results"));
+		verify(relay, never()).request(eq("LabCloud"), anyMap());
+
+		result = gatekeeper("legacy-mtls", "LabCloud=Lab", "LabCloud|Lab").gsd(m("serviceRequirement", m("serviceDefinition", "temperature")), "Consumer");
+		assertEquals(2, result.get("queriedClouds"));
+		assertEquals(2, list(result.get("results")).size());
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void icnRefusesANeighbourOfAnotherOrganisationUnlessListed() throws Exception {
+		final ApiError error = assertThrows(ApiError.class, () -> gatekeeper("legacy-mtls", "LabCloud=Lab", "")
+				.icn(m("targetCloud", "LabCloud", "providerName", "P", "serviceDefinition", "temperature"), "Consumer"));
+		assertEquals(403, error.getStatus());
+		verify(relay, never()).request(eq("LabCloud"), anyMap());
+
+		when(relay.request(eq("LabCloud"), anyMap())).thenReturn(m("accepted", false, "reason", "no provider"));
+		assertEquals(false, gatekeeper("legacy-mtls", "LabCloud=Lab", "LabCloud|Lab")
+				.icn(m("targetCloud", "LabCloud", "providerName", "P", "serviceDefinition", "temperature"), "Consumer").get("negotiated"));
+		verify(relay).request(eq("LabCloud"), anyMap());
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void foreignTargetsMustBeBoundNeighboursOfAnotherOrganisation() {
+		for (final String bad : List.of("LabCloud", "LabCloud|Company", "LabCloud|Other", "TestCloud|Lab", "|Lab", "OtherCloud|Company")) {
+			assertThrows(IllegalArgumentException.class, () -> new FederationSettings("TestCloud", "Company", "ah-gt-1", "LabCloud=Lab", bad), bad);
+		}
+		final FederationSettings settings = new FederationSettings("TestCloud", "Company", "ah-gt-1", "LabCloud=Lab", " LabCloud|Lab ");
+		assertTrue(settings.targetAllowed("LabCloud"));
+		assertTrue(settings.targetAllowed("OtherCloud"));
+		assertFalse(new FederationSettings("TestCloud", "Company", "ah-gt-1", "LabCloud=Lab").targetAllowed("LabCloud"));
+	}
+
 	//=================================================================================================
 	// assistant methods
+
+	//-------------------------------------------------------------------------------------------------
+	private FederationService gatekeeper(final String profile, final String peers, final String foreignTargets) {
+		final FederationService service = gatekeeper(profile, b -> decisions(true));
+		ReflectionTestUtils.setField(service, "settings", new FederationSettings("TestCloud", "Company", profile, peers, foreignTargets));
+		return service;
+	}
 
 	//-------------------------------------------------------------------------------------------------
 	private FederationService gatekeeper(final String profile, final Function<Map<String, Object>, Map<String, Object>> answer) {

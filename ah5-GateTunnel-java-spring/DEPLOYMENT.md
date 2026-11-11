@@ -18,7 +18,7 @@ This folder owns the complete source, build, application image, database image, 
 3. Register the identity in Authentication and the authorization and orchestration rules for the callers in README.md. Configure `NEIGHBOR_CLOUDS` and, for other organisations, `FEDERATION_PEER_ORGANIZATIONS`. Both peers must use the same `FEDERATION_PROFILE`; `legacy-mtls` is an explicit compatibility choice, never a fallback.
 4. Run `docker compose config --quiet`, then `docker compose up -d --build`.
 
-The configuration is `config/application.properties` (secure profile: mutual TLS with PKCS12 stores, `authentication.policy=outsourced`, `CERT_AUTH`, CRL, sysMonitor over AMQPS, `ddl-auto=validate`). The 5.2.2 environment names stay as placeholders: `LOCAL_CLOUD`, `ORGANIZATION`, `ADVERTISED_ADDRESS`, `NEIGHBOR_CLOUDS`, `FEDERATION_PROFILE`, `FEDERATION_PEER_ORGANIZATIONS`, `RELAY_HOST`, `RELAY_PORT`, `RELAY_CHAIN_CERT`, `RELAY_KEY`, `RELAY_CA_CERT`, `RELAY_CRL_FILES`, `MIN_TUNNEL_PORT`/`MAX_TUNNEL_PORT`, `INTERCLOUD_MIN_PORT`/`INTERCLOUD_MAX_PORT`, `SESSION_MAX_AGE_SECONDS`, `SESSION_IDLE_SECONDS`, `SESSION_CLOCK_SKEW_SECONDS`, `AMQP_HOST`, `AMQP_PORT`, `CRL_FILE`. `SecurityProfileGuard` refuses an insecure configuration unless `arrowhead.security.profile=development` is selected for an isolated test.
+The configuration is `config/application.properties` (secure profile: mutual TLS with PKCS12 stores, `authentication.policy=outsourced`, `CERT_AUTH`, CRL, sysMonitor over AMQPS, `ddl-auto=validate`). The 5.2.2 environment names stay as placeholders: `LOCAL_CLOUD`, `ORGANIZATION`, `ADVERTISED_ADDRESS`, `NEIGHBOR_CLOUDS`, `FEDERATION_PROFILE`, `FEDERATION_PEER_ORGANIZATIONS`, `RELAY_HOST`, `RELAY_PORT`, `RELAY_CHAIN_CERT`, `RELAY_KEY`, `RELAY_CA_CERT`, `RELAY_CRL_FILES`, `RELAY_CRL_FILE`, `MIN_TUNNEL_PORT`/`MAX_TUNNEL_PORT`, `INTERCLOUD_MIN_PORT`/`INTERCLOUD_MAX_PORT`, `SESSION_MAX_AGE_SECONDS`, `SESSION_IDLE_SECONDS`, `SESSION_CLOCK_SKEW_SECONDS`, `AMQP_HOST`, `AMQP_PORT`, `CRL_FILE`. `SecurityProfileGuard` refuses an insecure configuration unless `arrowhead.security.profile=development` is selected for an isolated test.
 
 AH-GT-1 peer revocation (security finding SOS-4, 2026-11-10): `RELAY_CRL_FILES` (`gatetunnel.relay.crl.files`) lists
 the CRL files of the organization CA and of every peer cloud's CA, comma-separated (PEM or DER). It is mandatory in the
@@ -42,3 +42,8 @@ the directory `ORGANIZATION_CRL_DIRECTORY` at `/org-crl` (a directory, because t
 `docker compose ps` shows health (a TCP probe of 8453). `GET /gatetunnel/mgmt/status` (LocalCloudManager, Sysop) shows the relay link and the sessions; sysMonitor reports `degraded` while the relay is not connected. `docker compose down` keeps the database volume; `down -v` erases it. No live cloud was changed by this packaging work; the Spring build has not yet been run in a live federation with the Go and Rust GateTunnels.
 
 The [distribution deployment guide](../DEPLOYMENT-GUIDE.md) covers selecting several systems.
+
+Relay server certificate (security finding SOS-6, 2026-11-10): `RELAY_CRL_FILE` (`gatetunnel.relay.crl-file`, default
+`/org-crl/org-ca.crl`) is the organisation CA's CRL. The relay's server certificate is checked against it on every
+connection, fail closed (missing, expired, unsigned or revoking CRL refuses the relay), as in the Gatekeeper. It is
+mandatory; the GateTunnel refuses to start without it.

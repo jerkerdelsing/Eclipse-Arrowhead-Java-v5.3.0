@@ -3,6 +3,8 @@ WORKDIR /source
 COPY pom.xml .
 COPY vendor ./vendor
 COPY src ./src
+# the tests check the deployment configuration (RelayCrlTest, SOS-6), as in the Gatekeeper's build
+COPY config ./config
 RUN --mount=type=cache,target=/root/.m2 mvn -B clean verify
 FROM eclipse-temurin:21-jre
 WORKDIR /app

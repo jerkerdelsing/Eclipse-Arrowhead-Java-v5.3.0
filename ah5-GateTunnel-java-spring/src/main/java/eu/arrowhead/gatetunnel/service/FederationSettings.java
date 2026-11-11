@@ -47,6 +47,7 @@ public class FederationSettings {
 	private final String relayCaCert;
 	private final String crlFile;
 	private final List<String> relayCrlFiles;
+	private final String relayCrlFile;
 
 	//=================================================================================================
 	// methods
@@ -73,7 +74,8 @@ public class FederationSettings {
 			@Value("${" + GateTunnelConstants.RELAY_KEY + ":" + GateTunnelDefaults.GATETUNNEL_RELAY_KEY_DEFAULT + "}") final String relayKey,
 			@Value("${" + GateTunnelConstants.RELAY_CA_CERT + ":" + GateTunnelDefaults.GATETUNNEL_RELAY_CA_CERT_DEFAULT + "}") final String relayCaCert,
 			@Value("${" + GateTunnelConstants.CRL_FILE + ":}") final String crlFile,
-			@Value("${" + GateTunnelConstants.RELAY_CRL_FILES + ":}") final String relayCrlFiles) {
+			@Value("${" + GateTunnelConstants.RELAY_CRL_FILES + ":}") final String relayCrlFiles,
+			@Value("${" + GateTunnelConstants.RELAY_CRL_FILE + ":}") final String relayCrlFile) {
 		if (!Set.of(GateTunnelConstants.PROFILE_LEGACY_MTLS, GateTunnelConstants.PROFILE_AH_GT_1).contains(profile)) {
 			throw new IllegalArgumentException("Unsupported federation profile");
 		}
@@ -101,6 +103,11 @@ public class FederationSettings {
 		this.relayCaCert = relayCaCert;
 		this.crlFile = crlFile;
 		this.relayCrlFiles = List.copyOf(Wire.csv(relayCrlFiles == null ? "" : relayCrlFiles));
+		// SOS-6: the relay's server certificate (organisation CA) is checked against the organisation CRL; no unchecked relay
+		if (relayCrlFile == null || relayCrlFile.isBlank()) {
+			throw new IllegalArgumentException(GateTunnelConstants.RELAY_CRL_FILE + " (the organisation CA's CRL) is required");
+		}
+		this.relayCrlFile = relayCrlFile.trim();
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -225,5 +232,10 @@ public class FederationSettings {
 	//-------------------------------------------------------------------------------------------------
 	public List<String> getRelayCrlFiles() {
 		return relayCrlFiles;
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	public String getRelayCrlFile() {
+		return relayCrlFile;
 	}
 }

@@ -87,3 +87,12 @@ A live federation run against the Go and Rust Gatekeepers has not been repeated 
 `docker compose down` stops only this project and keeps the database volume. Back up the database before upgrades. `down -v` erases this project's private state.
 
 The SysDD is in `documentation/v5.2.2`. The [distribution deployment guide](../DEPLOYMENT-GUIDE.md) covers selecting multiple systems.
+
+## Inter-cloud targets of another organisation (SOS-7, 2026-11-10)
+
+`FEDERATION_FOREIGN_TARGETS` (`gatekeeper.federation.foreign-targets`) lists the neighbours of another organisation that
+this cloud's consumers may use, as `Cloud|Organisation`, comma-separated; each must be bound in
+`FEDERATION_PEER_ORGANIZATIONS`. Default: none. Global service discovery (`init_gsd`) then queries only neighbours of
+the own organisation, also when a caller names `targetClouds` (refused ones are returned in `refusedClouds`), and
+`init_icn` refuses another organisation's cloud with 403. Requests from other clouds (the provider side) are not
+affected.

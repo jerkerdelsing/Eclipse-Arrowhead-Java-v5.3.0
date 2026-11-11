@@ -89,6 +89,8 @@ public final class GatekeeperConstants {
 	public static final String ORGANIZATION = "gatekeeper.organization";
 	public static final String FEDERATION_PROFILE = "gatekeeper.federation.profile";
 	public static final String FEDERATION_PEER_ORGANIZATIONS = "gatekeeper.federation.peer-organizations";
+	// SOS-7: neighbours of another organisation this cloud's consumers may use, "Cloud|Organisation", comma-separated
+	public static final String FEDERATION_FOREIGN_TARGETS = "gatekeeper.federation.foreign-targets";
 	public static final String RELAY_ENABLED = "gatekeeper.relay.enabled";
 	public static final String RELAY_HOST = "gatekeeper.relay.host";
 	public static final String RELAY_PORT = "gatekeeper.relay.port";

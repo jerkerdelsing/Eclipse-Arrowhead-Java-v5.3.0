@@ -211,7 +211,7 @@ public class SecurityTest {
 	//-------------------------------------------------------------------------------------------------
 	static FederationSettings settings(final String profile, final String peers) {
 		return new FederationSettings("TestCloud", "Company", profile, "GoCloud,RustDev", peers, "gatetunnel", 43200, 3600, 120, 8200, 8299, 8000, 8099, "relay", 8883,
-				"chain", "key", "ca", "", "");
+				"chain", "key", "ca", "", "", "org.crl");
 	}
 
 	//-------------------------------------------------------------------------------------------------

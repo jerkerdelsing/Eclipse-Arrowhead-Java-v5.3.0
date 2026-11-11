@@ -27,6 +27,8 @@ services:
       CRL_FILE: /crl/ca.crl
       FEDERATION_PROFILE: ${FEDERATION_PROFILE:-ah-gt-1}
       FEDERATION_PEER_ORGANIZATIONS: ${FEDERATION_PEER_ORGANIZATIONS:-}
+      # SOS-7: neighbours of another organisation the consumers may use, e.g. RustDev|Lab; default none (own organisation only)
+      FEDERATION_FOREIGN_TARGETS: ${FEDERATION_FOREIGN_TARGETS:-}
       RELAY_HOST: ${RELAY_HOST:-arrowhead-relay}
       RELAY_PORT: "${RELAY_PORT:-8883}"
       RELAY_CHAIN_CERT: /certs/gatekeeper-relay-chain.crt

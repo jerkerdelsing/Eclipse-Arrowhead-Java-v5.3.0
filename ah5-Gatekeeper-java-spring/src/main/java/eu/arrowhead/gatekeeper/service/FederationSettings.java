@@ -10,6 +10,8 @@
 package eu.arrowhead.gatekeeper.service;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -37,7 +39,13 @@ public class FederationSettings {
 	@Value("${" + GatekeeperConstants.FEDERATION_PEER_ORGANIZATIONS + ":" + GatekeeperDefaults.FEDERATION_PEER_ORGANIZATIONS_DEFAULT + "}")
 	private String peerOrganizations;
 
+	// SOS-7 (2026-11-10): consumer-side inter-cloud requests reach neighbours of the own organisation, and neighbours of
+	// another organisation only when listed here ("Cloud|Organisation", matching FEDERATION_PEER_ORGANIZATIONS)
+	@Value("${" + GatekeeperConstants.FEDERATION_FOREIGN_TARGETS + ":" + GatekeeperDefaults.FEDERATION_FOREIGN_TARGETS_DEFAULT + "}")
+	private String foreignTargets;
+
 	private Map<String, String> peers = Map.of();
+	private Set<String> allowedForeign = Set.of();
 
 	//=================================================================================================
 	// methods
@@ -48,10 +56,16 @@ public class FederationSettings {
 
 	//-------------------------------------------------------------------------------------------------
 	public FederationSettings(final String cloud, final String organization, final String profile, final String peerOrganizations) {
+		this(cloud, organization, profile, peerOrganizations, "");
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	public FederationSettings(final String cloud, final String organization, final String profile, final String peerOrganizations, final String foreignTargets) {
 		this.cloud = cloud;
 		this.organization = organization;
 		this.profile = profile;
 		this.peerOrganizations = peerOrganizations;
+		this.foreignTargets = foreignTargets;
 		init();
 	}
 
@@ -64,6 +78,27 @@ public class FederationSettings {
 
 		peers = PeerNames.parse(peerOrganizations);
 		organizationOf(cloud); // the own organisation cannot be remapped
+		final Set<String> allowed = new TreeSet<>();
+		for (final String raw : (foreignTargets == null ? "" : foreignTargets).split(",")) {
+			final String entry = raw.trim();
+			if (entry.isEmpty()) {
+				continue;
+			}
+			final String[] part = entry.split("\\|", -1);
+			if (part.length != 2 || part[0].isBlank() || part[0].equals(cloud) || part[1].equals(organization) || !part[1].equals(organizationOf(part[0]))) {
+				throw new IllegalArgumentException(GatekeeperConstants.FEDERATION_FOREIGN_TARGETS + ": \"" + entry
+						+ "\" is not Cloud|Organisation of a neighbour of another organisation bound in " + GatekeeperConstants.FEDERATION_PEER_ORGANIZATIONS);
+			}
+			allowed.add(entry);
+		}
+		allowedForeign = Set.copyOf(allowed);
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	// SOS-7: whether this cloud's consumers may reach the neighbour (own organisation, or listed in foreign-targets)
+	public boolean targetAllowed(final String peerCloud) {
+		final String peerOrganization = organizationOf(peerCloud);
+		return peerOrganization.equals(organization) || allowedForeign.contains(peerCloud + "|" + peerOrganization);
 	}
 
 	//-------------------------------------------------------------------------------------------------

@@ -78,7 +78,7 @@ public class RelayRoundTripTest {
 	private static FederationSettings settings(final String cloud, final String neighbor) {
 		return new FederationSettings(cloud, "Company", "ah-gt-1", neighbor, "", "gatetunnel", 43200, 3600, 120, 8200, 8299, 8000, 8099,
 				System.getProperty("gt.it.relay.host"), Integer.parseInt(System.getProperty("gt.it.relay.port", "8883")),
-				DIR.resolve(cloud + "-relay-chain.crt").toString(), DIR.resolve(cloud + "-relay.key").toString(), System.getProperty("gt.it.relay.ca"), "", "");
+				DIR.resolve(cloud + "-relay-chain.crt").toString(), DIR.resolve(cloud + "-relay.key").toString(), System.getProperty("gt.it.relay.ca"), "", "", System.getProperty("gt.it.relay.crl", "org.crl"));
 	}
 
 	//-------------------------------------------------------------------------------------------------

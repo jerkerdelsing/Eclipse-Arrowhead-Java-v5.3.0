@@ -136,7 +136,7 @@ public class RelayClient {
 			return;
 		}
 
-		final SSLContext tls = TlsSupport.pemContext(settings.getRelayChainCert(), settings.getRelayKey(), settings.getRelayCaCert(), null, null);
+		final SSLContext tls = TlsSupport.pemContext(settings.getRelayChainCert(), settings.getRelayKey(), settings.getRelayCaCert(), settings.getRelayCrlFile(), null);
 		final MqttConnectOptions options = new MqttConnectOptions();
 		options.setSocketFactory(tls.getSocketFactory());
 		options.setHttpsHostnameVerificationEnabled(true);

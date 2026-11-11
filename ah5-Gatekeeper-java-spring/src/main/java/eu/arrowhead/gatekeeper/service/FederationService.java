@@ -212,7 +212,8 @@ public class FederationService implements RelayHandler {
 	}
 
 	//-------------------------------------------------------------------------------------------------
-	// consumer side: global service discovery in the named (or all configured same-organisation) neighbour clouds
+	// consumer side: global service discovery in the named (or all configured) neighbour clouds that this cloud's policy
+	// allows: the own organisation, and another organisation only when listed in foreign-targets (SOS-7)
 	public Map<String, Object> gsd(final Map<String, Object> payload, final String localConsumer) {
 		final Map<String, Object> requirement = obj(payload.getOrDefault("serviceRequirement", payload.get("requestedService")));
 		if (str(requirement.get("serviceDefinition")).isEmpty()) {
@@ -223,17 +224,23 @@ public class FederationService implements RelayHandler {
 		if (targets.isEmpty()) {
 			targets = new ArrayList<>();
 			for (final Cloud c : dbService.clouds()) {
-				if (c.getOperator().equals(settings.organizationOf(c.getName())) && !c.getName().equals(settings.getCloud())) {
+				if (c.getOperator().equals(settings.organizationOf(c.getName())) && !c.getName().equals(settings.getCloud()) && settings.targetAllowed(c.getName())) {
 					targets.add(c.getName());
 				}
 			}
 		}
 
 		final List<Object> results = new ArrayList<>();
+		final List<String> refused = new ArrayList<>();
 		int failures = 0;
 		for (final Object t : targets) {
 			try {
 				final String name = target(t);
+				if (!settings.targetAllowed(name)) {
+					refused.add(name + "|" + settings.organizationOf(name));
+					failures++;
+					continue;
+				}
 				final Map<String, Object> reply = relay.request(name, m("type", "gsd-request", "consumer", localConsumer, "serviceRequirement", requirement));
 				if (!str(reply.get("cloud")).equals(name + "|" + settings.organizationOf(name))) {
 					throw new ApiError(502, "Peer cloud identity mismatch");
@@ -250,7 +257,7 @@ public class FederationService implements RelayHandler {
 			}
 		}
 
-		return m("results", results, "unsuccessfulRequests", failures, "queriedClouds", targets.size());
+		return m("results", results, "unsuccessfulRequests", failures, "queriedClouds", targets.size() - refused.size(), "refusedClouds", refused);
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -262,6 +269,10 @@ public class FederationService implements RelayHandler {
 		final String definition = str(payload.get("serviceDefinition"));
 		if (foreign.isEmpty() || provider.isEmpty() || definition.isEmpty()) {
 			throw new IllegalArgumentException("targetCloud, providerName and serviceDefinition are required");
+		}
+		if (!settings.targetAllowed(foreign)) {
+			throw new ApiError(403, "Target cloud " + foreign + "|" + settings.organizationOf(foreign) + " belongs to another organisation and is not allowed by this cloud's policy ("
+					+ GatekeeperConstants.FEDERATION_FOREIGN_TARGETS + ")");
 		}
 
 		final Map<String, Object> reply = relay.request(foreign, m("type", "icn-request",

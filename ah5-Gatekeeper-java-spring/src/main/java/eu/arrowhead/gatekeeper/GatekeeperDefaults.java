@@ -20,6 +20,7 @@ public final class GatekeeperDefaults extends Defaults {
 	public static final String ORGANIZATION_DEFAULT = "Company";
 	public static final String FEDERATION_PROFILE_DEFAULT = GatekeeperConstants.FEDERATION_PROFILE_LEGACY;
 	public static final String FEDERATION_PEER_ORGANIZATIONS_DEFAULT = "";
+	public static final String FEDERATION_FOREIGN_TARGETS_DEFAULT = "";
 	public static final String RELAY_ENABLED_DEFAULT = "true";
 	public static final String RELAY_HOST_DEFAULT = "arrowhead-relay";
 	public static final String RELAY_PORT_DEFAULT = "8883";
