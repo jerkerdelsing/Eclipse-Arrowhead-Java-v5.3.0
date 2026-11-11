@@ -45,7 +45,7 @@ As in DataManager, `graphDataProxy` is an in-memory latest-value cache and `grap
 
 ### The GraphDB container
 
-`deployment/graphdb/` builds `ontotext/graphdb:10.8.5` into a container that runs as UID 10001 with a read-only root file system; its data is the volume at `/opt/graphdb/home`. `entrypoint.sh` starts GraphDB and then, on every start (idempotent):
+`deployment/graphdb/` builds `ontotext/graphdb:10.8.14` (10.8 is the last line that serves queries without a licence; GraphDB 11 refuses them) into a container that runs as UID 10001 with a read-only root file system; its data is the volume at `/opt/graphdb/home`. `entrypoint.sh` starts GraphDB and then, on every start (idempotent):
 
 1. creates the repository from `repository-config.ttl` if missing (GraphDB-Free sail, `empty` ruleset: no inference),
 2. sets the `admin` password from `GRAPHDB_ADMIN_PASSWORD_FILE`,

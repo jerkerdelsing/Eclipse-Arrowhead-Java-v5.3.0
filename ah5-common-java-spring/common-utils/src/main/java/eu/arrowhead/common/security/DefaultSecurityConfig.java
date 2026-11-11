@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.channel.ChannelProcessingFilter;
+import org.springframework.security.web.transport.HttpsRedirectFilter;
 import org.springframework.security.web.authentication.preauth.x509.X509AuthenticationFilter;
 
 import eu.arrowhead.common.Constants;
@@ -49,11 +49,11 @@ public class DefaultSecurityConfig {
 				.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.NEVER));
 
 		if (sslEnabled) {
-			http.requiresChannel(channel -> channel.anyRequest().requiresSecure());
+			http.redirectToHttps(https -> { });
 		}
 
 		if (debugMode) {
-			http.addFilterBefore(new OutboundDebugFilter(), ChannelProcessingFilter.class);
+			http.addFilterBefore(new OutboundDebugFilter(), HttpsRedirectFilter.class);
 			http.addFilterAfter(new InboundDebugFilter(), X509AuthenticationFilter.class);
 		}
 

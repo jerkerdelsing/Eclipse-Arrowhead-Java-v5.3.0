@@ -175,6 +175,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -219,6 +220,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -273,6 +275,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -321,6 +324,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -365,6 +369,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -409,6 +414,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -453,6 +459,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -497,6 +504,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -540,6 +548,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -584,6 +593,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -630,6 +640,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -677,6 +688,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -722,6 +734,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -767,6 +780,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -866,6 +880,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -912,6 +927,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -968,6 +984,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1018,6 +1035,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1064,6 +1082,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1110,6 +1129,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1156,6 +1176,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1202,6 +1223,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1247,6 +1269,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1293,6 +1316,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1341,6 +1365,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1390,6 +1415,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1437,6 +1463,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1484,6 +1511,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 			when(webClientMock.method(HttpMethod.POST)).thenReturn(uriSpecMock);
 			when(uriSpecMock.uri(any(URI.class))).thenReturn(specMock);
@@ -1522,6 +1550,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 
 			final WebClient result = service.createInsecureWebClient();
@@ -1550,6 +1579,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 
 			final WebClient result = service.createSecureWebClient();
@@ -1584,6 +1614,7 @@ public class HttpServiceTest {
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("accept", new String[] { "text/plain", "application/json" })).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.defaultHeader("content-type", new String[] { "application/json" })).thenReturn(webClientBuilderMock);
+			when(webClientBuilderMock.codecs(any())).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.build()).thenReturn(webClientMock);
 
 			final WebClient result = service.createSecureWebClient(sslContext);

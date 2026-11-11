@@ -22,6 +22,8 @@
   	</licenses>
 	
 	<properties>
+		<!-- SOS-16: the RabbitMQ client of common-utils (Spring Boot 4.1 manages 5.30.0, which has known vulnerabilities) -->
+		<rabbit-amqp-client.version>5.37.1</rabbit-amqp-client.version>
 		<revision>5.2.2</revision>
 		<ah.common.version>5.2.2</ah.common.version>
 		<mvn.resources.version>3.3.1</mvn.resources.version>

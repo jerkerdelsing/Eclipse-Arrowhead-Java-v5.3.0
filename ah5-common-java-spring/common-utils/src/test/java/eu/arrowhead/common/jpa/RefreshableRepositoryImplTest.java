@@ -19,6 +19,7 @@ package eu.arrowhead.common.jpa;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -32,6 +33,7 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 
 import eu.arrowhead.common.Utilities;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 
 @ExtendWith(MockitoExtension.class)
 public class RefreshableRepositoryImplTest {
@@ -45,6 +47,9 @@ public class RefreshableRepositoryImplTest {
 	private EntityManager entityManager;
 
 	@Mock
+	private EntityManagerFactory entityManagerFactory;
+
+	@Mock
 	private JpaEntityInformation<LogEntity, ?> entityInformation;
 
 	//=================================================================================================
@@ -53,7 +58,9 @@ public class RefreshableRepositoryImplTest {
 	//-------------------------------------------------------------------------------------------------
 	@BeforeEach
 	public void setUp() {
-		when(entityManager.getDelegate()).thenReturn(new Object());
+		lenient().when(entityManager.getDelegate()).thenReturn(new Object());
+		// Spring Data JPA 4 (Spring Boot 4) reads the EntityManagerFactory in the SimpleJpaRepository constructor
+		lenient().when(entityManager.getEntityManagerFactory()).thenReturn(entityManagerFactory);
 		impl = new RefreshableRepositoryImpl<>(entityInformation, entityManager);
 	}
 

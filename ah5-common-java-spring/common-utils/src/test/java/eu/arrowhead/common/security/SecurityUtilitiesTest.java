@@ -51,6 +51,7 @@ import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSourceResolvable;
 import org.springframework.context.NoSuchMessageException;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
@@ -692,6 +693,12 @@ public class SecurityUtilitiesTest {
 		//-------------------------------------------------------------------------------------------------
 		@Override
 		public <T> ObjectProvider<T> getBeanProvider(final ResolvableType requiredType) {
+			return null;
+		}
+
+		//-------------------------------------------------------------------------------------------------
+		@Override
+		public <T> ObjectProvider<T> getBeanProvider(final ParameterizedTypeReference<T> requiredType) {
 			return null;
 		}
 

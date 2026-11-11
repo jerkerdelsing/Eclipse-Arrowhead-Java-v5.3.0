@@ -11,7 +11,8 @@ package eu.arrowhead.localcloudmanager.console;
 
 import org.apache.catalina.connector.Connector;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.tomcat.servlet.TomcatServletWebServerFactory;
+import org.springframework.boot.tomcat.TomcatWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.annotation.Configuration;
 
@@ -43,12 +44,12 @@ public class ConsoleConnectorConfig implements WebServerFactoryCustomizer<Tomcat
 			return;
 		}
 
-		final Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
+		final Connector connector = new Connector(TomcatWebServerFactory.DEFAULT_PROTOCOL);
 		connector.setScheme("http");
 		connector.setSecure(false);
 		connector.setPort(port);
 		connector.setProperty("address", address);
-		factory.addAdditionalTomcatConnectors(connector);
+		factory.addAdditionalConnectors(connector);
 	}
 
 }

@@ -78,7 +78,7 @@ public class ConsoleSecurityConfig {
 				.csrf(csrf -> csrf.disable())
 				.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.NEVER));
 		if (sslEnabled) {
-			http.requiresChannel(channel -> channel.anyRequest().requiresSecure());
+			http.redirectToHttps(https -> { });
 		}
 
 		return http.build();

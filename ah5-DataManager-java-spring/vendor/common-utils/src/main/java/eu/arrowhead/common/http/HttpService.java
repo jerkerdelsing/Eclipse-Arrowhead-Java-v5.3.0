@@ -41,6 +41,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.http.codec.json.Jackson2JsonDecoder;
+import org.springframework.http.codec.json.Jackson2JsonEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -403,7 +405,13 @@ public class HttpService {
 				.builder()
 				.clientConnector(new ReactorClientHttpConnector(client))
 				.defaultHeader(HttpHeaderNames.ACCEPT.toString(), MediaType.TEXT_PLAIN_VALUE, MediaType.APPLICATION_JSON_VALUE)
-				.defaultHeader(HttpHeaderNames.CONTENT_TYPE.toString(), MediaType.APPLICATION_JSON_VALUE);
+				.defaultHeader(HttpHeaderNames.CONTENT_TYPE.toString(), MediaType.APPLICATION_JSON_VALUE)
+				// Spring Framework 7 prefers Jackson 3 when it is present; the custom codecs come first, so the client keeps
+				// the Jackson 2 wire format of Spring Boot 3 (the same defaults as Jackson2ObjectMapperBuilder.json())
+				.codecs(configurer -> {
+					configurer.customCodecs().register(new Jackson2JsonDecoder());
+					configurer.customCodecs().register(new Jackson2JsonEncoder());
+				});
 
 		return builder.build();
 	}
