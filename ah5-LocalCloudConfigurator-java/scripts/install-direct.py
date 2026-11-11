@@ -22,6 +22,8 @@ p.add_argument('--store-password-file', type=Path, help='password of both stores
 p.add_argument('--crl-file', type=Path, help='cloud CRL; client certificates are checked against it (recommended)')
 p.add_argument('--allowed-clients', default='LocalCloudConfigurator')
 p.add_argument('--port', type=int, default=8493)
+# a cloud of another Compose project needs its own catalog (composeProject); the configurator API must load the same file
+p.add_argument('--catalog', type=Path, help='component catalog (default catalogs/javacloud.json of this folder)')
 a = p.parse_args()
 
 root = Path(__file__).resolve().parents[1]
@@ -57,7 +59,9 @@ for name in ['lcc.worker.ssl.key-store-password', 'lcc.worker.ssl.trust-store-pa
 runtime = state / 'runtime'
 runtime.mkdir(mode=0o700, exist_ok=True)
 jar = root / 'target/localcloudconfigurator.jar'
-catalog = root / 'catalogs/javacloud.json'
+catalog = (a.catalog or root / 'catalogs/javacloud.json').resolve()
+if catalog.name != 'javacloud.json':
+    raise SystemExit('The catalog file must be named javacloud.json')
 digest = hashlib.sha256(jar.read_bytes() + catalog.read_bytes()).hexdigest()
 release = runtime / ('direct-' + digest)
 release.mkdir(mode=0o700, exist_ok=True)
