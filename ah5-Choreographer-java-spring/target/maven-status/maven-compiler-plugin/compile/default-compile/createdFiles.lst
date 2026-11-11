@@ -258,6 +258,7 @@ eu/arrowhead/choreographer/init/ChoreographerApplicationInitListener.class
 eu/arrowhead/common/exception/DataNotFoundException.class
 eu/arrowhead/common/Utilities.class
 eu/arrowhead/dto/TranslationQueryResponseDTO.class
+eu/arrowhead/common/init/Jackson2Defaults.class
 eu/arrowhead/common/mqtt/MqttController$1.class
 eu/arrowhead/choreographer/api/dto/WorklogResponseDTO.class
 eu/arrowhead/dto/ServiceInstanceListResponseDTO.class

@@ -1,7 +1,7 @@
-/source/src/main/java/eu/arrowhead/aigym/AiGymApplication.java
-/source/src/main/java/eu/arrowhead/aigym/AiGymController.java
-/source/src/main/java/eu/arrowhead/aigym/AiGymRuntime.java
-/source/src/main/java/eu/arrowhead/aigym/ArrowheadGateway.java
-/source/src/main/java/eu/arrowhead/aigym/ArrowheadSecurityFilter.java
-/source/src/main/java/eu/arrowhead/aigym/CrlRevocationConfig.java
-/source/src/main/java/eu/arrowhead/aigym/ModelStore.java
+/src/ah5-AIGym-java-spring/src/main/java/eu/arrowhead/aigym/AiGymApplication.java
+/src/ah5-AIGym-java-spring/src/main/java/eu/arrowhead/aigym/AiGymController.java
+/src/ah5-AIGym-java-spring/src/main/java/eu/arrowhead/aigym/AiGymRuntime.java
+/src/ah5-AIGym-java-spring/src/main/java/eu/arrowhead/aigym/ArrowheadGateway.java
+/src/ah5-AIGym-java-spring/src/main/java/eu/arrowhead/aigym/ArrowheadSecurityFilter.java
+/src/ah5-AIGym-java-spring/src/main/java/eu/arrowhead/aigym/CrlRevocationConfig.java
+/src/ah5-AIGym-java-spring/src/main/java/eu/arrowhead/aigym/ModelStore.java

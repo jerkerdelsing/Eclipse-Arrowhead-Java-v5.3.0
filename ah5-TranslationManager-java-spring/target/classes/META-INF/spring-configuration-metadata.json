@@ -122,5 +122,8 @@
       "description": "A description for 'translator.service.min.availability'"
     }
   ],
-  "hints": []
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
 }

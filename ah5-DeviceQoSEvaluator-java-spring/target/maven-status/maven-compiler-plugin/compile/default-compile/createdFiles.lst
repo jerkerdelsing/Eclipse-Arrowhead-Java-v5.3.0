@@ -234,6 +234,7 @@ eu/arrowhead/common/exception/DataNotFoundException.class
 eu/arrowhead/common/Utilities.class
 eu/arrowhead/deviceqosevaluator/api/http/MonitorAPI.class
 eu/arrowhead/dto/TranslationQueryResponseDTO.class
+eu/arrowhead/common/init/Jackson2Defaults.class
 eu/arrowhead/common/mqtt/MqttController$1.class
 eu/arrowhead/dto/ServiceInstanceListResponseDTO.class
 eu/arrowhead/common/collector/ServiceCollector.class

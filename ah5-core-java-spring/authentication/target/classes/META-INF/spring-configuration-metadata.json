@@ -92,5 +92,8 @@
       "description": "A description for 'service.registry.port'"
     }
   ],
-  "hints": []
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
 }

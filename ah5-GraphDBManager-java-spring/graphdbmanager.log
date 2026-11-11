@@ -4,3 +4,5 @@
 2026-11-07 14:58:46.961 ERROR cb211c41ceed --- [           main] a.g.s.GraphDBManagerAuthorizationService : Authorization check failed for RandomDataProducer|graphDataHistorian|put-data: down
 2026-11-07 15:13:24.077 ERROR f5e14a22469f --- [           main] a.g.s.GraphDBManagerAuthorizationService : Authorization check failed for RandomDataProducer|graphDataHistorian|put-data: down
 2026-11-07 15:24:24.522 ERROR 93842d9273a4 --- [           main] a.g.s.GraphDBManagerAuthorizationService : Authorization check failed for RandomDataProducer|graphDataHistorian|put-data: down
+2026-11-10 21:10:49.135 ERROR 3da8ef864d84 --- [           main] a.g.s.GraphDBManagerAuthorizationService : Authorization check failed for RandomDataProducer|graphDataHistorian|put-data: down
+2026-11-11 07:50:30.789 ERROR 92a70829e24b --- [           main] a.g.s.GraphDBManagerAuthorizationService : Authorization check failed for RandomDataProducer|graphDataHistorian|put-data: down

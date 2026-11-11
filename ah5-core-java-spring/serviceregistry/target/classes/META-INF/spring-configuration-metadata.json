@@ -122,5 +122,8 @@
       "description": "A description for 'service.discovery.policy'"
     }
   ],
-  "hints": []
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
 }

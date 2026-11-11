@@ -132,5 +132,8 @@
       "description": "A description for 'unbounded.token.generation.whitelist'"
     }
   ],
-  "hints": []
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
 }

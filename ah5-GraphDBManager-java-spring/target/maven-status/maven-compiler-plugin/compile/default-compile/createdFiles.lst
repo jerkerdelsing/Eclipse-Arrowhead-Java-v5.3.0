@@ -30,6 +30,7 @@ eu/arrowhead/common/exception/DataNotFoundException.class
 eu/arrowhead/common/Utilities.class
 eu/arrowhead/dto/enums/ServiceInterfacePolicy.class
 eu/arrowhead/dto/TranslationQueryResponseDTO.class
+eu/arrowhead/common/init/Jackson2Defaults.class
 eu/arrowhead/common/mqtt/MqttController$1.class
 eu/arrowhead/graphdbmanager/api/dto/ServiceListResponseDTO.class
 eu/arrowhead/dto/ServiceInstanceListResponseDTO.class

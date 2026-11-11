@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: eu.arrowhead.serviceregistry.service.model.ServiceLookupFilterModelTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in eu.arrowhead.serviceregistry.service.model.ServiceLookupFilterModelTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in eu.arrowhead.serviceregistry.service.model.ServiceLookupFilterModelTest

@@ -1,4 +1,4 @@
-/source/src/test/java/eu/arrowhead/eventhandler/security/EventHandlerAuthorizationTest.java
-/source/src/test/java/eu/arrowhead/eventhandler/service/EventHandlerServiceTest.java
-/source/src/test/java/eu/arrowhead/eventhandler/service/EventHandlerValidationTest.java
-/source/src/test/java/eu/arrowhead/eventhandler/service/EventNotificationFormatTest.java
+/src/ah5-EventHandler-java-spring/src/test/java/eu/arrowhead/eventhandler/security/EventHandlerAuthorizationTest.java
+/src/ah5-EventHandler-java-spring/src/test/java/eu/arrowhead/eventhandler/service/EventHandlerServiceTest.java
+/src/ah5-EventHandler-java-spring/src/test/java/eu/arrowhead/eventhandler/service/EventHandlerValidationTest.java
+/src/ah5-EventHandler-java-spring/src/test/java/eu/arrowhead/eventhandler/service/EventNotificationFormatTest.java

@@ -1618,3 +1618,126 @@
 2026-11-09 11:02:29.987 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 360e3317-baf8-4d78-9e98-6ea96fb39ba0 has no subscription with 7da513ee-6da6-4c52-bcde-22b40fa62c41 subscription id
 2026-11-09 11:02:30.000 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: efe1d28c-12b0-4250-b714-298b14af7941. Reason: test message
 2026-11-09 11:02:30.006 ERROR 4987e6b0b72c --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 54784bb1-c832-4ae3-9f81-79e2f6199063 has no subscription id
+2026-11-10 21:08:36.958 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 21:08:36.971 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 21:08:36.984 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 21:08:37.073 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 21:08:37.075 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 21:08:37.116 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 21:08:37.201 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 21:08:37.210 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 21:08:37.218 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 21:08:37.255 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 21:08:37.274 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 21:08:37.279 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 21:08:37.282 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 21:08:37.395 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 21:08:37.402 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 21:08:37.408 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 21:08:37.432 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 21:08:37.437 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 21:08:37.440 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 21:08:37.447 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.SubscriptionDbService          : test exception
+2026-11-10 21:08:37.452 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 21:08:37.460 ERROR 9a70ebd884af --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 21:08:37.583 ERROR 9a70ebd884af --- [           main] e.a.s.q.CleanerJob                       : Cleaner job error: test message
+2026-11-10 21:08:38.261 ERROR 9a70ebd884af --- [           main] e.a.s.s.u.InterCloudServiceOrchestration : Inter-cloud orchestration failed: relay down
+2026-11-10 21:08:38.264  INFO 9a70ebd884af --- [           main] e.a.s.s.u.InterCloudServiceOrchestration : Inter-cloud negotiation with GoCloud|Company refused: Not authorized by the provider cloud
+2026-11-10 21:08:38.370 ERROR 9a70ebd884af --- [           main] e.a.s.s.u.LocalServiceOrchestration      : Blacklist server is not available during the orchestration process
+2026-11-10 21:08:38.370 ERROR 9a70ebd884af --- [           main] e.a.s.s.u.LocalServiceOrchestration      : All the provider candidate has been passed, because blacklist filter is not forced
+2026-11-10 21:08:38.387 ERROR 9a70ebd884af --- [           main] e.a.s.s.u.LocalServiceOrchestration      : Blacklist server is not available during the orchestration process
+2026-11-10 21:08:38.387 ERROR 9a70ebd884af --- [           main] e.a.s.s.u.LocalServiceOrchestration      : All the provider candidate has been filtered out, because blacklist filter is forced
+2026-11-10 21:08:38.425  WARN 9a70ebd884af --- [           main] e.a.s.s.u.LocalServiceOrchestration      : allowExclusivity metadata is not an integer. Service instance id: TestProvider1|testService|1.0.0
+2026-11-10 21:08:39.018 ERROR 9a70ebd884af --- [           main] e.a.s.s.t.PushOrchestrationThread        : null
+2026-11-10 21:08:39.225 ERROR 9a70ebd884af --- [           main] e.a.s.s.t.PushOrchestrationWorker        : test message
+2026-11-10 21:08:39.228 ERROR 9a70ebd884af --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push job doesn't exist: 02c7a329-28ff-4408-bdb7-8a50e34861d0
+2026-11-10 21:08:39.234 ERROR 9a70ebd884af --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push notification via MQTT is required for subscripiton: 4ed4aa47-5e1b-444f-b215-27fe22612fb5, but MQTT is not enabled
+2026-11-10 21:08:39.260 ERROR 9a70ebd884af --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unsupported protocol: COAP
+2026-11-10 21:08:39.290 ERROR 9a70ebd884af --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via MQTT to subscription: c3ebddb5-9081-4832-94a4-6dd5163e3ed2. Reason: MqttException
+2026-11-10 21:08:39.303 ERROR 9a70ebd884af --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unreadable notify properties: Unrecognized token 'invalid': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 1]
+2026-11-10 21:08:39.310 ERROR 9a70ebd884af --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job a6a37647-f83a-4107-b101-148f694c1424 has no subscription with 505556df-f20b-4e4e-a75a-960a3ccdc698 subscription id
+2026-11-10 21:08:39.315 ERROR 9a70ebd884af --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: e3e589cf-5b45-4233-b993-410852b2d7bf. Reason: test message
+2026-11-10 21:08:39.317 ERROR 9a70ebd884af --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job e3d71d66-1076-49ed-ab01-b0e669d2dfc3 has no subscription id
+2026-11-10 22:04:26.327 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 22:04:26.338 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 22:04:26.352 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 22:04:26.450 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 22:04:26.452 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 22:04:26.484 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-10 22:04:26.572 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 22:04:26.575 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 22:04:26.584 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 22:04:26.628 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 22:04:26.642 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 22:04:26.646 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 22:04:26.648 ERROR 4af08870fabb --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-10 22:04:26.799 ERROR 4af08870fabb --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 22:04:26.811 ERROR 4af08870fabb --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 22:04:26.816 ERROR 4af08870fabb --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 22:04:26.853 ERROR 4af08870fabb --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 22:04:26.857 ERROR 4af08870fabb --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 22:04:26.861 ERROR 4af08870fabb --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 22:04:26.871 ERROR 4af08870fabb --- [           main] e.a.s.j.s.SubscriptionDbService          : test exception
+2026-11-10 22:04:26.878 ERROR 4af08870fabb --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 22:04:26.887 ERROR 4af08870fabb --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-10 22:04:27.021 ERROR 4af08870fabb --- [           main] e.a.s.q.CleanerJob                       : Cleaner job error: test message
+2026-11-10 22:04:27.992 ERROR 4af08870fabb --- [           main] e.a.s.s.u.InterCloudServiceOrchestration : Inter-cloud orchestration failed: relay down
+2026-11-10 22:04:27.998  INFO 4af08870fabb --- [           main] e.a.s.s.u.InterCloudServiceOrchestration : Inter-cloud negotiation with GoCloud|Company refused: Not authorized by the provider cloud
+2026-11-10 22:04:28.074 ERROR 4af08870fabb --- [           main] e.a.s.s.u.LocalServiceOrchestration      : Blacklist server is not available during the orchestration process
+2026-11-10 22:04:28.075 ERROR 4af08870fabb --- [           main] e.a.s.s.u.LocalServiceOrchestration      : All the provider candidate has been passed, because blacklist filter is not forced
+2026-11-10 22:04:28.082 ERROR 4af08870fabb --- [           main] e.a.s.s.u.LocalServiceOrchestration      : Blacklist server is not available during the orchestration process
+2026-11-10 22:04:28.082 ERROR 4af08870fabb --- [           main] e.a.s.s.u.LocalServiceOrchestration      : All the provider candidate has been filtered out, because blacklist filter is forced
+2026-11-10 22:04:28.113  WARN 4af08870fabb --- [           main] e.a.s.s.u.LocalServiceOrchestration      : allowExclusivity metadata is not an integer. Service instance id: TestProvider1|testService|1.0.0
+2026-11-10 22:04:28.584 ERROR 4af08870fabb --- [           main] e.a.s.s.t.PushOrchestrationThread        : null
+2026-11-10 22:04:28.714 ERROR 4af08870fabb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : test message
+2026-11-10 22:04:28.717 ERROR 4af08870fabb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push job doesn't exist: 30c1ed3b-f149-4b6e-8273-e8d553cd0985
+2026-11-10 22:04:28.723 ERROR 4af08870fabb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push notification via MQTT is required for subscripiton: d7f27d2a-07d2-4a3d-ada3-533c797a2465, but MQTT is not enabled
+2026-11-10 22:04:28.764 ERROR 4af08870fabb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unsupported protocol: COAP
+2026-11-10 22:04:28.824 ERROR 4af08870fabb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via MQTT to subscription: efcb2e95-46fd-4cd8-a679-3c2a2563c91e. Reason: MqttException
+2026-11-10 22:04:28.837 ERROR 4af08870fabb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unreadable notify properties: Unrecognized token 'invalid': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 1]
+2026-11-10 22:04:28.844 ERROR 4af08870fabb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 0463c21a-9b3c-44b7-a633-a61838526d3a has no subscription with 631ea940-213f-4bd9-a90e-10a9412dcc80 subscription id
+2026-11-10 22:04:28.855 ERROR 4af08870fabb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: 85406b83-38d5-47c1-98fb-51d7ababa1d1. Reason: test message
+2026-11-10 22:04:28.857 ERROR 4af08870fabb --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job d2b199c3-ee4b-408c-869f-1a316fc9f95b has no subscription id
+2026-11-11 07:49:47.262 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-11 07:49:47.275 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-11 07:49:47.293 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-11 07:49:47.381 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-11 07:49:47.383 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-11 07:49:47.423 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationJobDbService      : test message
+2026-11-11 07:49:47.518 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-11 07:49:47.524 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-11 07:49:47.541 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-11 07:49:47.583 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-11 07:49:47.602 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-11 07:49:47.607 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-11 07:49:47.613 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.OrchestrationLockDbService     : test message
+2026-11-11 07:49:47.770 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-11 07:49:47.794 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-11 07:49:47.812 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-11 07:49:47.878 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-11 07:49:47.911 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-11 07:49:47.922 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-11 07:49:47.941 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.SubscriptionDbService          : test exception
+2026-11-11 07:49:47.947 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-11 07:49:47.961 ERROR 71773339c5d3 --- [           main] e.a.s.j.s.SubscriptionDbService          : test message
+2026-11-11 07:49:48.163 ERROR 71773339c5d3 --- [           main] e.a.s.q.CleanerJob                       : Cleaner job error: test message
+2026-11-11 07:49:49.330 ERROR 71773339c5d3 --- [           main] e.a.s.s.u.InterCloudServiceOrchestration : Inter-cloud orchestration failed: relay down
+2026-11-11 07:49:49.342  INFO 71773339c5d3 --- [           main] e.a.s.s.u.InterCloudServiceOrchestration : Inter-cloud negotiation with GoCloud|Company refused: Not authorized by the provider cloud
+2026-11-11 07:49:49.445 ERROR 71773339c5d3 --- [           main] e.a.s.s.u.LocalServiceOrchestration      : Blacklist server is not available during the orchestration process
+2026-11-11 07:49:49.445 ERROR 71773339c5d3 --- [           main] e.a.s.s.u.LocalServiceOrchestration      : All the provider candidate has been passed, because blacklist filter is not forced
+2026-11-11 07:49:49.463 ERROR 71773339c5d3 --- [           main] e.a.s.s.u.LocalServiceOrchestration      : Blacklist server is not available during the orchestration process
+2026-11-11 07:49:49.466 ERROR 71773339c5d3 --- [           main] e.a.s.s.u.LocalServiceOrchestration      : All the provider candidate has been filtered out, because blacklist filter is forced
+2026-11-11 07:49:49.574  WARN 71773339c5d3 --- [           main] e.a.s.s.u.LocalServiceOrchestration      : allowExclusivity metadata is not an integer. Service instance id: TestProvider1|testService|1.0.0
+2026-11-11 07:49:50.110 ERROR 71773339c5d3 --- [           main] e.a.s.s.t.PushOrchestrationThread        : null
+2026-11-11 07:49:50.284 ERROR 71773339c5d3 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : test message
+2026-11-11 07:49:50.293 ERROR 71773339c5d3 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push job doesn't exist: d3274241-175f-4205-a854-f5b8cd175992
+2026-11-11 07:49:50.304 ERROR 71773339c5d3 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration push notification via MQTT is required for subscripiton: a1bb40f1-f82d-447e-b6d8-380f04a94e87, but MQTT is not enabled
+2026-11-11 07:49:50.348 ERROR 71773339c5d3 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unsupported protocol: COAP
+2026-11-11 07:49:50.438 ERROR 71773339c5d3 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via MQTT to subscription: fabdbe6c-b2e1-4f7f-b6cf-804bb5cee724. Reason: MqttException
+2026-11-11 07:49:50.466 ERROR 71773339c5d3 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Unreadable notify properties: Unrecognized token 'invalid': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+ at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 1]
+2026-11-11 07:49:50.476 ERROR 71773339c5d3 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job 60f37c06-0808-4e62-99b9-14bc63aa2a81 has no subscription with fe9378e3-b427-4f72-8d6d-034230d55646 subscription id
+2026-11-11 07:49:50.482 ERROR 71773339c5d3 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Error occurred while sending push orchestration via HTTP to subscription: 19fb80ad-890d-4c20-9496-1d30bb29229e. Reason: test message
+2026-11-11 07:49:50.484 ERROR 71773339c5d3 --- [           main] e.a.s.s.t.PushOrchestrationWorker        : Orchestration job c1b251b8-0ec1-4932-bcc5-3d2e7e4284ea has no subscription id

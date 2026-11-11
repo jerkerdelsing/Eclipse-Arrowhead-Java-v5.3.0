@@ -17,3 +17,4 @@
 2026-11-07 14:58:34.016 ERROR 3e29c7c19021 --- [           main] e.a.e.s.EventHandlerAuthorizationService : Authorization check failed for LocalCloudManager|eventSubscription|subscribe: down
 2026-11-07 15:13:13.098 ERROR fbf92f583d49 --- [           main] e.a.e.s.EventHandlerAuthorizationService : Authorization check failed for LocalCloudManager|eventSubscription|subscribe: down
 2026-11-07 15:24:13.253 ERROR 3da5316fb1b2 --- [           main] e.a.e.s.EventHandlerAuthorizationService : Authorization check failed for LocalCloudManager|eventSubscription|subscribe: down
+2026-11-10 21:10:07.307 ERROR 8552cbcbb939 --- [           main] e.a.e.s.EventHandlerAuthorizationService : Authorization check failed for LocalCloudManager|eventSubscription|subscribe: down

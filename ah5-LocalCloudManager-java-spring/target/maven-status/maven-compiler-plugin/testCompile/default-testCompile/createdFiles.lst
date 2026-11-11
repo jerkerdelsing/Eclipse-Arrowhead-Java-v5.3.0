@@ -11,3 +11,4 @@ eu/arrowhead/localcloudmanager/console/ConsoleAuthTest.class
 eu/arrowhead/localcloudmanager/service/EditorsTest$1.class
 eu/arrowhead/localcloudmanager/SecureProfileTest.class
 eu/arrowhead/localcloudmanager/api/ConsoleApiTest.class
+eu/arrowhead/localcloudmanager/console/ConsoleClientsTest.class

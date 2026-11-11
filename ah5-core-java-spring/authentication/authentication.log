@@ -1054,3 +1054,102 @@
 2026-11-09 11:02:46.621 ERROR 4987e6b0b72c --- [           main] .p.PasswordAuthenticationMethodDbService : null
 2026-11-09 11:02:46.626 ERROR 4987e6b0b72c --- [           main] .p.PasswordAuthenticationMethodDbService : null
 2026-11-09 11:02:46.643 ERROR 4987e6b0b72c --- [           main] .p.PasswordAuthenticationMethodDbService : null
+2026-11-10 21:08:48.623 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.679 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.723 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.770 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.799 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.801 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.804 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : Extra list's size is incorrect
+2026-11-10 21:08:48.807 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.810 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.816 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.823 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.840 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.845 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : Extra list's size is incorrect
+2026-11-10 21:08:48.850 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.854 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.872 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.875 ERROR 9a70ebd884af --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 21:08:48.890  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:48.986  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:48.993  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:48.997  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:49.001  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:49.004  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:49.007  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:49.010  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:49.013  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:49.015  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:49.018  INFO 9a70ebd884af --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 21:08:49.057 ERROR 9a70ebd884af --- [           main] e.a.a.q.CleanerJob                       : null
+2026-11-10 21:08:49.772 ERROR 9a70ebd884af --- [           main] .m.p.PasswordAuthenticationMethodService : System TestSystem has no assigned password
+2026-11-10 21:08:49.779 ERROR 9a70ebd884af --- [           main] .p.PasswordAuthenticationMethodDbService : null
+2026-11-10 21:08:49.783 ERROR 9a70ebd884af --- [           main] .p.PasswordAuthenticationMethodDbService : null
+2026-11-10 21:08:49.787 ERROR 9a70ebd884af --- [           main] .p.PasswordAuthenticationMethodDbService : null
+2026-11-10 22:04:41.181 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.285 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.388 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.443 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.480 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.484 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.491 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : Extra list's size is incorrect
+2026-11-10 22:04:41.496 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.505 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.527 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.542 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.561 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.571 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : Extra list's size is incorrect
+2026-11-10 22:04:41.577 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.584 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.621 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.624 ERROR 4af08870fabb --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-10 22:04:41.649  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.774  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.780  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.798  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.802  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.806  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.812  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.815  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.817  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.823  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.827  INFO 4af08870fabb --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-10 22:04:41.893 ERROR 4af08870fabb --- [           main] e.a.a.q.CleanerJob                       : null
+2026-11-10 22:04:42.739 ERROR 4af08870fabb --- [           main] .m.p.PasswordAuthenticationMethodService : System TestSystem has no assigned password
+2026-11-10 22:04:42.767 ERROR 4af08870fabb --- [           main] .p.PasswordAuthenticationMethodDbService : null
+2026-11-10 22:04:42.771 ERROR 4af08870fabb --- [           main] .p.PasswordAuthenticationMethodDbService : null
+2026-11-10 22:04:42.775 ERROR 4af08870fabb --- [           main] .p.PasswordAuthenticationMethodDbService : null
+2026-11-11 07:49:58.806 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:58.870 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:58.919 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:58.956 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:58.980 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:58.982 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:58.986 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : Extra list's size is incorrect
+2026-11-11 07:49:58.989 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:58.994 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:59.003 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:59.009 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:59.028 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:59.034 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : Extra list's size is incorrect
+2026-11-11 07:49:59.040 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:59.045 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:59.068 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:59.072 ERROR 71773339c5d3 --- [           main] e.a.a.j.s.IdentityDbService              : null
+2026-11-11 07:49:59.089  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.198  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.205  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.210  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.214  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.218  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.222  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.225  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.228  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.231  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.234  INFO 71773339c5d3 --- [           main] f.InternalAuthenticationFilterTestHelper : InternalAuthenticationFilterTestHelper is active
+2026-11-11 07:49:59.279 ERROR 71773339c5d3 --- [           main] e.a.a.q.CleanerJob                       : null
+2026-11-11 07:50:00.130 ERROR 71773339c5d3 --- [           main] .m.p.PasswordAuthenticationMethodService : System TestSystem has no assigned password
+2026-11-11 07:50:00.140 ERROR 71773339c5d3 --- [           main] .p.PasswordAuthenticationMethodDbService : null
+2026-11-11 07:50:00.147 ERROR 71773339c5d3 --- [           main] .p.PasswordAuthenticationMethodDbService : null
+2026-11-11 07:50:00.155 ERROR 71773339c5d3 --- [           main] .p.PasswordAuthenticationMethodDbService : null

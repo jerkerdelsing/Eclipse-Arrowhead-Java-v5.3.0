@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: eu.arrowhead.translationmanager.service.engine.TranslatorBridgeEngineTest
 -------------------------------------------------------------------------------
-Tests run: 60, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.451 s -- in eu.arrowhead.translationmanager.service.engine.TranslatorBridgeEngineTest
+Tests run: 60, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.406 s -- in eu.arrowhead.translationmanager.service.engine.TranslatorBridgeEngineTest

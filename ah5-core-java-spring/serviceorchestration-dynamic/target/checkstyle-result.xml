@@ -1,60 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="10.17.0">
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/init/DynamicServiceOrchestrationApplicationInitListener.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/swagger/SwaggerConfig.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/driver/QoSDriver.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/repository/QosEvalResultRepository.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/repository/OrchestrationJobRepository.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/repository/SubscriptionRepository.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/repository/OrchestrationLockRepository.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/repository/OrchestrationPlantRulesRepository.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/repository/LogsRepository.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/entity/OrchestrationJob.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/entity/QosEvalResult.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/entity/OrchestrationLock.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/entity/Logs.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/entity/OrchestrationPlantRules.java">
+<file name="/src/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/entity/OrchestrationPlantRules.java">
 <error line="19" column="36" severity="warning" message="Parameter payload should be final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
 <error line="19" column="52" severity="warning" message="&apos;{&apos; at column 52 should have line break after." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="20" column="24" severity="warning" message="&apos;{&apos; at column 24 should have line break after." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="21" column="32" severity="warning" message="&apos;{&apos; at column 32 should have line break after." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/entity/Subscription.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/service/OrchestrationJobDbService.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/service/QosEvalResultDbService.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/service/OrchestrationLockDbService.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/jpa/service/SubscriptionDbService.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/DynamicServiceOrchestrationDefaults.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/DynamicServiceOrchestrationSystemInfo.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/BeanConfig.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/http/OrchestrationAPI.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/http/OrchestrationLockManagementAPI.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/http/GeneralManagementAPI.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/http/OrchestrationPlantManagementAPI.java">
+<file name="/src/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/http/OrchestrationPlantManagementAPI.java">
 <error line="26" column="44" severity="warning" message="Parameter rules should be final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
 <error line="26" column="68" severity="warning" message="&apos;{&apos; at column 68 should have line break after." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="31" column="45" severity="warning" message="Parameter request should be final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
@@ -62,31 +14,7 @@
 <error line="41" column="47" severity="warning" message="Parameter request should be final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
 <error line="41" column="75" severity="warning" message="Parameter snapshot should be final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
 </file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/http/OrchestrationPushManagementAPI.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/http/OrchestrationHistoryManagementAPI.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/http/utils/SystemNamePreprocessor.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/mqtt/OrchestrationPushManagementMqttHandler.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/mqtt/OrchestrationLockManagementMqttHandler.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/mqtt/GeneralManagementMqttHandler.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/mqtt/OrchestrationHistoryManagementMqttHandler.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/mqtt/OrchestrationMqttHandler.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/DynamicServiceOrchestrationConstants.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/quartz/CleanerJobConfig.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/quartz/CleanerJob.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/dto/DTOConverter.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/PlantRuleService.java">
+<file name="/src/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/PlantRuleService.java">
 <error line="31" column="29" severity="warning" message="Parameter repository should be final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
 <error line="31" column="75" severity="warning" message="&apos;{&apos; at column 75 should have line break after." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="40" column="60" severity="warning" message="Parameter snapshot should be final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
@@ -105,134 +33,24 @@
 <error line="80" column="68" severity="warning" message="&apos;{&apos; at column 68 should have line break after." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 <error line="90" column="56" severity="warning" message="&apos;{&apos; at column 56 should have line break after." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/normalization/OrchestrationServiceNormalization.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/normalization/OrchestrationLockManagementNormalization.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/normalization/OrchestrationHistoryManagementNormalization.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/enums/BaseFilter.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/enums/OrchestrationJobStatus.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/utils/matchmaker/ServiceInstanceMatchmaker.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/utils/matchmaker/DefaultServiceInstanceMatchmaker.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/utils/InterCloudServiceOrchestration.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/utils/LocalServiceOrchestration.java">
+<file name="/src/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/utils/LocalServiceOrchestration.java">
 <error line="157" column="36" severity="warning" message="&apos;{&apos; at column 36 should have line break after." source="com.puppycrawl.tools.checkstyle.checks.blocks.LeftCurlyCheck"/>
 </file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/model/OrchestrationJobFilter.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/model/OrchestrationForm.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/model/OrchestrationSubscription.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/model/OrchestrationCandidate.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/model/OrchestrationLockFilter.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/model/OrchestrationPushTrigger.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/model/validation/OrchestrationFormValidation.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/model/validation/OrchestrationSubscriptionValidation.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/model/validation/OrchestrationFormNormalization.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/model/validation/OrchestrationPushTriggerValidation.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/OrchestrationHistoryManagementService.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/OrchestrationLockManagementService.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/OrchestrationService.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/OrchestrationPushManagementService.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/thread/PushOrchestrationWorker.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/thread/PushOrchestrationThread.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/validation/OrchestrationFromContextValidation.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/validation/OrchestrationHistoryManagementValidation.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/validation/OrchestrationValidation.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/validation/OrchestrationPushManagementValidation.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/service/validation/OrchestrationLockManagementValidation.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/DynamicServiceOrchestrationMain.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/init/DynamicServiceOrchestrationApplicationInitListenerTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/jpa/service/OrchestrationJobDbServiceTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/jpa/service/SubscriptionDbServiceTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/jpa/service/OrchestrationLockDbServiceTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/api/http/OrchestrationPlantManagementAPITest.java">
+<file name="/src/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/api/http/OrchestrationPlantManagementAPITest.java">
 <error line="7" column="47" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="8" column="34" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.mockito.Mockito.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="20" column="44" severity="warning" message="Parameter name should be final." source="com.puppycrawl.tools.checkstyle.checks.FinalParametersCheck"/>
 </file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/quartz/CleanerJobTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/dto/DTOConverterTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/normalization/OrchestrationLockManagementNormalizationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/normalization/OrchestrationServiceNormalizationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/normalization/OrchestrationHistoryManagementNormalizationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/OrchestrationLockManagementServiceTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/utils/matchmaker/DefaultServiceInstanceMatchmakerTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/utils/LocalServiceOrchestrationTest.java">
+<file name="/src/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/utils/LocalServiceOrchestrationTest.java">
 <error line="1" severity="warning" message="File length is 2,686 lines (max allowed is 2,000)." source="com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck"/>
 <error line="78" column="8" severity="warning" message="Unused import - eu.arrowhead.dto.QoSRequirementDTO." source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
 </file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/utils/InterCloudServiceOrchestrationTest.java">
+<file name="/src/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/utils/InterCloudServiceOrchestrationTest.java">
 <error line="83" column="142" severity="warning" message="&apos;8200&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 <error line="119" column="121" severity="warning" message="&apos;50&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 <error line="119" column="168" severity="warning" message="&apos;250&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/OrchestrationPushManagementServiceTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/OrchestrationServiceTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/model/validation/OrchestrationFormValidationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/model/validation/OrchestrationPushTriggerValidationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/model/validation/OrchestrationSubscriptionValidationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/model/validation/OrchestrationFormNormalizationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/thread/PushOrchestrationThreadTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/thread/PushOrchestrationWorkerTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/OrchestrationHistoryManagementServiceTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/validation/OrchestrationHistoryManagementValidationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/validation/OrchestrationFormContextValidationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/validation/OrchestrationLockManagementValidationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/validation/OrchestrationPushManagementValidationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/validation/OrchestrationValidationTest.java">
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/PlantRuleServiceTest.java">
+<file name="/src/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/service/PlantRuleServiceTest.java">
 <error line="7" column="47" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="8" column="34" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.mockito.Mockito.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="14" column="24" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - eu.arrowhead.dto.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
@@ -240,11 +58,9 @@
 <error line="38" column="9" severity="warning" message="Only one variable definition per line allowed." source="com.puppycrawl.tools.checkstyle.checks.coding.MultipleVariableDeclarationsCheck"/>
 <error line="38" column="45" severity="warning" message="Only one variable definition per line allowed." source="com.puppycrawl.tools.checkstyle.checks.coding.MultipleVariableDeclarationsCheck"/>
 </file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/PlantManagementRegistrationTest.java">
+<file name="/src/ah5-core-java-spring/serviceorchestration-dynamic/src/test/java/eu/arrowhead/serviceorchestration/PlantManagementRegistrationTest.java">
 <error line="7" column="47" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.junit.jupiter.api.Assertions.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="8" column="34" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.mockito.Mockito.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="19" column="18" severity="warning" message="&apos;8441&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
-</file>
-<file name="/w/ah5-core-java-spring/serviceorchestration-dynamic/src/main/resources/application.properties">
 </file>
 </checkstyle>

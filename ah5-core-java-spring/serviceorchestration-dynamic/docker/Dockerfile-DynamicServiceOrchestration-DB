@@ -1,4 +1,4 @@
-FROM mysql:8.1
+FROM mysql:8.1@sha256:f61944ff3f2961363a4d22913b2ac581523273679d7e14dd26e8db8c9f571a7e
 
 WORKDIR /db-scripts
 

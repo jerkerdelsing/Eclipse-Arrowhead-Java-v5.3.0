@@ -6,9 +6,11 @@ eu/arrowhead/dto/ServiceInstanceRequestDTO.class
 eu/arrowhead/common/service/validation/meta/MetadataKeyEvaluator.class
 eu/arrowhead/common/service/validation/meta/evaluator/ListContainsAnyEvaluator.class
 eu/arrowhead/common/service/validation/meta/MetaOps.class
+eu/arrowhead/localcloudmanager/console/ConsoleClients$Subnet.class
 eu/arrowhead/common/service/ConfigService.class
 eu/arrowhead/common/service/validation/MetadataValidation.class
 eu/arrowhead/common/service/validation/MetadataRequirementsMatcher.class
+eu/arrowhead/localcloudmanager/console/ConsoleClients.class
 eu/arrowhead/common/service/validation/name/ServiceOperationNameValidator.class
 eu/arrowhead/dto/enums/ServiceInterfacePolicy.class
 eu/arrowhead/localcloudmanager/security/ManagerAuthorizationService.class
@@ -218,6 +220,7 @@ eu/arrowhead/common/mqtt/filter/authentication/CertificateMqttFilter.class
 eu/arrowhead/common/exception/DataNotFoundException.class
 eu/arrowhead/common/Utilities.class
 eu/arrowhead/dto/TranslationQueryResponseDTO.class
+eu/arrowhead/common/init/Jackson2Defaults.class
 eu/arrowhead/common/mqtt/MqttController$1.class
 eu/arrowhead/dto/ServiceInstanceListResponseDTO.class
 eu/arrowhead/common/collector/ServiceCollector.class

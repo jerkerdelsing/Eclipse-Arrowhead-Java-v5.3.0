@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: eu.arrowhead.authorization.service.validation.AuthorizationTokenManagementValidationTest
 -------------------------------------------------------------------------------
-Tests run: 48, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.068 s -- in eu.arrowhead.authorization.service.validation.AuthorizationTokenManagementValidationTest
+Tests run: 48, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.059 s -- in eu.arrowhead.authorization.service.validation.AuthorizationTokenManagementValidationTest

@@ -180,3 +180,10 @@
 2026-11-07 15:23:33.047  INFO 850f9cf062dd --- [           main] e.a.c.s.ConfigurationService             : Configuration removed for Pump
 2026-11-07 15:23:33.075  INFO 850f9cf062dd --- [           main] e.a.c.s.ConfigurationService             : Configuration a.txt stored for Thermostat (3 bytes, text/plain)
 2026-11-07 15:23:33.077  INFO 850f9cf062dd --- [           main] e.a.c.s.ConfigurationService             : Configuration b.ini stored for Thermostat (3 bytes, text/plain;charset=utf-8)
+2026-11-10 21:09:39.979  INFO 359acf01069f --- [           main] e.a.c.s.ConfigurationService             : Configuration a.txt stored for ThermoStat (1 bytes, text/plain)
+2026-11-10 21:09:40.001  INFO 359acf01069f --- [           main] e.a.c.s.ConfigurationService             : Configuration thermostat.json stored for Thermostat (15 bytes, application/json)
+2026-11-10 21:09:40.011  INFO 359acf01069f --- [           main] e.a.c.s.ConfigurationService             : Configuration v.txt stored for Valve (1 bytes, text/plain)
+2026-11-10 21:09:40.011  INFO 359acf01069f --- [           main] e.a.c.s.ConfigurationService             : Configuration p.txt stored for Pump (1 bytes, text/plain)
+2026-11-10 21:09:40.013  INFO 359acf01069f --- [           main] e.a.c.s.ConfigurationService             : Configuration removed for Pump
+2026-11-10 21:09:40.031  INFO 359acf01069f --- [           main] e.a.c.s.ConfigurationService             : Configuration a.txt stored for Thermostat (3 bytes, text/plain)
+2026-11-10 21:09:40.033  INFO 359acf01069f --- [           main] e.a.c.s.ConfigurationService             : Configuration b.ini stored for Thermostat (3 bytes, text/plain;charset=utf-8)

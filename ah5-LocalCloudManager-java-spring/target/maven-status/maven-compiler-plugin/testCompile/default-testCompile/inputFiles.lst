@@ -1,7 +1,8 @@
-/src/src/test/java/eu/arrowhead/localcloudmanager/SecureProfileTest.java
-/src/src/test/java/eu/arrowhead/localcloudmanager/api/ConsoleApiTest.java
-/src/src/test/java/eu/arrowhead/localcloudmanager/console/ConsoleAuthTest.java
-/src/src/test/java/eu/arrowhead/localcloudmanager/console/ConsoleConnectorTest.java
-/src/src/test/java/eu/arrowhead/localcloudmanager/service/CrlStatusTest.java
-/src/src/test/java/eu/arrowhead/localcloudmanager/service/EditorsTest.java
-/src/src/test/java/eu/arrowhead/localcloudmanager/service/InventoryTest.java
+/src/ah5-LocalCloudManager-java-spring/src/test/java/eu/arrowhead/localcloudmanager/SecureProfileTest.java
+/src/ah5-LocalCloudManager-java-spring/src/test/java/eu/arrowhead/localcloudmanager/api/ConsoleApiTest.java
+/src/ah5-LocalCloudManager-java-spring/src/test/java/eu/arrowhead/localcloudmanager/console/ConsoleAuthTest.java
+/src/ah5-LocalCloudManager-java-spring/src/test/java/eu/arrowhead/localcloudmanager/console/ConsoleClientsTest.java
+/src/ah5-LocalCloudManager-java-spring/src/test/java/eu/arrowhead/localcloudmanager/console/ConsoleConnectorTest.java
+/src/ah5-LocalCloudManager-java-spring/src/test/java/eu/arrowhead/localcloudmanager/service/CrlStatusTest.java
+/src/ah5-LocalCloudManager-java-spring/src/test/java/eu/arrowhead/localcloudmanager/service/EditorsTest.java
+/src/ah5-LocalCloudManager-java-spring/src/test/java/eu/arrowhead/localcloudmanager/service/InventoryTest.java

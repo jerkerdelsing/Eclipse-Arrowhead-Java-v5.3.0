@@ -16,3 +16,5 @@
 2026-11-07 15:13:54.787  WARN d124bd004774 --- [           main] e.a.p.s.PlantSynchronizer                : Plant synchronization failed: DSO unavailable
 2026-11-07 15:24:56.270  INFO d7c634deb2ce --- [           main] e.a.p.s.PlantSynchronizer                : DSO plant rules replaced: 0 managed consumer/service scopes
 2026-11-07 15:24:56.316  WARN d7c634deb2ce --- [           main] e.a.p.s.PlantSynchronizer                : Plant synchronization failed: DSO unavailable
+2026-11-10 21:11:55.135  INFO 94ea3129f329 --- [           main] e.a.p.s.PlantSynchronizer                : DSO plant rules replaced: 0 managed consumer/service scopes
+2026-11-10 21:11:55.168  WARN 94ea3129f329 --- [           main] e.a.p.s.PlantSynchronizer                : Plant synchronization failed: DSO unavailable

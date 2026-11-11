@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: eu.arrowhead.deviceqosevaluator.jpa.service.StatDbServiceTest
 -------------------------------------------------------------------------------
-Tests run: 46, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.519 s -- in eu.arrowhead.deviceqosevaluator.jpa.service.StatDbServiceTest
+Tests run: 46, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.676 s -- in eu.arrowhead.deviceqosevaluator.jpa.service.StatDbServiceTest

@@ -334,3 +334,15 @@
 2026-11-07 15:23:07.003  INFO 710f0b61a715 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
 2026-11-07 15:23:07.009  INFO 710f0b61a715 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
 2026-11-07 15:23:07.013  INFO 710f0b61a715 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-10 21:09:11.278 ERROR 1c9fd04b5c31 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-10 21:09:11.331 ERROR 1c9fd04b5c31 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-10 21:09:11.343 ERROR 1c9fd04b5c31 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-10 21:09:11.359 ERROR 1c9fd04b5c31 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-10 21:09:11.370 ERROR 1c9fd04b5c31 --- [           main] e.a.b.j.s.EntryDbService                 : null
+2026-11-10 21:09:11.418  INFO 1c9fd04b5c31 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-10 21:09:11.605  INFO 1c9fd04b5c31 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-10 21:09:11.610  INFO 1c9fd04b5c31 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-10 21:09:11.615  INFO 1c9fd04b5c31 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-10 21:09:11.619  INFO 1c9fd04b5c31 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-10 21:09:11.622  INFO 1c9fd04b5c31 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
+2026-11-10 21:09:11.626  INFO 1c9fd04b5c31 --- [           main] .a.h.f.InternalBlacklistFilterTestHelper : InternalBlacklistFilterTestHelper is active
