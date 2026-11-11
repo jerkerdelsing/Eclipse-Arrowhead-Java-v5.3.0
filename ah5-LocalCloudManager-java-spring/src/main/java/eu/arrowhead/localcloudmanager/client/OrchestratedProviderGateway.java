@@ -128,6 +128,39 @@ public class OrchestratedProviderGateway implements ProviderGateway {
 	}
 
 	@Override
+	public Download download(final String serviceDefinition, final String operation, final String provider, final String path, final int maxBytes) {
+		final HttpInterfaceModel intf = target(serviceDefinition, operation, provider);
+		final HttpOperationModel op = intf.operations().get(operation);
+		final String scheme = sysInfo.isSslEnabled() ? "https" : "http";
+		final URI uri = URI.create(scheme + "://" + intf.accessAddresses().get(0) + ":" + intf.accessPort() + intf.basePath() + (path == null ? op.path() : path));
+		try {
+			final HttpRequest.Builder builder = HttpRequest.newBuilder(uri).timeout(Duration.ofSeconds(60)).header("Accept", "application/gzip, application/json").GET();
+			final String authorization = HttpUtilities.calculateAuthorizationHeader(sysInfo);
+			if (authorization != null) {
+				builder.header("Authorization", authorization);
+			}
+			final HttpResponse<java.io.InputStream> response = http().send(builder.build(), HttpResponse.BodyHandlers.ofInputStream());
+			final byte[] body;
+			try (java.io.InputStream in = response.body()) {
+				body = in.readNBytes(maxBytes + 1);
+			}
+			if (body.length > maxBytes) {
+				throw new ApiException(502, (provider == null ? serviceDefinition : provider) + " returned more than " + (maxBytes >> 20) + " MiB");
+			}
+			if (response.statusCode() >= 500) {
+				collector.forget(serviceDefinition);
+			}
+			return new Download(response.statusCode(), response.headers().firstValue("Content-Type").orElse("application/octet-stream"),
+					response.headers().firstValue("Content-Disposition").orElse(null), response.headers().firstValue("X-Content-SHA256").orElse(null), body);
+		} catch (final ApiException ex) {
+			throw ex;
+		} catch (final Exception ex) {
+			collector.forget(serviceDefinition);
+			throw new ApiException(502, (provider == null ? serviceDefinition : provider) + " request failed: " + ex.getMessage());
+		}
+	}
+
+	@Override
 	public JsonNode serviceRegistry(final String path, final JsonNode body) {
 		final String scheme = sysInfo.isSslEnabled() ? "https" : "http";
 		final URI uri = URI.create(scheme + "://" + sysInfo.getServiceRegistryAddress() + ":" + sysInfo.getServiceRegistryPort() + path);

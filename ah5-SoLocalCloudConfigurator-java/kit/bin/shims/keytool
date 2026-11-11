@@ -1,0 +1,12 @@
+#!/bin/sh
+# SPDX-License-Identifier: EPL-2.0
+# keytool without a local JDK: runs the JRE image's keytool with the current directory and every absolute path argument's
+# directory mounted at the same place. Used by generate-x509.sh and prepare.py on hosts that have Docker but no Java.
+set -eu
+IMAGE=${KEYTOOL_IMAGE:-eclipse-temurin:21-jre-alpine}
+mounts="-v $(pwd):$(pwd)"
+for a in "$@"; do
+  case "$a" in /*) d=$(dirname -- "$a"); [ -d "$d" ] && mounts="$mounts -v $d:$d" ;; esac
+done
+# shellcheck disable=SC2086
+exec docker run --rm -i --network none -u "$(id -u):$(id -g)" -w "$(pwd)" $mounts "$IMAGE" keytool "$@"

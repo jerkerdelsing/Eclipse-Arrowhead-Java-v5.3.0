@@ -20,6 +20,15 @@ public interface ProviderGateway {
 	/** The registered path of an operation of the orchestrated provider (for path templates). */
 	String operationPath(String serviceDefinition, String operation, String provider);
 
+	/** A binary response (a file download): status, content type, Content-Disposition, X-Content-SHA256 and the body. */
+	record Download(int status, String contentType, String disposition, String sha256, byte[] body) {
+	}
+
+	/** GET of a binary resource of the orchestrated provider, at most maxBytes; errors pass through as status (body: JSON error). */
+	default Download download(final String serviceDefinition, final String operation, final String provider, final String path, final int maxBytes) {
+		throw new UnsupportedOperationException("download");
+	}
+
 	/** ServiceRegistry management (/serviceregistry/mgmt/...) with the identity token; body null means GET. */
 	JsonNode serviceRegistry(String path, JsonNode body);
 }

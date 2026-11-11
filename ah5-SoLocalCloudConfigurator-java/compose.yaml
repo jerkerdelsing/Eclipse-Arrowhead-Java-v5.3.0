@@ -1,0 +1,117 @@
+name: ah5-solocalcloudconfigurator
+services:
+  solocalcloudconfigurator:
+    build:
+      context: .
+    image: arrowhead-solocalcloudconfigurator-standalone:5.3.0
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    mem_limit: 768m
+    pids_limit: 256
+    tmpfs: ["/tmp:rw,noexec,nosuid,nodev,size=128m,mode=1777", "/app/logs:rw,noexec,nosuid,nodev,size=32m,mode=1777"]
+    # mutual TLS only; publish on the host's loopback interface unless other hosts must reach it
+    ports: ["${HOST_BIND_ADDRESS:-127.0.0.1}:${HOST_PORT:-8496}:8496"]
+    depends_on:
+      solocalcloudconfigurator-db:
+        condition: service_healthy
+    environment:
+      LOCAL_CLOUD: ${LOCAL_CLOUD:-TestCloud}
+      ORGANIZATION: ${ORGANIZATION:-Company}
+      SERVICE_REGISTRY_ADDRESS: ${SERVICE_REGISTRY_ADDRESS:-serviceregistry}
+      SERVICE_REGISTRY_PORT: "${SERVICE_REGISTRY_PORT:-8443}"
+      AMQP_HOST: ${AMQP_HOST:-amqp-broker}
+      AMQP_PORT: "${AMQP_PORT:-5671}"
+      SYSMONITOR_ENABLED: "${SYSMONITOR_ENABLED:-true}"
+      SOLC_API_WHITELIST: ${SOLC_API_WHITELIST:-}
+      # the commit of Eclipse-Arrowhead-java that packages pin for build-on-target (set by the deployment)
+      SOLC_SOURCE_COMMIT: ${SOLC_SOURCE_COMMIT:-}
+      SOLC_SOURCE_REPOSITORY: ${SOLC_SOURCE_REPOSITORY:-https://github.com/jerkerdelsing/Eclipse-Arrowhead-Java-v5.3.0.git}
+    secrets:
+      - source: store-password
+        target: ah.store-password
+      - source: identity-password
+        target: ah.identity-password
+      - source: db-password
+        target: ah.db-password
+    volumes:
+      - type: bind
+        source: ${SYSTEM_KEYSTORE_FILE:-./security/SoLocalCloudConfigurator.p12}
+        target: /certs/SoLocalCloudConfigurator.p12
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${TRUSTSTORE_FILE:-./security/truststore.p12}
+        target: /certs/truststore.p12
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${DB_CA_FILE:-./security/db-ca.crt}
+        target: /certs/db-ca.crt
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${CRL_DIRECTORY:-./security/crl}
+        target: /crl
+        read_only: true
+        bind: {create_host_path: false}
+    networks:
+      cloud:
+        aliases: [solocalcloudconfigurator]
+      database: {}
+  solocalcloudconfigurator-db:
+    build:
+      context: .
+      dockerfile: deployment/database/Dockerfile
+    image: arrowhead-solocalcloudconfigurator-standalone-db:5.3.0
+    environment:
+      MYSQL_DATABASE: ah_solocalcloudconfigurator
+      MYSQL_USER: solocalcloudconfigurator
+      MYSQL_PASSWORD_FILE: /run/secrets/db-password
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/db-root-password
+    secrets: [db-password, db-root-password]
+    command: ["--ssl-ca=/tls/ca.crt", "--ssl-cert=/tls/db.crt", "--ssl-key=/tls/db.key", "--require-secure-transport=ON", "--max-allowed-packet=64M"]
+    volumes:
+      - state:/var/lib/mysql
+      - type: bind
+        source: ${DB_CA_FILE:-./security/db-ca.crt}
+        target: /tls/ca.crt
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${DB_CERT_FILE:-./security/db.crt}
+        target: /tls/db.crt
+        read_only: true
+        bind: {create_host_path: false}
+      - type: bind
+        source: ${DB_KEY_FILE:-./security/db.key}
+        target: /tls/db.key
+        read_only: true
+        bind: {create_host_path: false}
+    networks: [database]
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping --protocol=tcp -h127.0.0.1 --silent"]
+      interval: 5s
+      timeout: 4s
+      retries: 30
+volumes:
+  state: {}
+networks:
+  cloud:
+    external: true
+    name: ${ARROWHEAD_NETWORK:-arrowhead-local-cloud}
+  database:
+    internal: true
+    ipam:
+      config:
+        - subnet: ${DB_SUBNET:-10.252.217.0/24}
+secrets:
+  identity-password:
+    file: ${IDENTITY_PASSWORD_FILE:-./security/identity-password}
+  store-password:
+    file: ${STORE_PASSWORD_FILE:-./security/store-password}
+  db-password:
+    file: ${DB_PASSWORD_FILE:-./security/db-password}
+  db-root-password:
+    file: ${DB_ROOT_PASSWORD_FILE:-./security/db-root-password}

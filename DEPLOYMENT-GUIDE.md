@@ -45,7 +45,8 @@ Independence concerns source, packaging and state ownership. It does not remove 
 | GraphDBManager | [ah5-GraphDBManager-java-spring](ah5-GraphDBManager-java-spring/DEPLOYMENT.md) | `arrowhead-graphdbmanager-5.2.2.jar` | 8467 |
 | LocalCloudManager | [ah5-LocalCloudManager-java-spring](ah5-LocalCloudManager-java-spring/DEPLOYMENT.md) | `localcloudmanager.jar`, `localcloudmanager-docker-proxy.jar` | 8491 (console 8490, loopback) |
 | LocalCloudConfigurator | [ah5-LocalCloudConfigurator-java](ah5-LocalCloudConfigurator-java/DEPLOYMENT.md) | `localcloudconfigurator.jar` | 8492 (host worker 8493, loopback) |
-| SoSConfigurator | [ah5-SoSConfigurator-java](ah5-SoSConfigurator-java/DEPLOYMENT.md) | `sosconfigurator.jar` | 8494 (console 8495, loopback) |
+| SoSConfigurator (legacy; superseded by SoLocalCloudConfigurator) | [ah5-SoSConfigurator-java](ah5-SoSConfigurator-java/DEPLOYMENT.md) | `sosconfigurator.jar` | 8494 (console 8495, loopback) |
+| SoLocalCloudConfigurator | [ah5-SoLocalCloudConfigurator-java](ah5-SoLocalCloudConfigurator-java/DEPLOYMENT.md) | `solocalcloudconfigurator.jar` | 8496 (no console; LocalCloudManager SoLC view) |
 
 ## Secure profile
 

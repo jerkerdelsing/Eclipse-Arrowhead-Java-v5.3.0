@@ -28,6 +28,9 @@ public final class LocalCloudManagerConstants {
 	public static final String $CHIPLET_MANAGER_WD = "${lcm.chiplet-manager:false}";
 	public static final String $CHIPLET_FLOORPLANS_WD = "${lcm.chiplet-floorplans.enabled:false}";
 	public static final String $LOCAL_CLOUD_CONFIGURATION_WD = "${lcm.local-cloud-configuration.enabled:true}";
+	public static final String $SO_LOCAL_CLOUD_CONFIGURATION_WD = "${lcm.so-local-cloud-configuration.enabled:false}";
+	// a System of LocalClouds deployment package (SoLocalCloudConfigurator, tar.gz without source or image archives)
+	public static final int MAX_PACKAGE_BYTES = 32 << 20;
 	public static final String $PROJECT_NAME_WD = "${lcm.compose-project:arrowhead-v52-test-cloud}";
 	public static final String $DOCKER_URL_WD = "${lcm.docker.url:http://docker-proxy:2375}";
 	public static final String $MANAGED_SERVICES_WD = "${lcm.managed-services:}";

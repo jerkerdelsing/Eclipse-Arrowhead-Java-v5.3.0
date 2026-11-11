@@ -506,22 +506,6 @@ public class ManagerService {
 		return out;
 	}
 
-	public ObjectNode sosConfigurations() {
-		final ObjectNode data = plantDescriptions();
-		final ArrayNode entries = (ArrayNode) data.get("entries");
-		for (int page = 1; entries.size() < data.path("count").asLong(); page++) {
-			if (page >= 10) {
-				throw new ApiException(503, "SoS view supports up to 2000 stored configurations");
-			}
-			final List<JsonNode> rows = Json.list(plantDescription("query", "/plant-descriptions?page=" + page + "&size=200", null), "entries");
-			if (rows.isEmpty()) {
-				throw new ApiException(409, "SoS catalog changed while reading; reload");
-			}
-			rows.forEach(entries::add);
-		}
-		return data;
-	}
-
 	// ----------------------------------------------------------------------------------------------- orchestration rules and consumers
 
 	public JsonNode orchestration(final String operation, final JsonNode body, final String path) {
@@ -831,6 +815,16 @@ public class ManagerService {
 			path += (path.contains("?") ? "&" : "?") + query;
 		}
 		return providers.call(definition, operation, "ChipletFloorplanGenerator", path, null, body);
+	}
+
+	/** soLocalCloudConfiguration of SoLocalCloudConfigurator, consumed through orchestration; status and body are passed through. */
+	public ProviderGateway.Response soLocalCloud(final String operation, final String path, final String method, final JsonNode body) {
+		return providers.exchange("soLocalCloudConfiguration", operation, "SoLocalCloudConfigurator", path, method, body);
+	}
+
+	/** A deployment package of SoLocalCloudConfigurator (get-package), passed through as bytes. */
+	public ProviderGateway.Download soLocalCloudPackage(final String path) {
+		return providers.download("soLocalCloudConfiguration", "get-package", "SoLocalCloudConfigurator", path, LocalCloudManagerConstants.MAX_PACKAGE_BYTES);
 	}
 
 	/** localCloudConfiguration of LocalCloudConfigurator, consumed through orchestration; status and body are passed through. */

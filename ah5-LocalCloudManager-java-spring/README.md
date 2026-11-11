@@ -2,7 +2,7 @@
 
 Operator console of an Arrowhead 5.2.2 local cloud. It shows the cloud's state (containers, registry, orchestration,
 consumers, DataManager data, SysMonitor history, inter-cloud exchange) and carries out operator actions (orchestration
-rules and policies, plant descriptions and SoS configurations, sysMonitor subscriptions, local-cloud configuration, container
+rules and policies, plant descriptions, Systems of LocalClouds (SoLC view), sysMonitor subscriptions, local-cloud configuration, container
 logs and lifecycle). It acts in the cloud as the Arrowhead system `LocalCloudManager` with its own system certificate
 `LocalCloudManager.<Cloud>.<Organization>.arrowhead.eu` and an identity token bound to it.
 
@@ -24,7 +24,7 @@ database: it keeps no persistent state (console sessions and the overview histor
 Source layout (`eu.arrowhead.localcloudmanager`): `LocalCloudManagerMain`/`SystemInfo`/`Constants`, `console/` (ConsoleAuth,
 ConsoleFilter, ConsoleSecurityConfig, ConsoleConnectorConfig), `api/http/` (ConsoleApiController: the native route order,
 GeneralManagementAPI), `client/` (orchestrated provider gateway, TLS context with CRL, Docker gateway), `service/` (ports of the
-native server, SoS model, policy and rule-priority editors, CRL status), `security/` (localCloudManagement access filter),
+native server, policy and rule-priority editors, CRL status), `security/` (localCloudManagement access filter),
 `init/`. The Docker proxy is the separate Maven project `docker-proxy/`.
 
 ## Build and test
@@ -43,7 +43,7 @@ The native Node tests of the API and the proxy were rewritten as JUnit/MockMvc t
 - The console-only `session`/`login`/`logout` operations are no longer registered as `localCloudManagement` operations; they exist
   only on the console connector.
 
-See [Graphical orchestration and security editor](GRAPHICAL-ORCHESTRATION.md), [Graphical SoS configuration](SOS-CONFIGURATION.md)
+See [Graphical orchestration and security editor](GRAPHICAL-ORCHESTRATION.md), [System of LocalClouds view](SOLC-CONFIGURATION.md)
 and [graphical local-cloud configuration](LOCAL-CLOUD-CONFIGURATION.md).
 
 ## Listening port

@@ -27,7 +27,6 @@ import eu.arrowhead.localcloudmanager.service.ManagerService;
 import eu.arrowhead.localcloudmanager.service.PolicyEditor;
 import eu.arrowhead.localcloudmanager.service.RegistrationState;
 import eu.arrowhead.localcloudmanager.service.RuleEditor;
-import eu.arrowhead.localcloudmanager.service.SosModel;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -43,7 +42,6 @@ public class ConsoleApiController {
 	private static final Pattern PLANT = Pattern.compile("^/api/plantdescriptions(?:/(\\d+))?$");
 	private static final Pattern RULE = Pattern.compile("(?i)^/api/orchestration/rules/([0-9a-f-]+)$");
 	private static final Pattern CONTAINER_ACTION = Pattern.compile("^/api/containers/([a-z0-9-]+)/(start|stop|restart)$");
-	private static final Pattern SOS = Pattern.compile("^/api/sos(?:/(\\d+))?$");
 	private static final Pattern FLOORPLAN = Pattern.compile("^/api/chiplet/floorplans(?:/(\\d+))?(?:/(check-network))?$");
 	private static final Pattern POLICY = Pattern.compile("^/api/orchestration/policies(?:/([^/]+))?$");
 	private static final List<String> FLOORPLAN_FIELDS = List.of("name", "description", "interposer", "spacing", "chiplets", "links", "network", "generator", "active");
@@ -53,17 +51,20 @@ public class ConsoleApiController {
 	private final RegistrationState registration;
 	private final boolean chipletFloorplans;
 	private final boolean localCloudConfiguration;
+	private final boolean soLocalCloudConfiguration;
 	private final String priorityMode;
 
 	public ConsoleApiController(final ManagerService manager, final ConsoleAuth auth, final RegistrationState registration,
 			@Value(LocalCloudManagerConstants.$CHIPLET_FLOORPLANS_WD) final boolean chipletFloorplans,
 			@Value(LocalCloudManagerConstants.$LOCAL_CLOUD_CONFIGURATION_WD) final boolean localCloudConfiguration,
+			@Value(LocalCloudManagerConstants.$SO_LOCAL_CLOUD_CONFIGURATION_WD) final boolean soLocalCloudConfiguration,
 			@Value(LocalCloudManagerConstants.$PRIORITY_MODE_WD) final String priorityMode) {
 		this.manager = manager;
 		this.auth = auth;
 		this.registration = registration;
 		this.chipletFloorplans = chipletFloorplans;
 		this.localCloudConfiguration = localCloudConfiguration;
+		this.soLocalCloudConfiguration = soLocalCloudConfiguration;
 		this.priorityMode = priorityMode;
 	}
 
@@ -126,7 +127,8 @@ public class ConsoleApiController {
 		}
 
 		if ("GET".equals(method) && "/api/features".equals(path)) {
-			return json(200, Json.obj().put("localCloudConfiguration", localCloudConfiguration).put("chipletFloorplans", chipletFloorplans)
+			return json(200, Json.obj().put("localCloudConfiguration", localCloudConfiguration)
+					.put("soLocalCloudConfiguration", soLocalCloudConfiguration).put("chipletFloorplans", chipletFloorplans)
 					.put("managerName", chipletFloorplans ? "ChipletLocalCloudManager" : "LocalCloudManager"));
 		}
 
@@ -134,8 +136,8 @@ public class ConsoleApiController {
 			return localCloud(request, path.substring("/api/localcloud".length()), method);
 		}
 
-		if (path.startsWith("/api/sos")) {
-			return sos(request, path, method);
+		if (path.startsWith("/api/solc")) {
+			return soLocalCloud(request, path.substring("/api/solc".length()), method);
 		}
 
 		if (path.startsWith("/api/chiplet/floorplans")) {
@@ -357,64 +359,66 @@ public class ConsoleApiController {
 		return null;
 	}
 
-	// ----------------------------------------------------------------------------------------------- SoS
+	// ----------------------------------------------------------------------------------------------- SoLocalCloudConfigurator
 
-	private ResponseEntity<?> sos(final HttpServletRequest request, final String path, final String method) throws IOException {
-		final Matcher match = SOS.matcher(path);
-		if (!match.matches()) {
-			throw new ApiException(404, "Unknown SoS operation");
+	private ResponseEntity<?> soLocalCloud(final HttpServletRequest request, final String path, final String method) throws IOException {
+		if (!soLocalCloudConfiguration) {
+			throw new ApiException(404, "System of LocalClouds configuration is not enabled");
 		}
-		final String id = match.group(1);
-		if ("GET".equals(method)) {
-			final ObjectNode data = manager.sosConfigurations();
-			if (id == null) {
-				return json(200, data);
-			}
-			return json(200, Json.list(data, "entries").stream().filter(e -> e.path("id").asText().equals(id)).findFirst()
-					.orElseThrow(() -> new ApiException(404, "SoS not found")));
+		final String operation = soLocalCloudOperation(method, path);
+		if (operation == null) {
+			throw new ApiException(404, "Unknown System of LocalClouds operation");
 		}
-		if (!List.of("POST", "PUT", "DELETE").contains(method)) {
-			throw new ApiException(405, "Method not allowed");
-		}
-		confirm(request);
-		if ("POST".equals(method) && id != null || !"POST".equals(method) && id == null) {
-			throw new ApiException(405, "Invalid SoS operation");
-		}
-		final JsonNode body = readJson(request);
-		final ObjectNode data = manager.sosConfigurations();
-		final List<JsonNode> entries = Json.list(data, "entries");
-		final JsonNode old = id == null ? null : entries.stream().filter(e -> e.path("id").asText().equals(id)).findFirst().orElse(null);
-		if (id != null && old == null) {
-			throw new ApiException(404, "SoS not found");
-		}
-		if (id != null) {
-			final JsonNode expected = body.get("expected");
-			if (expected == null || expected.isNull() || !expected.path("updatedAt").equals(old.path("updatedAt"))
-					|| !SosModel.canonical(SosModel.model(expected)).equals(SosModel.canonical(SosModel.model(old)))) {
-				throw new ApiException(409, "This SoS changed since it was opened. Reload before saving.");
-			}
-		}
-		if ("DELETE".equals(method)) {
-			manager.plantDescription("remove", "/plant-descriptions/" + id, null);
-			return json(200, Json.obj().put("removed", Long.parseLong(id)));
-		}
-		final JsonNode config = body.get("configuration");
-		final List<String> errors = SosModel.validate(config, entries);
-		if (!errors.isEmpty()) {
-			throw new ApiException(400, String.join(" ", errors));
-		}
-		if (id != null) {
-			for (final JsonNode included : config.path("include")) {
-				if (included.asLong() == Long.parseLong(id)) {
-					throw new ApiException(400, "An SoS cannot include itself.");
+		if ("get-package".equals(operation)) {
+			final ProviderGateway.Download d = manager.soLocalCloudPackage(path);
+			if (d.status() >= 400) {
+				JsonNode error;
+				try {
+					error = Json.MAPPER.readTree(d.body());
+				} catch (final IOException ex) {
+					error = Json.obj().put("error", "SoLocalCloudConfigurator returned HTTP " + d.status());
 				}
+				return json(d.status(), error);
 			}
+			final String disposition = d.disposition() != null && d.disposition().matches("attachment; filename=\"[A-Za-z0-9._-]{1,160}\"") ? d.disposition()
+					: "attachment; filename=\"solc-package.tar.gz\"";
+			final ResponseEntity.BodyBuilder b = ResponseEntity.status(200).cacheControl(CacheControl.noStore()).header("X-Content-Type-Options", "nosniff")
+					.header("Content-Disposition", disposition).contentType(MediaType.parseMediaType("application/gzip"));
+			if (d.sha256() != null && d.sha256().matches("[0-9a-f]{64}")) {
+				b.header("X-Content-SHA256", d.sha256());
+			}
+			return b.body(d.body());
 		}
-		if (config.path("active").asBoolean() && !(body.path("activationConfirmed").isBoolean() && body.path("activationConfirmed").asBoolean())) {
-			throw new ApiException(428, "Confirm saving an active SoS; it affects orchestration.");
+		final boolean write = !"GET".equals(method);
+		if (write) {
+			confirm(request);
 		}
-		final boolean create = "POST".equals(method);
-		return json(create ? 201 : 200, manager.plantDescription(create ? "create" : "replace", id != null ? "/plant-descriptions/" + id : "/plant-descriptions", SosModel.model(config)));
+		final JsonNode body = write ? readJson(request) : null;
+		final ProviderGateway.Response result = manager.soLocalCloud(operation, path, method, body);
+		return json(result.status(), result.body());
+	}
+
+	static String soLocalCloudOperation(final String method, final String path) {
+		final String design = "^/designs/[a-f0-9-]{36}$";
+		final String pkg = "^/packages/[a-f0-9-]{36}$";
+		return switch (method) {
+		case "GET" -> switch (path) {
+			case "/catalog" -> "catalog";
+			case "/lc-designs" -> "list-lc-designs";
+			case "/designs" -> "list-designs";
+			case "/packages" -> "list-packages";
+			default -> path.matches(design) ? "get-design" : path.matches(pkg) ? "get-package" : null;
+			};
+		case "POST" -> switch (path) {
+			case "/designs" -> "create-design";
+			case "/plan" -> "plan";
+			case "/packages" -> "build-package";
+			default -> null;
+			};
+		case "PUT" -> path.matches(design) ? "update-design" : null;
+		case "DELETE" -> path.matches(design) ? "remove-design" : path.matches(pkg) ? "remove-package" : null;
+		default -> null;
+		};
 	}
 
 	// ----------------------------------------------------------------------------------------------- floorplans

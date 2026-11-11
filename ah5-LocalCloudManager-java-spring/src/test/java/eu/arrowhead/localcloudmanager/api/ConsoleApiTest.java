@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -53,7 +54,8 @@ import eu.arrowhead.localcloudmanager.service.Json;
 				"console.port=8490",
 				"server.port=8491",
 				"lcm.compose-project=cloud-a",
-				"lcm.managed-services=sysmonitor,datamanager"
+				"lcm.managed-services=sysmonitor,datamanager",
+				"lcm.so-local-cloud-configuration.enabled=true"
 		})
 @AutoConfigureMockMvc
 public class ConsoleApiTest {
@@ -144,6 +146,17 @@ public class ConsoleApiTest {
 			calls.add("localCloudConfiguration." + call.getArgument(1) + " " + call.getArgument(3));
 			return "submit-deployment".equals(call.getArgument(1)) ? new ProviderGateway.Response(409, j("{'error':'Plan or cloud state changed. Review a fresh plan before applying.'}"))
 					: new ProviderGateway.Response(200, j("{'ok':true}"));
+		});
+		when(providers.exchange(eq("soLocalCloudConfiguration"), anyString(), eq("SoLocalCloudConfigurator"), anyString(), anyString(), any())).thenAnswer(call -> {
+			calls.add("soLocalCloudConfiguration." + call.getArgument(1) + " " + call.getArgument(3));
+			return "build-package".equals(call.getArgument(1)) ? new ProviderGateway.Response(422, j("{'error':'The SoLC plan is not allowed'}"))
+					: new ProviderGateway.Response(200, j("{'ok':true}"));
+		});
+		when(providers.download(eq("soLocalCloudConfiguration"), eq("get-package"), eq("SoLocalCloudConfigurator"), anyString(), anyInt())).thenAnswer(call -> {
+			calls.add("soLocalCloudConfiguration.get-package " + call.getArgument(3));
+			return ((String) call.getArgument(3)).endsWith("0000")
+					? new ProviderGateway.Download(404, "application/json", null, null, "{\"error\":\"Package not found\"}".getBytes(java.nio.charset.StandardCharsets.UTF_8))
+					: new ProviderGateway.Download(200, "application/gzip", "attachment; filename=\"solc-factory-r2.tar.gz\"", "a".repeat(64), new byte[] { 31, -117, 8, 0 });
 		});
 		when(docker.request(anyString(), anyString())).thenAnswer(call -> {
 			final String path = call.getArgument(0);
@@ -276,10 +289,6 @@ public class ConsoleApiTest {
 		mvc.perform(as(s, HttpMethod.GET, "/api/logs?service=sysmonitor&tail=1")).andExpect(status().isOk()).andExpect(jsonPath("$.lines", hasSize(1)))
 				.andExpect(jsonPath("$.lines[0]").value("line two"));
 		mvc.perform(as(s, HttpMethod.GET, "/api/logs?service=unknown")).andExpect(status().isNotFound()).andExpect(jsonPath("$.error").value("Unknown project service"));
-		mvc.perform(as(s, HttpMethod.GET, "/api/sos")).andExpect(status().isOk()).andExpect(jsonPath("$.entries[0].id").value(1));
-		mvc.perform(as(s, HttpMethod.GET, "/api/sos/1")).andExpect(status().isOk()).andExpect(jsonPath("$.plantDescription").value("test"));
-		mvc.perform(as(s, HttpMethod.GET, "/api/sos/9")).andExpect(status().isNotFound()).andExpect(jsonPath("$.error").value("SoS not found"));
-		mvc.perform(as(s, HttpMethod.GET, "/api/sos/abc")).andExpect(status().isNotFound()).andExpect(jsonPath("$.error").value("Unknown SoS operation"));
 		mvc.perform(as(s, HttpMethod.GET, "/api/chiplet/floorplans")).andExpect(status().isNotFound()).andExpect(jsonPath("$.error").value("Chiplet floorplan editing is not enabled"));
 		mvc.perform(as(s, HttpMethod.GET, "/api/nothing")).andExpect(status().isNotFound()).andExpect(jsonPath("$.error").value("Not found"));
 	}
@@ -293,7 +302,7 @@ public class ConsoleApiTest {
 				new Object[] { HttpMethod.POST, "/api/orchestration/rules" }, new Object[] { HttpMethod.PUT, "/api/orchestration/rules/" + UUID },
 				new Object[] { HttpMethod.DELETE, "/api/orchestration/rules/" + UUID }, new Object[] { HttpMethod.POST, "/api/orchestration/policies" },
 				new Object[] { HttpMethod.DELETE, "/api/orchestration/policies/x" }, new Object[] { HttpMethod.POST, "/api/containers/sysmonitor/restart" },
-				new Object[] { HttpMethod.POST, "/api/localcloud/plan" }, new Object[] { HttpMethod.POST, "/api/sos" }, new Object[] { HttpMethod.DELETE, "/api/sos/1" })) {
+				new Object[] { HttpMethod.POST, "/api/localcloud/plan" }, new Object[] { HttpMethod.POST, "/api/solc/packages" }, new Object[] { HttpMethod.DELETE, "/api/solc/designs/" + UUID })) {
 			mvc.perform(as(s, (HttpMethod) r[0], (String) r[1]).contentType(MediaType.APPLICATION_JSON).content("{}")).andExpect(status().is(428))
 					.andExpect(jsonPath("$.error").value(containsString("onfirm")));
 		}
@@ -328,15 +337,7 @@ public class ConsoleApiTest {
 		mvc.perform(confirmed(s, HttpMethod.POST, "/api/containers/authentication/stop", "")).andExpect(status().isForbidden());
 		assertTrue(dockerCalls.contains("POST /containers/" + CONTAINER_ID.substring(0, 12) + "/restart?t=20"), dockerCalls.toString());
 
-		final String base = "{\"plantDescription\":\"test\",\"active\":false,\"include\":[],\"systems\":[],\"connections\":[]}";
-		final String expected = "{\"id\":1,\"updatedAt\":\"v1\",\"plantDescription\":\"test\",\"active\":false,\"include\":[],\"systems\":[],\"connections\":[]}";
-		mvc.perform(confirmed(s, HttpMethod.POST, "/api/sos", "{\"configuration\":" + base + "}")).andExpect(status().isCreated());
-		mvc.perform(confirmed(s, HttpMethod.POST, "/api/sos", "{\"configuration\":" + base.replace("false", "true") + "}")).andExpect(status().is(428));
-		mvc.perform(confirmed(s, HttpMethod.PUT, "/api/sos/1", "{\"configuration\":" + base + ",\"expected\":" + expected.replace("v1", "old") + "}")).andExpect(status().isConflict());
-		mvc.perform(confirmed(s, HttpMethod.PUT, "/api/sos/1", "{\"configuration\":" + base.replace("[],\"systems\"", "[1],\"systems\"") + ",\"expected\":" + expected + "}"))
-				.andExpect(status().isBadRequest());
-		mvc.perform(confirmed(s, HttpMethod.PUT, "/api/sos/1", "{\"configuration\":" + base + ",\"expected\":" + expected + "}")).andExpect(status().isOk());
-		mvc.perform(confirmed(s, HttpMethod.DELETE, "/api/sos/1", "{\"expected\":" + expected + "}")).andExpect(status().isOk()).andExpect(jsonPath("$.removed").value(1));
+		mvc.perform(confirmed(s, HttpMethod.DELETE, "/api/plantdescriptions/1", "")).andExpect(status().isOk());
 		assertTrue(calls.contains("plantDescriptionManagement.remove /plant-descriptions/1"));
 	}
 
@@ -361,6 +362,36 @@ public class ConsoleApiTest {
 				"localCloudConfiguration.plan /plan", "localCloudConfiguration.submit-deployment /deployments", "localCloudConfiguration.create-configuration /configurations",
 				"localCloudConfiguration.update-configuration /configurations/" + UUID, "localCloudConfiguration.remove-configuration /configurations/" + UUID),
 				calls.stream().filter(c -> c.startsWith("localCloudConfiguration")).toList());
+	}
+
+	@Test
+	public void soLocalCloudConfigurationIsConsumedThroughOrchestrationAndPackagesPassThrough() throws Exception {
+		final String s = login();
+		final String pkg = "/api/solc/packages/" + UUID;
+		mvc.perform(as(s, HttpMethod.GET, "/api/features")).andExpect(status().isOk()).andExpect(jsonPath("$.soLocalCloudConfiguration").value(true));
+		for (final String path : List.of("/catalog", "/lc-designs", "/designs", "/designs/" + UUID, "/packages")) {
+			mvc.perform(as(s, HttpMethod.GET, "/api/solc" + path)).andExpect(status().isOk()).andExpect(jsonPath("$.ok").value(true));
+		}
+		mvc.perform(confirmed(s, HttpMethod.POST, "/api/solc/designs", "{\"design\":{}}")).andExpect(status().isOk());
+		mvc.perform(confirmed(s, HttpMethod.PUT, "/api/solc/designs/" + UUID, "{\"expectedRevision\":1}")).andExpect(status().isOk());
+		mvc.perform(confirmed(s, HttpMethod.POST, "/api/solc/plan", "{\"designId\":\"" + UUID + "\"}")).andExpect(status().isOk());
+		mvc.perform(confirmed(s, HttpMethod.POST, "/api/solc/packages", "{\"designId\":\"" + UUID + "\"}")).andExpect(status().is(422))
+				.andExpect(jsonPath("$.error").value("The SoLC plan is not allowed"));
+		mvc.perform(confirmed(s, HttpMethod.DELETE, "/api/solc/designs/" + UUID, "{\"expectedRevision\":2}")).andExpect(status().isOk());
+		mvc.perform(confirmed(s, HttpMethod.DELETE, pkg, "{}")).andExpect(status().isOk());
+		mvc.perform(as(s, HttpMethod.GET, pkg)).andExpect(status().isOk()).andExpect(header().string("Content-Type", "application/gzip"))
+				.andExpect(header().string("Content-Disposition", "attachment; filename=\"solc-factory-r2.tar.gz\"")).andExpect(header().string("X-Content-SHA256", "a".repeat(64)));
+		mvc.perform(as(s, HttpMethod.GET, "/api/solc/packages/123e4567-e89b-12d3-a456-426614170000")).andExpect(status().isNotFound())
+				.andExpect(jsonPath("$.error").value("Package not found"));
+		mvc.perform(as(s, HttpMethod.GET, "/api/solc/packages/x")).andExpect(status().isNotFound());
+		mvc.perform(confirmed(s, HttpMethod.PUT, pkg, "{}")).andExpect(status().isNotFound());
+		mvc.perform(as(s, HttpMethod.GET, "/api/sos")).andExpect(status().isNotFound());
+		assertEquals(List.of("soLocalCloudConfiguration.catalog /catalog", "soLocalCloudConfiguration.list-lc-designs /lc-designs", "soLocalCloudConfiguration.list-designs /designs",
+				"soLocalCloudConfiguration.get-design /designs/" + UUID, "soLocalCloudConfiguration.list-packages /packages", "soLocalCloudConfiguration.create-design /designs",
+				"soLocalCloudConfiguration.update-design /designs/" + UUID, "soLocalCloudConfiguration.plan /plan", "soLocalCloudConfiguration.build-package /packages",
+				"soLocalCloudConfiguration.remove-design /designs/" + UUID, "soLocalCloudConfiguration.remove-package /packages/" + UUID,
+				"soLocalCloudConfiguration.get-package /packages/" + UUID, "soLocalCloudConfiguration.get-package /packages/123e4567-e89b-12d3-a456-426614170000"),
+				calls.stream().filter(c -> c.startsWith("soLocalCloudConfiguration")).toList());
 	}
 
 	@Test

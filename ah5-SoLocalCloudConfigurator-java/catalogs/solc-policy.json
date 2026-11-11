@@ -1,0 +1,15 @@
+{
+  "organization": "Company",
+  "forbiddenConsumers": ["Sysop", "LocalCloudManager", "LocalCloudConfigurator", "SoLocalCloudConfigurator", "SoSConfigurator",
+    "Gatekeeper", "GateTunnel", "ServiceRegistry", "Authentication", "ConsumerAuthorization", "DynamicServiceOrchestration",
+    "SimpleStoreServiceOrchestration", "ServiceOrchestration", "CertificateAuthority", "Onboarding", "Blacklist"],
+  "intercloudComponents": ["gatekeeper", "gatetunnel"],
+  "components": {
+    "random-data-producer": {"consumers": ["RandomDataProducer"], "exports": []},
+    "datamanager": {"consumers": [], "exports": [
+      {"provider": "DataManager", "service": "dataHistorian", "operations": ["put-data", "get-data"], "services": ["datamanager"]}
+    ]}
+  },
+  "architectures": ["amd64", "arm64"],
+  "relayPort": 8893
+}

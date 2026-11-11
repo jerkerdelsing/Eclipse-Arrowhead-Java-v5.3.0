@@ -52,7 +52,8 @@ The Java packaged defaults are the reference Arrowhead 5 defaults. "Go shipped c
 | TestTranslation | test | — | 8552 | 8552 | — |
 | LocalCloudManager | support | 8491 | 8480 | 8480 | 8480 |
 | LocalCloudConfigurator | support | 8492 | 8095 | 8095 | — |
-| SoSConfigurator | support | 8494 | — | — | — |
+| SoSConfigurator (legacy) | support | 8494 | — | — | — |
+| SoLocalCloudConfigurator | support | 8496 | — | — | — |
 
 LocalCloudManager and LocalCloudConfigurator keep their existing Go/Rust defaults (8480, 8095), which differ
 from Java (8491, 8492); aligning them would change existing deployments and is left as a decision.

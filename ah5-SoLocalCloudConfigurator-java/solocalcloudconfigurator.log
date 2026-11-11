@@ -1,0 +1,6 @@
+2026-11-11 14:29:03.290  INFO f755c3724fcb --- [           main] e.a.c.i.SecurityProfileGuard             : Security profile: secure
+2026-11-11 14:29:03.305  WARN f755c3724fcb --- [           main] e.a.c.i.SecurityProfileGuard             : NON-CONFORMING development exception selected for an isolated test; do not expose this system: server.ssl.enabled=false; authentication.policy=declared; service.authorization.enabled=false
+2026-11-11 14:29:04.267  INFO f755c3724fcb --- [           main] e.a.s.s.SolcAccessFilter                 : SolcAccessFilter is active
+2026-11-11 14:42:14.286  INFO 35774f5dade9 --- [           main] e.a.c.i.SecurityProfileGuard             : Security profile: secure
+2026-11-11 14:42:14.307  WARN 35774f5dade9 --- [           main] e.a.c.i.SecurityProfileGuard             : NON-CONFORMING development exception selected for an isolated test; do not expose this system: server.ssl.enabled=false; authentication.policy=declared; service.authorization.enabled=false
+2026-11-11 14:42:15.022  INFO 35774f5dade9 --- [           main] e.a.s.s.SolcAccessFilter                 : SolcAccessFilter is active

@@ -72,7 +72,6 @@ eu/arrowhead/dto/AuthorizationTokenResponseDTO.class
 eu/arrowhead/dto/IdentitySessionQueryRequestDTO.class
 eu/arrowhead/common/init/ApplicationInitListener.class
 eu/arrowhead/dto/ServiceInstanceUpdateRequestDTO.class
-eu/arrowhead/localcloudmanager/service/SosModel.class
 eu/arrowhead/localcloudmanager/client/TlsContextFactory.class
 eu/arrowhead/dto/enums/AuthorizationTargetType.class
 eu/arrowhead/common/security/SecurityUtilities.class
@@ -205,7 +204,6 @@ eu/arrowhead/dto/enums/AddressType.class
 eu/arrowhead/dto/OrchestrationPlantProviderDTO.class
 eu/arrowhead/dto/SystemResponseDTO.class
 eu/arrowhead/dto/OrchestrationNotifyInterfaceDTO.class
-eu/arrowhead/localcloudmanager/service/SosModel$Expanded.class
 eu/arrowhead/dto/OrchestrationLockRequestDTO.class
 eu/arrowhead/dto/TranslationBridgeCandidateDTO.class
 eu/arrowhead/common/service/validation/name/EventTypeNameNormalizer.class
@@ -225,6 +223,7 @@ eu/arrowhead/common/mqtt/MqttController$1.class
 eu/arrowhead/dto/ServiceInstanceListResponseDTO.class
 eu/arrowhead/common/collector/ServiceCollector.class
 eu/arrowhead/localcloudmanager/service/ApiException.class
+eu/arrowhead/localcloudmanager/client/ProviderGateway$Download.class
 eu/arrowhead/common/http/filter/thirdparty/CustomServletInputStream.class
 eu/arrowhead/dto/DeviceListRequestDTO.class
 eu/arrowhead/common/exception/LockedException.class

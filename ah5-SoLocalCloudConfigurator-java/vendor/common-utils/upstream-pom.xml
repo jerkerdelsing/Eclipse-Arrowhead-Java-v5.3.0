@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>eu.arrowhead</groupId>
+		<artifactId>arrowhead-common</artifactId>
+		<version>5.2.2</version>
+	</parent>
+	<artifactId>arrowhead-common-utils</artifactId>
+	<packaging>jar</packaging>
+	<name>Arrowhead Common Utils</name>
+	<description>Arrowhead utils</description>
+
+	<url>https://github.com/eclipse-arrowhead/ah5-common-java-spring</url>
+	
+	<dependencies>
+		<dependency>
+			<groupId>eu.arrowhead</groupId>
+			<artifactId>arrowhead-data-transfer-objects</artifactId>
+			<version>5.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.paho</groupId>
+			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+			<version>1.2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>5.22.0</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-// Ports of the native policies.test.js, rule-priority.test.js and the SoS model checks of sos-api.test.js.
+// Ports of the native policies.test.js and rule-priority.test.js.
 public class EditorsTest {
 
 	private static JsonNode j(final String json) {
@@ -273,27 +273,4 @@ public class EditorsTest {
 		assertFalse(removed[0]);
 	}
 
-	// ----------------------------------------------------------------------------------------------- SoS model
-
-	private static final String SOS = "{'plantDescription':'test','active':false,'include':[],'systems':[],'connections':[]}";
-
-	@Test
-	public void sosModelValidatesAndNormalizes() {
-		assertEquals(List.of(), SosModel.validate(j(SOS), List.of()));
-		final ObjectNode broken = (ObjectNode) j(SOS);
-		broken.set("connections", j("[{'consumer':{},'producer':{}}]"));
-		assertEquals(List.of("A connection references a missing system or port."), SosModel.validate(broken, List.of()));
-		assertEquals(List.of("Configuration must be an object."), SosModel.validate(j("[]"), List.of()));
-		final ObjectNode cyclic = ((ObjectNode) j(SOS));
-		cyclic.set("include", j("[2]"));
-		assertTrue(SosModel.validate(cyclic, Json.list(j("[{'id':2,'include':[3]},{'id':3,'include':[2]}]"))).contains("Included SoS configurations contain a cycle."));
-		final String valid = "{'plantDescription':'p','active':true,'include':[],'systems':[{'systemId':'a','systemName':'Consumer','ports':[{'portName':'in','serviceDefinition':'temperature','consumer':true}]},"
-				+ "{'systemId':'b','systemName':'Producer','ports':[{'portName':'out','serviceDefinition':'temperature','consumer':false}]}],"
-				+ "'connections':[{'consumer':{'systemId':'a','portName':'in'},'producer':{'systemId':'b','portName':'out'},'priority':1}]}";
-		assertEquals(List.of(), SosModel.validate(j(valid), List.of()));
-		final ObjectNode model = SosModel.model(j(valid));
-		assertEquals("{}", model.path("systems").get(0).path("metadata").toString());
-		assertTrue(model.path("systems").get(0).path("ports").get(0).path("serviceInterface").isNull());
-		assertEquals(SosModel.canonical(SosModel.model(j(valid))), SosModel.canonical(model));
-	}
 }
