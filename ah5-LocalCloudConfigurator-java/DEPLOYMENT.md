@@ -30,7 +30,12 @@ Copy `.env.example` to `.env` and provide under `./security/` (or the paths name
 
 `docker compose up -d --build` starts the database and the system with a read-only root filesystem, no capabilities and `no-new-privileges`. Port 8492 is published on the host's loopback interface by default (`HOST_BIND_ADDRESS`).
 
-Register the identity `LocalCloudConfigurator` in Authentication and grant **LocalCloudManager** the operations of `localCloudConfiguration` (provider LocalCloudConfigurator) in ConsumerAuthorization; LocalCloudManager reaches the service through orchestration with its own certificate and identity token. `LCC_API_WHITELIST` can name further systems that skip the grant (empty by default).
+Register the identity `LocalCloudConfigurator` in Authentication. Two ConsumerAuthorization grants are needed, and `scripts/deploy.sh` applies both through the cloud's policy scripts (`make up` does too):
+
+- **LocalCloudManager** gets the ten operations of `localCloudConfiguration` (provider LocalCloudConfigurator): `configure-localcloudconfigurator-policy.sh`. LocalCloudManager reaches the service through orchestration with its own certificate and identity token. Without the grant, the LC view reports "Orchestration found no authorized provider of localCloudConfiguration".
+- **LocalCloudConfigurator** gets ConsumerAuthorization's `authorization` `verify` (it is listed in `VERIFIERS` of `configure-orchestration-dependency-policies.sh`). It checks every call with it and fails closed without it.
+
+`LCC_API_WHITELIST` can name further systems that skip the grant (empty by default).
 
 ## Host worker
 

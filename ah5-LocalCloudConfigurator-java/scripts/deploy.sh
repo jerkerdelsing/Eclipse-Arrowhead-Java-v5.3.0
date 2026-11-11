@@ -13,5 +13,11 @@ cd "$ROOT"
 python3 scripts/configure-direct-cloud.py --cloud-dir "$CLOUD" --env-file "$ENV_FILE"
 python3 scripts/install-direct.py --cloud-dir "$CLOUD" --compose-file "$CLOUD/compose.yaml" --private-dir "$PRIVATE" ${JAVA_LCC_CRL_FILE:+--crl-file "$JAVA_LCC_CRL_FILE"}
 "$DOCKER" compose -f "$CLOUD/compose.yaml" up -d --build --no-deps --wait localcloudconfigurator-db localcloudconfigurator
-printf '%s\n' 'Java LocalCloudConfigurator: Arrowhead support system on 8492 (mutual TLS), host worker on loopback 8493 (mutual TLS).' \
-  'LocalCloudManager reaches it through orchestration; grant LocalCloudManager the localCloudConfiguration operations in ConsumerAuthorization.'
+# LocalCloudManager reaches the configurator only through orchestration, and the configurator verifies every call with
+# ConsumerAuthorization: both need their grants (the cloud's policy scripts, applied as Sysop; re-running replaces them)
+if [ -x "$CLOUD/scripts/configure-localcloudconfigurator-policy.sh" ]; then
+  (cd "$CLOUD" && ./scripts/configure-orchestration-dependency-policies.sh && ./scripts/configure-localcloudconfigurator-policy.sh)
+else
+  echo "WARNING: $CLOUD has no scripts/configure-localcloudconfigurator-policy.sh: grant LocalCloudManager the localCloudConfiguration operations and LocalCloudConfigurator authorization.verify in ConsumerAuthorization" >&2
+fi
+printf '%s\n' 'Java LocalCloudConfigurator: Arrowhead support system on 8492 (mutual TLS), host worker on loopback 8493 (mutual TLS).'

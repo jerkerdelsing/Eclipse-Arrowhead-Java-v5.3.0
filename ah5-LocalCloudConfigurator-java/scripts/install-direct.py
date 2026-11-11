@@ -9,7 +9,7 @@ No ColonyOS keys are read. It does not register in the ServiceRegistry.
 Certificates are not created here: issue LocalCloudConfiguratorWorker.<cloud>.<organization>.arrowhead.eu from the cloud CA and
 place the PKCS12 key store, the cloud truststore and the store password in the private directory (see DEPLOYMENT.md).
 """
-import argparse, hashlib, json, os, plistlib, shutil, subprocess
+import argparse, hashlib, json, os, plistlib, shutil, subprocess, time
 from pathlib import Path
 
 p = argparse.ArgumentParser()
@@ -106,6 +106,11 @@ for log in ['direct-worker.log', 'direct-worker-error.log']:
     (state / log).chmod(0o600)
 domain = f'gui/{os.getuid()}'
 subprocess.run(['launchctl', 'bootout', domain + '/' + label], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+# bootout returns before launchd has removed the service; bootstrapping meanwhile fails with error 5 (seen 2026-11-11)
+for _ in range(50):
+    if subprocess.run(['launchctl', 'print', domain + '/' + label], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode != 0:
+        break
+    time.sleep(0.2)
 plist.write_bytes(plistlib.dumps(agent))
 plist.chmod(0o600)
 subprocess.run(['launchctl', 'enable', domain + '/' + label], check=True)
