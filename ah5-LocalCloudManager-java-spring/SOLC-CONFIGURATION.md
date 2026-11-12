@@ -21,6 +21,14 @@ orchestration like every provider of this console. It is shown when `lcm.so-loca
    member cloud pinned to the design's current revision, with a unique cloud name and a free port offset on that host.
    Select a member on the canvas to change its name, host, architecture or port offset. A member whose design changed in
    LocalCloudConfigurator shows the newer revision; **Use the stored revision** re-pins it.
+   The right column then lists the selected cloud's infrastructure, one component per line:
+   - **Inter-cloud infrastructure**: the components a federated member needs (Gatekeeper, GateTunnel), each marked as
+     in the local-cloud design, added by this SoLC, or not included. **Add inter-cloud infrastructure** adds the missing
+     ones to this member of the SoLC, without changing the stored local-cloud design; SoLocalCloudConfigurator adds
+     what they require from the LocalCloudConfigurator catalog when the design is validated or saved.
+     **Remove added inter-cloud infrastructure** takes them out again.
+   - **Intra-cloud infrastructure**: every other component the cloud runs, grouped as core systems, support systems,
+     application systems and brokers and proxies.
 4. Under **Inter-cloud exchanges** pick a consumer system of one member and a provider service of another, and the
    operations. Only what the organisation policy allows is offered: systems a member's components offer as inter-cloud
    consumers, services its components export.

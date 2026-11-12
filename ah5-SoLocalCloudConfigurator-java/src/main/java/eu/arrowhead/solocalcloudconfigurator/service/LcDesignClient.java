@@ -98,6 +98,13 @@ public class LcDesignClient {
 	}
 
 	static List<String> closure(final JsonNode catalog, final JsonNode selected) {
+		final List<String> ids = new ArrayList<>();
+		selected.forEach(s -> ids.add(s.asText()));
+		return closure(catalog, ids);
+	}
+
+	/** The components and everything they require, requirements first. */
+	static List<String> closure(final JsonNode catalog, final List<String> selected) {
 		final Map<String, List<String>> requires = new LinkedHashMap<>();
 		for (final JsonNode c : catalog.path("systems")) {
 			final List<String> r = new ArrayList<>();
@@ -105,8 +112,8 @@ public class LcDesignClient {
 			requires.put(c.path("id").asText(), r);
 		}
 		final Set<String> out = new LinkedHashSet<>();
-		for (final JsonNode s : selected) {
-			visit(s.asText(), requires, out, new HashSet<>());
+		for (final String s : selected) {
+			visit(s, requires, out, new HashSet<>());
 		}
 		return List.copyOf(out);
 	}

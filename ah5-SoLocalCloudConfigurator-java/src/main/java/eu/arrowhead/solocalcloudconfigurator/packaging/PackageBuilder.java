@@ -122,7 +122,8 @@ public final class PackageBuilder {
 			cloud.put("host", m.host());
 			cloud.put("architecture", m.architecture());
 			cloud.put("portOffset", m.portOffset());
-			cloud.put("components", m.lcDesign().components());
+			cloud.put("components", m.components());
+			cloud.put("intercloudInfrastructure", m.intercloudOrEmpty());
 			cloud.put("lcDesign", Map.of("id", m.lcDesign().id(), "name", m.lcDesign().name(), "revision", m.lcDesign().revision()));
 			cloud.put("federation", federation && config != null);
 			cloud.put("relay", d.relay());
@@ -262,7 +263,7 @@ public final class PackageBuilder {
 		for (final Member m : d.membersOrEmpty()) {
 			b.append("| ").append(m.cloud()).append(" | ").append(m.host()).append(" | ").append(m.architecture()).append(" | ").append(m.portOffset())
 					.append(" | ").append(m.lcDesign().name()).append(" (revision ").append(m.lcDesign().revision()).append(") | ")
-					.append(String.join(", ", m.lcDesign().components())).append(" |\n");
+					.append(String.join(", ", m.components())).append(" |\n");
 		}
 		return b.toString();
 	}
@@ -308,7 +309,9 @@ public final class PackageBuilder {
 
 	private static String cloudReadme(final SolcDesign d, final Member m, final boolean federation) {
 		return "# Local cloud " + m.cloud() + "\n\nHost " + m.host() + " (" + m.architecture() + "), Compose project " + m.composeProject() + ", port offset "
-				+ m.portOffset() + ".\nBuilt from local-cloud design " + m.lcDesign().name() + " (revision " + m.lcDesign().revision() + ").\n\n"
+				+ m.portOffset() + ".\nBuilt from local-cloud design " + m.lcDesign().name() + " (revision " + m.lcDesign().revision() + ")"
+				+ (m.intercloudOrEmpty().isEmpty() ? "" : ", with inter-cloud infrastructure added by the SoLC: " + String.join(", ", m.intercloudOrEmpty()))
+				+ ".\n\n"
 				+ "1. `./install.sh` - checks the host, provides the images, generates this cloud's CA, certificates and passwords, starts and provisions the cloud.\n"
 				+ (federation
 						? "2. Send `out/" + m.cloud() + "-federation-request.tar.gz` to the organisation host and run `org/sign-cloud.sh` there.\n"

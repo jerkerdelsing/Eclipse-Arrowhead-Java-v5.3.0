@@ -36,6 +36,8 @@ public final class DesignValidator {
 	public static final Set<String> IMAGE_MODES = Set.of("build", "prebuilt");
 	public static final int MAX_MEMBERS = 16;
 	public static final int MAX_EXCHANGES = 128;
+	// inter-cloud components a SoLC adds to a member, with what they require
+	public static final int MAX_INTERCLOUD = 32;
 	// published ports of a cloud lie in 5671..8900; offsets keep them below 65536 and clouds on one host apart
 	public static final int MAX_PORT_OFFSET = 50000;
 	public static final int PORT_OFFSET_STEP = 1000;
@@ -77,6 +79,10 @@ public final class DesignValidator {
 					|| lc.name().length() > 200 || lc.components() == null || lc.components().isEmpty()
 					|| !lc.components().stream().allMatch(c -> c != null && PolicyCatalog.COMPONENT.matcher(c).matches())) {
 				p.add(m.cloud() + ": needs a stored local-cloud design (id, name, revision and its components)");
+			}
+			if (m.intercloudOrEmpty().size() > MAX_INTERCLOUD
+					|| !m.intercloudOrEmpty().stream().allMatch(c -> c != null && PolicyCatalog.COMPONENT.matcher(c).matches())) {
+				p.add(m.cloud() + ": added inter-cloud infrastructure must be at most " + MAX_INTERCLOUD + " catalog component ids");
 			}
 			if (!host(m.host())) {
 				p.add(m.cloud() + ": host must be a host name or address");

@@ -70,17 +70,57 @@
     return d;
   }
 
+  /** What a member runs: the components of its local-cloud design, then the inter-cloud infrastructure the SoLC adds. */
+  function components(member) {
+    const lc = (member && member.lcDesign && member.lcDesign.components) || [];
+    return [...lc, ...((member && member.intercloud) || []).filter(c => !lc.includes(c))];
+  }
+
   /** Inter-cloud abilities of a member: consumers it may offer and services it exports, from its components. */
   function capabilities(catalog, member) {
     const consumers = new Set(), exports = [];
-    for (const c of (member && member.lcDesign && member.lcDesign.components) || []) {
+    for (const c of components(member)) {
       const cap = catalog.components[c];
       if (!cap) continue;
       cap.consumers.forEach(s => consumers.add(s));
       cap.exports.forEach(e => exports.push(e));
     }
-    const missing = catalog.intercloudComponents.filter(c => !((member && member.lcDesign && member.lcDesign.components) || []).includes(c));
+    const all = components(member);
+    const missing = catalog.intercloudComponents.filter(c => !all.includes(c));
     return { consumers: [...consumers].sort(), exports, intercloud: missing.length === 0, missing };
+  }
+
+  /** Adds the inter-cloud infrastructure (the policy's inter-cloud components) its local-cloud design lacks to a member.
+   *  SoLocalCloudConfigurator adds what those components require when the design is validated or saved. */
+  function addIntercloud(design, cloud, catalog) {
+    const d = clone(design), m = d.members.find(x => x.cloud === cloud);
+    if (!m) throw Error('No such member cloud.');
+    const add = capabilities(catalog, m).missing;
+    if (add.length) m.intercloud = [...(m.intercloud || []), ...add];
+    return d;
+  }
+
+  /** Removes the inter-cloud infrastructure the SoLC added to a member (not what its local-cloud design holds). */
+  function removeIntercloud(design, cloud) {
+    const d = clone(design), m = d.members.find(x => x.cloud === cloud);
+    if (m) delete m.intercloud;
+    return d;
+  }
+
+  const KINDS = [['core', 'Core systems'], ['support', 'Support systems'], ['application', 'Application systems'], ['infrastructure', 'Brokers and proxies']];
+
+  /** The infrastructure of a member for display. inter: every inter-cloud component of the policy with where it comes
+   *  from ('design', 'solc' or 'missing'); intra: all its other components grouped by kind, each with its name and
+   *  whether the SoLC added it (a requirement of the inter-cloud infrastructure). library: [{id, name, kind}]. */
+  function infrastructure(catalog, library, member) {
+    const lc = (member && member.lcDesign && member.lcDesign.components) || [], all = components(member);
+    const info = id => (library || []).find(c => c.id === id) || { id, name: id, kind: '' };
+    const inter = catalog.intercloudComponents.map(id => ({ id, name: info(id).name, source: lc.includes(id) ? 'design' : all.includes(id) ? 'solc' : 'missing' }));
+    const rest = all.filter(id => !catalog.intercloudComponents.includes(id)).map(id => ({ id, name: info(id).name, kind: info(id).kind, added: !lc.includes(id) }));
+    const known = KINDS.map(k => k[0]);
+    const intra = [...KINDS, ['', 'Other components']].map(([kind, label]) => ({ kind, label,
+      items: rest.filter(c => kind ? c.kind === kind : !known.includes(c.kind)).sort((a, b) => a.name.localeCompare(b.name)) })).filter(g => g.items.length);
+    return { inter, intra, count: rest.length };
   }
 
   /** Every exchange the catalog allows between two different members (consumer system x export). */
@@ -124,7 +164,7 @@
       seen[k] = m.cloud;
       if (m.portOffset % STEP || m.portOffset < 0 || m.portOffset > 50000) p.push(`${m.cloud}: the port offset is a multiple of 1000 up to 50000.`);
       if (!design.packaging.architectures.includes(m.architecture)) p.push(`${m.cloud}: its architecture ${m.architecture} is not packaged.`);
-      if (design.members.length > 1 && !capabilities(catalog, m).intercloud) p.push(`${m.cloud}: its local-cloud design lacks ${capabilities(catalog, m).missing.join(', ')} for the federation.`);
+      if (design.members.length > 1 && !capabilities(catalog, m).intercloud) p.push(`${m.cloud}: lacks ${capabilities(catalog, m).missing.join(', ')} for the federation; add the inter-cloud infrastructure in its properties.`);
     }
     if (!design.packaging.architectures.length) p.push('Package at least one architecture.');
     return p;
@@ -138,6 +178,6 @@
     return body;
   }
 
-  const api = { NAME, DESIGN_NAME, clone, fresh, cloudName, nextOffset, addMember, removeMember, renameMember, capabilities, exchangeOptions, addExchange, problems, draft, key };
+  const api = { NAME, DESIGN_NAME, clone, fresh, cloudName, nextOffset, addMember, removeMember, renameMember, components, capabilities, addIntercloud, removeIntercloud, infrastructure, exchangeOptions, addExchange, problems, draft, key };
   if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.SoLocalCloudModel = api;
 })(typeof window !== 'undefined' ? window : globalThis);

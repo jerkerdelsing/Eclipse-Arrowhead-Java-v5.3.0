@@ -1,6 +1,6 @@
 /* System of LocalClouds view. SPDX-License-Identifier: EPL-2.0 */
 .solc-toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
-.solc-workspace { display: grid; grid-template-columns: 280px minmax(0, 1fr) 300px; gap: 14px; align-items: start; }
+.solc-workspace { display: grid; grid-template-columns: 280px minmax(0, 1fr) 320px; gap: 14px; align-items: start; }
 .solc-palette label, .solc-inspector label { display: block; margin: 8px 0; font-size: 13px; }
 .solc-palette input, .solc-palette select, .solc-inspector input, .solc-inspector select { width: 100%; box-sizing: border-box; margin-top: 3px; }
 .solc-palette #solc-lc, .solc-palette #solc-designs { display: grid; gap: 6px; max-height: 260px; overflow: auto; }
@@ -15,7 +15,19 @@
 .solc-exchange-form, .solc-package-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0; }
 .solc-exchange-form select { min-width: 360px; max-width: 100%; }
 .solc-package-form fieldset { border: 1px solid #cfd9e0; border-radius: 6px; padding: 4px 10px; }
-.solc-components { columns: 2; font-size: 12px; padding-left: 18px; }
+.solc-inspector { overflow-wrap: anywhere; }
+.solc-inspector h4 { margin: 18px 0 6px; font-size: 14px; }
+.solc-inspector h5 { margin: 12px 0 2px; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: #5a6b78; }
+.solc-inspector h4 small, .solc-inspector h5 small { font-weight: 400; color: #5a6b78; letter-spacing: 0; text-transform: none; margin-left: 4px; }
+.solc-inspector .action { margin-top: 8px; }
+.solc-list { list-style: none; margin: 0 0 6px; padding: 0; font-size: 13px; line-height: 1.35; }
+.solc-list li { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 5px 0; border-bottom: 1px solid #e2e8f0; }
+.solc-list li:last-child { border-bottom: 0; }
+.solc-list li span { min-width: 0; }
+.solc-tag { flex: none; font-size: 11px; color: #5a6b78; }
+.solc-tag.solc { color: #006f99; font-weight: 600; }
+.solc-tag.missing { color: #a15c00; font-weight: 600; }
 #solc-plan-summary.ok { color: #1f7a3a; font-weight: 600; }
 #solc-plan-summary.error { color: #b3261e; font-weight: 600; }
-@media (max-width: 1200px) { .solc-workspace { grid-template-columns: 1fr; } }
+@media (max-width: 1300px) { .solc-workspace { grid-template-columns: 260px minmax(0, 1fr); } .solc-inspector { grid-column: 1 / -1; } }
+@media (max-width: 760px) { .solc-workspace { grid-template-columns: minmax(0, 1fr); } .solc-inspector { grid-column: auto; } }
