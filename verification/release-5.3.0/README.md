@@ -9,6 +9,8 @@ cannot have entered it. The commands are in [verification/tools](../tools/); eac
 |---|---|---|
 | [manifest.json](manifest.json) | source-to-image manifest: 49 images, runtime dependencies, common and core test runs | `release_manifest.py` |
 | [db-integration-tests.json](db-integration-tests.json) | MySQL integration tests against the release's own database images | `db_integration_tests.py` |
+| [relay-integration-tests.json](relay-integration-tests.json) | Gatekeeper and GateTunnel tests over the relay of `Arrowhead-test-clouds/Arrowhead-relay` | `relay_integration_tests.py` |
+| [sysmonitor-broker-test.json](sysmonitor-broker-test.json) | SysMonitor's AMQP → store → MQTT round trip against throw-away brokers | `sysmonitor_broker_test.py` |
 | [dependency-review.json](dependency-review.json) | known vulnerabilities of the runtime Maven dependencies (OSV) | `dependency_review.py` |
 | [api-dto-review.json](api-dto-review.json) | DTOs, constants and request mappings against the upstream 5.2.2 tags | `api_dto_review.py` |
 | [negative-access-review.json](negative-access-review.json) | tests that assert a refusal (401/403), per project | `negative_access_review.py` |
@@ -56,16 +58,26 @@ Built on Docker 29.7.2, linux/arm64. An amd64 build was not part of this run.
 | `ah5-common-java-spring` (`mvn clean install`) | 868 run, 0 failures |
 | `ah5-core-java-spring` (`mvn clean verify`; the core image builds skip tests) | 2607 run, 0 failures |
 | MySQL integration tests (`db_integration_tests.py`) | 14 run, 0 failures |
+| Relay integration tests (`relay_integration_tests.py`) | 4 run, 0 failures |
+| SysMonitor broker round trip (`sysmonitor_broker_test.py`) | 1 run, 0 failures |
 
-The 16 skipped tests need external fixtures. 14 of them are MySQL end-to-end tests, which now run against each
-system's own 5.3.0 database image with throw-away credentials: CertificateAuthority 1, Gatekeeper 2, GateTunnel 1,
-LocalCloudConfigurator 7, SoSConfigurator 1, SysMonitor 2. GateTunnel's had stopped working unnoticed: its federation
-settings require the organisation CA's CRL path since SOS-6 and the test did not supply one. It was fixed in
-`02b4b4e2`.
+The 16 tests the image builds skip need external fixtures; all of them now run and pass, as does Gatekeeper's
+`RelayRoundTripIT`, an `*IT` class that the unit-test phase never selects.
 
-Still not run (they need an MQTT relay or the brokers with a test PKI): GateTunnel `RelayRoundTripTest`, SysMonitor
-`BrokerRoundTripTest`, and Gatekeeper `RelayRoundTripIT` (an `*IT` class, which the unit-test phase does not select).
-They belong to the federation qualification that section 8 item 4 defers.
+- **MySQL (14):** the end-to-end tests run against each system's own 5.3.0 database image with throw-away
+  credentials: CertificateAuthority 1, Gatekeeper 2, GateTunnel 1, LocalCloudConfigurator 7, SoSConfigurator 1,
+  SysMonitor 2. GateTunnel's had stopped working unnoticed: its federation settings require the organisation CA's CRL
+  path since SOS-6 and the test did not supply one. It was fixed in `02b4b4e2`.
+- **Relay (4):** against the relay deployed from `Arrowhead-test-clouds/Arrowhead-relay` (Mosquitto 2.0.22, mutual
+  TLS, its own test PKI; see that folder's README). Gatekeeper `RelayRoundTripIT` (3): request/reply between two
+  clouds, exact topics and fields, duplicate and forged-sender messages ignored. GateTunnel `RelayRoundTripTest` (1):
+  an AH-GT-1 session with the committed fixture identities; the sealed request is executed once at the provider.
+- **SysMonitor `BrokerRoundTripTest` (1):** against throw-away RabbitMQ (SASL EXTERNAL) and Mosquitto brokers with
+  mutual TLS and a test CA, and SysMonitor's 5.3.0 database image: intake, storage, `sysMonitorData` output,
+  duplicate and identity-mismatch rejection, and unbinding of a disabled subscription.
+
+These are component tests over a real broker. They do not qualify a federated deployment of clouds, which section 8
+item 4 defers.
 
 ### Dependency and security review
 

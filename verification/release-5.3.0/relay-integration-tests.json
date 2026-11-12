@@ -1,0 +1,25 @@
+{
+  "commit": "02b4b4e229b0fc0e5645dd22f7290a30a86d3a52",
+  "relay": {
+    "image": "eclipse-mosquitto:2.0.22",
+    "network": "arrowhead-relay-network",
+    "host": "arrowhead-relay",
+    "port": 8883,
+    "pki": "Arrowhead-relay/scripts/generate-pki.sh (test PKI)"
+  },
+  "mavenImage": "maven:3.9-eclipse-temurin-21",
+  "tests": {
+    "ah5-Gatekeeper-java-spring:RelayRoundTripIT": {
+      "result": "PASS",
+      "tests": "Tests run: 3, Failures: 0, Errors: 0, Skipped: 0",
+      "seconds": 20,
+      "log": "build-logs/relay-it-ah5-Gatekeeper-java-spring.log"
+    },
+    "ah5-GateTunnel-java-spring:RelayRoundTripTest": {
+      "result": "PASS",
+      "tests": "Tests run: 1, Failures: 0, Errors: 0, Skipped: 0",
+      "seconds": 15,
+      "log": "build-logs/relay-it-ah5-GateTunnel-java-spring.log"
+    }
+  }
+}
