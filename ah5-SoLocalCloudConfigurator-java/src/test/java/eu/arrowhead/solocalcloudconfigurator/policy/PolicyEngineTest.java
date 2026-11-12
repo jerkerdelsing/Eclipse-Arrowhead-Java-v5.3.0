@@ -95,6 +95,19 @@ public class PolicyEngineTest {
 	}
 
 	@Test
+	public void intercloudInfrastructureAddedByTheSolcMakesAMemberFederationReady() throws Exception {
+		final SolcDesign.Member plant = new SolcDesign.Member("Plant", new SolcDesign.LcDesignRef(TestDesigns.LC_A, "Plant-design", 3,
+				TestDesigns.components("random-data-producer")), "plant", "arm64", 0, List.of("gatekeeper", "gatetunnel"));
+		assertEquals(TestDesigns.components("random-data-producer", "gatekeeper", "gatetunnel"), plant.components());
+		final SolcDesign d = TestDesigns.design(List.of(plant,
+				TestDesigns.member("Office", TestDesigns.LC_B, "office", "amd64", 0, TestDesigns.components("gatekeeper", "gatetunnel", "datamanager"))),
+				List.of(new Exchange("Plant", "RandomDataProducer", "Office", "DataManager", "dataHistorian", List.of("put-data"))));
+		final Evaluation e = evaluate(d);
+		assertTrue(e.allowed(), e.violations().toString());
+		assertEquals(List.of("Plant", "Office"), e.relay().clouds());
+	}
+
+	@Test
 	public void singleCloudNeedsNoFederation() throws Exception {
 		final SolcDesign d = TestDesigns.design(List.of(
 				TestDesigns.member("Plant", TestDesigns.LC_A, "plant", "arm64", 0, TestDesigns.components("random-data-producer"))), List.of());

@@ -57,6 +57,37 @@ t('quick checks catch clashing offsets, unpackaged architectures and members wit
   a.deepEqual(M.problems(M.addMember(M.fresh(catalog), plant, 'h', 'arm64'), catalog), []);
 });
 
+t('inter-cloud infrastructure can be added to a member whose local-cloud design lacks it, and removed again', () => {
+  const bare = { ...plant, components: [...core.slice(0, 4), 'random-data-producer'] };
+  let d = M.addMember(M.addMember(M.fresh(catalog), bare, 'a', 'arm64'), office, 'b', 'amd64');
+  a.match(M.problems(d, catalog).join('\n'), /Plantdesign: lacks gatekeeper, gatetunnel/);
+  a.equal(M.exchangeOptions(catalog, d).length, 1);
+  d = M.addIntercloud(d, 'Plantdesign', catalog);
+  a.deepEqual(d.members[0].intercloud, ['gatekeeper', 'gatetunnel']);
+  a.deepEqual(M.components(d.members[0]), [...bare.components, 'gatekeeper', 'gatetunnel']);
+  a.deepEqual(M.problems(d, catalog), []);
+  a.ok(M.capabilities(catalog, d.members[0]).intercloud);
+  a.equal(M.addIntercloud(d, 'Office', catalog).members[1].intercloud, undefined);
+  a.deepEqual(M.addIntercloud(d, 'Plantdesign', catalog), d);
+  d = M.removeIntercloud(d, 'Plantdesign');
+  a.equal(d.members[0].intercloud, undefined);
+  a.throws(() => M.addIntercloud(d, 'Mars', catalog));
+});
+
+t('the infrastructure of a member lists inter-cloud components by source and the others grouped by kind', () => {
+  const library = [{ id: 'serviceregistry', name: 'ServiceRegistry', kind: 'core' }, { id: 'authentication', name: 'Authentication', kind: 'core' },
+    { id: 'gatekeeper', name: 'Gatekeeper', kind: 'support' }, { id: 'gatetunnel', name: 'GateTunnel', kind: 'support' },
+    { id: 'datamanager', name: 'DataManager', kind: 'support' }, { id: 'mqtt-broker', name: 'MQTT broker', kind: 'infrastructure' }];
+  const member = { lcDesign: { components: ['serviceregistry', 'authentication', 'gatekeeper', 'datamanager', 'legacy'] }, intercloud: ['mqtt-broker', 'gatetunnel'] };
+  const i = M.infrastructure(catalog, library, member);
+  a.deepEqual(i.inter, [{ id: 'gatekeeper', name: 'Gatekeeper', source: 'design' }, { id: 'gatetunnel', name: 'GateTunnel', source: 'solc' }]);
+  a.deepEqual(i.intra.map(g => [g.label, g.items.map(c => c.name)]), [['Core systems', ['Authentication', 'ServiceRegistry']], ['Support systems', ['DataManager']],
+    ['Brokers and proxies', ['MQTT broker']], ['Other components', ['legacy']]]);
+  a.equal(i.count, 5);
+  a.ok(i.intra[2].items[0].added && !i.intra[0].items[0].added);
+  a.deepEqual(M.infrastructure(catalog, library, { lcDesign: { components: ['serviceregistry'] } }).inter.map(c => c.source), ['missing', 'missing']);
+});
+
 t('requests carry the design, revision and stored design id only when given', () => {
   const d = M.fresh(catalog);
   a.deepEqual(Object.keys(M.draft(d)), ['design']);

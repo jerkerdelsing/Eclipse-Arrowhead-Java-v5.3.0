@@ -30,7 +30,8 @@ import eu.arrowhead.solocalcloudconfigurator.design.SolcDesign.Member;
  * Checks a System of LocalClouds against the organisation's security and authorization policies and derives, per member
  * cloud, the exact Gatekeeper neighbours and ConsumerAuthorization policies that the exchanges need, and nothing more.
  * Ported from SoSConfigurator's policy engine; the member clouds and their abilities now come from the design: a member's
- * inter-cloud consumers and exports are those of the components of its local-cloud design (PolicyCatalog.components).
+ * inter-cloud consumers and exports are those of its components (PolicyCatalog.components): the components of its
+ * local-cloud design and the inter-cloud infrastructure the SoLC adds to it.
  *
  * <p>Security rules (S): S0 the name is a plain identifier; S1 members are listed once; S2 at least one member, two for
  * exchanges; S4 in a federation (two or more members) every member has the inter-cloud components (Gatekeeper and
@@ -108,7 +109,7 @@ public final class PolicyEngine {
 	}
 
 	Cloud cloud(final Member m, final String organization) {
-		final List<String> components = m.lcDesign() == null || m.lcDesign().components() == null ? List.of() : m.lcDesign().components();
+		final List<String> components = m.components();
 		final List<String> missing = catalog.intercloudComponents().stream().filter(c -> !components.contains(c)).toList();
 		final Set<String> consumers = new TreeSet<>();
 		final List<Export> exports = new ArrayList<>();
@@ -144,7 +145,8 @@ public final class PolicyEngine {
 		final boolean federation = members.size() >= 2;
 		if (federation) {
 			members.values().stream().filter(c -> !c.intercloud()).forEach(c -> v.add(new Violation("S4", c.name()
-					+ " cannot take part in the federation: its local-cloud design lacks " + String.join(", ", c.missing()))));
+					+ " cannot take part in the federation: it lacks " + String.join(", ", c.missing())
+					+ "; add the inter-cloud infrastructure to it, or to its local-cloud design")));
 		}
 
 		// --- authorization: exchanges

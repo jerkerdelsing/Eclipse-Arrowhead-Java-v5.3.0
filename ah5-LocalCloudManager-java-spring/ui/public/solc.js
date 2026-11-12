@@ -62,7 +62,6 @@
   }
   const member = cloud => S.model.members.find(m => m.cloud === cloud);
   const lcCurrent = id => S.lc.entries.find(e => e.id === id);
-  const componentName = id => (S.lc.components.find(c => c.id === id) || {}).name || id;
 
   async function load() {
     const [catalog, lc, designs, packages] = await Promise.all([api('/catalog'), api('/lc-designs').catch(e => ({ entries: [], components: [], error: e.message })),
@@ -91,7 +90,7 @@
 <rect x="${p.x}" y="${p.y}" width="${W}" height="${H}" rx="10"/><text x="${p.x + 14}" y="${p.y + 26}" class="solc-node-name">${esc(m.cloud)}</text>
 <text x="${p.x + 14}" y="${p.y + 48}">${esc(m.host)} · ${esc(m.architecture)} · offset ${m.portOffset}</text>
 <text x="${p.x + 14}" y="${p.y + 70}">${esc(m.lcDesign.name)} r${m.lcDesign.revision}${stale ? ' (stored: r' + cur.revision + ')' : ''}</text>
-<text x="${p.x + 14}" y="${p.y + 92}">${m.lcDesign.components.length} components · ${esc(fed)}</text>
+<text x="${p.x + 14}" y="${p.y + 92}">${M.components(m).length} components · ${esc(fed)}</text>
 <text x="${p.x + 14}" y="${p.y + 114}" class="solc-small">consumers: ${esc(cap.consumers.join(', ') || 'none')}</text>
 <text x="${p.x + 14}" y="${p.y + 134}" class="solc-small">exports: ${esc(cap.exports.map(e => e.provider + '.' + e.service).join(', ') || 'none')}</text></g>`;
     }).join('');
@@ -101,8 +100,10 @@
 
   function renderProperties() {
     const node = q('#solc-properties'), m = member(S.selected);
-    if (!m) { node.innerHTML = '<p class="section-note">Select a member cloud to set its name, host, architecture and port offset.</p>'; return; }
+    if (!m) { node.innerHTML = '<p class="section-note">Select a member cloud to set its name, host, architecture and port offset, to see its intra-cloud infrastructure and to add inter-cloud infrastructure.</p>'; return; }
     const cur = lcCurrent(m.lcDesign.id), stale = cur && cur.revision !== m.lcDesign.revision;
+    const inf = M.infrastructure(S.catalog, S.lc.components, m), missing = inf.inter.some(c => c.source === 'missing'), added = (m.intercloud || []).length > 0;
+    const SOURCE = { design: 'in the local-cloud design', solc: 'added by this SoLC', missing: 'not included' };
     node.innerHTML = `<label>Cloud name<input id="solc-m-cloud" value="${esc(m.cloud)}" maxlength="63"></label>
 <label>Host<input id="solc-m-host" value="${esc(m.host)}" maxlength="253"></label>
 <label>Architecture<select id="solc-m-arch">${S.catalog.architectures.map(a => `<option ${a === m.architecture ? 'selected' : ''}>${esc(a)}</option>`).join('')}</select></label>
@@ -110,7 +111,12 @@
 <p class="section-note">Compose project arrowhead-${esc(m.cloud.toLowerCase())}; published ports 5671–8500 plus the offset, on 127.0.0.1 of the host.</p>
 <h4>Local-cloud design</h4><p>${esc(m.lcDesign.name)}, revision ${m.lcDesign.revision}${stale ? ` <strong>(LocalCloudConfigurator now holds revision ${cur.revision})</strong>` : !cur ? ' <strong>(no longer stored)</strong>' : ''}</p>
 ${stale ? '<button class="action" data-solc="repin">Use the stored revision</button>' : ''}
-<ul class="solc-components">${m.lcDesign.components.map(c => `<li>${esc(componentName(c))}</li>`).join('')}</ul>
+<h4>Inter-cloud infrastructure</h4>
+<ul class="solc-list">${inf.inter.map(c => `<li><span>${esc(c.name)}</span><small class="solc-tag ${c.source}">${SOURCE[c.source]}</small></li>`).join('')}</ul>
+${missing ? `<p class="section-note">${S.model.members.length > 1 ? 'This cloud cannot take part in the federation without it.' : 'Needed once the SoLC has a second member cloud.'}</p><button class="action" data-solc="add-intercloud">Add inter-cloud infrastructure</button>` : ''}
+${added ? `<p class="section-note">Added by this SoLC on top of the local-cloud design; the stored design is not changed.</p><button class="action" data-solc="remove-intercloud">Remove added inter-cloud infrastructure</button>` : ''}
+<h4>Intra-cloud infrastructure <small>${inf.count} components</small></h4>
+${inf.intra.map(g => `<h5>${esc(g.label)} <small>${g.items.length}</small></h5><ul class="solc-list">${g.items.map(c => `<li><span>${esc(c.name)}</span>${c.added ? '<small class="solc-tag solc">added by this SoLC</small>' : ''}</li>`).join('')}</ul>`).join('')}
 <button class="action danger" data-solc="remove-member">Remove from the SoLC</button>`;
   }
 
@@ -161,7 +167,7 @@ ${stale ? '<button class="action" data-solc="repin">Use the stored revision</but
       if (document.activeElement !== q(id)) q(id).value = v;
     }
     q('#solc-new-arch').innerHTML = S.catalog.architectures.map(a => `<option>${esc(a)}</option>`).join('');
-    q('#solc-lc').innerHTML = S.lc.entries.map(e => `<button type="button" class="lcc-card" data-solc-add="${esc(e.id)}"><strong>${esc(e.name)}</strong><small>r${e.revision} · ${e.components.length} components · ${esc(M.capabilities(S.catalog, { lcDesign: e }).intercloud ? 'inter-cloud capable' : 'no Gatekeeper/GateTunnel')}</small></button>`).join('')
+    q('#solc-lc').innerHTML = S.lc.entries.map(e => `<button type="button" class="lcc-card" data-solc-add="${esc(e.id)}"><strong>${esc(e.name)}</strong><small>r${e.revision} · ${e.components.length} components · ${esc(M.capabilities(S.catalog, { lcDesign: e }).intercloud ? 'inter-cloud capable' : 'inter-cloud infrastructure can be added')}</small></button>`).join('')
       || '<p class="section-note">LocalCloudConfigurator holds no stored designs. Save one in the LC view.</p>';
     renderCanvas(); renderProperties(); renderExchanges(); renderPlan(); renderPackages();
     for (const [a, off] of [['undo', !S.undo.length], ['redo', !S.redo.length], ['delete', !S.record], ['build', !S.record || dirty()]]) {
@@ -203,6 +209,8 @@ ${stale ? '<button class="action" data-solc="repin">Use the stored revision</but
         change(d => { const x = M.clone(d); const t = x.members.find(y => y.cloud === m.cloud); t.lcDesign = { id: cur.id, name: cur.name, revision: cur.revision, components: [...cur.components] }; return x; });
         break;
       }
+      case 'add-intercloud': { const c = S.selected; change(d => M.addIntercloud(d, c, S.catalog)); break; }
+      case 'remove-intercloud': { const c = S.selected; change(d => M.removeIntercloud(d, c)); break; }
       case 'add-exchange': {
         const o = M.exchangeOptions(S.catalog, S.model)[+q('#solc-x-option').value];
         if (!o) throw Error('No exchange selected.');

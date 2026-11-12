@@ -40,7 +40,7 @@ public final class TestDesigns {
 	}
 
 	public static Member member(final String cloud, final String lc, final String host, final String arch, final int offset, final List<String> components) {
-		return new Member(cloud, new LcDesignRef(lc, cloud + "-design", 3, components), host, arch, offset);
+		return new Member(cloud, new LcDesignRef(lc, cloud + "-design", 3, components), host, arch, offset, null);
 	}
 
 	public static SolcDesign design(final List<Member> members, final List<Exchange> exchanges) {

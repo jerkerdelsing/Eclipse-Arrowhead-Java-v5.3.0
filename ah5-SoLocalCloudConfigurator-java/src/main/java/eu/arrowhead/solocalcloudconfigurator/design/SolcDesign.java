@@ -9,8 +9,10 @@
  *******************************************************************************/
 package eu.arrowhead.solocalcloudconfigurator.design;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A System of LocalClouds: local clouds built from stored local-cloud designs, the organisation relay that federates them,
@@ -40,8 +42,25 @@ public record SolcDesign(String name, String organization, Relay relay, List<Mem
 	 * @param host          host name or address of the machine it runs on
 	 * @param architecture  CPU architecture of that machine (amd64, arm64)
 	 * @param portOffset    added to every published port, for several clouds on one machine (0 on a machine of its own)
+	 * @param intercloud    inter-cloud infrastructure this SoLC adds to the cloud on top of its local-cloud design: the
+	 *                      policy's inter-cloud components (Gatekeeper, GateTunnel) the design lacks and what they require,
+	 *                      resolved by this system from the LocalCloudConfigurator catalog; null or empty when none is added
 	 */
-	public record Member(String cloud, LcDesignRef lcDesign, String host, String architecture, int portOffset) {
+	public record Member(String cloud, LcDesignRef lcDesign, String host, String architecture, int portOffset, List<String> intercloud) {
+
+		public List<String> intercloudOrEmpty() {
+			return intercloud == null ? List.of() : intercloud;
+		}
+
+		/** What the cloud runs: the components of its local-cloud design and the inter-cloud infrastructure added to it. */
+		public List<String> components() {
+			final Set<String> all = new LinkedHashSet<>();
+			if (lcDesign != null && lcDesign.components() != null) {
+				all.addAll(lcDesign.components());
+			}
+			all.addAll(intercloudOrEmpty());
+			return List.copyOf(all);
+		}
 
 		/** Compose project of the member's deployment. */
 		public String composeProject() {

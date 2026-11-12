@@ -6,9 +6,13 @@ between them. It replaces the console's former SoS view and absorbs SoSConfigura
 planner (SoSConfigurator stays as legacy).
 
 - **Designs** (`solc_design`, revisioned): members (cloud name, pinned LocalCloudConfigurator design and its component
-  closure, host, architecture, port offset), relay, exchanges, package options. Member snapshots always come from
-  LocalCloudConfigurator (`localCloudConfiguration` catalog, list-configurations, get-configuration, through
-  orchestration), never from the request.
+  closure, host, architecture, port offset, added inter-cloud infrastructure), relay, exchanges, package options. Member
+  snapshots always come from LocalCloudConfigurator (`localCloudConfiguration` catalog, list-configurations,
+  get-configuration, through orchestration), never from the request.
+- **Inter-cloud infrastructure**: a member whose local-cloud design lacks the policy's inter-cloud components
+  (`intercloudComponents`: Gatekeeper, GateTunnel) can get them from the SoLC (`member.intercloud`). The request names
+  only those components; what they require is resolved from the LocalCloudConfigurator catalog and stored with the
+  member. The stored local-cloud design is not changed; the member runs its design's components plus these.
 - **Plan**: structural checks (`DesignValidator`) and the organisation policy (`PolicyEngine`, rules S0-S4 and A1-A4,
   `catalogs/solc-policy.json`): per member the Gatekeeper neighbours, ConsumerAuthorization grants for exactly the
   exchanges, revocations of unused exports, preconditions, verification checks, discovery; the relay ACL subjects.

@@ -40,7 +40,8 @@ import eu.arrowhead.solocalcloudconfigurator.service.dto.DesignRecord;
  * Stored SoLC designs with optimistic revisions, and their plans. A member's local-cloud design snapshot (components at a
  * revision) always comes from LocalCloudConfigurator, never from the request: a member keeps the snapshot already stored
  * for the same design id and revision, and otherwise the design is read from LocalCloudConfigurator, which must still be at
- * the revision the operator chose.
+ * the revision the operator chose. The inter-cloud infrastructure a member adds on top of its design (Gatekeeper, GateTunnel
+ * and what they require) is resolved here from the LocalCloudConfigurator catalog in the same way.
  */
 @Service
 public class DesignService {
@@ -194,6 +195,13 @@ public class DesignService {
 			previous.membersOrEmpty().stream().filter(m -> m.lcDesign() != null)
 					.forEach(m -> pinned.put(m.lcDesign().id() + "@" + m.lcDesign().revision(), m.lcDesign()));
 		}
+		// inter-cloud infrastructure already resolved for a pinned design and the same request
+		final Map<String, List<String>> added = new LinkedHashMap<>();
+		if (previous != null) {
+			previous.membersOrEmpty().stream().filter(m -> m.lcDesign() != null && !requested(m).isEmpty())
+					.forEach(m -> added.put(intercloudKey(m.lcDesign(), requested(m)), m.intercloudOrEmpty()));
+		}
+		final JsonNode[] lcCatalog = new JsonNode[1];
 		final Map<String, LcDesignRef> fetched = new LinkedHashMap<>();
 		final List<Member> members = new ArrayList<>();
 		for (final Member m : d.membersOrEmpty()) {
@@ -210,9 +218,36 @@ public class DesignService {
 							+ ref.revision() + " (requested " + want.revision() + "); choose it again");
 				}
 			}
-			members.add(new Member(m.cloud(), ref, m.host(), m.architecture(), m.portOffset()));
+			members.add(new Member(m.cloud(), ref, m.host(), m.architecture(), m.portOffset(), intercloud(m, ref, added, lcCatalog)));
 		}
 		return new SolcDesign(d.name(), d.organization(), d.relay(), members, d.exchanges(), d.verifyDiscovery(), d.packaging(), d.layout());
+	}
+
+	// the policy's inter-cloud components among those asked for; what they require is derived, never taken from the request
+	private List<String> requested(final Member m) {
+		return m.intercloudOrEmpty().stream().filter(c -> c != null && catalog.intercloudComponents().contains(c)).distinct().sorted().toList();
+	}
+
+	private static String intercloudKey(final LcDesignRef ref, final List<String> requested) {
+		return ref.id() + "@" + ref.revision() + "+" + String.join(",", requested);
+	}
+
+	/**
+	 * The inter-cloud infrastructure a member adds to its local-cloud design: the requested inter-cloud components and
+	 * their requirements in the LocalCloudConfigurator catalog, without what the design already has. Null when nothing is added.
+	 */
+	private List<String> intercloud(final Member m, final LcDesignRef ref, final Map<String, List<String>> resolved, final JsonNode[] lcCatalog) {
+		final List<String> requested = requested(m);
+		if (requested.isEmpty()) {
+			return null;
+		}
+		final List<String> add = resolved.computeIfAbsent(intercloudKey(ref, requested), k -> {
+			if (lcCatalog[0] == null) {
+				lcCatalog[0] = lcc.catalog();
+			}
+			return LcDesignClient.closure(lcCatalog[0], requested).stream().filter(c -> !ref.components().contains(c)).toList();
+		});
+		return add.isEmpty() ? null : add;
 	}
 
 	private void requireValid(final SolcDesign d) {
