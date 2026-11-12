@@ -69,6 +69,8 @@ public class MySqlEndToEndTest {
 		registry.add("spring.datasource.url", () -> System.getProperty("gt.it.db.url"));
 		registry.add("spring.datasource.password", () -> System.getProperty("gt.it.db.password"));
 		registry.add("gatetunnel.relay.port", () -> "1");
+		// required since SOS-6; read only when the relay connects, which it never does on port 1
+		registry.add("gatetunnel.relay.crl-file", () -> "/nonexistent/org-ca.crl");
 	}
 
 	//-------------------------------------------------------------------------------------------------

@@ -7,6 +7,7 @@
 Exports the commit with `git archive` into a temporary directory, so every build input is exactly the committed
 source (no working-tree changes, no target/ leftovers), then:
   - builds every image defined by the support folders' compose.yaml build sections, SoSConfigurator's Dockerfile and
+    database Dockerfile (it has no compose.yaml), and
     the five core modules' docker/Dockerfile-* files, each with `docker build --no-cache --pull=false`;
   - runs the common-library and core test suites (the core image builds skip tests) in the Maven build image;
   - lists the resolved Maven dependencies of every project.
@@ -80,6 +81,9 @@ def targets(src: pathlib.Path, version: str) -> list[dict]:
             slug = folder.name.removeprefix("ah5-").removesuffix("-java").removesuffix("-java-spring").lower()
             out.append({"name": f"arrowhead-{slug}-standalone", "image": f"arrowhead-{slug}-standalone:{version}", "source": folder.name,
                         "service": slug, "context": folder, "dockerfile": folder / "Dockerfile", "args": {}})
+            if (folder / "deployment/database/Dockerfile").exists():
+                out.append({"name": f"arrowhead-{slug}-standalone-db", "image": f"arrowhead-{slug}-standalone-db:{version}", "source": folder.name,
+                            "service": slug + "-db", "context": folder, "dockerfile": folder / "deployment/database/Dockerfile", "args": {}})
     for module in CORE:
         docker = src / "ah5-core-java-spring" / module / "docker"
         for df in sorted(docker.glob("Dockerfile-*")):
