@@ -16,13 +16,13 @@ Since v5.0, full AA security and encrypted information exchange are the default 
 
 The check runs before Spring creates any bean, so the system never opens a port or a database connection. The error lists each setting that caused the refusal.
 
-The `src/main/resources/application.properties` of each system is a development sample with TLS off, so `java -jar` with no other configuration is refused. This is intended. Deployments use the secure configuration: `config/application.properties` in each support folder, and the matching properties or environment variables for Core.
+Many common-library applications ship `src/main/resources/application.properties` as development samples with TLS off; those settings are refused in the default secure profile. Inspect the effective configuration rather than assuming every packaged sample is identical. Deployments use the secure configuration in `config/application.properties` for each support folder, and the matching properties or environment variables for Core.
 
-Other systems in the tree work differently:
+All current core and support applications are Java-Spring, including CertificateAuthority, Gatekeeper, GateTunnel, SysMonitor and LocalCloudManager. Most support systems compile private common-library copies; security fixes must reach those copies as well as the shared library.
 
-- The four native Java systems (CertificateAuthority, Gatekeeper, GateTunnel, SysMonitor) have no plaintext mode. They refuse any endpoint that is not HTTPS.
-- AIGym does not use the shared library. It defaults to TLS with client certificates, and its security filter rejects a request without one.
-- LocalCloudManager is a Node.js console, not a Spring system. It has its own login and proxy checks.
+- AIGym has a standalone Spring implementation rather than the common-library guard. Its packaged deployment uses mutual TLS and its own security/authorization filters; the guard table above is not a claim about AIGym's implementation.
+- LocalCloudManager has an Arrowhead mutual-TLS connector on 8491 and a separate password/session-protected plain-HTTP operator console on 8490, published on host loopback. The console's checks and constrained Docker proxy are described in its [deployment guide](ah5-LocalCloudManager-java-spring/DEPLOYMENT.md).
+- LocalCloudConfigurator's host worker is a separate loopback mutual-TLS agent, not another Arrowhead support system. SoLocalCloudConfigurator is the current SoLC service; SoSConfigurator is retained legacy.
 
 ## Development exception
 
@@ -42,12 +42,12 @@ Do not put this setting in a `config/application.properties`, `compose.yaml`, `D
 python3 verification/tools/verify_reference_conformance.py
 ```
 
-It checks the packaged configuration of every folder, and also the version, port, monitoring, discovery and inter-cloud rules of this reference tree.
+It checks version, port, monitoring, security packaging, discovery and inter-cloud rules in its configured scope. Its explicit support list predates SoLocalCloudConfigurator; see the [tool coverage limits](verification/tools/README.md). A pass is not full release qualification.
 
 ## Limits
 
 - The DeviceQoSEvaluator device agent (`device_agent/python`) is not a Java system and has no guard. It enforces its own default: mutual TLS, a client allow-list and a CRL check, and plain HTTP only on a loopback address.
-- Outbound calls do not check the server certificate against a CRL; only incoming connections do.
+- Outbound revocation handling is client-specific. LocalCloudManager explicitly checks provider certificates against the cloud CRL in its [TLS context](ah5-LocalCloudManager-java-spring/src/main/java/eu/arrowhead/localcloudmanager/client/TlsContextFactory.java). Do not infer equivalent handling for every outbound client from the startup guard.
 - The guard covers the Java reference tree only. The Go and Rust trees have their own startup behaviour.
 - A running system is not changed until it is rebuilt from this tree and redeployed.
 - A running test cloud that keeps insecure values in `application.properties` and overrides them with environment variables passes, because the guard reads the effective values.

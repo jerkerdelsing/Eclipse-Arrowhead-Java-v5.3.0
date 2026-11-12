@@ -1,0 +1,67 @@
+{
+  "commit": "02b4b4e229b0fc0e5645dd22f7290a30a86d3a52",
+  "release": "5.3.0",
+  "mavenImage": "maven:3.9-eclipse-temurin-21",
+  "systems": {
+    "ah5-CertificateAuthority-java-spring": {
+      "databaseImage": "arrowhead-certificate-authority-standalone-db:5.3.0",
+      "databaseImageId": "sha256:a9de2d7a110d8d3587b5e5340ac7b38dd774af047aef85364f1dd157521943e8",
+      "schema": "ah_certificate_authority",
+      "user": "certificateauthority",
+      "result": "PASS",
+      "tests": "Tests run: 1, Failures: 0, Errors: 0, Skipped: 0",
+      "seconds": 32,
+      "log": "build-logs/it-ah5-CertificateAuthority-java-spring.log"
+    },
+    "ah5-Gatekeeper-java-spring": {
+      "databaseImage": "arrowhead-gatekeeper-standalone-db:5.3.0",
+      "databaseImageId": "sha256:2e60e6154a794dc5873d1464ae4aba7ae588603c506094a86e942b3fa1255fed",
+      "schema": "ah_gatekeeper",
+      "user": "gatekeeper",
+      "result": "PASS",
+      "tests": "Tests run: 2, Failures: 0, Errors: 0, Skipped: 0",
+      "seconds": 31,
+      "log": "build-logs/it-ah5-Gatekeeper-java-spring.log"
+    },
+    "ah5-GateTunnel-java-spring": {
+      "databaseImage": "arrowhead-gatetunnel-standalone-db:5.3.0",
+      "databaseImageId": "sha256:eaf3ca22eb14afb0b2cc793053bfa9a5e46d2a5d0310351492b5f03ee04916f5",
+      "schema": "ah_gatetunnel",
+      "user": "gatetunnel",
+      "result": "PASS",
+      "tests": "Tests run: 1, Failures: 0, Errors: 0, Skipped: 0",
+      "seconds": 31,
+      "log": "build-logs/it-ah5-GateTunnel-java-spring.log"
+    },
+    "ah5-LocalCloudConfigurator-java": {
+      "databaseImage": "arrowhead-localcloudconfigurator-standalone-db:5.3.0",
+      "databaseImageId": "sha256:1f17ea0567883b659884304661c9bf872edcac6e1d8337637de9e63e120f4fdb",
+      "schema": "ah_localcloudconfigurator",
+      "user": "localcloudconfigurator",
+      "result": "PASS",
+      "tests": "Tests run: 7, Failures: 0, Errors: 0, Skipped: 0",
+      "seconds": 36,
+      "log": "build-logs/it-ah5-LocalCloudConfigurator-java.log"
+    },
+    "ah5-SoSConfigurator-java": {
+      "databaseImage": "arrowhead-sosconfigurator-standalone-db:5.3.0",
+      "databaseImageId": "sha256:c1b1a1d575557a0cdfae84ce68a7e958900eddd2cc7fd6db5cebff8d18f5cd13",
+      "schema": "ah_sosconfigurator",
+      "user": "sosconfigurator",
+      "result": "PASS",
+      "tests": "Tests run: 1, Failures: 0, Errors: 0, Skipped: 0",
+      "seconds": 33,
+      "log": "build-logs/it-ah5-SoSConfigurator-java.log"
+    },
+    "ah5-SysMonitor-java-spring": {
+      "databaseImage": "arrowhead-sysmonitor-standalone-db:5.3.0",
+      "databaseImageId": "sha256:deea12a4ae8770b85818be576edb00bcba434736503cb1cb9d68fdb7c3c06332",
+      "schema": "ah_sysmonitor",
+      "user": "sysmonitor",
+      "result": "PASS",
+      "tests": "Tests run: 2, Failures: 0, Errors: 0, Skipped: 0",
+      "seconds": 32,
+      "log": "build-logs/it-ah5-SysMonitor-java-spring.log"
+    }
+  }
+}

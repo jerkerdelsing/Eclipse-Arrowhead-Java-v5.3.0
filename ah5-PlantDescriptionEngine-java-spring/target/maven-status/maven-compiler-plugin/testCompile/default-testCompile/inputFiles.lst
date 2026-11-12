@@ -1,6 +1,7 @@
-/src/ah5-PlantDescriptionEngine-java-spring/src/test/java/eu/arrowhead/plantdescriptionengine/security/PlantDescriptionEngineOperationResolverTest.java
-/src/ah5-PlantDescriptionEngine-java-spring/src/test/java/eu/arrowhead/plantdescriptionengine/service/AlarmDetectorTest.java
-/src/ah5-PlantDescriptionEngine-java-spring/src/test/java/eu/arrowhead/plantdescriptionengine/service/PlantDescriptionValidatorTest.java
-/src/ah5-PlantDescriptionEngine-java-spring/src/test/java/eu/arrowhead/plantdescriptionengine/service/PlantFixtures.java
-/src/ah5-PlantDescriptionEngine-java-spring/src/test/java/eu/arrowhead/plantdescriptionengine/service/PlantSynchronizerTest.java
-/src/ah5-PlantDescriptionEngine-java-spring/src/test/java/eu/arrowhead/plantdescriptionengine/service/RuleResolverTest.java
+/src/src/test/java/eu/arrowhead/plantdescriptionengine/security/PlantDescriptionEngineAuthorizationFilterTest.java
+/src/src/test/java/eu/arrowhead/plantdescriptionengine/security/PlantDescriptionEngineOperationResolverTest.java
+/src/src/test/java/eu/arrowhead/plantdescriptionengine/service/AlarmDetectorTest.java
+/src/src/test/java/eu/arrowhead/plantdescriptionengine/service/PlantDescriptionValidatorTest.java
+/src/src/test/java/eu/arrowhead/plantdescriptionengine/service/PlantFixtures.java
+/src/src/test/java/eu/arrowhead/plantdescriptionengine/service/PlantSynchronizerTest.java
+/src/src/test/java/eu/arrowhead/plantdescriptionengine/service/RuleResolverTest.java

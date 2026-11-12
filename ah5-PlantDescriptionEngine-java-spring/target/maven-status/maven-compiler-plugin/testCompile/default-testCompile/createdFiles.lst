@@ -1,6 +1,7 @@
+eu/arrowhead/plantdescriptionengine/security/PlantDescriptionEngineOperationResolverTest.class
 eu/arrowhead/plantdescriptionengine/service/PlantDescriptionValidatorTest.class
 eu/arrowhead/plantdescriptionengine/service/RuleResolverTest.class
+eu/arrowhead/plantdescriptionengine/security/PlantDescriptionEngineAuthorizationFilterTest.class
 eu/arrowhead/plantdescriptionengine/service/PlantFixtures.class
-eu/arrowhead/plantdescriptionengine/security/PlantDescriptionEngineOperationResolverTest.class
 eu/arrowhead/plantdescriptionengine/service/AlarmDetectorTest.class
 eu/arrowhead/plantdescriptionengine/service/PlantSynchronizerTest.class

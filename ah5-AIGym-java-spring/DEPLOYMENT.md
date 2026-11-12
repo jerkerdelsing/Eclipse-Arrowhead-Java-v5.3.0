@@ -29,7 +29,7 @@ The HTTPS API uses port 8478 by default. Packaging and deployment are independen
 
 The image health check tests the local listener only. Confirm application-ready and successful registration in the logs, then make an authorized HTTPS request and check required provider/broker status. A healthy listener does not certify monitoring, orchestration or full application readiness.
 
-The distribution verification deploys one support system at a time with its own data and generated test credentials. Spring startup and authenticated HTTPS access are checked against isolated mTLS core-service protocol fixtures, not production authorities. Broker/NTP/federation functions require separate operational acceptance checks. See [the distribution verification report](../ALL-JAVA-SUPPORT-VERIFICATION-2026-10-25.md).
+The distribution verification deploys one support system at a time with its own data and generated test credentials. Spring startup and authenticated HTTPS access are checked against isolated mTLS core-service protocol fixtures, not production authorities. Broker/NTP/federation functions require separate operational acceptance checks. See [the distribution verification report](../_superseeded/ALL-JAVA-SUPPORT-VERIFICATION-2026-10-25.md).
 
 `docker compose down` stops only this project and preserves its state. Back up its database before upgrades. `down -v` deliberately erases this project's private state and must not be used for ordinary stops. No live cloud was changed by the packaging work.
 

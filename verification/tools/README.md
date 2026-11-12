@@ -1,13 +1,25 @@
-# Repeating the isolated verification
+# Verification tools and evidence boundaries
 
-Run from a complete Eclipse-Arrowhead distribution using Python 3, Docker/Compose and OpenSSL. Build images beforehand using each selected project's own `docker compose build`. The project-local `scripts/verify.sh` is the portable single-folder build check. Third-party Maven dependencies must already be cached for offline checks.
+Reviewed against the current Java-Spring layout on 12 November 2026. The October reports under [_superseeded](../../_superseeded/README.md) are dated evidence, not acceptance of the current release candidate.
 
-- `python3 verification/tools/verify_reference_conformance.py`: static checks of the primary tree, with no Docker or network. It exits non-zero and lists each failure. Run it before packaging.
-- `python3 verification/tools/verify_offline_builds.py`: all 15 Java builds/tests with network disabled, using only each project source mount and a Maven cache. Spring caches default to ~/.m2; native caches use the existing arrowhead-java-support-maven-cache Docker volume. Populate those caches first or change only the cache location.
-- `python3 verification/tools/verify_spring_deployments.py`: the 11 Spring applications, one support system at a time with its own database and mTLS protocol fixtures. `AH_SYSTEM_FILTER=TranslationManager,DataManager` selects a subset and merges the latest results.
-- `python3 verification/tools/verify_native_deployments.py`: the four native Java deployment/storage checks. This retains the original native-result location under verification/independent-support-2026-10-25.
-- `python3 verification/tools/verify_console.py`: the Node/nginx console, with no Docker host-control service.
+## Current entry points
 
-Run deployment scripts serially; they use explicitly named temporary fixture directories, networks and Compose projects. They remove their own disposable volumes/networks/credentials on exit and must never be pointed at a production project or reused production volume. Test private keys are generated locally solely for these fixtures. The core fixture is deliberately permissive test infrastructure and must never be deployed as a production authority. It validates startup/integration wiring, not real authority policy correctness. Normal production application authentication/authorization and TLS filters remain active in the tested systems.
+- `python3 verification/tools/verify_reference_conformance.py`: static primary-tree checks; no Docker or network. Covers version consistency, common copies, security packaging, discovery and inter-cloud rules. Its explicit support list predates SoLocalCloudConfigurator, so a pass is not complete release coverage.
+- `python3 verification/tools/verify_listening_ports.py`: checks all 25 core/support packaged listening defaults. Choreographer/Configuration deployment-port differences are real; LocalCloudManager console warnings reflect its intentional second connector. See [listening ports](../../LISTENING-PORTS.md).
+- Build/test each selected project with its own documented Maven/Makefile or `scripts/verify.sh` workflow. Third-party dependencies must be cached before an offline build. Use the [deployment guide](../../DEPLOYMENT-GUIDE.md) for fresh-cloud prerequisites and the separate [v530 procedure](../../../Arrowhead-test-clouds/Arrowhead-test-cloud-java/v530/README.md) for complete-cloud provisioning and smoke checks.
+- `release_manifest.py`, `dependency_review.py`, `api_dto_review.py` and `negative_access_review.py` produce scoped review records. Inspect their inputs, options, source/image identities and output timestamps before relying on existing files under `verification/release-5.3.0/`; file presence alone is not acceptance.
 
-The scripts use existing named images and write current results to verification/all-support-2026-10-25 (or the native location noted above). Results are snapshots for the code/image IDs recorded in the report. Repeating a subset replaces that system's latest record. No live-cloud rollout is performed.
+## Historical fixture scripts
+
+The following scripts remain for provenance and require review/adaptation before use against current packaging. They have not been relocated, so their existing path assumptions are preserved.
+
+| Script | Historical scope / limitation |
+|---|---|
+| `verify_offline_builds.py` | Reads the October 15-system inventory and its native/Spring cache classification; does not cover the current 20 support folders. Writes back into the October result directory. |
+| `verify_spring_deployments.py` | October eleven-Spring-system fixtures; not a complete current-system deployment suite. |
+| `verify_native_deployments.py` | Four former native-JDK/SQLite systems; current applications are Spring/MySQL. |
+| `verify_console.py` | Former Node.js/nginx console layout; does not verify the current Spring console/proxy. |
+
+These deployment scripts create temporary networks, identities and volumes and remove their own fixtures. Do not run them against production projects or volumes. Their core fixtures are deliberately permissive protocol doubles, not production authorities or evidence of real authorization policy correctness. Historical logs remain under `verification/all-support-2026-10-25/` and `verification/independent-support-2026-10-25/`.
+
+No application build, container startup or deployment was performed for this documentation cleanup. Static checks and document/link checks do not replace fresh release-artifact qualification.

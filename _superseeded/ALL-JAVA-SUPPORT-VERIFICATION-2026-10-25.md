@@ -8,27 +8,27 @@ Canonical folder: `/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/Eclipse
 
 | System | Source | Build | JAR | Image | Config | Compose | Isolation | Tests passed |
 |---|---|---|---|---|---|---|---|---:|
-| [AIGym](ah5-AIGym-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 1 |
-| [Blacklist](ah5-Blacklist-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 139 |
-| [CertificateAuthority](ah5-CertificateAuthority-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 12 |
-| [Choreographer](ah5-Choreographer-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 18 |
-| [Configuration](ah5-Configuration-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 11 |
-| [DataManager](ah5-DataManager-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 15 |
-| [DeviceQoSEvaluator](ah5-DeviceQoSEvaluator-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 301 |
-| [EventHandler](ah5-EventHandler-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 14 |
-| [GateTunnel](ah5-GateTunnel-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 15 |
-| [Gatekeeper](ah5-Gatekeeper-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 9 |
-| [Onboarding](ah5-Onboarding-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 25 |
-| [PlantDescriptionEngine](ah5-PlantDescriptionEngine-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 20 |
-| [SysMonitor](ah5-SysMonitor-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 11 |
-| [TimeManager](ah5-TimeManager-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 17 |
-| [TranslationManager](ah5-TranslationManager-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 490 |
+| [AIGym](../ah5-AIGym-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 1 |
+| [Blacklist](../ah5-Blacklist-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 139 |
+| [CertificateAuthority](../ah5-CertificateAuthority-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 12 |
+| [Choreographer](../ah5-Choreographer-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 18 |
+| [Configuration](../ah5-Configuration-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 11 |
+| [DataManager](../ah5-DataManager-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 15 |
+| [DeviceQoSEvaluator](../ah5-DeviceQoSEvaluator-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 301 |
+| [EventHandler](../ah5-EventHandler-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 14 |
+| [GateTunnel](../ah5-GateTunnel-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 15 |
+| [Gatekeeper](../ah5-Gatekeeper-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 9 |
+| [Onboarding](../ah5-Onboarding-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 25 |
+| [PlantDescriptionEngine](../ah5-PlantDescriptionEngine-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 20 |
+| [SysMonitor](../ah5-SysMonitor-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 11 |
+| [TimeManager](../ah5-TimeManager-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 17 |
+| [TranslationManager](../ah5-TranslationManager-java-spring/DEPLOYMENT.md) | yes | yes | yes | yes | yes | yes | pass | 490 |
 
 **1098 Java tests passed; zero failures, errors or skips.** All fifteen project-local verification scripts ran in a Java 21 Maven container with `--network none`. Only the selected project folder and a populated Maven cache were mounted. Initial third-party cache population used Maven repositories. No external Arrowhead common/core parent or Arrowhead common library JAR was needed for the ten newly independent Spring builds.
 
 The original audit found that only four native Java systems had complete independent packaging. The ten other Spring systems now own private Arrowhead common/DTO source under vendor/, standalone POMs, app and private-DB Dockerfiles, secure file-based configurations, environment templates, local verification scripts, per-project networks/volumes and Compose definitions. AIGym retains its standalone Java build and gained the missing secure deployment definition. Original POMs/licenses and private-source hashes are retained for provenance.
 
-Every current JAR was inspected for the correct system implementation/main class and absence of another support-system application or JavaSupportRuntime. Each of the fifteen application images exists locally and was deployed in the checks below. The ten database-backed projects also built their own schema image. Image IDs, artifact hashes, build/config/source hashes and per-check logs are in [the machine-readable results](verification/all-support-2026-10-25/inventory-results.json).
+Every current JAR was inspected for the correct system implementation/main class and absence of another support-system application or JavaSupportRuntime. Each of the fifteen application images exists locally and was deployed in the checks below. The ten database-backed projects also built their own schema image. Image IDs, artifact hashes, build/config/source hashes and per-check logs are in [the machine-readable results](../verification/all-support-2026-10-25/inventory-results.json).
 
 ## What isolation verified
 
@@ -44,26 +44,26 @@ LocalCloudManager is Node.js/nginx, despite the Java-style folder name; a Java J
 
 ## Documentation and operation
 
-The [deployment guide](DEPLOYMENT-GUIDE.md) and each system's DEPLOYMENT.md give independent build/deployment commands, required credentials, cloud prerequisites, ports, network/subnet selection and state lifecycle. Eleven expanded Spring SysDDs and the support GSoSDD were updated and rebuilt from local LaTeX assets. The four native SysDDs from the prior separation remain valid and their project guides were refreshed. The new PDFs were rendered and visually reviewed, with no overfull boxes or unresolved references/citations in final logs. The GSoSDD now describes all fifteen Java systems, private library ownership and the non-Java console exception. Documents remain release candidates/drafts pending quality assurance.
+The [deployment guide](../DEPLOYMENT-GUIDE.md) and each system's DEPLOYMENT.md give independent build/deployment commands, required credentials, cloud prerequisites, ports, network/subnet selection and state lifecycle. Eleven expanded Spring SysDDs and the support GSoSDD were updated and rebuilt from local LaTeX assets. The four native SysDDs from the prior separation remain valid and their project guides were refreshed. The new PDFs were rendered and visually reviewed, with no overfull boxes or unresolved references/citations in final logs. The GSoSDD now describes all fifteen Java systems, private library ownership and the non-Java console exception. Documents remain release candidates/drafts pending quality assurance.
 
 | Design document | PDF |
 |---|---|
-| AIGym SysDD | [PDF](ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-SysDD.pdf) |
-| Blacklist SysDD | [PDF](ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-SysDD.pdf) |
-| CertificateAuthority SysDD | [PDF](ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysDD.pdf) |
-| Choreographer SysDD | [PDF](ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-SysDD.pdf) |
-| Configuration SysDD | [PDF](ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-SysDD.pdf) |
-| DataManager SysDD | [PDF](ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-SysDD.pdf) |
-| DeviceQoSEvaluator SysDD | [PDF](ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-SysDD.pdf) |
-| EventHandler SysDD | [PDF](ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-SysDD.pdf) |
-| GateTunnel SysDD | [PDF](ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysDD.pdf) |
-| Gatekeeper SysDD | [PDF](ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysDD.pdf) |
-| Onboarding SysDD | [PDF](ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-SysDD.pdf) |
-| PlantDescriptionEngine SysDD | [PDF](ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-SysDD.pdf) |
-| SysMonitor SysDD | [PDF](ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysDD.pdf) |
-| TimeManager SysDD | [PDF](ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-SysDD.pdf) |
-| TranslationManager SysDD | [PDF](ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-SysDD.pdf) |
-| Support GSoSDD | [PDF](<roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2/GSoSDD_Arrowhead_Support_Systems_5.2.pdf>) |
+| AIGym SysDD | [PDF](../ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-SysDD.pdf) |
+| Blacklist SysDD | [PDF](../ah5-Blacklist-java-spring/documentation/v5.2.2/Blacklist-v5.2.2-SysDD.pdf) |
+| CertificateAuthority SysDD | [PDF](../ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysDD.pdf) |
+| Choreographer SysDD | [PDF](../ah5-Choreographer-java-spring/documentation/v5.2.2/Choreographer-v5.2.2-SysDD.pdf) |
+| Configuration SysDD | [PDF](../ah5-Configuration-java-spring/documentation/v5.2.2/Configuration-v5.2.2-SysDD.pdf) |
+| DataManager SysDD | [PDF](../ah5-DataManager-java-spring/documentation/v5.2.2/DataManager-v5.2.2-SysDD.pdf) |
+| DeviceQoSEvaluator SysDD | [PDF](../ah5-DeviceQoSEvaluator-java-spring/documentation/v5.2.2/DeviceQoSEvaluator-v5.2.2-SysDD.pdf) |
+| EventHandler SysDD | [PDF](../ah5-EventHandler-java-spring/documentation/v5.2.2/EventHandler-v5.2.2-SysDD.pdf) |
+| GateTunnel SysDD | [PDF](../ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysDD.pdf) |
+| Gatekeeper SysDD | [PDF](../ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysDD.pdf) |
+| Onboarding SysDD | [PDF](../ah5-Onboarding-java-spring/documentation/v5.2.2/Onboarding-v5.2.2-SysDD.pdf) |
+| PlantDescriptionEngine SysDD | [PDF](../ah5-PlantDescriptionEngine-java-spring/documentation/v5.2.2/PlantDescriptionEngine-v5.2.2-SysDD.pdf) |
+| SysMonitor SysDD | [PDF](../ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysDD.pdf) |
+| TimeManager SysDD | [PDF](../ah5-TimeManager-java-spring/documentation/v5.2.2/TimeManager-v5.2.2-SysDD.pdf) |
+| TranslationManager SysDD | [PDF](../ah5-TranslationManager-java-spring/documentation/v5.2.2/TranslationManager-v5.2.2-SysDD.pdf) |
+| Support GSoSDD | [PDF](<../roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2/GSoSDD_Arrowhead_Support_Systems_5.2.pdf>) |
 
 SHA-256 checks confirmed 2020 original support/common/roadmap files unchanged. Original source checksum inputs are in verification/all-support-original-checksums-2026-10-25.json. No original Arrowhead source folder or live cloud was updated. All disposable test containers, volumes, networks and generated credentials were removed after verification; built artifacts/images are retained.
 
@@ -71,4 +71,4 @@ Earlier copy manifests and the four-system report are historical records. This a
 
 ## Restoration to the requested distribution
 
-The independent projects and their SysDDs were restored from the retained `EA-fork` copy to `Eclipse-Arrowhead` on 25 October 2026. The support GSoSDD is maintained in `roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2`. Rechecked 4160 source, build, configuration and JAR files against the prior verified inventory, excluding macOS folder metadata. All fifteen SysDD source/PDF pairs are present and the twelve previously rendered updated PDF hashes match. The earlier 1,098 Java tests and fifteen isolated deployments remain the test evidence; no new deployment run was performed during restoration. See [restoration verification](verification/support-restoration-2026-10-25.json).
+The independent projects and their SysDDs were restored from the retained `EA-fork` copy to `Eclipse-Arrowhead` on 25 October 2026. The support GSoSDD is maintained in `roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2`. Rechecked 4160 source, build, configuration and JAR files against the prior verified inventory, excluding macOS folder metadata. All fifteen SysDD source/PDF pairs are present and the twelve previously rendered updated PDF hashes match. The earlier 1,098 Java tests and fifteen isolated deployments remain the test evidence; no new deployment run was performed during restoration. See [restoration verification](../verification/support-restoration-2026-10-25.json).

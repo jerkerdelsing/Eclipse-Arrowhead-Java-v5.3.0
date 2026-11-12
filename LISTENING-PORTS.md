@@ -63,7 +63,10 @@ from Java (8491, 8492); aligning them would change existing deployments and is l
 - Every system is a Spring Boot application. Spring Boot provides the overrides; no Java code is involved.
 - `python3 verification/tools/verify_listening_ports.py` checks that every system has a packaged default, that the
   defaults are unique and match the table, and warns where the deployment packaging uses another port.
-- Known deployment differences (warnings from that check, not changed on 2026-11-09): Choreographer's
-  `config/application.properties`, Dockerfile and compose use 8454 (packaged default 8457); Configuration's use 8450
-  (packaged 8459); LocalCloudManager's Dockerfile and compose use 8490 (packaged 8491).
+- Confirmed deployment differences on 12 November 2026: Choreographer's `config/application.properties`, Dockerfile
+  and Compose use 8454 (packaged default 8457); Configuration's use 8450 (packaged default 8459).
+- LocalCloudManager has two intentional connectors: Arrowhead mutual TLS on 8491 and the operator console on 8490.
+  Dockerfile exposes both; Compose publishes the console on host loopback and keeps 8491 inside the cloud network.
+  The port checker currently reports these console references as default-port warnings; they do not mean the Arrowhead
+  connector changed to 8490. See its [deployment guide](ah5-LocalCloudManager-java-spring/DEPLOYMENT.md).
 - SoSConfigurator also opens an optional plain-HTTP console connector with its own configurable port.

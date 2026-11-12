@@ -1,0 +1,259 @@
+{
+  "commit": "02b4b4e229b0fc0e5645dd22f7290a30a86d3a52",
+  "projects": {
+    "ah5-AIGym-java-spring": {
+      "testMethods": 3,
+      "negativeAccess": 1,
+      "examples": [
+        "GeneralManagementSecurityTest.managementCannotBeGrantedByFunctionalServicePolicy"
+      ]
+    },
+    "ah5-Blacklist-java-spring": {
+      "testMethods": 139,
+      "negativeAccess": 8,
+      "examples": [
+        "InternalBlacklistFilterTest.testDoFilterInternalUnknownRequester",
+        "InternalBlacklistFilterTest.testDoFilterInternalForbidden1",
+        "InternalBlacklistFilterTest.testDoFilterInternalForbidden2",
+        "InternalBlacklistMqttFilterTest.testDoFilterRequesterNull",
+        "InternalBlacklistMqttFilterTest.testDoFilterRequesterEmpty"
+      ]
+    },
+    "ah5-CertificateAuthority-java-spring": {
+      "testMethods": 23,
+      "negativeAccess": 11,
+      "examples": [
+        "CertificateAuthorityRouteContractTest.forbiddenAndUnauthenticatedCallsUseArrowheadErrors",
+        "MySqlEndToEndTest.signListRevokeAndPublishAgainstMySql",
+        "CallerProfileFilterTest.onboardingAndDeviceCertificatesAreRefused",
+        "CallerProfileFilterTest.clientCertificateIsRequired",
+        "CertificateSigningServiceTest.refusesCallersWithoutProvisioningIdentity"
+      ]
+    },
+    "ah5-Choreographer-java-spring": {
+      "testMethods": 25,
+      "negativeAccess": 3,
+      "examples": [
+        "OrchestrationCallbackFilterTest.pushWithoutACertificateIsRefused",
+        "OrchestrationCallbackFilterTest.pushFromAForeignCloudIsForbidden",
+        "OrchestrationCallbackFilterTest.pushFromAnotherLocalSystemIsForbidden"
+      ]
+    },
+    "ah5-Configuration-java-spring": {
+      "testMethods": 11,
+      "negativeAccess": 4,
+      "examples": [
+        "AccessControlTest.requiresAnAuthenticatedSystemBoundToItsCertificate",
+        "AccessControlTest.aSystemReadsOnlyItsOwnConfiguration",
+        "AccessControlTest.proxyNeedsSysopWithoutAuthorizationCheck",
+        "AccessControlTest.proxyFollowsConsumerAuthorizationWhenEnabled"
+      ]
+    },
+    "ah5-DataManager-java-spring": {
+      "testMethods": 16,
+      "negativeAccess": 2,
+      "examples": [
+        "GeneralManagementAPITest.onlyAuthenticatedSysopCanReadManagementStatus",
+        "DataManagerAuthorizationTest.failsClosedWhenConsumerAuthorizationIsUnreachable"
+      ]
+    },
+    "ah5-DeviceQoSEvaluator-java-spring": {
+      "testMethods": 304,
+      "negativeAccess": 0,
+      "examples": []
+    },
+    "ah5-EventHandler-java-spring": {
+      "testMethods": 14,
+      "negativeAccess": 1,
+      "examples": [
+        "EventHandlerAuthorizationTest.failsClosedWhenConsumerAuthorizationIsUnavailable"
+      ]
+    },
+    "ah5-GateTunnel-java-spring": {
+      "testMethods": 25,
+      "negativeAccess": 9,
+      "examples": [
+        "SecurityProfileStartupTest.insecureConfigurationIsRefused",
+        "GateTunnelRouteContractTest.onlyTheGatekeeperOpensInterCloudSessions",
+        "GateTunnelRouteContractTest.healthNeedsAuthenticationOnly",
+        "MySqlEndToEndTest.controlSessionsPersistCloseAndFreeTheirPorts",
+        "RelayRoundTripTest.sealedRequestTravelsTheRelayAndIsExecutedOnceAtTheProvider"
+      ]
+    },
+    "ah5-Gatekeeper-java-spring": {
+      "testMethods": 40,
+      "negativeAccess": 13,
+      "examples": [
+        "SecurityProfileRefusalTest.insecureConfigurationIsRefusedAtStartUp",
+        "GatekeeperRouteContractTest.managementPathsAreForLocalCloudManagerAndTheOperatorOnly",
+        "GatekeeperRouteContractTest.onlyOrchestratorsManagerAndOperatorMayActForAnotherConsumer",
+        "MySqlEndToEndTest.managementAgainstMySql",
+        "RelayRoundTripIT.anUnconfiguredNeighbourIsRefusedBeforeAnythingIsSent"
+      ]
+    },
+    "ah5-GraphDBManager-java-spring": {
+      "testMethods": 15,
+      "negativeAccess": 1,
+      "examples": [
+        "GraphDBManagerAuthorizationTest.failsClosedWhenConsumerAuthorizationIsUnreachable"
+      ]
+    },
+    "ah5-LocalCloudConfigurator-java": {
+      "testMethods": 42,
+      "negativeAccess": 7,
+      "examples": [
+        "ConfiguratorTest.inFlightDeploymentGuardSurvivesApiRestart",
+        "DirectBackendTest.duplicateWorkerAndChangedCatalogAreRejected",
+        "SecureProfileTest.developmentSampleIsRefusedInTheSecureProfile",
+        "LocalCloudConfigurationApiTest.accessNeedsAnIdentityAndAGrant",
+        "MySqlEndToEndTest.accessNeedsAnIdentityAndAGrant"
+      ]
+    },
+    "ah5-LocalCloudManager-java-spring": {
+      "testMethods": 58,
+      "negativeAccess": 16,
+      "examples": [
+        "AllowlistTest.lifecycleOnlyForManagedServicesOfTheOwnProject",
+        "AllowlistTest.everythingElseIsRefused",
+        "ProxyControllerTest.everythingElseIsRefusedWithoutReachingDocker",
+        "SecureProfileTest.developmentSampleIsRefusedInTheSecureProfile",
+        "ConsoleApiTest.consoleServesTheUiAndHealthButApiOnlyAfterLogin"
+      ]
+    },
+    "ah5-Onboarding-java-spring": {
+      "testMethods": 25,
+      "negativeAccess": 12,
+      "examples": [
+        "BootstrapAuthenticationTest.requiresTls",
+        "BootstrapAuthenticationTest.missingCertificateFailsClosed",
+        "BootstrapAuthenticationTest.basicCredentialsAreNotAccepted",
+        "BootstrapAuthenticationTest.certificateMustBeApprovedByAnOperator",
+        "BootstrapAuthenticationTest.offboardedDeviceNeedsANewApproval"
+      ]
+    },
+    "ah5-PlantDescriptionEngine-java-spring": {
+      "testMethods": 27,
+      "negativeAccess": 4,
+      "examples": [
+        "PlantDescriptionEngineAuthorizationFilterTest.callerWithoutAGrantIsForbidden",
+        "PlantDescriptionEngineAuthorizationFilterTest.unauthenticatedCallerIsRefused",
+        "PlantDescriptionEngineAuthorizationFilterTest.certificateOfAnotherSystemIsRefused",
+        "PlantDescriptionEngineAuthorizationFilterTest.withoutSslTheCertificateIsNotCompared"
+      ]
+    },
+    "ah5-SoLocalCloudConfigurator-java": {
+      "testMethods": 20,
+      "negativeAccess": 3,
+      "examples": [
+        "SecureProfileTest.developmentSampleIsRefusedInTheSecureProfile",
+        "PolicyEngineTest.federationNeedsIntercloudComponents",
+        "SolcAccessFilterTest.sysopAndWhitelistPassOthersNeedAGrant"
+      ]
+    },
+    "ah5-SoSConfigurator-java": {
+      "testMethods": 29,
+      "negativeAccess": 8,
+      "examples": [
+        "SosConsoleAndApiTest.consoleRequiresPasswordSessionAndLocalHost",
+        "SosConsoleAndApiTest.arrowheadConnectorNeedsAnIdentityAndHasNoConsolePaths",
+        "SosConsoleAndApiTest.refusedSoSIsNotSubmitted",
+        "ConsoleAuthTest.onlyLocalHostAndOriginNamesAreAccepted",
+        "MySqlEndToEndTest.consoleAndArrowheadConnectorsAgainstMySql"
+      ]
+    },
+    "ah5-SysMonitor-java-spring": {
+      "testMethods": 30,
+      "negativeAccess": 7,
+      "examples": [
+        "SysMonitorRouteContractTest.historyIsDecidedByConsumerAuthorization",
+        "SysMonitorRouteContractTest.errorStatuses",
+        "SecurityProfileTest.developmentSampleIsRefused",
+        "MySqlEndToEndTest.managementAndHistoryAgainstMySql",
+        "AmqpIntakeTest.invalidObservationIsRejectedWithoutRequeue"
+      ]
+    },
+    "ah5-TimeManager-java-spring": {
+      "testMethods": 17,
+      "negativeAccess": 1,
+      "examples": [
+        "TimeManagerAuthorizationTest.deniesWithoutGrantAndFailsClosed"
+      ]
+    },
+    "ah5-TranslationManager-java-spring": {
+      "testMethods": 490,
+      "negativeAccess": 9,
+      "examples": [
+        "BridgeDbServiceTest.testHandleTranslationReportWrongRequester",
+        "BridgeDbServiceTest.testAbortBridgeNoPermission",
+        "TranslationReportServiceTest.testReportOperationForbiddenException",
+        "CoreSystemsDriverTest.testFilterOutBlacklistedSystemsForbiddenException",
+        "CoreSystemsDriverTest.testFilterOutBlacklistedSystemsAuthException"
+      ]
+    },
+    "ah5-common-java-spring/common-utils": {
+      "testMethods": 886,
+      "negativeAccess": 99,
+      "examples": [
+        "ArrowheadResponseEntityExceptionHandlerTest.testHandleArrowheadException",
+        "HttpServiceTest.testSendRequest6ClassSecureRequestInsecureMode",
+        "HttpServiceTest.testSendRequest6ClassSecurePKIXPathError",
+        "HttpServiceTest.testSendRequest6ClassSecureNoSAN",
+        "HttpServiceTest.testSendRequest6ClassSecureNoMatchingName"
+      ]
+    },
+    "ah5-core-java-spring/authentication": {
+      "testMethods": 374,
+      "negativeAccess": 18,
+      "examples": [
+        "InternalAuthenticationFilterTest.testDoFilterInternalAuthHeaderNull",
+        "InternalAuthenticationFilterTest.testDoFilterInternalAuthHeaderEmpty",
+        "InternalAuthenticationFilterTest.testDoFilterInternalAuthHeaderInvalid1",
+        "InternalAuthenticationFilterTest.testDoFilterInternalAuthHeaderInvalid2",
+        "InternalAuthenticationFilterTest.testDoFilterInternalAuthHeaderInvalid3"
+      ]
+    },
+    "ah5-core-java-spring/consumer-authorization": {
+      "testMethods": 737,
+      "negativeAccess": 24,
+      "examples": [
+        "InternalManagementServiceFilterTest.testDoFilterInternalSysopOnlySysopFalse",
+        "InternalManagementServiceFilterTest.testDoFilterInternalWhitelistNotOnTheWhitelist",
+        "InternalManagementServiceFilterTest.testDoFilterAuthorizationNotAuthorizedServiceDefNotFoundNoServices",
+        "InternalManagementServiceFilterTest.testDoFilterAuthorizationNotAuthorizedServiceDefNotFoundInterfaceDoesNotMatch",
+        "InternalManagementServiceFilterTest.testDoFilterAuthorizationNotAuthorizedServiceDefNotFoundMethodDoesNotMatch"
+      ]
+    },
+    "ah5-core-java-spring/serviceorchestration-dynamic": {
+      "testMethods": 477,
+      "negativeAccess": 6,
+      "examples": [
+        "OrchestrationPlantManagementAPITest.consoleMayReadButCannotReplaceEvenIfManagementPolicyWereBroadened",
+        "OrchestrationPlantManagementAPITest.unrelatedCallerCannotReadOrWrite",
+        "OrchestrationPushManagementServiceTest.testPushUnsubscribeDifferentOwner",
+        "OrchestrationServiceTest.testPushUnsubscribeNotOwner",
+        "LocalServiceOrchestrationTest.testDoLocalServiceOrchestrationBlacklistThrowsForbbidenException"
+      ]
+    },
+    "ah5-core-java-spring/serviceorchestration-simple": {
+      "testMethods": 316,
+      "negativeAccess": 2,
+      "examples": [
+        "OrchestrationPushManagementServiceTest.testPushUnsubscribeThrowsForbiddenException",
+        "OrchestrationServiceTest.testPushUnsubscribeThrowsForbiddenException"
+      ]
+    },
+    "ah5-core-java-spring/serviceregistry": {
+      "testMethods": 703,
+      "negativeAccess": 4,
+      "examples": [
+        "ReservedServiceDefinitionsTest.ownersMayRegisterOthersAreRefused",
+        "ReservedServiceDefinitionsTest.overridesAddReplaceAndLiftReservations",
+        "ServiceDiscoveryServiceTest.testLookupServiceVerboseTrueButNotAllowed",
+        "ServiceDiscoveryServiceTest.testRevokeServiceTryingToRevokeSomebodyElse"
+      ]
+    }
+  },
+  "withoutNegativeAccessTests": [
+    "ah5-DeviceQoSEvaluator-java-spring"
+  ]
+}

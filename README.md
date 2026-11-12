@@ -9,9 +9,10 @@ complete local-cloud and System-of-LocalClouds environment.
 > 2026-10-30 (workspace policy `PRIMARY-SOURCES.md`, one level above this repository). The Go and Rust
 > implementations live in the sibling trees `Eclipse-Arrowhead-go` and `Eclipse-Arrowhead-rust`.
 
-**Versions.** 5.3.0 is the documentation edition and the candidate release described in the draft release notes. Most
-systems still carry the implementation version 5.2.2 in their POMs, JAR names and version constants; moving them to
-5.3.0 is a separate release step (see [Documentation V5.3.0](documentation/Documentation-V5.3.0.md)).
+**Versions.** The primary Java framework constant, common/Core Maven versions and support application versions
+are aligned to the 5.3.0 release candidate. Independent service versions and wire-contract identifiers retain their
+own values; for example, `SysMonitor-AMQP-IDD-5.2.2` is unchanged. Older build/deployment records do not by themselves
+qualify the aligned artifacts (see [release notes](Release-5.3.0.md)).
 
 ## Core systems
 
@@ -32,7 +33,7 @@ systems still carry the implementation version 5.2.2 in their POMs, JAR names an
 ## Support systems
 
 Each support system is a self-contained folder with its own source, Maven build, Dockerfile, configuration,
-`compose.yaml`, `DEPLOYMENT.md` and documentation. All but AIGym compile a private copy of the common library under
+`compose.yaml` and documentation; deployment instructions are in `DEPLOYMENT.md` or, for GraphDBManager, its README. All but AIGym compile a private copy of the common library under
 `vendor/`, so no folder depends on a sibling at build time.
 
 | System | Folder | Default port | Purpose |
@@ -88,7 +89,7 @@ run Maven in the build image, so they need only Docker; the support systems' Doc
 the image.
 
 A system needs, from the cloud it joins: its own certificate and identity, the cloud trust store and CRL, database
-secrets and ConsumerAuthorization grants. Each folder's `DEPLOYMENT.md` lists them, and
+secrets and ConsumerAuthorization grants. Each folder's deployment guide (GraphDBManager: README) lists them, and
 [DEPLOYMENT-GUIDE.md](DEPLOYMENT-GUIDE.md) describes selecting, provisioning and deploying individual systems.
 
 Complete clouds built from this tree are in the separate repository `Arrowhead-test-clouds-v5.3.0` (Java, Go and
@@ -105,7 +106,7 @@ explicit exception. See [SECURITY-PROFILE.md](SECURITY-PROFILE.md).
 | Path | Content |
 |---|---|
 | `ah5-*/documentation/v5.3.0/` | per-system SysD, SysDD, SD and IDD (LaTeX sources and PDFs); `v5.2.2/` holds the retained baseline |
-| [documentation/](documentation/Documentation-V5.3.0.md) | edition-wide index, migration record, validation evidence and superseded cross-language compilations |
+| [documentation/](documentation/Documentation-V5.3.0.md) | edition-wide index, publication record, validation evidence and links to archived compilations |
 | `5.3 SoS documentation/` | Arrowhead SoS architecture (black-box and white-box models, SoS tests), foundational principles, and the standards the framework builds on |
 | `profile-library-sysml/` | Arrowhead SysML profile and library: SysML v1.6 (Eclipse Papyrus: metamodel and profile, DSL update site, Eclipse Arrowhead 5.0 library) and SysML v2 models of the systems |
 | [Release-5.3.0.md](Release-5.3.0.md) | draft release notes against the official 5.2.2 release |
@@ -114,10 +115,10 @@ explicit exception. See [SECURITY-PROFILE.md](SECURITY-PROFILE.md).
 
 | Path | Content |
 |---|---|
-| [verification/tools/](verification/tools/README.md) | static checks: `verify_reference_conformance.py` (version, ports, monitoring, security packaging, discovery, inter-cloud authorization), `verify_listening_ports.py`, `verify_spring_deployments.py`, `verify_offline_builds.py`, `verify_console.py` |
+| [verification/tools/](verification/tools/README.md) | current static/release checks and limitations of the retained October build/deployment/console fixtures |
 | `verification/` | inventories, checksums and results of the support-system verification of 25 October 2026 |
-| [JAVA-SUPPORT-FOLDERS.md](JAVA-SUPPORT-FOLDERS.md) | the independently packaged support systems with their test counts |
-| [ALL-JAVA-SUPPORT-VERIFICATION-2026-10-25.md](ALL-JAVA-SUPPORT-VERIFICATION-2026-10-25.md), [INDEPENDENT-SUPPORT-VERIFICATION-2026-10-25.md](INDEPENDENT-SUPPORT-VERIFICATION-2026-10-25.md) | historical verification reports |
+| [JAVA-SUPPORT-FOLDERS.md](JAVA-SUPPORT-FOLDERS.md) | the current support-system inventory and links to dated test evidence |
+| [ALL-JAVA-SUPPORT-VERIFICATION-2026-10-25.md](_superseeded/ALL-JAVA-SUPPORT-VERIFICATION-2026-10-25.md), [INDEPENDENT-SUPPORT-VERIFICATION-2026-10-25.md](_superseeded/INDEPENDENT-SUPPORT-VERIFICATION-2026-10-25.md) | historical verification reports, retained in `_superseeded/` |
 
 ```sh
 python3 verification/tools/verify_reference_conformance.py

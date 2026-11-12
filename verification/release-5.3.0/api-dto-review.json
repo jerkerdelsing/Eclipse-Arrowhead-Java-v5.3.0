@@ -1,0 +1,94 @@
+{
+  "commit": "02b4b4e229b0fc0e5645dd22f7290a30a86d3a52",
+  "baseline": {
+    "tag": "v5.2.2",
+    "common": "8835d65fadfb50c8da0ceb373e615f0a9cdebca4",
+    "core": "3f96fb47aebf06a5054ba0974087c540b61c4beb"
+  },
+  "dto": {
+    "removed": [],
+    "added": [
+      "eu/arrowhead/dto/OrchestrationPlantProviderDTO.java",
+      "eu/arrowhead/dto/OrchestrationPlantRuleDTO.java",
+      "eu/arrowhead/dto/OrchestrationPlantRulesDTO.java"
+    ],
+    "breaking": [],
+    "additive": []
+  },
+  "constants": {
+    "removed": [
+      {
+        "file": "common:eu/arrowhead/common/Constants.java",
+        "constant": "SERVICE_DEF_MONITOR",
+        "was": "\"monitor\""
+      },
+      {
+        "file": "core:serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/DynamicServiceOrchestrationConstants.java",
+        "constant": "HTTP_API_MONITOR_PATH",
+        "was": "HTTP_API_BASE_PATH + \"/monitor\""
+      },
+      {
+        "file": "core:serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/DynamicServiceOrchestrationConstants.java",
+        "constant": "MQTT_API_MONITOR_BASE_TOPIC",
+        "was": "MQTT_API_BASE_TOPIC_PREFIX + \"/monitor/\""
+      },
+      {
+        "file": "core:serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/DynamicServiceOrchestrationConstants.java",
+        "constant": "VERSION_MONITOR",
+        "was": "\"1.0.0\""
+      },
+      {
+        "file": "core:serviceorchestration-simple/src/main/java/eu/arrowhead/serviceorchestration/SimpleStoreServiceOrchestrationConstants.java",
+        "constant": "HTTP_API_MONITOR_PATH",
+        "was": "HTTP_API_BASE_PATH + \"/monitor\""
+      },
+      {
+        "file": "core:serviceorchestration-simple/src/main/java/eu/arrowhead/serviceorchestration/SimpleStoreServiceOrchestrationConstants.java",
+        "constant": "MQTT_API_MONITOR_BASE_TOPIC",
+        "was": "MQTT_API_BASE_TOPIC_PREFIX + \"/monitor/\""
+      },
+      {
+        "file": "core:serviceorchestration-simple/src/main/java/eu/arrowhead/serviceorchestration/SimpleStoreServiceOrchestrationConstants.java",
+        "constant": "VERSION_MONITOR",
+        "was": "\"1.0.0\""
+      }
+    ],
+    "changed": [
+      {
+        "file": "common:eu/arrowhead/common/Constants.java",
+        "constant": "AH_FRAMEWORK_VERSION",
+        "was": "\"5.2.1\"",
+        "now": "\"5.3.0\""
+      },
+      {
+        "file": "common:eu/arrowhead/common/Defaults.java",
+        "constant": "HTTP_COLLECTOR_MODE_DEFAULT",
+        "was": "HttpCollectorMode.SR_AND_ORCH_VALUE",
+        "now": "HttpCollectorMode.ORCHESTRATION_VALUE"
+      }
+    ],
+    "added": 33
+  },
+  "mappings": {
+    "filesRemoved": [
+      "core:serviceorchestration-dynamic/src/main/java/eu/arrowhead/serviceorchestration/api/http/MonitorAPI.java",
+      "core:serviceorchestration-simple/src/main/java/eu/arrowhead/serviceorchestration/api/http/MonitorAPI.java"
+    ],
+    "removed": [],
+    "added": 0
+  },
+  "summary": {
+    "dtoClassesCompared": 167,
+    "dtoRemoved": 0,
+    "dtoAdded": 3,
+    "dtoBreakingMembers": 0,
+    "dtoAdditiveClasses": 0,
+    "constantsRemoved": 7,
+    "constantsChanged": 2,
+    "constantsAdded": 33,
+    "mappingsRemovedOrChanged": 0,
+    "mappingsAdded": 0,
+    "filesRemoved": 2,
+    "needsReview": 11
+  }
+}

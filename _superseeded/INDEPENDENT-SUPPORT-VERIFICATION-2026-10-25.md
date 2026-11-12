@@ -29,12 +29,12 @@ Updated and compiled four SysDDs, four SysDs, four AMQP publisher IDDs and the s
 
 | Design document | Current PDF |
 |---|---|
-| CertificateAuthority SysDD | [PDF](ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysDD.pdf) |
-| Gatekeeper SysDD | [PDF](ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysDD.pdf) |
-| GateTunnel SysDD | [PDF](ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysDD.pdf) |
-| SysMonitor SysDD | [PDF](ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysDD.pdf) |
-| Support GSoSDD | [PDF](<roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2/GSoSDD_Arrowhead_Support_Systems_5.2.pdf>) |
+| CertificateAuthority SysDD | [PDF](../ah5-CertificateAuthority-java-spring/documentation/v5.2.2/CertificateAuthority-v5.2.2-SysDD.pdf) |
+| Gatekeeper SysDD | [PDF](../ah5-Gatekeeper-java-spring/documentation/v5.2.2/Gatekeeper-v5.2.2-SysDD.pdf) |
+| GateTunnel SysDD | [PDF](../ah5-GateTunnel-java-spring/documentation/v5.2.2/GateTunnel-v5.2.2-SysDD.pdf) |
+| SysMonitor SysDD | [PDF](../ah5-SysMonitor-java-spring/documentation/v5.2.2/SysMonitor-v5.2.2-SysDD.pdf) |
+| Support GSoSDD | [PDF](<../roadmap/5.2/Arrowhead SoS architecture/WhiteBox_5.2.2/GSoSDD_Arrowhead_Support_Systems_5.2.pdf>) |
 
 SHA-256 checks confirmed 349 original files unchanged. See `original-source-checksums-2026-10-25.json`. Historical implementations are retained under `legacy/` in each changed project; the copied combined runtime is marked historical and is not used by the standalone projects.
 
-Detailed machine-readable results, artifact/image identifiers, source hashes and build/container logs are in [verification/independent-support-2026-10-25](verification/independent-support-2026-10-25/). The historical copy manifest remains an account of the initial copy and is not a checksum manifest of the newly refactored distribution.
+Detailed machine-readable results, artifact/image identifiers, source hashes and build/container logs are in [verification/independent-support-2026-10-25](../verification/independent-support-2026-10-25/). The historical copy manifest remains an account of the initial copy and is not a checksum manifest of the newly refactored distribution.
