@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-12",
+  "manifestCommit": "02b4b4e229b0fc0e5645dd22f7290a30a86d3a52",
+  "cloud": {
+    "repository": "Arrowhead-test-clouds-v5.3.0",
+    "commit": "31d596a",
+    "folder": "Arrowhead-test-cloud-java",
+    "composeProject": "arrowhead-v53-test-cloud",
+    "imageTag": "20261112-r530",
+    "mapping": "Arrowhead-test-cloud-java/v530/release-images.json",
+    "federation": false
+  },
+  "containers": {
+    "onReleaseImages": 47,
+    "imageIdMismatches": 0,
+    "unchangedThirdParty": [
+      "rabbitmq:4.3.7-alpine",
+      "eclipse-mosquitto:2.0.22",
+      "arrowhead-random-data-producer:1.0.0-sos16"
+    ]
+  },
+  "deployment": {
+    "result": "PASS on the second deploy.sh up",
+    "firstAttempt": "LocalCloudManager and EventHandler exited at startup: AuthException 'Invalid authorization header' after a double login (main thread and scheduled OutsourcedLoginJob); both started on retry"
+  },
+  "smokeTest": {
+    "script": "scripts/smoke-test.sh",
+    "result": "PASS",
+    "checks": "14/14"
+  },
+  "securityRegression": {
+    "script": "scripts/smoke-security.sh",
+    "result": "PASS",
+    "checksPassed": 194,
+    "failures": 0,
+    "skipped": [
+      "relay checks: no inter-cloud federation (no ca-cross.crt)"
+    ],
+    "areas": [
+      "H1 console",
+      "H2 credentials",
+      "H3 revocation (MQTT and AMQP brokers)",
+      "J1 databases",
+      "J2 CA key",
+      "J3 container hardening",
+      "J5 AH-GT-1 profile",
+      "J7 secrets",
+      "J8 component versions",
+      "J9 service definitions",
+      "J10 epmd",
+      "J11/J18 health ports",
+      "J12 blacklist",
+      "J13 key files",
+      "J14 generated passwords",
+      "J15 mounts",
+      "J16 CRL",
+      "J19 identities",
+      "J23 sysop",
+      "LC and SoLC grants"
+    ]
+  }
+}

@@ -11,6 +11,7 @@ cannot have entered it. The commands are in [verification/tools](../tools/); eac
 | [db-integration-tests.json](db-integration-tests.json) | MySQL integration tests against the release's own database images | `db_integration_tests.py` |
 | [relay-integration-tests.json](relay-integration-tests.json) | Gatekeeper and GateTunnel tests over the relay of `Arrowhead-test-clouds/Arrowhead-relay` | `relay_integration_tests.py` |
 | [sysmonitor-broker-test.json](sysmonitor-broker-test.json) | SysMonitor's AMQP → store → MQTT round trip against throw-away brokers | `sysmonitor_broker_test.py` |
+| [live-security.json](live-security.json) | smoke and security regression of the Java test cloud running these images | the test cloud's scripts |
 | [dependency-review.json](dependency-review.json) | known vulnerabilities of the runtime Maven dependencies (OSV) | `dependency_review.py` |
 | [api-dto-review.json](api-dto-review.json) | DTOs, constants and request mappings against the upstream 5.2.2 tags | `api_dto_review.py` |
 | [negative-access-review.json](negative-access-review.json) | tests that assert a refusal (401/403), per project | `negative_access_review.py` |
@@ -126,5 +127,27 @@ The first run also flagged Choreographer and PlantDescriptionEngine, which do ha
 - **PlantDescriptionEngine, authorization filter:** an unauthenticated caller and a certificate of another system are
   refused (401); a caller without a ConsumerAuthorization grant is forbidden (403).
 
-Not covered here: a live negative-access run against a cloud deployed from these 5.3.0 images. The test clouds'
-`smoke-security` scripts do that; their recorded runs used the earlier `20261111-v530` images.
+The live run below repeats the negative-access checks against a deployed cloud.
+
+### Live security run
+
+The Java test cloud (`Arrowhead-test-clouds/Arrowhead-test-cloud-java`, Compose project `arrowhead-v53-test-cloud`)
+was redeployed on these images on 12 November 2026. Its `v530/use-release-images.py` tags the support images of the
+manifest under the cloud's names (`20261112-r530`), builds the cloud's read-only core adapter on the release core
+images and the core database images from the same commit. After deployment all 47 containers of these images ran the
+recorded image IDs; the brokers and RandomDataProducer are third-party or unchanged.
+
+- `scripts/smoke-test.sh`: 14 of 14 OK.
+- `scripts/smoke-security.sh`: passed, 194 checks, 0 failures. Every check of the earlier run on the `20261111-v530`
+  images passes again; the 8 additional checks cover SoLocalCloudConfigurator. It covers the console (H1),
+  credentials (H2), revocation at the MQTT and AMQP brokers (H3), databases, container hardening, secrets, component
+  versions, blacklist enforcement, mounts, the CRL and the grants. The relay checks are skipped: the cloud is not
+  federated (section 8, item 4).
+
+**Finding: startup login race.** On the first deployment LocalCloudManager and EventHandler exited at startup with
+`AuthException: Invalid authorization header`; both started on the next attempt. At startup the common library logs in
+from the main thread (`ApplicationInitListener`) and from the scheduled `OutsourcedLoginJob` at nearly the same time.
+`loginIfNeeded()` is `synchronized`, but Quartz creates a new job instance for each run, so the lock does not exclude
+the two; the second token supersedes the first while the registration call is under way, and ServiceRegistry refuses
+it. Intermittent (2 of 21 systems on this start) and recovered by a restart, but a system without a restart policy
+stays down. It is in `ah5-common-java-spring` and its vendored copies; not fixed in this release candidate.
