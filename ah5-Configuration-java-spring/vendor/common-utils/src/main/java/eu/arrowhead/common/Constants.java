@@ -27,7 +27,7 @@ public final class Constants {
 
 	// Framework version
 
-	public static final String AH_FRAMEWORK_VERSION = "5.2.2";
+	public static final String AH_FRAMEWORK_VERSION = "5.3.0";
 
 	// Global
 

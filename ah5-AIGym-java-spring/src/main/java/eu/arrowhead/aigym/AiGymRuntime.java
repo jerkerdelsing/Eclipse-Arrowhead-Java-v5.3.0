@@ -141,7 +141,7 @@ public class AiGymRuntime {
     public Map<String,Object> status() {
         Map<String,Object> result = new LinkedHashMap<>();
         result.put("status", mqtt != null && mqtt.isConnected() && registered ? "running" : "degraded");
-        result.put("system", arrowhead.systemName); result.put("arrowheadVersion", "5.2.2"); result.put("models", models.inventory());
+        result.put("system", arrowhead.systemName); result.put("arrowheadVersion", "5.3.0"); result.put("models", models.inventory());
         result.put("registration", Map.of("registered", registered, "error", registrationError == null ? "" : registrationError));
         result.put("mqtt", Map.of("connected", mqtt != null && mqtt.isConnected(), "broker", mqttHost + ":" + mqttPort));
         result.put("amqp", Map.of("broker", amqpHost + ":" + amqpPort, "exchange", amqpExchange, "routingKey", monitoringBaseRoutingKey()));

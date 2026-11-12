@@ -72,7 +72,7 @@ Run from this folder with Java 21 and Maven 3.9:
 mvn -B clean verify
 ```
 
-The output is `target/arrowhead-gatekeeper-5.2.2.jar`. `scripts/verify.sh` also checks that the JAR contains Gatekeeper only and no `eu.arrowhead.port` code. `scripts/verify-image.sh` builds the image and checks that it refuses the packaged development configuration.
+The output is `target/arrowhead-gatekeeper-5.3.0.jar`. `scripts/verify.sh` also checks that the JAR contains Gatekeeper only and no `eu.arrowhead.port` code. `scripts/verify-image.sh` builds the image and checks that it refuses the packaged development configuration.
 
 The tests cover:
 

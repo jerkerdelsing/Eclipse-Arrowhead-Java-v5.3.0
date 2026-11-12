@@ -4,7 +4,7 @@ This folder owns the complete source, build, executable JAR, application image, 
 
 ## Build
 
-With Java 21 and Maven 3.9, run `mvn -B clean verify` here. `scripts/verify.sh` also checks artifact contents. Maven Central dependencies require network access on the first build; `-o` works with a populated dependency cache. The output is `target/arrowhead-configuration-5.2.2.jar`. Alternatively `docker compose build` builds from this folder, runs the tests and creates `arrowhead-configuration-standalone:5.2.2` and its private database image.
+With Java 21 and Maven 3.9, run `mvn -B clean verify` here. `scripts/verify.sh` also checks artifact contents. Maven Central dependencies require network access on the first build; `-o` works with a populated dependency cache. The output is `target/arrowhead-configuration-5.3.0.jar`. Alternatively `docker compose build` builds from this folder, runs the tests and creates `arrowhead-configuration-standalone:5.3.0` and its private database image.
 
 The Arrowhead common utilities and DTOs are private source copies under `vendor/`, compiled into this application by the local POM. There is no Arrowhead common/core Maven parent or separately installed Arrowhead library JAR. Upstream POMs, licenses and source hashes are retained in `vendor/PROVENANCE.json`. Security fixes to private copies must be propagated to every affected system.
 

@@ -3,7 +3,7 @@ services:
   certificate-authority:
     build:
       context: .
-    image: arrowhead-certificate-authority-standalone:5.2.2
+    image: arrowhead-certificate-authority-standalone:5.3.0
     restart: unless-stopped
     user: "10001:10001"
     read_only: true
@@ -74,7 +74,7 @@ services:
     build:
       context: .
       dockerfile: deployment/database/Dockerfile
-    image: arrowhead-certificate-authority-standalone-db:5.2.2
+    image: arrowhead-certificate-authority-standalone-db:5.3.0
     environment:
       MYSQL_DATABASE: ah_certificate_authority
       MYSQL_USER: certificateauthority

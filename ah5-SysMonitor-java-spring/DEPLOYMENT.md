@@ -4,7 +4,7 @@ This folder owns the complete source, build, JAR, image, configuration and Compo
 
 ## Build
 
-Run `mvn -B clean verify` here with Java 21 and Maven 3.9. The output is `target/arrowhead-sysmonitor-5.2.2.jar`. `docker compose build` builds the application image `arrowhead-sysmonitor-standalone:5.2.2` and the database image `arrowhead-sysmonitor-standalone-db:5.2.2` from this folder.
+Run `mvn -B clean verify` here with Java 21 and Maven 3.9. The output is `target/arrowhead-sysmonitor-5.3.0.jar`. `docker compose build` builds the application image `arrowhead-sysmonitor-standalone:5.3.0` and the database image `arrowhead-sysmonitor-standalone-db:5.3.0` from this folder.
 
 ## Provision and start
 

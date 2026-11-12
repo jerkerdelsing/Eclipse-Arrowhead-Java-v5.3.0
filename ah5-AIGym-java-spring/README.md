@@ -27,7 +27,7 @@ Every `aiGym` request requires:
 ## Local build
 
 ```sh
-docker build -t arrowhead-aigym-v5:5.2.2 .
+docker build -t arrowhead-aigym-v5:5.3.0 .
 ```
 
 The test-cloud integration provisions the `AIGym` identity, certificate, trust store, MQTT ACL (`sysMonitorData`), AMQP access list (`sysMonitor`), and policies. From `Arrowhead-test-cloud`, run `make up-aigym` and then `make smoke-aigym`.

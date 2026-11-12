@@ -10,11 +10,11 @@ root-folder
 
 1) Run the system build command from the _root-folder_. Make sure you use the proper version number for build arg and also for the tag!
 
-`docker build -f ./ah5-core-java-spring/serviceorchestration-simple/docker/Dockerfile-SimpleStoreServiceOrchestration -t arrowhead-serviceorchestration-simple:5.2.2 --build-arg AH_VERSION=5.2.2 .`
+`docker build -f ./ah5-core-java-spring/serviceorchestration-simple/docker/Dockerfile-SimpleStoreServiceOrchestration -t arrowhead-serviceorchestration-simple:5.3.0 --build-arg AH_VERSION=5.2.2 .`
 
 2) Run the database build command from the _root-folder_. Make sure you use the proper version number for the tag.
 
-`docker build -f ./ah5-core-java-spring/serviceorchestration-simple/docker/Dockerfile-SimpleStoreServiceOrchestration-DB -t arrowhead-serviceorchestration-simple-db:5.2.2 .`
+`docker build -f ./ah5-core-java-spring/serviceorchestration-simple/docker/Dockerfile-SimpleStoreServiceOrchestration-DB -t arrowhead-serviceorchestration-simple-db:5.3.0 .`
 
 # PORT AND SECURITY PROFILE
 

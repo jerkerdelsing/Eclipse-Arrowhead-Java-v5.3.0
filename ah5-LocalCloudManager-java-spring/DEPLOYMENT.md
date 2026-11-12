@@ -1,7 +1,7 @@
 # LocalCloudManager deployment (Java-Spring)
 
-Two images, built from this folder: `arrowhead-localcloudmanager-standalone:5.2.2` (console and Arrowhead consumer system, UID
-10001, read-only root filesystem, no capabilities) and `arrowhead-localcloudmanager-docker-proxy-standalone:5.2.2` (Docker proxy).
+Two images, built from this folder: `arrowhead-localcloudmanager-standalone:5.3.0` (console and Arrowhead consumer system, UID
+10001, read-only root filesystem, no capabilities) and `arrowhead-localcloudmanager-docker-proxy-standalone:5.3.0` (Docker proxy).
 nginx is no longer used.
 
 Copy `.env.example` to `.env`; select an existing cloud network, a unique Compose project and host port and a non-overlapping

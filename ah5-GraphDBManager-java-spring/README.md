@@ -62,7 +62,7 @@ Java 21 and Maven 3.9 (no Arrowhead parent POM or installed library: the common 
 docker run --rm -v "$PWD":/src -v "$HOME/.m2":/root/.m2 -w /src maven:3.9.9-eclipse-temurin-21 mvn -B clean verify
 ```
 
-The first build needs Maven Central for RDF4J; afterwards `-o` works. The result is `target/arrowhead-graphdbmanager-5.2.2.jar`; `scripts/verify.sh` also checks the jar contents. Unit tests cover the historian service (store mocked), SenML validation, the proxy, the health indicator and the operation resolver/authorization filter.
+The first build needs Maven Central for RDF4J; afterwards `-o` works. The result is `target/arrowhead-graphdbmanager-5.3.0.jar`; `scripts/verify.sh` also checks the jar contents. Unit tests cover the historian service (store mocked), SenML validation, the proxy, the health indicator and the operation resolver/authorization filter.
 
 ## Deploy in the Java test cloud
 

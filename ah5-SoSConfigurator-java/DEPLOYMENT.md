@@ -39,7 +39,7 @@ make build up
    - the console password (`sos_console_password`) and its scrypt hash (`sos_console_password_hash`). Only the hash reaches the container.
 
    Existing secrets are kept unless you pass `-force`.
-2. It builds the image `eclipse-arrowhead/sosconfigurator-java:5.2.2` (JRE, non-root, read-only root filesystem).
+2. It builds the image `eclipse-arrowhead/sosconfigurator-java:5.3.0` (JRE, non-root, read-only root filesystem).
 3. It starts TimescaleDB and the Colonies server. The server is published on `127.0.0.1:50081` only. The LocalCloudConfigurator's own stack keeps `50080`.
 4. `make register` creates the colony `arrowhead-sos`. It registers and approves `sos-api` and the executors `sos-relay-executor`, `sos-testcloud-executor`, `sos-gocloud-executor` and `sos-rustdev-executor`. Each executor has its own executor type, so a step can only reach the executor of its cloud.
 5. It starts the configurator and its database. `sosConfiguration` is published on `127.0.0.1:8494` and inside the cloud network; the console on `127.0.0.1:8495` only. The configurator refuses to start without TLS, outsourced authentication and service authorization (secure profile).

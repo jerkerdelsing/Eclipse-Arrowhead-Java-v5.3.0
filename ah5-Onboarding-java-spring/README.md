@@ -42,7 +42,7 @@ The parent enables remote Checkstyle configuration. For a disconnected build wit
 5. Start the executable JAR:
 
 ```sh
-java -jar onboarding/target/arrowhead-onboarding-5.2.2.jar \
+java -jar onboarding/target/arrowhead-onboarding-5.3.0.jar \
   --spring.config.additional-location=file:/secure/onboarding.properties
 ```
 

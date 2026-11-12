@@ -4,7 +4,7 @@ This folder owns the complete source, build, executable JAR, application image, 
 
 ## Build
 
-With Java 21 and Maven 3.9, run `mvn -B clean verify` here. `scripts/verify.sh` also checks artifact contents. Maven Central dependencies require network access on the first build; `-o` works with a populated dependency cache. The output is `target/arrowhead-ai-gym-5.2.2.jar`. Alternatively `docker compose build` builds from this folder, runs the tests and creates `arrowhead-aigym-standalone:5.2.2`.
+With Java 21 and Maven 3.9, run `mvn -B clean verify` here. `scripts/verify.sh` also checks artifact contents. Maven Central dependencies require network access on the first build; `-o` works with a populated dependency cache. The output is `target/arrowhead-ai-gym-5.3.0.jar`. Alternatively `docker compose build` builds from this folder, runs the tests and creates `arrowhead-aigym-standalone:5.3.0`.
 
 ## Provision and select this system
 

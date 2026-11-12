@@ -18,7 +18,7 @@ public final class GateTunnelConstants {
 	// members
 
 	public static final String SYSTEM_NAME = "GateTunnel";
-	public static final String SYSTEM_VERSION = "5.2.2";
+	public static final String SYSTEM_VERSION = "5.3.0";
 
 	// System info related
 	public static final String VERSION_CONNECTION = "5.2.2";

@@ -9,7 +9,7 @@
   </parent>
   <groupId>eu.arrowhead</groupId>
   <artifactId>arrowhead-localcloudmanager-docker-proxy</artifactId>
-  <version>5.2.2</version>
+  <version>5.3.0</version>
   <name>Arrowhead LocalCloudManager Docker proxy</name>
   <description>Allowlisting Docker Engine API proxy of the LocalCloudManager console (privilege separation: only this process holds the Docker socket)</description>
   <properties>

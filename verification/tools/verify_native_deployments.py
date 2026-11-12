@@ -39,7 +39,7 @@ try:
   assert Path(service['build']['context'])==p
   assert service['read_only'] and service['user']=='10001:10001'
   assert all(v.get('target')!='/certs/ca.key' for v in service['volumes']) if name!='CertificateAuthority' else True
-  jar=p/f'target/arrowhead-{slug}-5.2.2.jar'
+  jar=p/f'target/arrowhead-{slug}-5.3.0.jar'
   with zipfile.ZipFile(jar) as archive:
    classes=set(archive.namelist());assert f'eu/arrowhead/port/{name}.class' in classes
    for other in roles:
@@ -59,12 +59,12 @@ try:
      assert db=='10001';break
     time.sleep(.5)
    else:raise AssertionError(f'{name}: startup failed: {probe.stderr}')
-   run(['docker','run','--rm','--network','none','--read-only','--tmpfs','/tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777',f'arrowhead-{slug}-standalone:5.2.2','storage-selftest'])
+   run(['docker','run','--rm','--network','none','--read-only','--tmpfs','/tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777',f'arrowhead-{slug}-standalone:5.3.0','storage-selftest'])
    (report/f'{slug}-container.log').write_text(run(['docker','logs',cid]).stdout)
    tests=0
    for xml in (p/'target/surefire-reports').glob('TEST-*.xml'):
     suite=ET.parse(xml).getroot();assert int(suite.attrib['failures'])==0 and int(suite.attrib['errors'])==0;tests+=int(suite.attrib['tests'])
-   item={'system':name,'tests':tests,'jar':str(jar),'jar_sha256':hashlib.sha256(jar.read_bytes()).hexdigest(),'only_own_system_classes':True,'compose_local_build_context':True,'compose_isolated_start':True,'uid':10001,'read_only_root':True,'private_database':True,'healthcheck_exit':probe.returncode,'health_expectation':'degraded without AMQP/MQTT' if name=='SysMonitor' else 'process liveness','image':f'arrowhead-{slug}-standalone:5.2.2','image_id':state['Image'],'sqlite_image_smoke_test':True}
+   item={'system':name,'tests':tests,'jar':str(jar),'jar_sha256':hashlib.sha256(jar.read_bytes()).hexdigest(),'only_own_system_classes':True,'compose_local_build_context':True,'compose_isolated_start':True,'uid':10001,'read_only_root':True,'private_database':True,'healthcheck_exit':probe.returncode,'health_expectation':'degraded without AMQP/MQTT' if name=='SysMonitor' else 'process liveness','image':f'arrowhead-{slug}-standalone:5.3.0','image_id':state['Image'],'sqlite_image_smoke_test':True}
    results.append(item);print(json.dumps(item),flush=True)
   finally:
    (report/f'{slug}-compose.log').write_text(subprocess.run(command+['logs','--no-color'],env=env,text=True,capture_output=True).stdout)

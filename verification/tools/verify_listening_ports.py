@@ -47,6 +47,7 @@ DEFAULTS = {
     "ah5-LocalCloudManager-java-spring": 8491,
     "ah5-LocalCloudConfigurator-java": 8492,
     "ah5-SoSConfigurator-java": 8494,
+    "ah5-SoLocalCloudConfigurator-java": 8496,
 }
 
 PORT = re.compile(r"^\s*server\.port\s*[=:]\s*(\S+)\s*$", re.M)

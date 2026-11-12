@@ -35,7 +35,7 @@ public final class LocalCloudManagerConstants {
 	public static final String $DOCKER_URL_WD = "${lcm.docker.url:http://docker-proxy:2375}";
 	public static final String $MANAGED_SERVICES_WD = "${lcm.managed-services:}";
 	public static final String $LOCAL_CLOUD_WD = "${lcm.local-cloud:TestCloud}";
-	public static final String $RELEASE_WD = "${lcm.release:5.2.2}";
+	public static final String $RELEASE_WD = "${lcm.release:5.3.0}";
 	public static final String $ORCHESTRATOR_SYSTEM_WD = "${lcm.orchestrator-system:DynamicServiceOrchestration}";
 	public static final String $PRIORITY_MODE_WD = "${lcm.orchestration-priority-mode:native}";
 	public static final String $CRL_FILE_WD = "${arrowhead.ssl.crl-file:}";

@@ -67,7 +67,7 @@ services:
     ports: ["127.0.0.1:${SOS_COLONIES_PORT:-50081}:50080"]
 
   sosconfigurator:
-    image: eclipse-arrowhead/sosconfigurator-java:5.2.2
+    image: eclipse-arrowhead/sosconfigurator-java:5.3.0
     build: { context: ../.. }
     restart: unless-stopped
     depends_on:
@@ -134,7 +134,7 @@ services:
     build:
       context: ../..
       dockerfile: deployment/database/Dockerfile
-    image: eclipse-arrowhead/sosconfigurator-java-db:5.2.2
+    image: eclipse-arrowhead/sosconfigurator-java-db:5.3.0
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ah_sosconfigurator

@@ -2,7 +2,7 @@
 set -eu
 cd "$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 mvn -B "$@" clean verify
-jar tf target/arrowhead-eventhandler-5.2.2.jar > target/package-contents.txt
+jar tf target/arrowhead-eventhandler-5.3.0.jar > target/package-contents.txt
 grep -q '^BOOT-INF/classes/eu/arrowhead/' target/package-contents.txt
 if grep -q 'JavaSupportRuntime\|eu/arrowhead/port/' target/package-contents.txt; then
   echo 'Unexpected combined support runtime' >&2; exit 1

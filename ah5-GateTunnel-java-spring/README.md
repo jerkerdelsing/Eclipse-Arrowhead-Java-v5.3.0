@@ -43,7 +43,7 @@ Success bodies are unchanged. Errors keep their 5.2.2 status codes (400, 401, 40
 mvn -B clean verify          # or: sh scripts/verify.sh (also checks the JAR contents)
 ```
 
-The output is `target/arrowhead-gatetunnel-5.2.2.jar` (Spring Boot JAR). Tests: AH-GT-1 reference vector and key exchange, peer names, operation scope, TLS pinning and token renewal, the refused insecure start, and a MockMvc contract test of every served path and method through the real authentication filter (unauthenticated, certificate of another system, non-system certificate, unauthorised system, authorised caller). Two integration tests run only when their containers are given:
+The output is `target/arrowhead-gatetunnel-5.3.0.jar` (Spring Boot JAR). Tests: AH-GT-1 reference vector and key exchange, peer names, operation scope, TLS pinning and token renewal, the refused insecure start, and a MockMvc contract test of every served path and method through the real authentication filter (unauthenticated, certificate of another system, non-system certificate, unauthorised system, authorised caller). Two integration tests run only when their containers are given:
 
 - `it.MySqlEndToEndTest`: `-Dgt.it.db.url=jdbc:mariadb://<host>:3306/ah_gatetunnel?... -Dgt.it.db.password=...` against a database container built from `deployment/database/Dockerfile` (schema validated, DML-only grants).
 - `it.RelayRoundTripTest`: `-Dgt.it.relay.host=<broker> -Dgt.it.relay.ca=<org CA + broker CA bundle>` against an MQTT broker with mutual TLS that trusts the organisation CA in `src/test/resources/ahgt1`.

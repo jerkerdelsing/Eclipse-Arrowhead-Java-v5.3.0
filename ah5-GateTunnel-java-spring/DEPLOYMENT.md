@@ -4,7 +4,7 @@ This folder owns the complete source, build, application image, database image, 
 
 ## Build
 
-`mvn -B clean verify` (Java 21, Maven 3.9) or `docker compose build`, which runs the tests and creates `arrowhead-gatetunnel-standalone:5.2.2` and `arrowhead-gatetunnel-standalone-db:5.2.2`. `-o` builds offline from a populated Maven cache.
+`mvn -B clean verify` (Java 21, Maven 3.9) or `docker compose build`, which runs the tests and creates `arrowhead-gatetunnel-standalone:5.3.0` and `arrowhead-gatetunnel-standalone-db:5.3.0`. `-o` builds offline from a populated Maven cache.
 
 ## Provision
 

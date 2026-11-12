@@ -29,7 +29,7 @@ Other systems in the tree work differently:
 For an isolated test, select the exception explicitly when you start the system:
 
 ```sh
-ARROWHEAD_SECURITY_PROFILE=development java -jar arrowhead-serviceregistry-5.2.2.jar
+ARROWHEAD_SECURITY_PROFILE=development java -jar arrowhead-serviceregistry-5.3.0.jar
 ```
 
 The value can be `secure` (the default) or `development`. Any other value stops the system. With `development`, the system starts and logs a `NON-CONFORMING` warning that lists the deviations. Never expose such a system or connect it to a production cloud.

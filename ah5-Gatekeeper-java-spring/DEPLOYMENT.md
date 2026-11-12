@@ -4,10 +4,10 @@ This folder owns the complete source, build, executable JAR, application image, 
 
 ## Build
 
-With Java 21 and Maven 3.9, run `mvn -B clean verify` here. `scripts/verify.sh` also checks the artifact contents. The first build needs Maven Central; `-o` works with a populated cache. The output is `target/arrowhead-gatekeeper-5.2.2.jar`. `docker compose build` builds both images from this folder and runs the tests:
+With Java 21 and Maven 3.9, run `mvn -B clean verify` here. `scripts/verify.sh` also checks the artifact contents. The first build needs Maven Central; `-o` works with a populated cache. The output is `target/arrowhead-gatekeeper-5.3.0.jar`. `docker compose build` builds both images from this folder and runs the tests:
 
-- `arrowhead-gatekeeper-standalone:5.2.2`
-- `arrowhead-gatekeeper-standalone-db:5.2.2`
+- `arrowhead-gatekeeper-standalone:5.3.0`
+- `arrowhead-gatekeeper-standalone-db:5.3.0`
 
 ## Provision and select this system
 
