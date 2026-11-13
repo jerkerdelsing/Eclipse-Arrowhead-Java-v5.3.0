@@ -1,12 +1,12 @@
 {
   "date": "2026-11-13",
-  "manifestCommit": "4ac53157e928121b0a269e213da93a4e5b8df0c0",
+  "manifestCommit": "b7c685e7865204f4334b53f4971ce08ba9511011",
   "cloud": {
     "repository": "Arrowhead-test-clouds-v5.3.0",
-    "commit": "31e0d36",
+    "commit": "e2aa298",
     "folder": "Arrowhead-test-cloud-java",
     "composeProject": "arrowhead-v53-test-cloud",
-    "imageTag": "20261113-r530d",
+    "imageTag": "20261113-r530e",
     "mapping": "Arrowhead-test-cloud-java/v530/release-images.json",
     "federation": false
   },
@@ -22,7 +22,7 @@
     "coreApplicationImageUser": "10001:10001 (image and running process)"
   },
   "deployment": {
-    "result": "PASS on the third deploy.sh up; the first two stopped when DataManager exited at start-up",
+    "result": "PASS on the first deploy.sh up",
     "startupLogins": "22 systems, one login each; no 'Invalid authorization header'",
     "earlierRuns": [
       {
@@ -42,9 +42,27 @@
         "manifestCommit": "f1103ac9cfe2e891dad4b13257e36f6b4f801e75",
         "imageTag": "20261113-r530c",
         "note": "core application images ran as root at image level (Compose set user 10001); smoke 14/14 and security 194 checks passed on the first deploy.sh up"
+      },
+      {
+        "date": "2026-11-13",
+        "manifestCommit": "4ac53157e928121b0a269e213da93a4e5b8df0c0",
+        "imageTag": "20261113-r530d",
+        "note": "PASS on the third deploy.sh up: DataManager exited twice at start-up because ServiceRegistry's calls to the recreated Blacklist failed from 14:35:53 to 14:45:09 UTC (stale host-name cache, DNS TTL 600 s); reproduced by changing Blacklist's address: failures from 15:38:12 to 15:42:37 UTC; smoke 14/14 and security 194 checks passed"
       }
     ],
-    "finding": "ServiceRegistry's calls to the recreated Blacklist failed without opening a connection from 14:35:53 until 14:45:09 UTC (DNS TTL 600 s), so DataManager's start-up blacklist check got 403 'Blacklist system is not available'; consistent with a host-name cache in the common library's HTTP client; not caused by the non-root change; not changed"
+    "hostNameCacheCheck": {
+      "fix": "b7c685e7: HttpService resolver cacheMaxTimeToLive 10 s, cacheNegativeTimeToLive 0",
+      "procedure": "Blacklist recreated with a new address while a placeholder container held the old one",
+      "addresses": "172.19.0.7 -> 172.19.0.29",
+      "recreated": "19:29:33 UTC",
+      "blacklistReady": "19:29:44 UTC",
+      "serviceRegistryFailures": [
+        "19:29:36 UTC (Blacklist still starting)"
+      ],
+      "failuresAfterReady": 0,
+      "observedFor": "8 minutes",
+      "result": "PASS"
+    }
   },
   "smokeTest": {
     "script": "scripts/smoke-test.sh",

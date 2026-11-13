@@ -1,11 +1,12 @@
 # Release 5.3.0 qualification record
 
 Evidence for items 1 and 2 of section 8 of [Release-5.3.0.md](../../Release-5.3.0.md) for commit
-**`4ac53157e928121b0a269e213da93a4e5b8df0c0`** of this repository (see `manifest.json` for the full hash), produced on 13 November 2026. It repeats the
-qualification of the same day for `f1103ac9` (core database images on MySQL 8.4.13, see *Finding: the core database
-images*) and `d25225ae` (start-up login fix, below), and of 12 November for `02b4b4e2`, after making the five core
-application images run as UID/GID 10001 (see *Core application images run as non-root*). The results are the same
-apart from those changes and the new core database test. Every result below was produced from
+**`b7c685e7865204f4334b53f4971ce08ba9511011`** of this repository (see `manifest.json` for the full hash), produced on 13 November 2026. It repeats the
+qualification of the same day for `4ac53157` (core application images as non-root, see *Core application images run
+as non-root*), `f1103ac9` (core database images on MySQL 8.4.13, see *Finding: the core database images*) and
+`d25225ae` (start-up login fix, below), and of 12 November for `02b4b4e2`, after limiting how long the common
+library's HTTP client reuses a resolved host name (see *Finding: stale host-name cache*). The results are the same
+apart from those changes, the new core database test and one more common-library test (870). Every result below was produced from
 that commit exported with `git archive`, never from a working tree, so uncommitted changes and `target/` leftovers
 cannot have entered it. The commands are in [verification/tools](../tools/); each one rewrites its JSON file here.
 
@@ -62,7 +63,7 @@ Built on Docker 29.7.2, linux/arm64 (the host).
 **amd64.** The same 49 images were built for linux/amd64 from the same commit with `--platform linux/amd64` (Docker's
 emulation; every pinned base image is a multi-architecture index that includes amd64), tagged `<image>:5.3.0-amd64`.
 All 49 built, with the same test results inside the image builds (1553 run, 0 failures, 16 skipped), and the common
-(869) and core (2607) test suites also pass in an amd64 Maven container. `compare_platforms.py` finds every amd64 image
+(870) and core (2607) test suites also pass in an amd64 Maven container. `compare_platforms.py` finds every amd64 image
 recorded as amd64 with the same user as its arm64 counterpart, every application image starts Java 21.0.13 under
 amd64, and the packaged JARs are identical entry by entry: about 1.2 million entries, none different. A live
 deployment on amd64 hardware was not part of this run.
@@ -72,7 +73,7 @@ deployment on amd64 hardware was not part of this run.
 | Run | Result |
 |---|---|
 | Support images (tests run inside each image build) | 1553 run, 0 failures, 16 skipped |
-| `ah5-common-java-spring` (`mvn clean install`) | 869 run, 0 failures |
+| `ah5-common-java-spring` (`mvn clean install`) | 870 run, 0 failures |
 | `ah5-core-java-spring` (`mvn clean verify`; the core image builds skip tests) | 2607 run, 0 failures |
 | MySQL integration tests (`db_integration_tests.py`) | 14 run, 0 failures |
 | Relay integration tests (`relay_integration_tests.py`) | 4 run, 0 failures |
@@ -186,9 +187,9 @@ The live run below repeats the negative-access checks against a deployed cloud.
 ### Live security run
 
 The Java test cloud (`Arrowhead-test-clouds/Arrowhead-test-cloud-java`, Compose project `arrowhead-v53-test-cloud`)
-was redeployed on these images on 13 November 2026 (before: on the images of `f1103ac9` and `d25225ae` the same day and
+was redeployed on these images on 13 November 2026 (before: on the images of `4ac53157`, `f1103ac9` and `d25225ae` the same day and
 of `02b4b4e2` on 12 November). Its
-`v530/use-release-images.py` tags the images of the manifest under the cloud's names (`20261113-r530d`; before `20261113-r530c`), including the five
+`v530/use-release-images.py` tags the images of the manifest under the cloud's names (`20261113-r530e`; before `20261113-r530d`, `20261113-r530c`), including the five
 core database images, and builds the cloud's read-only core adapter on the release core images. (Before `f1103ac9`
 the cloud built its own core database images, because the release's were on MySQL 8.1.) The existing core database
 volumes, initialised by MySQL 8.1, were upgraded in place by MySQL 8.4.13 on first start. After deployment all 47 containers of these images ran the
@@ -223,5 +224,19 @@ calls to `blacklist:8464` failed without opening a connection; they stopped by t
 (14:45 UTC, Docker's DNS TTL is 600 s), after which `deploy.sh up` completed and every check passed. The cause is
 consistent with the HTTP client of the common library (`HttpService`, Reactor Netty with its default resolver) caching
 the failed or old address for the record's TTL. It is not caused by the non-root change (the containers ran as 10001
-before too) and depends on start-up order, but a system that starts during that window fails. Not changed in this
-release candidate; restarting the caller or waiting for the TTL recovers.
+before too) and depends on start-up order, but a system that starts during that window fails.
+
+Reproduced on that deployment by recreating Blacklist with a new address (a placeholder container held the old one):
+ServiceRegistry's checks kept failing from 15:38:12 to 15:42:37 UTC, about four and a half minutes after Blacklist
+was ready, without a connection attempt. Reactor Netty's resolver (1.3.8 / Netty 4.2.19) caches each answer for the
+record's TTL, Docker's DNS returns 600 s, and the client kept the old address.
+
+**Fixed in `b7c685e7`:** `HttpService` builds its client with
+`resolver(spec -> spec.cacheMaxTimeToLive(10 s).cacheNegativeTimeToLive(0))`, so a resolved name is reused for at
+most ten seconds and a failed lookup is not cached. The new test `testHttpClientsReuseResolvedHostNamesBriefly`
+checks the client's resolver settings (the previous code has none); the change is in the common library and its 19
+vendored copies, whose `PROVENANCE.json` record the new checksum. (Six other entries per copy, 114 in all, still
+record checksums from before earlier local changes to those files; unchanged here.) On the deployment of the fixed
+images (tag `20261113-r530e`) the same reproduction (Blacklist 172.19.0.7 → 172.19.0.29, recreated at 19:29:33 UTC,
+ready at 19:29:44) gave one failed check at 19:29:36, while Blacklist was still starting, and none in the eight
+minutes after; the blacklist enforcement checks of the security run then passed against the new address.

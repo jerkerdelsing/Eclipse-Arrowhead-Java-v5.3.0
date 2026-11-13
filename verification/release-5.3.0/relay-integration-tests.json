@@ -1,5 +1,5 @@
 {
-  "commit": "4ac53157e928121b0a269e213da93a4e5b8df0c0",
+  "commit": "b7c685e7865204f4334b53f4971ce08ba9511011",
   "relay": {
     "image": "eclipse-mosquitto:2.0.22",
     "network": "arrowhead-relay-network",
@@ -12,13 +12,13 @@
     "ah5-Gatekeeper-java-spring:RelayRoundTripIT": {
       "result": "PASS",
       "tests": "Tests run: 3, Failures: 0, Errors: 0, Skipped: 0",
-      "seconds": 19,
+      "seconds": 20,
       "log": "build-logs/relay-it-ah5-Gatekeeper-java-spring.log"
     },
     "ah5-GateTunnel-java-spring:RelayRoundTripTest": {
       "result": "PASS",
       "tests": "Tests run: 1, Failures: 0, Errors: 0, Skipped: 0",
-      "seconds": 16,
+      "seconds": 15,
       "log": "build-logs/relay-it-ah5-GateTunnel-java-spring.log"
     }
   }
