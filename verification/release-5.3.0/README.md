@@ -236,7 +236,11 @@ record's TTL, Docker's DNS returns 600 s, and the client kept the old address.
 most ten seconds and a failed lookup is not cached. The new test `testHttpClientsReuseResolvedHostNamesBriefly`
 checks the client's resolver settings (the previous code has none); the change is in the common library and its 19
 vendored copies, whose `PROVENANCE.json` record the new checksum. (Six other entries per copy, 114 in all, still
-record checksums from before earlier local changes to those files; unchanged here.) On the deployment of the fixed
+recorded checksums from before the changes of `ef1bb18d` and `a64e73f2`, and two files of those commits,
+`Jackson2Defaults.java` and `SecurityProfileGuard.java`, had no entry. The commit after this qualification updates
+and adds them: every one of the 6,497 entries now matches its file, and every vendored file is identical to
+`ah5-common-java-spring`. `PROVENANCE.json` is only in the Maven build stage, not in the JARs or runtime images, so the
+qualified images are unaffected.) On the deployment of the fixed
 images (tag `20261113-r530e`) the same reproduction (Blacklist 172.19.0.7 → 172.19.0.29, recreated at 19:29:33 UTC,
 ready at 19:29:44) gave one failed check at 19:29:36, while Blacklist was still starting, and none in the eight
 minutes after; the blacklist enforcement checks of the security run then passed against the new address.
