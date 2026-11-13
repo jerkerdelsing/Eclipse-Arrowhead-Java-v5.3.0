@@ -1,10 +1,11 @@
 # Release 5.3.0 qualification record
 
 Evidence for items 1 and 2 of section 8 of [Release-5.3.0.md](../../Release-5.3.0.md) for commit
-**`f1103ac9cfe2e891dad4b13257e36f6b4f801e75`** of this repository (see `manifest.json` for the full hash), produced on 13 November 2026. It repeats the
-qualification of `d25225ae` (same day, after the start-up login fix below; first on 12 November for `02b4b4e2`) after
-moving the five core database images to MySQL 8.4.13 (see *Finding: the core database images*). The results are the
-same apart from the core database images and the new core database test. Every result below was produced from
+**`4ac53157e928121b0a269e213da93a4e5b8df0c0`** of this repository (see `manifest.json` for the full hash), produced on 13 November 2026. It repeats the
+qualification of the same day for `f1103ac9` (core database images on MySQL 8.4.13, see *Finding: the core database
+images*) and `d25225ae` (start-up login fix, below), and of 12 November for `02b4b4e2`, after making the five core
+application images run as UID/GID 10001 (see *Core application images run as non-root*). The results are the same
+apart from those changes and the new core database test. Every result below was produced from
 that commit exported with `git archive`, never from a working tree, so uncommitted changes and `target/` leftovers
 cannot have entered it. The commands are in [verification/tools](../tools/); each one rewrites its JSON file here.
 
@@ -137,8 +138,15 @@ password works and the published default is refused, and that the system user ca
 both architectures; the images of `d25225ae` fail it (no schema: the `ah-operator` grant aborts the initialisation).
 An existing volume initialised by MySQL 8.1 is upgraded in place on first start (see the live run).
 
-Also noted: the five core application images run as root. Their Dockerfiles follow the upstream 5.2.2 layout; the
-support images run as UID 10001.
+**Core application images run as non-root (since `4ac53157`).** Up to `f1103ac9` the five core application images
+followed the upstream 5.2.2 Dockerfiles and ran as root (the test cloud overrode the user to 10001 in Compose).
+`4ac53157` gives `/app` to UID/GID 10001 and switches to it, as the support images do; the manifests now record
+`10001:10001` for all 26 application images (the Docker proxy: `10001:0`). The entrypoint still moves the default
+configuration into `/app/config` on first start, so a volume or host folder mounted there must be writable by UID
+10001 (the docker `ReadMe.md` files say so). Checked before the build: ServiceRegistry started without a mount and with
+an empty named volume at `/app/config`, wrote its configuration there as 10001, and stopped only at the secure-profile
+guard (expected with the packaged development configuration). The 22 database images set no `USER`: the MySQL
+entrypoint starts as root and runs `mysqld` as `mysql`.
 
 ### API/DTO review
 
@@ -178,9 +186,9 @@ The live run below repeats the negative-access checks against a deployed cloud.
 ### Live security run
 
 The Java test cloud (`Arrowhead-test-clouds/Arrowhead-test-cloud-java`, Compose project `arrowhead-v53-test-cloud`)
-was redeployed on these images on 13 November 2026 (before: on the images of `d25225ae` the same day and of `02b4b4e2`
-on 12 November). Its
-`v530/use-release-images.py` tags the images of the manifest under the cloud's names (`20261113-r530c`), including the five
+was redeployed on these images on 13 November 2026 (before: on the images of `f1103ac9` and `d25225ae` the same day and
+of `02b4b4e2` on 12 November). Its
+`v530/use-release-images.py` tags the images of the manifest under the cloud's names (`20261113-r530d`; before `20261113-r530c`), including the five
 core database images, and builds the cloud's read-only core adapter on the release core images. (Before `f1103ac9`
 the cloud built its own core database images, because the release's were on MySQL 8.1.) The existing core database
 volumes, initialised by MySQL 8.1, were upgraded in place by MySQL 8.4.13 on first start. After deployment all 47 containers of these images ran the
@@ -206,3 +214,14 @@ inside it lets the second caller skip. The new test `testConcurrentLoginFromTwoJ
 previous code (two logins) and passes with the fix; the change is in the common library and its 19 vendored copies.
 On the redeployment with the fixed images `deploy.sh up` completed on the first attempt, each of the 22 systems
 logged in exactly once at start-up (before: twice), and no container logged the error.
+
+**Finding: stale host-name cache after a peer is recreated.** On the deployment of `4ac53157` (tag `20261113-r530d`)
+DataManager exited at start-up twice with `Blacklist system is not available`: ServiceRegistry's blacklist filter could
+not reach Blacklist, although Blacklist was running, registered and reachable from the ServiceRegistry container.
+ServiceRegistry's first failed call came about a second before the recreated Blacklist started, and from then on its
+calls to `blacklist:8464` failed without opening a connection; they stopped by themselves about ten minutes later
+(14:45 UTC, Docker's DNS TTL is 600 s), after which `deploy.sh up` completed and every check passed. The cause is
+consistent with the HTTP client of the common library (`HttpService`, Reactor Netty with its default resolver) caching
+the failed or old address for the record's TTL. It is not caused by the non-root change (the containers ran as 10001
+before too) and depends on start-up order, but a system that starts during that window fails. Not changed in this
+release candidate; restarting the caller or waiting for the TTL recovers.

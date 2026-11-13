@@ -1,12 +1,12 @@
 {
   "date": "2026-11-13",
-  "manifestCommit": "f1103ac9cfe2e891dad4b13257e36f6b4f801e75",
+  "manifestCommit": "4ac53157e928121b0a269e213da93a4e5b8df0c0",
   "cloud": {
     "repository": "Arrowhead-test-clouds-v5.3.0",
-    "commit": "0b6d2b8",
+    "commit": "31e0d36",
     "folder": "Arrowhead-test-cloud-java",
     "composeProject": "arrowhead-v53-test-cloud",
-    "imageTag": "20261113-r530c",
+    "imageTag": "20261113-r530d",
     "mapping": "Arrowhead-test-cloud-java/v530/release-images.json",
     "federation": false
   },
@@ -18,10 +18,11 @@
       "eclipse-mosquitto:2.0.22",
       "arrowhead-random-data-producer:1.0.0-sos16"
     ],
-    "coreDatabases": "the five release core DB images (MySQL 8.4.13), tagged, not rebuilt; existing 8.1 data volumes upgraded in place"
+    "coreDatabases": "the five release core DB images (MySQL 8.4.13), tagged, not rebuilt; existing 8.1 data volumes upgraded in place",
+    "coreApplicationImageUser": "10001:10001 (image and running process)"
   },
   "deployment": {
-    "result": "PASS on the first deploy.sh up",
+    "result": "PASS on the third deploy.sh up; the first two stopped when DataManager exited at start-up",
     "startupLogins": "22 systems, one login each; no 'Invalid authorization header'",
     "earlierRuns": [
       {
@@ -35,8 +36,15 @@
         "manifestCommit": "d25225ae268d33a16626b1dbcd11e10700bf3a66",
         "imageTag": "20261113-r530",
         "note": "core database containers ran the test cloud's own core-db build (mysql:8.1 base), not the release core DB images; smoke 14/14 and security 194 checks passed"
+      },
+      {
+        "date": "2026-11-13",
+        "manifestCommit": "f1103ac9cfe2e891dad4b13257e36f6b4f801e75",
+        "imageTag": "20261113-r530c",
+        "note": "core application images ran as root at image level (Compose set user 10001); smoke 14/14 and security 194 checks passed on the first deploy.sh up"
       }
-    ]
+    ],
+    "finding": "ServiceRegistry's calls to the recreated Blacklist failed without opening a connection from 14:35:53 until 14:45:09 UTC (DNS TTL 600 s), so DataManager's start-up blacklist check got 403 'Blacklist system is not available'; consistent with a host-name cache in the common library's HTTP client; not caused by the non-root change; not changed"
   },
   "smokeTest": {
     "script": "scripts/smoke-test.sh",
