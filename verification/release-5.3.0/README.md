@@ -1,12 +1,13 @@
 # Release 5.3.0 qualification record
 
 Evidence for items 1 and 2 of section 8 of [Release-5.3.0.md](../../Release-5.3.0.md) for commit
-**`b7c685e7865204f4334b53f4971ce08ba9511011`** of this repository (see `manifest.json` for the full hash), produced on 13 November 2026. It repeats the
-qualification of the same day for `4ac53157` (core application images as non-root, see *Core application images run
+**`7c6ac61c29ed4714897cc7a420308dd21e732792`** of this repository (see `manifest.json` for the full hash), produced on 13 November 2026. It repeats the
+qualification of the same day for `b7c685e7` (host-name cache, see *Finding: stale host-name cache*), `4ac53157` (core application images as non-root, see *Core application images run
 as non-root*), `f1103ac9` (core database images on MySQL 8.4.13, see *Finding: the core database images*) and
-`d25225ae` (start-up login fix, below), and of 12 November for `02b4b4e2`, after limiting how long the common
-library's HTTP client reuses a resolved host name (see *Finding: stale host-name cache*). The results are the same
-apart from those changes, the new core database test and one more common-library test (870). Every result below was produced from
+`d25225ae` (start-up login fix, below), and of 12 November for `02b4b4e2`, after making DeviceQoSEvaluator ask
+ConsumerAuthorization about every `qualityEvaluation` call (see *DeviceQoSEvaluator: qualityEvaluation authorization*).
+The results are the same apart from those changes, the new core database test, one more common-library test (870) and
+13 more DeviceQoSEvaluator tests (317). Every result below was produced from
 that commit exported with `git archive`, never from a working tree, so uncommitted changes and `target/` leftovers
 cannot have entered it. The commands are in [verification/tools](../tools/); each one rewrites its JSON file here.
 
@@ -62,7 +63,7 @@ Built on Docker 29.7.2, linux/arm64 (the host).
 
 **amd64.** The same 49 images were built for linux/amd64 from the same commit with `--platform linux/amd64` (Docker's
 emulation; every pinned base image is a multi-architecture index that includes amd64), tagged `<image>:5.3.0-amd64`.
-All 49 built, with the same test results inside the image builds (1553 run, 0 failures, 16 skipped), and the common
+All 49 built, with the same test results inside the image builds (1566 run, 0 failures, 16 skipped), and the common
 (870) and core (2607) test suites also pass in an amd64 Maven container. `compare_platforms.py` finds every amd64 image
 recorded as amd64 with the same user as its arm64 counterpart, every application image starts Java 21.0.13 under
 amd64, and the packaged JARs are identical entry by entry: about 1.2 million entries, none different. A live
@@ -72,7 +73,7 @@ deployment on amd64 hardware was not part of this run.
 
 | Run | Result |
 |---|---|
-| Support images (tests run inside each image build) | 1553 run, 0 failures, 16 skipped |
+| Support images (tests run inside each image build) | 1566 run, 0 failures, 16 skipped |
 | `ah5-common-java-spring` (`mvn clean install`) | 870 run, 0 failures |
 | `ah5-core-java-spring` (`mvn clean verify`; the core image builds skip tests) | 2607 run, 0 failures |
 | MySQL integration tests (`db_integration_tests.py`) | 14 run, 0 failures |
@@ -171,8 +172,6 @@ The tool compares source shapes, not runtime behaviour or JSON serialisation set
 ### Negative-access review
 
 `negative_access_review.py` counts, per project, the test methods that assert a refusal. Every project has some.
-(`negative-access-review.json` is for `28833e70`, the commit after `b7c685e7` that adds DeviceQoSEvaluator's tests;
-the other files here are for `b7c685e7`. That commit adds only tests, so the qualified images are unchanged.)
 
 The first run also flagged Choreographer and PlantDescriptionEngine, which do have their own refusal logic. Commit
 `24ce3c48` adds tests for both (7 each):
@@ -182,10 +181,11 @@ The first run also flagged Choreographer and PlantDescriptionEngine, which do ha
 - **PlantDescriptionEngine, authorization filter:** an unauthenticated caller and a certificate of another system are
   refused (401); a caller without a ConsumerAuthorization grant is forbidden (403).
 
-Up to `b7c685e7` DeviceQoSEvaluator had none: it has no access rule of its own and relies on the common library's
+Up to `b7c685e7` DeviceQoSEvaluator had none: it had no access rule of its own and relied on the common library's
 filters (whose own tests assert 99 refusals). `28833e70` adds `DeviceQoSEvaluatorAccessTest`, which runs the common
-identity-token filter and management filter with DeviceQoSEvaluator's own SystemInfo, service models and paths
-(6 refusal tests and one configuration check; 311 tests in the project pass):
+identity-token filter and management filter with DeviceQoSEvaluator's own SystemInfo, service models and paths, and
+`7c6ac61c` adds its own `qualityEvaluation` authorization filter to the chain (10 refusal tests and three other
+checks; 317 tests in the project pass):
 
 - **All six HTTP operations** (`qualityEvaluation` filter and sort, `deviceQualityDataManagement` query and reload,
   `generalManagement` logs and get-config) are refused (401) without a token, with a forged, malformed or Basic
@@ -197,28 +197,49 @@ identity-token filter and management filter with DeviceQoSEvaluator's own System
   ConsumerAuthorization is unreachable (fails closed); a method or path that matches no published operation is
   refused without asking. With a grant the call passes, and the question names DeviceQoSEvaluator,
   `deviceQualityDataManagement` and `query`.
-- **Configuration check:** the packaged configuration switches the management filter on, and it runs after
-  authentication.
+- **`qualityEvaluation`:** forbidden (403) without a ConsumerAuthorization grant, also to the operator, and when
+  ConsumerAuthorization is unreachable (fails closed, and the failure is not cached). Any method or path under
+  `/deviceqosevaluator/qualityevaluation` other than POST `filter` and POST `sort` (including encoded and trailing-slash
+  variants) is forbidden without asking. With a grant the question names DeviceQoSEvaluator, `qualityEvaluation` and the
+  operation called; decisions are cached for 30 s. The filter checks the client certificate against the token itself.
+- **Configuration checks:** the packaged configuration switches the management filter on, and it runs after
+  authentication; the `qualityEvaluation` filter is on unless `service.authorization.enabled=false`, and runs after
+  both.
 
-With the management filter removed from the chain, the two management tests fail. Note: `qualityEvaluation` is open to
-every authenticated system, with no ConsumerAuthorization check (as upstream 5.2.2); the tests record this.
+With the management filter removed from the chain, the two management tests fail; with the `qualityEvaluation` filter
+removed, four tests fail.
 
 The live run below repeats the negative-access checks against a deployed cloud.
+
+### DeviceQoSEvaluator: qualityEvaluation authorization
+
+Up to `b7c685e7` any authenticated system could call DeviceQoSEvaluator's `qualityEvaluation` service (filter, sort),
+as in upstream 5.2.2; only its management services were protected. `7c6ac61c` adds
+`DeviceQoSEvaluatorAuthorizationFilter` (order 30, after authentication and the management filter, the TimeManager
+pattern): it binds the authenticated system to the client certificate and asks ConsumerAuthorization
+(`authorization.verify`, provider DeviceQoSEvaluator, target type `SERVICE_DEF`, target `qualityEvaluation`, the
+operation called) about every call. Decisions are cached for 30 s; a failed check refuses and is not cached. It is on
+unless `service.authorization.enabled=false`, which the secure profile refuses. A deployment must grant
+`qualityEvaluation` to DynamicServiceOrchestration; without the grant the orchestrator's call gets 403 and it ignores
+the QoS requirement with a warning (`DEPLOYMENT.md`). The test cloud's `configure-deviceqosevaluator-policy.sh` does this.
+Its orchestrator runs with `enable.qos=false`, so an orchestration with QoS requirements was not exercised end to end.
 
 ### Live security run
 
 The Java test cloud (`Arrowhead-test-clouds/Arrowhead-test-cloud-java`, Compose project `arrowhead-v53-test-cloud`)
-was redeployed on these images on 13 November 2026 (before: on the images of `4ac53157`, `f1103ac9` and `d25225ae` the same day and
+was redeployed on these images on 13 November 2026 (before: on the images of `b7c685e7`, `4ac53157`, `f1103ac9` and `d25225ae` the same day and
 of `02b4b4e2` on 12 November). Its
-`v530/use-release-images.py` tags the images of the manifest under the cloud's names (`20261113-r530e`; before `20261113-r530d`, `20261113-r530c`), including the five
+`v530/use-release-images.py` tags the images of the manifest under the cloud's names (`20261113-r530f`; before `20261113-r530e`, `20261113-r530d`, `20261113-r530c`), including the five
 core database images, and builds the cloud's read-only core adapter on the release core images. (Before `f1103ac9`
 the cloud built its own core database images, because the release's were on MySQL 8.1.) The existing core database
 volumes, initialised by MySQL 8.1, were upgraded in place by MySQL 8.4.13 on first start. After deployment all 47 containers of these images ran the
 recorded image IDs; the brokers and RandomDataProducer are third-party or unchanged.
 
 - `scripts/smoke-test.sh`: 14 of 14 OK.
-- `scripts/smoke-security.sh`: passed, 194 checks, 0 failures. Every check of the earlier run on the `20261111-v530`
-  images passes again; the 8 additional checks cover SoLocalCloudConfigurator. It covers the console (H1),
+- `scripts/smoke-security.sh`: passed, 200 checks, 0 failures. Every check of the earlier run on the `20261111-v530`
+  images passes again; 8 additional checks cover SoLocalCloudConfigurator and 6 cover `qualityEvaluation` (the policy
+  grants it to DynamicServiceOrchestration only; SmokeClient is refused with 403 without a grant and passes the filter
+  with a temporary one, which is removed again). It covers the console (H1),
   credentials (H2), revocation at the MQTT and AMQP brokers (H3), databases, container hardening, secrets, component
   versions, blacklist enforcement, mounts, the CRL and the grants. The relay checks are skipped: the cloud is not
   federated (section 8, item 4).
@@ -258,8 +279,8 @@ most ten seconds and a failed lookup is not cached. The new test `testHttpClient
 checks the client's resolver settings (the previous code has none); the change is in the common library and its 19
 vendored copies, whose `PROVENANCE.json` record the new checksum. (Six other entries per copy, 114 in all, still
 recorded checksums from before the changes of `ef1bb18d` and `a64e73f2`, and two files of those commits,
-`Jackson2Defaults.java` and `SecurityProfileGuard.java`, had no entry. The commit after this qualification updates
-and adds them: every one of the 6,497 entries now matches its file, and every vendored file is identical to
+`Jackson2Defaults.java` and `SecurityProfileGuard.java`, had no entry. `a18ba54a` updates and adds
+them: every one of the 6,497 entries now matches its file, and every vendored file is identical to
 `ah5-common-java-spring`. `PROVENANCE.json` is only in the Maven build stage, not in the JARs or runtime images, so the
 qualified images are unaffected.) On the deployment of the fixed
 images (tag `20261113-r530e`) the same reproduction (Blacklist 172.19.0.7 → 172.19.0.29, recreated at 19:29:33 UTC,

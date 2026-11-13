@@ -1,5 +1,5 @@
 {
-  "commit": "28833e7017a356989dee2f796329c07fb007b3af",
+  "commit": "7c6ac61c29ed4714897cc7a420308dd21e732792",
   "projects": {
     "ah5-AIGym-java-spring": {
       "testMethods": 3,
@@ -58,8 +58,8 @@
       ]
     },
     "ah5-DeviceQoSEvaluator-java-spring": {
-      "testMethods": 311,
-      "negativeAccess": 6,
+      "testMethods": 317,
+      "negativeAccess": 10,
       "examples": [
         "DeviceQoSEvaluatorAccessTest.everyOperationIsUnauthorizedWithoutAnIdentityToken",
         "DeviceQoSEvaluatorAccessTest.forgedMalformedAndAuthenticatorKeyHeadersAreUnauthorized",

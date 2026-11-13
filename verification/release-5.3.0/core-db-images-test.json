@@ -1,5 +1,5 @@
 {
-  "manifestCommit": "b7c685e7865204f4334b53f4971ce08ba9511011",
+  "manifestCommit": "7c6ac61c29ed4714897cc7a420308dd21e732792",
   "platform": "host",
   "images": {
     "arrowhead-serviceregistry-db:5.3.0": {

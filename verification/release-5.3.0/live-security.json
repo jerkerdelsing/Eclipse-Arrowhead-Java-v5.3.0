@@ -1,12 +1,12 @@
 {
   "date": "2026-11-13",
-  "manifestCommit": "b7c685e7865204f4334b53f4971ce08ba9511011",
+  "manifestCommit": "7c6ac61c29ed4714897cc7a420308dd21e732792",
   "cloud": {
     "repository": "Arrowhead-test-clouds-v5.3.0",
-    "commit": "e2aa298",
+    "commit": "92d9c78",
     "folder": "Arrowhead-test-cloud-java",
     "composeProject": "arrowhead-v53-test-cloud",
-    "imageTag": "20261113-r530e",
+    "imageTag": "20261113-r530f",
     "mapping": "Arrowhead-test-cloud-java/v530/release-images.json",
     "federation": false
   },
@@ -23,7 +23,7 @@
   },
   "deployment": {
     "result": "PASS on the first deploy.sh up",
-    "startupLogins": "22 systems, one login each; no 'Invalid authorization header'",
+    "startupLogins": "no 'Invalid authorization header' in any system's log",
     "earlierRuns": [
       {
         "date": "2026-11-12",
@@ -48,6 +48,12 @@
         "manifestCommit": "4ac53157e928121b0a269e213da93a4e5b8df0c0",
         "imageTag": "20261113-r530d",
         "note": "PASS on the third deploy.sh up: DataManager exited twice at start-up because ServiceRegistry's calls to the recreated Blacklist failed from 14:35:53 to 14:45:09 UTC (stale host-name cache, DNS TTL 600 s); reproduced by changing Blacklist's address: failures from 15:38:12 to 15:42:37 UTC; smoke 14/14 and security 194 checks passed"
+      },
+      {
+        "date": "2026-11-13",
+        "manifestCommit": "b7c685e7865204f4334b53f4971ce08ba9511011",
+        "imageTag": "20261113-r530e",
+        "note": "qualityEvaluation open to every authenticated system; PASS on the first deploy.sh up; smoke 14/14 and security 194 checks passed"
       }
     ],
     "hostNameCacheCheck": {
@@ -62,6 +68,20 @@
       "failuresAfterReady": 0,
       "observedFor": "8 minutes",
       "result": "PASS"
+    },
+    "qualityEvaluationAuthorization": {
+      "fix": "7c6ac61c: DeviceQoSEvaluatorAuthorizationFilter asks ConsumerAuthorization about every qualityEvaluation call",
+      "filterLog": "DeviceQoSEvaluatorAuthorizationFilter is active",
+      "policy": "scripts/configure-deviceqosevaluator-policy.sh: WHITELIST DynamicServiceOrchestration (filter, sort)",
+      "checks": [
+        "DynamicServiceOrchestration granted filter and sort",
+        "SmokeClient granted nothing",
+        "DeviceQoSEvaluator may verify its consumers",
+        "SmokeClient without a grant: 403 at filter",
+        "SmokeClient with a temporary grant passes the filter at sort",
+        "temporary grant removed"
+      ],
+      "notCovered": "orchestration with QoS requirements end to end (the cloud's orchestrator runs with enable.qos=false)"
     }
   },
   "smokeTest": {
@@ -72,7 +92,7 @@
   "securityRegression": {
     "script": "scripts/smoke-security.sh",
     "result": "PASS",
-    "checksPassed": 194,
+    "checksPassed": 200,
     "failures": 0,
     "skipped": [
       "relay checks: no inter-cloud federation (no ca-cross.crt)"
@@ -87,6 +107,7 @@
       "J5 AH-GT-1 profile",
       "J7 secrets",
       "J8 component versions",
+      "QE qualityEvaluation authorization",
       "J9 service definitions",
       "J10 epmd",
       "J11/J18 health ports",

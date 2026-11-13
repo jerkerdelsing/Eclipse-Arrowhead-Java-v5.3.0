@@ -1,66 +1,66 @@
 {
-  "commit": "b7c685e7865204f4334b53f4971ce08ba9511011",
+  "commit": "7c6ac61c29ed4714897cc7a420308dd21e732792",
   "release": "5.3.0",
   "mavenImage": "maven:3.9-eclipse-temurin-21",
   "systems": {
     "ah5-CertificateAuthority-java-spring": {
       "databaseImage": "arrowhead-certificate-authority-standalone-db:5.3.0",
-      "databaseImageId": "sha256:470cc1c6057b6f036b28b5eef04cd9f943b8bb1331bdc5ffef08114afa01d8c4",
+      "databaseImageId": "sha256:19f28fa94885a796244d6ba58c0c1721a8e285f726df36584b7ad6932ba70cf9",
       "schema": "ah_certificate_authority",
       "user": "certificateauthority",
       "result": "PASS",
       "tests": "Tests run: 1, Failures: 0, Errors: 0, Skipped: 0",
-      "seconds": 31,
+      "seconds": 34,
       "log": "build-logs/it-ah5-CertificateAuthority-java-spring.log"
     },
     "ah5-Gatekeeper-java-spring": {
       "databaseImage": "arrowhead-gatekeeper-standalone-db:5.3.0",
-      "databaseImageId": "sha256:a6d665bafc70aa0f640d8a8611cfe822dde3d7785e0c1ad1e6fce7996c06f850",
+      "databaseImageId": "sha256:4a19b0c6e937297c129cad7a1a2ee0259fd549331928754d8613ca9cf3e1a001",
       "schema": "ah_gatekeeper",
       "user": "gatekeeper",
       "result": "PASS",
       "tests": "Tests run: 2, Failures: 0, Errors: 0, Skipped: 0",
-      "seconds": 31,
+      "seconds": 32,
       "log": "build-logs/it-ah5-Gatekeeper-java-spring.log"
     },
     "ah5-GateTunnel-java-spring": {
       "databaseImage": "arrowhead-gatetunnel-standalone-db:5.3.0",
-      "databaseImageId": "sha256:2d68ba586b9f0fb3f45d75c96fc90ea21b7530ede7a19db0b72344f549d327d4",
+      "databaseImageId": "sha256:26ffe8a56ec84d80240232b2a887e30327f6d3c48c16e818882288577f90e9f9",
       "schema": "ah_gatetunnel",
       "user": "gatetunnel",
       "result": "PASS",
       "tests": "Tests run: 1, Failures: 0, Errors: 0, Skipped: 0",
-      "seconds": 32,
+      "seconds": 36,
       "log": "build-logs/it-ah5-GateTunnel-java-spring.log"
     },
     "ah5-LocalCloudConfigurator-java": {
       "databaseImage": "arrowhead-localcloudconfigurator-standalone-db:5.3.0",
-      "databaseImageId": "sha256:4ffbeaa6d511451c1678336a0229997b384a0139018097537986935f5dfb1c20",
+      "databaseImageId": "sha256:e5d9143451d1dc95f7adfa24b4e183291633a1bb86d114196212f3c076dda456",
       "schema": "ah_localcloudconfigurator",
       "user": "localcloudconfigurator",
       "result": "PASS",
       "tests": "Tests run: 7, Failures: 0, Errors: 0, Skipped: 0",
-      "seconds": 32,
+      "seconds": 37,
       "log": "build-logs/it-ah5-LocalCloudConfigurator-java.log"
     },
     "ah5-SoSConfigurator-java": {
       "databaseImage": "arrowhead-sosconfigurator-standalone-db:5.3.0",
-      "databaseImageId": "sha256:6e9468c631ab4c85a03b6f20b84bc109ea5eeebef97456d9ad983258b2d0202c",
+      "databaseImageId": "sha256:332f472dec789e669cf7f6719e14459138ba589c6c8f07679bca7c74a0e892ab",
       "schema": "ah_sosconfigurator",
       "user": "sosconfigurator",
       "result": "PASS",
       "tests": "Tests run: 1, Failures: 0, Errors: 0, Skipped: 0",
-      "seconds": 33,
+      "seconds": 35,
       "log": "build-logs/it-ah5-SoSConfigurator-java.log"
     },
     "ah5-SysMonitor-java-spring": {
       "databaseImage": "arrowhead-sysmonitor-standalone-db:5.3.0",
-      "databaseImageId": "sha256:c34180f93152ce6e7f54e84aea20544fe1df26ba5bb9df9eeb050e4f65f37151",
+      "databaseImageId": "sha256:bcd30bb4488bbb84e3d6f78d07238c774d35fe06b909649f8d32681c79cd6e87",
       "schema": "ah_sysmonitor",
       "user": "sysmonitor",
       "result": "PASS",
       "tests": "Tests run: 2, Failures: 0, Errors: 0, Skipped: 0",
-      "seconds": 33,
+      "seconds": 35,
       "log": "build-logs/it-ah5-SysMonitor-java-spring.log"
     }
   }
