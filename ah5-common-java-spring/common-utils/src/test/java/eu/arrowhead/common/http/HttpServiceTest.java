@@ -113,6 +113,20 @@ public class HttpServiceTest {
 
 	//-------------------------------------------------------------------------------------------------
 	@Test
+	public void testHttpClientsReuseResolvedHostNamesBriefly() {
+		// a peer recreated with a new address must be reachable again within seconds, not after the DNS record's TTL
+		when(sslProperties.isSslEnabled()).thenReturn(false);
+		ReflectionTestUtils.invokeMethod(service, "init");
+
+		final HttpClient client = (HttpClient) ReflectionTestUtils.getField(service, "httpClient");
+		final reactor.netty.transport.NameResolverProvider resolver = client.configuration().getNameResolverProvider();
+		org.junit.jupiter.api.Assertions.assertNotNull(resolver, "no resolver settings: host names would be cached for the DNS record's TTL");
+		assertEquals(java.time.Duration.ofSeconds(10), resolver.cacheMaxTimeToLive());
+		assertEquals(java.time.Duration.ZERO, resolver.cacheNegativeTimeToLive());
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
 	public void testSendRequest6ClassHttpMethodNull() {
 		final UriComponents uri = HttpUtilities.createURI("http", "localhost", 12345, "/test");
 
@@ -270,6 +284,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(httpClientMock.secure(any(Consumer.class))).thenReturn(httpClientMock);
 			webClientStaticMock.when(() -> WebClient.builder()).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
@@ -979,6 +994,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(httpClientMock.secure(any(Consumer.class))).thenReturn(httpClientMock);
 			webClientStaticMock.when(() -> WebClient.builder()).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
@@ -1609,6 +1625,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(httpClientMock.secure(any(Consumer.class))).thenReturn(httpClientMock);
 			webClientStaticMock.when(() -> WebClient.builder()).thenReturn(webClientBuilderMock);
 			when(webClientBuilderMock.clientConnector(any(ClientHttpConnector.class))).thenReturn(webClientBuilderMock);
@@ -1643,6 +1660,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(false);
 
 			assertNull(ReflectionTestUtils.getField(service, "httpClient"));
@@ -1668,6 +1686,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(true);
 			when(sslProperties.getKeyStoreType()).thenReturn("");
 
@@ -1695,6 +1714,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(true);
 			when(sslProperties.getKeyStoreType()).thenReturn("pkcs12");
 			when(sslProperties.getKeyStore()).thenReturn(null);
@@ -1725,6 +1745,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(true);
 			when(sslProperties.getKeyStoreType()).thenReturn("pkcs12");
 			when(sslProperties.getKeyStore()).thenReturn(keyStoreMock);
@@ -1757,6 +1778,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(true);
 			when(sslProperties.getKeyStoreType()).thenReturn("pkcs12");
 			when(sslProperties.getKeyStore()).thenReturn(keyStoreMock);
@@ -1791,6 +1813,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(true);
 			when(sslProperties.getKeyStoreType()).thenReturn("pkcs12");
 			when(sslProperties.getKeyStore()).thenReturn(keyStoreMock);
@@ -1827,6 +1850,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(true);
 			when(sslProperties.getKeyStoreType()).thenReturn("pkcs12");
 			when(sslProperties.getKeyStore()).thenReturn(keyStoreMock);
@@ -1866,6 +1890,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(true);
 			when(sslProperties.getKeyStoreType()).thenReturn("pkcs12");
 			when(sslProperties.getKeyStore()).thenReturn(keyStoreMock);
@@ -1907,6 +1932,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(true);
 			when(sslProperties.getKeyStoreType()).thenReturn("pkcs12");
 			when(sslProperties.getKeyStore()).thenReturn(keyStoreMock);
@@ -1950,6 +1976,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(true);
 			when(sslProperties.getKeyStoreType()).thenReturn("pkcs12");
 			when(sslProperties.getKeyStore()).thenReturn(keyStoreMock);
@@ -2001,6 +2028,7 @@ public class HttpServiceTest {
 			httpClientStaticMock.when(() -> HttpClient.create()).thenReturn(httpClientMock, sslClientMock);
 			when(httpClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(httpClientMock);
 			when(httpClientMock.doOnConnected(any(Consumer.class))).thenReturn(httpClientMock);
+			when(httpClientMock.resolver(any(Consumer.class))).thenReturn(httpClientMock);
 			when(sslProperties.isSslEnabled()).thenReturn(true);
 			when(sslProperties.getKeyStoreType()).thenReturn("pkcs12");
 			when(sslProperties.getKeyStore()).thenReturn(keyStore);
@@ -2010,6 +2038,7 @@ public class HttpServiceTest {
 			when(sslProperties.getTrustStorePassword()).thenReturn("123456");
 			when(sslClientMock.option(any(ChannelOption.class), anyInt())).thenReturn(sslClientMock);
 			when(sslClientMock.doOnConnected(any(Consumer.class))).thenReturn(sslClientMock);
+			when(sslClientMock.resolver(any(Consumer.class))).thenReturn(sslClientMock);
 			when(sslClientMock.secure(any(Consumer.class))).thenReturn(sslClientMock);
 
 			assertNull(ReflectionTestUtils.getField(service, "httpClient"));

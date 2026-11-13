@@ -220,7 +220,7 @@
     "common-utils/src/main/java/eu/arrowhead/common/jpa/RefreshableRepository.java": "00a0d00f61b047ac8aee14d72a517a1591634730db1f9522dc414f711538b12c",
     "common-utils/src/main/java/eu/arrowhead/common/http/ArrowheadHttpService.java": "8a49a1926326f76b6edae3b2a973ac9809aac1b312bcd9cbdbe53c23c7cebad2",
     "common-utils/src/main/java/eu/arrowhead/common/http/ArrowheadResponseEntityExceptionHandler.java": "f3bfcdc048e0c48b7a783da7d0672c7489d1b5363e3f9239995414024c380336",
-    "common-utils/src/main/java/eu/arrowhead/common/http/HttpService.java": "0779e606e7dcf6038cdbdc09b6dc6c792f86899ec9003bd8dbeb92d83069f4c3",
+    "common-utils/src/main/java/eu/arrowhead/common/http/HttpService.java": "4e9463640c1f8de1f2f2af365e88309443fce153efc254b961700e24bb0709a9",
     "common-utils/src/main/java/eu/arrowhead/common/http/HttpUtilities.java": "a0b554a3e93587a64c9d712c14a0514e246b5fd692a9eb3a921dde92bc39059d",
     "common-utils/src/main/java/eu/arrowhead/common/testhelper/StandaloneModeInTests.java": "bbcc36ff82cf1a0f8403366f6fe66dc907ad3deb396ee1ee53b7b6575c830414",
     "common-utils/src/main/java/eu/arrowhead/common/model/InterfaceModel.java": "de8f7a408dbcc51014a3e7f336f6e00f6d7882cb023ad3dff76f10cb4596e662",

@@ -23,6 +23,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -88,6 +89,12 @@ public class HttpService {
 	private static final List<HttpMethod> NOT_SUPPORTED_METHODS = List.of(HttpMethod.HEAD, HttpMethod.OPTIONS, HttpMethod.TRACE);
 	private static final String SSL_KEY_MANAGER_FACTORY_ALGORITHM = "ssl.KeyManagerFactory.algorithm";
 	private static final String SSL_TRUST_MANAGER_FACTORY_ALGORITHM = "ssl.TrustManagerFactory.algorithm";
+
+	// Release 5.3.0: upper bound for how long a resolved host name is reused. Reactor Netty's DNS resolver otherwise keeps
+	// an answer for the record's TTL (600 s for Docker's embedded DNS), so after a peer system is recreated with a new
+	// address every call to it failed for up to ten minutes. Failed lookups are not cached.
+	static final Duration DNS_CACHE_MAX_TIME_TO_LIVE = Duration.ofSeconds(10);
+	static final Duration DNS_CACHE_NEGATIVE_TIME_TO_LIVE = Duration.ZERO;
 
 	private final Logger logger = LogManager.getLogger(HttpService.class);
 
@@ -363,6 +370,7 @@ public class HttpService {
 	//-------------------------------------------------------------------------------------------------
 	private HttpClient createHttpClient(final SslContext sslContext) {
 		HttpClient client = HttpClient.create()
+				.resolver(spec -> spec.cacheMaxTimeToLive(DNS_CACHE_MAX_TIME_TO_LIVE).cacheNegativeTimeToLive(DNS_CACHE_NEGATIVE_TIME_TO_LIVE))
 				.option(ChannelOption.CONNECT_TIMEOUT_MILLIS, connectionTimeout)
 				.doOnConnected(this::initConnectionHandlers);
 
