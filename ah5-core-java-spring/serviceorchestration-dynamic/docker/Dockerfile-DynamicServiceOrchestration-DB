@@ -1,14 +1,19 @@
-FROM mysql:8.1@sha256:f61944ff3f2961363a4d22913b2ac581523273679d7e14dd26e8db8c9f571a7e
-
+# SPDX-License-Identifier: EPL-2.0
+# DynamicServiceOrchestration database image. Build context: the folder that holds ah5-core-java-spring (see ReadMe.md).
+# Release 5.3.0 (2026-11-13): the upstream 5.2.2 image was mysql:8.1 (an innovation release past its support, Oracle
+# Linux 8.8: 120 high OS findings, all fixable) and granted to an 'ah-operator' user that is never created, which fails on
+# an empty MySQL 8.4 volume. Now the pattern of the support systems' database images and of the Java test cloud's
+# core-db: MySQL 8.4 LTS, gosu rebuilt with a current Go, MySQL Shell removed (unused; it bundles Python packages with
+# known vulnerabilities), Oracle Linux packages updated, the schema scripts of this module, no 'ah-operator'.
+FROM golang:1.27.4-alpine@sha256:0a5f7fe796599ff487605987432e7619ae45beeb2fba4c2ce0b907879932aebf AS gosu
+RUN --mount=type=cache,target=/go/pkg/mod CGO_ENABLED=0 GOBIN=/out go install -trimpath -ldflags=-s github.com/tianon/gosu@v0.0.0-20261025094355-29b939aa5bd4
+FROM mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902
+COPY --from=gosu /out/gosu /usr/local/bin/gosu
+RUN microdnf -y remove mysql-shell && microdnf -y update && microdnf clean all && gosu nobody true
+COPY ah5-core-java-spring/serviceorchestration-dynamic/src/main/resources/database/ /db-scripts/
+# the system user's password from AH_DB_USER / AH_DB_USER_PASSWORD(_FILE) instead of the published default
+COPY ah5-core-java-spring/docker-db/zz-arrowhead-system-user-password.sh /docker-entrypoint-initdb.d/zz-arrowhead-system-user-password.sh
+RUN mv /db-scripts/create_empty_db.sql /docker-entrypoint-initdb.d/init.sql \
+ && sed -i -E 's/^(source[[:space:]]+)([^[:space:]]+)/\1..\/db-scripts\/\2/' /docker-entrypoint-initdb.d/init.sql \
+ && chmod -R a+rX /db-scripts /docker-entrypoint-initdb.d
 WORKDIR /db-scripts
-
-# Copy initialization scripts
-COPY ah5-core-java-spring/serviceorchestration-dynamic/src/main/resources/database .
-RUN mv /db-scripts/create_empty_db.sql /docker-entrypoint-initdb.d/init.sql
-RUN chmod 644 /docker-entrypoint-initdb.d/init.sql
-
-# SQL command to ensure rights to the database for "ah-operator" user.
-RUN sed -i '/^CREATE DATABASE/a GRANT ALL PRIVILEGES ON `ah_serviceorchestration_dynamic`.* TO '\''ah-operator'\''@'\''%'\'';\nFLUSH PRIVILEGES;' /docker-entrypoint-initdb.d/init.sql
-
-# Replace each "source filename.sql" with "source ../db-scripts/filename.sql"
-RUN sed -i -E 's/^(source[[:space:]]+)([^[:space:]]+)/\1..\/db-scripts\/\2/' /docker-entrypoint-initdb.d/init.sql
