@@ -170,9 +170,9 @@ The tool compares source shapes, not runtime behaviour or JSON serialisation set
 
 ### Negative-access review
 
-`negative_access_review.py` counts, per project, the test methods that assert a refusal. Every project has some
-except DeviceQoSEvaluator, which has no access rule of its own: it relies on the common library's filters, whose tests
-assert 99 refusals.
+`negative_access_review.py` counts, per project, the test methods that assert a refusal. Every project has some.
+(`negative-access-review.json` is for `28833e70`, the commit after `b7c685e7` that adds DeviceQoSEvaluator's tests;
+the other files here are for `b7c685e7`. That commit adds only tests, so the qualified images are unchanged.)
 
 The first run also flagged Choreographer and PlantDescriptionEngine, which do have their own refusal logic. Commit
 `24ce3c48` adds tests for both (7 each):
@@ -181,6 +181,27 @@ The first run also flagged Choreographer and PlantDescriptionEngine, which do ha
   foreign cloud or from another local system is forbidden (403). Other requests go to the authentication filter.
 - **PlantDescriptionEngine, authorization filter:** an unauthenticated caller and a certificate of another system are
   refused (401); a caller without a ConsumerAuthorization grant is forbidden (403).
+
+Up to `b7c685e7` DeviceQoSEvaluator had none: it has no access rule of its own and relies on the common library's
+filters (whose own tests assert 99 refusals). `28833e70` adds `DeviceQoSEvaluatorAccessTest`, which runs the common
+identity-token filter and management filter with DeviceQoSEvaluator's own SystemInfo, service models and paths
+(6 refusal tests and one configuration check; 311 tests in the project pass):
+
+- **All six HTTP operations** (`qualityEvaluation` filter and sort, `deviceQualityDataManagement` query and reload,
+  `generalManagement` logs and get-config) are refused (401) without a token, with a forged, malformed or Basic
+  header, with an authenticator-key header (the system has no keys), and with a token whose system differs from the
+  client certificate or without a certificate.
+- **Management, deployed policy** (`config/application.properties`: `sysop-only`): forbidden (403) to other systems;
+  a ConsumerAuthorization grant is never asked for, so it cannot open management. The operator passes.
+- **Management, packaged policy** (`src/main/resources`: `authorization`): forbidden without a grant, and when
+  ConsumerAuthorization is unreachable (fails closed); a method or path that matches no published operation is
+  refused without asking. With a grant the call passes, and the question names DeviceQoSEvaluator,
+  `deviceQualityDataManagement` and `query`.
+- **Configuration check:** the packaged configuration switches the management filter on, and it runs after
+  authentication.
+
+With the management filter removed from the chain, the two management tests fail. Note: `qualityEvaluation` is open to
+every authenticated system, with no ConsumerAuthorization check (as upstream 5.2.2); the tests record this.
 
 The live run below repeats the negative-access checks against a deployed cloud.
 

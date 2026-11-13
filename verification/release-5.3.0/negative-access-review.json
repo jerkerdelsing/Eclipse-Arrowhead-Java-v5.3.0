@@ -1,5 +1,5 @@
 {
-  "commit": "b7c685e7865204f4334b53f4971ce08ba9511011",
+  "commit": "28833e7017a356989dee2f796329c07fb007b3af",
   "projects": {
     "ah5-AIGym-java-spring": {
       "testMethods": 3,
@@ -58,9 +58,15 @@
       ]
     },
     "ah5-DeviceQoSEvaluator-java-spring": {
-      "testMethods": 304,
-      "negativeAccess": 0,
-      "examples": []
+      "testMethods": 311,
+      "negativeAccess": 6,
+      "examples": [
+        "DeviceQoSEvaluatorAccessTest.everyOperationIsUnauthorizedWithoutAnIdentityToken",
+        "DeviceQoSEvaluatorAccessTest.forgedMalformedAndAuthenticatorKeyHeadersAreUnauthorized",
+        "DeviceQoSEvaluatorAccessTest.aTokenIsRefusedWithAnotherSystemsCertificateOrWithoutOne",
+        "DeviceQoSEvaluatorAccessTest.managementIsForbiddenToOrdinarySystemsUnderTheDeployedSysopOnlyPolicy",
+        "DeviceQoSEvaluatorAccessTest.managementNeedsAGrantUnderTheAuthorizationPolicyAndFailsClosed"
+      ]
     },
     "ah5-EventHandler-java-spring": {
       "testMethods": 14,
@@ -253,7 +259,5 @@
       ]
     }
   },
-  "withoutNegativeAccessTests": [
-    "ah5-DeviceQoSEvaluator-java-spring"
-  ]
+  "withoutNegativeAccessTests": []
 }
