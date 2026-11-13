@@ -1,17 +1,17 @@
 {
   "format": "arrowhead-release-manifest/1",
   "release": "5.3.0",
-  "commit": "d25225ae268d33a16626b1dbcd11e10700bf3a66",
-  "tree": "7c9530f6814fc744443f827dadd9bf39d04abf0f",
-  "commitDate": "2026-11-13T08:15:20+01:00",
-  "sourceArchiveSha256": "d7ce9462d1e834888ae466b363a18ef65d5546387109fa821faca48ae6154d0e",
-  "sourceArchive": "git archive --format=tar d25225ae268d33a16626b1dbcd11e10700bf3a66",
+  "commit": "f1103ac9cfe2e891dad4b13257e36f6b4f801e75",
+  "tree": "215f8fa9c8d2971bf4dc5c78e7e97286ca1be26f",
+  "commitDate": "2026-11-13T11:39:51+01:00",
+  "sourceArchiveSha256": "055fd3d0ce0c0fab2e3958a1251914137125b6bd940bb04707923aacb10305aa",
+  "sourceArchive": "git archive --format=tar f1103ac9cfe2e891dad4b13257e36f6b4f801e75",
   "workingTreeChangesIgnored": [
     " M \"5.3 SoS documentation/.DS_Store\"",
     " M \"5.3 SoS documentation/Arrowhead SoS architecture/.DS_Store\"",
-    " M verification/tools/release_manifest.py"
+    " M verification/release-5.3.0/manifest.json"
   ],
-  "generated": "2026-11-13T08:02:28+00:00",
+  "generated": "2026-11-13T10:58:00+00:00",
   "host": "29.7.2 linux/arm64",
   "mavenImage": "maven:3.9-eclipse-temurin-21",
   "platform": "linux/amd64",
@@ -19,7 +19,7 @@
     {
       "image": "arrowhead-aigym-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 3250,
+      "seconds": 93,
       "source": "ah5-AIGym-java-spring",
       "sourceTree": "71089e8509b16e800ea1ddbb111f59fb1c7d3223",
       "service": "aigym",
@@ -33,38 +33,39 @@
       "tests": "Tests run: 3, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-aigym-standalone.log",
-        "sha256": "65cbe910e06846f42b29a9b8af300215b82caeea83228adf57d502dd53bd8185"
+        "sha256": "6e1a1fdeda016195b6f8ad6aab4b0e019ebb840b3c5e01a1bf0fd537f5503212"
       },
-      "imageId": "sha256:160366f5e2d711131994699e3b7930412a0f862dd464e3def932cdb7a356170b",
-      "created": "2026-11-13T08:56:34.238933428Z",
-      "sizeBytes": 181381105,
+      "imageId": "sha256:448b74d1403663cda56f567efc0fc9866c82744d6a8fc20a699b6b93702bff56",
+      "created": "2026-11-13T10:59:32.003323136Z",
+      "sizeBytes": 181381012,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "0989b7837e5870260aa85650f4cb90228c341db9131cd9f50fe2a7a6c750f2cd"
+        "/app/app.jar": "9e0a682aec90a72e43a87a3e4646d9c451951d8aa7e2b92f64f691cb9b6ce9a1"
       }
     },
     {
       "image": "arrowhead-authentication-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 4,
+      "seconds": 98,
       "source": "ah5-core-java-spring/authentication",
-      "sourceTree": "023a5c3cb4997c3c0a0f9aeb68f047ef8b3ff22c",
+      "sourceTree": "ad8a0c18273014bed67a9765847664bb1d411b9e",
       "service": "authentication-db",
       "dockerfile": "ah5-core-java-spring/authentication/docker/Dockerfile-Authentication-DB",
       "context": ".",
       "buildArgs": {},
       "baseImages": [
-        "mysql:8.1@sha256:f61944ff3f2961363a4d22913b2ac581523273679d7e14dd26e8db8c9f571a7e"
+        "golang:1.27.4-alpine@sha256:0a5f7fe796599ff487605987432e7619ae45beeb2fba4c2ce0b907879932aebf",
+        "mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902"
       ],
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-authentication-db.log",
-        "sha256": "c45624b45370eb7d95f414aaca52275d87aa7cab8d8ba9cc23dee1ba3641cb3f"
+        "sha256": "55f54f2272138d3e6496b0b090a97ed708e9a6bdf7d457949c7649f38048848f"
       },
-      "imageId": "sha256:a07896ac863d81f29eafb3154e136f33fb79294039948c00beb048588dc16786",
-      "created": "2026-11-13T09:13:39.367319347Z",
-      "sizeBytes": 166138516,
+      "imageId": "sha256:834437d8e0b6ab05e54c6780ef62a9f66e0b1d33782a8197691241f09d570e6d",
+      "created": "2026-11-13T11:14:51.131190297Z",
+      "sizeBytes": 248283682,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -72,9 +73,9 @@
     {
       "image": "arrowhead-authentication:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 251,
+      "seconds": 236,
       "source": "ah5-core-java-spring/authentication",
-      "sourceTree": "023a5c3cb4997c3c0a0f9aeb68f047ef8b3ff22c",
+      "sourceTree": "ad8a0c18273014bed67a9765847664bb1d411b9e",
       "service": "authentication",
       "dockerfile": "ah5-core-java-spring/authentication/docker/Dockerfile-Authentication",
       "context": ".",
@@ -88,21 +89,21 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-authentication.log",
-        "sha256": "0a7ee1a214c94bab55e455a04f85ec9edc2c56b436678a2ae733b73199f76086"
+        "sha256": "a7bf71eeca5d02cf7015cccaeb2427a40c1a8acffe94ff578197c201031a30d9"
       },
-      "imageId": "sha256:569ddb925e154f89d598ace3dee50b61a4e945fbed8df525b5651bdbd222c4ac",
-      "created": "2026-11-13T09:17:37.845541596Z",
-      "sizeBytes": 215585764,
+      "imageId": "sha256:574cfdd80d39ccfc906b51b5bddcd5410670f547dd1eb9d8164ac24ba9af1d73",
+      "created": "2026-11-13T11:17:06.733008221Z",
+      "sizeBytes": 215586013,
       "architecture": "amd64",
       "user": null,
       "jars": {
-        "/app/arrowhead-authentication-5.3.0.jar": "4942f683ea6853ef4dc6899aac3234a6280c1abf5a8aa95fe42358dac0b3e040"
+        "/app/arrowhead-authentication-5.3.0.jar": "b5b33ec0bd8c187fa0dae2da67530b38dda87f68740dc4f7b350c708f3793f0b"
       }
     },
     {
       "image": "arrowhead-blacklist-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 3249,
+      "seconds": 112,
       "source": "ah5-Blacklist-java-spring",
       "sourceTree": "31386ec0f838fa50594d3aeb016e16e614635e9b",
       "service": "blacklist-db",
@@ -116,11 +117,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-blacklist-standalone-db.log",
-        "sha256": "4bfd271c54f36cb8a622dc2e49496935b8d6ab22b81b5fd01d2aa00b8c02d2c7"
+        "sha256": "99ddd9800410ab3bebea3fe8c496bca4ef10cf94bfd05e05df15ad60d703bd46"
       },
-      "imageId": "sha256:f6597aa536f7a66c2c710c74071ef78f65d4ccf9371fdc71a3140c7ec83aa4d1",
-      "created": "2026-11-13T08:56:36.030691929Z",
-      "sizeBytes": 248280954,
+      "imageId": "sha256:d0f269edc26c5cf3c4d878e1521037d20d9a1cfa1ab4eaa807448957122ff2b7",
+      "created": "2026-11-13T10:59:51.394164506Z",
+      "sizeBytes": 248280887,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -128,7 +129,7 @@
     {
       "image": "arrowhead-blacklist-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 3252,
+      "seconds": 94,
       "source": "ah5-Blacklist-java-spring",
       "sourceTree": "31386ec0f838fa50594d3aeb016e16e614635e9b",
       "service": "blacklist",
@@ -142,21 +143,21 @@
       "tests": "Tests run: 139, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-blacklist-standalone.log",
-        "sha256": "43086e36599eb5016abc028662abcb640b8194a3a82b0617339117bc0beed857"
+        "sha256": "64533fa4d52861d50fbfa54590d4fb182b85c38677472a916f3c5d0eb3f5d4e1"
       },
-      "imageId": "sha256:ce5781566f9de324618b8977355107726fbeb6448412dad898ed2d03c623cbf1",
-      "created": "2026-11-13T08:56:34.451215845Z",
-      "sizeBytes": 297619824,
+      "imageId": "sha256:82062d9d304b03f0c7f20d25da68a8ea33665a8e437497880fdbfafdab4f6866",
+      "created": "2026-11-13T10:59:32.045019136Z",
+      "sizeBytes": 297619944,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "227d763d3bf176d8b7c0ac4b062f91a464ef865f1690a05ffb9d00f47dbc50a2"
+        "/app/app.jar": "5fc5e8d9b9a55fb70f3270252629372bb17f11b2dfa6a34d18c9b0728811328d"
       }
     },
     {
       "image": "arrowhead-certificate-authority-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 138,
+      "seconds": 16,
       "source": "ah5-CertificateAuthority-java-spring",
       "sourceTree": "8013517ffa4591a9043689273a4f33a0a5e01ed1",
       "service": "certificate-authority-db",
@@ -170,11 +171,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-certificate-authority-standalone-db.log",
-        "sha256": "282c6cc7213a77ed2ae38c9b2c6ec498b780bbb11372bc556b8f04230cefaf37"
+        "sha256": "7290ce1b74439a5b2dbf85c0af62c1f6666264685e3e359ed01e86997089ceba"
       },
-      "imageId": "sha256:724e7eccf0fdcd8ace8bfc8334c4c5103f0d9ce9c906e6909c2cf89a43312d67",
-      "created": "2026-11-13T08:58:57.931978758Z",
-      "sizeBytes": 248281041,
+      "imageId": "sha256:1ecc36983818136cdcbad7cfb5ad88e87932476225addee3daf7042b518821e1",
+      "created": "2026-11-13T10:59:51.392387214Z",
+      "sizeBytes": 248280988,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -182,7 +183,7 @@
     {
       "image": "arrowhead-certificate-authority-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 3253,
+      "seconds": 94,
       "source": "ah5-CertificateAuthority-java-spring",
       "sourceTree": "8013517ffa4591a9043689273a4f33a0a5e01ed1",
       "service": "certificate-authority",
@@ -196,21 +197,21 @@
       "tests": "Tests run: 45, Failures: 0, Errors: 0, Skipped: 1",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-certificate-authority-standalone.log",
-        "sha256": "9c42306760a60f18040516a77498161007956dc7d508353a8ebf1a5256704c3a"
+        "sha256": "995aee76333bf70283b65ea3d4d32e9a71b3d42e2cf0e1e2db21cbd7e4e31228"
       },
-      "imageId": "sha256:ad6c8697c04f8d3943d17ad150666eac8ece2edb297a761030a176509885d705",
-      "created": "2026-11-13T08:56:34.446418886Z",
-      "sizeBytes": 313418716,
+      "imageId": "sha256:7c3f5c756bad5cbd2cd2c34910115e5a6db96b4f17a47b7962379cb1fe0c27ea",
+      "created": "2026-11-13T10:59:32.067522928Z",
+      "sizeBytes": 313418844,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "0ebf14207b9ad3494e78defd41a7b12982e5422933de1f98b4e90ac62f5dbb67"
+        "/app/app.jar": "1cda7b9c22c69cfe76bc2b80627e821a36a73bd77401331a530842ab84283957"
       }
     },
     {
       "image": "arrowhead-choreographer-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 134,
+      "seconds": 14,
       "source": "ah5-Choreographer-java-spring",
       "sourceTree": "af14e86ae8c7c837a9a62911778a92d1c7320a38",
       "service": "choreographer-db",
@@ -224,11 +225,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-choreographer-standalone-db.log",
-        "sha256": "cda7841e8213ac63bf712a3fc5766aaad25b9753b825f3ae35a044e7764fb3f8"
+        "sha256": "9d38eb19db6a5b42c1e682f2f6f5a3ee402dca5cec3ddc3ea62b320ef62f8fff"
       },
-      "imageId": "sha256:17d0782a737afc0af9e53b4475f331e0b3787e8906ed6191bcc721c51730d315",
-      "created": "2026-11-13T08:58:57.936458592Z",
-      "sizeBytes": 248281710,
+      "imageId": "sha256:1d46ccadcc84200153e98a4107600f7dcf29484620a0166e8e9d958c20b2506b",
+      "created": "2026-11-13T10:59:51.398220756Z",
+      "sizeBytes": 248281657,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -236,7 +237,7 @@
     {
       "image": "arrowhead-choreographer-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 122,
+      "seconds": 100,
       "source": "ah5-Choreographer-java-spring",
       "sourceTree": "af14e86ae8c7c837a9a62911778a92d1c7320a38",
       "service": "choreographer",
@@ -250,21 +251,21 @@
       "tests": "Tests run: 25, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-choreographer-standalone.log",
-        "sha256": "fcb3cb4bb54b78c38b861c3b82dfc206c1bfa68dbd076f4e154fb26f69212813"
+        "sha256": "9c82f13835e237cd8d2709436da3bc32a33c9aa0a1b354fb68902a1e4c15517d"
       },
-      "imageId": "sha256:7801ca721c28f25efd0d3c4bf970623f855f3996c91cb6fd2ca12d06f3b3ff76",
-      "created": "2026-11-13T08:58:41.808931542Z",
-      "sizeBytes": 297791289,
+      "imageId": "sha256:3b7120374ec29c62aa1e2c5a3b2ce15d8b51c2d4d2e81373c929609e8a02752a",
+      "created": "2026-11-13T11:01:15.033194545Z",
+      "sizeBytes": 297790476,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "22497ca381ee30186e83a5f1ea4d93ee8e8031f9e6d7d5266de77bc51ec4c01c"
+        "/app/app.jar": "ee55b3ed788aa00e8b00f0a199aac152b8a90071369adfb6173e5a79d3c97f56"
       }
     },
     {
       "image": "arrowhead-configuration-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 12,
+      "seconds": 126,
       "source": "ah5-Configuration-java-spring",
       "sourceTree": "8a852bfd9b665c266f5efec7e4b4e98ef8cdf63d",
       "service": "configuration-db",
@@ -278,11 +279,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-configuration-standalone-db.log",
-        "sha256": "1064fff7727adc678060d2691cebab33481db93d75302a2e2a4894005e214364"
+        "sha256": "f1ecc97033efaf3a518b184f1677bb4e3498d260c43c9c68724c5f1efc313217"
       },
-      "imageId": "sha256:b93f1429059adfe3534d079e9181f281d394d5bee2868592649b01799a0c9598",
-      "created": "2026-11-13T08:58:57.930713133Z",
-      "sizeBytes": 248280971,
+      "imageId": "sha256:1d8ecd596e2306298da78cf14bc021145fd0f11518fd97bca6a8c58cb85670cb",
+      "created": "2026-11-13T11:01:59.578735718Z",
+      "sizeBytes": 248280950,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -290,7 +291,7 @@
     {
       "image": "arrowhead-configuration-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 117,
+      "seconds": 111,
       "source": "ah5-Configuration-java-spring",
       "sourceTree": "8a852bfd9b665c266f5efec7e4b4e98ef8cdf63d",
       "service": "configuration",
@@ -304,38 +305,39 @@
       "tests": "Tests run: 11, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-configuration-standalone.log",
-        "sha256": "d9773af105067343db98580354f2e9eca214176ed9159406265dc6f51397c578"
+        "sha256": "b03dd9f5dc41ebe45ab0e46934c9842a0e92fff218bea0ee6502e856031619f5"
       },
-      "imageId": "sha256:9ca02d1806e54e887b522214c180f0c6a3f929f48344161e12e2f2e7c4b6a7cc",
-      "created": "2026-11-13T08:58:40.158791416Z",
-      "sizeBytes": 297573691,
+      "imageId": "sha256:a5f1ab5e0798b37fcfacbf5efccbac26d606b952043bd19f5d5fc9750d0017f7",
+      "created": "2026-11-13T11:01:42.78868096Z",
+      "sizeBytes": 297573626,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "177064e9fbf62625be6296270bb1c3e0020ca34e38259dba867d8b1dcaad7a0d"
+        "/app/app.jar": "b572d46e9b147467112e31b4742b1f2b55d6a9d9fce233d07417654f8139bbdf"
       }
     },
     {
       "image": "arrowhead-consumer-authorization-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 2,
+      "seconds": 97,
       "source": "ah5-core-java-spring/consumer-authorization",
-      "sourceTree": "355525da68ade15df8d7a4cb206d0e03aebf844b",
+      "sourceTree": "8c3f0fd86ee438e73fb560be469c100060449263",
       "service": "consumer-authorization-db",
       "dockerfile": "ah5-core-java-spring/consumer-authorization/docker/Dockerfile-ConsumerAuthorization-DB",
       "context": ".",
       "buildArgs": {},
       "baseImages": [
-        "mysql:8.1@sha256:f61944ff3f2961363a4d22913b2ac581523273679d7e14dd26e8db8c9f571a7e"
+        "golang:1.27.4-alpine@sha256:0a5f7fe796599ff487605987432e7619ae45beeb2fba4c2ce0b907879932aebf",
+        "mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902"
       ],
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-consumer-authorization-db.log",
-        "sha256": "abcf0c5567e3d0ef495520dcdf4f1aa02d44e0b512642d9e2ef46b9bd6016674"
+        "sha256": "22b96d6a0bd3001c452123d1c295b696121fbe4c80e946b697d9e41bf34b610b"
       },
-      "imageId": "sha256:aa4c531e1b44d6b7706feeb6f7c440624bef27606084547458a769330145aed5",
-      "created": "2026-11-13T09:14:32.634736052Z",
-      "sizeBytes": 166138669,
+      "imageId": "sha256:24747969cdd69c23a259b809de252d9d05cb618f267fbe28c5bcd10a761fb64f",
+      "created": "2026-11-13T11:16:30.328677177Z",
+      "sizeBytes": 248283806,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -343,9 +345,9 @@
     {
       "image": "arrowhead-consumer-authorization:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 249,
+      "seconds": 246,
       "source": "ah5-core-java-spring/consumer-authorization",
-      "sourceTree": "355525da68ade15df8d7a4cb206d0e03aebf844b",
+      "sourceTree": "8c3f0fd86ee438e73fb560be469c100060449263",
       "service": "consumer-authorization",
       "dockerfile": "ah5-core-java-spring/consumer-authorization/docker/Dockerfile-ConsumerAuthorization",
       "context": ".",
@@ -359,21 +361,21 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-consumer-authorization.log",
-        "sha256": "0fdc738c6fb07132436307527e3fa879b8179e35a28daeecd8dd928f0001de38"
+        "sha256": "e7af9e80ad2efe2aae5971d421e820e8d50d36c90379a4e89955f0bc09912989"
       },
-      "imageId": "sha256:fe57486952b48a903a4590ba02bc59df5aff25de40d8594cc64962e83977e404",
-      "created": "2026-11-13T09:17:49.476604088Z",
-      "sizeBytes": 215956458,
+      "imageId": "sha256:362e6e3c58f4bbb031d1f06c5fe4645f672aa49c57b59265f26996a1578ddf61",
+      "created": "2026-11-13T11:17:17.848793962Z",
+      "sizeBytes": 215956734,
       "architecture": "amd64",
       "user": null,
       "jars": {
-        "/app/arrowhead-consumer-authorization-5.3.0.jar": "4797c1eb20580bc0def412ce8a4099599206a102fb69f3d7e2649e7a71405e06"
+        "/app/arrowhead-consumer-authorization-5.3.0.jar": "13ee8357c7ced90b11aed22cfcc7eee4dc81666a027472e54dfea8d64216c5b5"
       }
     },
     {
       "image": "arrowhead-datamanager-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 135,
+      "seconds": 39,
       "source": "ah5-DataManager-java-spring",
       "sourceTree": "7ce41ee3106ffcf4aa71f61923ce69f1b7bddbda",
       "service": "datamanager-db",
@@ -387,11 +389,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-datamanager-standalone-db.log",
-        "sha256": "bee444b216cdf50463473b027795e021674b5cf5354f2b4d28311247d31388fe"
+        "sha256": "af50e7743e0134050b26a21cae7b77bbb20f9f9a7da43992c62fe09b285944d4"
       },
-      "imageId": "sha256:77fef9550717768cc542d80b74626dfb994515d675b9a194fd53caf284b2352a",
-      "created": "2026-11-13T09:01:14.452694794Z",
-      "sizeBytes": 248280905,
+      "imageId": "sha256:c35f1f6206666944aba88195999a3697bc4e7a4061e5da177697cc832318f94c",
+      "created": "2026-11-13T11:01:59.576337135Z",
+      "sizeBytes": 248280889,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -399,7 +401,7 @@
     {
       "image": "arrowhead-datamanager-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 118,
+      "seconds": 110,
       "source": "ah5-DataManager-java-spring",
       "sourceTree": "7ce41ee3106ffcf4aa71f61923ce69f1b7bddbda",
       "service": "datamanager",
@@ -413,21 +415,21 @@
       "tests": "Tests run: 16, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-datamanager-standalone.log",
-        "sha256": "bfee902a2905834ede3c62bcca3ed46550d04e2c9d510edddf361ef387c6ec19"
+        "sha256": "0afad55d6328ca16f3b7c6bac6d1fcf89c8e12416f0ba72bc7b758dbc3a653a3"
       },
-      "imageId": "sha256:fb7de17fb59578451c12de29d842e86fa89ce952b129954cccd539d3516ca119",
-      "created": "2026-11-13T09:00:43.842486293Z",
-      "sizeBytes": 297586387,
+      "imageId": "sha256:9345f07e5ad3b427b47b74c78720775d3953e306d35f7edf0390eba45b94a199",
+      "created": "2026-11-13T11:01:42.787163418Z",
+      "sizeBytes": 297586395,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "0f1de3d1939cf3621687eea458fa20a0ac86e10db7ab0af78b41bd87e643ba26"
+        "/app/app.jar": "1ea7254fc0bbc8e23d035dc6622638ddb847f760e0b688c481cffcc77a14725b"
       }
     },
     {
       "image": "arrowhead-device-qos-evaluator-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 134,
+      "seconds": 11,
       "source": "ah5-DeviceQoSEvaluator-java-spring",
       "sourceTree": "4f1dafe3c8ef529bca3fe6dd1ac072735d59a027",
       "service": "device-qos-evaluator-db",
@@ -441,11 +443,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-device-qos-evaluator-standalone-db.log",
-        "sha256": "443bc10db9b9573d9447834047d1bd6f6afdb047c87e5e115e76ba48a6edfd3b"
+        "sha256": "f2d98538f079b050651cbde25182e9b19189ff0d7991e83b0fc225d29830f387"
       },
-      "imageId": "sha256:ccde4782609fbfabab222eb508ad9f406a44477aafb1970d4d012f4c0ac69f3e",
-      "created": "2026-11-13T09:01:14.444698877Z",
-      "sizeBytes": 248281220,
+      "imageId": "sha256:1377207574f6d1343eee785a9be660235f05c155ca94c89986c01bb7644f6a0d",
+      "created": "2026-11-13T11:01:59.570698801Z",
+      "sizeBytes": 248281206,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -453,7 +455,7 @@
     {
       "image": "arrowhead-device-qos-evaluator-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 142,
+      "seconds": 116,
       "source": "ah5-DeviceQoSEvaluator-java-spring",
       "sourceTree": "4f1dafe3c8ef529bca3fe6dd1ac072735d59a027",
       "service": "device-qos-evaluator",
@@ -467,21 +469,21 @@
       "tests": "Tests run: 304, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-device-qos-evaluator-standalone.log",
-        "sha256": "4ee4e971a8bdeeedee0a7f6c739293f4c5563e573bf47b7e575acfefa102679b"
+        "sha256": "9f178b880dd116b864ae7f34f850e55537120dfd718f1e49613d5f0b4eb78045"
       },
-      "imageId": "sha256:64c685df409dc9c09fcb85d6e1b7fa07bac115e705ebba1670b03d8ed9236151",
-      "created": "2026-11-13T09:01:19.237339671Z",
-      "sizeBytes": 298094842,
+      "imageId": "sha256:f78ae00edd8b3e1966d8aea971e105ced452f510941c1f7aeeecc54f368331f6",
+      "created": "2026-11-13T11:03:42.990687669Z",
+      "sizeBytes": 298094457,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "1e6b3bae5e0e770d69c796b24ec945dfbd7b23f01cf51326779e8d16474a9844"
+        "/app/app.jar": "542f1f283fde18b984df5a2ce7354728fd3c410f2351e8213cfd201b8b9137b2"
       }
     },
     {
       "image": "arrowhead-eventhandler-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 127,
+      "seconds": 130,
       "source": "ah5-EventHandler-java-spring",
       "sourceTree": "fc1b44b16dc4868b0809e2bf65355d641a5a5cca",
       "service": "eventhandler-db",
@@ -495,11 +497,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-eventhandler-standalone-db.log",
-        "sha256": "aa039ad30237fd30d17b97c238ac83dc27b07c98027e95a922d2ff61ffc3241c"
+        "sha256": "46ea8b666900ab396718261b395f3f799de8425e0460fe7cdd679651538138f8"
       },
-      "imageId": "sha256:afb3894ca8c9526d15071214e39094ca52b4facbd4d5ccd70698056ee785f44d",
-      "created": "2026-11-13T09:03:23.255116256Z",
-      "sizeBytes": 248280980,
+      "imageId": "sha256:4576b0ddabb64a1d6bfcb85c3b0c803c28d92349b0fe0adde3ee76818f2c39c1",
+      "created": "2026-11-13T11:04:12.11291896Z",
+      "sizeBytes": 248280943,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -507,7 +509,7 @@
     {
       "image": "arrowhead-eventhandler-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 107,
+      "seconds": 114,
       "source": "ah5-EventHandler-java-spring",
       "sourceTree": "fc1b44b16dc4868b0809e2bf65355d641a5a5cca",
       "service": "eventhandler",
@@ -521,21 +523,21 @@
       "tests": "Tests run: 14, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-eventhandler-standalone.log",
-        "sha256": "c43b531360d6c52fd6761584cc37355d269b7cec6e859f03407f6ab0d6c44be0"
+        "sha256": "f596856b63a7fad6e2692cb287cf9eedf9f90cbdc336ad57f71e4e4aa7524fd5"
       },
-      "imageId": "sha256:d02e54094e21d2d0120e8e84078587e7744aa42f89bff85035c5eba842f531a5",
-      "created": "2026-11-13T09:02:34.264039928Z",
-      "sizeBytes": 297586884,
+      "imageId": "sha256:4215d97936fc5992cc5703a60d1763485c04bb5560174e23a8b5d6895932db2f",
+      "created": "2026-11-13T11:03:54.852072549Z",
+      "sizeBytes": 297586847,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "379b89c88e535ecb240e14716839c54941499845af48cd5fd80fe0dc66abd2bd"
+        "/app/app.jar": "bd1323f9886eb9fc0679c2f85f006c790e921651c405705358256196b6f7d75a"
       }
     },
     {
       "image": "arrowhead-gatekeeper-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 166,
+      "seconds": 111,
       "source": "ah5-Gatekeeper-java-spring",
       "sourceTree": "a64496923a88ff00829dde934009b230df5e99a7",
       "service": "gatekeeper-db",
@@ -549,11 +551,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-gatekeeper-standalone-db.log",
-        "sha256": "8bceba3f8201d5e90c482202d9ae2add62e0492eedd48a33ea983fa6c2a5d683"
+        "sha256": "e95abf1476bdbdd55692da265e20d41c736e1e0af5f03e02ed69224f57a042a1"
       },
-      "imageId": "sha256:60c15cf76496ec205d7850bb320058f15bd7535613956ff8f8b9bd6637488180",
-      "created": "2026-11-13T09:06:10.583344583Z",
-      "sizeBytes": 248280992,
+      "imageId": "sha256:299ffca11aec07297aab1238497074bc2d56a7477a29ee8068a628af615f6fe9",
+      "created": "2026-11-13T11:06:04.821732804Z",
+      "sizeBytes": 248280996,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -561,7 +563,7 @@
     {
       "image": "arrowhead-gatekeeper-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 142,
+      "seconds": 110,
       "source": "ah5-Gatekeeper-java-spring",
       "sourceTree": "a64496923a88ff00829dde934009b230df5e99a7",
       "service": "gatekeeper",
@@ -575,21 +577,21 @@
       "tests": "Tests run: 49, Failures: 0, Errors: 0, Skipped: 2",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-gatekeeper-standalone.log",
-        "sha256": "7b8eaf5484eeb5edbb3444aa3fd7bec2f2bab6dc18a49ec44d76357c05c8285d"
+        "sha256": "8c9dfe5bd4b93579e6ef09ad1c28b7df4171552ebaa091a884b89fe949568292"
       },
-      "imageId": "sha256:c334865098671447784c827d4343f36f348d5e0eb5473590445e1c728e360a65",
-      "created": "2026-11-13T09:04:59.572809842Z",
-      "sizeBytes": 337422211,
+      "imageId": "sha256:4fcddeefa92bd7972d6cedf8afb3ff01f0c4b88ec420520d7f18009e337739b8",
+      "created": "2026-11-13T11:05:49.221998755Z",
+      "sizeBytes": 337420826,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "07966e02962db76aa3a9b28e43c6daeea343376af17299d5f70b56508e8f8796"
+        "/app/app.jar": "a74d3090183cd847ccaf1f2cb6cff019015a36c1b64b29dce2bd408d6d312d30"
       }
     },
     {
       "image": "arrowhead-gatetunnel-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 117,
+      "seconds": 23,
       "source": "ah5-GateTunnel-java-spring",
       "sourceTree": "e59fa56b28eea9921e266d14e0911276cd5f5d33",
       "service": "gatetunnel-db",
@@ -603,11 +605,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-gatetunnel-standalone-db.log",
-        "sha256": "9b11caa32d0c25fe8e79b215032e919adf975dbc6e2f9b9468e089ad6bec1cba"
+        "sha256": "a6d3390f2e1886d6ae5f51d023a22346d133891d466a17bd115d1d40ad6e150d"
       },
-      "imageId": "sha256:4957911b6c6e9a011b71de7675d4d07cd90232efb77316984640989385d71ff4",
-      "created": "2026-11-13T09:03:23.250204714Z",
-      "sizeBytes": 248281058,
+      "imageId": "sha256:c87d68e57097a36921762639b7465e367e7677d7eb8cc18bce194b126bf0730d",
+      "created": "2026-11-13T11:04:12.110409335Z",
+      "sizeBytes": 248281021,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -615,7 +617,7 @@
     {
       "image": "arrowhead-gatetunnel-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 154,
+      "seconds": 132,
       "source": "ah5-GateTunnel-java-spring",
       "sourceTree": "e59fa56b28eea9921e266d14e0911276cd5f5d33",
       "service": "gatetunnel",
@@ -629,21 +631,21 @@
       "tests": "Tests run: 161, Failures: 0, Errors: 0, Skipped: 2",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-gatetunnel-standalone.log",
-        "sha256": "4b4e915b402f98c9645d4b6ee47ea2d744a21badf5954fe171ac7f6b0d51de71"
+        "sha256": "30bb35e3957318869718befea6415466c83254aaae38a60b9a9f9974cc00a45f"
       },
-      "imageId": "sha256:fedaba21d101a0fbd4f06b88df2e8ca11ebbc46e2fd46213359c624bb26afb78",
-      "created": "2026-11-13T09:03:48.145791045Z",
-      "sizeBytes": 313525725,
+      "imageId": "sha256:8fa8aa5e1c97749f3f21eb90850e7fd2e1c8f7e554d9ce380e047c54e8c33e3a",
+      "created": "2026-11-13T11:04:12.45454971Z",
+      "sizeBytes": 313524893,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "757207ec2e5cfa6aae41fb02a73df1aeceef91422af3e7b707a5faf06784ee9c"
+        "/app/app.jar": "616b5adcaf5d0557b193e7ae76382f67af149a16657e5fb326a0bca8caee27bb"
       }
     },
     {
       "image": "arrowhead-graphdbmanager-standalone-graphdb:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 240,
+      "seconds": 135,
       "source": "ah5-GraphDBManager-java-spring",
       "sourceTree": "82e7c4f5e373854d35e0bcf92486d7d860dff6bc",
       "service": "graphdbmanager-graphdb",
@@ -656,11 +658,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-graphdbmanager-standalone-graphdb.log",
-        "sha256": "60b4ae5a3936f885a074c4d8dd837cd8ef17fca232c5450e3bf2bce30f8ddcee"
+        "sha256": "22088031e5ee6c499c832d1df21d4c9aa3607c1444a211fdcfd410865463580c"
       },
-      "imageId": "sha256:0f53002b694f86f1751911961887e7f36153787930f2cf1fd045bb9e45fc2a24",
-      "created": "2026-11-13T09:07:52.491327589Z",
-      "sizeBytes": 583890721,
+      "imageId": "sha256:ce93947ed637546232331f9b9b4ef280ed2fdd11f5767ebbdb4e1f1f996c2249",
+      "created": "2026-11-13T11:06:31.778967302Z",
+      "sizeBytes": 583890589,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {}
@@ -668,7 +670,7 @@
     {
       "image": "arrowhead-graphdbmanager-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 134,
+      "seconds": 104,
       "source": "ah5-GraphDBManager-java-spring",
       "sourceTree": "82e7c4f5e373854d35e0bcf92486d7d860dff6bc",
       "service": "graphdbmanager",
@@ -682,21 +684,21 @@
       "tests": "Tests run: 15, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-graphdbmanager-standalone.log",
-        "sha256": "a8c482715501a94c173c75be6795c7d029a4b131c9ab25c0ed095327b69c3fa1"
+        "sha256": "89f8ea33ca49bebdbbb0adf20c0b47ab2841594e6860a4141abcd37481d5de58"
       },
-      "imageId": "sha256:59e3610fd44e71bf8986f2b2826c24a45ea25cdd1ebaa2c048b14251d988ad2c",
-      "created": "2026-11-13T09:05:37.777817971Z",
-      "sizeBytes": 269617358,
+      "imageId": "sha256:fe785820f55ac9c40be60546c87e25f9b89980ef6a696733d97df3185c9d855f",
+      "created": "2026-11-13T11:05:57.1212358Z",
+      "sizeBytes": 269617507,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "954ed3d5b50184f179a22102570f44f2fbf995cd2c1b06fa4291b8861d44736f"
+        "/app/app.jar": "9c69a87fa7f749168e050e75b689d9ce64500a9bda4a2d37a294cf35c4907b83"
       }
     },
     {
       "image": "arrowhead-localcloudconfigurator-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 29,
+      "seconds": 3,
       "source": "ah5-LocalCloudConfigurator-java",
       "sourceTree": "7180d98fc559aafdb6b00d1bdbe0e297d005cd8c",
       "service": "localcloudconfigurator-db",
@@ -710,11 +712,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-localcloudconfigurator-standalone-db.log",
-        "sha256": "c16e65efb9170eee90155f259b12915ba8ed8f34d458324515202d274a23deaa"
+        "sha256": "b2ddddecb5143963944723c0d22ea8380c9c02a5cc2ce6db4d6d8e2b49f955d4"
       },
-      "imageId": "sha256:a566287569cd95f1236d66dc7dfbb9ea85d144cfce92f56ebe339a052964e8d4",
-      "created": "2026-11-13T09:06:10.58076975Z",
-      "sizeBytes": 248281028,
+      "imageId": "sha256:95412399164c41068a19bdf8d7ebfcba45a39607cecd277edf1beba57ca56a5c",
+      "created": "2026-11-13T11:06:04.813040221Z",
+      "sizeBytes": 248281035,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -722,7 +724,7 @@
     {
       "image": "arrowhead-localcloudconfigurator-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 147,
+      "seconds": 143,
       "source": "ah5-LocalCloudConfigurator-java",
       "sourceTree": "7180d98fc559aafdb6b00d1bdbe0e297d005cd8c",
       "service": "localcloudconfigurator",
@@ -736,15 +738,15 @@
       "tests": "Tests run: 42, Failures: 0, Errors: 0, Skipped: 7",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-localcloudconfigurator-standalone.log",
-        "sha256": "8f089353e70042fddaef3bd6f76cda3c02115a51042249cd4d785715c406cb5a"
+        "sha256": "05ab39b680ecc39b6189e5263a98512075b841bf861259cab7dfca39c508da2d"
       },
-      "imageId": "sha256:aecb8b7e1034620f667f8f47da86e47cbca59dcd45b78481cce75e9b627c01a1",
-      "created": "2026-11-13T09:07:30.56104251Z",
-      "sizeBytes": 223491814,
+      "imageId": "sha256:28d372f9001c35fd2b270023948e8d53dbc9ea268f7ae04f5ba58ac9a4e1ce26",
+      "created": "2026-11-13T11:08:15.642073878Z",
+      "sizeBytes": 223491650,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/localcloudconfigurator.jar": "2de8ca56851546a55b191bbf94d56b837cd66854b460e1ac7c503d5198561659"
+        "/app/localcloudconfigurator.jar": "e8edc0904a35d515860d96d51220e51db16172fd37ea8c52a2d2102f39342277"
       }
     },
     {
@@ -764,21 +766,21 @@
       "tests": "Tests run: 7, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-localcloudmanager-docker-proxy-standalone.log",
-        "sha256": "85e4e416faaab41b0e9a482244dc3cf59c14fced62a0748365e88d30c56be594"
+        "sha256": "7af16da57708fd21a6e91542a1561452f1a9f8abaeb77af51be6c1d785736673"
       },
-      "imageId": "sha256:17c30951300276abc4ed7329ad4e78aae3efaa177bcaa8ad28232efe8f460ddc",
-      "created": "2026-11-13T09:07:14.453067752Z",
-      "sizeBytes": 153869238,
+      "imageId": "sha256:0ad068bc273b2637d96e5b90a648b4165d9e6e0da865b7ab06397fb8519d31bb",
+      "created": "2026-11-13T11:07:09.310904875Z",
+      "sizeBytes": 153869140,
       "architecture": "amd64",
       "user": "10001:0",
       "jars": {
-        "/app/docker-proxy.jar": "558b0f94213bb2bfd4df3fe02e80db8044ebff3ef74fec2e85578dd85e270f56"
+        "/app/docker-proxy.jar": "8a8832c7fd6dc5193658cb0b800f32598d9babc0e2971cac1a31b1a57da56c67"
       }
     },
     {
       "image": "arrowhead-localcloudmanager-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 122,
+      "seconds": 109,
       "source": "ah5-LocalCloudManager-java-spring",
       "sourceTree": "b961fd24ab447c26a54d1a8fcb882ece3f59dbf6",
       "service": "cloud-monitor-api",
@@ -792,21 +794,21 @@
       "tests": "Tests run: 51, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-localcloudmanager-standalone.log",
-        "sha256": "bf581b9d2312ea5b01a80dbd9d5083c3cee191463652b01a73d42817791dd0d5"
+        "sha256": "907827cce3022a8d08a1869ddcb6509d1ceaa55c4e7a8a959fbb6e46760c004d"
       },
-      "imageId": "sha256:f2ace7024f4e9717ee475b8e0c759a8f8a3ea993562f8ed94f4b2b4df950e935",
-      "created": "2026-11-13T09:08:13.445229335Z",
-      "sizeBytes": 197991893,
+      "imageId": "sha256:ab911ee1c73b3d057dc7606d5cac68d17d9e97e19e2775fc4b88ed09e09a44d2",
+      "created": "2026-11-13T11:07:55.512381299Z",
+      "sizeBytes": 197991856,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/localcloudmanager.jar": "694d9c34e7c28213156485ac1c31e82d0dfbe7ec731c8fd4f3a0ef6aa4eb4ee0"
+        "/app/localcloudmanager.jar": "20f33c29af0e0241a052d8cf11fba615c4dd0f3ba0ddaa6184383e6bbfd3f46c"
       }
     },
     {
       "image": "arrowhead-onboarding-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 118,
+      "seconds": 109,
       "source": "ah5-Onboarding-java-spring",
       "sourceTree": "545193acb2d4a6c53a9522886398052cda57d582",
       "service": "onboarding-db",
@@ -820,11 +822,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-onboarding-standalone-db.log",
-        "sha256": "f230619a467f635f779b160d6b96d8c086a4602d0351bf1f4817e4dfba6a7d73"
+        "sha256": "9e4ee3eb084dc17c4b8003680db2c2cc711908e38d965d66780f39f2088ff87f"
       },
-      "imageId": "sha256:8c258839a4732d64ae711a71cd37be7cab57ad64f7aff13d09ae9cc523aae9b0",
-      "created": "2026-11-13T09:09:32.625624052Z",
-      "sizeBytes": 248281078,
+      "imageId": "sha256:aad8fa0a39557696bb7790339216cece5c9fb5703faf23984d130c851eadf44d",
+      "created": "2026-11-13T11:09:00.301712385Z",
+      "sizeBytes": 248281106,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -832,7 +834,7 @@
     {
       "image": "arrowhead-onboarding-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 119,
+      "seconds": 118,
       "source": "ah5-Onboarding-java-spring",
       "sourceTree": "545193acb2d4a6c53a9522886398052cda57d582",
       "service": "onboarding",
@@ -846,21 +848,21 @@
       "tests": "Tests run: 25, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-onboarding-standalone.log",
-        "sha256": "fc7ba1d04532def385ed36c4346dd348301c3fcb9d2684c937ac46b04a5dee45"
+        "sha256": "23a78267ddd44ed98cf0582945d4407570a215c9e80c4c33c57648b578ba723f"
       },
-      "imageId": "sha256:757029c0ce73bde07456850c4c4d5b44f51fd21c66c62eebd2dba775031b00b3",
-      "created": "2026-11-13T09:09:11.132947375Z",
-      "sizeBytes": 313442746,
+      "imageId": "sha256:726c147f85901ae026b4e9dbb4170b54f20eca54ddb273b2094ca3f2cf8782c1",
+      "created": "2026-11-13T11:08:32.972693928Z",
+      "sizeBytes": 313443327,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "2fe49aab310d2be1a269225e9e65e2d470e45b7a55062a5f7fe2b13f155622f3"
+        "/app/app.jar": "c107532874e832806e911a5cbb100df22062d724107c8335f96e6601d624b3ae"
       }
     },
     {
       "image": "arrowhead-plantdescriptionengine-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 76,
+      "seconds": 41,
       "source": "ah5-PlantDescriptionEngine-java-spring",
       "sourceTree": "93fce3a6687ada3febaade3e7b99d349f0a3b5bd",
       "service": "plantdescriptionengine-db",
@@ -874,11 +876,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-plantdescriptionengine-standalone-db.log",
-        "sha256": "5591f6b7d2d07e69043b47d3d8bd7a065113dd2405f1319b139145631b5107d3"
+        "sha256": "cf7067ecf8b36c23fdd2dd32b4ce4b14b4be33c5527027864b935e26cc4d1abe"
       },
-      "imageId": "sha256:cfee2d68220f2741eb4e640be56d3e81a516b62c3ab64fda8f5e09a7ef5dea7b",
-      "created": "2026-11-13T09:09:32.643873011Z",
-      "sizeBytes": 248281078,
+      "imageId": "sha256:fffc49cc714973bc0dff40e0ca7b821ebf37456fcafba31fd7ca55b710e40ccc",
+      "created": "2026-11-13T11:09:00.309907677Z",
+      "sizeBytes": 248281106,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -886,7 +888,7 @@
     {
       "image": "arrowhead-plantdescriptionengine-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 115,
+      "seconds": 91,
       "source": "ah5-PlantDescriptionEngine-java-spring",
       "sourceTree": "93fce3a6687ada3febaade3e7b99d349f0a3b5bd",
       "service": "plantdescriptionengine",
@@ -900,38 +902,39 @@
       "tests": "Tests run: 27, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-plantdescriptionengine-standalone.log",
-        "sha256": "152631e1bf21ae679d52e568dbaead3e6f0d0970d8c47ebc57eb4bd48a795d3c"
+        "sha256": "38e00768078927051ad545883f826d8884ada0d88e70b08f708b9407b4f6b9d7"
       },
-      "imageId": "sha256:5d0c097e55024e4b7cee55e7043932565debe816a025a9a593b3fedaf03c9e23",
-      "created": "2026-11-13T09:09:50.568495588Z",
-      "sizeBytes": 297684644,
+      "imageId": "sha256:01aa149746333079e22621fe1886ad18ddddf50fbc7cebb5aa471dfa0d0c99bc",
+      "created": "2026-11-13T11:09:28.501991551Z",
+      "sizeBytes": 297683465,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "ba34cd352fdfae893ff5f09b4f381247f831a3f8ee860c086d1ea164eb9b4e75"
+        "/app/app.jar": "b73ca4a5e152a19f16b22cd229c1d7738fa775e6187c2f92c1c664afd243a8da"
       }
     },
     {
       "image": "arrowhead-serviceorchestration-dynamic-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 7,
+      "seconds": 100,
       "source": "ah5-core-java-spring/serviceorchestration-dynamic",
-      "sourceTree": "83aa29603fac84e22f16d41f4a69f257fffd75ee",
+      "sourceTree": "27d35d02efa707caa91b4efd9531bb68db3a5b83",
       "service": "serviceorchestration-dynamic-db",
       "dockerfile": "ah5-core-java-spring/serviceorchestration-dynamic/docker/Dockerfile-DynamicServiceOrchestration-DB",
       "context": ".",
       "buildArgs": {},
       "baseImages": [
-        "mysql:8.1@sha256:f61944ff3f2961363a4d22913b2ac581523273679d7e14dd26e8db8c9f571a7e"
+        "golang:1.27.4-alpine@sha256:0a5f7fe796599ff487605987432e7619ae45beeb2fba4c2ce0b907879932aebf",
+        "mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902"
       ],
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-serviceorchestration-dynamic-db.log",
-        "sha256": "716d67517e05b880b9278cb9806e805a655c9ae8304e0709c66f883a07a192fd"
+        "sha256": "4833f87b443ea5e36431770ac10826e1976cd6eeee3b9607f6a39d05cba459b7"
       },
-      "imageId": "sha256:64747c61e797eaaa56c52432a563d0684cbacd6bfd3230b999e6faec83bd0668",
-      "created": "2026-11-13T09:17:49.362619254Z",
-      "sizeBytes": 166138624,
+      "imageId": "sha256:d056447550aae571ff574a66fd5cbef70c0a0e04dd2666a1e3f38933fa460a38",
+      "created": "2026-11-13T11:18:50.509900255Z",
+      "sizeBytes": 248283779,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -939,9 +942,9 @@
     {
       "image": "arrowhead-serviceorchestration-dynamic:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 199,
+      "seconds": 66,
       "source": "ah5-core-java-spring/serviceorchestration-dynamic",
-      "sourceTree": "83aa29603fac84e22f16d41f4a69f257fffd75ee",
+      "sourceTree": "27d35d02efa707caa91b4efd9531bb68db3a5b83",
       "service": "serviceorchestration-dynamic",
       "dockerfile": "ah5-core-java-spring/serviceorchestration-dynamic/docker/Dockerfile-DynamicServiceOrchestration",
       "context": ".",
@@ -955,38 +958,39 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-serviceorchestration-dynamic.log",
-        "sha256": "6ffbbc7ae261e33e07eb2bc1f6bf393014bd747068154af93904167934c7e4b2"
+        "sha256": "90029a357ede6b6f82cdc64898b4087b833da1d13d4f0b9ece9453075d09f37b"
       },
-      "imageId": "sha256:36c24a174e8ebd5d62d6358c5d8eec6a2080fea3d2080d1c558f6f4500ebb348",
-      "created": "2026-11-13T09:17:48.937785587Z",
-      "sizeBytes": 215665570,
+      "imageId": "sha256:793ae1c940dda407bcd1bc888c70e31a3d24243f45528c94c54a527016967de2",
+      "created": "2026-11-13T11:17:36.868403263Z",
+      "sizeBytes": 215665830,
       "architecture": "amd64",
       "user": null,
       "jars": {
-        "/app/arrowhead-serviceorchestration-dynamic-5.3.0.jar": "cd246bf92c77c639de5d7934d3facd931c0cb313b89358e8b796ea72635520b5"
+        "/app/arrowhead-serviceorchestration-dynamic-5.3.0.jar": "a1290d4831570aa3282fc30325cbd389cdbc4758afc5705e784b8853e9168563"
       }
     },
     {
       "image": "arrowhead-serviceorchestration-simple-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 3,
+      "seconds": 84,
       "source": "ah5-core-java-spring/serviceorchestration-simple",
-      "sourceTree": "74cf93431fbff774a7c250e22fb739b3c4ec54de",
+      "sourceTree": "31df01c06c4dcbf39adbb96a9aee047584f22d0f",
       "service": "serviceorchestration-simple-db",
       "dockerfile": "ah5-core-java-spring/serviceorchestration-simple/docker/Dockerfile-SimpleStoreServiceOrchestration-DB",
       "context": ".",
       "buildArgs": {},
       "baseImages": [
-        "mysql:8.1@sha256:f61944ff3f2961363a4d22913b2ac581523273679d7e14dd26e8db8c9f571a7e"
+        "golang:1.27.4-alpine@sha256:0a5f7fe796599ff487605987432e7619ae45beeb2fba4c2ce0b907879932aebf",
+        "mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902"
       ],
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-serviceorchestration-simple-db.log",
-        "sha256": "edb7ff7ea92254e9989a16945c96d2b9d809b60d3b8974c6c8a60de48f35a263"
+        "sha256": "0d13d40428b5ebd903e90869b9e8966fdb8cff76277d7dfade5b89c922050e60"
       },
-      "imageId": "sha256:81e2eb33978842da1135d69ffc31c9d838692b97b46b72e3173be4e0d6b36d00",
-      "created": "2026-11-13T09:17:58.60883655Z",
-      "sizeBytes": 166138263,
+      "imageId": "sha256:16e7b27b9888f1b410579ae97986766e7c08162d55e20bbfee67d2800d458a7e",
+      "created": "2026-11-13T11:18:50.55056238Z",
+      "sizeBytes": 248283424,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -994,9 +998,9 @@
     {
       "image": "arrowhead-serviceorchestration-simple:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 43,
+      "seconds": 47,
       "source": "ah5-core-java-spring/serviceorchestration-simple",
-      "sourceTree": "74cf93431fbff774a7c250e22fb739b3c4ec54de",
+      "sourceTree": "31df01c06c4dcbf39adbb96a9aee047584f22d0f",
       "service": "serviceorchestration-simple",
       "dockerfile": "ah5-core-java-spring/serviceorchestration-simple/docker/Dockerfile-SimpleStoreServiceOrchestration",
       "context": ".",
@@ -1010,38 +1014,39 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-serviceorchestration-simple.log",
-        "sha256": "7b8dd96378f075a54076f65cfd3add8fde40468880101108d368f1fc68a926f7"
+        "sha256": "c5afed582daab6586cb480ef374500bfeb8bb48d05ed229126097e776f24db1b"
       },
-      "imageId": "sha256:3d759fdfecd59b46424d6ac57f2bd2af50a6f28857c5c027ace8ae9aa2ed12aa",
-      "created": "2026-11-13T09:18:32.33404626Z",
-      "sizeBytes": 215615360,
+      "imageId": "sha256:eb27c689420e20530cb478b2ce2037f30669d452c81c1e27f7130cf2e623500a",
+      "created": "2026-11-13T11:18:06.838952388Z",
+      "sizeBytes": 215615507,
       "architecture": "amd64",
       "user": null,
       "jars": {
-        "/app/arrowhead-serviceorchestration-simple-5.3.0.jar": "21b5c92e1f8ae20faf40de6400ed5675a41cf185ecf024aad140a173cb9774ba"
+        "/app/arrowhead-serviceorchestration-simple-5.3.0.jar": "5a27106e4317140dfd4554e6817d84228894f0d56ff9cd52157e6c0d3d3481bd"
       }
     },
     {
       "image": "arrowhead-serviceregistry-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 5,
+      "seconds": 19,
       "source": "ah5-core-java-spring/serviceregistry",
-      "sourceTree": "284d730dd6b8453a61fd0d1942bbfa1aa825b7a9",
+      "sourceTree": "b639ca78a8470b7cdbfae951a93593c37baa94de",
       "service": "serviceregistry-db",
       "dockerfile": "ah5-core-java-spring/serviceregistry/docker/Dockerfile-ServiceRegistry-DB",
       "context": ".",
       "buildArgs": {},
       "baseImages": [
-        "mysql:8.1@sha256:f61944ff3f2961363a4d22913b2ac581523273679d7e14dd26e8db8c9f571a7e"
+        "golang:1.27.4-alpine@sha256:0a5f7fe796599ff487605987432e7619ae45beeb2fba4c2ce0b907879932aebf",
+        "mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902"
       ],
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-serviceregistry-db.log",
-        "sha256": "e0fc33907ee5b1f222b7149b5811f0fcc806eb809d42dd401f694c5679f5fdb4"
+        "sha256": "4039417d202d1c6c6a45087d08d6e6ff5c1f447a51fb2aaf386bc84f1cabe7b9"
       },
-      "imageId": "sha256:d26f133244f8f9e5ee486eb5410bb2d432c404903f2937f5f99add09b01919c0",
-      "created": "2026-11-13T09:13:32.903079511Z",
-      "sizeBytes": 166139065,
+      "imageId": "sha256:dc7d033f1fed9910f6ad96a20c0d95476200591507811e87bc5be6e1f5285daa",
+      "created": "2026-11-13T11:13:08.044559472Z",
+      "sizeBytes": 248284215,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -1049,9 +1054,9 @@
     {
       "image": "arrowhead-serviceregistry:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 272,
+      "seconds": 274,
       "source": "ah5-core-java-spring/serviceregistry",
-      "sourceTree": "284d730dd6b8453a61fd0d1942bbfa1aa825b7a9",
+      "sourceTree": "b639ca78a8470b7cdbfae951a93593c37baa94de",
       "service": "serviceregistry",
       "dockerfile": "ah5-core-java-spring/serviceregistry/docker/Dockerfile-ServiceRegistry",
       "context": ".",
@@ -1065,21 +1070,21 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-serviceregistry.log",
-        "sha256": "a47880f3279bb839b2d19414657d498ac7e94d4dd5c22bf4db54cdbd3fa79cf9"
+        "sha256": "757d7de62224ce24cfe8714c0ddc1f9001810b851b11a59a262d4e7f052e2dac"
       },
-      "imageId": "sha256:20ef5d62651a4b625e398b15d97db1b37b5d34b84e7391fddaf6f48539bd59df",
-      "created": "2026-11-13T09:17:57.782856383Z",
-      "sizeBytes": 215698441,
+      "imageId": "sha256:ca01f875b683a32c9688d448519c6bccf5ffa5089c86955e1378a89d918b7396",
+      "created": "2026-11-13T11:17:22.209401131Z",
+      "sizeBytes": 215698570,
       "architecture": "amd64",
       "user": null,
       "jars": {
-        "/app/arrowhead-serviceregistry-5.3.0.jar": "e726ceb722dacc52861a86c76e998c1c49b1298d9451da71af63dd9aad4f47c3"
+        "/app/arrowhead-serviceregistry-5.3.0.jar": "2ba9c50524aac7e890da6ab4517a4a9c2a7d8743f81e094e5c76249fe563e23e"
       }
     },
     {
       "image": "arrowhead-solocalcloudconfigurator-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 117,
+      "seconds": 115,
       "source": "ah5-SoLocalCloudConfigurator-java",
       "sourceTree": "74c61b4ab06cdb964c1f2ebc8bb390a2adf9ebd7",
       "service": "solocalcloudconfigurator-db",
@@ -1093,11 +1098,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-solocalcloudconfigurator-standalone-db.log",
-        "sha256": "85ea34c65b02ccfd835e79b2cbc6d236dfe1e0e80440297c90a444939d24e9db"
+        "sha256": "fe363f94debbfb51a55b3804b79a026e3441fa1b83355733646e0fb3155ff6be"
       },
-      "imageId": "sha256:f62a9fa2364617358a02581b46e249d2dab74eca9b5dad1947046b93a720fa12",
-      "created": "2026-11-13T09:11:31.688721968Z",
-      "sizeBytes": 248281057,
+      "imageId": "sha256:145e7bfbe41caa457f9a0bddeba1b0983af030bc3c90c595652582c40104999f",
+      "created": "2026-11-13T11:10:56.133138966Z",
+      "sizeBytes": 248281074,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -1105,7 +1110,7 @@
     {
       "image": "arrowhead-solocalcloudconfigurator-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 109,
+      "seconds": 95,
       "source": "ah5-SoLocalCloudConfigurator-java",
       "sourceTree": "74c61b4ab06cdb964c1f2ebc8bb390a2adf9ebd7",
       "service": "solocalcloudconfigurator",
@@ -1119,21 +1124,21 @@
       "tests": "Tests run: 20, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-solocalcloudconfigurator-standalone.log",
-        "sha256": "20c54677d162957fd74778148cac75abb8a580e48954166dfecc9c3705393afb"
+        "sha256": "0dbd850268f7bf790a35a7a1becf83ab31c238bfde730c7471daee5474556710"
       },
-      "imageId": "sha256:0caa4f84ae94449d67eba3ccf1182c7af949c3cbaa1fbd5b6d585033c634fc70",
-      "created": "2026-11-13T09:11:05.654669345Z",
-      "sizeBytes": 225480932,
+      "imageId": "sha256:ac22533afa8fbee20a3422caffbb189f0491543407201bf2a280e62c2765cee5",
+      "created": "2026-11-13T11:10:10.999272668Z",
+      "sizeBytes": 225480876,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/solocalcloudconfigurator.jar": "f627fdd2d5a2253ec48eaa60b3b113c2a412f30f14f679af274a7e1541aec9ba"
+        "/app/solocalcloudconfigurator.jar": "b1c3200453d67b0eba4b5403fdf0230412064a468c105de2e39ed258613c7d74"
       }
     },
     {
       "image": "arrowhead-sosconfigurator-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 96,
+      "seconds": 85,
       "source": "ah5-SoSConfigurator-java",
       "sourceTree": "40393d50b720cafd910329bac25aa24022efb073",
       "service": "sosconfigurator-db",
@@ -1147,11 +1152,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-sosconfigurator-standalone-db.log",
-        "sha256": "c6eb003d053b1eb237a00bf9b7e4384b6cefcbb7d5a79be7243012aa6ab4ee3c"
+        "sha256": "c82c20fcac81a6e767555bf51ea0bbf596b0072d9d4326e0c0cdcb751a48de22"
       },
-      "imageId": "sha256:ebd7b90b74bc1b210f8ac28d36c8dbf45a42fdf8759a9b97c5b439b3cc290ead",
-      "created": "2026-11-13T09:11:31.732423177Z",
-      "sizeBytes": 248280837,
+      "imageId": "sha256:19be87dfaf699dc105af3387f452c6d91ad6c8efe3ff716170828d0c5319ae55",
+      "created": "2026-11-13T11:10:56.141615216Z",
+      "sizeBytes": 248280854,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -1159,7 +1164,7 @@
     {
       "image": "arrowhead-sosconfigurator-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 118,
+      "seconds": 107,
       "source": "ah5-SoSConfigurator-java",
       "sourceTree": "40393d50b720cafd910329bac25aa24022efb073",
       "service": "sosconfigurator",
@@ -1173,21 +1178,21 @@
       "tests": "Tests run: 29, Failures: 0, Errors: 0, Skipped: 1",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-sosconfigurator-standalone.log",
-        "sha256": "5faf1683246b6a56190674cd02af1a90e0cfe7d4d3a1b3e8e016873aa0e19af9"
+        "sha256": "44d183bbcd92e91bbe0da8a8fd7b8a4aff1128be298ba1f77a7a5963022a6046"
       },
-      "imageId": "sha256:899828e13a591a5df148139d96be79f4f21ea38ff366fd1ca5838dd1c2f06a64",
-      "created": "2026-11-13T09:11:31.150604385Z",
-      "sizeBytes": 313565401,
+      "imageId": "sha256:d5adf5b1909fe2e2df2d13d477845685427ee509ff4aff87cebf94077587fe68",
+      "created": "2026-11-13T11:10:48.428079629Z",
+      "sizeBytes": 313565646,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/sosconfigurator.jar": "e7b6e24cd5c2050b1af29bde69aa737fe512b96b906e4e04b27f85221d549318"
+        "/app/sosconfigurator.jar": "bd7d065828ac603f56758557b9cac8c0b6e7bd5b7b8bba8317cacaa953164f07"
       }
     },
     {
       "image": "arrowhead-sysmonitor-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 112,
+      "seconds": 4,
       "source": "ah5-SysMonitor-java-spring",
       "sourceTree": "f39fb768eb792c719f60803400d41b9da2962356",
       "service": "sysmonitor-db",
@@ -1201,11 +1206,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-sysmonitor-standalone-db.log",
-        "sha256": "01792ba3717d1507146420dde1553065082e2fc726c3165c97e87517b006dbed"
+        "sha256": "932788a667b32091761ce533948e803c6d9ded64094dc156ba760bf6b9c9b0e9"
       },
-      "imageId": "sha256:745df2a336f98d242d44790a851a104ce152078ead4546fa4b15bfeab5a11cdb",
-      "created": "2026-11-13T09:13:25.806191841Z",
-      "sizeBytes": 248281206,
+      "imageId": "sha256:073fe05e79bd129d885003b624df3fd22c972662be5f48f57886b927eaacead4",
+      "created": "2026-11-13T11:10:56.210055091Z",
+      "sizeBytes": 248281149,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -1213,7 +1218,7 @@
     {
       "image": "arrowhead-sysmonitor-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 100,
+      "seconds": 118,
       "source": "ah5-SysMonitor-java-spring",
       "sourceTree": "f39fb768eb792c719f60803400d41b9da2962356",
       "service": "sysmonitor",
@@ -1227,21 +1232,21 @@
       "tests": "Tests run: 63, Failures: 0, Errors: 0, Skipped: 3",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-sysmonitor-standalone.log",
-        "sha256": "9290715dcf8b52ccca58c84383f12600cbb32916c5cd3977a699ee04da359dad"
+        "sha256": "450ead864ba02c6f1a3b743c822c9c5e0aa38e5c3e1cf0e61c51d6474f8a8ed5"
       },
-      "imageId": "sha256:2f47938265c4d133b7f10a40a775f25b0cf14c6c5ccd1e4f2db0d533ad9cebad",
-      "created": "2026-11-13T09:12:48.882100587Z",
-      "sizeBytes": 298167385,
+      "imageId": "sha256:ff109837529be7c937b4cb1ddf9e2f2733e86e5a941ef3786aa5cdfbe2ad2884",
+      "created": "2026-11-13T11:12:11.300851543Z",
+      "sizeBytes": 298167848,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "32ca98fc22e283d0f1ab48316d68ec984ba5bd51faf33e8624be7d2e6b83dc16"
+        "/app/app.jar": "efa94e1b63989cbf7fdef00a31f52cbe8fed7d34278d4ce3fad05a42ed5f9c08"
       }
     },
     {
       "image": "arrowhead-timemanager-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 108,
+      "seconds": 131,
       "source": "ah5-TimeManager-java-spring",
       "sourceTree": "207af7fa314b3ec31b666e5ba44be9dce829b63f",
       "service": "timemanager-db",
@@ -1255,11 +1260,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-timemanager-standalone-db.log",
-        "sha256": "03eed228595f639c2e72fc3d39903bd234f7d2e98dfeebd85ebf0b04ee8071d2"
+        "sha256": "d4ef4bab3f01f91e727ac1ce509992720da38c47adf906cec1d1ea28133ba883"
       },
-      "imageId": "sha256:8a70cc1860d71cf1cc81024c20d52c1a3c28125ceeae61c7dc843006711ac42a",
-      "created": "2026-11-13T09:13:25.807233466Z",
-      "sizeBytes": 248280809,
+      "imageId": "sha256:9ee0afff3973e503f6a68d4547a1553b1b4d743eb2acef054cbd6f845ea7510a",
+      "created": "2026-11-13T11:13:07.766168389Z",
+      "sizeBytes": 248280739,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -1267,7 +1272,7 @@
     {
       "image": "arrowhead-timemanager-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 88,
+      "seconds": 109,
       "source": "ah5-TimeManager-java-spring",
       "sourceTree": "207af7fa314b3ec31b666e5ba44be9dce829b63f",
       "service": "timemanager",
@@ -1281,21 +1286,21 @@
       "tests": "Tests run: 17, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-timemanager-standalone.log",
-        "sha256": "00cebefb5b37e293b4704bb6d0c21e3fc2340dc311c1578042c68d6265fb4726"
+        "sha256": "6abe7010afbbe136225600f895a3aa139bfd4e6f4b40f1bd6b9abfd3c172bfc6"
       },
-      "imageId": "sha256:7c1266e2a25d0a9d69da71d44776085b0768215b26b58be0357f1fd2c86c81fd",
-      "created": "2026-11-13T09:13:01.020510218Z",
-      "sizeBytes": 297564946,
+      "imageId": "sha256:7d833bacc5a8bac4ebe74a387424c496a554d8a7b41230db44ad631704e0bfb5",
+      "created": "2026-11-13T11:12:46.779648212Z",
+      "sizeBytes": 297564639,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "184589c9e5c4c4f4530e7563ccedd41a656c6750ad99de44609049798802c98e"
+        "/app/app.jar": "470adcbcb10ca971fff25014c9155a00d32c7c94f384eefe5a36e4952d3d4d18"
       }
     },
     {
       "image": "arrowhead-translation-manager-standalone-db:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 20,
+      "seconds": 54,
       "source": "ah5-TranslationManager-java-spring",
       "sourceTree": "c9efc3c698a38d2f47023b4fd598756cea1dae81",
       "service": "translation-manager-db",
@@ -1309,11 +1314,11 @@
       "tests": null,
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-translation-manager-standalone-db.log",
-        "sha256": "1d9f230ce92c5dc4ee442d97ffe862e31f975f2fa6d0e490c01357ac3f808665"
+        "sha256": "7ea24a2802bbaf781049dd41211626650e6ee8b856819d8cd8b103f0ebdd98a6"
       },
-      "imageId": "sha256:0b2e20090e2319f84731fbaaf5134b693d95b6b607e599c112e4534dc1448c76",
-      "created": "2026-11-13T09:13:25.810962924Z",
-      "sizeBytes": 248281191,
+      "imageId": "sha256:4e92a10ba2d6f203ab484788e9970ad1cfde4879c5469350ce8fbf703a923423",
+      "created": "2026-11-13T11:13:07.757668264Z",
+      "sizeBytes": 248281120,
       "architecture": "amd64",
       "user": null,
       "jars": {}
@@ -1321,7 +1326,7 @@
     {
       "image": "arrowhead-translation-manager-standalone:5.3.0-amd64",
       "result": "PASS",
-      "seconds": 95,
+      "seconds": 109,
       "source": "ah5-TranslationManager-java-spring",
       "sourceTree": "c9efc3c698a38d2f47023b4fd598756cea1dae81",
       "service": "translation-manager",
@@ -1335,15 +1340,15 @@
       "tests": "Tests run: 490, Failures: 0, Errors: 0, Skipped: 0",
       "buildLog": {
         "file": "build-logs/amd64/arrowhead-translation-manager-standalone.log",
-        "sha256": "dd87f501b5cdff8b27ab670dd5be672dd36d53a45496fd4f35ce5baa9849427d"
+        "sha256": "a99c930cd9ed94ad585a9eda24173c1ca5419e0f8ac8fe492e076e66039d966f"
       },
-      "imageId": "sha256:5eaa0d0ce3ab3c6a5ec45d89f0136b684742315e622afa78d8c511a4d9afb103",
-      "created": "2026-11-13T09:14:26.639788549Z",
-      "sizeBytes": 297766769,
+      "imageId": "sha256:376cb17367cfde82b1c16c47c4bb7b00641feb26c480c92d3b44e9ce4b548b7a",
+      "created": "2026-11-13T11:12:47.760510421Z",
+      "sizeBytes": 297767497,
       "architecture": "amd64",
       "user": "10001:10001",
       "jars": {
-        "/app/app.jar": "1c95f30016b00be963da33c7dd194603c9e06737f7355204705f6199b6688a3e"
+        "/app/app.jar": "6c52b3fa67d75b2cf17c146f29be58505c80e65714178cc9caba3cd31d83692c"
       }
     }
   ],
@@ -1354,7 +1359,7 @@
       "tests": "Tests run: 869, Failures: 0, Errors: 0, Skipped: 0",
       "log": {
         "file": "build-logs/amd64/tests-ah5-common-java-spring.log",
-        "sha256": "ec112ea582d35df4c6b7594224efb76a0233c71415e9cded379ed41af933c5f9"
+        "sha256": "5d8d8dfd177c9857f80f7ea8eb995ca27526e83b29067ceab82647a78f3fe1d5"
       }
     },
     "ah5-core-java-spring": {
@@ -1363,7 +1368,7 @@
       "tests": "Tests run: 2607, Failures: 0, Errors: 0, Skipped: 0",
       "log": {
         "file": "build-logs/amd64/tests-ah5-core-java-spring.log",
-        "sha256": "4ad15c3e2ea086976c82d00fef4769a76d9b6a43b6830514eb1549018227f9da"
+        "sha256": "d19865a98f0438308893f3e3249cd14ea4c198dba88f1d278a6214b2c4299fed"
       }
     }
   },

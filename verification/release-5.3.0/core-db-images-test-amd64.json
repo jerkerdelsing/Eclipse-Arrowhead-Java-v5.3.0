@@ -1,0 +1,91 @@
+{
+  "manifestCommit": "f1103ac9cfe2e891dad4b13257e36f6b4f801e75",
+  "platform": "linux/amd64",
+  "images": {
+    "arrowhead-serviceregistry-db:5.3.0-amd64": {
+      "module": "serviceregistry",
+      "schema": "ah_serviceregistry",
+      "user": "serviceregistry",
+      "mysql": "8.4.13",
+      "tables": "11",
+      "checks": {
+        "started": true,
+        "mysql 8.4": true,
+        "schema with tables": true,
+        "user logs in with the deployment's password": true,
+        "published default password refused": true,
+        "user may not create a table": true,
+        "no ah-operator account": true
+      },
+      "result": "PASS"
+    },
+    "arrowhead-authentication-db:5.3.0-amd64": {
+      "module": "authentication",
+      "schema": "ah_authentication",
+      "user": "authentication",
+      "mysql": "8.4.13",
+      "tables": "4",
+      "checks": {
+        "started": true,
+        "mysql 8.4": true,
+        "schema with tables": true,
+        "user logs in with the deployment's password": true,
+        "published default password refused": true,
+        "user may not create a table": true,
+        "no ah-operator account": true
+      },
+      "result": "PASS"
+    },
+    "arrowhead-consumer-authorization-db:5.3.0-amd64": {
+      "module": "consumer-authorization",
+      "schema": "ah_consumer_authorization",
+      "user": "consumerauthorization",
+      "mysql": "8.4.13",
+      "tables": "10",
+      "checks": {
+        "started": true,
+        "mysql 8.4": true,
+        "schema with tables": true,
+        "user logs in with the deployment's password": true,
+        "published default password refused": true,
+        "user may not create a table": true,
+        "no ah-operator account": true
+      },
+      "result": "PASS"
+    },
+    "arrowhead-serviceorchestration-dynamic-db:5.3.0-amd64": {
+      "module": "serviceorchestration-dynamic",
+      "schema": "ah_serviceorchestration_dynamic",
+      "user": "serviceorchestration-dynamic",
+      "mysql": "8.4.13",
+      "tables": "6",
+      "checks": {
+        "started": true,
+        "mysql 8.4": true,
+        "schema with tables": true,
+        "user logs in with the deployment's password": true,
+        "published default password refused": true,
+        "user may not create a table": true,
+        "no ah-operator account": true
+      },
+      "result": "PASS"
+    },
+    "arrowhead-serviceorchestration-simple-db:5.3.0-amd64": {
+      "module": "serviceorchestration-simple",
+      "schema": "ah_serviceorchestration_simple",
+      "user": "serviceorchestration-simple",
+      "mysql": "8.4.13",
+      "tables": "4",
+      "checks": {
+        "started": true,
+        "mysql 8.4": true,
+        "schema with tables": true,
+        "user logs in with the deployment's password": true,
+        "published default password refused": true,
+        "user may not create a table": true,
+        "no ah-operator account": true
+      },
+      "result": "PASS"
+    }
+  }
+}

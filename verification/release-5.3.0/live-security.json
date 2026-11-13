@@ -1,12 +1,12 @@
 {
   "date": "2026-11-13",
-  "manifestCommit": "d25225ae268d33a16626b1dbcd11e10700bf3a66",
+  "manifestCommit": "f1103ac9cfe2e891dad4b13257e36f6b4f801e75",
   "cloud": {
     "repository": "Arrowhead-test-clouds-v5.3.0",
-    "commit": "36cc746",
+    "commit": "0b6d2b8",
     "folder": "Arrowhead-test-cloud-java",
     "composeProject": "arrowhead-v53-test-cloud",
-    "imageTag": "20261113-r530",
+    "imageTag": "20261113-r530c",
     "mapping": "Arrowhead-test-cloud-java/v530/release-images.json",
     "federation": false
   },
@@ -17,17 +17,26 @@
       "rabbitmq:4.3.7-alpine",
       "eclipse-mosquitto:2.0.22",
       "arrowhead-random-data-producer:1.0.0-sos16"
-    ]
+    ],
+    "coreDatabases": "the five release core DB images (MySQL 8.4.13), tagged, not rebuilt; existing 8.1 data volumes upgraded in place"
   },
   "deployment": {
     "result": "PASS on the first deploy.sh up",
     "startupLogins": "22 systems, one login each; no 'Invalid authorization header'",
-    "earlierRun": {
-      "date": "2026-11-12",
-      "manifestCommit": "02b4b4e229b0fc0e5645dd22f7290a30a86d3a52",
-      "imageTag": "20261112-r530",
-      "firstAttempt": "LocalCloudManager and EventHandler exited at startup (start-up login race, fixed in d25225ae); smoke 14/14 and security 194 checks passed after a second deploy"
-    }
+    "earlierRuns": [
+      {
+        "date": "2026-11-12",
+        "manifestCommit": "02b4b4e229b0fc0e5645dd22f7290a30a86d3a52",
+        "imageTag": "20261112-r530",
+        "firstAttempt": "LocalCloudManager and EventHandler exited at startup (start-up login race, fixed in d25225ae); smoke 14/14 and security 194 checks passed after a second deploy"
+      },
+      {
+        "date": "2026-11-13",
+        "manifestCommit": "d25225ae268d33a16626b1dbcd11e10700bf3a66",
+        "imageTag": "20261113-r530",
+        "note": "core database containers ran the test cloud's own core-db build (mysql:8.1 base), not the release core DB images; smoke 14/14 and security 194 checks passed"
+      }
+    ]
   },
   "smokeTest": {
     "script": "scripts/smoke-test.sh",

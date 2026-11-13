@@ -1,9 +1,10 @@
 # Release 5.3.0 qualification record
 
 Evidence for items 1 and 2 of section 8 of [Release-5.3.0.md](../../Release-5.3.0.md) for commit
-**`d25225ae268d33a16626b1dbcd11e10700bf3a66`** of this repository (see `manifest.json` for the full hash), produced on 13 November 2026. It repeats the
-qualification of 12 November for `02b4b4e2` after the start-up login fix below, with the same results apart from the
-new test. Every result below was produced from
+**`f1103ac9cfe2e891dad4b13257e36f6b4f801e75`** of this repository (see `manifest.json` for the full hash), produced on 13 November 2026. It repeats the
+qualification of `d25225ae` (same day, after the start-up login fix below; first on 12 November for `02b4b4e2`) after
+moving the five core database images to MySQL 8.4.13 (see *Finding: the core database images*). The results are the
+same apart from the core database images and the new core database test. Every result below was produced from
 that commit exported with `git archive`, never from a working tree, so uncommitted changes and `target/` leftovers
 cannot have entered it. The commands are in [verification/tools](../tools/); each one rewrites its JSON file here.
 
@@ -20,6 +21,7 @@ cannot have entered it. The commands are in [verification/tools](../tools/); eac
 | [manifest-amd64.json](manifest-amd64.json) | the same 49 images built for linux/amd64 (tags `…:5.3.0-amd64`), common and core tests on amd64 | `release_manifest.py --platform linux/amd64` |
 | [platform-comparison-amd64.json](platform-comparison-amd64.json) | amd64 against arm64 images: architecture, user, JAR content, Java start | `compare_platforms.py` |
 | [os-vulnerability-scan.json](os-vulnerability-scan.json), [os-vulnerability-scan-amd64.json](os-vulnerability-scan-amd64.json) | OS-package vulnerabilities of the base and release images (Trivy) | `os_vulnerability_scan.py` |
+| [core-db-images-test.json](core-db-images-test.json), [core-db-images-test-amd64.json](core-db-images-test-amd64.json) | each core database image initialised on an empty volume: server version, schema, deployment password | `core_db_images_test.py` |
 
 Build logs are written to `build-logs/` and not committed (about 50 MB); the manifest records each log's SHA-256.
 
@@ -74,6 +76,7 @@ deployment on amd64 hardware was not part of this run.
 | MySQL integration tests (`db_integration_tests.py`) | 14 run, 0 failures |
 | Relay integration tests (`relay_integration_tests.py`) | 4 run, 0 failures |
 | SysMonitor broker round trip (`sysmonitor_broker_test.py`) | 1 run, 0 failures |
+| Core database images (`core_db_images_test.py`, arm64 and amd64) | 5 of 5 pass on each |
 
 The 16 tests the image builds skip need external fixtures; all of them now run and pass, as does Gatekeeper's
 `RelayRoundTripIT`, an `*IT` class that the unit-test phase never selects.
@@ -109,20 +112,30 @@ Every image's OS was recognised.
 | Images | OS | Critical | High | Medium | Low | With a fix |
 |---|---|---|---|---|---|---|
 | 26 application images (support and core, Docker proxy) | Ubuntu 26.04 | 0 | 0 | 29 | 4 | none |
-| 17 support database images (MySQL 8.4.13) | Oracle Linux 9.8 | 0 | 0 | 0 | 0 | – |
+| 22 database images: 17 support, 5 core (MySQL 8.4.13) | Oracle Linux 9.8 | 0 | 0 | 0 | 0 | – |
 | GraphDB image | Ubuntu 24.04 | 0 | 0 | 81 (amd64: 25) | 20 (amd64: 4) | none |
-| **5 core database images (MySQL 8.1)** | **Oracle Linux 8.8** | 0 | **120** | 206 | 15 | **all** |
 | RabbitMQ, Mosquitto, RandomDataProducer of the test cloud | Alpine 3.23/3.24 | 0 | 0 | 0–1 | 0 | – |
 
-The application and support database images apply the distribution's updates at build time: their base images carry
-2 (eclipse-temurin) and 0 high findings, the built images none, and no remaining finding has a fixed version.
+Every release image applies the distribution's updates at build time: their base images carry 2 (eclipse-temurin)
+and 0 (`mysql:8.4.13`) high findings, the built images none, and no remaining finding has a fixed version. (On
+`d25225ae` the five core database images, then on `mysql:8.1` / Oracle Linux 8.8, had 120 high findings each, all
+with a fixed version: see below.)
 
-**Finding: the core database images.** `ah5-core-java-spring/*/docker/Dockerfile-*-DB` are still the upstream 5.2.2
-Dockerfiles on `mysql:8.1` (an innovation release past its support) on Oracle Linux 8.8: 120 high findings each
-(python39, libxml2, gnutls, expat, glibc, ...), every one with a fixed version. They also grant to an `ah-operator`
-user that is never created, which fails on an empty MySQL 8.4 volume. The Java test cloud does not use them; it builds
-its core databases from `Arrowhead-test-clouds/Arrowhead-test-cloud-java/v530/core-db` (MySQL 8.4.13, updated, no
-`ah-operator`). Not changed in this release candidate.
+**Finding: the core database images (fixed in `f1103ac9`).** In `d25225ae`,
+`ah5-core-java-spring/*/docker/Dockerfile-*-DB` were still the upstream 5.2.2 Dockerfiles on `mysql:8.1` (an
+innovation release past its support) on Oracle Linux 8.8: 120 high findings each (python39, libxml2, gnutls, expat,
+glibc, ...), every one with a fixed version. Their scripts also granted to an `ah-operator` user that is never
+created, which fails on an empty MySQL 8.4 volume, and the system user kept the password published in the scripts.
+
+`f1103ac9` moves all five to `mysql:8.4.13` (pinned by digest, Oracle Linux 9.8), removes `mysql-shell` and applies
+the distribution's updates at build time, rebuilds `gosu` with the current Go toolchain, drops the `ah-operator`
+grants, and adds `docker-db/zz-arrowhead-system-user-password.sh`, which sets the system user's password from
+`AH_DB_USER` and `AH_DB_USER_PASSWORD` (or `_FILE`) at initialisation. `core_db_images_test.py` starts each image on an
+empty volume with throw-away passwords and checks MySQL 8.4, the schema tables (ServiceRegistry 11, Authentication 4,
+ConsumerAuthorization 10, DynamicServiceOrchestration 6, SimpleStoreServiceOrchestration 4), that the deployment
+password works and the published default is refused, and that the system user cannot create tables. All five pass on
+both architectures; the images of `d25225ae` fail it (no schema: the `ah-operator` grant aborts the initialisation).
+An existing volume initialised by MySQL 8.1 is upgraded in place on first start (see the live run).
 
 Also noted: the five core application images run as root. Their Dockerfiles follow the upstream 5.2.2 layout; the
 support images run as UID 10001.
@@ -165,9 +178,12 @@ The live run below repeats the negative-access checks against a deployed cloud.
 ### Live security run
 
 The Java test cloud (`Arrowhead-test-clouds/Arrowhead-test-cloud-java`, Compose project `arrowhead-v53-test-cloud`)
-was redeployed on these images on 13 November 2026 (first on 12 November, on the images of `02b4b4e2`). Its
-`v530/use-release-images.py` tags the support images of the manifest under the cloud's names (`20261113-r530`), builds the cloud's read-only core adapter on the release core
-images and the core database images from the same commit. After deployment all 47 containers of these images ran the
+was redeployed on these images on 13 November 2026 (before: on the images of `d25225ae` the same day and of `02b4b4e2`
+on 12 November). Its
+`v530/use-release-images.py` tags the images of the manifest under the cloud's names (`20261113-r530c`), including the five
+core database images, and builds the cloud's read-only core adapter on the release core images. (Before `f1103ac9`
+the cloud built its own core database images, because the release's were on MySQL 8.1.) The existing core database
+volumes, initialised by MySQL 8.1, were upgraded in place by MySQL 8.4.13 on first start. After deployment all 47 containers of these images ran the
 recorded image IDs; the brokers and RandomDataProducer are third-party or unchanged.
 
 - `scripts/smoke-test.sh`: 14 of 14 OK.
