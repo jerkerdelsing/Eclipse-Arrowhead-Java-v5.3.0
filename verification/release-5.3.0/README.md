@@ -1,7 +1,9 @@
 # Release 5.3.0 qualification record
 
-Evidence for items 1 and 2 of section 8 of [Release-5.3.0.md](../../Release-5.3.0.md), produced on 12 November 2026
-for commit **`02b4b4e229b0fc0e5645dd22f7290a30a86d3a52`** of this repository. Every result below was produced from
+Evidence for items 1 and 2 of section 8 of [Release-5.3.0.md](../../Release-5.3.0.md) for commit
+**`d25225ae268d33a16626b1dbcd11e10700bf3a66`** of this repository (see `manifest.json` for the full hash), produced on 13 November 2026. It repeats the
+qualification of 12 November for `02b4b4e2` after the start-up login fix below, with the same results apart from the
+new test. Every result below was produced from
 that commit exported with `git archive`, never from a working tree, so uncommitted changes and `target/` leftovers
 cannot have entered it. The commands are in [verification/tools](../tools/); each one rewrites its JSON file here.
 
@@ -56,7 +58,7 @@ Built on Docker 29.7.2, linux/arm64. An amd64 build was not part of this run.
 | Run | Result |
 |---|---|
 | Support images (tests run inside each image build) | 1553 run, 0 failures, 16 skipped |
-| `ah5-common-java-spring` (`mvn clean install`) | 868 run, 0 failures |
+| `ah5-common-java-spring` (`mvn clean install`) | 869 run, 0 failures |
 | `ah5-core-java-spring` (`mvn clean verify`; the core image builds skip tests) | 2607 run, 0 failures |
 | MySQL integration tests (`db_integration_tests.py`) | 14 run, 0 failures |
 | Relay integration tests (`relay_integration_tests.py`) | 4 run, 0 failures |
@@ -132,8 +134,8 @@ The live run below repeats the negative-access checks against a deployed cloud.
 ### Live security run
 
 The Java test cloud (`Arrowhead-test-clouds/Arrowhead-test-cloud-java`, Compose project `arrowhead-v53-test-cloud`)
-was redeployed on these images on 12 November 2026. Its `v530/use-release-images.py` tags the support images of the
-manifest under the cloud's names (`20261112-r530`), builds the cloud's read-only core adapter on the release core
+was redeployed on these images on 13 November 2026 (first on 12 November, on the images of `02b4b4e2`). Its
+`v530/use-release-images.py` tags the support images of the manifest under the cloud's names (`20261113-r530`), builds the cloud's read-only core adapter on the release core
 images and the core database images from the same commit. After deployment all 47 containers of these images ran the
 recorded image IDs; the brokers and RandomDataProducer are third-party or unchanged.
 
@@ -149,5 +151,11 @@ recorded image IDs; the brokers and RandomDataProducer are third-party or unchan
 from the main thread (`ApplicationInitListener`) and from the scheduled `OutsourcedLoginJob` at nearly the same time.
 `loginIfNeeded()` is `synchronized`, but Quartz creates a new job instance for each run, so the lock does not exclude
 the two; the second token supersedes the first while the registration call is under way, and ServiceRegistry refuses
-it. Intermittent (2 of 21 systems on this start) and recovered by a restart, but a system without a restart policy
-stays down. It is in `ah5-common-java-spring` and its vendored copies; not fixed in this release candidate.
+it. Intermittent (2 of 21 systems on that start) and recovered by a restart, but a system without a restart policy
+stays down.
+
+**Fixed in `d25225ae`:** `loginIfNeeded()` synchronizes on a lock shared by all instances, and the renewal check
+inside it lets the second caller skip. The new test `testConcurrentLoginFromTwoJobInstancesLogsInOnce` fails on the
+previous code (two logins) and passes with the fix; the change is in the common library and its 19 vendored copies.
+On the redeployment with the fixed images `deploy.sh up` completed on the first attempt, each of the 22 systems
+logged in exactly once at start-up (before: twice), and no container logged the error.

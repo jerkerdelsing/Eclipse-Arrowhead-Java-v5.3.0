@@ -1,12 +1,12 @@
 {
-  "date": "2026-11-12",
-  "manifestCommit": "02b4b4e229b0fc0e5645dd22f7290a30a86d3a52",
+  "date": "2026-11-13",
+  "manifestCommit": "d25225ae268d33a16626b1dbcd11e10700bf3a66",
   "cloud": {
     "repository": "Arrowhead-test-clouds-v5.3.0",
-    "commit": "31d596a",
+    "commit": "36cc746",
     "folder": "Arrowhead-test-cloud-java",
     "composeProject": "arrowhead-v53-test-cloud",
-    "imageTag": "20261112-r530",
+    "imageTag": "20261113-r530",
     "mapping": "Arrowhead-test-cloud-java/v530/release-images.json",
     "federation": false
   },
@@ -20,8 +20,14 @@
     ]
   },
   "deployment": {
-    "result": "PASS on the second deploy.sh up",
-    "firstAttempt": "LocalCloudManager and EventHandler exited at startup: AuthException 'Invalid authorization header' after a double login (main thread and scheduled OutsourcedLoginJob); both started on retry"
+    "result": "PASS on the first deploy.sh up",
+    "startupLogins": "22 systems, one login each; no 'Invalid authorization header'",
+    "earlierRun": {
+      "date": "2026-11-12",
+      "manifestCommit": "02b4b4e229b0fc0e5645dd22f7290a30a86d3a52",
+      "imageTag": "20261112-r530",
+      "firstAttempt": "LocalCloudManager and EventHandler exited at startup (start-up login race, fixed in d25225ae); smoke 14/14 and security 194 checks passed after a second deploy"
+    }
   },
   "smokeTest": {
     "script": "scripts/smoke-test.sh",
