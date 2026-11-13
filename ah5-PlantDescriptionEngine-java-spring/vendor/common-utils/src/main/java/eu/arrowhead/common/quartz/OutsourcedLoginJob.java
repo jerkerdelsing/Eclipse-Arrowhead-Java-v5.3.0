@@ -47,6 +47,11 @@ public class OutsourcedLoginJob implements Job {
 
 	private static final int MULTIPLICATOR = 5;
 
+	// One lock for every instance: Quartz creates a new job instance for each execution, while start-up calls
+	// loginIfNeeded() on the Spring bean. With a per-instance lock both logged in at start-up, and the second token
+	// superseded the first one during the system's registration (release 5.3.0 live run).
+	private static final Object LOGIN_LOCK = new Object();
+
 	private final Logger logger = LogManager.getLogger(this.getClass());
 
 	@Value(Constants.$AUTHENTICATOR_LOGIN_INTERVAL_WD)
@@ -72,17 +77,19 @@ public class OutsourcedLoginJob implements Job {
 	//-------------------------------------------------------------------------------------------------
 	// Logs in when there is no valid token yet or it is due for renewal. Also called directly at start-up, before the
 	// system registers itself, because a system may start its Quartz scheduler only later (spring.quartz.auto-startup=false).
-	public synchronized void loginIfNeeded() {
-		try {
-			final ZonedDateTime now = Utilities.utcNow();
-			final ZonedDateTime renewalThreshold = (ZonedDateTime) systemInfo.getArrowheadContext().get(Constants.KEY_IDENTITY_RENEWAL_THRESHOLD);
-			// check whether we need to login or not
-			if (renewalThreshold == null || renewalThreshold.isBefore(now)) {
-				doLogin();
+	public void loginIfNeeded() {
+		synchronized (LOGIN_LOCK) {
+			try {
+				final ZonedDateTime now = Utilities.utcNow();
+				final ZonedDateTime renewalThreshold = (ZonedDateTime) systemInfo.getArrowheadContext().get(Constants.KEY_IDENTITY_RENEWAL_THRESHOLD);
+				// check whether we need to login or not (inside the lock: a concurrent caller may just have logged in)
+				if (renewalThreshold == null || renewalThreshold.isBefore(now)) {
+					doLogin();
+				}
+			} catch (final ArrowheadException ex) {
+				logger.error(ex.getMessage());
+				logger.debug(ex);
 			}
-		} catch (final ArrowheadException ex) {
-			logger.error(ex.getMessage());
-			logger.debug(ex);
 		}
 	}
 

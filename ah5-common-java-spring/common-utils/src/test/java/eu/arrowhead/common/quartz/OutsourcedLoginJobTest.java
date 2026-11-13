@@ -29,6 +29,11 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -148,6 +153,55 @@ public class OutsourcedLoginJobTest {
 		verify(systemInfo).getSystemName();
 		verify(systemInfo).getAuthenticatorCredentials();
 		verify(httpService).consumeService(eq("identity"), eq("identity-login"), eq(IdentityLoginResponseDTO.class), any(IdentityRequestDTO.class));
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	// Release 5.3.0 live run: at start-up the system logs in from the main thread (the Spring bean, through
+	// ApplicationInitListener) while Quartz runs the job on a job instance of its own. Both saw no token and both logged
+	// in; the second token superseded the first while the registration call was under way ("Invalid authorization
+	// header"). Two job instances that log in concurrently must log in once.
+	@SuppressWarnings("checkstyle:MagicNumber")
+	@Test
+	public void testConcurrentLoginFromTwoJobInstancesLogsInOnce() throws Exception {
+		final Map<String, Object> context = new ConcurrentHashMap<>();
+		when(systemInfo.getArrowheadContext()).thenReturn(context);
+		when(systemInfo.getSystemName()).thenReturn("TestSystem");
+		when(systemInfo.getAuthenticatorCredentials()).thenReturn(Map.of("password", "123456"));
+		when(httpService.consumeService(eq("identity"), eq("identity-login"), eq(IdentityLoginResponseDTO.class), any(IdentityRequestDTO.class))).thenAnswer(invocation -> {
+			Thread.sleep(300); // a login round trip to Authentication
+			return new IdentityLoginResponseDTO("token-" + System.nanoTime(), Utilities.convertZonedDateTimeToUTCString(Utilities.utcNow().plusHours(1)));
+		});
+
+		final OutsourcedLoginJob startup = job;
+		final OutsourcedLoginJob scheduled = new OutsourcedLoginJob(); // what Quartz creates for each execution
+		for (final OutsourcedLoginJob instance : new OutsourcedLoginJob[] { startup, scheduled }) {
+			ReflectionTestUtils.setField(instance, "interval", 10000);
+			ReflectionTestUtils.setField(instance, "systemInfo", systemInfo);
+			ReflectionTestUtils.setField(instance, "httpService", httpService);
+		}
+
+		final CountDownLatch go = new CountDownLatch(1);
+		final ExecutorService threads = Executors.newFixedThreadPool(2);
+		try {
+			threads.submit(() -> {
+				go.await();
+				startup.loginIfNeeded();
+				return null;
+			});
+			threads.submit(() -> {
+				go.await();
+				scheduled.execute(new DummyJobExecutionContext());
+				return null;
+			});
+			go.countDown();
+			threads.shutdown();
+			assertEquals(true, threads.awaitTermination(10, TimeUnit.SECONDS));
+		} finally {
+			threads.shutdownNow();
+		}
+
+		verify(httpService, times(1)).consumeService(eq("identity"), eq("identity-login"), eq(IdentityLoginResponseDTO.class), any(IdentityRequestDTO.class));
+		assertEquals(true, ((String) context.get("identity-token")).startsWith("token-"));
 	}
 
 	//=================================================================================================
