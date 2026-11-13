@@ -31,6 +31,10 @@ COPY --from=build /app/serviceorchestration-dynamic/target/log4j2.xml config_tem
 COPY --from=build /app/serviceorchestration-dynamic/src/main/resources/certificate config_temp/certificte
 COPY --from=build /app/serviceorchestration-dynamic/docker/entrypoint.sh entrypoint.sh
 
-RUN chmod +x entrypoint.sh
+# Release 5.3.0: run as an unprivileged user (UID/GID 10001, as the support images). The entrypoint moves the default
+# configuration from config_temp to /app/config and the logs are written to /app, so /app belongs to that user; a
+# volume or bind mount at /app/config must be writable by UID 10001.
+RUN chmod +x entrypoint.sh && mkdir -p /app/config && chown -R 10001:10001 /app
+USER 10001:10001
 
 ENTRYPOINT ["/app/entrypoint.sh"]

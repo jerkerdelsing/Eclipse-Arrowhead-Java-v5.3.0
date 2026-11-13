@@ -31,7 +31,11 @@ COPY --from=build /app/serviceorchestration-simple/target/log4j2.xml config_temp
 COPY --from=build /app/serviceorchestration-simple/src/main/resources/certificate config_temp/certificte
 COPY --from=build /app/serviceorchestration-simple/docker/entrypoint.sh entrypoint.sh
 
-RUN chmod +x entrypoint.sh
+# Release 5.3.0: run as an unprivileged user (UID/GID 10001, as the support images). The entrypoint moves the default
+# configuration from config_temp to /app/config and the logs are written to /app, so /app belongs to that user; a
+# volume or bind mount at /app/config must be writable by UID 10001.
+RUN chmod +x entrypoint.sh && mkdir -p /app/config && chown -R 10001:10001 /app
+USER 10001:10001
 
 # Port specification: 8442 (8465 belongs to TranslationManager). The value comes from application.properties.
 EXPOSE 8442
