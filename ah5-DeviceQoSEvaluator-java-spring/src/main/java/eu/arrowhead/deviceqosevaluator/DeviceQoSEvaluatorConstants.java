@@ -65,6 +65,12 @@ public final class DeviceQoSEvaluatorConstants {
 	public static final String INACTIVE_DEVICE_MAX_AGE = "inactive.device.max.age";
 	public static final String $INACTIVE_DEVICE_MAX_AGE_WD = "${" + INACTIVE_DEVICE_MAX_AGE + ":" + DeviceQoSEvaluatorDefaults.INACTIVE_DEVICE_MAX_AGE_DEFAULT + "}";
 
+	// Service authorization (release 5.3.0): ConsumerAuthorization decides every qualityEvaluation call. On unless
+	// service.authorization.enabled is false (which the secure profile refuses).
+	public static final String SERVICE_AUTHORIZATION_ENABLED = "service.authorization.enabled";
+	public static final long SERVICE_AUTHORIZATION_CACHE_MILLIS = 30000;
+	public static final int REQUEST_FILTER_ORDER_SERVICE_AUTHORIZATION = 30; // after authentication (15), blacklist (20) and management (25)
+
 	// API related
 
 	public static final String HTTP_API_BASE_PATH = "/deviceqosevaluator";

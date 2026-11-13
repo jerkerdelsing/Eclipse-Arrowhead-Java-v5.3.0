@@ -58,11 +58,12 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServlet;
 
 /**
- * Negative-access tests for DeviceQoSEvaluator. The system has no access rule of its own: every HTTP request passes the
- * common library's identity-token filter (authentication.policy=outsourced), and its management paths
- * (/deviceqosevaluator/mgmt/... and /deviceqosevaluator/general/mgmt/...) the common management filter. These tests run
- * those filters, in the order the security configuration installs them, with DeviceQoSEvaluator's own SystemInfo,
- * service models and request paths, and check which callers reach the API.
+ * Negative-access tests for DeviceQoSEvaluator. Every HTTP request passes the common library's identity-token filter
+ * (authentication.policy=outsourced); its management paths (/deviceqosevaluator/mgmt/... and
+ * /deviceqosevaluator/general/mgmt/...) the common management filter; and its qualityEvaluation path
+ * DeviceQoSEvaluatorAuthorizationFilter, which asks ConsumerAuthorization. These tests run those filters, in the order
+ * the application installs them, with DeviceQoSEvaluator's own SystemInfo, service models and request paths, and check
+ * which callers reach the API.
  */
 public class DeviceQoSEvaluatorAccessTest {
 
@@ -91,6 +92,7 @@ public class DeviceQoSEvaluatorAccessTest {
 	private ServiceOperationNameNormalizer operationNameNormalizer;
 	private OutsourcedFilter authenticationFilter;
 	private ManagementServiceFilter managementFilter;
+	private DeviceQoSEvaluatorAuthorizationFilter serviceAuthorizationFilter;
 
 	//=================================================================================================
 	// methods
@@ -128,6 +130,11 @@ public class DeviceQoSEvaluatorAccessTest {
 		ReflectionTestUtils.setField(managementFilter, "operationNameNormalizer", operationNameNormalizer);
 		ReflectionTestUtils.setField(managementFilter, "mapper", mapper);
 
+		serviceAuthorizationFilter = new DeviceQoSEvaluatorAuthorizationFilter();
+		ReflectionTestUtils.setField(serviceAuthorizationFilter, "sysInfo", sysInfo);
+		ReflectionTestUtils.setField(serviceAuthorizationFilter, "authorizationService", new DeviceQoSEvaluatorAuthorizationService(httpService));
+		ReflectionTestUtils.setField(serviceAuthorizationFilter, "mapper", mapper);
+
 		identity("token-of-sysmonitor", CONSUMER, false);
 		identity("token-of-sysop", OPERATOR, true);
 		when(httpService.consumeService(eq(Constants.SERVICE_DEF_IDENTITY), eq(Constants.SERVICE_OP_IDENTITY_VERIFY), eq(IdentityVerifyResponseDTO.class), eq(List.of("forged-token"))))
@@ -144,8 +151,19 @@ public class DeviceQoSEvaluatorAccessTest {
 		}
 
 		assertEquals("true", packaged.getProperty(Constants.ENABLE_MANAGEMENT_FILTER));
-		// and the management filter runs after authentication, as in call() below
+		// and the filters run in the order of call() below: authentication, management, service authorization
 		assertTrue(Constants.REQUEST_FILTER_ORDER_AUTHENTICATION < Constants.REQUEST_FILTER_ORDER_AUTHORIZATION_MGMT_SERVICE);
+		assertTrue(Constants.REQUEST_FILTER_ORDER_AUTHORIZATION_MGMT_SERVICE < DeviceQoSEvaluatorConstants.REQUEST_FILTER_ORDER_SERVICE_AUTHORIZATION);
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void theServiceAuthorizationFilterIsOnUnlessSwitchedOffExplicitly() {
+		final org.springframework.boot.autoconfigure.condition.ConditionalOnProperty condition = DeviceQoSEvaluatorAuthorizationFilter.class
+				.getAnnotation(org.springframework.boot.autoconfigure.condition.ConditionalOnProperty.class);
+		assertEquals(DeviceQoSEvaluatorConstants.SERVICE_AUTHORIZATION_ENABLED, condition.name()[0]);
+		assertEquals("true", condition.havingValue());
+		assertTrue(condition.matchIfMissing());
 	}
 
 	//-------------------------------------------------------------------------------------------------
@@ -244,11 +262,109 @@ public class DeviceQoSEvaluatorAccessTest {
 
 	//-------------------------------------------------------------------------------------------------
 	@Test
-	public void qualityEvaluationIsOpenToAuthenticatedSystemsOnly() throws Exception {
+	public void qualityEvaluationIsForbiddenWithoutAGrantEvenToTheOperator() throws Exception {
+		grant(false);
 		for (final String[] op : EVALUATION_OPERATIONS) {
-			assertEquals(HttpStatus.UNAUTHORIZED.value(), call(op[0], op[1], null, CONSUMER).status(), op[1]);
+			final Result consumer = call(op[0], op[1], bearer("token-of-sysmonitor"), CONSUMER);
+			assertEquals(HttpStatus.FORBIDDEN.value(), consumer.status(), op[1]);
+			assertFalse(consumer.reachedApi(), op[1]);
+
+			final Result operator = call(op[0], op[1], bearer("token-of-sysop"), OPERATOR);
+			assertEquals(HttpStatus.FORBIDDEN.value(), operator.status(), op[1]);
+			assertFalse(operator.reachedApi(), op[1]);
+		}
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void qualityEvaluationWithAGrantAsksAboutTheOperationCalled() throws Exception {
+		grant(true);
+		for (final String[] op : EVALUATION_OPERATIONS) {
 			assertTrue(call(op[0], op[1], bearer("token-of-sysmonitor"), CONSUMER).reachedApi(), op[1]);
 		}
+
+		final ArgumentCaptor<AuthorizationVerifyRequestDTO> asked = ArgumentCaptor.forClass(AuthorizationVerifyRequestDTO.class);
+		verify(httpService, org.mockito.Mockito.times(2)).consumeService(eq(Constants.SERVICE_DEF_AUTHORIZATION), eq(Constants.SERVICE_OP_VERIFY), eq(Boolean.class), asked.capture());
+		for (final AuthorizationVerifyRequestDTO dto : asked.getAllValues()) {
+			assertEquals(Constants.SYS_NAME_DEVICE_QOS_EVALUATOR, dto.provider());
+			assertEquals(CONSUMER, dto.consumer());
+			assertEquals("SERVICE_DEF", dto.targetType());
+			assertEquals(Constants.SERVICE_DEF_QUALITY_EVALUATION, dto.target());
+		}
+		assertEquals(List.of(Constants.SERVICE_OP_FILTER, Constants.SERVICE_OP_SORT), asked.getAllValues().stream().map(AuthorizationVerifyRequestDTO::scope).toList());
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void qualityEvaluationFailsClosedWhenConsumerAuthorizationIsUnreachable() throws Exception {
+		when(httpService.consumeService(eq(Constants.SERVICE_DEF_AUTHORIZATION), eq(Constants.SERVICE_OP_VERIFY), eq(Boolean.class), any(AuthorizationVerifyRequestDTO.class)))
+				.thenThrow(new ExternalServerError("ConsumerAuthorization is unreachable"))
+				.thenReturn(true);
+
+		final Result whileUnreachable = call("POST", FILTER, bearer("token-of-sysmonitor"), CONSUMER);
+		assertEquals(HttpStatus.FORBIDDEN.value(), whileUnreachable.status());
+		assertFalse(whileUnreachable.reachedApi());
+
+		// the failure is not remembered: the next call asks again and is let through
+		assertTrue(call("POST", FILTER, bearer("token-of-sysmonitor"), CONSUMER).reachedApi());
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void anythingElseUnderQualityEvaluationIsForbiddenWithoutAsking() throws Exception {
+		grant(true);
+		final String base = DeviceQoSEvaluatorConstants.HTTP_API_QUALITY_EVALUATION_PATH;
+		for (final String[] op : List.of(
+				new String[] { "GET", FILTER },
+				new String[] { "PUT", SORT },
+				new String[] { "POST", base },
+				new String[] { "POST", base + "/" },
+				new String[] { "POST", base + "/unpublished" },
+				new String[] { "POST", FILTER + "/" },
+				new String[] { "POST", base + "/%66ilter/x" })) {
+			final Result result = call(op[0], op[1], bearer("token-of-sysmonitor"), CONSUMER);
+			assertEquals(HttpStatus.FORBIDDEN.value(), result.status(), op[0] + " " + op[1]);
+			assertFalse(result.reachedApi(), op[0] + " " + op[1]);
+		}
+
+		verify(httpService, never()).consumeService(eq(Constants.SERVICE_DEF_AUTHORIZATION), eq(Constants.SERVICE_OP_VERIFY), eq(Boolean.class), any(AuthorizationVerifyRequestDTO.class));
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void decisionsAreCachedForThirtySeconds() {
+		final java.util.concurrent.atomic.AtomicLong now = new java.util.concurrent.atomic.AtomicLong(1000);
+		final DeviceQoSEvaluatorAuthorizationService service = new DeviceQoSEvaluatorAuthorizationService(httpService, now::get);
+		grant(false);
+
+		assertFalse(service.isAuthorized(CONSUMER, Constants.SERVICE_DEF_QUALITY_EVALUATION, Constants.SERVICE_OP_FILTER));
+		grant(true);
+		now.addAndGet(DeviceQoSEvaluatorConstants.SERVICE_AUTHORIZATION_CACHE_MILLIS - 1);
+		assertFalse(service.isAuthorized(CONSUMER, Constants.SERVICE_DEF_QUALITY_EVALUATION, Constants.SERVICE_OP_FILTER), "a revoked or new grant takes effect within 30 s");
+		now.addAndGet(2);
+		assertTrue(service.isAuthorized(CONSUMER, Constants.SERVICE_DEF_QUALITY_EVALUATION, Constants.SERVICE_OP_FILTER));
+	}
+
+	//-------------------------------------------------------------------------------------------------
+	@Test
+	public void theServiceAuthorizationFilterChecksTheCertificateItself() throws Exception {
+		// defence in depth behind the token binding: an authenticated name that is not the certificate's is refused
+		grant(true);
+		final MockHttpServletRequest request = new MockHttpServletRequest("POST", FILTER);
+		request.setAttribute(Constants.HTTP_ATTR_ARROWHEAD_AUTHENTICATED_SYSTEM, CONSUMER);
+		final X509Certificate certificate = mock(X509Certificate.class);
+		when(certificate.getSubjectX500Principal()).thenReturn(new X500Principal("CN=AuditProbe.TestCloud.Company.arrowhead.eu, OID.2.5.4.46=sy, O=Company"));
+		request.setAttribute(Constants.HTTP_ATTR_JAKARTA_SERVLET_REQUEST_X509_CERTIFICATE, new X509Certificate[] { certificate });
+		final MockHttpServletResponse response = new MockHttpServletResponse();
+		final MockFilterChain chain = new MockFilterChain();
+		serviceAuthorizationFilter.doFilter(request, response, chain);
+		assertEquals(HttpStatus.UNAUTHORIZED.value(), response.getStatus());
+		assertEquals(null, chain.getRequest());
+
+		final MockHttpServletRequest unauthenticated = new MockHttpServletRequest("POST", SORT);
+		final MockHttpServletResponse refused = new MockHttpServletResponse();
+		serviceAuthorizationFilter.doFilter(unauthenticated, refused, new MockFilterChain());
+		assertEquals(HttpStatus.UNAUTHORIZED.value(), refused.getStatus());
 	}
 
 	//=================================================================================================
@@ -310,7 +426,7 @@ public class DeviceQoSEvaluatorAccessTest {
 		};
 
 		final MockHttpServletResponse response = new MockHttpServletResponse();
-		new MockFilterChain(api, authenticationFilter, managementFilter).doFilter(request, response);
+		new MockFilterChain(api, authenticationFilter, managementFilter, serviceAuthorizationFilter).doFilter(request, response);
 
 		return new Result(response.getStatus(), reached.get());
 	}

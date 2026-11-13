@@ -128,5 +128,11 @@
     "name": "org.quartz.threadPool.threadCount",
     "type": "java.lang.Integer",
     "description": "A description for 'org.quartz.threadPool.threadCount'"
+  },
+  {
+    "name": "service.authorization.enabled",
+    "type": "java.lang.Boolean",
+    "defaultValue": true,
+    "description": "Let ConsumerAuthorization decide every qualityEvaluation call (filter, sort). The secure profile refuses false."
   }
 ]}
