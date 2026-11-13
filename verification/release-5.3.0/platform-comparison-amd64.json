@@ -1,0 +1,628 @@
+{
+  "commit": "d25225ae268d33a16626b1dbcd11e10700bf3a66",
+  "host": "29.7.2 linux/arm64",
+  "platform": "linux/amd64",
+  "images": {
+    "arrowhead-aigym-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-aigym-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 15212,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-authentication-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-authentication-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-authentication:5.3.0-amd64": {
+      "hostImage": "arrowhead-authentication:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/arrowhead-authentication-5.3.0.jar"
+      ],
+      "entriesCompared": 44572,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-blacklist-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-blacklist-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-blacklist-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-blacklist-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 44539,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-certificate-authority-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-certificate-authority-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-certificate-authority-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-certificate-authority-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 52120,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-choreographer-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-choreographer-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-choreographer-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-choreographer-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 44597,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-configuration-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-configuration-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-configuration-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-configuration-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 44527,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-consumer-authorization-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-consumer-authorization-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-consumer-authorization:5.3.0-amd64": {
+      "hostImage": "arrowhead-consumer-authorization:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/arrowhead-consumer-authorization-5.3.0.jar"
+      ],
+      "entriesCompared": 44824,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-datamanager-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-datamanager-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-datamanager-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-datamanager-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 44533,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-device-qos-evaluator-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-device-qos-evaluator-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-device-qos-evaluator-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-device-qos-evaluator-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 44705,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-eventhandler-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-eventhandler-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-eventhandler-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-eventhandler-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 44534,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-gatekeeper-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-gatekeeper-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-gatekeeper-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-gatekeeper-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 52301,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-gatetunnel-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-gatetunnel-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-gatetunnel-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-gatetunnel-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 52147,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-graphdbmanager-standalone-graphdb:5.3.0-amd64": {
+      "hostImage": "arrowhead-graphdbmanager-standalone-graphdb:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-graphdbmanager-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-graphdbmanager-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 36932,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-localcloudconfigurator-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-localcloudconfigurator-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-localcloudconfigurator-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-localcloudconfigurator-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/localcloudconfigurator.jar"
+      ],
+      "entriesCompared": 52162,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-localcloudmanager-docker-proxy-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-localcloudmanager-docker-proxy-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/docker-proxy.jar"
+      ],
+      "entriesCompared": 12527,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-localcloudmanager-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-localcloudmanager-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/localcloudmanager.jar"
+      ],
+      "entriesCompared": 35805,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-onboarding-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-onboarding-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-onboarding-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-onboarding-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 52139,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-plantdescriptionengine-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-plantdescriptionengine-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-plantdescriptionengine-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-plantdescriptionengine-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 44555,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-serviceorchestration-dynamic-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-serviceorchestration-dynamic-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-serviceorchestration-dynamic:5.3.0-amd64": {
+      "hostImage": "arrowhead-serviceorchestration-dynamic:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/arrowhead-serviceorchestration-dynamic-5.3.0.jar"
+      ],
+      "entriesCompared": 44596,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-serviceorchestration-simple-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-serviceorchestration-simple-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-serviceorchestration-simple:5.3.0-amd64": {
+      "hostImage": "arrowhead-serviceorchestration-simple:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/arrowhead-serviceorchestration-simple-5.3.0.jar"
+      ],
+      "entriesCompared": 44576,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-serviceregistry-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-serviceregistry-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-serviceregistry:5.3.0-amd64": {
+      "hostImage": "arrowhead-serviceregistry:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/arrowhead-serviceregistry-5.3.0.jar"
+      ],
+      "entriesCompared": 44613,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-solocalcloudconfigurator-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-solocalcloudconfigurator-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-solocalcloudconfigurator-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-solocalcloudconfigurator-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/solocalcloudconfigurator.jar"
+      ],
+      "entriesCompared": 53556,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-sosconfigurator-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-sosconfigurator-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-sosconfigurator-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-sosconfigurator-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/sosconfigurator.jar"
+      ],
+      "entriesCompared": 52166,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-sysmonitor-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-sysmonitor-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-sysmonitor-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-sysmonitor-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 44697,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-timemanager-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-timemanager-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-timemanager-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-timemanager-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 44524,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    },
+    "arrowhead-translation-manager-standalone-db:5.3.0-amd64": {
+      "hostImage": "arrowhead-translation-manager-standalone-db:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [],
+      "entriesCompared": 0,
+      "differingEntries": [],
+      "differing": 0,
+      "result": "PASS"
+    },
+    "arrowhead-translation-manager-standalone:5.3.0-amd64": {
+      "hostImage": "arrowhead-translation-manager-standalone:5.3.0",
+      "hostArchitecture": "arm64",
+      "architecture": "amd64",
+      "sameUser": true,
+      "jars": [
+        "app/app.jar"
+      ],
+      "entriesCompared": 44562,
+      "differingEntries": [],
+      "differing": 0,
+      "javaStart": "openjdk version \"21.0.13\" 2026-10-20 LTS",
+      "result": "PASS"
+    }
+  },
+  "summary": {
+    "images": 49,
+    "pass": 49
+  }
+}

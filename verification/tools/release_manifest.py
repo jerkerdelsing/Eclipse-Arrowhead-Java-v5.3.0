@@ -3,6 +3,7 @@
 """Source-to-image manifest of a release commit.
 
   release_manifest.py [--commit REV] [--jobs N] [--out DIR] [--only NAME ...] [--skip-tests] [--skip-dependencies]
+                      [--platform linux/amd64]
 
 Exports the commit with `git archive` into a temporary directory, so every build input is exactly the committed
 source (no working-tree changes, no target/ leftovers), then:
@@ -13,6 +14,9 @@ source (no working-tree changes, no target/ leftovers), then:
   - lists the resolved Maven dependencies of every project.
 Result: <out>/manifest.json (commit, tree hashes, per image: source folder and its git tree hash, Dockerfile, pinned
 base images, image id, size, jar checksums, test summary, build log checksum) and <out>/build-logs/ (not committed).
+--platform builds for another architecture (Docker's emulation; the pinned base images are multi-architecture
+indexes). Those images are tagged <image>:<version>-<arch> and recorded in manifest-<arch>.json with their logs in
+build-logs/<arch>/; the host build keeps the plain tags and manifest.json.
 Images are not bit-for-bit reproducible (timestamps, package upgrades in the runtime layer); the manifest pins what
 was built from which source, so a rebuild can be compared jar by jar.
 """
@@ -64,7 +68,7 @@ def base_images(dockerfile: pathlib.Path) -> list[str]:
     return out
 
 
-def targets(src: pathlib.Path, version: str) -> list[dict]:
+def targets(src: pathlib.Path, version: str, suffix: str = "") -> list[dict]:
     out = []
     for folder in sorted(p for p in src.glob("ah5-*") if p.is_dir()):
         compose = folder / "compose.yaml"
@@ -75,28 +79,29 @@ def targets(src: pathlib.Path, version: str) -> list[dict]:
                     continue
                 b = {"context": b} if isinstance(b, str) else b
                 context = (folder / b.get("context", ".")).resolve()
-                out.append({"name": svc["image"].split(":")[0], "image": svc["image"], "source": folder.name, "service": name,
+                out.append({"name": svc["image"].split(":")[0], "image": svc["image"] + suffix, "source": folder.name, "service": name,
                             "context": context, "dockerfile": context / b.get("dockerfile", "Dockerfile"), "args": {}})
         elif (folder / "Dockerfile").exists():
             slug = folder.name.removeprefix("ah5-").removesuffix("-java").removesuffix("-java-spring").lower()
-            out.append({"name": f"arrowhead-{slug}-standalone", "image": f"arrowhead-{slug}-standalone:{version}", "source": folder.name,
+            out.append({"name": f"arrowhead-{slug}-standalone", "image": f"arrowhead-{slug}-standalone:{version}{suffix}", "source": folder.name,
                         "service": slug, "context": folder, "dockerfile": folder / "Dockerfile", "args": {}})
             if (folder / "deployment/database/Dockerfile").exists():
-                out.append({"name": f"arrowhead-{slug}-standalone-db", "image": f"arrowhead-{slug}-standalone-db:{version}", "source": folder.name,
+                out.append({"name": f"arrowhead-{slug}-standalone-db", "image": f"arrowhead-{slug}-standalone-db:{version}{suffix}", "source": folder.name,
                             "service": slug + "-db", "context": folder, "dockerfile": folder / "deployment/database/Dockerfile", "args": {}})
     for module in CORE:
         docker = src / "ah5-core-java-spring" / module / "docker"
         for df in sorted(docker.glob("Dockerfile-*")):
             db = df.name.endswith("-DB")
-            out.append({"name": f"arrowhead-{module}" + ("-db" if db else ""), "image": f"arrowhead-{module}" + ("-db" if db else "") + f":{version}",
+            out.append({"name": f"arrowhead-{module}" + ("-db" if db else ""), "image": f"arrowhead-{module}" + ("-db" if db else "") + f":{version}{suffix}",
                         "source": f"ah5-core-java-spring/{module}", "service": module + ("-db" if db else ""), "context": src,
                         "dockerfile": df, "args": {} if db else {"AH_VERSION": version}})
     return out
 
 
-def build(t: dict, src: pathlib.Path, logs: pathlib.Path, commit: str) -> dict:
+def build(t: dict, src: pathlib.Path, logs: pathlib.Path, commit: str, platform: str | None) -> dict:
     log = logs / (t["name"] + ".log")
     cmd = ["docker", "build", "--no-cache", "--progress=plain", "-t", t["image"], "-f", str(t["dockerfile"]),
+           *(["--platform", platform] if platform else []),
            "--label", f"org.opencontainers.image.revision={commit}"]
     for k, v in t["args"].items():
         cmd += ["--build-arg", f"{k}={v}"]
@@ -109,20 +114,20 @@ def build(t: dict, src: pathlib.Path, logs: pathlib.Path, commit: str) -> dict:
              "source": t["source"], "sourceTree": git("rev-parse", f"{commit}:{t['source']}"), "service": t["service"],
              "dockerfile": str(t["dockerfile"].relative_to(src)), "context": str(t["context"].relative_to(src)) or ".",
              "buildArgs": t["args"], "baseImages": base_images(t["dockerfile"]), "tests": tests[-1] if tests else None,
-             "buildLog": {"file": f"build-logs/{log.name}", "sha256": sha256(log)}}
+             "buildLog": {"file": str(log.relative_to(logs.parent if logs.name == "build-logs" else logs.parent.parent)), "sha256": sha256(log)}}
     if code == 0:
         info = json.loads(subprocess.run(["docker", "image", "inspect", t["image"]], capture_output=True, text=True, check=True).stdout)[0]
         entry |= {"imageId": info["Id"], "created": info["Created"], "sizeBytes": info["Size"], "architecture": info["Architecture"],
                   "user": info["Config"].get("User") or None}
-        jars = subprocess.run(["docker", "run", "--rm", "--network", "none", "--entrypoint", "sh", t["image"], "-c",
+        jars = subprocess.run(["docker", "run", "--rm", "--network", "none", *(["--platform", platform] if platform else []), "--entrypoint", "sh", t["image"], "-c",
                                "sha256sum /app/*.jar 2>/dev/null"], capture_output=True, text=True).stdout
         entry["jars"] = {line.split()[1]: line.split()[0] for line in jars.splitlines() if len(line.split()) == 2}
     print(entry["result"], t["image"], entry.get("tests") or "", f"{entry['seconds']}s", flush=True)
     return entry
 
 
-def maven(src: pathlib.Path, workdir: str, goals: list[str], log: pathlib.Path) -> int:
-    cmd = ["docker", "run", "--rm", "-v", f"{src}:/src", "-v", f"{pathlib.Path.home()}/.m2:/root/.m2", "-w", f"/src/{workdir}", MAVEN_IMAGE, "mvn", "-B", *goals]
+def maven(src: pathlib.Path, workdir: str, goals: list[str], log: pathlib.Path, platform: str | None = None) -> int:
+    cmd = ["docker", "run", "--rm", *(["--platform", platform] if platform else []), "-v", f"{src}:/src", "-v", f"{pathlib.Path.home()}/.m2:/root/.m2", "-w", f"/src/{workdir}", MAVEN_IMAGE, "mvn", "-B", *goals]
     with log.open("w") as out:
         return subprocess.run(cmd, stdout=out, stderr=subprocess.STDOUT).returncode
 
@@ -148,11 +153,13 @@ def main() -> None:
     ap.add_argument("--only", nargs="*")
     ap.add_argument("--skip-tests", action="store_true")
     ap.add_argument("--skip-dependencies", action="store_true")
+    ap.add_argument("--platform", default=None, help="e.g. linux/amd64; default: the host's")
     a = ap.parse_args()
+    arch = a.platform.split("/")[-1] if a.platform else None
     commit = git("rev-parse", a.commit)
     version = pom_version(ROOT / "ah5-common-java-spring/pom.xml")
     out = pathlib.Path(a.out) if a.out else ROOT / f"verification/release-{version}"
-    logs = out / "build-logs"
+    logs = out / "build-logs" / arch if arch else out / "build-logs"
     logs.mkdir(parents=True, exist_ok=True)
     dirty = [l for l in git("status", "--porcelain").splitlines() if not l.endswith(".DS_Store")]
     with tempfile.TemporaryDirectory(prefix="ah-release-", dir=pathlib.Path.home()) as tmp:
@@ -165,32 +172,32 @@ def main() -> None:
             tar.extractall(src, filter="data")
         tar_path.unlink()
         version = pom_version(src / "ah5-common-java-spring/pom.xml")
-        todo = [t for t in targets(src, version) if not a.only or t["name"] in a.only or t["source"] in a.only]
+        todo = [t for t in targets(src, version, f"-{arch}" if arch else "") if not a.only or t["name"] in a.only or t["source"] in a.only]
         manifest = {"format": "arrowhead-release-manifest/1", "release": version, "commit": commit, "tree": git("rev-parse", f"{commit}^{{tree}}"),
                     "commitDate": git("show", "-s", "--format=%cI", commit), "sourceArchiveSha256": source_sha,
                     "sourceArchive": f"git archive --format=tar {commit}", "workingTreeChangesIgnored": dirty,
                     "generated": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
                     "host": subprocess.run(["docker", "version", "--format", "{{.Server.Version}} {{.Server.Os}}/{{.Server.Arch}}"],
                                            capture_output=True, text=True).stdout.strip(),
-                    "mavenImage": MAVEN_IMAGE, "images": [], "tests": {}, "dependencies": {}}
+                    "mavenImage": MAVEN_IMAGE, "platform": a.platform or "host", "images": [], "tests": {}, "dependencies": {}}
         with concurrent.futures.ThreadPoolExecutor(a.jobs) as pool:
-            manifest["images"] = sorted(pool.map(lambda t: build(t, src, logs, commit), todo), key=lambda e: e["image"])
+            manifest["images"] = sorted(pool.map(lambda t: build(t, src, logs, commit, a.platform), todo), key=lambda e: e["image"])
         if not a.skip_tests and not a.only:
             for name, workdir, goals in [("ah5-common-java-spring", "ah5-common-java-spring", ["clean", "install"]),
                                          ("ah5-core-java-spring", "ah5-core-java-spring", ["clean", "verify"])]:
                 log = logs / f"tests-{name}.log"
-                code = maven(src, workdir, goals, log)
+                code = maven(src, workdir, goals, log, a.platform)
                 manifest["tests"][name] = {"result": "PASS" if code == 0 else "FAIL", "command": "mvn -B " + " ".join(goals), "tests": test_summary(log),
-                                           "log": {"file": f"build-logs/{log.name}", "sha256": sha256(log)}}
+                                           "log": {"file": str(log.relative_to(out)), "sha256": sha256(log)}}
                 print(manifest["tests"][name]["result"], "tests", name, manifest["tests"][name]["tests"], flush=True)
-        if not a.skip_dependencies and not a.only:
+        if not a.skip_dependencies and not a.only and not a.platform:  # resolved dependencies do not depend on the platform
             for pom in sorted(src.glob("ah5-*/pom.xml")):
                 log = logs / f"dependencies-{pom.parent.name}.log"
                 code = maven(src, pom.parent.name, ["dependency:list", "-DincludeScope=runtime", "-Dsort=true"], log)
                 deps = sorted({m.group(1) for m in re.finditer(r"^\[INFO\]\s+([\w.\-]+:[\w.\-]+:[\w.\-]+(?::[\w.\-]+)?:[\w.\-]+:(?:compile|runtime))", log.read_text(errors="replace"), re.M)})
                 manifest["dependencies"][pom.parent.name] = {"result": "PASS" if code == 0 else "FAIL", "runtime": deps}
                 print(manifest["dependencies"][pom.parent.name]["result"], "dependencies", pom.parent.name, len(deps), flush=True)
-    name = "manifest.json" if not a.only else "manifest-partial.json"
+    name = (f"manifest-{arch}" if arch else "manifest") + ("-partial" if a.only else "") + ".json"
     (out / name).write_text(json.dumps(manifest, indent=2) + "\n")
     failed = [e["image"] for e in manifest["images"] if e["result"] != "PASS"] + [k for k, v in manifest["tests"].items() if v["result"] != "PASS"]
     print(f"{len(manifest['images'])} images, {len(failed)} failed -> {out / name}")

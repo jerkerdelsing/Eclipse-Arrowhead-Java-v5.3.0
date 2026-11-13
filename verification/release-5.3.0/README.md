@@ -17,6 +17,9 @@ cannot have entered it. The commands are in [verification/tools](../tools/); eac
 | [dependency-review.json](dependency-review.json) | known vulnerabilities of the runtime Maven dependencies (OSV) | `dependency_review.py` |
 | [api-dto-review.json](api-dto-review.json) | DTOs, constants and request mappings against the upstream 5.2.2 tags | `api_dto_review.py` |
 | [negative-access-review.json](negative-access-review.json) | tests that assert a refusal (401/403), per project | `negative_access_review.py` |
+| [manifest-amd64.json](manifest-amd64.json) | the same 49 images built for linux/amd64 (tags `…:5.3.0-amd64`), common and core tests on amd64 | `release_manifest.py --platform linux/amd64` |
+| [platform-comparison-amd64.json](platform-comparison-amd64.json) | amd64 against arm64 images: architecture, user, JAR content, Java start | `compare_platforms.py` |
+| [os-vulnerability-scan.json](os-vulnerability-scan.json), [os-vulnerability-scan-amd64.json](os-vulnerability-scan-amd64.json) | OS-package vulnerabilities of the base and release images (Trivy) | `os_vulnerability_scan.py` |
 
 Build logs are written to `build-logs/` and not committed (about 50 MB); the manifest records each log's SHA-256.
 
@@ -51,7 +54,15 @@ the build log's SHA-256. Each image carries the label `org.opencontainers.image.
 Images are not bit-for-bit reproducible: the runtime layers apply the distribution's security updates at build time,
 and timestamps differ. The manifest pins which source produced which image, so a rebuild can be compared JAR by JAR.
 
-Built on Docker 29.7.2, linux/arm64. An amd64 build was not part of this run.
+Built on Docker 29.7.2, linux/arm64 (the host).
+
+**amd64.** The same 49 images were built for linux/amd64 from the same commit with `--platform linux/amd64` (Docker's
+emulation; every pinned base image is a multi-architecture index that includes amd64), tagged `<image>:5.3.0-amd64`.
+All 49 built, with the same test results inside the image builds (1553 run, 0 failures, 16 skipped), and the common
+(869) and core (2607) test suites also pass in an amd64 Maven container. `compare_platforms.py` finds every amd64 image
+recorded as amd64 with the same user as its arm64 counterpart, every application image starts Java 21.0.13 under
+amd64, and the packaged JARs are identical entry by entry: about 1.2 million entries, none different. A live
+deployment on amd64 hardware was not part of this run.
 
 ### Tests
 
@@ -90,8 +101,28 @@ GHSA-fhx5-2xqw-2cgm, GHSA-grfq-r75j-rw9x, GHSA-h599-m3w5-9m7x (moderate). Commit
 `mariadb.version` to 3.5.11 in the common library and the 17 support POMs that use the driver. The final run finds no
 known vulnerability.
 
-Not covered: operating-system packages of the base images. The runtime images apply the distribution's updates at
-build time; an image scanner (Trivy, Grype) was not available on the build host.
+**Operating-system packages.** `os_vulnerability_scan.py` runs Trivy 0.58.1 (`aquasec/trivy`, pinned) on every base
+image as published and on every release image, for both architectures, with the vulnerability database of
+13 November 2026. Each image is exported with `docker save` and Trivy reads only that file; it gets no Docker socket.
+Every image's OS was recognised.
+
+| Images | OS | Critical | High | Medium | Low | With a fix |
+|---|---|---|---|---|---|---|
+| 26 application images (support and core, Docker proxy) | Ubuntu 26.04 | 0 | 0 | 29 | 4 | none |
+| 17 support database images (MySQL 8.4.13) | Oracle Linux 9.8 | 0 | 0 | 0 | 0 | – |
+| GraphDB image | Ubuntu 24.04 | 0 | 0 | 81 (amd64: 25) | 20 (amd64: 4) | none |
+| **5 core database images (MySQL 8.1)** | **Oracle Linux 8.8** | 0 | **120** | 206 | 15 | **all** |
+| RabbitMQ, Mosquitto, RandomDataProducer of the test cloud | Alpine 3.23/3.24 | 0 | 0 | 0–1 | 0 | – |
+
+The application and support database images apply the distribution's updates at build time: their base images carry
+2 (eclipse-temurin) and 0 high findings, the built images none, and no remaining finding has a fixed version.
+
+**Finding: the core database images.** `ah5-core-java-spring/*/docker/Dockerfile-*-DB` are still the upstream 5.2.2
+Dockerfiles on `mysql:8.1` (an innovation release past its support) on Oracle Linux 8.8: 120 high findings each
+(python39, libxml2, gnutls, expat, glibc, ...), every one with a fixed version. They also grant to an `ah-operator`
+user that is never created, which fails on an empty MySQL 8.4 volume. The Java test cloud does not use them; it builds
+its core databases from `Arrowhead-test-clouds/Arrowhead-test-cloud-java/v530/core-db` (MySQL 8.4.13, updated, no
+`ah-operator`). Not changed in this release candidate.
 
 Also noted: the five core application images run as root. Their Dockerfiles follow the upstream 5.2.2 layout; the
 support images run as UID 10001.
