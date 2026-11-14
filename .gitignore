@@ -5,3 +5,19 @@ distribution/presentation/Webinar SysML tooling for design and engineering of Sy
 *.mov
 Use_cases/FA4.0/IoT-SoS-solutions-FA40-vebinar.pptx
 *.bak
+
+# Eclipse IDE workspace state
+.metadata/
+
+# LaTeX build byproducts (documents are built with latexmk)
+*.aux
+*.fls
+*.fdb_latexmk
+*.toc
+*.out
+*.blg
+*.synctex.gz
+# LaTeX logs of the SoS documents (other .log files are evidence and stay tracked)
+/5.3 SoS documentation/Arrowhead SoS architecture/BlackBox_5.3.0/*.log
+/5.3 SoS documentation/Arrowhead SoS architecture/WhiteBox_5.3.0/*.log
+/5.3 SoS documentation/Foundational principles/*.log
