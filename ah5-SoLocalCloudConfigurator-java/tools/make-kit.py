@@ -69,7 +69,7 @@ def copy(src: pathlib.Path, dst: pathlib.Path) -> None:
 
 
 def template(ref: pathlib.Path) -> dict:
-    compose = json.loads((ref / "v530/compose.json").read_text())
+    compose = json.loads((ref / "generator/compose.json").read_text())
     project = compose["name"]
     registry, tag = None, None
     for s in compose["services"].values():
@@ -122,9 +122,9 @@ def main() -> None:
         if (ref / f).exists():
             copy(ref / f, KIT / f)
     copy(ref / ".env.example", KIT / ".env.example")
-    copy(ref / "v530/core-adapter/Dockerfile", KIT / "images/core-adapter/Dockerfile")
-    copy(ref / "v530/core-db/Dockerfile", KIT / "images/core-db/Dockerfile")
-    copy(ref / "v530/provision-extra-identities.sh", KIT / "scripts/provision-extra-identities.sh")
+    copy(ref / "generator/core-adapter/Dockerfile", KIT / "images/core-adapter/Dockerfile")
+    copy(ref / "generator/core-db/Dockerfile", KIT / "images/core-db/Dockerfile")
+    copy(ref / "generator/provision-extra-identities.sh", KIT / "scripts/provision-extra-identities.sh")
     rdp = ref / "random-data-producer"
     for f in sorted(rdp.rglob("*")):
         rel = f.relative_to(rdp)

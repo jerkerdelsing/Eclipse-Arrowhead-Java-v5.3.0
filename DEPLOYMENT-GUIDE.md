@@ -71,7 +71,7 @@ This applies to every system with a database, including CertificateAuthority, Ga
 
 v5.3.0 qualification targets newly created, disposable test clouds: initialize fresh databases/schemas, provision certificates, identities and secrets, then verify startup, registration and authorized operations. Migration of existing SQLite/file state or previous cloud identities is outside release acceptance. Federation deployment qualification is deferred to v5.4.0 or later, subject to the Roadmap WG decision; it does not block the code release or standalone local-cloud deployment.
 
-For a complete cloud, use the [v530 deployment procedure](../Arrowhead-test-clouds/Arrowhead-test-cloud-java/v530/README.md); its generator consumes this primary source. Individual-folder deployment still requires the dependencies and grants described above. Review management-policy requirements and reserved-name gaps in the [current integration follow-up](documentation/Documentation.md#current-integration-follow-up).
+For a complete cloud, use the [deployment procedure](../Arrowhead-test-clouds/Arrowhead-test-cloud-java/generator/README.md); its generator consumes this primary source. Individual-folder deployment still requires the dependencies and grants described above. Review management-policy requirements and reserved-name gaps in the [current integration follow-up](documentation/Documentation.md#current-integration-follow-up).
 
 ## Verification boundaries
 

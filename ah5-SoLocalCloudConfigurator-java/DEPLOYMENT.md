@@ -21,7 +21,7 @@ needs, from the cloud:
 Port 8496 is published on the host loopback interface only. The container has no Docker socket, no capabilities, a
 read-only root filesystem and runs as UID 10001.
 
-The v5.3.0 test cloud (`Arrowhead-test-clouds/Arrowhead-test-cloud-java/v530`) deploys it with `generate.py`,
+The v5.3.0 test cloud (`Arrowhead-test-clouds/Arrowhead-test-cloud-java/generator`) deploys it with `generate.py`,
 `prepare.py`, `build.py` and `deploy.sh`; `scripts/smoke-security.sh` checks its grants (section "SoLC view").
 
 ## Organisation policy
