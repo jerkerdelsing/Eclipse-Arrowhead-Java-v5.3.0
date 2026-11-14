@@ -3,7 +3,7 @@
 Result: **0 SysML errors, 0 SysML warnings** across all 41 delivered library files.
 
 - Parser and semantic validator: installed OMG SysML v2 Xtext reference tooling `0.52.1.202510201816`, in `/Applications/Eclipse-2503.app/Contents/Eclipse/plugins`.
-- Standard library: `/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/SysON/SysMLv2-dev/sysml.library`.
+- Standard library: `SysON/SysMLv2-dev/sysml.library`.
 - Java: Zulu OpenJDK 25.0.2.
 - Loaded 135 resources (41 Arrowhead model files plus standard library dependencies), resolved cross references, and ran Xtext `CheckMode.ALL` for every Arrowhead model resource.
 - Separate parse-only pass: 0 syntax errors.

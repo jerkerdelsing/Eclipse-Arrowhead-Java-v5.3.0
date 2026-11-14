@@ -7,7 +7,7 @@ HERE=Path(__file__).resolve().parent
 def root_default():
  for p in [HERE,*HERE.parents]:
   if (p/'Eclipse-Arrowhead-java').is_dir():return p
- return Path('/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse')
+ return Path.cwd()
 def run(cmd,cwd,env,timeout=600):
  try:
   p=subprocess.run([str(x) for x in cmd],cwd=cwd,env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=timeout)

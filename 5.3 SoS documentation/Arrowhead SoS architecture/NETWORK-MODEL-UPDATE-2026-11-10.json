@@ -1,8 +1,8 @@
 {
   "date": "2026-11-10",
-  "model": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/profile-library-sysml/distribution/Papyrus/ArrowheadDSL_2025_v5/EclipseArrowhead-5.0-JD/Arrowhead-5.2.uml",
+  "model": "profile-library-sysml/distribution/Papyrus/ArrowheadDSL_2025_v5/EclipseArrowhead-5.0-JD/Arrowhead-5.2.uml",
   "model_sha256": "d4d0664b01f6c7cc298e3c3b7a4bb0914b89e30488e30a299686ed72e397252e",
-  "notation": "/Users/jerkerdelsing/Work/lule/EISLAB/Project/Eclipse/profile-library-sysml/distribution/Papyrus/ArrowheadDSL_2025_v5/EclipseArrowhead-5.0-JD/Arrowhead-5.2.notation",
+  "notation": "profile-library-sysml/distribution/Papyrus/ArrowheadDSL_2025_v5/EclipseArrowhead-5.0-JD/Arrowhead-5.2.notation",
   "notation_sha256": "347623b28ba52622834e0ebd935f974a737102625d6ea8301135739f14dbd477",
   "classifiers": {
     "_KR8A8YSmEe-74fVJZfD0CQ": "GenericIntraCloudNetwork-Design",
