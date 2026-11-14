@@ -1,1 +1,1 @@
-Arrowhead CertificateAuthority 5.3.0
+Arrowhead CertificateAuthority 5.4.0

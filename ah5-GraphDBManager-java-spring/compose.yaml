@@ -3,7 +3,7 @@ services:
   graphdbmanager:
     build:
       context: .
-    image: arrowhead-graphdbmanager-standalone:5.3.0
+    image: arrowhead-graphdbmanager-standalone:5.4.0
     user: "10001:10001"
     read_only: true
     cap_drop: [ALL]
@@ -57,7 +57,7 @@ services:
     build:
       context: .
       dockerfile: deployment/graphdb/Dockerfile
-    image: arrowhead-graphdbmanager-standalone-graphdb:5.3.0
+    image: arrowhead-graphdbmanager-standalone-graphdb:5.4.0
     user: "10001:10001"
     read_only: true
     cap_drop: [ALL]

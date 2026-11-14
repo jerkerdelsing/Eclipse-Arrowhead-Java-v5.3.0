@@ -86,7 +86,7 @@ def main() -> None:
                 for part in ("ah5-common-java-spring", "ah5-core-java-spring"):
                     shutil.copytree(source / part, pathlib.Path(tmp) / part, ignore=shutil.ignore_patterns("target", "*.log"))
                 dockerfile = next(p for p in (pathlib.Path(tmp) / "ah5-core-java-spring" / module / "docker").glob("Dockerfile-*") if not p.name.endswith("-DB"))
-                build(native, pathlib.Path(tmp), dockerfile, a.platform, logs, ["--build-arg", "AH_VERSION=5.3.0"])
+                build(native, pathlib.Path(tmp), dockerfile, a.platform, logs, ["--build-arg", "AH_VERSION=5.4.0"])
             build(image, KIT / "images/core-adapter", None, a.platform, logs, ["--build-arg", f"BASE_IMAGE={native}"])
         elif name.endswith("-db") and name[:-3] in CORE:
             module = name[:-3]

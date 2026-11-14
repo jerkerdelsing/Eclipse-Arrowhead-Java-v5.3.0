@@ -18,7 +18,7 @@ public final class CertificateAuthorityConstants {
 	// members
 
 	public static final String SYSTEM_NAME = "CertificateAuthority";
-	public static final String SYSTEM_VERSION = "5.3.0";
+	public static final String SYSTEM_VERSION = "5.4.0";
 
 	public static final String DATABASE_ENTITY_PACKAGE = "eu.arrowhead.certificateauthority.jpa.entity";
 	public static final String DATABASE_REPOSITORY_PACKAGE = "eu.arrowhead.certificateauthority.jpa.repository";

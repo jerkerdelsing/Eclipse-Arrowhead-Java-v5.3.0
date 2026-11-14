@@ -15,7 +15,7 @@ public final class SoSConfiguratorConstants {
 	// members
 
 	public static final String SYSTEM_NAME = "SoSConfigurator";
-	public static final String SYSTEM_VERSION = "5.3.0";
+	public static final String SYSTEM_VERSION = "5.4.0";
 
 	public static final String DATABASE_ENTITY_PACKAGE = "eu.arrowhead.sosconfigurator.jpa.entity";
 	public static final String DATABASE_REPOSITORY_PACKAGE = "eu.arrowhead.sosconfigurator.jpa.repository";

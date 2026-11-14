@@ -16,7 +16,7 @@ import eu.arrowhead.common.http.model.HttpOperationModel;
 public class OnboardingSystemInfo extends SystemInfo {
     @Override public String getSystemName() { return OnboardingConstants.SYSTEM_NAME; }
     @Override public SystemModel getSystemModel() {
-        return new SystemModel.Builder().address(getAddress()).version("5.3.0")
+        return new SystemModel.Builder().address(getAddress()).version("5.4.0")
                 .metadata(Constants.METADATA_KEY_X509_PUBLIC_KEY, getPublicKey()).build();
     }
     @Override public List<ServiceModel> getServices() {

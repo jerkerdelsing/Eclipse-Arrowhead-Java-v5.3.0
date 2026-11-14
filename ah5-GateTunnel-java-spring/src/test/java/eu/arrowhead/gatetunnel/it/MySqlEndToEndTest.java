@@ -127,7 +127,7 @@ public class MySqlEndToEndTest {
 				.andExpect(jsonPath("$.implementation").value("java-spring"))
 				.andExpect(jsonPath("$.relay.connected").value(false))
 				.andExpect(jsonPath("$.activeSessions").value(1));
-		mvc.perform(get("/gatetunnel/echo").header("Authorization", "Bearer SYSTEM//Gatekeeper")).andExpect(status().isOk()).andExpect(jsonPath("$.version").value("5.3.0"));
+		mvc.perform(get("/gatetunnel/echo").header("Authorization", "Bearer SYSTEM//Gatekeeper")).andExpect(status().isOk()).andExpect(jsonPath("$.version").value("5.4.0"));
 		mvc.perform(get("/gatetunnel/echo")).andExpect(status().isUnauthorized());
 	}
 

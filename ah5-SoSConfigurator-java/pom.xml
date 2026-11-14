@@ -9,9 +9,9 @@
   </parent>
   <groupId>eu.arrowhead</groupId>
   <artifactId>arrowhead-sosconfigurator</artifactId>
-  <version>5.3.0</version>
+  <version>5.4.0</version>
   <name>Arrowhead SoSConfigurator</name>
-  <description>Configures a System of Systems from Arrowhead 5.3.0 local clouds (Java-Spring support system with private vendored Arrowhead library source)</description>
+  <description>Configures a System of Systems from Arrowhead 5.4.0 local clouds (Java-Spring support system with private vendored Arrowhead library source)</description>
   <properties>
     <!-- release 5.3.0 dependency review: Spring Boot manages 3.5.10, which has GHSA-4jq2-8v3c-97w8, GHSA-fhx5-2xqw-2cgm, GHSA-grfq-r75j-rw9x, GHSA-h599-m3w5-9m7x -->
     <mariadb.version>3.5.11</mariadb.version>
@@ -19,8 +19,8 @@
     <mvn.compiler.version>3.13.0</mvn.compiler.version>
     <mvn.compile.target>21</mvn.compile.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <revision>5.3.0</revision>
-    <ah.common.version>5.3.0</ah.common.version>
+    <revision>5.4.0</revision>
+    <ah.common.version>5.4.0</ah.common.version>
     <mvn.resources.version>3.3.1</mvn.resources.version>
     <lmax.disruptor.version>4.0.0</lmax.disruptor.version>
   </properties>

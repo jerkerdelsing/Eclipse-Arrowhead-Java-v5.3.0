@@ -8,7 +8,7 @@ FROM eclipse-temurin:21-jre@sha256:0b99b3376fbb50dbf9c0af8535fdd5b8eb0d3fdfc8b1e
 # SOS-16 (2026-11-10): Ubuntu security updates on top of the pinned base image
 RUN apt-get update && apt-get -y upgrade && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-COPY --from=build /source/target/arrowhead-graphdbmanager-5.3.0.jar /app/app.jar
+COPY --from=build /source/target/arrowhead-graphdbmanager-5.4.0.jar /app/app.jar
 COPY config /app/config
 RUN mkdir -p /app/logs && chown -R 10001:10001 /app
 USER 10001:10001

@@ -3,7 +3,7 @@ package eu.arrowhead.localcloudconfigurator;
 public final class LocalCloudConfiguratorConstants {
 
 	public static final String SYSTEM_NAME = "LocalCloudConfigurator";
-	public static final String SYSTEM_VERSION = "5.3.0";
+	public static final String SYSTEM_VERSION = "5.4.0";
 
 	public static final String DATABASE_ENTITY_PACKAGE = "eu.arrowhead.localcloudconfigurator.jpa.entity";
 	public static final String DATABASE_REPOSITORY_PACKAGE = "eu.arrowhead.localcloudconfigurator.jpa.repository";

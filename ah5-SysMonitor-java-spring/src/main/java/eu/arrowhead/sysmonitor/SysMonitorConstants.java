@@ -17,7 +17,7 @@ public final class SysMonitorConstants {
 	// members
 
 	public static final String SYSTEM_NAME = "SysMonitor";
-	public static final String SYSTEM_VERSION = "5.3.0";
+	public static final String SYSTEM_VERSION = "5.4.0";
 	public static final String LOCAL_CLOUD_MANAGER = "LocalCloudManager";
 	public static final String SYSOP = "Sysop";
 

@@ -2,7 +2,7 @@
 # Stage 1: build
 FROM eclipse-temurin:21-jdk@sha256:ebfbb18d11ff163ee83b21258acf12248af48d22a0fdfdc68fa1a1516c05976a AS build
 
-ARG AH_VERSION=5.3.0
+ARG AH_VERSION=5.4.0
 
 RUN apt-get update && apt-get install -y maven dos2unix
 
@@ -25,7 +25,7 @@ FROM eclipse-temurin:21-jre@sha256:0b99b3376fbb50dbf9c0af8535fdd5b8eb0d3fdfc8b1e
 # SOS-16 (2026-11-10): Ubuntu security updates on top of the pinned base image
 RUN apt-get update && apt-get -y upgrade && rm -rf /var/lib/apt/lists/*
 
-ARG AH_VERSION=5.3.0
+ARG AH_VERSION=5.4.0
 ENV AH_VERSION=$AH_VERSION
 
 WORKDIR /app

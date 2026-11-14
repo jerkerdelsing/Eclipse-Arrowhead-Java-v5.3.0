@@ -6,7 +6,7 @@ if '\n  localcloudconfigurator:\n'not in s:
  service='''
   # Operations tool: Java source is primary Eclipse-Arrowhead-java, executor uses catalogued host actions.
   localcloudconfigurator:
-    image: eclipse-arrowhead/localcloudconfigurator-java:5.3.0
+    image: eclipse-arrowhead/localcloudconfigurator-java:5.4.0
     build:
       context: ../../Eclipse-Arrowhead-java/ah5-LocalCloudConfigurator-java
     restart: unless-stopped

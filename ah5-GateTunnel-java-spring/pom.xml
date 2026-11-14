@@ -9,7 +9,7 @@
   </parent>
   <groupId>eu.arrowhead</groupId>
   <artifactId>arrowhead-gatetunnel</artifactId>
-  <version>5.3.0</version>
+  <version>5.4.0</version>
   <name>Arrowhead GateTunnel standalone</name>
   <description>Independently buildable GateTunnel (inter-cloud relay tunnel, AH-GT-1) with private vendored Arrowhead library source</description>
   <licenses>
@@ -25,8 +25,8 @@
     <mvn.compiler.version>3.13.0</mvn.compiler.version>
     <mvn.compile.target>21</mvn.compile.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <revision>5.3.0</revision>
-    <ah.common.version>5.3.0</ah.common.version>
+    <revision>5.4.0</revision>
+    <ah.common.version>5.4.0</ah.common.version>
     <mvn.resources.version>3.3.1</mvn.resources.version>
     <lmax.disruptor.version>4.0.0</lmax.disruptor.version>
   </properties>
@@ -189,7 +189,7 @@
         </executions>
       </plugin>
     </plugins>
-    <finalName>arrowhead-gatetunnel-5.3.0</finalName>
+    <finalName>arrowhead-gatetunnel-5.4.0</finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>

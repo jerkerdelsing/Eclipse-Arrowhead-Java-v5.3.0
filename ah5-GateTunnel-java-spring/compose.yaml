@@ -3,7 +3,7 @@ services:
   gatetunnel:
     build:
       context: .
-    image: arrowhead-gatetunnel-standalone:5.3.0
+    image: arrowhead-gatetunnel-standalone:5.4.0
     restart: unless-stopped
     user: "10001:10001"
     read_only: true
@@ -109,7 +109,7 @@ services:
     build:
       context: .
       dockerfile: deployment/database/Dockerfile
-    image: arrowhead-gatetunnel-standalone-db:5.3.0
+    image: arrowhead-gatetunnel-standalone-db:5.4.0
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ah_gatetunnel

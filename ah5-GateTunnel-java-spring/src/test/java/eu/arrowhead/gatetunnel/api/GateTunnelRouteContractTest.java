@@ -111,7 +111,7 @@ public class GateTunnelRouteContractTest {
 		when(interCloud.openConsumer(any())).thenReturn(Map.of("address", "gatetunnel", "port", 8200, "sessionId", "s"));
 		when(statusService.status()).thenReturn(Map.of("status", "ok", "system", "GateTunnel"));
 		when(statusService.liveness()).thenReturn(Map.of("status", "ok", "system", "GateTunnel"));
-		when(statusService.echo()).thenReturn(Map.of("status", "ok", "system", "GateTunnel", "version", "5.3.0"));
+		when(statusService.echo()).thenReturn(Map.of("status", "ok", "system", "GateTunnel", "version", "5.4.0"));
 		when(statusService.publicKey()).thenReturn(Map.of("algorithm", "EC", "format", "X.509", "publicKey", "AAAA"));
 
 		final GateTunnelConnectionAPI connection = new GateTunnelConnectionAPI();

@@ -19,7 +19,7 @@ public final class GatekeeperConstants {
 	// members
 
 	public static final String SYSTEM_NAME = "Gatekeeper";
-	public static final String SYSTEM_VERSION = "5.3.0";
+	public static final String SYSTEM_VERSION = "5.4.0";
 	public static final String IMPLEMENTATION = "java-spring";
 
 	// service definitions and versions (unchanged from the native 5.2.2 registration)

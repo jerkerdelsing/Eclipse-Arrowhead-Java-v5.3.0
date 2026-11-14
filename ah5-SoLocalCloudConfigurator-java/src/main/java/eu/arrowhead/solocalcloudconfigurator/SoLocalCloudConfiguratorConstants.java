@@ -15,7 +15,7 @@ public final class SoLocalCloudConfiguratorConstants {
 	// members
 
 	public static final String SYSTEM_NAME = "SoLocalCloudConfigurator";
-	public static final String SYSTEM_VERSION = "5.3.0";
+	public static final String SYSTEM_VERSION = "5.4.0";
 	public static final String DATABASE_ENTITY_PACKAGE = "eu.arrowhead.solocalcloudconfigurator.jpa.entity";
 	public static final String DATABASE_REPOSITORY_PACKAGE = "eu.arrowhead.solocalcloudconfigurator.jpa.repository";
 

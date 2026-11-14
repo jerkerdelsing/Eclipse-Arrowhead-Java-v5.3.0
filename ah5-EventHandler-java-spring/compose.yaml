@@ -3,7 +3,7 @@ services:
   eventhandler:
     build:
       context: .
-    image: arrowhead-eventhandler-standalone:5.3.0
+    image: arrowhead-eventhandler-standalone:5.4.0
     user: "10001:10001"
     read_only: true
     cap_drop: [ALL]
@@ -59,7 +59,7 @@ services:
     build:
       context: .
       dockerfile: deployment/database/Dockerfile
-    image: arrowhead-eventhandler-standalone-db:5.3.0
+    image: arrowhead-eventhandler-standalone-db:5.4.0
     environment:
       MYSQL_DATABASE: ah_eventhandler
       MYSQL_USER: eventhandler
