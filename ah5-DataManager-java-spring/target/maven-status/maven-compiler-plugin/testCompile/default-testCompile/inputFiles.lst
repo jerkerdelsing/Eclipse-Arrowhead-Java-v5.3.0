@@ -1,6 +1,0 @@
-/src/ah5-DataManager-java-spring/src/test/java/eu/arrowhead/datamanager/api/http/GeneralManagementAPITest.java
-/src/ah5-DataManager-java-spring/src/test/java/eu/arrowhead/datamanager/security/DataManagerAuthorizationTest.java
-/src/ah5-DataManager-java-spring/src/test/java/eu/arrowhead/datamanager/service/DataManagerHealthIndicatorTest.java
-/src/ah5-DataManager-java-spring/src/test/java/eu/arrowhead/datamanager/service/HistorianServiceTest.java
-/src/ah5-DataManager-java-spring/src/test/java/eu/arrowhead/datamanager/service/ProxyServiceTest.java
-/src/ah5-DataManager-java-spring/src/test/java/eu/arrowhead/datamanager/service/SenMLValidationTest.java

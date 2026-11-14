@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<checkstyle version="10.17.0">
-<file name="/src/ah5-core-java-spring/consumer-authorization/src/test/java/eu/arrowhead/authorization/jpa/service/AuthorizationPolicyDbServiceTest.java">
-<error line="1" severity="warning" message="File length is 2,146 lines (max allowed is 2,000)." source="com.puppycrawl.tools.checkstyle.checks.sizes.FileLengthCheck"/>
-</file>
-</checkstyle>

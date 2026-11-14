@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: eu.arrowhead.authorization.jpa.service.UsageLimitedTokenDbServiceTest
--------------------------------------------------------------------------------
-Tests run: 27, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.539 s -- in eu.arrowhead.authorization.jpa.service.UsageLimitedTokenDbServiceTest

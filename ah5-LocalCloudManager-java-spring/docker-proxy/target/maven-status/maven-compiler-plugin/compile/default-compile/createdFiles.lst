@@ -1,6 +1,0 @@
-eu/arrowhead/localcloudmanager/dockerproxy/Decision.class
-eu/arrowhead/localcloudmanager/dockerproxy/DockerSocket.class
-eu/arrowhead/localcloudmanager/dockerproxy/ProxyController.class
-eu/arrowhead/localcloudmanager/dockerproxy/DockerSocket$Response.class
-eu/arrowhead/localcloudmanager/dockerproxy/Allowlist.class
-eu/arrowhead/localcloudmanager/dockerproxy/DockerProxyApplication.class

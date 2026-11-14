@@ -1,5 +1,0 @@
-/src/ah5-LocalCloudManager-java-spring/docker-proxy/src/main/java/eu/arrowhead/localcloudmanager/dockerproxy/Allowlist.java
-/src/ah5-LocalCloudManager-java-spring/docker-proxy/src/main/java/eu/arrowhead/localcloudmanager/dockerproxy/Decision.java
-/src/ah5-LocalCloudManager-java-spring/docker-proxy/src/main/java/eu/arrowhead/localcloudmanager/dockerproxy/DockerProxyApplication.java
-/src/ah5-LocalCloudManager-java-spring/docker-proxy/src/main/java/eu/arrowhead/localcloudmanager/dockerproxy/DockerSocket.java
-/src/ah5-LocalCloudManager-java-spring/docker-proxy/src/main/java/eu/arrowhead/localcloudmanager/dockerproxy/ProxyController.java

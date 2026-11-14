@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: eu.arrowhead.plantdescriptionengine.security.PlantDescriptionEngineAuthorizationFilterTest
--------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.610 s -- in eu.arrowhead.plantdescriptionengine.security.PlantDescriptionEngineAuthorizationFilterTest

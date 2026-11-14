@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: eu.arrowhead.datamanager.security.DataManagerAuthorizationTest
--------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.153 s -- in eu.arrowhead.datamanager.security.DataManagerAuthorizationTest

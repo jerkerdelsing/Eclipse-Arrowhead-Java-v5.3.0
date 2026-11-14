@@ -21,3 +21,9 @@ Use_cases/FA4.0/IoT-SoS-solutions-FA40-vebinar.pptx
 /5.3 SoS documentation/Arrowhead SoS architecture/BlackBox_5.3.0/*.log
 /5.3 SoS documentation/Arrowhead SoS architecture/WhiteBox_5.3.0/*.log
 /5.3 SoS documentation/Foundational principles/*.log
+
+# macOS Finder state
+.DS_Store
+
+# Maven build output
+target/

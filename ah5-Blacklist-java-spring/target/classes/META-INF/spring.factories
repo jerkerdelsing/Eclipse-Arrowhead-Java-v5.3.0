@@ -1,2 +1,0 @@
-org.springframework.context.ApplicationListener=eu.arrowhead.common.init.StartupFailureExit
-org.springframework.boot.EnvironmentPostProcessor=eu.arrowhead.common.init.Jackson2Defaults

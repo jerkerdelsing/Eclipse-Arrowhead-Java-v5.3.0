@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: eu.arrowhead.authentication.http.filter.InternalAuthenticationFilterTest
--------------------------------------------------------------------------------
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.153 s -- in eu.arrowhead.authentication.http.filter.InternalAuthenticationFilterTest
