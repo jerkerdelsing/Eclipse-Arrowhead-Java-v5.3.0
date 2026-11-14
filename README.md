@@ -108,7 +108,7 @@ explicit exception. See [SECURITY-PROFILE.md](SECURITY-PROFILE.md).
 | `ah5-*/documentation/v5.3.0/` | per-system SysD, SysDD, SD and IDD (LaTeX sources and PDFs); `v5.2.2/` holds the retained baseline |
 | [documentation/](documentation/Documentation.md) | edition-wide index, publication record, validation evidence and links to archived compilations |
 | `5.3 SoS documentation/` | Arrowhead SoS architecture (black-box and white-box models, SoS tests), foundational principles, and the standards the framework builds on |
-| `profile-library-sysml/` | Arrowhead SysML profile and library: SysML v1.6 (Eclipse Papyrus: metamodel and profile, DSL update site, Eclipse Arrowhead 5.0 library) and SysML v2 models of the systems |
+| `profile-library-sysml/` | Arrowhead SysML profile and library: SysML v1.6 (Eclipse Papyrus: metamodel and profile, Eclipse Arrowhead 5.0 library) and SysML v2 models of the systems |
 | [releases/5.3.0.md](releases/5.3.0.md) | draft release notes against the official 5.2.2 release |
 | [releases/5.4.0.md](releases/5.4.0.md) | release notes of the version in development |
 | [CHANGELOG.md](CHANGELOG.md) | index of releases and their branches and tags |

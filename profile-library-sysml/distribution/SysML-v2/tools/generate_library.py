@@ -100,7 +100,7 @@ t=t[:pos]+"alias 'HTTP1.1_MethodKind' for HTTP11MethodKind;\n        alias 'HTTP
 t=t.rstrip()[:-1]+insert+'}\n'
 
 (O/'ArrowheadDSL.sysml').write_text('// Arrowhead DSL translation updated 2026-10-27. See README.md for migration notes.\n'+t)
-src(R/'distribution/Papyrus/ArrowheadDSL_2025_v5/SysML v1.6/Metamodel and Profile/SysML v1.6/ArrowheadProfile_v5.0.profile.uml')
+src(R/'profile-library-sysml/distribution/SysML v1.6/Metamodel and Profile/ArrowheadProfile_v5.0.profile.uml')
 # Snapshot all documentation inputs used.
 corep=R/'ah5-core-java-spring/documentation-tools/model.json'; core=json.loads(src(corep))
 # library design uses parts/ports for composition, metadata for DSL stereotypes.

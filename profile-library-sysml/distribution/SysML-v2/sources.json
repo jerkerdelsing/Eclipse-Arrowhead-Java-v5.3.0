@@ -3,7 +3,7 @@
   "date": "2026-10-27",
   "inputs": {
     "distribution/Papyrus/ArrowheadDSL_2025_v5/SysML v2/ArrowheeadDSL-SysMLv2.library/ArrowheadDSL.sysml": "353fe66c4474f99a6d58ae8808a782f47dfc5dc2c639b28a0623ed6cf18ce764",
-    "distribution/Papyrus/ArrowheadDSL_2025_v5/SysML v1.6/Metamodel and Profile/SysML v1.6/ArrowheadProfile_v5.0.profile.uml": "219f56d8d66d4cfbcb82f4312a880f74b7484c548b06553f34bb516508132186",
+    "profile-library-sysml/distribution/SysML v1.6/Metamodel and Profile/ArrowheadProfile_v5.0.profile.uml": "219f56d8d66d4cfbcb82f4312a880f74b7484c548b06553f34bb516508132186",
     "ah5-core-java-spring/documentation-tools/model.json": "eec697f05a1474972ad78473c4ade717fa5112e5d18af327beeebd71827b4e1d",
     "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-SysD.tex": "16b364fe561d1479206d445086ed69c659dcc3fed700462238554e05b54ff7ef",
     "ah5-AIGym-java-spring/documentation/v5.2.2/AIGym-v5.2.2-aiGym-HTTP-IDD.tex": "a1c27eef965afc361644c23dc55e97a440df8a4376b54f3903f5b9604e0d7b70",
