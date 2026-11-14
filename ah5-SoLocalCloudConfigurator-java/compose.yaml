@@ -27,7 +27,7 @@ services:
       SOLC_API_WHITELIST: ${SOLC_API_WHITELIST:-}
       # the commit of Eclipse-Arrowhead-java that packages pin for build-on-target (set by the deployment)
       SOLC_SOURCE_COMMIT: ${SOLC_SOURCE_COMMIT:-}
-      SOLC_SOURCE_REPOSITORY: ${SOLC_SOURCE_REPOSITORY:-https://github.com/jerkerdelsing/Eclipse-Arrowhead-Java-v5.3.0.git}
+      SOLC_SOURCE_REPOSITORY: ${SOLC_SOURCE_REPOSITORY:-https://github.com/jerkerdelsing/Eclipse-Arrowhead-java.git}
     secrets:
       - source: store-password
         target: ah.store-password

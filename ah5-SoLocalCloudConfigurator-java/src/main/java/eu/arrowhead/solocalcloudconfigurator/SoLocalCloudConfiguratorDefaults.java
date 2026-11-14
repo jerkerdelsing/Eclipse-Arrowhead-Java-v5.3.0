@@ -21,7 +21,7 @@ public final class SoLocalCloudConfiguratorDefaults extends Defaults {
 	// systems besides Sysop that may use soLocalCloudConfiguration without a ConsumerAuthorization grant
 	public static final String API_WHITELIST_DEFAULT = "";
 	public static final String SERVICE_AUTHORIZATION_ENABLED_DEFAULT = "true";
-	public static final String SOURCE_REPOSITORY_DEFAULT = "https://github.com/jerkerdelsing/Eclipse-Arrowhead-Java-v5.3.0.git";
+	public static final String SOURCE_REPOSITORY_DEFAULT = "https://github.com/jerkerdelsing/Eclipse-Arrowhead-java.git";
 
 	//=================================================================================================
 	// assistant methods

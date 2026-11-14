@@ -92,7 +92,7 @@ A system needs, from the cloud it joins: its own certificate and identity, the c
 secrets and ConsumerAuthorization grants. Each folder's deployment guide (GraphDBManager: README) lists them, and
 [DEPLOYMENT-GUIDE.md](DEPLOYMENT-GUIDE.md) describes selecting, provisioning and deploying individual systems.
 
-Complete clouds built from this tree are in the separate repository `Arrowhead-test-clouds-v5.3.0` (Java, Go and
+Complete clouds built from this tree are in the separate repository `Arrowhead-test-clouds` (Java, Go and
 Rust test clouds).
 
 ## Security
