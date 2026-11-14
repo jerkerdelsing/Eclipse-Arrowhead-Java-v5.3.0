@@ -14,7 +14,7 @@ The original per-system `documentation/v5.2.2/` editions remain retained baselin
 
 The 9–10 November publication activity created a 5.3.0 documentation edition without itself changing executable versions. The primary Java framework constant, common/Core Maven versions and support application versions have since been aligned to the 5.3.0 release candidate. That alignment does not turn earlier image/test records into qualification of the new artifacts. Published service versions and wire identifiers retain their independent meanings; the native telemetry identifier remains `SysMonitor-AMQP-IDD-5.2.2`.
 
-A document cover alone does not perform a software release. Go/Rust sections in the per-system SysDDs and IDDs record implementation-specific boundaries; they do not establish interchangeability. See the [release notes](../Release-5.3.0.md) for acceptance scope and dated evidence.
+A document cover alone does not perform a software release. Go/Rust sections in the per-system SysDDs and IDDs record implementation-specific boundaries; they do not establish interchangeability. See the [release notes](../releases/5.3.0.md) for acceptance scope and dated evidence.
 
 ## System editions
 
@@ -95,7 +95,7 @@ These findings were checked against primary source/configuration on 12 November 
 | Specification coverage | The retained 295-document publication set predates SoLocalCloudConfigurator and some later source/version changes. Add its versioned specifications and review affected system editions before claiming complete release specification coverage. Current operational guidance is in system READMEs and deployment guides. |
 | Verification tooling | The October deployment/console fixture scripts and inventory encode earlier native/Node layouts and cannot qualify the current Spring implementations unchanged. See the [tool guide](../verification/tools/README.md). The static conformance checker also omits SoLocalCloudConfigurator from its explicit support list; a passing result alone is not full release coverage. |
 
-Fresh test-cloud provisioning is the v5.3.0 deployment acceptance target. Existing-state migration is outside scope. End-to-end federation deployment qualification is deferred to v5.4.0 or later pending the Roadmap WG decision, as recorded in [section 8 of the release notes](../Release-5.3.0.md#8-compatibility-migration-and-release-completion).
+Fresh test-cloud provisioning is the v5.3.0 deployment acceptance target. Existing-state migration is outside scope. End-to-end federation deployment qualification is deferred to v5.4.0 or later pending the Roadmap WG decision, as recorded in [section 8 of the release notes](../releases/5.3.0.md#8-compatibility-migration-and-release-completion).
 
 ## Disposition of earlier shared documents
 

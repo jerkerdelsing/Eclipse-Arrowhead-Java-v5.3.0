@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: EPL-2.0
 """Inventory of negative-access tests per project at a commit.
 
-  negative_access_review.py [--commit HEAD] [--out verification/release-5.3.0]
+  negative_access_review.py [--commit HEAD] [--out verification/release-5.4.0]
 
 A negative-access test is a test method (@Test, @ParameterizedTest) whose body asserts a refusal: HTTP 401/403
 (isUnauthorized, isForbidden, status 401/403), an AuthException/ForbiddenException/AccessDenied, or a denied
@@ -39,7 +39,7 @@ def methods(text: str):
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--commit", default="HEAD")
-    ap.add_argument("--out", type=pathlib.Path, default=ROOT / "verification/release-5.3.0")
+    ap.add_argument("--out", type=pathlib.Path, default=ROOT / "verification/release-5.4.0")
     a = ap.parse_args()
     commit = git("rev-parse", a.commit).strip()
     report = {"commit": commit, "projects": {}}

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: EPL-2.0
 """Compares the images of two platform builds of a release (release_manifest.py, manifest.json and manifest-<arch>.json).
 
-  compare_platforms.py [--arch amd64] [--out verification/release-5.3.0]
+  compare_platforms.py [--arch amd64] [--out verification/release-5.4.0]
 
 For every image in both manifests (same commit required): the architecture recorded by Docker, the user, and for
 application images the packaged JARs entry by entry (content SHA-256 of every file in the JAR and in the JARs nested in
@@ -55,7 +55,7 @@ def jars(image: str, platform: str | None, tmp: pathlib.Path) -> dict[str, dict[
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--arch", default="amd64")
-    ap.add_argument("--out", type=pathlib.Path, default=ROOT / "verification/release-5.3.0")
+    ap.add_argument("--out", type=pathlib.Path, default=ROOT / "verification/release-5.4.0")
     a = ap.parse_args()
     host = json.loads((a.out / "manifest.json").read_text())
     other = json.loads((a.out / f"manifest-{a.arch}.json").read_text())

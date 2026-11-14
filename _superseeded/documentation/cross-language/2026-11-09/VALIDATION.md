@@ -1,4 +1,4 @@
-> **Historical archive — superseded for ongoing documentation, 10 November 2026.** Use [Documentation-V5.3.0.md](../../Documentation-V5.3.0.md) and the individual microsystem editions. This notice covers the whole compilation, including its generated Markdown and embedded source snapshots. The original text below describes this earlier archive only.
+> **Historical archive — superseded for ongoing documentation, 10 November 2026.** Use [Documentation.md](../../Documentation.md) and the individual microsystem editions. This notice covers the whole compilation, including its generated Markdown and embedded source snapshots. The original text below describes this earlier archive only.
 
 # Validation
 

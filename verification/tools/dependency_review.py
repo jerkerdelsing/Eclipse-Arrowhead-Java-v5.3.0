@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: EPL-2.0
 """Known-vulnerability review of the runtime Maven dependencies recorded in a release manifest.
 
-  dependency_review.py [--manifest verification/release-5.3.0/manifest.json]
+  dependency_review.py [--manifest verification/release-5.4.0/manifest.json]
 
 Queries the public OSV database (https://api.osv.dev, querybatch) with the Maven coordinates (group:artifact and
 version) of every runtime dependency; nothing else is sent. Writes dependency-review.json next to the manifest: per
@@ -33,7 +33,7 @@ def get(path: str) -> dict:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--manifest", type=pathlib.Path, default=pathlib.Path(__file__).resolve().parents[1] / "release-5.3.0/manifest.json")
+    ap.add_argument("--manifest", type=pathlib.Path, default=pathlib.Path(__file__).resolve().parents[1] / "release-5.4.0/manifest.json")
     a = ap.parse_args()
     m = json.loads(a.manifest.read_text())
     users: dict[tuple[str, str], set[str]] = {}

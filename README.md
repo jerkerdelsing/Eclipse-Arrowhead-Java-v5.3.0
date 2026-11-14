@@ -12,7 +12,7 @@ complete local-cloud and System-of-LocalClouds environment.
 **Versions.** The primary Java framework constant, common/Core Maven versions and support application versions
 are aligned to the 5.3.0 release candidate. Independent service versions and wire-contract identifiers retain their
 own values; for example, `SysMonitor-AMQP-IDD-5.2.2` is unchanged. Older build/deployment records do not by themselves
-qualify the aligned artifacts (see [release notes](Release-5.3.0.md)).
+qualify the aligned artifacts (see [release notes](releases/5.3.0.md)).
 
 ## Core systems
 
@@ -106,10 +106,12 @@ explicit exception. See [SECURITY-PROFILE.md](SECURITY-PROFILE.md).
 | Path | Content |
 |---|---|
 | `ah5-*/documentation/v5.3.0/` | per-system SysD, SysDD, SD and IDD (LaTeX sources and PDFs); `v5.2.2/` holds the retained baseline |
-| [documentation/](documentation/Documentation-V5.3.0.md) | edition-wide index, publication record, validation evidence and links to archived compilations |
+| [documentation/](documentation/Documentation.md) | edition-wide index, publication record, validation evidence and links to archived compilations |
 | `5.3 SoS documentation/` | Arrowhead SoS architecture (black-box and white-box models, SoS tests), foundational principles, and the standards the framework builds on |
 | `profile-library-sysml/` | Arrowhead SysML profile and library: SysML v1.6 (Eclipse Papyrus: metamodel and profile, DSL update site, Eclipse Arrowhead 5.0 library) and SysML v2 models of the systems |
-| [Release-5.3.0.md](Release-5.3.0.md) | draft release notes against the official 5.2.2 release |
+| [releases/5.3.0.md](releases/5.3.0.md) | draft release notes against the official 5.2.2 release |
+| [releases/5.4.0.md](releases/5.4.0.md) | release notes of the version in development |
+| [CHANGELOG.md](CHANGELOG.md) | index of releases and their branches and tags |
 
 ## Verification
 

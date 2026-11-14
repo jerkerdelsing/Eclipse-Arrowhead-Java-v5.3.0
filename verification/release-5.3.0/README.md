@@ -1,6 +1,6 @@
 # Release 5.3.0 qualification record
 
-Evidence for items 1 and 2 of section 8 of [Release-5.3.0.md](../../Release-5.3.0.md) for commit
+Evidence for items 1 and 2 of section 8 of [releases/5.3.0.md](../../releases/5.3.0.md) for commit
 **`7c6ac61c29ed4714897cc7a420308dd21e732792`** of this repository (see `manifest.json` for the full hash), produced on 13 November 2026. It repeats the
 qualification of the same day for `b7c685e7` (host-name cache, see *Finding: stale host-name cache*), `4ac53157` (core application images as non-root, see *Core application images run
 as non-root*), `f1103ac9` (core database images on MySQL 8.4.13, see *Finding: the core database images*) and

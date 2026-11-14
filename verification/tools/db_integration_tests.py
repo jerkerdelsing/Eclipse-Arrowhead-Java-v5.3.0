@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: EPL-2.0
 """Runs the MySQL integration tests that the image builds skip, against the database images of a release.
 
-  db_integration_tests.py [--commit HEAD] [--release 5.3.0] [--out verification/release-<release>]
+  db_integration_tests.py [--commit HEAD] [--release 5.4.0] [--out verification/release-<release>]
 
 For each system with a MySqlEndToEndTest: exports the commit (git archive), starts the system's own database image
 (<image>-db:<release>, built by release_manifest.py) on a throw-away Docker network with random passwords, waits until
@@ -40,7 +40,7 @@ def run(*cmd: str, **kw) -> subprocess.CompletedProcess:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--commit", default="HEAD")
-    ap.add_argument("--release", default="5.3.0")
+    ap.add_argument("--release", default="5.4.0")
     ap.add_argument("--out", type=pathlib.Path, default=None)
     a = ap.parse_args()
     commit = run("git", "-C", str(ROOT), "rev-parse", a.commit, check=True).stdout.strip()

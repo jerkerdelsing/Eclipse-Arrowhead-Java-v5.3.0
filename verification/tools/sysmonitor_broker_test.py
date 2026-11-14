@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: EPL-2.0
 """Runs SysMonitor's BrokerRoundTripTest (AMQP -> store -> MQTT), which the image build skips, against throw-away brokers.
 
-  sysmonitor_broker_test.py [--commit HEAD] [--release 5.3.0] [--out verification/release-<release>]
+  sysmonitor_broker_test.py [--commit HEAD] [--release 5.4.0] [--out verification/release-<release>]
 
 Everything is created for the run and removed afterwards, on an internal Docker network:
   - a test CA with a CRL; PKCS12 stores (password rt-store, as the test expects) for SysMonitor, the Pump publisher and
@@ -99,7 +99,7 @@ def wait(cmd: list[str], what: str, tries: int = 90) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--commit", default="HEAD")
-    ap.add_argument("--release", default="5.3.0")
+    ap.add_argument("--release", default="5.4.0")
     ap.add_argument("--out", type=pathlib.Path, default=None)
     a = ap.parse_args()
     commit = sh("git", "-C", str(ROOT), "rev-parse", a.commit).strip()

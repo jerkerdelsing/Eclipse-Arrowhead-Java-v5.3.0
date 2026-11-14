@@ -94,7 +94,7 @@ def main() -> None:
     ap.add_argument("--out", type=pathlib.Path, default=None)
     a = ap.parse_args()
     commit = git(ROOT, "rev-parse", a.commit).strip()
-    out = a.out or ROOT / "verification/release-5.3.0"
+    out = a.out or ROOT / "verification/release-5.4.0"
     out.mkdir(parents=True, exist_ok=True)
     report = {"commit": commit, "baseline": {"tag": a.tag, "common": git(a.upstream_common, "rev-parse", a.tag + "^{commit}").strip(),
                                              "core": git(a.upstream_core, "rev-parse", a.tag + "^{commit}").strip()},

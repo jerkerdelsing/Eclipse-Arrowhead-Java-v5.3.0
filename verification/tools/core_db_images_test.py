@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: EPL-2.0
 """Checks the five core database images of a release on empty volumes.
 
-  core_db_images_test.py [--manifest verification/release-5.3.0/manifest.json]
+  core_db_images_test.py [--manifest verification/release-5.4.0/manifest.json]
 
 For each core module (arrowhead-<module>-db image of the manifest, its platform) the image is started with throw-away
 root and system-user passwords (AH_DB_USER, AH_DB_USER_PASSWORD_FILE as a file, as the test cloud passes them) on a new
@@ -33,7 +33,7 @@ def sh(*cmd: str) -> subprocess.CompletedProcess:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--manifest", type=pathlib.Path, default=ROOT / "verification/release-5.3.0/manifest.json")
+    ap.add_argument("--manifest", type=pathlib.Path, default=ROOT / "verification/release-5.4.0/manifest.json")
     a = ap.parse_args()
     m = json.loads(a.manifest.read_text())
     platform = m.get("platform", "host")

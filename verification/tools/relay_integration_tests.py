@@ -38,7 +38,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--commit", default="HEAD")
     ap.add_argument("--relay-dir", type=pathlib.Path, default=ROOT.parent / "Arrowhead-test-clouds/Arrowhead-relay")
-    ap.add_argument("--out", type=pathlib.Path, default=ROOT / "verification/release-5.3.0")
+    ap.add_argument("--out", type=pathlib.Path, default=ROOT / "verification/release-5.4.0")
     a = ap.parse_args()
     commit = subprocess.run(["git", "-C", str(ROOT), "rev-parse", a.commit], capture_output=True, text=True, check=True).stdout.strip()
     security = (a.relay_dir / "security").resolve()
